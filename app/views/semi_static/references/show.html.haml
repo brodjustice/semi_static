@@ -1,0 +1,22 @@
+.section
+  .col.span_2_of_3
+    .panel
+      %h2= @reference.title
+      .group
+        .col.span_1_of_3
+          = image_tag(@reference.logo.url(:small), :title => "#{@reference.title}")
+        .col.span_2_of_3
+          = simple_format(@reference.body)
+      .quote
+        = simple_format(@reference.quote)
+  .col.span_1_of_3
+    .gallery.index.group
+      %h2= t('References')
+      .spacer_wrapper.reference
+        - SemiStatic::Reference.all.each do |r|
+          .photo.nutshell
+            .spaced
+              - if r.quote.blank?
+                = image_tag(r.logo.url(:mini), :title => "#{r.title}")
+              - else
+                = link_to image_tag(r.logo.url(:mini), :title => "#{r.title} - #{truncate(r.body, :length => 50)}"), reference_path(r)

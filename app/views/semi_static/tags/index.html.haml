@@ -1,0 +1,30 @@
+.mid
+  .button= link_to 'New Tag', new_tag_path
+  %h1 Tags
+  - if SemiStatic::Tag.use_sprites?
+    %h3= 'Notice: Postion 0 is set, so sprites are being employed'
+   
+  %table
+    %tr
+      %th
+      %th= 'Name'
+      %th= 'Menu'
+      %th= 'Locale'
+      %th= 'Position'
+      %th
+  
+    - @tags.each do |tag|
+      %tr
+        %td
+          - if SemiStatic::Tag.use_sprites? && (tag.position < 6)
+            .icon.sprite{:id => "sprite_#{tag.position}"}
+          - elsif tag.icon.present?
+            = image_tag(tag.icon.url)
+        %td= link_to tag.name, edit_tag_path(tag)
+        %td
+          = image_tag('/assets/tick.png', :title => 'In menu') if tag.menu
+        %td= tag.locale.to_s
+        %td
+          = tag.position if tag.menu
+        %td= link_to image_tag('/assets/bin.png'), tag, :method => :delete, :data => { :confirm => 'Are you sure?' }
+  

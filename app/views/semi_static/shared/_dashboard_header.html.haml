@@ -1,0 +1,4 @@
+%h2= link_to "#{SemiStatic::Engine.config.site_name} Admin Console", site_path('home')
+#menu.spacer_wrapper
+  = menu_for(current_user.top_role.name)
+

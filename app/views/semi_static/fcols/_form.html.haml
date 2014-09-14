@@ -1,0 +1,34 @@
+- content_for :ujs do
+  :javascript
+    $(document).ready(function() {
+      $('#fcol_content').jqte();
+    });
+
+
+= form_for @fcol do |f|
+  - if @fcol.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@fcol.errors.count, "error")} prohibited this fcol from being saved:"
+      %ul
+        - @fcol.errors.full_messages.each do |msg|
+          %li= msg
+
+  %fieldset
+    = f.label :name
+    = f.text_field :name
+
+  %fieldset
+    = f.label :content, 'Content for column (optional)'
+    = f.text_area :content
+
+  %fieldset
+    = f.label :position
+    = f.text_field :position
+
+  %fieldset
+    = f.label :locale
+    = f.select :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @fcol.locale)
+
+
+  = f.submit 'Save'
+

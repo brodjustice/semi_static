@@ -1,0 +1,10 @@
+en:
+  devise:
+    sessions:
+      user:
+        signed_in: ''
+        signed_out: ''
+    failure:
+      user:
+        unauthenticated: 'You must sign in or register to proceed.'
+

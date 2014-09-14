@@ -1,0 +1,40 @@
+- content_for :ujs do
+  :javascript
+    function init_switch(){
+      $('#search_daemon').change(function() {
+        var state = 'off';
+        if ($(this).is(":checked")){
+          state = 'on'
+        };
+        $.ajax({
+          url: "#{system_path}",
+          data: 'cmd[search_daemon]=' + state,
+          dataType: 'script',
+          type: 'PUT'
+        });
+      });
+    };
+
+    $(document).ready(function() {
+      init_switch();
+      $('#pixelRatio').text(window.devicePixelRatio.toString());
+    });
+
+.mid
+  .panel
+    %h4= 'Search Daemon'
+    #search_daemon_switch
+      = render :partial => 'semi_static/system/search_daemon'
+  .panel
+    %h4= 'Search Index'
+    #search_reindex_result
+    = link_to 'Reindex now', system_path(:cmd => {:search_reindex => :all}), :method => :put, :remote => true
+  .panel
+    %h4= 'Expire Cache'
+    #expire_cache
+    = link_to 'Expire cache now', system_path(:cmd => {:expire_cache => :all}), :method => :put, :remote => true
+  %div{:style => 'font-size: 10px; text-align: right;'}
+    = 'Device pixel ratio = '
+    %span#pixelRatio{:style => 'font-size: 10px; text-align: right;'}
+      Unknown
+

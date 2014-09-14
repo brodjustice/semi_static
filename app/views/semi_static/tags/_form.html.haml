@@ -1,0 +1,61 @@
+= form_for @tag do |f|
+  - if @tag.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@tag.errors.count, "error")} prohibited this tag from being saved:"
+      %ul
+        - @tag.errors.full_messages.each do |msg|
+          %li= msg
+
+  %fieldset
+    = f.label :name
+    %br/
+    = f.text_field :name
+  %fieldset
+    = f.label :sidebar_title
+    %br/
+    = f.text_field :sidebar_title
+  %fieldset.section.group
+    .col.span_1_of_2
+      - if @tag.icon.present?
+        .img_field
+          = image_tag(@tag.icon.url(:big))
+      = f.label :icon
+      = f.file_field :icon
+      %br/
+      %br/
+      = f.label :locale
+      %br/
+      = f.select :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @tag.locale)
+    .col.span_1_of_2
+      = f.label :predefined_class, 'Predefined Tag'
+      = f.select :predefined_class, options_for_select(SemiStatic::TagsHelper::PREDEFINED.keys.collect{|k| [k, k]}.prepend(["- None -", nil]), @tag.predefined_class)
+      %br/
+      %br/
+      = f.label :menu
+      = f.check_box :menu
+      %br/
+      = f.label :icon_in_menu
+      = f.check_box :icon_in_menu
+      %br/
+      = f.label :icon_delete, 'Delete icon'
+      = f.check_box :icon_delete
+      %br/
+      = f.label :icon_resize, 'Resize icon'
+      = f.check_box :icon_resize
+  %fieldset
+    .section.group
+      .col.span_1_of_2
+        - if @tag.position == 0
+          = f.label :position, 'Position 0: Icon sprite file must be 100px x 500px png with 5 icons'
+        - else
+          = f.label :position, 'Position: Set to 0 to enable the sprites option'
+        = f.text_field :position
+        %br/
+        = f.label :max_entries_on_index_page
+        = f.text_field :max_entries_on_index_page
+      .col.span_1_of_2
+        = f.label :colour, 'CSS colors: black, yellow, #5f78c0, etc'
+        = f.text_field :colour
+  
+  .actions
+    = f.submit 'Save'

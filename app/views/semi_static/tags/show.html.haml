@@ -1,0 +1,22 @@
+.section
+  .col.span_2_of_3
+    - @tag.entries[0..2].each do |e|
+      .panel.group
+        - if e.img.present?
+          .col.span_1_of_2
+            .html
+              = icon(@tag)
+              %h2= link_to e.title, e
+              = entry_summary(e, e.summary_length)
+          .col.span_1_of_2
+            .img
+              = link_to image_tag(e.img.url(:panel)), e
+              -# = image_tag(@user.profile.photo.url(:big), :title => @user.fullname, :class => 'ri', :id => 'big_image')
+        - else
+          .html
+            = icon(@tag)
+            %h2= link_to e.title, e
+            = entry_summary(e, e.summary_length)
+        .more= link_to t('...more'), e
+  .col.span_1_of_3
+    = render 'side_bar'

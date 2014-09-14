@@ -1,0 +1,19 @@
+= form_for [@fcol, @link] do |f|
+  - if @link.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@link.errors.count, "error")} prohibited this link from being saved:"
+      %ul
+        - @link.errors.full_messages.each do |msg|
+          %li= msg
+
+  %fieldset
+    = f.label :name
+    = f.text_field :name
+  %fieldset
+    = f.label :url
+    = f.text_field :url
+  %fieldset
+    = f.label :position
+    = f.text_field :position
+  .actions
+    = f.submit 'Save'

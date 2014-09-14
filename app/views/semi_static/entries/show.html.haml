@@ -1,0 +1,14 @@
+.section
+  .col.span_2_of_3
+    .panel.group{:class => @entry.style_class, :style => "background-color:#{@entry.background_colour}; color:#{@entry.colour}"}
+      = render :partial => 'entry', :locals => {:e => @entry}
+      - unless @entry.photos.blank?
+        .gallery{:class => @entry.style_class, :style => "background-color:#{@entry.background_colour}; color:#{@entry.colour}"}
+          .spacer_wrapper
+            %h2= t('Gallery')
+            - @entry.photos.each do |p|
+              .photo.nutshell
+                .spaced
+                  = link_to image_tag(p.img.url(:mini), :title => "#{p.title} - #{truncate(p.description, :length => 50)}"), photo_path(p)
+  .col.span_1_of_3
+    = render :partial => 'semi_static/tags/side_bar', :locals => {:entrytag => @entry.tag}

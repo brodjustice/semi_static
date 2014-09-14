@@ -1,0 +1,20 @@
+.mid
+  .button= link_to 'New User', new_user_path
+  %h1 Users
+  
+  %table
+    %tr
+      %th Roles
+      %th Email
+      %th Name
+      %th Surname
+      %th
+  
+    - @users.each do |user|
+      %tr
+        %td= roles_for(user)
+        %td= link_to user.email, edit_user_path(user)
+        %td= link_to user.name, edit_user_path(user)
+        %td= link_to user.surname, edit_user_path(user)
+        %td= link_to image_tag('/assets/bin.png'), user, :method => :delete, :data => { :confirm => 'Are you sure?' }
+  

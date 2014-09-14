@@ -1,0 +1,34 @@
+de:
+  TagLine: 'This tagline is in the locales file'
+  News: 'Nachrichten'
+  NEWS: 'News'
+  ImprintAndCredits: 'Impressum'
+  Sign_In: 'Anmelden'
+  Contact: 'Kontakt'
+  more: '...mehr'
+  tags:
+    show:
+      more: '...mehr'
+  Search: 'Suche'
+  Gallery: 'Galerie'
+  References: 'Referenzen'
+  Send_me_reset_password_instructions: 'Send me reset password instructions'
+  Forgot_password?: 'Passwort vergessen?'
+  Change_my_password: 'Password ändern'
+  Send: 'Schicken'
+  Name: 'Vorname'
+  Surname: 'Nachname'
+  Email: 'E-mail'
+  Message: 'Nachricht'
+  Telephone: 'Telefon'
+  Contact_us: 'Contact us!'
+  Thank_you: "Thanks!"
+  Thank_you_for_your_equiry: 'Thank you for your enquiry, we will respond shortly'
+
+  activerecord:
+   errors:
+     models:
+       user:
+         attributes:
+           roles:
+             blank: 'Must assign a role'

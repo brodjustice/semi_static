@@ -1,0 +1,74 @@
+- content_for :ujs do
+  :javascript
+    $(document).ready(function() {
+      $('#entry_body').jqte();
+    });
+
+= form_for @entry do |f|
+  - if @entry.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@entry.errors.count, "error")} prohibited this entry from being saved:"
+      %ul
+        - @entry.errors.full_messages.each do |msg|
+          %li= msg
+
+  %fieldset
+    = f.label :title
+    %br/
+    = f.text_field :title
+  %fieldset
+    = f.label :home_page
+    = f.check_box :home_page
+    = f.label :news_item
+    = f.check_box :news_item
+    = f.label :image_in_news
+    = f.check_box :image_in_news
+  %fieldset
+    = f.label :position
+    = f.text_field :position
+  %fieldset
+    = f.label :tag_id
+    %br
+    = f.select :tag_id, options_for_select(SemiStatic::Tag.all.collect{|t| [t.name, t.id]}, @entry.tag_id)
+  %fieldset
+    = f.label :body
+    %br/
+    = f.text_area :body
+  %fieldset
+    = f.label :summary
+    %br/
+    = f.text_area :summary, :rows => '8'
+    %br/
+    = f.label :summary_length, 'Optimal summary length'
+    %br/
+    = f.text_field :summary_length
+
+  %fieldset
+    = f.label :img, 'Image (optional, will be resized to max 319px with)'
+    %br/
+    = f.file_field :img
+  %fieldset
+    = f.label :doc, 'Document for downloading (optional)'
+    %br/
+    = f.file_field :doc
+    %br/
+    = f.label :doc_description, 'Document description (optional)'
+    %br/
+    = f.text_field :doc_description
+  %fieldset
+    = f.label :locale
+    = f.select :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @entry.locale)
+    = f.label :style_class
+    = f.select :style_class, options_for_select(SemiStatic::EntriesHelper::STYLE_CLASSES.collect{|sc| [sc, sc]}, @entry.style_class)
+  %fieldset
+    = f.label :background_colour, 'Background CSS colors: black, yellow, #5f78c0, etc'
+    = f.text_field :background_colour
+    %br/
+    = f.label :header_colour, 'Header CSS colors: black, yellow, #5f78c0, etc'
+    = f.text_field :header_colour
+    -# %br/
+    -# = f.label :colour, 'Text CSS colors: black, yellow, #5f78c0, etc'
+    -# = f.text_field :colour
+
+  .actions
+    = f.submit 'Save'

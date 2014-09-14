@@ -1,0 +1,16 @@
+.mid
+  %h2= t('Address')
+  %p
+    = SemiStatic::Engine.config.copyright_owner
+    %br/
+  - unless SemiStatic::Engine.config.telephone.blank?
+    %p
+      = t('Telephone') + ':'
+      = SemiStatic::Engine.config.telephone
+  %p
+    = t('Email') + ':'
+    = mail_to SemiStatic::Engine.config.info_email, SemiStatic::Engine.config.info_email
+  %h2 Credits
+  %p
+    Website by
+    = link_to 'Business Landing Ltd.', 'http://business-landing.com'

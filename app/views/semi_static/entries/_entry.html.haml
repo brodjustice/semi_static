@@ -1,0 +1,24 @@
+.entry
+  - if e.img.present?
+    .col.span_1_of_2.floater
+      .img
+        = link_to image_tag(e.img.url(:panel)), e.img.url
+    .col.span_1_of_2.wrapping
+      .html
+        = icon(e.tag)
+        %h2= link_to e.title, e, :style => "color: #{e.header_colour};"
+        = e.body.html_safe
+  - else
+    .html
+      = icon(e.tag)
+      %h2= link_to e.title, e, :style => "color: #{e.header_colour};"
+      = e.body.html_safe
+
+  -# Is there an attached document?
+  - if e.doc.present?
+    .doc
+      .col.span_2_of_3
+        = e.doc_description
+      .col.span_1_of_3
+        .button
+          = link_to "Download (#{(e.doc_file_size/1048576).to_s}Mb)", e.doc.url

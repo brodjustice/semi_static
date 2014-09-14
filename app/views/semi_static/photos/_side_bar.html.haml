@@ -1,0 +1,8 @@
+- unless (p = SemiStatic::Photo.home).blank?
+  .news
+    %h2= link_to t('Gallery'), photos_path
+    - p.each do |p|
+      .panel.photo
+        %h3= link_to p.title, p
+        = link_to image_tag(p.img.url(:bar), :class => 'photo'), p
+        .caption= simple_format(p.description)

@@ -1,0 +1,19 @@
+#bar
+  #bar-inner
+    .section.group
+      %nav#menu
+        - SemiStatic::Tag.menu.locale(I18n.locale.to_s).limit(5).each_with_index do |t, i|
+          .col.span_1_of_5
+            .wrapper{:id => (((@tag == t) || (@selection == t.predefined_class)) ? 'selected' : '')}
+              = link_to t.name, t.predefined_class.blank? ? semi_static.feature_path(t.slug) : SemiStatic::TagsHelper::PREDEFINED[t.predefined_class], :style => "color: #{t.colour}"
+              - if SemiStatic::Tag.use_sprites?
+                .icon.sprite{:id => "sprite_#{(i + 1).to_s}"}
+              - else
+                - if t.icon_in_menu && t.icon.present?
+                  - if t.icon_resize
+                    .icon= image_tag(t.icon.url(:big))
+                  - else
+                    .icon= image_tag(t.icon.url)
+                - else
+                  .icon
+                    .custom

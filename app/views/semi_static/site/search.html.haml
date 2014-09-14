@@ -1,0 +1,20 @@
+.section
+  .col.span_2_of_3
+    .panel.group.list
+      .icon= image_tag('/assets/search.png')
+      %h1= @results.count.to_s + ' Search results for ' + @query
+      %table
+        - debugger
+        - @results.__send__ controller.action_name == 'search' ? :each_with_hit : :each do |e, hit|
+          %tr
+            %td{:colspan => 2}
+              .icon= image_tag(e.tag.icon.url(:standard)) if e.tag.icon.present?
+              %h2= link_to (hit.try(:highlight).try(:title)   ? hit.highlight.title.join.html_safe : e.title), e
+          %tr.fragment
+            %td= hit.try(:highlight).try(:body) ? hit.highlight.body.join('&hellip;').html_safe : e.body.html_safe
+            %td.score= (hit._score * 100).round.to_s + '%'
+  .col.span_1_of_3
+    - if @entries.empty?    
+      = render :partial => 'tags/side_bar', :locals => {:start => 1, :entrytag => Tag.first}
+    - else
+      = render :partial => 'tags/side_bar', :locals => {:start => 1, :entrytag => @entries.first.tag}

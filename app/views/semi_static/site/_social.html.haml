@@ -1,0 +1,14 @@
+- unless SemiStatic::Engine.config.twitterID.nil? && SemiStatic::Engine.config.facebookID.nil? && SemiStatic::Engine.config.youtubeChannel.nil?
+  .social
+    -unless SemiStatic::Engine.config.twitterID.nil?
+      = link_to "https://twitter.com/#{SemiStatic::Engine.config.twitterID}" do
+        #twitter
+          Twitter
+    -unless SemiStatic::Engine.config.facebookID.nil?
+      = link_to "https://www.facebook.com/#{SemiStatic::Engine.config.facebookID}" do
+        #facebook
+          Facebook
+    -unless SemiStatic::Engine.config.youtubeChannel.nil?
+      = link_to "https://www.youtube.com/#{SemiStatic::Engine.config.youtubeChannel}" do
+        #youtube
+          YouTube

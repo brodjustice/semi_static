@@ -1,0 +1,43 @@
+= form_for @reference do |f|
+  - if @reference.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@reference.errors.count, "error")} prohibited this reference from being saved:"
+      %ul
+        - @reference.errors.full_messages.each do |msg|
+          %li= msg
+
+
+  .field
+    .photo
+      - if @reference.logo.exists? then
+        = image_tag(@reference.logo.url(:thumb), :size => "210x", :title => @reference.title)
+
+  .field
+    = f.label :title
+    %br/
+    = f.text_field :title
+
+  .field
+    = f.file_field :logo
+
+  .field.wide
+    = f.label :body
+    %br/
+    = f.text_area :body, :rows => '10'
+  .field.wide
+    = f.label :quote
+    %br/
+    = f.text_area :quote, :rows => '10'
+  %fieldset
+    = f.label :locale
+    = f.select :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @reference.locale)
+    = f.label :show_in_side_bar
+    = f.check_box :show_in_side_bar
+  %fieldset
+    = f.label :position
+    = f.text_field :position
+
+
+
+  .actions
+    = f.submit 'Save'

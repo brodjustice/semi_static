@@ -1,0 +1,28 @@
+.mid.wide.dashboard
+  .button
+    = link_to 'New Reference', new_reference_path
+  %h1 References
+
+  %table
+    %tr
+      %th
+      %th Title
+      %th Body
+      %th Position
+      %th Locale
+      %th Side Bar
+      %th
+
+    - @references.each do |r|
+      %tr
+        %td
+          - if r.logo.exists?
+            = link_to image_tag(r.logo.url(:mini), :title => r.title), edit_reference_path(r)
+        %td= link_to r.title, edit_reference_path(r)
+        %td= r.body
+        %td= r.position
+        %td= r.locale.to_s
+        %td
+          = 'yes' if r.show_in_side_bar
+        %td= link_to image_tag('/assets/bin.png'), reference_path(r), :method => :delete, :data => { :confirm => 'Are you sure?' }
+

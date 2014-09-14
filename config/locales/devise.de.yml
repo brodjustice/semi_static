@@ -1,0 +1,10 @@
+de:
+  devise:
+    sessions:
+      user:
+        signed_in: ''
+        signed_out: ''
+    failure:
+      user:
+        unauthenticated: 'Du musst Dich anmelden oder registrieren, bevor Du fortfahren kannst.'
+

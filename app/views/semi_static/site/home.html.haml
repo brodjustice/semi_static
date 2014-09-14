@@ -1,0 +1,37 @@
+.section
+  .col.span_2_of_3
+    - SemiStatic::Entry.home.locale(I18n.locale).each do |e|
+      .entry.panel{:class => e.style_class, :style => "background-color:#{e.background_colour}; color: #{e.colour}"}
+        - if e.img.present?
+          .col.span_1_of_2.floater
+            .img
+              = link_to image_tag(e.img.url(:panel)), e
+          .col.span_1_of_2.wrapping
+            .html
+              = icon(e.tag)
+              %h2= link_to e.title, e, :style => "color: #{e.header_colour};"
+              = entry_summary(e, e.summary_length)
+        - else
+          = icon(e.tag)
+          .html
+            %h2= link_to e.title, e, :style => "color: #{e.header_colour};"
+            = entry_summary(e, e.summary_length)
+        .more= link_to t(:more), e
+  .col.span_1_of_3
+    #search-bar
+      #search-bar-inner
+        #search-wrapper
+          = form_tag search_entries_path, method: 'get', :class => 'searchform' do
+            = text_field_tag :q, params[:q], :placeholder => t('Search'), :class => 'searchfield'
+            = image_submit_tag 'search-small.png', :class => 'searchbutton', :alt => t('Search')
+    = render :partial => 'semi_static/site/social'
+    .news
+      %h2= t('News') + ':'
+      - SemiStatic::Entry.news.limit(3).locale(I18n.locale).each do |e|
+        .panel
+          %h3= link_to e.title, e
+          - if e.image_in_news && e.img.present?
+            .image= link_to image_tag(e.img.url(:bar)), e
+          = entry_summary(e, e.summary_length)
+          .more= link_to t('more'), e
+    = render :partial => 'semi_static/photos/side_bar'

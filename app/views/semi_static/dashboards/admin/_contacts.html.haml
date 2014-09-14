@@ -1,0 +1,18 @@
+.mid
+  .panel
+    %h4= 'Latest Contacts'
+    %table
+      %thead
+        %tr
+          %td Name & Email
+          %td Message
+          %td Date
+      %tbody
+        - SemiStatic::Contact.limit(10).each do |c|
+          %tr
+            %td
+              = link_to c.fullname, c
+              %br/
+              = mail_to c.email, c.email
+            %td= simple_format(truncate(c.message))
+            %td= c.created_at.strftime('%d-%m-%y')

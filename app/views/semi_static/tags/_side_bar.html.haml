@@ -1,0 +1,19 @@
+- @tag ||= entrytag
+.panel.list
+  - if SemiStatic::Tag.use_sprites?
+    .icon.sprite{:id => "sprite_#{@tag.position.to_s}"}
+  - else
+    .icon= image_tag(@tag.icon.url(:big)) if @tag.icon.present?
+  %h1= link_to @tag.sidebar_title, feature_path(@tag.slug)
+  .section
+    - (@tag.entries - [@entry]).each do |e|
+      %h3= link_to e.title, e
+.news
+  %h2= t('News') + ':'
+  - SemiStatic::Entry.news.not(@entry).limit(3).locale(I18n.locale).each do |e|
+    .panel
+      %h3= link_to e.title, e
+      = entry_summary(e, e.summary_length)
+      .more= link_to t('more'), e
+
+

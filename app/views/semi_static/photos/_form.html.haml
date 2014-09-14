@@ -1,0 +1,37 @@
+= form_for @photo do |f|
+  - if @photo.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@photo.errors.count, "error")} prohibited this photo from being saved:"
+      %ul
+        - @photo.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    .photo
+      - if @photo.img.exists? then
+        = image_tag(@photo.img.url(:thumb), :size => "210x", :title => @photo.title)
+
+  .field
+    = f.label :title
+    %br/
+    = f.text_field :title
+
+  .field
+    = f.file_field :img
+
+  .field.wide
+    = f.label :description
+    %br/
+    = f.text_area :description, :rows => '10'
+  %fieldset
+    = f.label :entry_id, 'Entry (optional)'
+    = f.select :entry_id, options_for_select(SemiStatic::Entry.all.collect{|e| [e.title, e.id]}.prepend(['- None -', nil]), @photo.entry_id)
+  %fieldset
+    = f.label :home_page
+    = f.check_box :home_page
+  %fieldset
+    = f.label :position
+    = f.text_field :position
+
+  .actions
+    = f.submit 'Save'

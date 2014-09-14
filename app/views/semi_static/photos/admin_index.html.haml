@@ -1,0 +1,25 @@
+.mid.dashboard
+  .button
+    = link_to 'New Photo', new_photo_path
+  %h1 Gallery
+
+  %table
+    %tr
+      %th
+      %th Title
+      %th Description
+      %th Position
+      %th Home Page
+      %th
+
+    - @photos.each do |p|
+      %tr
+        %td
+          - if p.img.exists?
+            = link_to image_tag(p.img.url(:mini), :title => p.title), edit_photo_path(p)
+        %td= link_to p.title, edit_photo_path(p)
+        %td= p.description
+        %td= p.position
+        %td
+          = 'yes' if p.home_page
+        %td= link_to image_tag('/assets/bin.png'), photo_path(p), :method => :delete, :data => { :confirm => 'Are you sure?' }

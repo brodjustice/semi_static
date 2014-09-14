@@ -1,0 +1,29 @@
+.mid.wide
+  .button= link_to 'New Entry', new_entry_path
+  %h1 Entries
+  
+  %table
+    %tr
+      %th= 'Title'
+      %th= 'Tag'
+      %th= 'Summary'
+      %th= 'Home page'
+      %th= 'News'
+      %th= 'Position'
+      %th= 'Locale'
+      %th
+  
+    - SemiStatic::Tag.all.each do |tag|
+      - tag.entries.each do |entry|
+        %tr
+          %td= link_to entry.title, edit_entry_path(entry)
+          %td= link_to entry.tag.name, edit_entry_path(entry)
+          %td= link_to truncate(entry.summary, :lenght => 100), edit_entry_path(entry)
+          %td
+            = image_tag('tick.png', :title => 'Visible in home page') if entry.home_page
+          %td
+            = image_tag('tick.png', :title => 'Visible in news') if entry.news_item
+          %td= entry.position.to_s
+          %td= entry.locale
+          %td= link_to image_tag('/assets/bin.png'), entry, :method => :delete, :data => { :confirm => 'Are you sure?' }
+  

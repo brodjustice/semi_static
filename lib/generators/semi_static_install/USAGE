@@ -1,0 +1,9 @@
+Description:
+    Copies the SemiStatic database migrations and seed data to your application ready to run rake db:setup
+
+Example:
+    rails generate semi_static_install
+
+    This will create:
+        db/seed.rb
+        db/migrations/*

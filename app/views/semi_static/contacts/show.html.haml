@@ -1,0 +1,13 @@
+.mid
+  %h3 Name
+  %p= @contact.name
+  %h3 Surname
+  %p= @contact.surname
+  %h3 Message
+  %p= simple_format(@contact.message)
+  %h3 Email
+  %p= mail_to @contact.email, @contact.email
+  %h3 Telephone
+  %p= @contact.telephone
+  %h3 Date
+  %p= @contact.created_at.strftime('%d-%m-%y')
