@@ -12,7 +12,7 @@ module SemiStatic
     end
   
     def send_email
-      SemiStatic::ContactMailer.contact_notification(self).deliver
+      ContactMailer.contact_notification(self).deliver
     end
   end
 end
