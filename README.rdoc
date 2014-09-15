@@ -56,7 +56,7 @@ you want.
 
 The initial admin sign in email and password can by found in db/seeds.rb. Use this to sign in and start adding your content.
 
-= Webserver and page cacheing
+= Production environment webserver, assets and page cacheing
 
 Semi-static saves cached versions of your sites pages in the public directory, but inside directories according to the locale
 of the content. Exactly which locales match which domains is set in 'config/initializers/semi-static.rb'. So for example your
@@ -94,3 +94,9 @@ Your webserver needs to be configured to take advantage of this. For ngnix this 
       passenger_enabled on;
     }
 
+To make sure that the webserver finds your assets, and assuming that you want to share your assets between your various locales, you will
+need to link the 'asset' and 'system' directories inside each of the public locale directories to the top level 'public' directories:
+
+    # cd public/en
+    # ln -s ../assets ./assets
+    # ln -s ../system ./system 

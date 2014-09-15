@@ -4,6 +4,8 @@ class SemiStaticInstallGenerator < Rails::Generators::Base
   SEED_FILE_UNIQUE_ID = 'BL-SemiStatic-ct688G4zQ'
   MOUNT_ROUTE = 'mount SemiStatic::Engine, :at => "/"'
   DEVISE_SECRET_KEY = 'config.secret_key'
+  PRECOMPILE_ASSETS = 'semi_static_application.css semi_static_application.js'
+  CONFIG_ASSETS_PRECOMPILE = "config.assets.precompile += %w( #{PRECOMPILE_ASSETS} )"
 
   def copy_database_migrations
     directory('../../../../db/migrate', destination_root + '/db/migrate')
@@ -52,12 +54,21 @@ class SemiStaticInstallGenerator < Rails::Generators::Base
       new_key = "  config.secret_key = \'#{SecureRandom.hex(64)}\'"
       gsub_file "#{engine_path + 'config/initializers/devise.rb'}", /.*config.secret_key.*$/, "#{new_key}"
     else
-      say '  SemiStatic  ERROR cannot find secret ket in the devise initilaizer (devise.rb)'
+      say '  SemiStatic  ERROR cannot find secret key in the devise initilaizer (devise.rb)'
     end
   end
 
   def remove_public_index
     remove_file('public/index.html')
+  end
+
+  def config_assets_precompile
+    precompile_found = run("grep -w \'#{PRECOMPILE_ASSETS}\' config/environments/production.rb >/dev/null")
+    if precompile_found == true
+      say '  SemiStatic  NOTICE: Assets to precompile seem to already be listed in ./config/environments/production.rb'
+    else
+      inject_into_file "./config/environments/production.rb", "\n  " + CONFIG_ASSETS_PRECOMPILE, :after => /^*.config.assets.precompile.*$/
+    end
   end
 
   def execute_migrations
