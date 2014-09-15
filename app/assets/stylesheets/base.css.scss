@@ -401,6 +401,7 @@ h2 a, h3 a{color: $secondary-color;}
   height: 170px; width: 100%;
 
   @if $fill-banner == true {
+    height: 170px; width: 100%;
     background: transparent url(/assets/logo.png) center center no-repeat;
     top: 0px;
     animation: logo_slider 50s linear infinite; animation-delay: 0s;
@@ -409,6 +410,7 @@ h2 a, h3 a{color: $secondary-color;}
     -webkit-animation-delay: 0s;
     -webkit-animation-iteration-count: infinite;
   } @else {
+    height: 100px; width: 130px;
     background: transparent url(/assets/logo-top.png) left top no-repeat;
     top: -96px;
   }
@@ -505,6 +507,7 @@ h2 a, h3 a{color: $secondary-color;}
 }
 #notice{
   text-align: center; background-color: white; border: 1px solid #808080; border-radius: 4px;
+  width: 88%; margin: 0 auto; padding: 6px 5%;
 }
 .html{ padding: 0; margin-bottom: 8px; }
 .more{

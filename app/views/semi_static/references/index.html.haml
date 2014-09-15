@@ -1,11 +1,11 @@
 .section
   .col.span_2_of_3
-    = render :partial => 'references/quotes'
+    = render :partial => 'semi_static/references/quotes'
   .col.span_1_of_3
     .gallery.index.group
       %h2= t('References')
       .spacer_wrapper.reference
-        - Reference.all.each do |r|
+        - SemiStatic::Reference.all.each do |r|
           .photo.nutshell
             .spaced
               - if r.quote.blank?

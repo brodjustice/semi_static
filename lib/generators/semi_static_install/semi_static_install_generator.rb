@@ -6,6 +6,7 @@ class SemiStaticInstallGenerator < Rails::Generators::Base
   DEVISE_SECRET_KEY = 'config.secret_key'
   PRECOMPILE_ASSETS = 'semi_static_application.css semi_static_application.js'
   CONFIG_ASSETS_PRECOMPILE = "config.assets.precompile += %w( #{PRECOMPILE_ASSETS} )"
+  ASSET_IMAGE_DIRECTORIES = %w(banners x2 flags)
 
   def copy_database_migrations
     directory('../../../../db/migrate', destination_root + '/db/migrate')
@@ -29,6 +30,17 @@ class SemiStaticInstallGenerator < Rails::Generators::Base
   def copy_stylesheets
     say '  SemiStatic  Stylesheets will be copied to your application unless you have them already'
     directory('../../../../app/assets/stylesheets', destination_root + '/app/assets/stylesheets')
+  end
+
+  def create_asset_image_directories
+    ASSET_IMAGE_DIRECTORIES.each{|d|
+      empty_directory("app/assets/images/#{d}")
+    }
+  end
+
+  def copy_locales
+    say '  SemiStatic  Locales file will be copied into your application unless you have them already'
+    directory('../../../../config/locales', destination_root + '/config/locales')
   end
 
   def move_initializer
@@ -72,7 +84,7 @@ class SemiStaticInstallGenerator < Rails::Generators::Base
   end
 
   def execute_migrations
-    if yes?("Would you like to run the database setup? (y/n):")
+    if yes?("  SemiStatic  Would you like to run the database setup? (y/n):")
       run "rake db:migrate"
       run "rake db:seed"
     end
