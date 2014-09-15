@@ -9,7 +9,12 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require_tree .
+ *= require scaffolds
+ *= require grid
+ *= require base
+ *= require site
+ *= require jquery-te-1.4.0
+ *= require dashboards
  */
 /* Fonts import from remote, must be before any CSS
 /*--------------------------------------*/

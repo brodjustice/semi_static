@@ -7,14 +7,14 @@ a 100% rating on Google pagespeed.
 Some tricks that are used to get the fast performance:
 
 1. No javascript on most pages, animations via HTML5
-2. Most images converted in sprites
+2. Most images in sprite form
 3. Home page fonts loaded in-line
 4. Home page css loaded in-line
 5. Full page cacheing whenever possible, with full multi-locale support
 
 = To install
 
-Assuming you want a clean applicaion to start with semi-static, then first create your rails application:
+Assuming you want to start with a clean applicaion, then first create your rails application:
 
 Create your new rails application, for example using the postgres DB:
 
