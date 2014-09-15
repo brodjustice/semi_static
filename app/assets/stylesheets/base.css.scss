@@ -5,6 +5,7 @@
 /* SASS */
 $prime-color: #ff2700;
 $secondary-color: #303030;
+
 /* Set fill-banner to false to have alternate home page layout with uncluttered banner image */
 $fill-banner: true;
 
@@ -30,21 +31,21 @@ $fill-banner: true;
 
 /* TAG SLIDER */
 @keyframes tag_slider {
-  0%   { margin-top: 0px; margin-left: 0px;}
-  59%  { margin-top: 0px; margin-left: 0px;}
-  61%  { margin-top: -60px; margin-left: 160px;}
-  79%  { margin-top: -60px; margin-left: 160px;}
-  81%  { margin-top: 0px; margin-left: 0px;}
-  100%  { margin-top: 0px; margin-left: 0px;}
+  0%   { padding-top: 160px; margin-left: 0px;}
+  59%  { padding-top: 160px; margin-left: 0px;}
+  61%  { padding-top: 100px; margin-left: 160px;}
+  79%  { padding-top: 100px; margin-left: 160px;}
+  81%  { padding-top: 160px; margin-left: 0px;}
+  100%  { padding-top: 160px; margin-left: 0px;}
 }
 
 @-webkit-keyframes tag_slider {
-  0%   { margin-top: 0px; margin-left: 0px;}
-  59%  { margin-top: 0px; margin-left: 0px;}
-  61%  { margin-top: -60px; margin-left: 160px;}
-  79%  { margin-top: -60px; margin-left: 160px;}
-  81%  { margin-top: 0px; margin-left: 0px;}
-  100%  { margin-top: 0px; margin-left: 0px;}
+  0%   { padding-top: 160px; margin-left: 0px;}
+  59%  { padding-top: 160px; margin-left: 0px;}
+  61%  { padding-top: 100px; margin-left: 160px;}
+  79%  { padding-top: 100px; margin-left: 160px;}
+  81%  { padding-top: 160px; margin-left: 0px;}
+  100%  { padding-top: 160px; margin-left: 0px;}
 }
 /* END TAG SLIDER */
 
@@ -73,7 +74,7 @@ $fill-banner: true;
 
 @-webkit-keyframes mobile-grower {
   0%   { font-size: 1px; }
-  100% { font-size: 28px; }
+  100% { font-size: 22px; }
 }
 
 @keyframes grower {
@@ -83,7 +84,7 @@ $fill-banner: true;
 
 @keyframes mobile-grower {
   0%   { font-size: 1px; }
-  100% { font-size: 28px; }
+  100% { font-size: 22px; }
 }
 
 @keyframes wobble {
@@ -244,7 +245,7 @@ h2{ font-size: 24px;}
     text-align: right;
 }
 #tagline{
-  width: 90%; text-align: center; margin: 160px auto 0px; color: white; text-shadow: 1px 2px 5px $prime-color; font-size: 30px; font-weight: bold;
+  width: 90%; text-align: center; margin: 0px auto; color: white; text-shadow: 1px 2px 5px $prime-color; font-size: 30px; font-weight: bold;
   animation: grower 2s linear;
   -webkit-animation-name: grower;
   -webkit-animation-duration: 1s;
@@ -254,6 +255,7 @@ h2{ font-size: 24px;}
   position: absolute;
   width: 100%;
   margin: 0 auto;
+  padding-top: 160px;
   @if $fill-banner == true {
     animation: tag_slider 50s linear infinite; animation-delay: 0s;
     -webkit-animation-duration: 50s;
@@ -409,7 +411,6 @@ h2 a, h3 a{color: $secondary-color;}
   } @else {
     background: transparent url(/assets/logo-top.png) left top no-repeat;
     top: -96px;
-    left: 3px;
   }
 
 }
@@ -528,8 +529,13 @@ h2 a, h3 a{color: $secondary-color;}
 }
 #menu .wrapper{
   position: relative;
-  padding: 0px 8px;
+  padding: 0px 2px;
 }
+#menu .wrapper .text{
+  display: blocK;
+  overflow: hidden;
+}
+
 #menu .wrapper .icon{
   position: absolute;
   text-align: center;
@@ -591,41 +597,34 @@ h2 a, h3 a{color: $secondary-color;}
   opacity: 1.0 !important;
   display: block !important;
 }
-
 /* End custom menu icons */
 
 /* High res 'retina' screens */
 @media (device-pixel-ratio: 2), 
-(-moz-device-pixel-ratio: 2), 
-(-webkit-min-device-pixel-ratio: 2), 
-(min-resolution: 192dpi) { 
+  (-moz-device-pixel-ratio: 2), 
+  (-webkit-min-device-pixel-ratio: 2), 
+  (min-resolution: 192dpi) { 
   #logo{
     background: transparent url(/assets/x2/logo.png) 0 0 no-repeat;
-    background-size: 260px 93px;
+    background-size: 260px 116px;
   }
 }
 
+/* Remove inner shadow when width greater than 1500px */
 @media only screen and (max-width: 1500px) {
   #banner-frame{box-shadow: none;};
 }
 
-/* 1024 width plus 2 x 14px padding = 1052px */
-@media only screen and (max-width: 1052px) {
-  #search-bar{ margin-top: 0px; margin-bottom: 10px; }
-  .searchform input[type='text'] { width: 80%;}
+/* Search input overflows already at less than 1020px */
+@media only screen and (max-width: 1020px) {
+.searchform input[type='text'] { width: 74%;}
 }
 
-@media only screen and (max-width: 900px) {
-  #tagline{margin-top: 40px;}
-  #menu{font-size: 16px;}
-  .searchform input[type='text'] { width: 74%;}
-}
-
+/* Basic mobile portrait or perhaps tablet portrait layout */
 @media only screen and (max-width: 780px) {
   .searchform input[type='text'] { width: 66%;}
-  #banner2, #banner1, #banner0 {animation: none; opacity: 1.0; background-image: none; display: none;}
-  #bannerBg {background-image: url(/assets/banner-mobile.jpg);}
-  #menu{font-size: 14px;}
+  #banner4, #banner3, #banner2, #banner1, #banner0 {animation: none; opacity: 1.0; background-image: none; display: none;}
+  #bannerBg {background-image: url(/assets/banners/banner-mobile.jpg);}
   #tagline{
     font-size: 28px;
     animation: mobile-grower 2s linear;
@@ -639,35 +638,62 @@ h2 a, h3 a{color: $secondary-color;}
   }
 }
 
-@media only screen and (max-width: 680px) {
-  .img_holder{float: none; margin: 6px 0px; width: 100%; text-align: center;}
-}
+/* Mobile portrait layout at less than 580px */
 @media only screen and (max-width: 580px) {
-   #logo img{width: 50%; max-width: 160px;}
-   #search-bar{margin-top: -11px;}
+  #logo img{width: 50%; max-width: 160px;}
+  @if $fill-banner == true {
+    #logo{top:40px;}
+    #tagline{
+      margin-top: 12px;
+      font-size: 22px;
+    }
+    #tag-wrapper{padding-top: 108px;}
+    #banner #bar{margin-top: 0px;}
+    #search-bar{margin-top: -11px;}
+  } @else {
+    #banner #bar{margin-top: 300px;}
+    #search-bar{margin-top: 68px;}
+  } 
+  #banner #menu{ padding: 6px 0px; }
   .css3col{
     column-count: 1;
     -moz-column-count: 1;
     -webkit-column-count: 1;
   }
-  .col .img{margin: 0 auto; text-align:center;}
-  .wrapper .icon{display: none;}
-  .wrapper .icon.sprite{background-image: none;}
-  #tagline{
-    margin-top: 24px;
-    font-size: 24px;
+  #menu .col:nth-child(5){
+    width: 100%;
   }
+  .col .img{margin: 0 auto; text-align:center;}
+  #menu .wrapper .icon{z-index: 5;}
+  .icon .custom{
+    height: 28px;
+    margin: 3px auto !important;
+  }
+  .wrapper .icon.sprite{background-image: none;}
   #mini-logo{
     position: relative;
     text-align: center;
   }
-  #banner #bar{margin-top: -6px;}
-  #menu{
+  #banner #menu{
     margin: 0px auto;
-    font-size: 20px;
+    width: 96%;
   }
   #menu .col{
     width: 50%;
+  }
+  #logo, #tag-wrapper{
+    animation: none;
+    -webkit-animation: none;
+  }
+}
+
+/* Further mobile portrait adjustments at very small widths */
+@media only screen and (max-width: 460px) {
+  @if $fill-banner == true {
+    #tagline{
+      margin-top: 0px;
+      font-size: 22px;
+    }
   }
 }
 
