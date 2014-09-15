@@ -1,3 +1,4 @@
+module SemiStatic
   class ContactMailer < ActionMailer::Base
     def contact_notification(contact)
       subject = 'Website Equiry'
@@ -9,3 +10,4 @@
       mail(:from => SemiStatic::Engine.config.mailer_from, :to => email, :subject => subject)
     end
   end
+end

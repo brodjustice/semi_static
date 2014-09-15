@@ -1,10 +1,13 @@
 = 'Website request'
 
-= [ @contact.name, @contact.surname ].join(" ")
+= h 'Name: ' + [ @contact.name, @contact.surname ].join(" ")
 
-= @contact.email
+= h 'Email: ' +  @contact.email
 
-= @contact.telephone
+= h 'Telephone: ' + @contact.telephone
 
-= simple_format(@contact.message)
+= '----------------- Message -----------------'
 
+= h @contact.message
+
+= '-------------------------------------------'

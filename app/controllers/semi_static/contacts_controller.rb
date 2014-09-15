@@ -3,7 +3,7 @@ require_dependency "semi_static/application_controller"
 module SemiStatic
   class ContactsController < ApplicationController
 
-    load_and_authorize_resource :except => [:new, :create]
+    before_filter :authenticate_user!, :class => SemiStatic::Contact, :except => [:new, :create]
   
     # GET /contacts
     # GET /contacts.json
@@ -11,7 +11,7 @@ module SemiStatic
       @contacts = Contact.all
   
       respond_to do |format|
-        format.html { render :layout => 'dashboards' }
+        format.html { render :layout => 'semi_static_dashboards' }
         format.json { render :json => @contacts }
       end
     end
@@ -22,7 +22,7 @@ module SemiStatic
       @contact = Contact.find(params[:id])
   
       respond_to do |format|
-        format.html { render :layout => 'dashboards' }
+        format.html { render :layout => 'semi_static_dashboards' }
         format.json { render :json => @contact }
       end
     end
