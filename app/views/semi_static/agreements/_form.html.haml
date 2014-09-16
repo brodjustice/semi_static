@@ -1,0 +1,22 @@
+- if @agreement.errors.any?
+  #error_explanation.errors
+    %h2= "#{pluralize(@agreement.errors.count, "error")} prohibited this agreement from being saved:"
+    %ul
+      - @agreement.errors.full_messages.each do |msg|
+        %li= msg
+
+= form_for @agreement do |f|
+  %fieldset
+    = f.text_area :body
+    = f.label :body, 'Agreement text body'
+  %fieldset
+    = f.label :locale
+    = f.select :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @agreement.locale)
+    %br/
+    = f.label :display, 'Display by default on contact form'
+    = f.check_box :display
+    %br/
+    = f.label :ticked_by_default, 'Ticked by default on contact form'
+    = f.check_box :ticked_by_default
+  .actions
+    = f.submit 'Submit'

@@ -1,0 +1,25 @@
+.mid.wide
+  %h1 Agreement details
+  %h3= 'Since ' + @agreement.created_at.strftime('%d/%m/%y %H:%M')
+  %h4= simple_format(@agreement.body)
+  %ul
+    %li= 'Displayed by default on contact form' if @agreement.display
+    %li= 'Ticked by default on contact form' if @agreement.ticked_by_default
+  %h4= @agreement.contacts.size.to_s + ' contacts have agreed to this:'
+  %table
+    %tr
+      %th Name
+      %th Email
+      %th Phone
+      %th Agreements
+      %th Date
+
+    - @agreement.contacts.each do |c|
+      %tr
+        %td= link_to c.fullname, c
+        %td= mail_to c.email, c.email
+        %td= c.telephone
+        %td= c.agreements.size
+        %td= c.created_at.strftime('%d-%m-%y')
+
+  

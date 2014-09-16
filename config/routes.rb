@@ -9,6 +9,7 @@ SemiStatic::Engine.routes.draw do
 
   resources :references
   resources :photos
+  resources :agreements, :except => [:edit, :update]
   resources :contacts, :except => [:edit, :update]
   resources :tags, :except => :show
 

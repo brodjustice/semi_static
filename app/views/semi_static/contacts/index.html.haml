@@ -1,19 +1,22 @@
-%h1 Website contacts
-
-%table
-  %tr
-    %th Name
-    %th Message
-    %th Email
-    %th Phone
-    %th Date
-    %th
-
-  - @contacts.each do |c|
+.mid.wide
+  %h1= @contacts.size.to_s + ' Website contacts'
+  
+  %table
     %tr
-      %td= link_to c.fullname, c
-      %td= truncate(simple_format(c.message), :length => 100)
-      %td= mail_to c.email, c.email
-      %td= c.telephone
-      %td= c.created_at.strftime('%d-%m-%y')
-      %td= link_to image_tag('/assets/bin.png', :title => 'Delete'), c, :method => :delete, :data => { :confirm => "Confirm deleting #{c.fullname}" }
+      %th Name
+      %th Message
+      %th Email
+      %th Phone
+      %th Agreements
+      %th Date
+      %th
+  
+    - @contacts.each do |c|
+      %tr
+        %td= link_to c.fullname, c
+        %td= truncate(simple_format(c.message), :length => 100)
+        %td= mail_to c.email, c.email
+        %td= c.telephone
+        %td= c.agreements.size
+        %td= c.created_at.strftime('%d-%m-%y')
+        %td= link_to image_tag('/assets/bin.png', :title => 'Delete'), c, :method => :delete, :data => { :confirm => "Confirm deleting #{c.fullname}" }

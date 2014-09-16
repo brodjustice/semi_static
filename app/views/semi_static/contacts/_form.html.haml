@@ -23,4 +23,9 @@
     = f.text_area :message, { :value => (@message ? t(@message) : ""), :rows => "12", :cols => "36"}
     = f.label :message, t('Message')
     %br/
+  - @contact.agreements.each do |agreement|
+    %fieldset
+      = check_box_tag :agreement_ids, agreement.id, agreement.ticked_by_default, :name => 'contact[agreement_ids][]'
+      = f.label agreement.body
+  .actions
     = f.submit t('Send')

@@ -24,6 +24,6 @@
           %td
             = image_tag('tick.png', :title => 'Visible in news') if entry.news_item
           %td= entry.position.to_s
-          %td= entry.locale
+          %td= entry.locale.to_s
           %td= link_to image_tag('/assets/bin.png'), entry, :method => :delete, :data => { :confirm => 'Are you sure?' }
   

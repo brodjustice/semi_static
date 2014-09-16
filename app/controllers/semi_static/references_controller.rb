@@ -2,8 +2,7 @@ require_dependency "semi_static/application_controller"
 
 module SemiStatic
   class ReferencesController < ApplicationController
-    load_and_authorize_resource :class => SemiStatic::Reference, :except => [:index, :new, :create, :show]
-    before_filter :authenticate_user!, :class => SemiStatic::Reference, :only => [ :new ]
+    before_filter :authenticate_user!, :class => SemiStatic::Reference, :only => [ :create, :update, :destroy ]
   
     caches_page :show
 
@@ -32,7 +31,7 @@ module SemiStatic
       @selection = 'References'
   
       respond_to do |format|
-        format.html # show.html.erb
+        format.html { render :layout => 'semi_static_application' }
         format.json { render json: @reference }
       end
     end

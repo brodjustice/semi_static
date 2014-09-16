@@ -9,8 +9,8 @@ module SemiStatic
       # that really change. This means we can use the page_cache, and just
       # expire the whole lot when a update is made to certains classes.
   
-      # Expire the index page
-      ActionController::Base::expire_page("/")
+      # Expire the index page, not needed as this is an Engine
+      # ActionController::Base::expire_page("/")
   
       # Expire the site_path(:content => 'x') pages.
       # You would expect one of these to work:
@@ -25,6 +25,8 @@ module SemiStatic
       I18n.available_locales.each{|l|
         FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/index.html").to_s)
         FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/site").to_s)
+        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/references.html").to_s)
+        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/references").to_s)
         FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/photos.html").to_s)
         FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/photos").to_s)
         FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/entries.html").to_s)

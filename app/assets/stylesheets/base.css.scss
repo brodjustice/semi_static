@@ -703,7 +703,6 @@ h2 a, h3 a{color: $secondary-color;}
 @media only screen and (min-width: 760px) {
   .wrapping{ float: none !important; width: auto !important; }
   .floater{ float: right !important; width: auto !important; }
-  .floater img{margin: 0px 0px 4px 4px !important;}
 } 
 
 @media only screen and (max-width: 760px) {

@@ -1,0 +1,22 @@
+.mid.wide
+  .button= link_to 'New Agreement', new_agreement_path
+  %h1 Website contact agreements
+  
+  %table
+    %tr
+      %th Body
+      %th Locale
+      %th Display
+      %th Contacts
+      %th Date
+      %th
+  
+    - @agreements.each do |a|
+      %tr
+        %td= link_to truncate_html(a.body, :length => 300), a
+        %td= a.locale.to_s
+        %td
+          = image_tag('/assets/tick.png', :title => 'Displayed in default contact form') if a.display
+        %td= a.contacts.size
+        %td= a.created_at.strftime('%d/%m/%y %H:%M')
+        %td= link_to image_tag('/assets/bin.png', :title => 'Delete'), a, :method => :delete, :data => { :confirm => "Confirm deleting agreement #{a.body}" }
