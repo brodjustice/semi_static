@@ -2,9 +2,14 @@ $prime-color: #ff2700;
 
 h1 a{ color: $prime-color;}
 .doc{
+  clear: both;
   border-top: 1px solid #d0d0d0;
   background-color: #f0f0f0;
   padding: 0 6px;
+}
+.gallery.doc{
+  padding-top: 6px;
+  margin-bottom: 0px;
 }
 .doc:after{
   margin: 6px;

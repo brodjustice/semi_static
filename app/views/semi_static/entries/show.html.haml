@@ -2,10 +2,18 @@
   .col.span_2_of_3
     .panel.group{:class => @entry.style_class, :style => "background-color:#{@entry.background_colour}; color:#{@entry.colour}"}
       = render :partial => 'entry', :locals => {:e => @entry}
+      -# Is there an attached document?
+      - if @entry.doc.present?
+        .doc
+          .col.span_2_of_3
+            = @entry.doc_description
+          .col.span_1_of_3
+            .button
+              = link_to "Download (#{(@entry.doc_file_size/1048576).to_s}Mb)", @entry.doc.url
       - unless @entry.photos.blank?
-        .gallery{:class => @entry.style_class, :style => "background-color:#{@entry.background_colour}; color:#{@entry.colour}"}
+        .gallery.doc
           .spacer_wrapper
-            %h2= t('Gallery')
+            -# %h2{:style => "color: #{@entry.header_colour}"}= t('Gallery')
             - @entry.photos.each do |p|
               .photo.nutshell
                 .spaced
