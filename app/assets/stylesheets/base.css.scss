@@ -6,8 +6,8 @@
 $prime-color: #ff2700;
 $secondary-color: #303030;
 
-/* Set fill-banner to false to have alternate home page layout with uncluttered banner image */
-$fill-banner: true;
+/* Set to banner-overlay to false to have alternate home page layout with uncluttered banner image */
+$banner-overlay: false;
 
 /* LOGO SLIDER */
 @keyframes logo_slider {
@@ -118,10 +118,19 @@ fieldset{
 }
 h2{ font-size: 24px;}
 #search-bar{ margin-top: 0px; margin-bottom: 10px; }
-#search-bar-inner, #container, #bar-inner, #top-inner, #footer-inner{
+#overlay-inner, #search-bar-inner, #container, #top-inner, #footer-inner{
   max-width: 1024px; margin: 0px auto;
   background-color: transparent;
 }
+#overlay{
+  position: relative; z-index: 100;
+  @if $banner-overlay == true {
+    height: 269px;
+  } @else {
+    height: 394px;
+  }
+}
+#overlay-inner{position: relative;}
 #search-bar-inner{
   position: relative;
 }
@@ -137,7 +146,7 @@ h2{ font-size: 24px;}
 #content{
   margin: 6px;
 }
-#menu, #container:after{ content: ''; display: table; clear: both; }
+#container:after{ content: ''; display: table; clear: both; }
 
 //
 // Banner animations
@@ -154,10 +163,16 @@ h2{ font-size: 24px;}
 //
 
 #banner{
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+  height: 300px;
+  position: absolute;
+  top: 0px;
   width: 100%;
-  z-index: 0;
+  z-index: -10;
   background-color: white;
-  margin-top: 1px;
+  @if $banner-overlay == false {
+    top: 64px;
+  }
 }
 #banner-frame{
   background-color: transparent; position: relative; width: 100%; max-width: 1500px;
@@ -246,25 +261,19 @@ h2{ font-size: 24px;}
 }
 #tagline{
   width: 90%; text-align: center; margin: 0px auto; color: white; text-shadow: 1px 2px 5px $prime-color; font-size: 30px; font-weight: bold;
+  // If you want to play with CSS3 viewport widths:
+  // font-size: 2.3vw !important;
   animation: grower 2s linear;
   -webkit-animation-name: grower;
   -webkit-animation-duration: 1s;
 }
 
 #tag-wrapper{
-  position: absolute;
-  width: 100%;
-  margin: 0 auto;
-  padding-top: 160px;
-  @if $fill-banner == true {
-    animation: tag_slider 50s linear infinite; animation-delay: 0s;
-    -webkit-animation-duration: 50s;
-    -webkit-animation-name: tag_slider;
-    -webkit-animation-delay: 0s;
-    -webkit-animation-iteration-count: infinite;
-  } @else {
-    top: 50px;
-  }
+  animation: tag_slider 50s linear infinite; animation-delay: 0s;
+  -webkit-animation-duration: 50s;
+  -webkit-animation-name: tag_slider;
+  -webkit-animation-delay: 0s;
+  -webkit-animation-iteration-count: infinite;
 }
 
 .panel{
@@ -387,34 +396,45 @@ h2 a, h3 a{color: $secondary-color;}
     box-shadow: 0 0 2px #fff;
 }
 
-#logo-wrapper{
-  max-width: 1024px; position: relative;
+#tag-wrapper, #menu-wrapper, #logo-wrapper{
+  width: 100%;
   margin: 0px auto;
-  z-index: 20;
-  top: 100px;
+  position: absolute;
 }
 
-#logo{
-  position: absolute;
-  // border: 1px solid transparent;
-  // box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
-  height: 170px; width: 100%;
+#menu-wrapper{
+  z-index: 1000;
+  @if $banner-overlay == true {
+    top: 12px;
+  } @else {
+    top: 350px;
+  }
+}
 
-  @if $fill-banner == true {
+#logo-wrapper{
+  @if $banner-overlay == true {
+    top: 46px;
+  } @else {
+    top: -46px;
+    width: 200px;
+  }
+}
+
+#tag-wrapper{ top: 48px; }
+
+#logo{
+  @if $banner-overlay == true {
     height: 170px; width: 100%;
     background: transparent url(/assets/logo.png) center center no-repeat;
-    top: 0px;
     animation: logo_slider 50s linear infinite; animation-delay: 0s;
     -webkit-animation-duration: 50s;
     -webkit-animation-name: logo_slider;
     -webkit-animation-delay: 0s;
     -webkit-animation-iteration-count: infinite;
   } @else {
-    height: 100px; width: 130px;
-    background: transparent url(/assets/logo-top.png) left top no-repeat;
-    top: -96px;
+    background: transparent url(/assets/logo-top.png) 8px 26px no-repeat;
+    height: 100px;
   }
-
 }
 
 #top{
@@ -435,21 +455,31 @@ h2 a, h3 a{color: $secondary-color;}
 }
 .home{ padding-left: 52px !important; background: transparent url(/assets/home.png) 21px 2px no-repeat; }
 
-#banner #bar{
-  @if $fill-banner == true {
-    margin-top: 10px;
-  } @else {
-    margin-top: 310px;
-  }
-  width: 100%;
-}
 #menu{
+  z-index: 500;
   width: 98%;
-  margin: 30px auto 20px;
+  margin: 0 auto;
   background: transparent url(/assets/white-75.png) 0 0 repeat;
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
   border-radius: 2px;
+  border: 1px solid white;
+  font-size: 20px;
+  font-weight: bold;
 }
+
+#menu a{
+  color: #282828;
+  /* text-shadow: white -1px 1px 0px, rgba(98, 0, 105, 0.4) -2px 2px 0px; */
+  text-shadow: white 1px 1px 2px, white -1px -1px 2px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+#menu .col{
+  text-align:center;
+  margin-top: 8px; margin-bottom: 6px;
+}
+
 .searchform {
     display: inline-block;
     margin: 0px;
@@ -471,40 +501,7 @@ h2 a, h3 a{color: $secondary-color;}
 .searchbutton{
   vertical-align: bottom;
 }
-#banner{
-  @if $fill-banner == true {
-  } @else {
-    top: 30px;
-    margin-bottom: 100px;
-  }
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
-  height: 300px;
-  position: relative;
-}
 
-#banner #menu{
-  margin: 0 auto;
-}
-#menu{
-  border: 1px solid white;
-  font-size: 20px;
-  font-weight: bold;
-}
-#menu a{
-  color: $prime-color;
-  color: #0b5cab;
-  color: #282828;
-  /* text-shadow: white -1px 1px 0px, rgba(98, 0, 105, 0.4) -2px 2px 0px; */
-  text-shadow: white 1px 1px 2px, white -1px -1px 2px;
-  font-weight: 900;
-  text-transform: uppercase;
-}
-#menu a:hover{
-}
-#menu .col{
-  text-align:center;
-  margin-top: 8px; margin-bottom: 6px;
-}
 #notice{
   text-align: center; background-color: white; border: 1px solid #808080; border-radius: 4px;
   width: 88%; margin: 0 auto; padding: 6px 5%;
@@ -530,13 +527,18 @@ h2 a, h3 a{color: $secondary-color;}
 .panel .icon{
   float: left;
 }
+
 #menu .wrapper{
   position: relative;
   padding: 0px 2px;
+  z-index: 10;
 }
+
+/* Keep menu text inside the box */
 #menu .wrapper .text{
   display: blocK;
   overflow: hidden;
+  height: 24px;
 }
 
 #menu .wrapper .icon{
@@ -544,7 +546,7 @@ h2 a, h3 a{color: $secondary-color;}
   text-align: center;
   width: 100%;
   z-index: -1;
-  margin-top: -34px;
+  margin-top: -58px;
   left: 0px;
 }
 
@@ -574,32 +576,27 @@ h2 a, h3 a{color: $secondary-color;}
 }
 
 /* Custom menu icons */
+
 .icon .custom{
   position: relative !important;
-  zindex: -10;
   height: 40px;
-  width: 90% !important;
-  // background-color: $prime-color;
-  // background-color: transparent;
-  // background: transparent url(/assets/white-60.png) 0 0 repeat;
-  border-top: 4px solid white;
-  border-bottom: 4px solid white;
-  border-color: $prime-color;
+  // width: 90% !important;
+  width: 90%;
+  border-top: 4px solid $prime-color;
+  border-bottom: 4px solid $prime-color;
   border-radius: 2px;
-  // box-shadow: 0px 0px 2px #c0c0c0;
   margin: -3px auto !important;
   opacity: 0.0;
-  // display: none;
   display: block;
+  top: 24px;
 }
 
 #selected .icon .custom{opacity: 0.5 !important;}
 
 #menu:hover .wrapper .icon .custom{display: none; opacity: 0.0;}
-#menu .wrapper:hover .icon .custom{
-  opacity: 1.0 !important;
-  display: block !important;
-}
+
+#menu .wrapper:hover .icon .custom{ opacity: 1.0 !important; display: block !important; }
+
 /* End custom menu icons */
 
 /* High res 'retina' screens */
@@ -634,70 +631,53 @@ h2 a, h3 a{color: $secondary-color;}
     -webkit-animation-name: mobile-grower;
     -webkit-animation-duration: 1s;
   }
-  .css3col{
-    column-count: 2;
-    -moz-column-count: 2;
-    -webkit-column-count: 2;
-  }
 }
 
 /* Mobile portrait layout at less than 580px */
 @media only screen and (max-width: 580px) {
-  #logo img{width: 50%; max-width: 160px;}
-  @if $fill-banner == true {
-    #logo{top:40px;}
-    #tagline{
-      margin-top: 12px;
-      font-size: 22px;
-    }
-    #tag-wrapper{padding-top: 108px;}
-    #banner #bar{margin-top: 0px;}
-    #search-bar{margin-top: -11px;}
-  } @else {
-    #banner #bar{margin-top: 300px;}
-    #search-bar{margin-top: 68px;}
-  } 
-  #banner #menu{ padding: 6px 0px; }
-  .css3col{
-    column-count: 1;
-    -moz-column-count: 1;
-    -webkit-column-count: 1;
-  }
-  #menu .col:nth-child(5){
-    width: 100%;
-  }
+  /* More % space for menu items */
+  #menu .col{ width: 50%; }
+  #menu .col:nth-child(5){ width: 100%; }
+
+  /* Stop adjusting margins by height %, it gets ugly this small */
   .col .img{margin: 0 auto; text-align:center;}
-  #menu .wrapper .icon{z-index: 5;}
-  .icon .custom{
-    height: 28px;
-    margin: 3px auto !important;
-  }
+  .col{margin-top: 1px; margin-bottom: 3px;}
+
   .wrapper .icon.sprite{background-image: none;}
-  #mini-logo{
-    position: relative;
-    text-align: center;
+
+  @if $banner-overlay {
+    /* Move logo and tagline due to menu expanding */
+    #menu-wrapper{top: 4px;}
+    #logo-wrapper{top: 80px;}
+    #tag-wrapper{top: 216px;}
+
+    /* No space for animations, switch them off */
+    #logo, #tag-wrapper{ animation: none; -webkit-animation: none;}
+  } @else {
+    #overlay{height: 456px;}
+    #menu-wrapper{top: 344px;}
+    #menu{width: 97%;}
   }
-  #banner #menu{
-    margin: 0px auto;
-    width: 96%;
+
+  /* Tagline font smaller or probably will not fit */
+  #tagline{font-size: 20px;}
+
+   /* Need to radically change the hover icons now menu has collapsed */
+  .icon .custom{
+    height: 0px;
+    border-width: 2px;
+    margin: 3px auto !important;
+    top: 58px;
+    width: 30%;
   }
-  #menu .col{
-    width: 50%;
-  }
-  #logo, #tag-wrapper{
-    animation: none;
-    -webkit-animation: none;
-  }
+  #menu{padding-bottom: 4px;}
+  #menu .wrapper .text{height: 20px;}
+
 }
 
 /* Further mobile portrait adjustments at very small widths */
 @media only screen and (max-width: 460px) {
-  @if $fill-banner == true {
-    #tagline{
-      margin-top: 0px;
-      font-size: 22px;
-    }
-  }
+  #tagline{ font-size: 18px; }
 }
 
 @media only screen and (min-width: 760px) {

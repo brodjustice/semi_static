@@ -4,14 +4,16 @@
       = locales
       %li.lady.icon= link_to t('Sign_In'), new_user_session_path
       %li.contact.icon= link_to t('Contact'), new_contact_path
-  #logo-wrapper
-    #logo
-#banner
-  #banner-frame
+#overlay
+  #overlay-inner
     = render 'semi_static/shared/menu'
+    #logo-wrapper
+      #logo
     #tag-wrapper
       #tagline
         = t('TagLine')
+#banner
+  #banner-frame
     #banner0.bg
     #banner1.bg
     #banner2.bg

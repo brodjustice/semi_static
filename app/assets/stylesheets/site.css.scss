@@ -1,5 +1,19 @@
 $prime-color: #ff2700;
 
+#overlay.header{
+  height:auto;
+}
+
+#menu-wrapper{
+  top: 0;
+  position: relative;
+}
+
+#menu{
+  margin-top: 38px;
+  margin-bottom: 14px;
+}
+
 h1 a{ color: $prime-color;}
 .doc{
   clear: both;
