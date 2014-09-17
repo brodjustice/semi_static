@@ -39,7 +39,21 @@ module SemiStatic
           format.html { redirect_to agreements_path }
           format.json { render :json => @agreement, :status => :created, :location => @agreement }
         else
-          format.html { render :template => "semi_static/agreements/new" }
+          format.html { render :layout => 'semi_static_dashboards', :template => "semi_static/agreements/new" }
+          format.json { render :json => @agreement.errors, :status => :unprocessable_entity }
+        end
+      end
+    end
+
+    def destroy
+      @agreement = Agreement.find(params[:id])
+
+      respond_to do |format|
+        if @agreement.destroy
+          format.html { redirect_to agreements_url }
+          format.json { head :no_content }
+        else
+          format.html { render :layout => 'semi_static_dashboards', :template => "semi_static/agreements/show" }
           format.json { render :json => @agreement.errors, :status => :unprocessable_entity }
         end
       end
