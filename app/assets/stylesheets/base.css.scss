@@ -7,47 +7,53 @@ $prime-color: #ff2700;
 $secondary-color: #303030;
 
 /* Set to banner-overlay to false to have alternate home page layout with uncluttered banner image */
-$banner-overlay: false;
+$banner-overlay: true;
+
+/* Example animations */
+$example-animations: false;
 
 /* LOGO SLIDER */
-@keyframes logo_slider {
-  0%   { background-position: center center; }
-  59%  { background-position: center center; }
-  61%  { background-position: 10% 50px; }
-  79%  { background-position: 10% 50px; }
-  81%  { background-position: center center; }
-  100%  { background-position: center center; }
+@if $example-animations == true {
+  @keyframes logo_slider {
+    0%   { background-position: center center; }
+    59%  { background-position: center center; }
+    61%  { background-position: 10% 50px; }
+    79%  { background-position: 10% 50px; }
+    81%  { background-position: center center; }
+    100%  { background-position: center center; }
+  }
+
+  @-webkit-keyframes logo_slider {
+    0%   { background-position: center center; }
+    59%  { background-position: center center; }
+    61%  { background-position: 10% 50px; }
+    79%  { background-position: 10% 50px; }
+    81%  { background-position: center center; }
+    100%  { background-position: center center; }
+  }
+  /* END LOGO SLIDER */
+
+  /* TAG SLIDER */
+  @keyframes tag_slider {
+    0%   { padding-top: 160px; margin-left: 0px;}
+    59%  { padding-top: 160px; margin-left: 0px;}
+    61%  { padding-top: 100px; margin-left: 160px;}
+    79%  { padding-top: 100px; margin-left: 160px;}
+    81%  { padding-top: 160px; margin-left: 0px;}
+    100%  { padding-top: 160px; margin-left: 0px;}
+  }
+
+  @-webkit-keyframes tag_slider {
+    0%   { padding-top: 160px; margin-left: 0px;}
+    59%  { padding-top: 160px; margin-left: 0px;}
+    61%  { padding-top: 100px; margin-left: 160px;}
+    79%  { padding-top: 100px; margin-left: 160px;}
+    81%  { padding-top: 160px; margin-left: 0px;}
+    100%  { padding-top: 160px; margin-left: 0px;}
+  }
+  /* END TAG SLIDER */
 }
 
-@-webkit-keyframes logo_slider {
-  0%   { background-position: center center; }
-  59%  { background-position: center center; }
-  61%  { background-position: 10% 50px; }
-  79%  { background-position: 10% 50px; }
-  81%  { background-position: center center; }
-  100%  { background-position: center center; }
-}
-/* END LOGO SLIDER */
-
-/* TAG SLIDER */
-@keyframes tag_slider {
-  0%   { padding-top: 160px; margin-left: 0px;}
-  59%  { padding-top: 160px; margin-left: 0px;}
-  61%  { padding-top: 100px; margin-left: 160px;}
-  79%  { padding-top: 100px; margin-left: 160px;}
-  81%  { padding-top: 160px; margin-left: 0px;}
-  100%  { padding-top: 160px; margin-left: 0px;}
-}
-
-@-webkit-keyframes tag_slider {
-  0%   { padding-top: 160px; margin-left: 0px;}
-  59%  { padding-top: 160px; margin-left: 0px;}
-  61%  { padding-top: 100px; margin-left: 160px;}
-  79%  { padding-top: 100px; margin-left: 160px;}
-  81%  { padding-top: 160px; margin-left: 0px;}
-  100%  { padding-top: 160px; margin-left: 0px;}
-}
-/* END TAG SLIDER */
 
 @keyframes fader {
   0%   { opacity: 0.0; }
@@ -116,7 +122,7 @@ a{text-decoration: none; color: black;}
 fieldset{
   border: none;
 }
-h2{ font-size: 24px;}
+h2{ font-size: 20px;}
 #search-bar{ margin-top: 0px; margin-bottom: 10px; }
 #overlay-inner, #search-bar-inner, #container, #top-inner, #footer-inner{
   max-width: 1024px; margin: 0px auto;
@@ -268,12 +274,14 @@ h2{ font-size: 24px;}
   -webkit-animation-duration: 1s;
 }
 
-#tag-wrapper{
-  animation: tag_slider 50s linear infinite; animation-delay: 0s;
-  -webkit-animation-duration: 50s;
-  -webkit-animation-name: tag_slider;
-  -webkit-animation-delay: 0s;
-  -webkit-animation-iteration-count: infinite;
+@if $example-animations == true {
+  #tag-wrapper{
+    animation: tag_slider 50s linear infinite; animation-delay: 0s;
+    -webkit-animation-duration: 50s;
+    -webkit-animation-name: tag_slider;
+    -webkit-animation-delay: 0s;
+    -webkit-animation-iteration-count: infinite;
+  }
 }
 
 .panel{
@@ -376,6 +384,7 @@ h2{ font-size: 24px;}
   padding: 3%;
 }
 
+h1{font-size: 24px;}
 h1, h2, h3{ margin: 6px 0px 6px; color: $secondary-color}
 h2 a, h3 a{color: $secondary-color;}
 .panel h2{
@@ -420,17 +429,25 @@ h2 a, h3 a{color: $secondary-color;}
   }
 }
 
-#tag-wrapper{ top: 48px; }
+#tag-wrapper{
+  @if $banner-overlay {
+    top: 180px;
+  } @else {
+    top: 240px;
+  }
+}
 
 #logo{
   @if $banner-overlay == true {
     height: 170px; width: 100%;
     background: transparent url(/assets/logo.png) center center no-repeat;
-    animation: logo_slider 50s linear infinite; animation-delay: 0s;
-    -webkit-animation-duration: 50s;
-    -webkit-animation-name: logo_slider;
-    -webkit-animation-delay: 0s;
-    -webkit-animation-iteration-count: infinite;
+    @if $example-animations == true {
+      animation: logo_slider 50s linear infinite; animation-delay: 0s;
+      -webkit-animation-duration: 50s;
+      -webkit-animation-name: logo_slider;
+      -webkit-animation-delay: 0s;
+      -webkit-animation-iteration-count: infinite;
+    }
   } @else {
     background: transparent url(/assets/logo-top.png) 8px 26px no-repeat;
     height: 100px;
@@ -604,9 +621,10 @@ h2 a, h3 a{color: $secondary-color;}
   (-moz-device-pixel-ratio: 2), 
   (-webkit-min-device-pixel-ratio: 2), 
   (min-resolution: 192dpi) { 
-  #logo{
-    background: transparent url(/assets/x2/logo.png) 0 0 no-repeat;
-    background-size: 260px 116px;
+  @if $banner-overlay == true {
+    #logo{ background: transparent url(/assets/x2/logo.png) 0 0 no-repeat; background-size: 260px 117px; }
+  } @else {
+    #mini-logo, #logo{ background: transparent url(/assets/x2/logo-top.png) 0 0 no-repeat; background-size: 120px 54px; }
   }
 }
 
@@ -651,9 +669,14 @@ h2 a, h3 a{color: $secondary-color;}
     #logo-wrapper{top: 80px;}
     #tag-wrapper{top: 216px;}
 
-    /* No space for animations, switch them off */
-    #logo, #tag-wrapper{ animation: none; -webkit-animation: none;}
+    @if $example-animations == true {
+      /* No space for animations, switch them off */
+      #logo, #tag-wrapper{ animation: none; -webkit-animation: none;}
+    }
   } @else {
+    /* Remove the top left links, you should probably have these duplicated in your footer for this case */
+    #top-inner{display: none;}
+
     #overlay{height: 456px;}
     #menu-wrapper{top: 344px;}
     #menu{width: 97%;}

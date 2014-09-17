@@ -156,14 +156,3 @@ h2 .label-highlight, .fragment .label-highlight{
   border-bottom: 1px solid $prime-color;
   margin-bottom : 10px;
 }
-
-/* High res 'retina' screens */
-@media (device-pixel-ratio: 2),
-(-moz-device-pixel-ratio: 2),
-(-webkit-min-device-pixel-ratio: 2),
-(min-resolution: 192dpi) {
-  #mini-logo{
-    background: transparent url(/assets/x2/logo-mini.png) 0 0 no-repeat;
-    background-size: 150px 54px;
-  }
-}
