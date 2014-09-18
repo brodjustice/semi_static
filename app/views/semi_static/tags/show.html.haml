@@ -1,6 +1,6 @@
 .section
   .col.span_2_of_3
-    - @tag.entries[0..2].each do |e|
+    - @tag.entries[0..(@tag.max_entries_on_index_page - 1)].each do |e|
       .panel.group{:class => e.style_class, :style => "background-color:#{e.background_colour}; color:#{e.colour}"}
         = render :partial => 'semi_static/entries/entry', :locals => {:e => e, :summary => true}
   .col.span_1_of_3
