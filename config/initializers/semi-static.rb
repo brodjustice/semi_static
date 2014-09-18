@@ -23,3 +23,10 @@ SemiStatic::Engine.config.localeDomains = { 'en' => 'http://127.0.0.1', 'de' => 
 # These are settings for the contact form and mailer
 SemiStatic::Engine.config.mailer_from = 'contact_form@business-landing.com'
 SemiStatic::Engine.config.mail_host = 'business-landing.com'
+
+# Add name of partial here to be loaded to layouts for analytics, eg. Google 
+# These will be combined for all locales so if you are using google make sure
+# it is set up to accept your different locale websites.
+#
+# SemiStatic::Engine.config.analytics_partial = 'site/analytics'
+SemiStatic::Engine.config.analytics_partial = nil

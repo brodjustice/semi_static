@@ -29,4 +29,4 @@
       #content
         =yield
     = render :partial => 'semi_static/shared/footer'
-    :javascript
+    = render :partial => SemiStatic::Engine.config.analytics_partial unless SemiStatic::Engine.config.analytics_partial.nil?
