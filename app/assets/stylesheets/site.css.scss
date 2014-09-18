@@ -158,22 +158,3 @@ h2 .label-highlight, .fragment .label-highlight{
   border-bottom: 1px solid $prime-color;
   margin-bottom : 10px;
 }
-
-// REMARK A: In multicolumn this provides an extra 1.6% that was left margin in .wrapping (left col) and puts it into the
-// the floating image left margin of the .floater (right col). This provides margin around the
-// left hand side of the floated image.
-.entry .wrapping{ margin-left: 0; }
-.entry .floater{ margin-left: 1.6%; }
-
-@media only screen and (max-width: 760px) {
-  // For smaller portrait the % margin at the top is too
-  // small so we fine tune here by forcing a reasonable
-  // margin between the image amd the top of the
-  // panel
-  .floater img{margin-top: 6px !important; }
-
-  // Once the column stops floating we need to get rid of that tweak
-  // we mentioned in REMARK A above.
-  .wrapping{ margin-left: 1.6%; }
-  .floater{ margin-left: 0 !important; }
-}
