@@ -122,10 +122,20 @@ h2 .label-highlight, .fragment .label-highlight{
   border-bottom: none;
 }
 
+.spacer_wrapper.reference{
+  border-top: 1px solid white;
+  padding-top: 9px;
+  margin-top: 4px;
+}
+
 .reference .spaced{
   height: 98px; width: 98px;
   position: relative;
   background-color: white;
+}
+
+.spaced.blank{
+  background-color: transparent;
 }
 
 .reference .photo.nutshell{

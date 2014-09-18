@@ -10,13 +10,4 @@
       .quote
         = simple_format(@reference.quote)
   .col.span_1_of_3
-    .gallery.index.group
-      %h2= t('References')
-      .spacer_wrapper.reference
-        - SemiStatic::Reference.all.each do |r|
-          .photo.nutshell
-            .spaced
-              - if r.quote.blank?
-                = image_tag(r.logo.url(:mini), :title => "#{r.title}")
-              - else
-                = link_to image_tag(r.logo.url(:mini), :title => "#{r.title} - #{truncate(r.body, :length => 50)}"), reference_path(r)
+    = render :partial => 'semi_static/references/side_bar'

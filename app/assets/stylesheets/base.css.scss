@@ -563,7 +563,6 @@ h2 a, h3 a{color: $secondary-color;}
 
 #menu .wrapper{
   position: relative;
-  padding: 0px 2px;
   z-index: 10;
 }
 
@@ -656,6 +655,7 @@ h2 a, h3 a{color: $secondary-color;}
 
 /* Basic mobile portrait or perhaps tablet portrait layout */
 @media only screen and (max-width: 780px) {
+  #menu a { text-transform: none; }
   .searchform input[type='text'] { width: 66%;}
   #banner4, #banner3, #banner2, #banner1, #banner0 {animation: none; opacity: 1.0; background-image: none; display: none;}
   #bannerBg {background-image: url(/assets/banners/banner-mobile.jpg);}
@@ -672,6 +672,8 @@ h2 a, h3 a{color: $secondary-color;}
   /* More % space for menu items */
   #menu .col{ width: 50%; }
   #menu .col:nth-child(5){ width: 100%; }
+
+  #menu a { text-transform: uppercase; }
 
   /* Stop adjusting margins by height %, it gets ugly this small */
   .col .img{margin: 0 auto; text-align:center;}

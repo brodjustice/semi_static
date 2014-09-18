@@ -5,7 +5,7 @@ module SemiStatic
 
     before_filter :authenticate_user!
   
-    layout 'dashboards'
+    layout 'semi_static_dashboards'
   
     def index
       @users = User.all

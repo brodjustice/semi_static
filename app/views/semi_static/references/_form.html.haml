@@ -13,7 +13,7 @@
         = image_tag(@reference.logo.url(:thumb), :size => "210x", :title => @reference.title)
 
   .field
-    = f.label :title
+    = f.label :title, 'Title - leave blank for empty box in sidebar'
     %br/
     = f.text_field :title
 
