@@ -8,6 +8,7 @@ module SemiStatic
     # needs to say 'Please provide either an email or telephone number'
     # validates_presence_of :telephone, :unless => :email?
     validates_format_of :email, :with => Devise.email_regexp, :allow_blank => true, :allow_nil => true
+    validates_presence_of :email, :unless => :telephone?
   
     after_create :send_email
   
