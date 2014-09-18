@@ -6,9 +6,12 @@
 $prime-color: #ff2700;
 $secondary-color: #303030;
 
-/* Change to match your logo dimensions */
+/* Change to match your logo and its dimensions */
+$logo: 'logo.png';
 $logo-width: 270px;
 $logo-height: 117px;
+
+$logo-top: 'logo-top.png';
 $logo-top-width: 120px;
 $logo-top-height: 54px;
 
@@ -450,7 +453,7 @@ h2 a, h3 a{color: $secondary-color;}
   @if $banner-overlay == true {
     height: $logo-height; width: $logo-width;
     margin: 0 auto;
-    background: transparent url(/assets/logo.png) center center no-repeat;
+    background: transparent url(/assets/#{$logo}) center center no-repeat;
     @if $example-animations == true {
       animation: logo_slider 50s linear infinite; animation-delay: 0s;
       -webkit-animation-duration: 50s;
@@ -459,14 +462,14 @@ h2 a, h3 a{color: $secondary-color;}
       -webkit-animation-iteration-count: infinite;
     }
   } @else {
-    background: transparent url(/assets/logo-top.png) left center no-repeat;
+    background: transparent url(/assets/#{$logo-top}) left center no-repeat;
     height: $logo-top-height;
   }
 }
 
 #mini-logo{
   width: $logo-top-width; height: $logo-top-height;
-  background: transparent url(/assets/logo-top.png) 0 0 no-repeat;
+  background: transparent url(/assets/#{$logo-top}) 0 0 no-repeat;
   position: absolute;
   top: 5px;
   left: 0px;
@@ -640,9 +643,9 @@ h2 a, h3 a{color: $secondary-color;}
   (-webkit-min-device-pixel-ratio: 2), 
   (min-resolution: 192dpi) { 
   @if $banner-overlay == true {
-    #logo{ background: transparent url(/assets/x2/logo.png) 0 0 no-repeat; background-size: $logo-width $logo-height; }
+    #logo{ background: transparent url(/assets/x2/$logo) 0 0 no-repeat; background-size: $logo-width $logo-height; }
   } @else {
-    #mini-logo, #logo{ background: transparent url(/assets/x2/logo-top.png) 0 0 no-repeat; background-size: $logo-top-width $logo-top-height; }
+    #mini-logo, #logo{ background: transparent url(/assets/x2/#{$logo-top}) 0 0 no-repeat; background-size: $logo-top-width $logo-top-height; }
   }
 }
 
