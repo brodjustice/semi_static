@@ -26,6 +26,6 @@
   - @contact.agreements.each do |agreement|
     %fieldset
       = check_box_tag :agreement_ids, agreement.id, agreement.ticked_by_default, :name => 'contact[agreement_ids][]'
-      = f.label agreement.body
+      = agreement.body
   .actions
     = f.submit t('Send')

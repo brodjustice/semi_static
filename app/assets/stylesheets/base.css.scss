@@ -647,7 +647,7 @@ h2 a, h3 a{color: $secondary-color;}
   (-webkit-min-device-pixel-ratio: 2), 
   (min-resolution: 192dpi) { 
   @if $banner-overlay == true {
-    #logo{ background: transparent url(/assets/x2/$logo) 0 0 no-repeat; background-size: $logo-width $logo-height; }
+    #logo{ background: transparent url(/assets/x2/#{$logo}) 0 0 no-repeat; background-size: $logo-width $logo-height; }
   } @else {
     #mini-logo, #logo{ background: transparent url(/assets/x2/#{$logo-top}) 0 0 no-repeat; background-size: $logo-top-width $logo-top-height; }
   }
@@ -766,3 +766,4 @@ h2 a, h3 a{color: $secondary-color;}
   .entry .span_1_of_2 { width: 100%; }
   .entry .col .img{margin: 0 auto; text-align:center;}
 }
+
