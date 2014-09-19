@@ -376,7 +376,7 @@ h2{ font-size: 20px;}
 #facebook{float: right; padding: 0px 8px 3px 28px; background: transparent url(/assets/vert-sprites.png) 0px -55px no-repeat;}
 #youtube{float: right; padding: 0px 8px 3px 28px; background: transparent url(/assets/vert-sprites.png) 0px -25px no-repeat;}
 #top .lady{float: right; display: block; padding: 4px 8px 0px 28px; background: transparent url(/assets/vert-sprites.png) 0px -109px no-repeat;}
-#top .contact{float: right; display: block; padding: 4px 8px 0px 34px; background: transparent url(/assets/vert-sprites.png) 0px -83px no-repeat;}
+#top .contact{float: right; display: block; padding: 4px 8px 0px 34px; background: transparent url(/assets/vert-sprites.png) 0px -84px no-repeat;}
 
 #top .icon{ background-size: 28px 188px; }
 
@@ -568,6 +568,7 @@ h2 a, h3 a{color: $secondary-color;}
 }
 .more a{
   background: transparent url(/assets/vert-sprites.png) right -138px no-repeat;
+  background-size: 28px 188px;
   padding: 4px 36px 2px 12px;
   margin: 2px 0px 6px;
 }
@@ -575,6 +576,18 @@ h2 a, h3 a{color: $secondary-color;}
   background: transparent url(/assets/vert-sprites.png) right -162px no-repeat;
   color: #d8d8d8;
 }
+
+/* High res 'retina' screens */
+@media (device-pixel-ratio: 2),
+  (-moz-device-pixel-ratio: 2),
+  (-webkit-min-device-pixel-ratio: 2),
+  (min-resolution: 192dpi) {
+  .more a, .feint .more a, .flat .more a, .news .more a{
+    background-image: url(/assets/x2/vert-sprites.png);
+    background-size: 28px 188px;
+  }
+}
+
 .feint .more a, .flat .more a{
   color: #b0b0b0;
 }

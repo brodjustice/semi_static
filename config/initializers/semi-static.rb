@@ -5,7 +5,6 @@ SemiStatic::Engine.config.copyright_owner = 'Business Landing Ltd'
 
 # The site name will be used in the webpage title, etc. but also for the selasticsearch indexing
 SemiStatic::Engine.config.site_name = 'Business Landing Ltd'
-SemiStatic::Engine.config.logo_image = '/assets/logo.jpg'
 SemiStatic::Engine.config.info_email = 'info@business-landing.com'
 SemiStatic::Engine.config.telephone = nil
 
