@@ -24,6 +24,8 @@ $search-bar-in-banner: false;
 /* Example animations */
 $example-animations: false;
 
+// SASS Partials - see also end of file
+
 /* LOGO SLIDER */
 @if $example-animations == true {
   @keyframes logo_slider {
@@ -189,7 +191,7 @@ h2{ font-size: 20px;}
   background-color: white;
   @if $banner-overlay == true {
     top: 33px;
-  } else {
+  } @else {
     top: 64px;
   }
 }
@@ -380,14 +382,6 @@ h2{ font-size: 20px;}
 
 #top .icon{ background-size: 28px 188px; }
 
-/* High res 'retina' screens */
-@media (device-pixel-ratio: 2),
-  (-moz-device-pixel-ratio: 2),
-  (-webkit-min-device-pixel-ratio: 2),
-  (min-resolution: 192dpi) {
-    #top .icon, #twitter, #facebook, #youtube { background-size: 28px 188px; background-image: url(/assets/x2/vert-sprites.png);}
-}
-
 .icon.sprite{height: 100px; width: 100px; background: url(/system/icons/menu-sprites.png) center 0px no-repeat;}
 .icon.sprite.mini{height: 45px; width: 50px; background-size: 50px 250px;}
 #sprite_1{background-position: center 0px;}
@@ -577,17 +571,6 @@ h2 a, h3 a{color: $secondary-color;}
   color: #d8d8d8;
 }
 
-/* High res 'retina' screens */
-@media (device-pixel-ratio: 2),
-  (-moz-device-pixel-ratio: 2),
-  (-webkit-min-device-pixel-ratio: 2),
-  (min-resolution: 192dpi) {
-  .more a, .feint .more a, .flat .more a, .news .more a{
-    background-image: url(/assets/x2/vert-sprites.png);
-    background-size: 28px 188px;
-  }
-}
-
 .feint .more a, .flat .more a{
   color: #b0b0b0;
 }
@@ -612,7 +595,7 @@ h2 a, h3 a{color: $secondary-color;}
   text-align: center;
   width: 100%;
   z-index: -1;
-  margin-top: -58px;
+  margin-top: -16px;
   left: 0px;
 }
 
@@ -654,7 +637,7 @@ h2 a, h3 a{color: $secondary-color;}
   margin: -3px auto !important;
   opacity: 0.0;
   display: block;
-  top: 24px;
+  top: -18px;
 }
 
 #selected .icon .custom{opacity: 0.5 !important;}
@@ -665,17 +648,8 @@ h2 a, h3 a{color: $secondary-color;}
 
 /* End custom menu icons */
 
-/* High res 'retina' screens */
-@media (device-pixel-ratio: 2), 
-  (-moz-device-pixel-ratio: 2), 
-  (-webkit-min-device-pixel-ratio: 2), 
-  (min-resolution: 192dpi) { 
-  @if $banner-overlay == true {
-    #logo{ background: transparent url(/assets/x2/#{$logo}) 0 0 no-repeat; background-size: $logo-width $logo-height; }
-  } @else {
-    #mini-logo, #logo{ background: transparent url(/assets/x2/#{$logo-top}) 0 0 no-repeat; background-size: $logo-top-width $logo-top-height; }
-  }
-}
+// SCSS Partials
+@import 'pixel';
 
 /* Remove inner shadow when width greater than 1500px */
 @media only screen and (max-width: 1500px) {
@@ -767,7 +741,7 @@ h2 a, h3 a{color: $secondary-color;}
     height: 0px;
     border-width: 2px;
     margin: 3px auto !important;
-    top: 58px;
+    top: 16px;
     width: 30%;
   }
   #menu{padding-bottom: 4px;}
