@@ -33,7 +33,7 @@
                url('/assets/raleway400.woff') format('woff'), 
                url('/assets/raleway-regular.ttf') format('truetype'); 
         }
-      = ObjectSpace.each_object(Sprockets::Environment).first.find_asset('home.css').source
+      = ObjectSpace.each_object(Sprockets::Environment).first.find_asset('home.css.scss').source
       -# = Rails.application.assets.find_asset('semi_static/home.css').source
 
     %link{:rel => 'shortcut icon', :href => '/assets/favicon.ico'}
