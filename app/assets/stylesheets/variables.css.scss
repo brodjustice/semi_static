@@ -1,0 +1,18 @@
+/* SASS */
+$prime-color: #ff2700;
+$secondary-color: #303030;
+
+/* Change to match your logo and its dimensions */
+$logo: 'logo.png';
+$logo-width: 270px;
+$logo-height: 117px;
+
+$logo-top: 'logo-top.png';
+$logo-top-width: 120px;
+$logo-top-height: 54px;
+
+/* Set to banner-overlay to false to have alternate home page layout with uncluttered banner image */
+$banner-overlay: true;
+
+/* For wide view ports you can have the search bar in the banner IF banner-overlay is true */
+$search-bar-in-banner: false;

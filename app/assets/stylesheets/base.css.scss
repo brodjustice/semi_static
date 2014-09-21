@@ -2,73 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-/* SASS */
-$prime-color: #ff2700;
-$secondary-color: #303030;
-
-/* Change to match your logo and its dimensions */
-$logo: 'logo.png';
-$logo-width: 270px;
-$logo-height: 117px;
-
-$logo-top: 'logo-top.png';
-$logo-top-width: 120px;
-$logo-top-height: 54px;
-
-/* Set to banner-overlay to false to have alternate home page layout with uncluttered banner image */
-$banner-overlay: true;
-
-/* For wide view ports you can have the search bar in the banner IF banner-overlay is true */
-$search-bar-in-banner: false;
-
-/* Example animations */
-$example-animations: false;
-
-// SASS Partials - see also end of file
-
-/* LOGO SLIDER */
-@if $example-animations == true {
-  @keyframes logo_slider {
-    0%   { background-position: center center; }
-    59%  { background-position: center center; }
-    61%  { background-position: 10% 50px; }
-    79%  { background-position: 10% 50px; }
-    81%  { background-position: center center; }
-    100%  { background-position: center center; }
-  }
-
-  @-webkit-keyframes logo_slider {
-    0%   { background-position: center center; }
-    59%  { background-position: center center; }
-    61%  { background-position: 10% 50px; }
-    79%  { background-position: 10% 50px; }
-    81%  { background-position: center center; }
-    100%  { background-position: center center; }
-  }
-  /* END LOGO SLIDER */
-
-  /* TAG SLIDER */
-  @keyframes tag_slider {
-    0%   { padding-top: 160px; margin-left: 0px;}
-    59%  { padding-top: 160px; margin-left: 0px;}
-    61%  { padding-top: 100px; margin-left: 160px;}
-    79%  { padding-top: 100px; margin-left: 160px;}
-    81%  { padding-top: 160px; margin-left: 0px;}
-    100%  { padding-top: 160px; margin-left: 0px;}
-  }
-
-  @-webkit-keyframes tag_slider {
-    0%   { padding-top: 160px; margin-left: 0px;}
-    59%  { padding-top: 160px; margin-left: 0px;}
-    61%  { padding-top: 100px; margin-left: 160px;}
-    79%  { padding-top: 100px; margin-left: 160px;}
-    81%  { padding-top: 160px; margin-left: 0px;}
-    100%  { padding-top: 160px; margin-left: 0px;}
-  }
-  /* END TAG SLIDER */
-}
-
-
 @keyframes fader {
   0%   { opacity: 0.0; }
   18%   { opacity: 0.0; }
@@ -289,16 +222,6 @@ h2{ font-size: 20px;}
   -webkit-animation-duration: 1s;
 }
 
-@if $example-animations == true {
-  #tag-wrapper{
-    animation: tag_slider 50s linear infinite; animation-delay: 0s;
-    -webkit-animation-duration: 50s;
-    -webkit-animation-name: tag_slider;
-    -webkit-animation-delay: 0s;
-    -webkit-animation-iteration-count: infinite;
-  }
-}
-
 .panel{
   padding: 2px 8px 0px;
   background-color: white;
@@ -463,13 +386,6 @@ h2 a, h3 a{color: $secondary-color;}
     height: $logo-height; width: $logo-width;
     margin: 0 auto;
     background: transparent url(/assets/#{$logo}) center center no-repeat;
-    @if $example-animations == true {
-      animation: logo_slider 50s linear infinite; animation-delay: 0s;
-      -webkit-animation-duration: 50s;
-      -webkit-animation-name: logo_slider;
-      -webkit-animation-delay: 0s;
-      -webkit-animation-iteration-count: infinite;
-    }
   } @else {
     background: transparent url(/assets/#{$logo-top}) left center no-repeat;
     height: $logo-top-height;
@@ -648,9 +564,6 @@ h2 a, h3 a{color: $secondary-color;}
 
 /* End custom menu icons */
 
-// SCSS Partials
-@import 'pixel';
-
 /* Remove inner shadow when width greater than 1500px */
 @media only screen and (max-width: 1500px) {
   #banner-frame{box-shadow: none;};
@@ -720,10 +633,6 @@ h2 a, h3 a{color: $secondary-color;}
     #logo-wrapper{top: 80px;}
     #tag-wrapper{top: 216px;}
 
-    @if $example-animations == true {
-      /* No space for animations, switch them off */
-      #logo, #tag-wrapper{ animation: none; -webkit-animation: none;}
-    }
   } @else {
     /* Remove the top left links, you should probably have these duplicated in your footer for this case */
     #top-inner ul{display: none;}
