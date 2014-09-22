@@ -1,13 +1,12 @@
 !!! 5
 %html{ :xmlns => "http://www.w3.org/1999/xhtml", :lang => I18n.locale.to_s, "xml:lang" => I18n.locale.to_s}
   %head
+    %title= @title || SemiStatic::Engine.config.site_name
     %meta{ :"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8" }/
     %meta{ :name => "Description", :content => "#{SemiStatic::Engine.config.site_name}" }/
     %meta{ :name => "keywords", :content => "#{t('keywords')}" }/
     %meta{ :name => "rating", :content => "General" }/
     %meta{:name => 'viewport', :content => 'width=device-width, initial-scale=1.0'}/
-
-    %title= SemiStatic::Engine.config.site_name
 
     = csrf_meta_tags
 

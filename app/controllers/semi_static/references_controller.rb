@@ -29,6 +29,7 @@ module SemiStatic
     def show
       @reference = Reference.find(params[:id])
       @selection = 'References'
+      @title = @reference.title
   
       respond_to do |format|
         format.html { render :layout => 'semi_static_application' }

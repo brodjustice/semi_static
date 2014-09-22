@@ -34,6 +34,7 @@
     def show
       @entry = Entry.find(params[:id])
       @tag = @entry.tag
+      @title = @entry.title
   
       respond_to do |format|
         format.html { render :layout => 'semi_static_application' }

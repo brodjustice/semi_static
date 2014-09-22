@@ -28,6 +28,7 @@ module SemiStatic
     def show
       @photo = Photo.find(params[:id])
       @selection = 'Gallery'
+      @title = @photo.title
   
       layout = (current_user ? 'semi_static_dashboards' : 'semi_static_application')
   

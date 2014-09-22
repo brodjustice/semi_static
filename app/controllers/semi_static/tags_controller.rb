@@ -22,6 +22,7 @@
     # GET /tags/1.json
     def show
       @tag = Tag.find_by_slug(params[:slug])
+      @title = @tag.name
   
       respond_to do |format|
         format.html { render :layout => 'semi_static_application' }
