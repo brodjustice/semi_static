@@ -19,6 +19,9 @@ SemiStatic::Engine.config.contact_email = 'brod@business-landing.com'
 # These are the domains for your different language versions of your site
 SemiStatic::Engine.config.localeDomains = { 'en' => 'http://127.0.0.1', 'de' => 'http://business-landing.de' }
 
+# You may want to have a fallback locale, especially during development. Set it here
+SemiStatic::Engine.config.default_locale = 'en'
+
 # These are settings for the contact form and mailer
 SemiStatic::Engine.config.mailer_from = 'contact_form@business-landing.com'
 SemiStatic::Engine.config.mail_host = 'business-landing.com'

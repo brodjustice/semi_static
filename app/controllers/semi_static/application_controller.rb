@@ -53,7 +53,7 @@ module SemiStatic
       # You also need to consider the page caching. You will need different public 
       # directories to store the page caches for each language, so youu will have
       # to adjust your webserver to make this happen.
-      SemiStatic::Engine.config.hosts_for_locales[request.host] || 'en'
+      SemiStatic::Engine.config.hosts_for_locales[request.host] || SemiStatic::Engine.config.default_locale
     end
   
     def set_locale

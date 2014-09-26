@@ -28,8 +28,14 @@ class SemiStaticInstallGenerator < Rails::Generators::Base
   end
 
   def copy_stylesheets
-    say '  SemiStatic  Stylesheets will be copied to your application unless you have them already'
-    directory('../../../../app/assets/stylesheets', destination_root + '/app/assets/stylesheets')
+    question = "  SemiStatic  Would you to copy the stylesheets into your application directory?\n" +
+      "  ----------  If you do this then you can modify the styleseets to your needs but you will need to edit your\n" +
+      "  ----------  application.css to not include the semi_static stylesheets, this typicaly means removing\n" +
+      "  ----------  the 'require tree' command from application.css. Copy stylesheets? (y/n): "
+    if yes?(question)
+      say '  SemiStatic  Stylesheets will be copied to your application unless you have them already'
+      directory('../../../../app/assets/stylesheets', destination_root + '/app/assets/stylesheets')
+    end
   end
 
   def create_asset_image_directories

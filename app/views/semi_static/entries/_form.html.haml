@@ -44,6 +44,9 @@
     = f.text_field :summary_length
 
   %fieldset
+    - if @entry.img.present?
+      = image_tag(@entry.img.url(:panel), :title => @entry.title, :class => 'ri')
+      %br/
     = f.label :img, 'Image (optional, will be resized to max 319px with)'
     %br/
     = f.file_field :img
