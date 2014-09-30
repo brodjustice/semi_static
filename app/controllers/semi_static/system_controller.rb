@@ -21,8 +21,8 @@ module SemiStatic
         @result = System.send(action, params[:cmd][action])
       end
       respond_to do |format|
-        format.html { render :template => "system/#{action}" }
-        format.js { render :template => "system/#{action}" }
+        format.html { render :template => "semi_static/system/#{action}" }
+        format.js { render :template => "semi_static/system/#{action}" }
       end
     end
   end
