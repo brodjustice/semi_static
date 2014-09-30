@@ -7,7 +7,7 @@ module SemiStatic
     attr_accessible :predefined_class, :colour, :icon_resize, :locale, :max_entries_on_index_page
     attr_accessor :icon_delete
   
-    has_many :entries
+    has_many :entries, :dependent => :destroy
   
     scope :menu, where('menu = ?', true)
     scope :locale, lambda {|locale| where("locale = ?", locale.to_s)}

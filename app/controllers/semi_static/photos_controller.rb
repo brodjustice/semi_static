@@ -44,7 +44,7 @@ module SemiStatic
       @photo = Photo.new
   
       respond_to do |format|
-        format.html # new.html.erb
+        format.html { render :layout => 'semi_static_dashboards' }
         format.json { render json: @photo }
       end
     end

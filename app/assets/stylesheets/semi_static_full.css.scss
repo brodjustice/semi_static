@@ -1,3 +1,8 @@
+/*
+ *= require_self
+ *= require jquery-te-1.4.0
+ */
+
 /* @import url(http://fonts.googleapis.com/css?family=Raleway); */
 @import 'variables.css.scss';
 @import 'scaffolds.css.scss';
@@ -5,5 +10,4 @@
 @import 'base.css.scss';
 @import 'pixel.css.scss';
 @import 'site.css.scss';
-@import 'jquery-te-1.4.0.css';
 @import 'dashboards.css.scss';
