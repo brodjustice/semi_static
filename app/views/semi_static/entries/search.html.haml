@@ -13,4 +13,4 @@
             %td= hit.try(:highlight).try(:body) ? hit.highlight.body.join('&hellip;').html_safe : e.body.html_safe
             %td.score= (hit._score * 100).round.to_s + '%'
   .col.span_1_of_3
-    = render :partial => 'tags/side_bar', :locals => {:start => 1, :entrytag => @entries.first.tag}
+    = render :partial => 'semi_static/tags/side_bar', :locals => {:start => 1, :entrytag => @entries.first ? @entries.first.tag : nil}
