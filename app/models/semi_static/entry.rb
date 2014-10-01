@@ -31,7 +31,7 @@ module SemiStatic
        :convert_options => { :panel => "-strip -gravity Center",
                              :big => "-strip -gravity Center"  }
   
-    ALLOWED_TAGS= %w(span br em b ul ol li a div p img hr)
+    ALLOWED_TAGS= %w(span br em b i u ul ol li a div p img hr)
     ALLOWED_ATTRIBUTES= %w(href style id align src alt)
   
     default_scope order(:position)
