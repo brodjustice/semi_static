@@ -1,3 +1,14 @@
+- if @tag.banner
+  - content_for :banner do
+    #overlay-2
+      #tag-wrapper
+        #tagline
+          = @entry.banner.tag_line
+    #banner
+      #banner-frame
+        .bg.desktop{:style => "background-image: url(#{@entry.banner.img.url(:desktop)})"}
+        .bg.mobile{:style => "display: none; background-image: url(#{@entry.banner.img.url(:mobile)})"}
+
 .section
   .col.span_2_of_3
     .panel.group{:class => @entry.style_class, :style => "background-color:#{@entry.background_colour}; color:#{@entry.colour}"}

@@ -1,0 +1,4 @@
+- if @banner.nil?
+  != "$(\"#selected_banner\").html('');"
+- else
+  != "$(\"#selected_banner\").html('#{escape_javascript(render :partial => 'semi_static/banners/show' )}');"

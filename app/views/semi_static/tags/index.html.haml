@@ -11,6 +11,7 @@
       %th= 'Menu'
       %th= 'Locale'
       %th= 'Position'
+      %th= 'Banner'
       %th
   
     - @tags.each do |tag|
@@ -26,5 +27,7 @@
         %td= tag.locale.to_s
         %td
           = tag.position if tag.menu
+        %td
+          = tag.banner.name unless tag.banner.nil?
         %td= link_to image_tag('/assets/bin.png'), tag, :method => :delete, :data => { :confirm => 'Are you sure?' }
   

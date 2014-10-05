@@ -1,3 +1,19 @@
+- content_for :ujs do
+  :javascript
+    function load_banner_preview(b_id){
+        $.ajax({
+          url: "/banners/" + b_id,
+          dataType: 'script'
+        });
+
+    };
+
+    $(document).ready(function() {
+      $( "#tag_banner_id" ).change(function() {
+        load_banner_preview($('#tag_banner_id').val());
+      });
+    });
+
 = form_for @tag do |f|
   - if @tag.errors.any?
     #error_explanation
@@ -14,6 +30,13 @@
     = f.label :sidebar_title
     %br/
     = f.text_field :sidebar_title
+  %fieldset
+    #selected_banner
+      - if @tag.banner.present?
+        = render :partial => 'semi_static/banners/show', :locals => {:banner => @tag.banner}
+    = f.label :banner
+    = f.select :banner_id, options_for_select(SemiStatic::Banner.all.collect{|b| [b.name, b.id]}.prepend(["- None -", 'none']), @tag.banner_id)
+
   %fieldset.section.group
     .col.span_1_of_2
       - if @tag.icon.present?

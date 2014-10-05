@@ -1,7 +1,18 @@
 - content_for :ujs do
   :javascript
+    function load_banner_preview(b_id){
+        $.ajax({
+          url: "/banners/" + b_id,
+          dataType: 'script'
+        });
+
+    };
+
     $(document).ready(function() {
       $('#entry_body').jqte();
+      $( "#entry_banner_id" ).change(function() {
+        load_banner_preview($('#entry_banner_id').val());
+      });
     });
 
 = form_for @entry do |f|
@@ -24,6 +35,12 @@
     = f.label :image_in_news
     = f.check_box :image_in_news
   %fieldset
+    #selected_banner
+      - if @entry.banner.present?
+        = render :partial => 'semi_static/banners/show', :locals => {:banner => @entry.banner}
+    = f.label :banner
+    = f.select :banner_id, options_for_select(SemiStatic::Banner.all.collect{|b| [b.name, b.id]}.prepend(["- None -", 'none']), @entry.banner_id)
+  %fieldset
     = f.label :position
     = f.text_field :position
   %fieldset
@@ -43,7 +60,7 @@
     %br/
     = f.text_field :summary_length
 
-  %fieldset
+  %fieldset.entry
     - if @entry.img.present?
       = image_tag(@entry.img.url(:panel), :title => @entry.title, :class => 'ri')
       %br/

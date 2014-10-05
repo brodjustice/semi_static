@@ -1,0 +1,31 @@
+= form_for(@banner) do |f|
+  - if @banner.errors.any?
+    #error_explanation
+      %h2= pluralize(@banner.errors.count, "error") + 'prohibited this banner from being saved:'
+
+      %ul
+        - @banner.errors.full_messages.each do |msg|
+          %li= msg
+
+
+  %fieldset
+    = f.label :name
+    %br/
+    = f.text_field :name
+  %fieldset
+    = f.label :tag_line
+    %br
+    = f.text_field :tag_line
+  %fieldset
+    - if @banner.img.present?
+      = image_tag(@banner.img.url(:mobile), :title => @banner.name, :class => 'ri')
+      %br/
+    = f.label :img, 'Image (Will be resized to 1500 x 300px)'
+    %br/
+    = f.file_field :img
+
+
+
+
+  .actions
+    = f.submit

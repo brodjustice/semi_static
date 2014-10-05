@@ -8,6 +8,7 @@ module SemiStatic
   
     attr_accessible :title, :body, :tag_id, :home_page, :summary, :img, :news_item, :image_in_news
     attr_accessible :position, :doc, :doc_description, :summary_length, :locale, :style_class, :header_colour, :background_colour, :colour
+    attr_accessible :banner_id
   
     belongs_to :tag
   
@@ -20,6 +21,7 @@ module SemiStatic
     scope :locale, lambda {|locale| where("locale = ?", locale.to_s)}
     scope :not, lambda {|entry| where("id != ?", (entry ? entry.id : 0))}
   
+    belongs_to :banner
     has_many :photos
     has_attached_file :doc
     has_attached_file :img,

@@ -1,4 +1,5 @@
 SemiStatic::Engine.routes.draw do
+
   resources :fcols do
     resources :links
   end
@@ -7,6 +8,7 @@ SemiStatic::Engine.routes.draw do
     collection { get :search }
   end
 
+  resources :banners
   resources :references
   resources :photos
   resources :agreements, :except => [:edit, :update]

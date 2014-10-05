@@ -137,6 +137,7 @@ h2{ font-size: 20px;}
   height: 280px;
 }
 
+
 #banner0{
   background:transparent url(/assets/banners/banner00.jpg) center 0px no-repeat; z-index: -10;
   animation: fader 50s linear infinite; animation-delay: 0s;
@@ -198,7 +199,9 @@ h2{ font-size: 20px;}
   width:100%;
   position: absolute;
   top: 0px;
+  background-position: center 0px;
 }
+.bg{ z-index: -1; }
 
 #footer{clear: both; border-top: 1px solid #d8d8d8; min-height: 50px; background-color: #f5f5f5;}
 #footer img{float: right; margin: -9px 0 0 8px;}
@@ -601,6 +604,8 @@ h2 a, h3 a{color: $secondary-color;}
 
 /* Basic mobile portrait or perhaps tablet portrait layout */
 @media only screen and (max-width: 780px) {
+  .mobile{display: block;}
+  .desktop{display: none;}
   #menu a { text-transform: none; }
   .searchform input[type='text'] { width: 66%;}
   #banner4, #banner3, #banner2, #banner1, #banner0 {animation: none; opacity: 1.0; background-image: none; display: none;}
