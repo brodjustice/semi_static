@@ -30,8 +30,8 @@ module SemiStatic
          :panel=> "324x>",
          :big=> "500x>"
        },
-       :convert_options => { :panel => "-strip -gravity Center",
-                             :big => "-strip -gravity Center"  }
+       :convert_options => { :panel => "-strip -gravity Center -quality 80",
+                             :big => "-strip -gravity Center -quality 80"  }
   
     ALLOWED_TAGS= %w(span br em b i u ul ol li a div p img hr)
     ALLOWED_ATTRIBUTES= %w(href style id align src alt)

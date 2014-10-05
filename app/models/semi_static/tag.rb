@@ -11,8 +11,6 @@ module SemiStatic
     has_many :entries, :dependent => :destroy
     belongs_to :banner
 
-    accepts_nested_attributes_for :banner, :allow_destroy => true
-  
     scope :menu, where('menu = ?', true)
     scope :locale, lambda {|locale| where("locale = ?", locale.to_s)}
     default_scope order(:position)
