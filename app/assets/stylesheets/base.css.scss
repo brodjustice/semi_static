@@ -254,6 +254,12 @@ h2{ font-size: 20px;}
   box-shadow: 0px 0px 1px rgba(0, 0, 0, 1.0);
 }
 
+.panel:last-child.dotted, .panel.dotted{
+  border: 1px dashed #c1c1c1;
+  box-shadow: none;
+}
+
+
 .panel.feint{
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
 }
