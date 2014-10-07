@@ -24,6 +24,8 @@ en:
   Contact_us: 'Contact us!'
   Thank_you: "Thanks!"
   Thank_you_for_your_equiry: 'Thank you for your enquiry, we will respond shortly'
+  Address: 'Address'
+  Contact_form: 'Contact'
 
   activerecord:
    errors:

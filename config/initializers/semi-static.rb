@@ -32,3 +32,7 @@ SemiStatic::Engine.config.mail_host = 'business-landing.com'
 #
 # SemiStatic::Engine.config.analytics_partial = 'site/analytics'
 SemiStatic::Engine.config.analytics_partial = nil
+
+# Add name for partial which will provide address and contact details if required. If
+# nil, then only the contact form will be shown
+SemiStatic::Engine.config.contact_partial = nil
