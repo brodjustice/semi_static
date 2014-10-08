@@ -6,7 +6,9 @@
           = @tag.banner.tag_line
     #banner
       #banner-frame
-        .bg{:style => "background-image: url(#{@tag.banner.img.url(:desktop)})"}
+        .bg.desktop{:style => "background-image: url(#{@tag.banner.img.url(:desktop)})"}
+        .bg.mobile{:style => "display: none; background-image: url(#{@tag.banner.img.url(:mobile)})"}
+
 
 .section
   .col.span_2_of_3

@@ -1,3 +1,8 @@
+%p
+  = "Some names are reserved and can be used for predefined pages, e.g 'Contact', 'Gallery', 'References'."
+%p
+  = "For example, having a banner"
+  = "named 'Contact' will cause it to be automatically displayed on the Contact page."
 = form_for(@banner) do |f|
   - if @banner.errors.any?
     #error_explanation
