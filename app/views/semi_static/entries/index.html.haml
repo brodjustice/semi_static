@@ -21,13 +21,13 @@
           %td= link_to entry.title, edit_entry_path(entry)
           %td= link_to entry.tag.name, edit_entry_path(entry)
           %td= link_to truncate(entry.summary, :lenght => 100), edit_entry_path(entry)
-          %td
+          %td.tick
             = image_tag('tick.png', :title => 'Visible in home page') if entry.home_page
-          %td
+          %td.tick
             = image_tag('tick.png', :title => 'Visible in news') if entry.news_item
-          %td
+          %td.tick
             = image_tag('tick.png', :title => 'Show side bar') if entry.side_bar
-          %td= entry.position.to_s
+          %td.number= entry.position.to_s
           %td
             = entry.banner.name unless entry.banner.nil?
           %td= entry.locale.to_s

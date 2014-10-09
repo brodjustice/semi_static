@@ -4,6 +4,15 @@ tr.top td{
 td.content{
   border-bottom: 1px dotted #a8a8a8;
 }
+td.tick{ text-align: center; }
+td.number{ text-align: right; padding-right: 12px;}
+
+th{
+  border: 1px solid #c8c8c8;
+  padding: 0px 2px;
+  background-color: #f0f0f0;
+  text-align: center;
+}
 /* Flipswitch from proto.io */
     .onoffswitch {
     position: relative; width: 90px;

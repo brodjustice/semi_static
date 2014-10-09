@@ -22,10 +22,10 @@
           - elsif tag.icon.present?
             = image_tag(tag.icon.url)
         %td= link_to tag.name, edit_tag_path(tag)
-        %td
+        %td.tick
           = image_tag('/assets/tick.png', :title => 'In menu') if tag.menu
-        %td= tag.locale.to_s
-        %td
+        %td.number= tag.locale.to_s
+        %td.number
           = tag.position if tag.menu
         %td
           = tag.banner.name unless tag.banner.nil?

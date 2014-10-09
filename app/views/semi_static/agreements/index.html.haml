@@ -14,9 +14,9 @@
     - @agreements.each do |a|
       %tr
         %td= link_to truncate_html(a.body, :length => 300), a
-        %td= a.locale.to_s
-        %td
+        %td.number= a.locale.to_s
+        %td.tick
           = image_tag('/assets/tick.png', :title => 'Displayed in default contact form') if a.display
-        %td= a.contacts.size
+        %td.number= a.contacts.size
         %td= a.created_at.strftime('%d/%m/%y %H:%M')
         %td= link_to image_tag('/assets/bin.png', :title => 'Delete'), a, :method => :delete, :data => { :confirm => "Confirm deleting agreement #{a.body}" }
