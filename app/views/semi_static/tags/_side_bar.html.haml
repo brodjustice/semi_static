@@ -9,6 +9,7 @@
     .section
       - (@tag.entries - [@entry]).each do |e|
         %h3= link_to e.title, e
-= render :partial => 'semi_static/site/search' unless @entry && !@entry.side_bar_search
-= render :partial => 'semi_static/site/social' unless @entry && !@entry.side_bar_social
-= render :partial => 'semi_static/tags/news' unless @entry && !@entry.side_bar_news
+- unless @entry.nil?
+  = render :partial => 'semi_static/site/search' if @entry.side_bar_search
+  = render :partial => 'semi_static/site/social' if @entry.side_bar_social
+  = render :partial => 'semi_static/tags/news' if @entry.side_bar_news

@@ -13,7 +13,6 @@
   .col{:class => ('span_2_of_3' if @entry.side_bar)}
     .panel.group{:class => @entry.style_class, :style => "background-color:#{@entry.background_colour}; color:#{@entry.colour}"}
       = render :partial => 'entry', :locals => {:e => @entry}
-      -# Is there an attached document?
       = render :partial => 'document' if @entry.doc.present?
       = render :partial => 'photos' unless @entry.photos.blank?
   - if @entry.side_bar
