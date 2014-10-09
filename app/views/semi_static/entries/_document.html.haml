@@ -1,0 +1,6 @@
+.doc
+  .col.span_2_of_3
+    = @entry.doc_description
+  .col.span_1_of_3
+    .button
+      = link_to "Download (#{(@entry.doc_file_size/1048576).to_s}Mb)", @entry.doc.url

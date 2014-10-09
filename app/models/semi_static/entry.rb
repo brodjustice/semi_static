@@ -9,6 +9,7 @@ module SemiStatic
     attr_accessible :title, :body, :tag_id, :home_page, :summary, :img, :news_item, :image_in_news
     attr_accessible :position, :doc, :doc_description, :summary_length, :locale, :style_class, :header_colour, :background_colour, :colour
     attr_accessible :banner_id
+    attr_accessible :side_bar, :side_bar_news, :side_bar_social, :side_bar_search
   
     belongs_to :tag
   

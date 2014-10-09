@@ -13,6 +13,16 @@
       $( "#entry_banner_id" ).change(function() {
         load_banner_preview($('#entry_banner_id').val());
       });
+      if (!$('#entry_side_bar').prop('checked')){
+        $('#side_bar_options').hide();
+      }
+      $('#entry_side_bar').change(function() {
+        if($('#entry_side_bar').prop('checked')) {
+          $('#side_bar_options').show();
+        } else {
+          $('#side_bar_options').hide();
+        }
+      });
     });
 
 = form_for @entry do |f|
@@ -75,6 +85,17 @@
     = f.label :doc_description, 'Document description (optional)'
     %br/
     = f.text_field :doc_description
+  %fieldset
+    = f.label :side_bar
+    = f.check_box :side_bar
+    %fieldset#side_bar_options
+      = f.label :side_bar_news, 'News'
+      = f.check_box :side_bar_news
+      = f.label :side_bar_social, 'Social links'
+      = f.check_box :side_bar_social
+      = f.label :side_bar_search, 'Search'
+      = f.check_box :side_bar_search
+
   %fieldset
     = f.label :locale
     = f.select :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @entry.locale)

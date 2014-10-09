@@ -1,0 +1,7 @@
+.news
+  %h2= t('News') + ':'
+  - SemiStatic::Entry.news.not(@entry).limit(3).locale(I18n.locale).each do |e|
+    .panel
+      %h3= link_to e.title, e
+      = entry_summary(e, e.summary_length)
+      .more= link_to t('more'), e

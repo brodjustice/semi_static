@@ -10,24 +10,12 @@
         .bg.mobile{:style => "display: none; background-image: url(#{@entry.banner.img.url(:mobile)})"}
 
 .section
-  .col.span_2_of_3
+  .col{:class => ('span_2_of_3' if @entry.side_bar)}
     .panel.group{:class => @entry.style_class, :style => "background-color:#{@entry.background_colour}; color:#{@entry.colour}"}
       = render :partial => 'entry', :locals => {:e => @entry}
       -# Is there an attached document?
-      - if @entry.doc.present?
-        .doc
-          .col.span_2_of_3
-            = @entry.doc_description
-          .col.span_1_of_3
-            .button
-              = link_to "Download (#{(@entry.doc_file_size/1048576).to_s}Mb)", @entry.doc.url
-      - unless @entry.photos.blank?
-        .gallery.doc
-          .spacer_wrapper
-            -# %h2{:style => "color: #{@entry.header_colour}"}= t('Gallery')
-            - @entry.photos.each do |p|
-              .photo.nutshell
-                .spaced
-                  = link_to image_tag(p.img.url(:mini), :title => "#{p.title} - #{truncate(p.description, :length => 50)}"), photo_path(p)
-  .col.span_1_of_3
-    = render :partial => 'semi_static/tags/side_bar', :locals => {:entrytag => @entry.tag}
+      = render :partial => 'document' if @entry.doc.present?
+      = render :partial => 'photos' unless @entry.photos.blank?
+  - if @entry.side_bar
+    .col.span_1_of_3
+      = render :partial => 'semi_static/tags/side_bar', :locals => {:entrytag => @entry.tag}

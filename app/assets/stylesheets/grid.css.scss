@@ -2,7 +2,7 @@
 .section { clear: both; padding: 0px; margin: 0px; }
 
 /*  COLUMN SETUP  */
-.col { position: relative; display: block; float:left; margin: 1% 0 1% 1.6%; }
+.col { width: 100%; position: relative; display: block; float:left; margin: 1% 0 1% 1.6%; }
 .col:first-child { margin-left: 0; }
 
 /* RESIZING IMAGES */

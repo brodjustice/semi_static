@@ -9,6 +9,7 @@
       %th= 'Summary'
       %th= 'Home page'
       %th= 'News'
+      %th= 'Side Bar'
       %th= 'Position'
       %th= 'Banner'
       %th= 'Locale'
@@ -24,6 +25,8 @@
             = image_tag('tick.png', :title => 'Visible in home page') if entry.home_page
           %td
             = image_tag('tick.png', :title => 'Visible in news') if entry.news_item
+          %td
+            = image_tag('tick.png', :title => 'Show side bar') if entry.side_bar
           %td= entry.position.to_s
           %td
             = entry.banner.name unless entry.banner.nil?
