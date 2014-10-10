@@ -2,7 +2,6 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  TagLine: 'This tagline is in the locales file'
   News: 'News'
   NEWS: 'NEWS'
   ImprintAndCredits: 'Imprint and credits'
