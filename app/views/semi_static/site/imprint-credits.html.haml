@@ -1,15 +1,13 @@
 .mid
-  %h2= t('Address')
-  %p
-    = SemiStatic::Engine.config.copyright_owner
-    %br/
-  - unless SemiStatic::Engine.config.telephone.blank?
+  - if SemiStatic::Engine.config.contact_partial.nil?
     %p
-      = t('Telephone') + ':'
-      = SemiStatic::Engine.config.telephone
-  %p
-    = t('Email') + ':'
-    = mail_to SemiStatic::Engine.config.info_email, SemiStatic::Engine.config.info_email
+      = SemiStatic::Engine.config.copyright_owner
+      %br/
+    %p
+      = t('Email') + ':'
+      = mail_to SemiStatic::Engine.config.info_email, SemiStatic::Engine.config.info_email
+  - else
+    = render :partial => SemiStatic::Engine.config.contact_partial
   %h2 Credits
   %p
     Website by
