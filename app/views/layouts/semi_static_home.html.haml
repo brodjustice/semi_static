@@ -35,6 +35,7 @@
         }
       = ObjectSpace.each_object(Sprockets::Environment).first.find_asset('home.css.scss').source
       -# = Rails.application.assets.find_asset('semi_static/home.css').source
+      = yield :inline_css
 
     %link{:rel => 'shortcut icon', :href => '/assets/favicon.ico'}
   %body

@@ -609,9 +609,11 @@ h2 a, h3 a{color: $secondary-color;}
 }
 
 /* Basic mobile portrait or perhaps tablet portrait layout */
-@media only screen and (max-width: 780px) {
+@media only screen and (max-width: 750px) {
   .mobile{display: block !important;}
   .desktop{display: none !important;}
+}
+@media only screen and (max-width: 780px) {
   #menu a { text-transform: none; }
   .searchform input[type='text'] { width: 66%;}
   #banner4, #banner3, #banner2, #banner1, #banner0 {animation: none; opacity: 1.0; background-image: none; display: none;}
