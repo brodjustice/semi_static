@@ -36,3 +36,7 @@ SemiStatic::Engine.config.analytics_partial = nil
 # Add name for partial which will provide address and contact details if required. If
 # nil, then only the contact form will be shown
 SemiStatic::Engine.config.contact_partial = nil
+
+# Add name for partial which will provide embedded social widgets on your home page
+# if nil, then nothing will be shown
+SemiStatic::Engine.config.social_partial = nil

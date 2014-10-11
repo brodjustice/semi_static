@@ -6,6 +6,7 @@
   .col.span_1_of_3
     = render :partial => 'semi_static/site/search'
     = render :partial => 'semi_static/site/social'
+    = render :partial => SemiStatic::Engine.config.social_partial if SemiStatic::Engine.config.social_partial.present?
     .news
       %h2= t('News') + ':'
       - SemiStatic::Entry.news.limit(3).locale(I18n.locale).each do |e|
