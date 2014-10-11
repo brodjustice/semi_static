@@ -3,5 +3,7 @@
   - SemiStatic::Entry.news.not(@entry).limit(3).locale(I18n.locale).each do |e|
     .panel
       %h3= link_to e.title, e
+      - if e.image_in_news && e.img.present?
+        .image= link_to image_tag(e.img.url(:bar)), e
       = entry_summary(e, e.summary_length)
       .more= link_to t('more'), e
