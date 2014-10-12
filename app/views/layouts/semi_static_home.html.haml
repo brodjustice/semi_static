@@ -37,6 +37,9 @@
       -# = Rails.application.assets.find_asset('semi_static/home.css').source
       = yield :inline_css
 
+    %script
+      = ObjectSpace.each_object(Sprockets::Environment).first.find_asset('semi-static.js').source
+
     %link{:rel => 'shortcut icon', :href => '/assets/favicon.ico'}
   %body
     = render :partial => 'semi_static/shared/banner'

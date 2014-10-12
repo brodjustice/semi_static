@@ -1,10 +1,13 @@
 #overlay.header{
   height:auto;
-  margin-bottom: 28px;
 }
 
 #overlay-2{
-  height: 200px;
+  @if $banner-overlay == true {
+    height: 281px;
+  } @else {
+    height: 312px;
+  }
 }
 
 #menu-wrapper{
@@ -14,7 +17,7 @@
 
 #menu{
   margin-top: 38px;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
 
 h1 a{ color: $prime-color;}

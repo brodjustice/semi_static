@@ -25,6 +25,8 @@ de:
   Thank_you_for_your_equiry: 'Thank you for your enquiry, we will respond shortly'
   Address: 'Anschrift'
   Contact_form: 'Anfrageformular'
+  Menu: 'Menu'
+  Close: 'Schließen'
 
   activerecord:
    errors:

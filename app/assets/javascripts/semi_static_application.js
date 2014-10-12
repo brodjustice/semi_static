@@ -12,4 +12,5 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require semi-static
 //= require_tree .

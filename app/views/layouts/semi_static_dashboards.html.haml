@@ -18,6 +18,7 @@
 
     %link{:rel => 'shortcut icon', :href => '/assets/favicon.ico'}
   %body
+    = render :partial => 'semi_static/shared/dashboard_top'
     #container
       #container-inner
         - unless flash.blank?
