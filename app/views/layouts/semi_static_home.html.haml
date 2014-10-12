@@ -38,7 +38,7 @@
       = yield :inline_css
 
     %script
-      = ObjectSpace.each_object(Sprockets::Environment).first.find_asset('semi-static.js').source
+      = ObjectSpace.each_object(Sprockets::Environment).first.find_asset('semi-static.js').source.html_safe
 
     %link{:rel => 'shortcut icon', :href => '/assets/favicon.ico'}
   %body

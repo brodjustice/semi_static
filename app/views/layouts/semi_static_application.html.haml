@@ -14,7 +14,7 @@
     <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
     = stylesheet_link_tag 'semi_static_application', :media => 'all'
     %script
-      = ObjectSpace.each_object(Sprockets::Environment).first.find_asset('semi-static.js').source
+      = ObjectSpace.each_object(Sprockets::Environment).first.find_asset('semi-static.js').source.html_safe
 
     = yield :ujs
 
