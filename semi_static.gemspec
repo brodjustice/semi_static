@@ -24,9 +24,6 @@ Gem::Specification.new do |s|
   s.add_dependency "paperclip", "~> 2.7"
   s.add_dependency "devise", "~> 3.2"
 
-  # TEST
-  s.add_dependency "sass-rails", "~> 3.2"
-
   # Can use CanCan 2.0 for Engine namespacing,
   # but support is not given.
   # The alternative is to add cancan_namespace:
