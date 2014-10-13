@@ -1,7 +1,7 @@
 class SemiStaticInstallGenerator < Rails::Generators::Base
   source_root File.expand_path('../templates', __FILE__)
 
-  SEED_FILE_UNIQUE_ID = 'BL-SemiStatic-ct688G4zQ'
+  GEMFILE_UNIQUE_ID = SEED_FILE_UNIQUE_ID = 'BL-SemiStatic-ct688G4zQ'
   MOUNT_ROUTE = 'mount SemiStatic::Engine, :at => "/"'
   DEVISE_SECRET_KEY = 'config.secret_key'
   PRECOMPILE_ASSETS = 'semi_static_application.css semi_static_full.css semi_static_application.js'
@@ -28,6 +28,17 @@ class SemiStaticInstallGenerator < Rails::Generators::Base
   end
 
   def copy_stylesheets
+    # Because of a wierd sass-rails namespacing problem which is noted here, and elsewhere:
+    #   https://github.com/rails/sass-rails/issues/165
+    # our engine will not be able to get the correct load paths for our assets in the application
+    # unless we take the sass-rails gem out of the assests group in the application Gemfile. So
+    # we need to do some fancy editing here:
+    gemfile_id_found = run("grep -w \'#{GEMFILE_UNIQUE_ID}\' Gemfile >/dev/null")
+    if gemfile_id_found == false
+      sassrails = `grep -w \'sass-rails\' Gemfile`
+      gsub_file 'Gemfile', /gem \'sass-rails\'.*$/, "# Commented out by SemiStatic generator\n  # #{GEMFILE_UNIQUE_ID} - Please don't remove\n  # #{sassrails}"
+      inject_into_file "Gemfile", "\n# Added by SemiStatic for asset namespacing\n" + sassrails + "\n", :before => "group :assets do\n"
+    end
     copy_file('../../../../app/assets/stylesheets/variables.css.scss', destination_root + '/app/assets/stylesheets/semi_static/variables.css.scss')
     copy_file('../../../../app/assets/stylesheets/custom.css.scss', destination_root + '/app/assets/stylesheets/semi_static/custom.css.scss')
   end
