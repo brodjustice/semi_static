@@ -663,9 +663,6 @@ h2 a, h3 a{color: $secondary-color;}
   }
   #menu .col{ width: 100%; }
 
-  // Get rid of any icon background
-  #menu .wrapper .icon{display: none;}
-
   // Need to radically change the hover icons now menu has collapsed
   .icon .custom{
     height: 0px;
@@ -708,7 +705,10 @@ h2 a, h3 a{color: $secondary-color;}
   .col .img{margin: 0 auto; text-align:center;}
   .col{margin-top: 1px; margin-bottom: 3px;}
 
-  .wrapper .icon.sprite{background-image: none;}
+  .wrapper:not(#selected) .icon.sprite{background-image: none;}
+
+  /* No Firefox support for background-position-x, but applies only usually to mobile any */
+  #selected.wrapper .icon.sprite{background-position-x: left;}
 }
 
 @media only screen and (min-width: 760px) {
