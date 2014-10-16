@@ -117,15 +117,13 @@ h2 .label-highlight, .fragment .label-highlight{
     margin: 0 auto;
 }
 
-.quote{
-  border-bottom: 1px dashed #383838;
-  font-style: italic;
-  padding-bottom: 12px;
-  text-align: left;
+.references h2, .references h2 a{
+  color: $prime-color;
 }
 
-.quote:last-child{
-  border-bottom: none;
+.quote{
+  padding-bottom: 12px;
+  text-align: left;
 }
 
 .spacer_wrapper.reference{

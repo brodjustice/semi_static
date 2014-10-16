@@ -1,6 +1,15 @@
 = render :partial => 'semi_static/shared/custom_banner', :locals => {:banner_name => 'References'}
-.section
-  .col.span_2_of_3
-    = render :partial => 'semi_static/references/quotes'
-  .col.span_1_of_3
-    = render :partial => 'semi_static/references/side_bar'
+- if @tag && @tag.partial_before_entries?
+  = render :partial => @tag.partial_path
+- if @tag && @tag.show_entries?
+  .section
+    - if SemiStatic::Engine.config.reference_logos
+      .col.span_2_of_3
+        = render :partial => 'semi_static/references/quotes'
+      .col.span_1_of_3
+        = render :partial => 'semi_static/references/side_bar'
+    - else
+      .col.span_1_of_1
+        = render :partial => 'semi_static/references/quotes'
+- if @tag.partial_after_entries?
+  = render :partial => @tag.partial_path

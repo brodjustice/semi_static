@@ -1,9 +1,8 @@
 .references
   .panel.list
-    -# %h1= t('Quotes')
-    %h1= t('References')
+    -# %h1= t('References')
     .section
       - SemiStatic::Reference.side_bar.locale(I18n.locale).each do |r|
-        %h3= link_to r.title, r
+        %h2= link_to r.title, r
         .quote
           = r.quote

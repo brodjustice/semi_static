@@ -42,6 +42,9 @@ module SemiStatic
     config.mailer_from = 'contact_form@business-landing.com'
     config.mail_host = 'business-landing.com'
     
+    # Set to false if you don't want to show client logos in a side bar or the main reference page
+    config.reference_logos = true
+
     # Add name of partial here to be loaded to layouts for analytics, eg. Google 
     # These will be combined for all locales so if you are using google make sure
     # it is set up to accept your different locale websites.
@@ -58,7 +61,7 @@ module SemiStatic
     config.social_partial = nil
 
     # Your own partials that can be used in Entries and Tags views should be stored in
-    # ./app/views/semi_static/partials. SemiStatic will then automatically make the available
+    # ./app/views/semi_static/partials. SemiStatic will then automatically make them available
     # to the admin dashboard when you edit a new entry or tag.
     config.open_partials = partial_finder
   end

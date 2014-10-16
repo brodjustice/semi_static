@@ -6,7 +6,7 @@
       - SemiStatic::Tag.menu.locale(I18n.locale.to_s).limit(5).each_with_index do |t, i|
         .col.span_1_of_5
           .wrapper{:id => ('selected' if ((@tag == t) || (@selection == t.predefined_class)))}
-            = link_to t.name, t.predefined_class.blank? ? semi_static.feature_path(t.slug) : SemiStatic::TagsHelper::PREDEFINED[t.predefined_class], :class => 'text'
+            = link_to t.name, t.predefined_class.blank? ? semi_static.feature_path(t.slug) : "#{SemiStatic::TagsHelper::PREDEFINED[t.predefined_class]}?tag_id=#{t.id}", :class => 'text'
             - if SemiStatic::Tag.use_sprites?
               .icon.sprite{:id => "sprite_#{(i + 1).to_s}"}
             - else

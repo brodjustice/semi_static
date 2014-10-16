@@ -35,7 +35,7 @@
         }
       = ObjectSpace.each_object(Sprockets::Environment).first.find_asset('home.css.scss').source
       -# = Rails.application.assets.find_asset('semi_static/home.css').source
-      = yield :inline_css
+      = yield :header_css
 
     %script
       = ObjectSpace.each_object(Sprockets::Environment).first.find_asset('semi-static.js').source.html_safe
