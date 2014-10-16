@@ -1,6 +1,7 @@
 module SemiStatic
   class Entry < ActiveRecord::Base
     include ExpireCache
+    include PartialControl
     include Elasticsearch::Model
     include Elasticsearch::Model::Callbacks
   
@@ -8,7 +9,7 @@ module SemiStatic
   
     attr_accessible :title, :body, :tag_id, :home_page, :summary, :img, :news_item, :image_in_news
     attr_accessible :position, :doc, :doc_description, :summary_length, :locale, :style_class, :header_colour, :background_colour, :colour
-    attr_accessible :banner_id
+    attr_accessible :banner_id, :partial, :entry_position
     attr_accessible :side_bar, :side_bar_news, :side_bar_social, :side_bar_search
   
     belongs_to :tag
@@ -36,6 +37,9 @@ module SemiStatic
   
     ALLOWED_TAGS= %w(span br em b i u ul ol li a div p img hr)
     ALLOWED_ATTRIBUTES= %w(href style id align src alt)
+
+    DISPLAY_ENTRY = {1 => :before, 2 => :after, 3 => :none}
+    DISPLAY_ENTRY_SYM = DISPLAY_ENTRY.invert
   
     default_scope order(:position)
     scope :additional_entries, lambda {|e| where('tag_id = ?', e.tag_id).where('id != ?', e.id)}

@@ -65,7 +65,7 @@
   
       respond_to do |format|
         if @entry.save
-          format.html { redirect_to @entry }
+          format.html { redirect_to entries_path }
           format.json { render :json => @entry, :status => :created, :location => @entry }
         else
           format.html { render :action => "new" }
@@ -81,7 +81,7 @@
   
       respond_to do |format|
         if @entry.update_attributes(params[:entry])
-          format.html { redirect_to @entry }
+          format.html { redirect_to entries_path }
           format.json { head :no_content }
         else
           format.html { render :action => "edit" }

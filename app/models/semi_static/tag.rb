@@ -2,10 +2,11 @@ module SemiStatic
   class Tag < ActiveRecord::Base
   
     include ExpireCache
+    include PartialControl
   
     attr_accessible :name, :menu, :position, :icon, :icon_in_menu, :icon_delete, :sidebar_title
     attr_accessible :predefined_class, :colour, :icon_resize, :locale, :max_entries_on_index_page
-    attr_accessible :banner_id
+    attr_accessible :banner_id, :partial, :entry_position
     attr_accessor :icon_delete
   
     has_many :entries, :dependent => :destroy
@@ -47,7 +48,7 @@ module SemiStatic
         self.sidebar_title = self.name
       end
     end
-  
+
     def check_for_sprites_file
       if position == 0
         # Get extention and remove any query string if it exists, then add own
