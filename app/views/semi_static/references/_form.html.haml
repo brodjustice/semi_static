@@ -31,7 +31,8 @@
   %fieldset
     = f.label :locale
     = f.select :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @reference.locale)
-    = f.label :show_in_side_bar
+    -#TODO show_in_side_bar DB col should be changed, used now to indicate if quote is shown
+    = f.label :show_in_side_bar, 'Show Quote'
     = f.check_box :show_in_side_bar
   %fieldset
     = f.label :position
