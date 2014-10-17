@@ -90,7 +90,7 @@
     - if @entry.img.present?
       = image_tag(@entry.img.url(:panel), :title => @entry.title, :class => 'ri')
       %br/
-    = f.label :img, 'Image (optional, will be resized to max 319px with)'
+    = f.label :img, 'Image (optional, will be resized to max 324px width)'
     %br/
     = f.file_field :img
   %fieldset

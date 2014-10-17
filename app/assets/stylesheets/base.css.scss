@@ -634,6 +634,8 @@ h2 a, h3 a{color: $secondary-color;}
   // we mentioned in REMARK A above.
   .wrapping{ margin-left: 1.6%; }
   .floater{ margin-left: 0 !important; }
+
+  .searchform input[type='text'] { width: 66%;}
 }
 
 @if $search-bar-in-banner == true {
@@ -646,6 +648,8 @@ h2 a, h3 a{color: $secondary-color;}
 @media only screen and (max-width: 750px) {
   .mobile{display: block !important;}
   .desktop{display: none !important;}
+  #banner4, #banner3, #banner2, #banner1, #banner0 {animation: none; opacity: 1.0; background-image: none; display: none;}
+  #bannerBg {background-image: url(/assets/banners/#{$banner-mobile});}
 }
 
 @media only screen and (max-width: 820px) {
@@ -691,12 +695,6 @@ h2 a, h3 a{color: $secondary-color;}
     #overlay.header{ height: 56px !important;}
     #overlay-2{ height: 304px !important;}
   }
-}
-
-@media only screen and (max-width: 780px) {
-  .searchform input[type='text'] { width: 66%;}
-  #banner4, #banner3, #banner2, #banner1, #banner0 {animation: none; opacity: 1.0; background-image: none; display: none;}
-  #bannerBg {background-image: url(/assets/banners/#{$banner-mobile});}
 }
 
 /* Mobile portrait layout at less than 580px */
