@@ -3,7 +3,7 @@
   #top .icon, #twitter, #facebook, #youtube, #menu-button, #menu-close { background-size: 28px 209px; background-image: url(/assets/x2/vert-sprites.png);}
   .more a, .feint .more a, .flat .more a, .news .more a{
     background-image: url(/assets/x2/vert-sprites.png);
-    background-size: 28px 209px;
+    background-size: 28px 220px;
   }
   #mini-logo{ background: transparent url(/assets/x2/#{$logo-top}) 0 0 no-repeat; background-size: $logo-top-width $logo-top-height; }
   @if $banner-overlay == true {
