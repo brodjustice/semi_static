@@ -1,4 +1,4 @@
-- unless SemiStatic::Engine.config.twitterID.nil? && SemiStatic::Engine.config.facebookID.nil? && SemiStatic::Engine.config.youtubeChannel.nil?
+- unless SemiStatic::Engine.config.twitterID.nil? && SemiStatic::Engine.config.facebookID.nil? && SemiStatic::Engine.config.youtubeChannel.nil? && SemiStatic::Engine.config.xing.nil?
   .social
     -unless SemiStatic::Engine.config.twitterID.nil?
       = link_to "https://twitter.com/#{SemiStatic::Engine.config.twitterID}" do
@@ -12,3 +12,7 @@
       = link_to "https://www.youtube.com/#{SemiStatic::Engine.config.youtubeChannel}" do
         #youtube
           YouTube
+    -unless SemiStatic::Engine.config.xingID.nil?
+      = link_to "https://www.xing.com/#{SemiStatic::Engine.config.xingID}" do
+        #xing
+          Xing

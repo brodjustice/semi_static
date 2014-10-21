@@ -28,6 +28,7 @@ module SemiStatic
     config.twitterID = 'businesslandingID'
     config.youtubeChannel = 'businesslandingID'
     config.facebookID = 'businesslandingID'
+    config.xingID = 'businesslandingID'
     
     # This is the address to which the contact form data is sent to
     config.contact_email = 'brod@business-landing.com'
