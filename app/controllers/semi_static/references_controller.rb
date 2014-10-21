@@ -61,7 +61,7 @@ module SemiStatic
   
       respond_to do |format|
         if @reference.save
-          format.html { redirect_to @reference }
+          format.html { redirect_to references_path }
           format.json { render json: @reference, status: :created, location: @reference }
         else
           format.html { render action: "new" }
@@ -76,7 +76,7 @@ module SemiStatic
   
       respond_to do |format|
         if @reference.update_attributes(params[:reference])
-          format.html { redirect_to @reference }
+          format.html { redirect_to references_path }
           format.json { head :no_content }
         else
           format.html { render action: "edit" }

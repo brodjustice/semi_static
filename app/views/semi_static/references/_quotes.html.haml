@@ -2,7 +2,7 @@
   .panel.list
     -# %h1= t('References')
     .section
-      - SemiStatic::Reference.side_bar.locale(I18n.locale).each do |r|
+      - SemiStatic::Reference.side_bar.locale(I18n.locale).limit(@tag.max_entries_on_index_page).each do |r|
         %h2= link_to r.title, r
         .quote
           = r.quote
