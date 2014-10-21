@@ -35,8 +35,8 @@ module SemiStatic
        :convert_options => { :panel => "-strip -gravity Center -quality 80",
                              :big => "-strip -gravity Center -quality 80"  }
   
-    ALLOWED_TAGS= %w(span br em b i u ul ol li a div p img hr)
-    ALLOWED_ATTRIBUTES= %w(href style id align src alt)
+    ALLOWED_TAGS= %w(span br em b i u ul ol li a div p img hr iframe)
+    ALLOWED_ATTRIBUTES= %w(href style id align src alt height width frameborder allowfullscreen)
 
     DISPLAY_ENTRY = {1 => :before, 2 => :after, 3 => :none}
     DISPLAY_ENTRY_SYM = DISPLAY_ENTRY.invert
