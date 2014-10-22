@@ -1,3 +1,10 @@
+- content_for :ujs do
+  :javascript
+    $(document).ready(function() {
+      semi_static_file_name_input = $('#photo_title');
+      $("#photo_img").on('change', semiStaticPrepareUploadFromInput);
+    });
+
 = form_for @photo do |f|
   - if @photo.errors.any?
     #error_explanation
@@ -7,16 +14,16 @@
           %li= msg
 
   .field
-    .photo
-      - if @photo.img.exists? then
-        = image_tag(@photo.img.url(:thumb), :size => "210x", :title => @photo.title)
-
-  .field
     = f.label :title
     %br/
     = f.text_field :title
 
   .field
+    .photo.entry
+      - if @photo.img.present?
+        = image_tag(@photo.img.url(:thumb), :title => @photo.title, :size => '210x', :class => 'ri', :id => 'semi_static_photo')
+      - else
+        = image_tag('/assets/no-image-loaded.jpg', :title => 'No image', :class => 'ri', :id => 'semi_static_photo')
     = f.file_field :img
 
   .field.wide
@@ -24,7 +31,7 @@
     %br/
     = f.text_area :description, :rows => '10'
   %fieldset
-    = f.label :entry_id, 'Entry (optional)'
+    = f.label :entry_id, 'Entry link (optional)'
     = f.select :entry_id, options_for_select(SemiStatic::Entry.all.collect{|e| [e.title, e.id]}.prepend(['- None -', nil]), @photo.entry_id)
   %fieldset
     = f.label :home_page

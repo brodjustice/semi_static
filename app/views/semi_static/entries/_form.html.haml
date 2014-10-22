@@ -1,38 +1,40 @@
 - content_for :ujs do
   :javascript
     function load_banner_preview(b_id){
-        $.ajax({
-          url: "/banners/" + b_id,
-          dataType: 'script'
-        });
-
+      $.ajax({
+        url: "/banners/" + b_id,
+        dataType: 'script'
+      });
     };
+    function check_side_bar(){
+      if($('#entry_side_bar').prop('checked')) {
+        $('#side_bar_options').show();
+      } else {
+        $('#side_bar_options').hide();
+      }
+    }
+    function check_entry_partial(){
+      if($('#entry_partial').val() == 'none') {
+        $('#entry_position_select').hide();
+        $('.semi_static_entry_main_content').show();
+      } else {
+        $('#entry_position_select').show();
+        if($('#entry_entry_position').val() == "#{SemiStatic::Entry::DISPLAY_ENTRY_SYM[:none]}"){
+          $('.semi_static_entry_main_content').hide();
+        } else {
+          $('.semi_static_entry_main_content').show();
+        }
+      }
+    }
 
     $(document).ready(function() {
       $('#entry_body').jqte();
-      $( "#entry_banner_id" ).change(function() {
-        load_banner_preview($('#entry_banner_id').val());
-      });
-      if (!$('#entry_side_bar').prop('checked')){
-        $('#side_bar_options').hide();
-      }
-      $('#entry_side_bar').change(function() {
-        if($('#entry_side_bar').prop('checked')) {
-          $('#side_bar_options').show();
-        } else {
-          $('#side_bar_options').hide();
-        }
-      });
-      if ($('#entry_partial').val() == 'none'){
-        $('#entry_position_select').hide();
-      }
-      $('#entry_partial').change(function() {
-        if($('#entry_partial').val() == 'none') {
-          $('#entry_position_select').hide();
-        } else {
-          $('#entry_position_select').show();
-        }
-      });
+      $( "#entry_banner_id" ).change(function() { load_banner_preview($('#entry_banner_id').val()); });
+      check_side_bar();
+      $('#entry_side_bar').change(function() { check_side_bar(); });
+      check_entry_partial();
+      $('#entry_partial').change(function() { check_entry_partial(); });
+      $('#entry_entry_position').change(function() { check_entry_partial(); });
     });
 
 = form_for @entry do |f|
@@ -47,6 +49,11 @@
     = f.label :title
     %br/
     = f.text_field :title
+  %fieldset
+    = f.label :locale
+    = f.select :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @entry.locale)
+    = f.label :tag_id
+    = f.select :tag_id, options_for_select(SemiStatic::Tag.all.collect{|t| [t.name, t.id]}, @entry.tag_id)
   %fieldset
     = f.label :home_page
     = f.check_box :home_page
@@ -69,11 +76,7 @@
   %fieldset
     = f.label :position
     = f.text_field :position
-  %fieldset
-    = f.label :tag_id
-    %br
-    = f.select :tag_id, options_for_select(SemiStatic::Tag.all.collect{|t| [t.name, t.id]}, @entry.tag_id)
-  %fieldset
+  %fieldset.semi_static_entry_main_content
     = f.label :body
     %br/
     = f.text_area :body
@@ -86,14 +89,14 @@
     %br/
     = f.text_field :summary_length
 
-  %fieldset.entry
+  %fieldset.entry.semi_static_entry_main_content
     - if @entry.img.present?
       = image_tag(@entry.img.url(:panel), :title => @entry.title, :class => 'ri')
       %br/
     = f.label :img, 'Image (optional, will be resized to max 324px width)'
     %br/
     = f.file_field :img
-  %fieldset
+  %fieldset.semi_static_entry_main_content
     = f.label :doc, 'Document for downloading (optional)'
     %br/
     = f.file_field :doc
@@ -101,7 +104,7 @@
     = f.label :doc_description, 'Document description (optional)'
     %br/
     = f.text_field :doc_description
-  %fieldset
+  %fieldset.semi_static_entry_main_content
     = f.label :side_bar
     = f.check_box :side_bar
     %fieldset#side_bar_options
@@ -113,8 +116,6 @@
       = f.check_box :side_bar_search
 
   %fieldset
-    = f.label :locale
-    = f.select :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @entry.locale)
     = f.label :style_class
     = f.select :style_class, options_for_select(SemiStatic::EntriesHelper::STYLE_CLASSES.collect{|sc| [sc, sc]}, @entry.style_class)
   %fieldset

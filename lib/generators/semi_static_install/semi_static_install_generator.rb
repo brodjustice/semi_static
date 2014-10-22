@@ -49,6 +49,11 @@ class SemiStaticInstallGenerator < Rails::Generators::Base
     }
   end
 
+  def copy_custom_partial_example
+    say '  SemiStatic  An example custom partial will be created in ./app/views/semi_static/partials'
+    directory('../../../../app/views/semi_static/partials', destination_root + '/app/views/semi_static/partials')
+  end
+
   def copy_locales
     say '  SemiStatic  Locales file will be copied into your application unless you have them already'
     directory('../../../../config/locales', destination_root + '/config/locales')

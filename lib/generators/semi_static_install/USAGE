@@ -1,5 +1,5 @@
 Description:
-    Copies the SemiStatic database migrations and seed data to your application ready to run rake db:setup
+    Copies the SemiStatic database migrations, seed data and other useful files to your application ready to run rake db:setup
 
 Example:
     rails generate semi_static_install
