@@ -23,8 +23,8 @@ module SemiStatic
        :convert_options => { :micro => "-strip -gravity Center",
                              :mini => "-strip -gravity Center",
                              :small => "-strip",
-                             :bar => "-strip",
-                             :thumb => "-strip -gravity Center",
+                             :bar => "-strip -quality 80",
+                             :thumb => "-strip -gravity Center -quality 80",
                              :big => "-strip"  }
   
     default_scope order(:position)

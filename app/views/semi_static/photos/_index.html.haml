@@ -6,4 +6,5 @@
         .spaced
           = link_to image_tag(p.img.url(:mini), :title => "#{p.title} - #{truncate(p.description, :length => 50)}"), photo_path(p)
   .feint
+    %br/
     .more= link_to t(:more), photos_path

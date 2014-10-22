@@ -57,6 +57,10 @@ module SemiStatic
     # nil, then only the contact form will be shown
     config.contact_partial = nil
     
+    # Add name for partial which will provide imprint/impressum, terms and conditions etc. If
+    # nil, then the contact partial, if any, will be used
+    config.imprint_partial = nil
+    
     # Add name for partial which will provide embedded social widgets on your home page
     # if nil, then nothing will be shown
     config.social_partial = nil

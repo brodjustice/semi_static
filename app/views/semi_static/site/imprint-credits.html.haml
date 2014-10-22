@@ -1,13 +1,15 @@
 .mid
-  - if SemiStatic::Engine.config.contact_partial.nil?
+  - if SemiStatic::Engine.config.respond_to?('imprint_partial')
+    = render :partial => SemiStatic::Engine.config.imprint_partial
+  - elsif SemiStatic::Engine.config.respond_to?('contact_partial')
+    = render :partial => SemiStatic::Engine.config.contact_partial
+  - else
     %p
       = SemiStatic::Engine.config.copyright_owner
       %br/
     %p
       = t('Email') + ':'
       = mail_to SemiStatic::Engine.config.info_email, SemiStatic::Engine.config.info_email
-  - else
-    = render :partial => SemiStatic::Engine.config.contact_partial
   %h2 Credits
   %p
     Website by
