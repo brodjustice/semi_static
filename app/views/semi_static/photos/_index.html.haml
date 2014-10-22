@@ -1,7 +1,9 @@
 .gallery.index.group
   %h2= link_to t('Gallery'), photos_path
   .spacer_wrapper
-    - SemiStatic::Photo.all.each do |p|
+    - SemiStatic::Photo.limit(21).each do |p|
       .photo.nutshell
         .spaced
           = link_to image_tag(p.img.url(:mini), :title => "#{p.title} - #{truncate(p.description, :length => 50)}"), photo_path(p)
+  .feint
+    .more= link_to t(:more), photos_path
