@@ -1,22 +1,42 @@
-.link{
-  padding-top: 0px;
-  padding-bottom: 0px;
+.panel.photo{
+  padding-bottom: 6px;
+}
+.cmd{
+  color: #808080;
+}
+.photo .more{
+  margin-top: 6px;
 }
 .rotate{
   min-height: 36px;
 }
 .next, .prev{
-  padding: 6px;
-  background: transparent url(/assets/photo-sprites.png) 0 0 no-repeat;
+  background: url(/assets/photo-sprites.png) 0 0 no-repeat;
   background-size: 28px 56px;
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
+.left, .center, .right{
+  float: left;
+}
+.left{text-align: left; width: 20%;}
+.right{text-align: right; width: 20%;}
+.center{text-align: center; width: 60%;}
 .next{
-  text-align: right;
-  background-position: right 2px;
+  background-position: right -2px;
   padding-right: 32px;
 }
 .prev{
-  text-align: left;
-  background-position: left -26px;
+  background-position: left -30px;
   padding-left: 32px;
+}
+
+@media only screen and (max-width: 880px) {
+  .cmd{display: none;}
+  .left, .right{width: 10%;}
+  .center{width: 80%;}
+}
+
+@media (device-pixel-ratio: 2), (-moz-device-pixel-ratio: 2), (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .next, .prev{background-image: url(/assets/x2/photo-sprites.png);}
 }
