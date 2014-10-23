@@ -30,15 +30,38 @@ module SemiStatic
     default_scope order(:position, :entry_id, :id)
     scope :home, where('home_page = ?', true)
 
-    # Really need the .or method here, but it's not available so we do a little trick and 
-    # use this to only find the next photo that is linked to the same entry and if it
-    # returns nil we deal with this in the next() or prev() methods.
-    scope :after, lambda {|p| order(:position, :id).where("position >= ?", p.position).where("id > ?", p.id).limit(1)}
-    scope :before, lambda {|p| order(:position, :id).where("position <= ?", p.position).where("id < ?", p.id).limit(1)}
-
-    after_save :expire_site_page_cache
-    after_destroy :expire_site_page_cache
+    after_save :expire_site_page_cache, :build_ordered_array
+    after_destroy :expire_site_page_cache, :build_ordered_array
   
+    # Really need the .or method for our scopes here, but it's not available so we would need to wrap this in a method,
+    # but it turns out that Rails scopes don't deal correctly with ordering nil's. So we were doing
+    # as below:
+    #   scope :after, lambda {|p| order(:position, :id).where("position >= ?", p.position).where("id > ?", p.id).limit(1)}
+    #   scope :before, lambda {|p| order(:position, :id).where("position <= ?", p.position).where("id < ?", p.id).limit(1)}
+    #
+    # And then the method looked like this:
+    #
+    #   def neighbours
+    #     if entry.nil?
+    #       [ Photo.before(self).first || Photo.last, Photo.after(self).first || Photo.first]
+    #     else
+    #       [ self.entry.photos.before(self).first || Photo.before(self).first || Photo.last, self.entry.photos.after(self).first || Photo.after(self).first || Photo.first]
+    #     end
+    #   end
+    #
+    # Now instead of this we build an ordered array of the photos (assuming we don't have thousands of photos):
+
+    def self.build_ordered_array
+      @@ids = Photo.reorder(:entry_id, :position, :id).collect{|p| p.id}
+    end
+
+    @@ids = build_ordered_array
+
+    def neighbour_ids
+      pos = @@ids.index(self.id)
+      [ @@ids[pos - 1] || @@ids.last, @@ids[pos + 1] || @@ids.first]
+    end
+
     def self.search(query)
       __elasticsearch__.search(
         {
@@ -66,12 +89,5 @@ module SemiStatic
       "#{id} #{title}".parameterize
     end
 
-    def neighbours
-      if entry.nil?
-        [ Photo.before(self).first || Photo.last, Photo.after(self).first || Photo.first]
-      else
-        [ self.entry.photos.before(self).first || Photo.before(self).first || Photo.last, self.entry.photos.after(self).first || Photo.after(self).first || Photo.first]
-      end
-    end
   end
 end

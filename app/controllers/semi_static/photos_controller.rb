@@ -30,7 +30,7 @@ module SemiStatic
       @photo = Photo.find(params[:id])
       @selection = 'Gallery'
       @title = @photo.title
-      @previous, @next = @photo.neighbours
+      @previous, @next = @photo.neighbour_ids
   
       layout = (current_user ? 'semi_static_dashboards' : 'semi_static_full')
   
@@ -69,7 +69,7 @@ module SemiStatic
   
       respond_to do |format|
         if @photo.save
-          format.html { redirect_to @photo }
+          format.html { redirect_to photos_path }
           format.json { render json: @photo, status: :created, location: @photo }
         else
           format.html { render action: "new" }
@@ -85,7 +85,7 @@ module SemiStatic
   
       respond_to do |format|
         if @photo.update_attributes(params[:photo])
-          format.html { redirect_to @photo }
+          format.html { redirect_to photos_path }
           format.json { head :no_content }
         else
           format.html { render action: "edit" }

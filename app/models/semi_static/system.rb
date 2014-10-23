@@ -39,8 +39,10 @@ module SemiStatic
   
     def self.expire_cache(type)
       # We ignore type for now and expire everything
+      debugger
       ExpireCache.expire_site_page_cache
     end
+
     def self.search_daemon(state)
       if state == 'on'
         if search_daemon_running?
