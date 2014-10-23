@@ -1,0 +1,22 @@
+.link{
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+.rotate{
+  min-height: 36px;
+}
+.next, .prev{
+  padding: 6px;
+  background: transparent url(/assets/photo-sprites.png) 0 0 no-repeat;
+  background-size: 28px 56px;
+}
+.next{
+  text-align: right;
+  background-position: right 2px;
+  padding-right: 32px;
+}
+.prev{
+  text-align: left;
+  background-position: left -26px;
+  padding-left: 32px;
+}
