@@ -35,6 +35,7 @@
       check_entry_partial();
       $('#entry_partial').change(function() { check_entry_partial(); });
       $('#entry_entry_position').change(function() { check_entry_partial(); });
+      $("#entry_img").on('change', semiStaticPrepareUploadFromInput);
     });
 
 = form_for @entry do |f|
@@ -85,14 +86,30 @@
     %br/
     = f.text_area :summary, :rows => '8'
     %br/
-    = f.label :summary_length, 'Optimal summary length (Set to 0 for display of header only)'
-    %br/
+    .infobox#summary_box
+      %h4= 'Summary length'
+      %p
+        Set length to the number of characters you want the maximum size of the summary to be. If you do not
+        provide text in the
+        %em= 'Summary box'
+        then the main body will be truncated as best as possible and th actual number of characters may be
+        less than the value given in the
+        %em= 'summary length.'
+      %p
+        The
+        %em= 'summary length.'
+        has some special values. The value of 0 means that no summary at all will be displayed, only the header and optionally the image.r
+        A negative value has the same effect as a 0 value, but there header will not even have a link to the actual entry. This isr
+        useful for displaying Twitter-like message in the news columns.
+    = f.label :summary_length, 'Optimal summary length', :class => 'infomarker'
     = f.text_field :summary_length
 
   %fieldset.entry.semi_static_entry_main_content
     - if @entry.img.present?
-      = image_tag(@entry.img.url(:panel), :title => @entry.title, :class => 'ri')
-      %br/
+      = image_tag(@entry.img.url(:panel), :title => @entry.title, :class => 'ri', :id => 'semi_static_image_for_upload')
+    - else
+      = image_tag('/assets/no-image-loaded.jpg', :title => 'No image', :class => 'ri', :id => 'semi_static_image_for_upload')
+    %br/
     = f.label :img, 'Image (optional, will be resized to max 324px width)'
     %br/
     = f.file_field :img

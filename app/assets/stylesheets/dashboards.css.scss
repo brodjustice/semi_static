@@ -1,3 +1,18 @@
+.infomarker{
+  background: transparent url(/assets/info.png) 0 0 no-repeat;
+  padding: 0px 6px 6px 20px;
+  cursor: help;
+}
+.infobox{
+  margin: 8px auto 0px;
+  width: 80%;
+  border: 1px solid #585858;
+  background: #f0f0f0;
+  border-radius: 4px;
+  z-index: 100;
+  padding: 0 6px;
+  display: none;
+}
 tr.top td{
   background-color: #f0f0f0;
 }

@@ -7,18 +7,5 @@
     = render :partial => 'semi_static/site/search'
     = render :partial => 'semi_static/site/social'
     = render :partial => SemiStatic::Engine.config.social_partial if SemiStatic::Engine.config.social_partial.present?
-    .news
-      %h2= t('News') + ':'
-      - SemiStatic::Entry.news.limit(3).locale(I18n.locale).each do |e|
-        .panel
-          - if e.summary_length == 0
-            %h3= e.title
-            - if e.image_in_news && e.img.present?
-              .image= image_tag(e.img.url(:bar))
-          - else
-            %h3= link_to e.title, e
-            - if e.image_in_news && e.img.present?
-              .image= link_to image_tag(e.img.url(:bar)), e
-            = entry_summary(e, e.summary_length)
-            .more= link_to t('more'), e
+    = render :partial => 'semi_static/tags/news'
     = render :partial => 'semi_static/photos/side_bar'

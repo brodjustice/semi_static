@@ -15,12 +15,17 @@ function semiStaticPrepareSingleUpload(files){
   if (files && files[0]) {
     var reader = new FileReader();
     reader.onload = function (e) {
-      $('#semi_static_photo').attr('title', files[0].name);
-      $('#semi_static_photo').attr('src', e.target.result);
+      $('#semi_static_image_for_upload').attr('title', files[0].name);
+      $('#semi_static_image_for_upload').attr('src', e.target.result);
     }
     reader.readAsDataURL(files[0]);
   }
   // file_for_upload = files[0];
 }
 
+$(document).ready(function() {
+  $('.infomarker').click(function() {
+    $(this).prev('.infobox').show();
+  });
+});
 
