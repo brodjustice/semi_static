@@ -12,7 +12,7 @@
       %th= 'Locale'
       %th= 'Position'
       %th= 'Banner'
-      %th= 'Max entries'
+      %th= 'Entries (max)'
       %th
   
     - @tags.each do |tag|
@@ -33,6 +33,6 @@
             = tag.predefined_class
           - else
             = tag.banner.name unless tag.banner.nil?
-        %td.number= tag.max_entries_on_index_page
+        %td.number= tag.entries.count.to_s + ' (' + tag.max_entries_on_index_page.to_s + ')'
         %td= link_to image_tag('/assets/bin.png'), tag, :method => :delete, :data => { :confirm => 'Are you sure?' }
   

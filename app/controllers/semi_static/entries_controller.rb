@@ -45,7 +45,13 @@
     # GET /entries/new
     # GET /entries/new.json
     def new
-      @entry = Entry.new
+      if params[:master].present?
+        master = Entry.find(params[:master])
+        @entry = master.dup
+        @entry.master_entry = master
+      else
+        @entry = Entry.new
+      end
   
       respond_to do |format|
         format.html # new.html.erb

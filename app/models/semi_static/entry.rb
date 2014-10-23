@@ -9,7 +9,7 @@ module SemiStatic
   
     attr_accessible :title, :body, :tag_id, :home_page, :summary, :img, :news_item, :image_in_news
     attr_accessible :position, :doc, :doc_description, :summary_length, :locale, :style_class, :header_colour, :background_colour, :colour
-    attr_accessible :banner_id, :partial, :entry_position
+    attr_accessible :banner_id, :partial, :entry_position, :master_entry_id
     attr_accessible :side_bar, :side_bar_news, :side_bar_social, :side_bar_search
   
     belongs_to :tag
@@ -23,6 +23,7 @@ module SemiStatic
     scope :locale, lambda {|locale| where("locale = ?", locale.to_s)}
     scope :not, lambda {|entry| where("id != ?", (entry ? entry.id : 0))}
   
+    belongs_to :master_entry, :class_name => SemiStatic::Entry
     belongs_to :banner
     has_many :photos
     has_attached_file :doc
@@ -76,6 +77,11 @@ module SemiStatic
     def clean_html
       HTML::WhiteListSanitizer.allowed_protocols << 'data'
       self.body = ActionController::Base.helpers.sanitize(self.body, :tags => ALLOWED_TAGS, :attributes => ALLOWED_ATTRIBUTES)
+    end
+
+    # Might be a better way to do this with delegate...
+    def photos_including_master
+      self.master_entry.nil? ? self.photos : self.photos + self.master_entry.photos
     end
   
     # To create SEO friendly urls

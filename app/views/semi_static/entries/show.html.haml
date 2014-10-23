@@ -17,7 +17,7 @@
       .panel.group{:class => @entry.style_class, :style => "background-color:#{@entry.background_colour}; color:#{@entry.colour}"}
         = render :partial => 'entry', :locals => {:e => @entry}
         = render :partial => 'document' if @entry.doc.present?
-        = render :partial => 'photos' unless @entry.photos.blank?
+        = render :partial => 'photos' unless @entry.photos_including_master.blank?
     - if @entry.side_bar
       .col.span_1_of_3
         = render :partial => 'semi_static/tags/side_bar', :locals => {:entrytag => @entry.tag}

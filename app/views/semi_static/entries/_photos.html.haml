@@ -1,6 +1,6 @@
 .gallery.doc
   .spacer_wrapper
-    - @entry.photos.each do |p|
+    - @entry.photos_including_master.each do |p|
       .photo.nutshell
         .spaced
           = link_to image_tag(p.img.url(:mini), :title => "#{p.title} - #{truncate(p.description, :length => 50)}"), photo_path(p)

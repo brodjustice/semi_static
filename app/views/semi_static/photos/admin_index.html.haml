@@ -21,7 +21,7 @@
         %td= link_to p.title, edit_photo_path(p)
         %td= p.description
         %td
-          = p.entry.title if p.entry
+          = link_to p.entry.title, edit_entry_path(p.entry) if p.entry
         %td.number= p.position
         %td.tick
           = image_tag('/assets/tick.png') if p.home_page

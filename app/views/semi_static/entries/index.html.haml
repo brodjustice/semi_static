@@ -6,13 +6,15 @@
     %tr
       %th= 'Title'
       %th= 'Tag'
-      %th= 'Summary'
+      %th= 'Has master?'
       %th= 'Home page'
       %th= 'News'
       %th= 'Side Bar'
       %th= 'Position'
       %th= 'Banner'
+      %th= image_tag('/assets/photos.png', :title => 'Number of photos')
       %th= 'Locale'
+      %th
       %th
   
     - SemiStatic::Tag.all.each do |tag|
@@ -20,7 +22,8 @@
         %tr
           %td= link_to entry.title, edit_entry_path(entry)
           %td= link_to entry.tag.name, edit_entry_path(entry)
-          %td= link_to truncate(entry.summary, :lenght => 100), edit_entry_path(entry)
+          %td.tick
+            = image_tag('tick.png', :title => "Entry master is #{entry.master_entry.locale + ': ' + entry.master_entry.title}") unless entry.master_entry.nil?
           %td.tick
             = image_tag('tick.png', :title => 'Visible in home page') if entry.home_page
           %td.tick
@@ -30,5 +33,7 @@
           %td.number= entry.position.to_s
           %td
             = entry.banner.name unless entry.banner.nil?
+          %td.number= entry.photos.count.to_s
           %td= entry.locale.to_s
+          %td= link_to image_tag('/assets/page_copy.png', :title => "User #{[entry.locale, ': ', entry.title].join} as master for new entry"), new_entry_path(:master => entry)
           %td= link_to image_tag('/assets/bin.png'), entry, :method => :delete, :data => { :confirm => 'Are you sure?' }
