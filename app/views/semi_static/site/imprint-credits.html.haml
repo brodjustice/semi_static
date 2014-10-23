@@ -1,7 +1,7 @@
 .mid
-  - if SemiStatic::Engine.config.respond_to?('imprint_partial')
+  - if SemiStatic::Engine.config.imprint_partial.try
     = render :partial => SemiStatic::Engine.config.imprint_partial
-  - elsif SemiStatic::Engine.config.respond_to?('contact_partial')
+  - elsif SemiStatic::Engine.config.contact_partial.try
     = render :partial => SemiStatic::Engine.config.contact_partial
   - else
     %p

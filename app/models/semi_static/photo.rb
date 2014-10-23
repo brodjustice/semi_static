@@ -27,10 +27,17 @@ module SemiStatic
                              :thumb => "-strip -gravity Center -quality 80",
                              :big => "-strip"  }
   
-    default_scope order(:position)
+    default_scope order(:position, :entry_id, :id)
     scope :home, where('home_page = ?', true)
-  
+
+    # Really need the .or method here, but it's not available so we do a little trick and 
+    # use this to only find the next photo that is linked to the same entry and if it
+    # returns nil we deal with this in the next() or prev() methods.
+    scope :after, lambda {|p| order(:position, :id).where("position >= ?", p.position).where("id > ?", p.id).limit(1)}
+    scope :before, lambda {|p| order(:position, :id).where("position <= ?", p.position).where("id < ?", p.id).limit(1)}
+
     after_save :expire_site_page_cache
+    after_destroy :expire_site_page_cache
   
     def self.search(query)
       __elasticsearch__.search(
@@ -54,10 +61,17 @@ module SemiStatic
       )
     end
   
-  
     # To create SEO friendly urls
     def to_param
       "#{id} #{title}".parameterize
+    end
+
+    def neighbours
+      if entry.nil?
+        [ Photo.before(self).first || Photo.last, Photo.after(self).first || Photo.first]
+      else
+        [ self.entry.photos.before(self).first || Photo.before(self).first || Photo.last, self.entry.photos.after(self).first || Photo.after(self).first || Photo.first]
+      end
     end
   end
 end

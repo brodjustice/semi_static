@@ -27,6 +27,9 @@ de:
   Contact_form: 'Anfrageformular'
   Menu: 'Menu'
   Close: 'Schließen'
+  Next: 'Vor'
+  Previous: 'Zurück'
+
 
   activerecord:
    errors:

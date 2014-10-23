@@ -522,12 +522,13 @@ h2 a, h3 a{color: $secondary-color;}
   width: 88%; margin: 0 auto; padding: 6px 5%;
 }
 .html{ padding: 0; margin-bottom: 8px; }
-.more{
+.link, .more{
   clear: both;
   text-align: right;
   padding-bottom: 8px;
 }
-.more a{
+.link{text-align: center;}
+.link a, .more a{
   background: transparent url(/assets/vert-sprites.png) right -138px no-repeat;
   background-size: 28px 237px;
   padding: 4px 36px 1px 12px;

@@ -2,14 +2,8 @@
 .section
   .col.span_2_of_3
     .panel.photo
-      %h2= @photo.title
-      - if @photo && @photo.img.exists? then
-        = link_to image_tag(@photo.img.url(:big), :title => @photo.title), @photo.img.url
-      .caption
-        = simple_format(@photo.description)
-      - unless @photo.entry.blank?
-        .more
-          = link_to @photo.entry.title, entry_path(@photo.entry)
- 
+      #semi_static_photo
+        = render :partial => 'semi_static/photos/show'
+   
   .col.span_1_of_3
     = render :partial => 'index'

@@ -30,11 +30,13 @@ module SemiStatic
       @photo = Photo.find(params[:id])
       @selection = 'Gallery'
       @title = @photo.title
+      @previous, @next = @photo.neighbours
   
-      layout = (current_user ? 'semi_static_dashboards' : 'semi_static_application')
+      layout = (current_user ? 'semi_static_dashboards' : 'semi_static_full')
   
       respond_to do |format|
         format.html { render :layout => layout }
+        format.js
         format.json { render json: @photo }
       end
     end

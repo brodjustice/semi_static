@@ -1,4 +1,4 @@
-.mid.dashboard
+.mid.wide.dashboard
   .button
     = link_to 'New Photo', new_photo_path
   %h1 Gallery
@@ -8,6 +8,7 @@
       %th
       %th Title
       %th Description
+      %th Entry Link
       %th Position
       %th Home Page
       %th
@@ -19,6 +20,8 @@
             = link_to image_tag(p.img.url(:mini), :title => p.title), edit_photo_path(p)
         %td= link_to p.title, edit_photo_path(p)
         %td= p.description
+        %td
+          = p.entry.title if p.entry
         %td.number= p.position
         %td.tick
           = image_tag('/assets/tick.png') if p.home_page

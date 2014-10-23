@@ -27,6 +27,8 @@ en:
   Contact_form: 'Contact'
   Menu: 'Menu'
   Close: 'Close'
+  Next: 'Next'
+  Previous: 'Previous'
 
   activerecord:
    errors:

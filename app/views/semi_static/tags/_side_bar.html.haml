@@ -7,7 +7,7 @@
       .icon= image_tag(@tag.icon.url(:big)) if @tag.icon.present?
     %h1= link_to @tag.sidebar_title, feature_path(@tag.slug), :style => "color: #{@tag.colour};"
     .section
-      - (@tag.entries - [@entry]).each do |e|
+      - @tag.entries.each do |e|
         %h3= link_to e.title, e
 - unless @entry.nil?
   = render :partial => 'semi_static/site/search' if @entry.side_bar_search

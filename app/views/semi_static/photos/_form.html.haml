@@ -21,7 +21,7 @@
   .field
     .photo.entry
       - if @photo.img.present?
-        = image_tag(@photo.img.url(:thumb), :title => @photo.title, :size => '210x', :class => 'ri', :id => 'semi_static_photo')
+        = image_tag(@photo.img.url(:bar), :title => @photo.title, :size => '210x', :class => 'ri', :id => 'semi_static_photo')
       - else
         = image_tag('/assets/no-image-loaded.jpg', :title => 'No image', :class => 'ri', :id => 'semi_static_photo')
     = f.file_field :img
