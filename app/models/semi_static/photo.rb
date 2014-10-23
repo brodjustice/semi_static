@@ -51,6 +51,10 @@ module SemiStatic
     #
     # Now instead of this we build an ordered array of the photos (assuming we don't have thousands of photos):
 
+    def build_ordered_array
+      Photo.build_ordered_array
+    end
+
     def self.build_ordered_array
       @@ids = Photo.reorder(:entry_id, :position, :id).collect{|p| p.id}
     end
