@@ -4,6 +4,8 @@ module SemiStatic
 
     has_and_belongs_to_many :contacts, :join_table => :semi_static_agreements_contacts
 
+    scope :locale, lambda {|locale| where("locale = ?", locale.to_s)}
+
     before_destroy :check_contacts
 
     def check_contacts

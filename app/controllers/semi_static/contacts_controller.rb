@@ -31,7 +31,7 @@ module SemiStatic
     # GET /contacts/new.json
     def new
       @contact = Contact.new
-      @contact.agreements << Agreement.where(:display => true)
+      @contact.agreements << Agreement.where(:display => true).locale(I18n.locale.to_s)
   
       respond_to do |format|
         format.html # new.html.erb
