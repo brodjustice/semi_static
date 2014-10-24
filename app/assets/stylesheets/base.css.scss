@@ -616,6 +616,12 @@ h2 a, h3 a{color: $secondary-color;}
 
 /* End custom menu icons */
 
+/* To help when inserting YouTube videos... */
+.video iframe {
+    border: medium none;
+    width: 98.5%;
+}
+
 /* Remove inner shadow when width greater than 1500px */
 @media only screen and (max-width: 1500px) {
   #banner-frame{box-shadow: none;};

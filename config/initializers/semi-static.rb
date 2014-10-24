@@ -25,13 +25,13 @@ module SemiStatic
     config.telephone = nil
     
     # Various social media links. Set to blank if don't have accounts on these media
-    config.twitterID = 'businesslandingID'
-    config.youtubeChannel = 'businesslandingID'
-    config.facebookID = 'businesslandingID'
-    config.xingID = 'businesslandingID'
+    config.youtubeChannel = 'channel/UCgm36i95RcaPTJzqEKt4zhw'
+    config.twitterID = nil
+    config.facebookID = nil
+    config.xingID = nil
     
     # This is the address to which the contact form data is sent to
-    config.contact_email = 'brod@business-landing.com'
+    config.contact_email = 'info@business-landing.com'
     
     # These are the domains for your different language versions of your site
     config.localeDomains = { 'en' => 'http://127.0.0.1', 'de' => 'http://business-landing.de' }

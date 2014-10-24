@@ -1,8 +1,3 @@
-%p
-  = "Some names are reserved and can be used for predefined pages, e.g 'Contact', 'Gallery', 'References'."
-%p
-  = "For example, having a banner"
-  = "named 'Contact' will cause it to be automatically displayed on the Contact page."
 = form_for(@banner) do |f|
   - if @banner.errors.any?
     #error_explanation
@@ -14,7 +9,15 @@
 
 
   %fieldset
-    = f.label :name
+    .infobox#banner_name
+      %h4= 'Banner name'
+      %p
+        = "Some names are reserved and can be used for predefined pages, e.g 'Contact', 'Gallery', 'References'."
+      %p
+        = "For example, having a banner"
+        = "named 'Contact' will cause it to be automatically displayed on the Contact page."
+
+    = f.label :name, :class => 'infomarker'
     %br/
     = f.text_field :name
   %fieldset
