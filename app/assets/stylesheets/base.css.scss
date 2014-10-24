@@ -617,7 +617,7 @@ h2 a, h3 a{color: $secondary-color;}
 /* End custom menu icons */
 
 /* To help when inserting YouTube videos... */
-.video iframe {
+.panel iframe, .video iframe {
     border: medium none;
     width: 98.5%;
 }
