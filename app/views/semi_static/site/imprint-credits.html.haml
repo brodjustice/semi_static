@@ -1,7 +1,7 @@
 .mid
-  - if SemiStatic::Engine.config.imprint_partial.try
+  - if SemiStatic::Engine.config.imprint_partial.try('present?')
     = render :partial => SemiStatic::Engine.config.imprint_partial
-  - elsif SemiStatic::Engine.config.contact_partial.try
+  - elsif SemiStatic::Engine.config.contact_partial.try('present?')
     = render :partial => SemiStatic::Engine.config.contact_partial
   - else
     %p
