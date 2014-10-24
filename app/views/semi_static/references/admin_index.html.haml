@@ -12,6 +12,7 @@
       %th Locale
       %th Show Quote
       %th
+      %th
 
     - @references.each do |r|
       %tr
@@ -24,5 +25,6 @@
         %td= r.locale.to_s
         %td
           = 'yes' if r.show_in_side_bar
-        %td= link_to image_tag('/assets/bin.png'), reference_path(r), :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %td= link_to image_tag('/assets/page_copy.png', :title => "Use #{[r.locale, ': ', r.title].join} as copy for new reference"), new_reference_path(:master => r)
+        %td= link_to image_tag('/assets/bin.png'), reference_path(r), :method => :delete, :data => { :confirm => "Confirm delete of #{r.title}" }
 

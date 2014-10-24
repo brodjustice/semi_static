@@ -41,7 +41,13 @@ module SemiStatic
     # GET /references/new
     # GET /references/new.json
     def new
-      @reference = Reference.new
+      if params[:master].present?
+        master = Reference.find(params[:master])
+        @reference = master.dup
+      else
+        @reference = Reference.new
+      end
+
   
       respond_to do |format|
         format.html # new.html.erb

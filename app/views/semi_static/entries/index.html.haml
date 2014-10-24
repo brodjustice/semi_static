@@ -35,5 +35,5 @@
             = entry.banner.name unless entry.banner.nil?
           %td.number= entry.photos.count.to_s
           %td= entry.locale.to_s
-          %td= link_to image_tag('/assets/page_copy.png', :title => "User #{[entry.locale, ': ', entry.title].join} as master for new entry"), new_entry_path(:master => entry)
+          %td= link_to image_tag('/assets/page_copy.png', :title => "Use #{[entry.locale, ': ', entry.title].join} as master for new entry"), new_entry_path(:master => entry)
           %td= link_to image_tag('/assets/bin.png'), entry, :method => :delete, :data => { :confirm => 'Are you sure?' }
