@@ -1,0 +1,39 @@
+.mid.full
+  %h1 SEO Meta tag sets
+  
+  .infobox#seo_for_home_page
+    %p
+      = 'The SEO meta tags for the Home page will be loaded from the locales translation of "keywords" by default.'
+      = 'However you can override them by doing the following:'
+    %ul
+      %li= "Create a Tag call either 'Home' or 'Root'"
+      %li= "Add SEO meta data to the 'Home' or 'Root' tag that you created" 
+
+  .infomarker= 'Special rules for Home Page SEO'
+  %table
+    %tr
+      %th= 'Locale'
+      %th= 'Description'
+      %th= 'Title'
+      %th= 'Keywords'
+      %th= 'Page'
+      %th= 'Master'
+      %th
+      %th
+  
+    - SemiStatic::Seo.all.each do |seo|
+      %tr
+        %td= seo.locale.to_s
+        %td= seo.description || image_tag('/assets/error.png', :title => 'Description is empty')
+        %td= link_to (seo.title || image_tag('/assets/error.png', :title => 'Title is empty')), edit_seo_path(seo), :remote => true
+        %td= link_to (seo.keywords || image_tag('/assets/error.png', :title => 'No keywords')), edit_seo_path(seo), :remote => true
+        %td
+          - unless seo.seoable.nil?
+            = link_to [seo.seoable.title, ' (', seo.seoable.class.to_s.split('::').last, ')'].join, url_for(:controller => seo.seoable.class.to_s.underscore.pluralize, :action => :edit, :id => seo.seoable.id)
+        %td.tick
+          - if seo.master
+            = image_tag('/assets/tick.png', :title => 'These are the master SEO tags')
+          - else
+            = link_to image_tag('/assets/add.png', :title => 'Make this SEO meta set the master set'), edit_seo_path(seo, :master => true)
+        %td.tick= link_to image_tag('/assets/application_form_edit.png', :title => "Edit SEO meta tag"), edit_seo_path(seo, :return => seos_path), :remote => true
+        %td.tick= link_to image_tag('/assets/bin.png'), seo, :method => :delete, :data => { :confirm => 'Are you sure?' }

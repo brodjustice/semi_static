@@ -23,6 +23,7 @@
     def show
       @tag = Tag.find_by_slug(params[:slug])
       @title = @tag.name
+      @seo = @tag.seo
   
       respond_to do |format|
         format.html { render :layout => 'semi_static_application' }

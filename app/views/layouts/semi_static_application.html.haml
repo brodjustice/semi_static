@@ -1,16 +1,15 @@
 !!! 5
 %html{ :xmlns => "http://www.w3.org/1999/xhtml", :lang => I18n.locale.to_s, "xml:lang" => I18n.locale.to_s}
   %head
-    %title= @title || SemiStatic::Engine.config.site_name
+    %title= seo_title
     %meta{ :"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8" }/
-    %meta{ :name => "Description", :content => "#{SemiStatic::Engine.config.site_name}" }/
-    %meta{ :name => "keywords", :content => "#{t('keywords')}" }/
+    %meta{ :name => "Description", :content => seo_description}/
+    %meta{ :name => "keywords", :content => seo_keywords }/
     %meta{ :name => "rating", :content => "General" }/
     %meta{:name => 'viewport', :content => 'width=device-width, initial-scale=1.0'}/
 
     = csrf_meta_tags
 
-    -#= javascript_include_tag 'application'
     <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
     = stylesheet_link_tag 'semi_static_application', :media => 'all'
     %style{:type => "text/css"}

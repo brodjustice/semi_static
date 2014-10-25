@@ -23,6 +23,7 @@ module SemiStatic
     scope :locale, lambda {|locale| where("locale = ?", locale.to_s)}
     scope :not, lambda {|entry| where("id != ?", (entry ? entry.id : 0))}
   
+    has_one :seo, :as => :seoable
     belongs_to :master_entry, :class_name => SemiStatic::Entry
     belongs_to :banner
     has_many :photos
@@ -37,7 +38,7 @@ module SemiStatic
                              :big => "-strip -gravity Center -quality 80"  }
   
     ALLOWED_TAGS= %w(span br em b i u ul ol li a div p img hr iframe)
-    ALLOWED_ATTRIBUTES= %w(href style id align src alt height width frameborder allowfullscreen)
+    ALLOWED_ATTRIBUTES= %w(href class style id align src alt height width frameborder allowfullscreen)
 
     DISPLAY_ENTRY = {1 => :before, 2 => :after, 3 => :none}
     DISPLAY_ENTRY_SYM = DISPLAY_ENTRY.invert

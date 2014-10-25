@@ -9,6 +9,7 @@ module SemiStatic
     attr_accessible :banner_id, :partial, :entry_position
     attr_accessor :icon_delete
   
+    has_one :seo, :as => :seoable
     has_many :entries, :dependent => :destroy
     belongs_to :banner
 
@@ -28,7 +29,9 @@ module SemiStatic
        :convert_options => { :standard => "-strip -gravity Center",
                              :big => "-strip -gravity Center"  }
     after_commit :check_for_sprites_file
-  
+
+    def title; name end
+
     def generate_slug
       self.slug = name.parameterize
     end

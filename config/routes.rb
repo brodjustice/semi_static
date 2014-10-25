@@ -1,19 +1,20 @@
 SemiStatic::Engine.routes.draw do
-
   resources :fcols do
     resources :links
   end
 
   resources :entries do
     collection { get :search }
+    resources :seos, :only => [:new, :create, :update]
   end
 
-  resources :banners
-  resources :references
-  resources :photos
+  resources :banners, :references, :photos
+  resources :seos, :except => [:new, :create, :update]
   resources :agreements, :except => [:edit, :update]
   resources :contacts, :except => [:edit, :update]
-  resources :tags, :except => :show
+  resources :tags, :except => :show do
+    resources :seos, :only => [:new, :create, :update]
+  end
 
   match '/features/:slug' => 'tags#show', :as => 'feature', :via => :get
 

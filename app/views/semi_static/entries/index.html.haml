@@ -1,4 +1,4 @@
-.mid.wide
+.mid.full
   .button= link_to 'New Entry', new_entry_path
   %h1 Entries
   
@@ -12,6 +12,7 @@
       %th= 'Side Bar'
       %th= 'Position'
       %th= 'Banner'
+      %th= 'SEO'
       %th= image_tag('/assets/photos.png', :title => 'Number of photos')
       %th= 'Locale'
       %th
@@ -33,6 +34,11 @@
           %td.number= entry.position.to_s
           %td
             = entry.banner.name unless entry.banner.nil?
+          %td.tick
+            - if entry.seo.nil?
+              = link_to image_tag('/assets/add.png', :title => "Add SEO meta tags"), new_entry_seo_path(entry, :return => entries_path), :remote => true
+            - else
+              = link_to image_tag('/assets/application_form_edit.png', :title => "Edit SEO meta tags"), edit_seo_path(entry.seo, :return => entries_path), :remote => true
           %td.number= entry.photos.count.to_s
           %td= entry.locale.to_s
           %td= link_to image_tag('/assets/page_copy.png', :title => "Use #{[entry.locale, ': ', entry.title].join} as master for new entry"), new_entry_path(:master => entry)

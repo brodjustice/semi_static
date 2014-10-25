@@ -28,6 +28,21 @@ th{
   background-color: #f0f0f0;
   text-align: center;
 }
+
+#dialog{
+  left: 0; right: 0;
+  position: fixed;
+  width: 96%;
+  max-width: 352px;
+  box-shadow: 0 0 4px #787878;
+  border: 1px solid #484848;
+  margin: 0 auto;
+  z-index: 100;
+  background-color: white;
+  border-radius: 2px;
+  padding: 12px;
+}
+
 /* Flipswitch from proto.io */
     .onoffswitch {
     position: relative; width: 90px;

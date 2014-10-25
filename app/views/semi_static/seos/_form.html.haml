@@ -1,0 +1,27 @@
+- content_for :ujs do
+  :javascript
+
+= form_for([@seo.seoable, @seo]) do |f|
+  - if @seo.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@seo.errors.count, "error")} prohibited this SEO meta tag from being saved:"
+      %ul
+        - @seo.errors.full_messages.each do |msg|
+          %li= msg
+
+  = hidden_field_tag :return, @return
+  %fieldset
+    = f.label :title
+    %br/
+    = f.text_field :title
+  %fieldset
+    = f.label :keywords, '5-10 keywords seperated by commas'
+    %br/
+    = f.text_field :keywords
+  %fieldset
+    = f.label :description
+    %br/
+    = f.text_field :description
+  
+  .actions
+    = f.submit 'Save'
