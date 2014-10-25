@@ -14,9 +14,7 @@ module SemiStatic
       @photos = Photo.all
       @photo = @photos.first
       @selection = 'Gallery'
-      @tag = Tag.find_by_id(params[:tag_id])
-      @seo = @tag.seo
-
+      @tag, @seo = Seo.photos(params[:tag_id], I18n.locale) 
   
       layout = (current_user ? 'semi_static_dashboards' : 'semi_static_application')
       template = (current_user ? 'semi_static/photos/admin_index' : 'semi_static/photos/index')
