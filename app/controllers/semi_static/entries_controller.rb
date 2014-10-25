@@ -5,7 +5,7 @@
   
     before_filter :authenticate_user!, :class => SemiStatic::Entry, :except => [ :show, :search ]
   
-    caches_page :show, :index
+    caches_page :show
   
     layout 'semi_static_dashboards'
   
