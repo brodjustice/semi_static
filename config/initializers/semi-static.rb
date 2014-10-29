@@ -21,7 +21,7 @@ module SemiStatic
     #   1. standard-2col-1col
     #   2. plain-3col
     # config.theme = 'plain-3col'
-    config.theme = 'plain-3col'
+    config.theme = 'standard-2col-1col'
     
     # This is the address to which the contact form data is sent to
     config.contact_email = 'info@business-landing.com'
