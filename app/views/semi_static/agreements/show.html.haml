@@ -10,7 +10,11 @@
   %h3= 'Since ' + @agreement.created_at.strftime('%d/%m/%y %H:%M')
   %h4= simple_format(@agreement.body)
   %ul
-    %li= 'Displayed by default on contact form' if @agreement.display
+    %li
+      - if @agreement.display
+        = 'Displayed on contact form'
+      - else
+        = 'NOT DISPLAYED on contact form'
     %li= 'Ticked by default on contact form' if @agreement.ticked_by_default
   %h4= @agreement.contacts.size.to_s + ' contacts have agreed to this:'
   %table

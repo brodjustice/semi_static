@@ -10,7 +10,7 @@ SemiStatic::Engine.routes.draw do
 
   resources :banners, :references, :photos
   resources :seos, :except => [:new, :create, :update]
-  resources :agreements, :except => [:edit, :update]
+  resources :agreements
   resources :contacts, :except => [:edit, :update]
   resources :tags, :except => :show do
     resources :seos, :only => [:new, :create, :update]

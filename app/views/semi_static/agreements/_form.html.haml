@@ -7,13 +7,18 @@
 
 = form_for @agreement do |f|
   %fieldset
-    = f.text_area :body
-    = f.label :body, 'Agreement text body'
+    - if readonly = true
+      %h4 Agreement Text
+      %p
+        = @agreement.body
+    - else
+      = f.text_area :body
+      = f.label :body, 'Agreement text body'
   %fieldset
     = f.label :locale
     = f.select :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @agreement.locale)
     %br/
-    = f.label :display, 'Display by default on contact form'
+    = f.label :display, 'Display on contact form'
     = f.check_box :display
     %br/
     = f.label :ticked_by_default, 'Ticked by default on contact form'

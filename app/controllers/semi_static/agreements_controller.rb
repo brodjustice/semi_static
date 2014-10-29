@@ -22,12 +22,30 @@ module SemiStatic
       end
     end
 
+    def edit
+      @agreement = Agreement.find(params[:id])
+    end
+
     def new
       @agreement = Agreement.new
 
       respond_to do |format|
         format.html # new.html.erb
         format.json { render :json => @agreement }
+      end
+    end
+
+    def update
+      @agreement = Agreement.find(params[:id])
+
+      respond_to do |format|
+        if @agreement.update_attributes(params[:agreement])
+          format.html { redirect_to agreements_path }
+          format.json { render :json => @agreement, :status => :created, :location => @agreement }
+        else
+          format.html { render :layout => 'semi_static_dashboards', :template => "semi_static/agreements/new" }
+          format.json { render :json => @agreement.errors, :status => :unprocessable_entity }
+        end
       end
     end
 
