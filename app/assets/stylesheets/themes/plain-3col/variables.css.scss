@@ -4,20 +4,13 @@
  */
 
 /* SASS */
-$prime-color: #ff2700;
+$prime-color: #3090e0;
 $secondary-color: #303030;
 
 /* Change to match your logo and its dimensions */
-$logo: 'logo.png';
-$logo-width: 270px;
-$logo-height: 117px;
-
-$logo-top: 'logo-top.png';
-$logo-top-width: 120px;
-$logo-top-height: 54px;
-
-/* Set to banner-overlay to false to have alternate home page layout with uncluttered banner image */
-$banner-overlay: true;
+$logo-plain: 'bl-logo.png';
+$logo-plain-width: 253px;
+$logo-plain-height: 90px;
 
 /* For wide view ports you can have the search bar in the banner IF banner-overlay is true */
 $search-bar-in-banner: false;
@@ -33,6 +26,6 @@ $banner-e: 'banner03.jpg';
 /* Name of image files in the your applications assets/images/banners directory that */
 /* will be used for the single mobile (small screen width) mobile banner */
 
-$banner-mobile: 'banner-mobile.jpg'
+$banner-mobile: 'banner-mobile.jpg';
 
 /* Add your custom variables, if needed below here */

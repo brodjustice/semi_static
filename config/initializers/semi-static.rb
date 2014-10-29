@@ -1,19 +1,5 @@
 module SemiStatic
   class Engine < Rails::Engine
-    
-    def partial_finder
-      partials = {}
-      if File.directory?(Rails.root.to_s + '/app/views/semi_static/partials')
-        Dir.foreach(Rails.root.to_s + '/app/views/semi_static/partials'){|file|
-          if file.start_with?('_') && file.include?('.html')
-            file = file[1..-1].split('.')[0]
-            partials[file.humanize] = "semi_static/partials/#{file}"
-          end
-        }
-      end
-      partials
-    end
-
     # Don't panic about the copyright, we are not claiming it. This is the copyright for the
     # website contents, so remove or edit it as appropriate
     config.copyright_year = '2014'
@@ -29,6 +15,13 @@ module SemiStatic
     config.twitterID = nil
     config.facebookID = nil
     config.xingID = nil
+
+    # Themes: Current options are:
+    #
+    #   1. standard-2col-1col
+    #   2. plain-3col
+    # config.theme = 'plain-3col'
+    config.theme = 'plain-3col'
     
     # This is the address to which the contact form data is sent to
     config.contact_email = 'info@business-landing.com'
@@ -67,7 +60,9 @@ module SemiStatic
 
     # Your own partials that can be used in Entries and Tags views should be stored in
     # ./app/views/semi_static/partials. SemiStatic will then automatically make them available
-    # to the admin dashboard when you edit a new entry or tag.
-    config.open_partials = partial_finder
+    # to the admin dashboard when you edit a new entry or tag. If you really want
+    # to add manually, then add them here
+    # config.open_partials = {:cool_partial => 'site/cool_partial'}
+    config.open_partials = {}
   end
 end

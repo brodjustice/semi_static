@@ -65,5 +65,6 @@ module SemiStatic
     def self.page_cache_path(path, extension = nil)
       page_cache_directory.to_s + '/' + I18n.locale.to_s + page_cache_file(path, extension)
     end
+
   end
 end

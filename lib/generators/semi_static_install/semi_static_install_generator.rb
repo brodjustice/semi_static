@@ -1,4 +1,6 @@
 class SemiStaticInstallGenerator < Rails::Generators::Base
+  # TODO - this surely can be improved, I'm not sure I even fully grasp Thor.
+
   source_root File.expand_path('../templates', __FILE__)
 
   GEMFILE_UNIQUE_ID = SEED_FILE_UNIQUE_ID = 'BL-SemiStatic-ct688G4zQ'
@@ -39,7 +41,17 @@ class SemiStaticInstallGenerator < Rails::Generators::Base
       gsub_file 'Gemfile', /gem \'sass-rails\'.*$/, "# Commented out by SemiStatic generator\n  # #{GEMFILE_UNIQUE_ID} - Please don't remove\n  # #{sassrails}"
       inject_into_file "Gemfile", "\n# Added by SemiStatic for asset namespacing\n" + sassrails + "\n", :before => "group :assets do\n"
     end
-    copy_file('../../../../app/assets/stylesheets/variables.css.scss', destination_root + '/app/assets/stylesheets/semi_static/variables.css.scss')
+
+    themes = ""
+    # Now copy just the variable.css.scss file for each theme to the application
+    inside(source_paths.first + '/../../../../app/assets/stylesheets/themes') do
+      themes = `ls ../../../../app/assets/stylesheets/themes`
+    end
+
+    themes.split.each{|theme|
+      empty_directory(destination_root + "/app/assets/stylesheets/semi_static/themes/#{theme}")
+      copy_file("../../../../app/assets/stylesheets/themes/#{theme}/variables.css.scss", destination_root + "/app/assets/stylesheets/semi_static/themes/#{theme}/variables.css.scss")
+    }
     copy_file('../../../../app/assets/stylesheets/custom.css.scss', destination_root + '/app/assets/stylesheets/semi_static/custom.css.scss')
   end
 
