@@ -671,7 +671,7 @@ h2 a, h3 a{color: $secondary-color;}
   // Change menu to hidden pop-up on click and fixed position
   #menu, #top-inner ul{display: none;}
   #menu{
-    padding-top: 8px; padding-bottom: 2px;
+    padding-top: 8px; padding-bottom: 12px;
     width: 90%; max-width: 330px; left: -10px; right: -10px;
     position: fixed; background-color: #f8f8f8; top: 44px;
     border: 1px solid $prime-color;
@@ -691,6 +691,11 @@ h2 a, h3 a{color: $secondary-color;}
     width: 30%;
   }
   #menu .wrapper .text{height: 20px;}
+
+  .wrapper:not(#selected) .icon.sprite{background-image: none;}
+
+  /* No Firefox support for background-position-x, but applies only usually to mobile any */
+  #selected.wrapper .icon.sprite{background-position-x: left;}
 
 
   #top{position: fixed; width: 100%;}
@@ -718,10 +723,6 @@ h2 a, h3 a{color: $secondary-color;}
   .col .img{margin: 0 auto; text-align:center;}
   .col{margin-top: 1px; margin-bottom: 3px;}
 
-  .wrapper:not(#selected) .icon.sprite{background-image: none;}
-
-  /* No Firefox support for background-position-x, but applies only usually to mobile any */
-  #selected.wrapper .icon.sprite{background-position-x: left;}
 }
 
 @media only screen and (min-width: 760px) {

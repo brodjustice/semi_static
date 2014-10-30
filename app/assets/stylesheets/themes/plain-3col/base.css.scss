@@ -642,6 +642,11 @@ h2 a, h3 a{color: $secondary-color;}
 
   #menu .col{ width: 100%; }
 
+  .wrapper:not(#selected) .icon.sprite{background-image: none;}
+
+  /* No Firefox support for background-position-x, but applies only usually to mobile any */
+  #selected.wrapper .icon.sprite{background-position-x: left;}
+
   // Need to radically change the hover icons now menu has collapsed
   .icon .custom{
     height: 0px;
@@ -664,10 +669,6 @@ h2 a, h3 a{color: $secondary-color;}
   .entry .floater img{margin-top: 6px;}
   .entry.panel{height: auto; min-height: 0px;}
 
-  .wrapper:not(#selected) .icon.sprite{background-image: none;}
-
-  /* No Firefox support for background-position-x, but applies only usually to mobile any */
-  #selected.wrapper .icon.sprite{background-position-x: left;}
 }
 
 @media only screen and (min-width: 760px) {
