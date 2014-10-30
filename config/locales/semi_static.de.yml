@@ -29,7 +29,9 @@ de:
   Close: 'Schließen'
   Next: 'Vor'
   Previous: 'Zurück'
-
+  Error_404: 'Die von Ihnen aufgerufene Internetseite ist nicht mehr gültig. Bitte klicken auf das Menü um auf die Startseite zu gelangen.'
+  Error_422: 'Sorry, we could not understand your request. Please use the menu to continue navigating our website'
+  Error_500: 'Sorry, this is a little embarassing but we had a uncorrectable error on our website. Please use the menu to continue navigating our website'
 
   activerecord:
    errors:
