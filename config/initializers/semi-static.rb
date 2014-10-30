@@ -1,5 +1,11 @@
 module SemiStatic
   class Engine < Rails::Engine
+    # We grab the exceptions and serve dynamic error pages. Remove this bit if you
+    # want your own error pages, or even the standard ugly ones.
+    unless Rails.env.development? || Rails.env.test?
+      Rails.application.config.exceptions_app = SemiStatic::Engine.routes
+    end
+
     # Don't panic about the copyright, we are not claiming it. This is the copyright for the
     # website contents, so remove or edit it as appropriate
     config.copyright_year = '2014'
