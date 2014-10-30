@@ -5,10 +5,7 @@ function semiStaticLoading(){
       i = ++i % 10;
       el.innerHTML = '&#9609' + Array(i + 1).join('&#9609;');
   }, 600);
-  document.getElementById('menu-main').style.display='none';
-  document.getElementById('menu-close').style.display='none';
-  document.getElementById('bar-in-menu').style.display='none';
-  document.getElementById('menu').style.display='block';
+  document.getElementById('menu-loading').style.display='block';
   true
 }
 
@@ -19,6 +16,7 @@ function semiStaticOpenMenu(){
   document.getElementById('menu-button').style.display='none';
 }
 function semiStaticCloseMenu(){
+  document.getElementById('menu-loading').style.display='none';
   document.getElementById('menu').style.display='none';
   document.getElementById('menu-close').style.display='none';
   document.getElementById('bar-in-menu').style.display='none';
