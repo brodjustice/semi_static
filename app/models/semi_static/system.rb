@@ -39,7 +39,6 @@ module SemiStatic
   
     def self.expire_cache(type)
       # We ignore type for now and expire everything
-      debugger
       ExpireCache.expire_site_page_cache
     end
 

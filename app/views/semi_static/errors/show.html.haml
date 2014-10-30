@@ -1,0 +1,10 @@
+.section
+  .col.span_2_of_3
+    .panel
+      %h1= ['Error', @status_code.to_s].join(' ')
+      %p
+        = t('error_' + @status_code.to_s)
+  .col.span_1_of_3
+    = render :partial => 'semi_static/site/search'
+    = render :partial => 'semi_static/site/social'
+    = render :partial => 'semi_static/tags/news'
