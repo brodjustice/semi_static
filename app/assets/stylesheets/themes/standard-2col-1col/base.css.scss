@@ -681,6 +681,7 @@ h2 a, h3 a{color: $secondary-color;}
     font-size: 16px;
   }
   #menu .col{ width: 100%; }
+  #menu-loading-wrapper{display: block;}
 
   // Need to radically change the hover icons now menu has collapsed
   .icon .custom{
