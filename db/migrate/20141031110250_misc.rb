@@ -1,4 +1,4 @@
-ss Misc < ActiveRecord::Migration
+class Misc < ActiveRecord::Migration
   def up
     add_column :semi_static_entries, :unrestricted_html, :boolean, :default => false
     # Move the banner images directory to stop conflict with entries
