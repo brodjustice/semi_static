@@ -8,12 +8,12 @@ module SemiStatic
     has_many :tags
 
     has_attached_file :img,
+       :url => "/system/banners/:id/:style/:filename",
        :styles => { :desktop=> "1500x300#",
                     :mobile => "750x300#" },
        :convert_options => { :desktop => "-strip -gravity Center -quality 80",
                              :mobile => "-strip -gravity Center -quality 80" }
 
     after_save :expire_site_page_cache
-
   end
 end

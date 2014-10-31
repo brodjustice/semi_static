@@ -10,11 +10,10 @@ module SemiStatic
     attr_accessible :title, :body, :tag_id, :home_page, :summary, :img, :news_item, :image_in_news
     attr_accessible :position, :doc, :doc_description, :summary_length, :locale, :style_class, :header_colour, :background_colour, :colour
     attr_accessible :banner_id, :partial, :entry_position, :master_entry_id
-    attr_accessible :side_bar, :side_bar_news, :side_bar_social, :side_bar_search
+    attr_accessible :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :unrestricted_html
   
     belongs_to :tag
   
-    before_save :clean_html
     after_save :expire_site_page_cache
     before_destroy :expire_site_page_cache
   
@@ -37,15 +36,18 @@ module SemiStatic
        :convert_options => { :panel => "-strip -gravity Center -quality 80",
                              :big => "-strip -gravity Center -quality 80"  }
   
-    ALLOWED_TAGS= %w(span br em b i u ul ol li a div p img hr iframe)
-    ALLOWED_ATTRIBUTES= %w(href class style id align src alt height width frameborder allowfullscreen)
+    DIRTY_TAGS= %w(span br em b i u ul ol li a div p img hr iframe)
+    DIRTY_ATTRIBUTES= %w(href class style id align src alt height width frameborder allowfullscreen)
+
+    ALLOWED_TAGS= %w(span br em b i u ul ol li a div p img hr)
+    ALLOWED_ATTRIBUTES= %w(href src align alt)
 
     DISPLAY_ENTRY = {1 => :before, 2 => :after, 3 => :none}
     DISPLAY_ENTRY_SYM = DISPLAY_ENTRY.invert
   
     default_scope order(:position)
     scope :additional_entries, lambda {|e| where('tag_id = ?', e.tag_id).where('id != ?', e.id)}
-  
+
     def self.search(query)
       __elasticsearch__.search(
         {
@@ -68,16 +70,21 @@ module SemiStatic
       )
     end
   
-  
+
     #
     # There is always discussion about if the HTML should be stripped and cleaned before or after saving to the DB. Most
     # believe that you should keep the origional and clean the HTML before you present it, since you then always have
     # a copy of the origional HTML. But this creates a much bigger load, cleaning every comment every time, that we
     # choose to clean the html before it goes in the DB.
     #
-    def clean_html
+    def unrestricted_html=(val); 
       HTML::WhiteListSanitizer.allowed_protocols << 'data'
-      self.body = ActionController::Base.helpers.sanitize(self.body, :tags => ALLOWED_TAGS, :attributes => ALLOWED_ATTRIBUTES)
+      if val == ('1' || 'true' || true)
+        self.body = ActionController::Base.helpers.sanitize(self.body, :tags => DIRTY_TAGS, :attributes => DIRTY_ATTRIBUTES)
+      else
+        self.body = ActionController::Base.helpers.sanitize(self.body, :tags => ALLOWED_TAGS, :attributes => ALLOWED_ATTRIBUTES)
+      end
+      super
     end
 
     # Might be a better way to do this with delegate...

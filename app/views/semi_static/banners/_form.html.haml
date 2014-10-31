@@ -1,3 +1,10 @@
+- content_for :ujs do
+  :javascript
+    $(document).ready(function() {
+      semi_static_file_name_input = $('#banner_name');
+      $("#banner_img").on('change', semiStaticPrepareUploadFromInput);
+    });
+
 = form_for(@banner) do |f|
   - if @banner.errors.any?
     #error_explanation
@@ -9,7 +16,7 @@
 
 
   %fieldset
-    .infobox#banner_name
+    .infobox#infor_box_for_banner_name
       %h4= 'Banner name'
       %p
         = "Some names are reserved and can be used for predefined pages, e.g 'Contact', 'Gallery', 'References'."

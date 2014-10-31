@@ -94,6 +94,14 @@
     = f.label :body
     %br/
     = f.text_area :body
+    .infobox#unrestricted_html_check_box
+      %h4= 'Unrestricted HTML'
+      %p
+        = 'This best left un-checked if you are not sure what you are doing. If you check this'
+        = 'box then certain HTML will be allowed and you will have more flexibilty e.g. you will be allowed to embbed YouTube videos'
+    %span.infomarker
+    = f.check_box :unrestricted_html
+    = f.label :unrestricted_html
   %fieldset
     = f.label :summary
     %br/
