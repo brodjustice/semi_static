@@ -25,14 +25,16 @@
 .next{
   background-position: right -2px;
   padding-right: 32px;
+  margin-left: -32px;
 }
 .prev{
   background-position: left -30px;
   padding-left: 32px;
+  margin-right: -32px;
 }
 
 @media only screen and (max-width: 880px) {
-  .cmd{display: none;}
+  .cmd{color: transparent;}
   .left, .right{width: 10%;}
   .center{width: 80%;}
 }

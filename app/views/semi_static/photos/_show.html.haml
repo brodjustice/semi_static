@@ -1,8 +1,7 @@
 %h2= @photo.title
 .section.rotate
   .left
-    = link_to photo_path(@previous), :class => 'prev', :remote => true do
-      %span.cmd= t('Previous')
+    = link_to t('Previous'), photo_path(@previous), :class => 'cmd prev', :remote => true
   .center
     - unless @photo.entry.blank?
       .link
@@ -11,10 +10,9 @@
       -# Dot below fixes odd webkit behaviour of empty divs with % widths
       = '.'
   .right
-    = link_to photo_path(@next), :class => 'next', :remote => true do
-      %span.cmd= t('Next')
+    = link_to t('Next'), photo_path(@next), :class => 'cmd next', :remote => true
 - if @photo && @photo.img.exists? then
-  = link_to image_tag(@photo.img.url(:big), :title => @photo.title), @photo.img.url
+  = image_tag(@photo.img.url(:big), :title => @photo.title)
 .caption
   = simple_format(@photo.description) unless @photo.description.blank?
 
