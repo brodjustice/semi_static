@@ -6,7 +6,10 @@ module SemiStatic
     # load_and_authorize_resource :class => SemiStatic::Photo, :except => [:index, :new, :show]
     before_filter :authenticate_user!, :class => SemiStatic::Photo, :except => [ :show, :index ]
   
-    caches_page :show
+    # Can't cache the js right now as the next and prev links can get confused
+    # depending on which tag you started in. Not worth addressing as it's very small
+    # overhead anyway
+    caches_page :show, :if => Proc.new { |c| !c.request.format.js? }
   
     # GET /photos
     # GET /photos.json
