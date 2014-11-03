@@ -1,13 +1,14 @@
 - if @tag.banner
   - content_for :banner do
     #overlay-2
-      #tag-wrapper
-        #tagline
-          = @tag.banner.tag_line
+      - unless @tag.banner.tag_line.blank?
+        #tag-wrapper
+          #tagline
+            = @tag.banner.tag_line
     #banner
       #banner-frame
-        .bg.desktop{:style => "background-image: url(#{@tag.banner.img.url(:desktop)})"}
-        .bg.mobile{:style => "display: none; background-image: url(#{@tag.banner.img.url(:mobile)})"}
+        .bg.desktop{:style => "background-image: url(#{@tag.banner.img_url_for_theme(:desktop)})"}
+        .bg.mobile{:style => "display: none; background-image: url(#{@tag.banner.img_url_for_theme(:mobile)})"}
 
 
 - if @tag.partial_before_entries?

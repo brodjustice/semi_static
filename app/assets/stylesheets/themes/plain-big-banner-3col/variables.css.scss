@@ -1,0 +1,31 @@
+/*
+ * You can change the values of the variables here to get different layouts,
+ * but don't remove any variable else the SASS will not compile
+ */
+
+/* SASS */
+$prime-color: #499bea;
+$secondary-color: #309020;
+
+/* Change to match your logo and its dimensions */
+$logo-plain: 'bl-logo.png';
+$logo-plain-width: 253px;
+$logo-plain-height: 90px;
+
+/* For wide view ports you can have the search bar in the banner IF banner-overlay is true */
+$search-bar-in-banner: false;
+
+/* Name of image files in the your applications assets/images/banners directory that make */
+/* up the 5 animated home page banners. Should be 1500px x 300px */
+$banner-a: 'banner04-big.jpg';
+$banner-b: 'banner00-big.jpg';
+$banner-c: 'banner01-big.jpg';
+$banner-d: 'banner02-big.jpg';
+$banner-e: 'banner03-big.jpg';
+
+/* Name of image files in the your applications assets/images/banners directory that */
+/* will be used for the single mobile (small screen width) mobile banner */
+
+$banner-mobile: 'banner-mobile-big.jpg';
+
+/* Add your custom variables, if needed below here */

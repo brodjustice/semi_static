@@ -7,13 +7,27 @@ module SemiStatic
     has_many :entries
     has_many :tags
 
+    THEME = {
+      'standard-2col-1col' => {:desktop => :desktop, :mobile => :mobile},
+      'plain-3col' => {:desktop => :desktop, :mobile => :mobile},
+      'plain-big-banner-3col' => {:desktop => :desktopy500, :mobile => :mobiley500}
+    }
+
     has_attached_file :img,
        :url => "/system/banners/:id/:style/:filename",
        :styles => { :desktop=> "1500x300#",
-                    :mobile => "750x300#" },
+                    :mobile => "750x300#",
+                    :desktopy500 => "1500x500#",
+                    :mobiley500 => "750x500#" },
        :convert_options => { :desktop => "-strip -gravity Center -quality 80",
-                             :mobile => "-strip -gravity Center -quality 80" }
+                             :mobile => "-strip -gravity Center -quality 80" ,
+                             :desktopy500 => "-strip -gravity Center -quality 75" ,
+                             :mobiley500 => "-strip -gravity Center -quality 75" }
 
     after_save :expire_site_page_cache
+
+    def img_url_for_theme(screen)
+      img.url(THEME[SemiStatic::Engine.config.theme][screen])
+    end
   end
 end
