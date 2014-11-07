@@ -6,7 +6,7 @@ class SemiStaticInstallGenerator < Rails::Generators::Base
   GEMFILE_UNIQUE_ID = SEED_FILE_UNIQUE_ID = 'BL-SemiStatic-ct688G4zQ'
   MOUNT_ROUTE = 'mount SemiStatic::Engine, :at => "/"'
   DEVISE_SECRET_KEY = 'config.secret_key'
-  PRECOMPILE_ASSETS = 'semi_static_application.css semi_static_full.css semi_static_application.js'
+  PRECOMPILE_ASSETS = 'semi_static_application.css semi_static_full.css semi_static_application.js semi_static_dashboard.js'
   CONFIG_ASSETS_PRECOMPILE = "config.assets.precompile += %w( #{PRECOMPILE_ASSETS} )"
   ASSET_IMAGE_DIRECTORIES = %w(banners x2 flags)
 
@@ -102,6 +102,9 @@ class SemiStaticInstallGenerator < Rails::Generators::Base
     remove_file('public/index.html')
   end
 
+  # Rather than messing with the application, it should be possible to add this to the
+  # precompile list from within engine.rb. However, this fails to work in Rails 3, so
+  # leave for now and change with Rails 4
   def config_assets_precompile
     precompile_found = run("grep -w \'#{PRECOMPILE_ASSETS}\' config/environments/production.rb >/dev/null")
     if precompile_found == true

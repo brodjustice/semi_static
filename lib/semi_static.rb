@@ -36,7 +36,9 @@ module SemiStatic
       Rails.application.config.sass.load_paths << "#{SemiStatic::Engine.root}/app/assets/stylesheets/themes/#{SemiStatic::Engine.config.theme}"
 
       # There is no load path for coffescript like there is for SASS so we can only use the sprokets load path
-      Rails.application.assets.append_path "#{SemiStatic::Engine.root}/app/assets/javascripts/themes/#{SemiStatic::Engine.config.theme}"
+      # So we would normally do this here:
+      #   Rails.application.assets.append_path "#{SemiStatic::Engine.root}/app/assets/javascripts/themes/#{SemiStatic::Engine.config.theme}"
+      # But here is too late! So this is an initializer in engine.rb
 
       # We don't have autoload on the additional paths given to SASS above, so the compromise is to clear the cache on startup, else
       # the changes in the above directories may never be picked up.
