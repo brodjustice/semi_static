@@ -154,3 +154,35 @@ h2 .label-highlight, .fragment .label-highlight{
   border-bottom: 1px solid $prime-color;
   margin-bottom : 10px;
 }
+
+#semi_static_tag .entry .more{
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-top-left-radius: 12px;
+  padding: 11px 3px 8px 0px;
+}
+
+#semi_static_tag .entry{
+  height: 700px;
+  overflow: hidden;
+  padding: 0px;
+}
+
+#semi_static_tag h1{
+  padding: 30px 0px 20px;
+}
+
+#semi_static_tag .entry p{
+  line-height: auto;
+} 
+
+.more a{
+  background: transparent url(/assets/vert-sprites.png) right -138px no-repeat;
+  background-size: 28px 237px;
+  padding: 0px 36px 0px 12px;
+  margin: 2px 0px 6px;
+  color: #484848;
+}
+

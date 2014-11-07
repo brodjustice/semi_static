@@ -21,7 +21,7 @@
     = yield :ujs
 
     %link{:rel => 'shortcut icon', :href => '/assets/favicon.ico'}
-  %body
+  %body{:id => "semi_static_#{controller_name.classify.downcase}"}
     = render :partial => 'semi_static/shared/top'
     = yield :banner
     = render :partial => 'semi_static/shared/overlay'
