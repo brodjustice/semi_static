@@ -37,7 +37,7 @@ module SemiStatic
        :convert_options => { :panel => "-strip -gravity Center -quality 80",
                              :big => "-strip -gravity Center -quality 80"  }
   
-    DIRTY_TAGS= %w(span br em b i u ul ol li a div p img hr iframe)
+    DIRTY_TAGS= %w(span br em b i u ul ol li a div p img hr  h1 h2 h3 h4 iframe)
     DIRTY_ATTRIBUTES= %w(href class style id align src alt height width frameborder allowfullscreen)
 
     ALLOWED_TAGS= %w(span br em b i u ul ol li a div p img hr h1 h2 h3 h4)

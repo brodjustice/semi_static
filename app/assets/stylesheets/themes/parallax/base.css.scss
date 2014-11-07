@@ -192,7 +192,7 @@ a { text-decoration: none; }
 #footer .copy{text-align: left; width: 40%; float: left; margin: 0px;}
 #footer .copy p{font-size: 12px; margin: 0; padding: 0 0 0 5px;}
 #footer .stamps{float: left; width: 40%; margin-top: -15px;}
-#footer h3{color: $prime-color; margin-bottom: 4px;}
+#footer h3{text-align: center; color: $prime-color; margin-bottom: 4px;}
 #footer .inner{padding: 0 2%;}
 
 #ddock{float: right;width: 97px; margin-top: 0px; height: 32px; background:transparent url(/assets/hoz-sprites.png) 0 center no-repeat;}
@@ -223,7 +223,10 @@ label{
 }
 
 #title{width: 100%; border-bottom: 1px solid #d8d8d8; }
-h1, h2{
+h1, h2, h3, h4, h1 a, h2 a, h3 a, h4 a{
+    color: $prime-color;
+}
+h1, h2, h3{
     margin: 0px; padding: 0px;
     font-size: 1.6em;
     font-style: normal;
@@ -236,6 +239,17 @@ h1, h2{
 }
 h2{
   font-size: 1.4em;
+  text-align: left;
+}
+h3{
+  font-size: 1.2em;
+  text-align: left;
+}
+
+h4{
+ font-weight: bold;
+ font-size: 1.0em;
+ text-align: left;
 }
 .hsContent h2{
   color: #FFFFFF;
