@@ -29,9 +29,13 @@ en:
   Close: 'Close'
   Next: 'Next'
   Previous: 'Previous'
+  Top: 'Top'
   Error_404: 'Sorry, we could not find the page that you were looking for, it has probably been removed. Please use the menu to continue navigating our website'
   Error_422: 'Sorry, we could not understand your request. Please use the menu to continue navigating our website'
   Error_500: 'Sorry, this is a little embarrassing but we had an uncorrectable error on our website. Please use the menu to continue navigating our website'
+  contact:
+    pre: 'Send us a message, we will phone you back!'
+
 
   activerecord:
    errors:

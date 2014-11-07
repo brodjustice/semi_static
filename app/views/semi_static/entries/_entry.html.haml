@@ -3,8 +3,7 @@
   - if e.img.present?
     .col.span_1_of_2.floater
       .img
-        -# = link_to image_tag(e.img.url(:panel)), e.img.url
-        = image_tag(e.img.url(:panel))
+        = image_tag(e.img_url_for_theme)
     .col.span_1_of_2.wrapping
       .html
         = icon(e.tag)

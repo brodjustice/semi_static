@@ -1,0 +1,32 @@
+- if @tag && @tag.partial_before_entries?
+  = render :partial => @tag.partial_path
+
+- SemiStatic::Entry.home.locale(I18n.locale).each do |e|
+  %section{:id => "entry-id-#{e.id.to_s}"}
+    - if e.banner.present?
+      .banner.desktop{:style => "background-image: url(#{e.banner.img_url_for_theme(:desktop)})", :data => {'bottom-top' => "background-position: 50% -#{banner_skrollr_offset(e.banner)}px;", 'top-bottom' => "background-position: 50% #{banner_skrollr_offset(e.banner)}px;", 'anchor-target' => "#entry-id-#{e.id.to_s}"}}
+        .hsContainer
+          - if e.banner.tag_line.blank?
+            .hsContent
+              .parallax
+                .parallax-inner
+          - else
+            .hsContent{:data => {:center => "opacity: 1", '0-top' => "opacity: 0.3", 'anchor-target' => "#entry-id-#{e.id.to_s} h2"}}
+              .parallax
+                .parallax-inner
+                  %h2= e.banner.tag_line
+      -# .banner.bg.mobile{:style => "display: none; background-image: url(#{e.banner.img_url_for_theme(:mobile)})"}
+      -#   .hsContainer
+      -#     .hsContent
+  .panel{:class => e.style_class, :style => "background-color:#{e.background_colour}; color: #{e.colour}"}
+    = render :partial => 'semi_static/entries/entry', :locals => {:e => e, :summary => true}
+
+- if @tag && @tag.partial_after_entries?
+  = render :partial => @tag.partial_path
+
+%section.contact
+  .form-wrapper
+    %h1= t('Contact_form')
+    %p.text-align-center
+      = t('contact.pre')
+    = render :partial => 'semi_static/contacts/form'

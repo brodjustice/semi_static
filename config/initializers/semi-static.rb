@@ -26,7 +26,8 @@ module SemiStatic
     #
     #   1. standard-2col-1col
     #   2. plain-3col
-    # config.theme = 'plain-3col'
+    #   3. plain-big-banner-3col'
+    #   4. parallax
     config.theme = 'standard-2col-1col'
     
     # This is the address to which the contact form data is sent to

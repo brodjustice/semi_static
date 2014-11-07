@@ -31,6 +31,7 @@ module SemiStatic
        :styles => {
          :bar=> "304x>",
          :panel=> "324x>",
+         :wide => '960x>',
          :big=> "500x>"
        },
        :convert_options => { :panel => "-strip -gravity Center -quality 80",
@@ -44,9 +45,21 @@ module SemiStatic
 
     DISPLAY_ENTRY = {1 => :before, 2 => :after, 3 => :none}
     DISPLAY_ENTRY_SYM = DISPLAY_ENTRY.invert
+
+    THEME = {
+      'standard-2col-1col' => {:desktop => :panel, :mobile => :panel},
+      'plain-3col' => {:desktop => :panel, :mobile => :panel},
+      'parallax' => {:desktop => :wide, :mobile => :wide},
+      'plain-big-banner-3col' => {:desktop => :panel, :mobile => :panel}
+    }
+
   
     default_scope order(:position)
     scope :additional_entries, lambda {|e| where('tag_id = ?', e.tag_id).where('id != ?', e.id)}
+
+    def img_url_for_theme(screen = :desktop)
+      img.url(THEME[SemiStatic::Engine.config.theme][screen])
+    end
 
     def self.search(query)
       __elasticsearch__.search(

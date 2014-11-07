@@ -13,4 +13,5 @@
 //= require jquery
 //= require jquery_ujs
 //= require semi-static
-//= require theme
+//= require admin
+//= require jquery-te-1.4.0.min.js

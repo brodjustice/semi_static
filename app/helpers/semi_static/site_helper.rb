@@ -16,5 +16,12 @@ module SemiStatic
       }
       c.html_safe
     end
+
+    #
+    # Only used for parralax theme
+    #
+    def banner_skrollr_offset(banner)
+      (banner.img_height(SemiStatic::Engine.config.theme, :desktop)/4 - 50).to_s
+    end
   end
 end

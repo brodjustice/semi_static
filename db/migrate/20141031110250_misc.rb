@@ -4,6 +4,7 @@ class Misc < ActiveRecord::Migration
     # Move the banner images directory to stop conflict with entries
 
     puts('Creating new directory for banners')
+    Dir.mkdir(Rails.root.to_s + '/public/system') unless File.exists?(Rails.root.to_s + '/public/system')
     Dir.mkdir(Rails.root.to_s + '/public/system/banners') unless File.exists?(Rails.root.to_s + '/public/system/banners')
     SemiStatic::Banner.all.each{|b|
       unless File.exists?(Rails.root.to_s + "/public/system/banners/#{b.id.to_s}")
