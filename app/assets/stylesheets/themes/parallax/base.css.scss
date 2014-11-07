@@ -108,6 +108,9 @@ a { text-decoration: none; }
   border-top: 1px solid #a8a8a8; background-color: #171717; position: relative; width: 100%; clear: both;
   display: block; font-size: 18px; width: 100%; color: white; text-align: center;
 }
+#footer ul {
+    list-style: outside none none;
+}
 
 #footer, #footer a{color: white;}
 
