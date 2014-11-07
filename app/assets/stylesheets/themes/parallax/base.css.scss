@@ -103,6 +103,11 @@ a { text-decoration: none; }
   display: none;
 }
 
+.container-inner{
+  width: 100%;
+  max-width: 1012px;
+  margin: 0 auto;
+}
 #footer {
   border-top: 1px solid #a8a8a8; background-color: #171717; position: relative; width: 100%; clear: both;
   display: block; font-size: 18px; width: 100%; color: white; text-align: center;

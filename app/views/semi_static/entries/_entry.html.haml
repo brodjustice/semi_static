@@ -3,7 +3,10 @@
   - if e.img.present?
     .col.span_1_of_2.floater
       .img
-        = image_tag(e.img_url_for_theme)
+        - if summary
+          = link_to image_tag(e.img_url_for_theme), e
+        - else
+          = image_tag(e.img_url_for_theme)
     .col.span_1_of_2.wrapping
       .html
         = icon(e.tag)
