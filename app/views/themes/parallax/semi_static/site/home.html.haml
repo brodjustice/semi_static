@@ -4,7 +4,7 @@
 - SemiStatic::Entry.home.locale(I18n.locale).each do |e|
   %section{:id => "entry-id-#{e.id.to_s}"}
     - if e.banner.present?
-      .banner.desktop{:style => "background-image: url(#{e.banner.img_url_for_theme(:desktop)})", :data => {'bottom-top' => "background-position: 50% -#{banner_skrollr_offset(e.banner)}px;", 'top-bottom' => "background-position: 50% #{banner_skrollr_offset(e.banner)}px;", 'anchor-target' => "#entry-id-#{e.id.to_s}"}}
+      .banner{:style => "background-image: url(#{e.banner.img_url_for_theme(:desktop)})", :data => {'bottom-top' => "background-position: 50% -#{banner_skrollr_offset(e.banner)}px;", 'top-bottom' => "background-position: 50% #{banner_skrollr_offset(e.banner)}px;", 'anchor-target' => "#entry-id-#{e.id.to_s}"}}
         .hsContainer
           - if e.banner.tag_line.blank?
             .hsContent
