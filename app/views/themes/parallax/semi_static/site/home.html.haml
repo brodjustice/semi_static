@@ -19,7 +19,7 @@
       -#   .hsContainer
       -#     .hsContent
   .panel{:class => e.style_class, :style => "background-color:#{e.background_colour}; color: #{e.colour}"}
-    = render :partial => 'semi_static/entries/entry', :locals => {:e => e, :summary => true}
+    = render :partial => 'semi_static/entries/entry', :locals => {:e => e, :summary => false}
 
 - if @tag && @tag.partial_after_entries?
   = render :partial => @tag.partial_path

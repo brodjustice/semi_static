@@ -1,8 +1,33 @@
+#container:after{ content: ''; display: table; clear: both; }
+
+#top{z-index: 10;}
+
+#container{
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+}
+
+#content{
+  width: 100%;
+  max-width: 1012px;
+  margin: 42px auto 0;
+}
+
+#content:after{
+  clear:both;
+}
+
 #mini-logo{
   left: 8px;
   top: 6px;
   position: absolute;
 }
+
+#overlay{
+  position: relative;
+  z-index: 1;
+}
+
 ul{
   list-style: circle inside;
   line-height: 1.6;
@@ -177,6 +202,7 @@ h2 .label-highlight, .fragment .label-highlight{
 
 #semi_static_tag .entry p{
   line-height: normal;
+  text-align: left;
 } 
 
 .more a{

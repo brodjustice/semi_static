@@ -42,7 +42,6 @@ a { text-decoration: none; }
 
 #menu .col{
   float: right;
-  width: auto;
   padding-right: 2%;
   margin-top: 8px;
   margin-bottom: 8px;
@@ -99,11 +98,6 @@ a { text-decoration: none; }
   text-align: justify;
 }
 
-.container-inner{
-  width: 100%;
-  max-width: 1012px;
-  margin: 0 auto;
-}
 #footer {
   border-top: 1px solid #a8a8a8; background-color: #171717; position: relative; width: 100%; clear: both;
   display: block; font-size: 18px; width: 100%; color: white; text-align: center;
@@ -201,14 +195,17 @@ a { text-decoration: none; }
 #footer .copy p{font-size: 12px; margin: 0; padding: 0 0 0 5px;}
 #footer .stamps{float: left; width: 40%; margin-top: -15px;}
 #footer h3{text-align: center; color: $prime-color; margin-bottom: 4px;}
-#footer .inner{padding: 0 2%;}
+#footer .inner{padding: 0 2%; line-height: 1.6em;}
 
 #ddock{float: right;width: 97px; margin-top: 0px; height: 32px; background:transparent url(/assets/hoz-sprites.png) 0 center no-repeat;}
 #html5{float: right;margin: -4px 5px 0 0px; width: 25px; height: 33px; background:transparent url(/assets/hoz-sprites.png) -97px center no-repeat;}
 
 /* The normally floting entry image is just displayed full size without float in this theme */
 .entry .floater{width: 100%; float: none;}
-.entry .floater img{max-width: 960px; border-radius: 4px;}
+
+#semi_static_entry .entry .floater img,
+#semi-static-home-page .entry .floater img
+{max-width: 960px; border-radius: 4px;}
 
 /* Likewise the .wrapping text no longer needs to wrap */
 .entry .wrapping {width: 100%; float: none; margin: 0px;}

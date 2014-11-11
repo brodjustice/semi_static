@@ -49,7 +49,7 @@ module SemiStatic
     THEME = {
       'standard-2col-1col' => {:desktop => :panel, :mobile => :panel, :summary => :panel},
       'plain-3col' => {:desktop => :panel, :mobile => :panel, :summary => :panel},
-      'parallax' => {:desktop => :wide, :mobile => :wide, :summary => :panel},
+      'parallax' => {:desktop => :wide, :mobile => :panel, :summary => :panel},
       'plain-big-banner-3col' => {:desktop => :panel, :mobile => :panel, :summary => :panel}
     }
 
