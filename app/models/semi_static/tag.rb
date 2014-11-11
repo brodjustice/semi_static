@@ -13,6 +13,8 @@ module SemiStatic
     has_many :entries, :dependent => :destroy
     belongs_to :banner
 
+    validates :name, :uniqueness => {:scope => :locale}
+
     scope :menu, where('menu = ?', true)
     scope :locale, lambda {|locale| where("locale = ?", locale.to_s)}
     default_scope order(:position)

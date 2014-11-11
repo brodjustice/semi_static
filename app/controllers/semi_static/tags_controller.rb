@@ -21,7 +21,7 @@
     # GET /tags/1
     # GET /tags/1.json
     def show
-      @tag = Tag.find_by_slug(params[:slug])
+      @tag = Tag.where(:locale => locale.to_s).find_by_slug(params[:slug])
       @title = @tag.name
       @seo = @tag.seo
   
