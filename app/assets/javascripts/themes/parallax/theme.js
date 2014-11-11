@@ -1,5 +1,5 @@
 function housekeeping(){
-  var s = skrollr.init({smoothScrolling:false});
+  var s = skrollr.init({smoothScrolling:false, mobileCheck: function() { return false; } });
 };
 
 window.onload = housekeeping;
