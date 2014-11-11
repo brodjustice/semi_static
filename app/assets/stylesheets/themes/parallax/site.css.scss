@@ -5,6 +5,8 @@
 #container{
   padding-bottom: 24px;
   margin-bottom: 24px;
+  max-width: 1024;
+  padding: 0 24px;
 }
 
 #content{
@@ -26,6 +28,15 @@
 #overlay{
   position: relative;
   z-index: 1;
+}
+
+.floater .img{
+  text-align: center;
+}
+
+.wrapping .html{
+  width: 90%;
+  margin: 5% 0;
 }
 
 ul{
@@ -186,7 +197,7 @@ h2 .label-highlight, .fragment .label-highlight{
   right: 0px;
   background-color: rgba(255, 255, 255, 0.9);
   border-top-left-radius: 12px;
-  padding: 11px 3px 8px 0px;
+  padding: 11px 5% 8px 0px;
 }
 
 #semi_static_tag .entry{

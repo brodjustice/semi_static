@@ -16,10 +16,10 @@
   = render :partial => @tag.partial_path
 - if @tag.show_entries?
   .section
-    - @tag.entries[0..(@tag.max_entries_on_index_page - 1)].each_slice(3) do |row|
+    - @tag.entries[0..(@tag.max_entries_on_index_page - 1)].each_slice(2) do |row|
       .section
         - row.each do |e|
-          .col.span_1_of_3
+          .col.span_1_of_2
             .panel.group{:class => e.style_class, :style => "background-color:#{e.background_colour}; color:#{e.colour}"}
               = render :partial => 'semi_static/entries/entry', :locals => {:e => e, :summary => true}
 - if @tag.partial_after_entries?
