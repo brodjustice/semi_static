@@ -18,7 +18,7 @@ module SemiStatic
        :url => "/system/banners/:id/:style/:filename",
        :styles => { :desktop=> "1500x300#",
                     :mobile => "750x300#",
-                    :parallax => "1000x1000#",
+                    :parallax => "1000x",
                     :desktopy500 => "1500x500#",
                     :mobiley500 => "750x500#" },
        :convert_options => { :desktop => "-strip -gravity Center -quality 80",
