@@ -68,7 +68,7 @@ a { text-decoration: none; }
   background: transparent url(/assets/vert-sprites.png) left -214px no-repeat;
   cursor: pointer;
   position: relative;
-  z-index: 500;
+  z-index: 5000;
   overflow: hidden;
   line-height: 1.5;
 }
@@ -428,11 +428,11 @@ label{
     padding-top: 8px; padding-bottom: 12px;
     padding-left: 0px;
     width: 90%; max-width: 330px; left: -10px; right: -10px;
-    position: fixed; top: 22px;
+    position: fixed; top: 48px;
     border: 1px solid $prime-color;
     background-image: none;
     border-radius: 2px;
-    box-shadow: 0 0 1000px white, 0 100px 500px black, 0 50px 250px black, 0 25px 100px black;
+    box-shadow: 0 50px 500px black;
     font-size: 16px;
     margin: 0 auto;
     text-align: center;

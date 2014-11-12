@@ -630,7 +630,7 @@ h2 a, h3 a{color: $secondary-color;}
     border: 1px solid $prime-color;
     background-image: none;
     border-radius: 2px;
-    box-shadow: 0 0 1000px white, 0 100px 500px black, 0 50px 250px black, 0 25px 100px black;
+    box-shadow: 0 50px 500px black;
     font-size: 16px;
   }
   // Change top on logo position to compensate for menu dissapearing
