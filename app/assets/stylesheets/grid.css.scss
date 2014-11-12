@@ -11,6 +11,9 @@
   max-width: 324px;
 }
 
+
+.span_1_of_2_of_1_of_4{ width: 100%; margin: 0px;}
+
 /*  GROUPING  */
 .group:before, .group:after { content:''; display:table; }
 .group:after { clear:both; }

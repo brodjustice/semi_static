@@ -9,7 +9,7 @@ module SemiStatic
       c = ''
       if fcols.count == 4
         fcols.each_slice(2){|row|
-          c += '<div class="col span_1_of_2_of_1_of_4"">'.html_safe
+          c += '<div class="col span_1_of_2_of_1_of_4">'.html_safe
           row.each{|fc|
             c += column(fc, 'span_1_of_2').html_safe
           }

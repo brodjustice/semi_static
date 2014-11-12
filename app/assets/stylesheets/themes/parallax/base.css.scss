@@ -99,7 +99,7 @@ a { text-decoration: none; }
 }
 
 #footer {
-  border-top: 1px solid #a8a8a8; background-color: #171717; position: relative; width: 100%; clear: both;
+  border-top: 1px solid #a8a8a8; background-color: #171717; position: relative; width: 100%;
   display: block; font-size: 18px; width: 100%; color: white; text-align: center;
 }
 #footer ul {
@@ -180,7 +180,7 @@ a { text-decoration: none; }
     margin-bottom: 16px; margin-top: 24px;
 }
 
-#footer{clear: both; border-top: 1px solid #d8d8d8; min-height: 50px;}
+#footer{clear: both; min-height: 50px;}
 #footer img{float: right; margin: -9px 0 0 8px;}
 #footer .credits{float: left; width: 20%; text-align: center;}
 #footer .credits, #footer .copy{
