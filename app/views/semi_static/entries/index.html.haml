@@ -13,6 +13,7 @@
       %th= 'Position'
       %th= 'Banner'
       %th= 'SEO'
+      %th= image_tag('/assets/video.png', :title => 'YouTube Video')
       %th= image_tag('/assets/photos.png', :title => 'Number of photos')
       %th= 'Locale'
       %th
@@ -39,6 +40,8 @@
               = link_to image_tag('/assets/add.png', :title => "Add SEO meta tags"), new_entry_seo_path(entry, :return => entries_path), :remote => true
             - else
               = link_to image_tag('/assets/application_form_edit.png', :title => "Edit SEO meta tags"), edit_seo_path(entry.seo, :return => entries_path), :remote => true
+          %td
+            = link_to image_tag('tick.png', :title => 'YouTube Video'), "http://youtu.be/#{entry.youtube_id_str}" unless entry.youtube_id_str.blank?
           %td.number= entry.photos.count.to_s
           %td= entry.locale.to_s
           %td= link_to image_tag('/assets/page_copy.png', :title => "Use #{[entry.locale, ': ', entry.title].join} as master for new entry"), new_entry_path(:master => entry)

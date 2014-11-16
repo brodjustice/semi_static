@@ -1,0 +1,4 @@
+.button
+  = button_to_function 'Close', "$('#dialog').hide();"
+%h1= "Preview of #{@entry.title}"
+= render :partial => 'entry', :locals => {:e => @entry}

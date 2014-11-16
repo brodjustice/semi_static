@@ -1,5 +1,6 @@
 - summary ||= false
-.entry
+.entry{:style => "background-color: #{e.background_colour}"}
+  = youtube_video(e.youtube_id_str) unless e.youtube_id_str.blank?
   - if e.img.present?
     .col.span_1_of_2.floater
       .img

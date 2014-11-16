@@ -27,6 +27,19 @@
       }
     }
 
+    function entry_preview(){
+      var valuesToSubmit = $('form').serialize();
+      $.ajax({
+        type: "POST",
+        url: $('form').attr('action') + '?preview=true',
+        data: valuesToSubmit,
+        dataType: "script"
+      }).success(function(json){
+        // ??
+      });
+      return false; // prevents normal behaviour
+    }
+
     $(document).ready(function() {
       $('#entry_body').jqte();
       $( "#entry_banner_id" ).change(function() { load_banner_preview($('#entry_banner_id').val()); });
@@ -90,7 +103,21 @@
   %fieldset
     = f.label :position
     = f.text_field :position
-  %fieldset.semi_static_entry_main_content
+  %fieldset.semi_static_youtube_id_str
+    .infobox#youtube_id_str_text_box
+      %h4= 'YouTube ID'
+      %p
+        = 'If a YouTube video ID is given, then the video will be presented below the title but before the entry text and image'
+      %p
+        = 'If you are not sure what the YouTube ID is, then click on "share" underneath the YouTube video, and then copy the'
+        = 'URL link to the field below. Then click "Preview" at the bottom of this form to see if you have the correct ID'
+    = f.label :youtube_id_str, 'YouTube Video ID (optional)', :class => 'infomarker'
+    %br/
+    .field
+      = f.text_field :youtube_id_str
+      %span#validateYoutubeButton{:style => 'display: none'}
+        = button_to_function 'Click here to validate YouTube ID', 'validate_youtube_id();'
+    %fieldset.semi_static_entry_main_content
     = f.label :body
     %br/
     = f.text_area :body
@@ -167,4 +194,5 @@
     = f.text_field :colour
 
   .actions
+    = button_to_function 'Preview', 'entry_preview();'
     = f.submit 'Save'

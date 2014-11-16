@@ -25,6 +25,10 @@ h1{
     text-align: center;
 }
 
+#dialog .button{
+  margin-top: -8px;
+}
+
 input[type="submit"], .button a {
   font-size: 14px;
 }
@@ -116,6 +120,19 @@ th{
   background-color: white;
   border-radius: 2px;
   padding: 12px;
+  z-index: 10000;
+}
+
+#dialog.entry.preview{
+  width: 669px;
+  max-width: none;
+  top: 3px;
+}
+
+#dialog h1{
+  margin: -12px -12px 12px -12px;
+  padding: 6px;
+  background-color: #e8e8e8;
 }
 
 /* Flipswitch from proto.io */

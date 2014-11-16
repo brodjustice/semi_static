@@ -9,7 +9,7 @@ module SemiStatic
   
     attr_accessible :title, :body, :tag_id, :home_page, :summary, :img, :news_item, :image_in_news
     attr_accessible :position, :doc, :doc_description, :summary_length, :locale, :style_class, :header_colour, :background_colour, :colour
-    attr_accessible :banner_id, :partial, :entry_position, :master_entry_id
+    attr_accessible :banner_id, :partial, :entry_position, :master_entry_id, :youtube_id_str
     attr_accessible :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :unrestricted_html
   
     belongs_to :tag
@@ -99,6 +99,12 @@ module SemiStatic
       else
         self.body = ActionController::Base.helpers.sanitize(self.body, :tags => ALLOWED_TAGS, :attributes => ALLOWED_ATTRIBUTES)
       end
+      super
+    end
+
+    def youtube_id_str=(val)
+      val = val.split('/').last
+      val = val.split('v=').last
       super
     end
 

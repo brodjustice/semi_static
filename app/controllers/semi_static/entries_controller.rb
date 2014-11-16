@@ -71,7 +71,9 @@
       @entry = Entry.new(params[:entry])
   
       respond_to do |format|
-        if @entry.save
+        if params[:preview]
+          format.js { render 'preview'}
+        elsif @entry.save
           format.html { redirect_to entries_path }
           format.json { render :json => @entry, :status => :created, :location => @entry }
         else
@@ -85,13 +87,16 @@
     # PUT /entries/1.json
     def update
       @entry = Entry.find(params[:id])
-  
+
       respond_to do |format|
-        if @entry.update_attributes(params[:entry])
+        if params[:preview] && (@entry.attributes = params[:entry])
+          format.js { render 'preview'}
+        elsif @entry.update_attributes(params[:entry])
           format.html { redirect_to entries_path }
-          format.json { head :no_content }
+          format.js
         else
           format.html { render :action => "edit" }
+          format.js
           format.json { render :json => @entry.errors, :status => :unprocessable_entity }
         end
       end

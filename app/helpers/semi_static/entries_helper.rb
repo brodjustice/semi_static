@@ -10,5 +10,8 @@ module SemiStatic
       end
     end
 
+    def youtube_video(id)
+      "<div class='yt_video'> <iframe width='640' height='360' src='//www.youtube.com/embed/#{id}' frameborder='0' allowfullscreen></iframe></div>".html_safe
+    end
   end
 end
