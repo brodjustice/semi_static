@@ -103,8 +103,10 @@ module SemiStatic
     end
 
     def youtube_id_str=(val)
-      val = val.split('/').last
-      val = val.split('v=').last
+      unless val.blank?
+        val = val.split('/').last
+        val = val.split('v=').last
+      end
       super
     end
 
