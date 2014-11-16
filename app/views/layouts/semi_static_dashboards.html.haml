@@ -17,21 +17,21 @@
     = yield :ujs
 
     %link{:rel => 'shortcut icon', :href => '/assets/favicon.ico'}
-  %body
+  %body#dashboard
     = render :partial => 'semi_static/shared/dashboard_top'
-    #container
-      #container-inner
-        - unless flash.blank?
-          #notice
-            = flash[:alert]
-            = flash[:error]
-            = flash[:notice]
-        #header
-          #header-inner
-            = render :partial => 'semi_static/shared/dashboard_header'
-        #dialog{:style => 'display: none;'}
-        #content
-          =yield
-        #footer
-          = render :partial => 'semi_static/shared/footer'
-    :javascript
+    #frame
+      #container
+        #container-inner
+          - unless flash.blank?
+            #notice
+              = flash[:alert]
+              = flash[:error]
+              = flash[:notice]
+          #header
+            #header-inner
+              = render :partial => 'semi_static/shared/dashboard_header'
+          #dialog{:style => 'display: none;'}
+          #content
+            =yield
+      #footer
+        = render :partial => 'semi_static/shared/footer'

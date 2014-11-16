@@ -23,14 +23,15 @@
     = render :partial => 'semi_static/shared/top'
     = yield :banner
     = render :partial => 'semi_static/shared/overlay'
-    #container
-      - unless flash.blank?
-        #notice
-          = flash[:alert]
-          = flash[:error]
-          = flash[:notice]
-      #dialog{:style => 'display: none;'}
-      #content
-        =yield
+    #frame
+      #container
+        - unless flash.blank?
+          #notice
+            = flash[:alert]
+            = flash[:error]
+            = flash[:notice]
+        #dialog{:style => 'display: none;'}
+        #content
+          =yield
     = render :partial => 'semi_static/shared/footer'
     = render :partial => SemiStatic::Engine.config.analytics_partial unless SemiStatic::Engine.config.analytics_partial.nil?

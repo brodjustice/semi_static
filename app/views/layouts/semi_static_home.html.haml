@@ -47,13 +47,14 @@
     -# The skrollr-body id is only used for the parallax theme
     #skrollr-body
     = render :partial => 'semi_static/shared/banner'
-    #container
-      - unless flash.blank?
-        #notice
-          = flash[:alert]
-          = flash[:error]
-          = flash[:notice]
-      #content
-        =yield
+    #frame
+      #container
+        - unless flash.blank?
+          #notice
+            = flash[:alert]
+            = flash[:error]
+            = flash[:notice]
+        #content
+          =yield
     = render :partial => 'semi_static/shared/footer'
     = render :partial => SemiStatic::Engine.config.analytics_partial unless SemiStatic::Engine.config.analytics_partial.nil?

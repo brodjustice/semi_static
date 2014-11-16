@@ -2,19 +2,20 @@
   #toTop
     = link_to '#overlay' do
       %span.arrow= t('Top')
-  #footer-inner.section
-    .group
-      = page_footer
-    .group.notices
-      .copy
-        %p
-          &copy;
-          = SemiStatic::Engine.config.copyright_year
-          = SemiStatic::Engine.config.copyright_owner
-      .credits
-        = link_to t('ImprintAndCredits'), semi_static.site_path('imprint-credits')
-      .stamps
-        = link_to "http://validator.w3.org/check?uri=referer" do
-          #html5
-        = link_to "http://www.datadock.eu/en" do
-          #ddock
+  #footer-wrapper
+    #footer-inner.section
+      .group
+        = page_footer
+      .group.notices
+        .copy
+          %p
+            &copy;
+            = SemiStatic::Engine.config.copyright_year
+            = SemiStatic::Engine.config.copyright_owner
+        .credits
+          = link_to t('ImprintAndCredits'), semi_static.site_path('imprint-credits')
+        .stamps
+          = link_to "http://validator.w3.org/check?uri=referer" do
+            #html5
+          = link_to "http://www.datadock.eu/en" do
+            #ddock

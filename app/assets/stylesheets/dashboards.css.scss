@@ -32,13 +32,36 @@ input[type="submit"], .button{
   margin: 0px;
 }
  
-#menu{
+#dashboard #menu{
   width: 100%;
   background-color: #181818;
   font-size: 18px;
   padding-left: 0px;
   height: auto;
+  right: 0px;
+  margin: 0 auto;
+  position: relative;
+  top: 0px;
+  margin-bottom: 6px;
 }
+
+#dashboard #menu a{
+  color: white;
+}
+
+.nutshell {
+    display: inline-block;
+    vertical-align: top;
+}
+#menu .nutshell{
+  width: 130px;
+  text-align:  center;
+}
+
+#menu.spacer_wrapper{
+  margin-top: 16px;
+}
+
 
 fieldset {
     border: medium none;
@@ -73,6 +96,12 @@ th{
   padding: 0px 2px;
   background-color: #f0f0f0;
   text-align: center;
+}
+
+#content{
+  width: 98%;
+  max-width: none;
+  margin: 0 auto;
 }
 
 #dialog{

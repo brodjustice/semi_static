@@ -1,0 +1,37 @@
+.wrapping .html{
+  max-width: none;
+}
+
+.side-bar{
+  display: none;
+}
+
+#semi_static_tag .col.span_2_of_3,
+#semi_static_entry .col.span_2_of_3{
+  width: 100%;
+}
+
+.mid.wide {
+    max-width: 820px;
+}
+.mid {
+    background: url("/assets/white-60.png") repeat scroll 0 0 transparent;
+    border: 1px solid white;
+    border-radius: 2px;
+    margin: 0 auto 34px;
+    max-width: 560px;
+    padding: 8px;
+    width: 80%;
+}
+
+.mid input, .mid textarea {
+    width: 96%;
+}
+button, input {
+    line-height: normal;
+}
+button, input, select, textarea {
+    font-family: inherit;
+    font-size: 100%;
+    margin: 0;
+}

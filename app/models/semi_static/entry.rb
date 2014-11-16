@@ -30,6 +30,7 @@ module SemiStatic
     has_attached_file :img,
        :styles => {
          :bar=> "304x>",
+         :small=> "290x>",
          :panel=> "324x>",
          :wide => '960x>',
          :big=> "500x>"
@@ -47,6 +48,7 @@ module SemiStatic
     DISPLAY_ENTRY_SYM = DISPLAY_ENTRY.invert
 
     THEME = {
+      'menu-right' => {:desktop => :panel, :mobile => :panel, :summary => :small},
       'standard-2col-1col' => {:desktop => :panel, :mobile => :panel, :summary => :panel},
       'plain-3col' => {:desktop => :panel, :mobile => :panel, :summary => :panel},
       'parallax' => {:desktop => :wide, :mobile => :panel, :summary => :panel},

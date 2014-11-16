@@ -1,0 +1,332 @@
+html { overflow-y: scroll;}
+body{
+  background-color: $secondary-color; 
+  margin: 0px;
+  font:16px 'Raleway', 'Ubuntu', Arial, Verdana, Helvetica, sans-serif;
+  color: $font-color;
+  position: relative;
+}
+
+a{text-decoration: none; color: $font-color;}
+fieldset{
+  border: none;
+}
+h2{ font-size: 20px;}
+
+// TEMP ONLY - HIDE TILL WE KNOW WHERE THE SHOULD GO
+#search-bar, .social, .news, .locale, li.lady{
+  display: none !important;
+}
+
+#top{
+  display: none;
+  background-color: #fefefb;
+  box-shadow: 0 0 2px #a0a0a0;
+  z-index: 100;
+  top: 0px;
+}
+
+#frame{
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+#menu-wrapper, #banner, #footer-wrapper{
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+#banner{
+  position: relative;
+}
+
+#menu-wrapper{
+  top: 0px;
+  left: -5000px;
+  right: -5000px;
+  position: fixed;
+}
+
+#container{
+  width: 100%;
+}
+
+#stripes-wrapper{
+  display: none;
+  position: absolute;
+  // content: ' ';
+  max-height: 100%;
+  top: 0px; bottom: 0px; left: 0px; right: 0px;
+}
+
+#stripes{
+  position: relative;
+  height: 100%;
+  max-width: 1350px;
+  margin: 0 auto;
+  padding-left: 50px;
+}
+
+#stripes .one, #stripes .two, #stripes .three{
+  float: left;
+  margin-right: 0px;
+  position: relative;
+  background: transparent url(/assets/stripes/chevrons-32.png) 0 0 repeat-y;
+  height: 100%;
+  width: 32px;
+}
+
+#stripes .two{background-position: 0 10px;}
+#stripes .three{background-position: 0 20px;}
+
+#content, #logo-wrapper, #tag-wrapper, #desc-wrapper, #content{
+  width: 75%;
+  margin: 0 40px;
+  max-width: 900px;
+}
+
+#footer-inner{
+  margin: 0 40px;
+}
+
+#menu-button, #menu-close{
+  display: none;
+  float: right;
+  color: $font-color; font-weight: bold;
+  padding: 3px 2px 4px 32px;
+  margin: 2px 12px 0px 0px;
+  background: transparent url(/assets/vert-sprites.png) left -216px no-repeat;
+  cursor: pointer;
+  position: relative;
+  z-index: 500;
+}
+
+#menu-button{
+  // Create bigger click area
+  padding-bottom: 34px;
+}
+
+#menu{
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  // Mathmatically, margin should be right: 40px; but visually it looks better like this:
+  right: 30px;
+  top: 5.25em;
+  width: 15%;
+  z-index: 1;
+  font-size: 18px;
+}
+
+#menu-main .wrapper{
+  text-align: right;
+}
+
+#menu-main .col{
+  width: 100%;
+  margin-top: 12px;
+}
+
+#selected a{
+  font-weight: bold;
+}
+
+.section.row_1{
+  padding: 0 12px;
+  margin: 0 -12px;
+  border-radius: 8px;
+  border: 1px solid #d8d8d8;
+  border-top: 1px solid white;
+  box-shadow: 0px 1px 2px #e0e0e0;
+  margin-bottom: 12px;
+  background-color: rgba(255,255,255,0.1);
+}
+
+.row_2 .panel{
+  border: 1px solid #d8d8d8;
+  padding: 0px 3px;
+  border-top: 1px solid white;
+}
+
+.row_2 .html{
+  padding: 5px;
+}
+
+.section:after, #container:after{ content: ''; display: table; clear: both; }
+
+#footer{position: relative; z-index: 1; clear: both; border-top: 1px solid #c0c0c0; min-height: 50px; background-color: white;}
+#footer img{float: right; margin: -9px 0 0 8px;}
+#footer .credits{float: left; width: 20%; text-align: center;}
+#footer .credits, #footer .copy{
+  position: relative;
+  top: 50%; 
+  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+}
+#footer .notices{ clear: both; font-size: 12px; margin-top: 8px; }
+#footer .copy{width: 40%; float: left; margin: 0px;}
+#footer .copy p{font-size: 12px; margin: 0; padding: 0 0 0 5px;}
+#footer .stamps{float: left; width: 40%; margin-top: -15px;}
+#footer h3{color: $font-color;}
+#footer .col:last-child h3, #footer .col:last-child li { text-align: right; }
+
+#bar-in-menu ul, #top ul, #footer ul{list-style: none outside none; padding-left: 0px;}
+
+// Sprites
+
+#ddock{float: right;width: 97px; margin-top: 0px; height: 32px; background:transparent url(/assets/hoz-sprites.png) 0 center no-repeat;}
+#html5{float: right;margin: -4px 5px 0 0px; width: 25px; height: 33px; background:transparent url(/assets/hoz-sprites.png) -97px center no-repeat;}
+#twitter{float: right; padding: 0px 8px 3px 28px; background: transparent url(/assets/vert-sprites.png) 0px 5px no-repeat;}
+#xing{float: right; padding: 0px 8px 3px 28px; background: transparent url(/assets/vert-sprites.png) 0px -188px no-repeat;}
+#facebook{float: right; padding: 0px 8px 3px 28px; background: transparent url(/assets/vert-sprites.png) 0px -55px no-repeat;}
+#youtube{float: right; padding: 0px 8px 3px 28px; background: transparent url(/assets/vert-sprites.png) 0px -25px no-repeat;}
+#bar-in-menu .lady, #top .lady{float: right; display: block; padding: 4px 0px 0px 28px; background: transparent url(/assets/vert-sprites.png) 0px -109px no-repeat;}
+#bar-in-menu .contact, #top .contact{float: right; display: block; padding: 4px 0px 0px 34px; background: transparent url(/assets/vert-sprites.png) 0px -84px no-repeat;}
+
+#bar-in-menu .icon, #top .icon{ background-size: 28px 237px; }
+
+.icon.sprite{height: 100px; width: 100px; background: url(/system/icons/menu-sprites.png) center 0px no-repeat;}
+.icon.sprite.mini{height: 45px; width: 50px; background-size: 50px 250px;}
+#sprite_1{background-position: center 0px;}
+#sprite_2{background-position: center -100px;}
+#sprite_2.mini{background-position: center -50px;}
+#sprite_3{background-position: center -200px;}
+#sprite_3.mini{background-position: center -100px;}
+#sprite_4{background-position: center -300px;}
+#sprite_4.mini{background-position: center -150px;}
+#sprite_5{background-position: center -400px;}
+#sprite_5.mini{background-position: center -200px;}
+.icon.sprite + h2{padding-top: 10px;}
+.icon + .html h2{padding-top: 6px;}
+
+h1{font-size: 24px;}
+h1, h2, h3{ margin: 6px 0px 6px; color: $font-color}
+h2 a, h3 a{color: $font-color;}
+.panel h2{
+  text-align: left;
+  color: $font-color;
+}
+
+.normal.panel{
+  background: transparent;
+  color: $font-color;
+}
+
+.more{
+  position: relative;
+  text-align: right;
+}
+
+.link a, .more a{
+  background: transparent url(/assets/vert-sprites.png) right -162px no-repeat;
+  background-size: 28px 237px;
+  padding: 4px 36px 1px 12px;
+  margin: 2px 0px 6px;
+}
+
+#logo{
+  height: $logo-height; width: $logo-width;
+  background: transparent url(/assets/#{$logo}) -7px 0 no-repeat;
+}
+
+
+#mini-logo{
+  width: $logo-top-width; height: $logo-top-height;
+  background: transparent url(/assets/#{$logo-top}) 0 0 no-repeat;
+  position: absolute;
+  top: -4px;
+  left: 0px;
+}
+
+/* To help when inserting YouTube videos... */
+.panel iframe, .video iframe {
+    border: medium none;
+    width: 98.5%;
+}
+
+.entry .wrapping{ margin-left: 0; float: none; width: 100%; }
+.entry .floater{ margin-left: 0; width: auto;float: none; }
+.wrapping .html, .floater .img{max-width: 290px; width: 100%; margin: 0 auto;}
+
+@media only screen and (min-width: 1350px) {
+  #stripes-wrapper{display: block;}
+  #menu{right: 0px;}
+  #frame, #banner, #footer-wrapper{max-width: 1350px;}
+  #content{position: relative; left: 150px;}
+  #logo-wrapper, #tag-wrapper, #desc-wrapper{
+    left: 190px;
+    margin: 0;
+    position: relative;
+    width: 1000px; 
+  }
+}
+
+@media only screen and (max-width: 760px) {
+  // For smaller portrait the % margin at the top is too
+  // small so we fine tune here by forcing a reasonable
+  // margin between the image amd the top of the
+  // panel
+  .floater img{margin-top: 6px !important; }
+
+  // Once the column stops floating we need to get rid of that tweak
+  // we mentioned in REMARK A above.
+  .wrapping{ margin-left: 1.6%; }
+  .floater{ margin-left: 0 !important; }
+
+  .searchform input[type='text'] { width: 66%;}
+}
+
+/* Basic mobile portrait or perhaps tablet portrait layout */
+@media only screen and (max-width: 750px) {
+  .mobile{display: block !important;}
+  .desktop{display: none !important;}
+}
+
+@media only screen and (max-width: 880px) {
+  // Change menu to hidden pop-up on click and fixed position
+  #top{display: block;}
+  #menu, #top-inner ul{display: none;}
+  #logo-wrapper{
+    display: none;
+  }
+  #banner{
+    margin-top: 80px;
+  }
+  #tag-wrapper, #desc-wrapper, #content {
+    width: 90%;
+    margin: 0 auto;
+  }
+  #menu{
+    padding-top: 8px; padding-bottom: 12px;
+    width: 90%; max-width: 330px; left: -10px; right: -10px;
+    position: fixed; background-color: #f8f8f8; top: 44px;
+    border: 1px solid $prime-color;
+    background-image: none;
+    border-radius: 2px;
+    box-shadow: 0 50px 500px black;
+    font-size: 16px;
+  }
+  #menu .col{ width: 100%; }
+  #menu-loading-wrapper{display: block;}
+
+  // Need to radically change the hover icons now menu has collapsed
+  .icon .custom{
+    height: 0px;
+    border-width: 2px;
+    margin: 3px auto !important;
+    top: 16px;
+    width: 30%;
+  }
+  #menu .wrapper .text{height: 20px;}
+
+  .wrapper:not(#selected) .icon.sprite{background-image: none;}
+
+  /* No Firefox support for background-position-x, but applies only usually to mobile any */
+  #selected.wrapper .icon.sprite{background-position-x: left;}
+
+
+  #top{position: fixed; width: 100%;}
+  #menu-button{display: block;}
+}
