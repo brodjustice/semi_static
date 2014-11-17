@@ -70,7 +70,7 @@ th{ text-align: left; }
 }
 
 .mid input, .mid textarea{ width: 96%; }
-.mid input[type=checkbox]{width: auto;}
+.mid input[type=radio], .mid input[type=checkbox]{width: auto;}
 
 .list{
   text-align: center;
