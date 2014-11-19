@@ -5,7 +5,10 @@ module SemiStatic
 
     before_filter :authenticate_user!, :class => SemiStatic::Photo, :except => [ :show, :index ]
   
-    caches_page :show
+    # Caching the show page seems to cause some problems when flicking through the
+    # gallery with js. Since the js/ajax is so light anyway we have stopped caching
+    # the photo pages into we are clear about what is causing the problem.
+    # caches_page :show
   
     # GET /photos
     # GET /photos.json
