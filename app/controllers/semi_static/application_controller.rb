@@ -7,6 +7,14 @@ module SemiStatic
 
     layout 'semi_static_application'
   
+    # Not found ids and slugs are really 404 not 500
+    rescue_from ActiveRecord::RecordNotFound do |e|
+      @status_code = 404
+      @exception = e
+      @url = url_for(params)
+      render :layout => 'semi_static_application', :template => 'semi_static/errors/show', :status => @status_code
+    end
+
     # CanCan exception is AccessDenied in 1.6.x, but in the 2.0-alpha gem
     # has been changed as below. The git master changes it back again so watch out.
     # rescue_from CanCan::Unauthorized do |exception|

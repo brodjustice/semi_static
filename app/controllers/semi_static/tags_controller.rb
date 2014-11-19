@@ -21,7 +21,10 @@
     # GET /tags/1
     # GET /tags/1.json
     def show
-      @tag = Tag.where(:locale => locale.to_s).find_by_slug(params[:slug])
+      # You might want to look for slugs of different locales, especially if these are custom
+      # pages. So first look for tag in current locale and if this fails take first matching tag
+      @tag = Tag.where(:locale => locale.to_s).find_by_slug(params[:slug]) || Tag.find_by_slug!(params[:slug])
+
       @title = @tag.name
       @seo = @tag.seo
   
