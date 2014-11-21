@@ -1,6 +1,6 @@
 module SemiStatic
   module EntriesHelper
-    STYLE_CLASSES = ['normal', ' feint',  'flat',  'collapse', 'flat collapse', 'hard', 'highlight', 'dotted']
+    STYLE_CLASSES = ['normal', ' feint',  'flat',  'collapse', 'flat collapse', 'hard', 'highlight', 'wobble', 'dotted']
 
     def entry_summary(e, l = 300)
       if e.summary.blank?

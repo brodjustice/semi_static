@@ -20,7 +20,10 @@ h2{ font-size: 20px;}
 }
 
 #top{
-  display: none;
+  // display: none;
+  position: fixed;
+  width: 100%;
+  min-height: 60px;
   background-color: #fefefb;
   box-shadow: 0 0 2px #a0a0a0;
   z-index: 100;
@@ -33,14 +36,24 @@ h2{ font-size: 20px;}
   margin: 0 auto;
 }
 
-#menu-wrapper, #banner, #footer-wrapper{
+#top-wrapper, #menu-wrapper, #head, #footer-wrapper{
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
 }
 
-#banner{
+#head{
   position: relative;
+}
+
+// #banner{ width: 100%; position: absolute; top: 54px;}
+#banner{ width: 100%; position: relative; margin-top: 54px; z-index: -1;}
+#banner img{width: 100%;}
+
+#logo-wrapper{
+  position: fixed;
+  background-color: white;
+  height: 50px;
 }
 
 #menu-wrapper{
@@ -57,7 +70,6 @@ h2{ font-size: 20px;}
 #stripes-wrapper{
   display: none;
   position: absolute;
-  // content: ' ';
   max-height: 100%;
   top: 0px; bottom: 0px; left: 0px; right: 0px;
 }
@@ -82,15 +94,25 @@ h2{ font-size: 20px;}
 #stripes .two{background-position: 0 10px;}
 #stripes .three{background-position: 0 20px;}
 
-#content, #logo-wrapper, #tag-wrapper, #desc-wrapper, #content{
+#content, #logo-wrapper, #desc-wrapper, #content{
   width: 75%;
   margin: 0 40px;
   max-width: 900px;
 }
 
-#footer-inner{
-  margin: 0 40px;
+#tag-wrapper{
+  position: absolute;
+  width: 100%;
+  margin: 20% auto 0;
+  top:0; bottom: 0;
+  left: 0; right: 0;
 }
+
+#top-inner, #footer-inner{
+  margin: 0 40px;
+  position: relative;
+}
+
 
 #menu-button, #menu-close{
   display: none;
@@ -111,14 +133,18 @@ h2{ font-size: 20px;}
 
 #menu{
   position: absolute;
+  // background-color: rgba(255,255,255, 0.8);
+  background-color: #f8f8f8;
   margin: 0;
-  padding: 0;
+  padding: 0 2% 12px;
   // Mathmatically, margin should be right: 40px; but visually it looks better like this:
   right: 30px;
   top: 5.25em;
-  width: 15%;
+  width: 11%;
   z-index: 1;
   font-size: 18px;
+  border-radius: 4px;
+  max-width: 116px;
 }
 
 #menu-main .wrapper{
@@ -260,10 +286,11 @@ h2 a, h3 a{color: $font-color;}
 
 @media only screen and (min-width: 1350px) {
   #stripes-wrapper{display: block;}
+  #mini-logo{left: 70px !important;}
   #menu{right: 0px;}
-  #frame, #banner, #footer-wrapper{max-width: 1350px;}
+  #frame, #head, #footer-wrapper{max-width: 1350px;}
   #content{position: relative; left: 150px;}
-  #logo-wrapper, #tag-wrapper, #desc-wrapper{
+  #logo-wrapper, #desc-wrapper{
     left: 190px;
     margin: 0;
     position: relative;
@@ -295,11 +322,12 @@ h2 a, h3 a{color: $font-color;}
 @media only screen and (max-width: 880px) {
   // Change menu to hidden pop-up on click and fixed position
   #top{display: block;}
+  #top-inner{ margin: 0px; }
   #menu, #top-inner ul{display: none;}
-  #logo-wrapper{
+  #banner, #logo-wrapper{
     display: none;
   }
-  #banner{
+  #head{
     margin-top: 80px;
   }
   #tag-wrapper, #desc-wrapper, #content {

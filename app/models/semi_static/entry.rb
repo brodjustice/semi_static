@@ -32,10 +32,15 @@ module SemiStatic
          :bar=> "304x>",
          :small=> "290x>",
          :panel=> "324x>",
+         :medium => '443x>',
          :wide => '960x>',
          :big=> "500x>"
        },
-       :convert_options => { :panel => "-strip -gravity Center -quality 80",
+       :convert_options => { :bar => "-strip -gravity Center -quality 80",
+                             :small => "-strip -gravity Center -quality 80",
+                             :panel => "-strip -gravity Center -quality 80",
+                             :medium => "-strip -gravity Center -quality 80",
+                             :wide => "-strip -gravity Center -quality 80",
                              :big => "-strip -gravity Center -quality 80"  }
   
     DIRTY_TAGS= %w(span br em b i u ul ol li a div p img hr  h1 h2 h3 h4 iframe)
@@ -48,7 +53,7 @@ module SemiStatic
     DISPLAY_ENTRY_SYM = DISPLAY_ENTRY.invert
 
     THEME = {
-      'menu-right' => {:desktop => :panel, :mobile => :panel, :summary => :small},
+      'menu-right' => {:desktop => :panel, :mobile => :panel, :small => :small, :summary => :medium},
       'standard-2col-1col' => {:desktop => :panel, :mobile => :panel, :summary => :panel},
       'plain-3col' => {:desktop => :panel, :mobile => :panel, :summary => :panel},
       'parallax' => {:desktop => :wide, :mobile => :panel, :summary => :panel},
@@ -60,6 +65,7 @@ module SemiStatic
     scope :additional_entries, lambda {|e| where('tag_id = ?', e.tag_id).where('id != ?', e.id)}
 
     def img_url_for_theme(screen = :desktop)
+      screen = :summary if (screen == true)
       img.url(THEME[SemiStatic::Engine.config.theme][screen])
     end
 

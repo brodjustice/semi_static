@@ -4,7 +4,8 @@
     %title= seo_title
     %meta{ :"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8" }/
     %meta{ :name => "description", :content => seo_description }/
-    %meta{ :name => "keywords", :content => seo_keywords }/
+    - unless seo_keywords.blank?
+      %meta{ :name => "keywords", :content => seo_keywords }/
     %meta{ :name => "rating", :content => "General" }/
     %meta{:name => 'viewport', :content => 'width=device-width, initial-scale=1.0'}/
 
@@ -14,7 +15,7 @@
     -#
     -# = stylesheet_link_tag 'semi_static/application', :media => 'all'
     -#
-    -# However, for this layout we choose to embeed the small amount of CSS directly
+    -# However, for this layout we choose to embed the small amount of CSS directly
     -# into the header, which is then one less file to fecth and improves ratings
     -# and load time
     %style{:type => "text/css"}

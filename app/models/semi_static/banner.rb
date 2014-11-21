@@ -8,6 +8,7 @@ module SemiStatic
     has_many :tags
 
     THEME = {
+      'menu-right' => {:desktop => :desktopy500, :mobile => :mobile},
       'standard-2col-1col' => {:desktop => :desktop, :mobile => :mobile},
       'plain-3col' => {:desktop => :desktop, :mobile => :mobile},
       'parallax' => {:desktop => :parallax, :mobile => :parallax},

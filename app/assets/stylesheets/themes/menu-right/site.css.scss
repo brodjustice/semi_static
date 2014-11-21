@@ -1,3 +1,7 @@
+.bg{
+  height: 500px;
+  background-position: center center;
+}
 .wrapping .html{
   max-width: none;
 }
@@ -9,6 +13,19 @@
 #semi_static_tag .col.span_2_of_3,
 #semi_static_entry .col.span_2_of_3{
   width: 100%;
+}
+
+#semi_static_tag .img img{
+  position: relative;
+  z-index: 10;
+}
+
+#semi_static_tag .img img, #semi_static_tag .img{
+  max-width: none;
+}
+
+#semi_static_tag .panel{
+  margin-bottom: 70px;
 }
 
 .mid.wide {

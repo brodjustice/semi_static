@@ -35,7 +35,15 @@ input[type="submit"], .button a {
 input[type="submit"], .button{
   margin: 0px;
 }
+
+.mid.full{
+  max-width: 1024px;
+}
  
+#dashboard #top{
+  position: relative;
+}
+
 #dashboard #menu{
   width: 100%;
   background-color: #181818;
@@ -47,6 +55,7 @@ input[type="submit"], .button{
   position: relative;
   top: 0px;
   margin-bottom: 6px;
+  max-width: 1024px;
 }
 
 #dashboard #menu a{
@@ -106,6 +115,7 @@ th{
   width: 98%;
   max-width: none;
   margin: 0 auto;
+  left: 0;
 }
 
 #dialog{
@@ -121,6 +131,14 @@ th{
   border-radius: 2px;
   padding: 12px;
   z-index: 10000;
+}
+
+#dialog.wide{
+  max-width: 500px;
+}
+
+#dialog.wide input[type='text']{
+  width: 97%;
 }
 
 #dialog.entry.preview{
