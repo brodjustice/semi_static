@@ -3,7 +3,7 @@ require_dependency "semi_static/application_controller"
 module SemiStatic
   class PhotosController < ApplicationController
 
-    before_filter :authenticate_user!, :class => SemiStatic::Photo, :except => [ :show, :index ]
+    before_filter :authenticate_for_semi_static!, :except => [ :show, :index ]
   
     # Caching the show page seems to cause some problems when flicking through the
     # gallery with js. Since the js/ajax is so light anyway we have stopped caching

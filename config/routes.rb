@@ -30,15 +30,8 @@ SemiStatic::Engine.routes.draw do
 
   get "site/show"
 
-  # devise_for :users, class_name: "SemiStatic::User", module: :devise
+  match '/semi_static/dashboard' => 'dashboards#show', :as => 'semi_static_dashboard', :via => :get
 
-  devise_for :users, class_name: "SemiStatic::User", module: :devise do
-    get "/users/sign_out" => "devise/sessions#destroy", :as => :destroy_user_session
-  end
-
-  match '/user/:role/dashboard' => 'dashboards#show', :as => 'dashboard', :via => :get
-
-  resources :users
   match '/system' => "system#update", :via => :put
 end
 

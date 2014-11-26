@@ -2,7 +2,7 @@ require_dependency "semi_static/application_controller"
 
 module SemiStatic
   class AgreementsController < ApplicationController
-    before_filter :authenticate_user!, :class => SemiStatic::Contact
+    before_filter :authenticate_for_semi_static
 
     def index
       @agreements = Agreement.all

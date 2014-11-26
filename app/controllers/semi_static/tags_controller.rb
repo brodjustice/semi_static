@@ -3,7 +3,7 @@
   module SemiStatic
     class TagsController < ApplicationController
   
-    before_filter :authenticate_user!, :except => :show
+    before_filter :authenticate_for_semi_static!, :except => :show
   
     layout 'semi_static_dashboards'
   

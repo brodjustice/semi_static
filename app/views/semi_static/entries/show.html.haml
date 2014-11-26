@@ -10,18 +10,4 @@
         .bg.desktop{:style => "background-image: url(#{@entry.banner.img_url_for_theme(:desktop)})"}
         .bg.mobile{:style => "display: none; background-image: url(#{@entry.banner.img_url_for_theme(:mobile)})"}
 
-- if @entry.partial_before_entries?
-  = render :partial => @entry.partial_path
-- if @entry.show_entries?
-  .section
-    .col{:class => ('span_2_of_3' if @entry.side_bar)}
-      .panel.group{:class => @entry.style_class, :style => "background-color:#{@entry.background_colour}; color:#{@entry.colour}"}
-        = render :partial => 'entry', :locals => {:e => @entry}
-        = render :partial => 'document' if @entry.doc.present?
-        = render :partial => 'photos' unless @entry.photos_including_master.blank?
-    - if @entry.side_bar
-      .col.span_1_of_3.side-bar
-        = render :partial => 'semi_static/tags/side_bar', :locals => {:entrytag => @entry.tag}
-- if @entry.partial_after_entries?
-  = render :partial => @entry.partial_path
-
+= render :partial => 'semi_static/entries/show_body'

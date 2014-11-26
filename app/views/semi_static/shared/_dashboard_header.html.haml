@@ -1,4 +1,9 @@
-%h2= link_to "#{SemiStatic::Engine.config.site_name} Admin Console", site_path('home')
+.button
+  = semi_static_path_for_admin_sign_out
+%h1= link_to "#{SemiStatic::Engine.config.site_name} Admin Console for Public Website", site_path('home')
 #menu.spacer_wrapper
-  = menu_for(current_user.top_role.name)
 
+  -# Again, if CanCan is used, something like:
+  -# = menu_for(current_user.top_role.name)
+
+  = menu_for('admin')

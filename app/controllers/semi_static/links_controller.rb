@@ -3,7 +3,7 @@ require_dependency "semi_static/application_controller"
 module SemiStatic
   class LinksController < ApplicationController
 
-    before_filter :authenticate_user!
+    before_filter :authenticate_for_semi_static!
   
     # GET /links
     # GET /links.json

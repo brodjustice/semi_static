@@ -3,7 +3,7 @@ require_dependency "semi_static/application_controller"
 module SemiStatic
   class ContactsController < ApplicationController
 
-    before_filter :authenticate_user!, :class => SemiStatic::Contact, :except => [:new, :create]
+    before_filter :authenticate_for_semi_static!, :except => [:new, :create]
   
     # GET /contacts
     # GET /contacts.json

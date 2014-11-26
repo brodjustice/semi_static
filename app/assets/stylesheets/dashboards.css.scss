@@ -46,7 +46,6 @@ input[type="submit"], .button{
 
 #dashboard #menu{
   width: 100%;
-  background-color: #181818;
   font-size: 18px;
   padding-left: 0px;
   height: auto;
@@ -57,9 +56,20 @@ input[type="submit"], .button{
   margin-bottom: 6px;
   max-width: 1024px;
 }
+#dashboard #menu, .button, th{
+  background: rgba(254,254,254,1);
+  background: -moz-linear-gradient(top, rgba(254,254,254,1) 0%, rgba(226,226,226,1) 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(254,254,254,1)), color-stop(100%, rgba(226,226,226,1)));
+  background: -webkit-linear-gradient(top, rgba(254,254,254,1) 0%, rgba(226,226,226,1) 100%);
+  background: -o-linear-gradient(top, rgba(254,254,254,1) 0%, rgba(226,226,226,1) 100%);
+  background: -ms-linear-gradient(top, rgba(254,254,254,1) 0%, rgba(226,226,226,1) 100%);
+  background: linear-gradient(to bottom, rgba(254,254,254,1) 0%, rgba(226,226,226,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefefe', endColorstr='#e2e2e2', GradientType=0 );
+}
 
 #dashboard #menu a{
-  color: white;
+  color: #1f1f1f;
+  text-shadow: none;
 }
 
 .nutshell {
@@ -147,7 +157,7 @@ th{
   top: 3px;
 }
 
-#dialog h1{
+#dialog > h1{
   margin: -12px -12px 12px -12px;
   padding: 6px;
   background-color: #e8e8e8;

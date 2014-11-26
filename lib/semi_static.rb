@@ -1,5 +1,4 @@
 require "semi_static/engine"
-require "devise"
 require 'elasticsearch'
 require 'paperclip'
 require 'truncate_html'
@@ -7,6 +6,7 @@ require 'truncate_html'
 module SemiStatic
   class Railtie < Rails::Railtie
     config.after_initialize do
+
       # Set up locales from the URL's provided in the config
       SemiStatic::Engine.config.hosts_for_locales = SemiStatic::Engine.config.localeDomains.each_with_object({}) { |(k, v), h| h[k] = v.split('://')[1] }.invert
 
@@ -25,7 +25,7 @@ module SemiStatic
       SemiStatic::Engine.config.open_partials.merge! partial_finder
 
       # Need to insert load path for themes into the correct place. Can't use prepend_path or append_path
-      # as we need it inserted in the correct place.
+      # as we need it inserted in the correct position in the middle.
       semi_static_root = SemiStatic::Engine.root.to_s
       paths = ActionController::Base.view_paths.collect{|p| p.to_s}
       paths = paths.insert(paths.index(semi_static_root + '/app/views'), semi_static_root + '/app/views/themes/' + SemiStatic::Engine.config.theme)

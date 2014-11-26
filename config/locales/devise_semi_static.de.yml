@@ -1,3 +1,4 @@
+# These will be overwritten by devise anyway. But the sessions translation is useful, should it be copied in afterwards?
 de:
   devise:
     sessions:

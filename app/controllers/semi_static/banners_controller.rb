@@ -2,7 +2,8 @@ require_dependency "semi_static/application_controller"
 
 module SemiStatic
   class BannersController < ApplicationController
-    before_filter :authenticate_user!, :class => SemiStatic::Banner
+    # before_filter :authenticate_user!, :class => SemiStatic::Banner
+    before_filter :authenticate_for_semi_static!
 
     layout 'semi_static_dashboards'
 

@@ -2,7 +2,7 @@ require_dependency "semi_static/application_controller"
 
 module SemiStatic
   class ReferencesController < ApplicationController
-    before_filter :authenticate_user!, :class => SemiStatic::Reference, :only => [ :create, :update, :destroy ]
+    before_filter :authenticate_for_semi_static!, :only => [ :create, :update, :destroy ]
   
     caches_page :show
 

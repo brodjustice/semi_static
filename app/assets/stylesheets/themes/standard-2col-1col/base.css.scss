@@ -75,6 +75,7 @@ h2{ font-size: 20px;}
   max-width: 1024px; margin: 0px auto;
   background-color: transparent;
 }
+#toTop{ display: none; }
 #overlay{
   position: relative;
   //  z-index: 100;
@@ -464,7 +465,7 @@ h2 a, h3 a{color: $secondary-color;}
 #menu #bar-in-menu a{
   text-transform: none;
 }
-.home{ padding-left: 52px !important; background: transparent url(/assets/home.png) 21px 2px no-repeat; }
+.home{ padding-left: 52px !important; background: transparent url(/assets/home.png) 21px 2px no-repeat; background-size: auto;}
 
 #menu{
   z-index: 500;

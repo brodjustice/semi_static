@@ -29,7 +29,7 @@ module SemiStatic
     #   3. plain-big-banner-3col
     #   4. parallax
     #   5. menu-right
-    config.theme = 'menu-right'
+    config.theme = 'standard-2col-1col'
     
     # This is the address to which the contact form data is sent to
     config.contact_email = 'info@business-landing.com'
@@ -46,6 +46,12 @@ module SemiStatic
     
     # Set to false if you don't want to show client logos in a side bar or the main reference page
     config.reference_logos = true
+
+    # Predefined Models/Paths: Besides the SemiStatic predefined Models you can add your
+    # own here. These are then available to the (menu) Tags for direct link to your
+    # applications own views.
+    # config.predefined = {'FAQ' => Rails.application.url_helpers.faqs_path }    
+    config.predefined = {}    
 
     # Add name of partial here to be loaded to layouts for analytics, eg. Google 
     # These will be combined for all locales so if you are using google make sure
@@ -72,5 +78,11 @@ module SemiStatic
     # to add manually, then add them here
     # config.open_partials = {:cool_partial => 'site/cool_partial'}
     config.open_partials = {}
+
+    # If your application has it's own dashboard, expecially and admin dashboard, you may
+    # want the semi_static admin to return to this dashboard when finished with the 
+    # semi-static dashboard. If so put your dashboard path in here
+    # config.app_dashboard = ['dashboard_path', 'admin']
+    config.app_dashboard = false
   end
 end

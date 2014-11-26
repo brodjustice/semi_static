@@ -1,6 +1,6 @@
 = SemiStatic
 
-A rails Engine to get you quickly started with a fast, cached, static website. Can however dynamically add content
+A Rails 3 Engine to get you quickly started with a fast, cached, static website. Can however dynamically add content
 hence the name 'semi-static'. The HTML site should load very quickly on mobile and desktop devices, and should get
 a 100% rating on Google pagespeed.
 
@@ -26,7 +26,7 @@ With rails 3 your app will probably need a js runtime for the development enviro
 
 Create the database
 
-	rake db:setup
+	# rake db:setup
 
 Now add semi-static
 
@@ -38,7 +38,8 @@ Run the bundler
 
 	# bundle install
 
-Run the semi-static install generator
+Run the semi-static install generator. SemiStatic needs some authentication and has so far only been tested with Devise. If this generator find Devise or even at database table calls 'users', then it will try to set up autherntication. If it does not find authentication it will ask you if you want to set it up, and then take you through the process of setting up Devise with a single administrator account.
+
 
 	# rails g semi_static_install
 
@@ -99,4 +100,4 @@ need to link the 'asset' and 'system' directories inside each of the public loca
 
     # cd public/en
     # ln -s ../assets ./assets
-    # ln -s ../system ./system 
+    # ln -s ../system ./system

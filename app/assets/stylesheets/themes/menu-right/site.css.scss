@@ -1,7 +1,15 @@
-.bg{
-  height: 500px;
-  background-position: center center;
+#semi_static_entry .bg{
+  margin: 0 auto;
+  max-width: 900px;
 }
+
+@media only screen and (min-width: 900px) {
+  #semi_static_entry .floater{
+    display: none;
+  }
+}
+
+
 .wrapping .html{
   max-width: none;
 }

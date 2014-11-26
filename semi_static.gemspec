@@ -22,14 +22,7 @@ Gem::Specification.new do |s|
   s.add_dependency "haml-rails"
   s.add_dependency "debugger"
   s.add_dependency "paperclip", "~> 2.7"
-  s.add_dependency "devise", "~> 3.2"
 
-  # Can use CanCan 2.0 for Engine namespacing,
-  # but support is not given.
-  # The alternative is to add cancan_namespace:
-  #   http://rubygems.org/gems/cancan_namespace
-  s.add_dependency "cancan", '>= 1.6.3'
-  s.add_dependency "cancan_namespace", ">= 0.1.3"
   s.add_dependency "truncate_html"
 
   # For search

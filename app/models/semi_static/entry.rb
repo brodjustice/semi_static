@@ -34,14 +34,14 @@ module SemiStatic
          :panel=> "324x>",
          :medium => '443x>',
          :wide => '960x>',
-         :big=> "500x>"
+         :big=> "750x>"
        },
        :convert_options => { :bar => "-strip -gravity Center -quality 80",
                              :small => "-strip -gravity Center -quality 80",
                              :panel => "-strip -gravity Center -quality 80",
                              :medium => "-strip -gravity Center -quality 80",
                              :wide => "-strip -gravity Center -quality 80",
-                             :big => "-strip -gravity Center -quality 80"  }
+                             :big => "-strip -gravity Center -quality 85"  }
   
     DIRTY_TAGS= %w(span br em b i u ul ol li a div p img hr  h1 h2 h3 h4 iframe)
     DIRTY_ATTRIBUTES= %w(href class style id align src alt height width frameborder allowfullscreen)
@@ -53,11 +53,11 @@ module SemiStatic
     DISPLAY_ENTRY_SYM = DISPLAY_ENTRY.invert
 
     THEME = {
-      'menu-right' => {:desktop => :panel, :mobile => :panel, :small => :small, :summary => :medium},
-      'standard-2col-1col' => {:desktop => :panel, :mobile => :panel, :summary => :panel},
-      'plain-3col' => {:desktop => :panel, :mobile => :panel, :summary => :panel},
-      'parallax' => {:desktop => :wide, :mobile => :panel, :summary => :panel},
-      'plain-big-banner-3col' => {:desktop => :panel, :mobile => :panel, :summary => :panel}
+      'menu-right' => {:desktop => :panel, :mobile => :panel, :small => :small, :summary => :medium, :show => :big},
+      'standard-2col-1col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel},
+      'plain-3col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel},
+      'parallax' => {:desktop => :wide, :mobile => :panel, :summary => :panel, :show => :panel},
+      'plain-big-banner-3col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel}
     }
 
   

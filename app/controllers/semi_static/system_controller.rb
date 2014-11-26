@@ -2,7 +2,7 @@ require_dependency "semi_static/application_controller"
 
 module SemiStatic
   class SystemController < ApplicationController
-    # load_and_authorize_resource
+    before_filter :authenticate_for_semi_static!
   
     CMDS = %w(search_daemon search_reindex expire_cache)
   

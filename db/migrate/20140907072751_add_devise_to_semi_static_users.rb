@@ -1,4 +1,4 @@
-class AddDeviseToUsers < ActiveRecord::Migration
+class AddDeviseToSemiStaticUsers < ActiveRecord::Migration
   def self.up
     change_table(:semi_static_users) do |t|
       ## Database authenticatable

@@ -3,7 +3,7 @@
   module SemiStatic
     class EntriesController < ApplicationController
   
-    before_filter :authenticate_user!, :class => SemiStatic::Entry, :except => [ :show, :search ]
+    before_filter :authenticate_for_semi_static!,  :except => [ :show, :search ]
   
     caches_page :show
   

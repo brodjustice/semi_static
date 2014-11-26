@@ -117,7 +117,7 @@ class SemiStaticInstallGenerator < Rails::Generators::Base
   end
 
   def check_for_auth
-    unless (ActiveRecord::Base.connection.table_exists? 'users') || (ActiveRecord::Base.connection.table_exists? 'admins')
+    unless ActiveRecord::Base.connection.table_exists? 'users'
       devise_found = run("grep -w \'devise\' Gemfile >/dev/null")
       if devise_found
           say '  SemiStatic  Great, you seem to already have Devise authentication in your app'
@@ -128,8 +128,6 @@ class SemiStaticInstallGenerator < Rails::Generators::Base
           say '  SemiStatic  WARNING: You will need to make sure that you have authentication in your app'
         end
       end
-    else
-      say '  SemiStatic  WARNING: You seem to already have have authentication in your app. You will need to provide a way for the administrator to navigate to the semi_static_dashboard_path'
     end
   end
 
@@ -169,8 +167,30 @@ class SemiStaticInstallGenerator < Rails::Generators::Base
 
     # generate("devise:install")
     run "rails generate devise:install"
+    @model_name = ask("  What would you like the devise user model to be called? [user]:")
+    @model_name = "user" if @model_name.blank?
+    generate(:scaffold, @model_name + " name:string surname:string")
+    filter_instruction = "\n  before_filter :authenticate_" + @model_name +'!'
+    inject_into_file "app/controllers/#{@model_name.pluralize}_controller.rb", filter_instruction,
+      :after => "ApplicationController"
+    generate("devise", @model_name)
+    # Copy view into app as we nearly always customise them
+    run("rails generate devise:views users")
+    # Configure the initializer to make sure that Devise actually goes there and looks 
+    gsub_file "config/initializers/devise.rb", /.*config.scoped_views.*$/, "  config.scoped_views = true"
 
-    if yes?("  Would you like a simple devise admin model - Type N to for option to use CanCan ? (Y/N):")
+    say "  SemiStatic  For the devise user model (#{@model_name}) you will typically want:"
+    say "                Autenticable + Recoverable + Rememberable + Trackable + Confirmable"
+    if yes?("  SemiSTatic  Would you like to edit the devise migration for the user model? [#{@model_name}] (Y/N):")
+      run("vim db/migrate/*add_devise_to_#{@model_name}*")
+    end
+
+    say "  SemiStatic  You can add a simple devise \'Admin\' model if you have just users and an administrator or"
+    say "                if you have more complex roles, like \'moderator\', \'author\', etc. then you"
+    say "                decline this and you will be able to install the more flexible the CanCan gem."
+    @admin_model_name = @model_name
+
+    if yes?("  Would you like a simple devise admin model? (Y/N):")
       @admin_model_name = ask("  SemiStatic  What would you like the simple devise admin model to be called? [admin]:")
       @admin_model_name = "admin" if @admin_model_name.blank?
       generate(:scaffold, @admin_model_name + " name:string surname:string")
@@ -190,29 +210,6 @@ class SemiStaticInstallGenerator < Rails::Generators::Base
       seed_admin
     else
       if yes?("  Would you like to install the CanCan gem for complex role management? (Y/N): ")
-
-        @model_name = ask("  What would you like the devise user model to be called? [user]:")
-        @model_name = "user" if @model_name.blank?
-        generate(:scaffold, @model_name + " name:string surname:string")
-        filter_instruction = "\n  before_filter :authenticate_" + @model_name +'!'
-        inject_into_file "app/controllers/#{@model_name.pluralize}_controller.rb", filter_instruction,
-          :after => "ApplicationController"
-        generate("devise", @model_name)
-        # Copy view into app as we nearly always customise them
-        run("rails generate devise:views users")
-        # Configure the initializer to make sure that Devise actually goes there and looks 
-        gsub_file "config/initializers/devise.rb", /.*config.scoped_views.*$/, "  config.scoped_views = true"
-
-        say "  SemiStatic  For the devise user model (#{@model_name}) you will typically want:"
-        say "                Autenticable + Recoverable + Rememberable + Trackable + Confirmable"
-        if yes?("  SemiSTatic  Would you like to edit the devise migration for the user model? [#{@model_name}] (Y/N):")
-          run("vim db/migrate/*add_devise_to_#{@model_name}*")
-        end
-
-        say "  SemiStatic  You can add a simple devise \'Admin\' model if you have just users and an administrator or"
-        say "                if you have more complex roles, like \'moderator\', \'author\', etc. then you"
-        say "                decline this and you will be able to install the more flexible the CanCan gem."
-
         app_roles = ""
         gem "cancan"
         say "    Creating the model and database migration for roles"

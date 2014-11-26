@@ -56,6 +56,13 @@ you want.
 
 The initial admin sign in email and password can by found in db/seeds.rb. Use this to sign in and start adding your content.
 
+= Helpers
+
+Any SemiStatic helpers that you might need for your application are kept in SemiStatic::SiteHelper. To access these
+add the following line to your application_controller.rb
+
+	helper SemiStatic::SiteHelper
+
 = Production environment webserver, assets and page cacheing
 
 Semi-static saves cached versions of your sites pages in the public directory, but inside directories according to the locale

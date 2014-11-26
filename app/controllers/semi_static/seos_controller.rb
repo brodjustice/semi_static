@@ -3,7 +3,7 @@
   module SemiStatic
     class SeosController < ApplicationController
   
-    before_filter :authenticate_user!, :class => SemiStatic::Seo, :except => [ :show, :search ]
+    before_filter :authenticate_for_semi_static!
     before_filter :set_return_path
   
     layout 'semi_static_dashboards'
