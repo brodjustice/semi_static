@@ -9,7 +9,7 @@ module SemiStatic
     }
 
     def predefined_tags
-      PREDEFINED.merge(SemiStatic::Engine.config.predefined.merge(SemiStatic::Engine.config.predefined){|k, ov| Rails.application.routes.url_helpers.send(ov)})
+      PREDEFINED.merge(SemiStatic::Engine.config.predefined.merge(SemiStatic::Engine.config.predefined){|k, v| Rails.application.routes.url_helpers.send(*v)})
     end
 
     def icon(tag)

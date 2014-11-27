@@ -3,6 +3,10 @@
   font-size: bold;
 }
 
+.caption, p{
+  word-wrap: break-word;
+}
+
 #toTop{
   display: none;
 }

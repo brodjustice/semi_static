@@ -50,7 +50,7 @@ module SemiStatic
     # Predefined Models/Paths: Besides the SemiStatic predefined Models you can add your
     # own here. These are then available to the (menu) Tags for direct link to your
     # applications own views.
-    # config.predefined = {'FAQ' => Rails.application.url_helpers.faqs_path }    
+    # config.predefined = {'FAQ' => 'faqs_path', 'cakes' => ['cakes', 'all'] }    
     config.predefined = {}    
 
     # Add name of partial here to be loaded to layouts for analytics, eg. Google 

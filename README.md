@@ -38,8 +38,7 @@ Run the bundler
 
 	# bundle install
 
-Run the semi-static install generator. SemiStatic needs some authentication and has so far only been tested with Devise. If this generator find Devise or even at database table calls 'users', then it will try to set up autherntication. If it does not find authentication it will ask you if you want to set it up, and then take you through the process of setting up Devise with a single administrator account.
-
+Run the semi-static install generator. SemiStatic needs some authentication and has so far only been tested with Devise. If this generator finds Devise or even a database table called 'users', then it will not try to set up autherntication. If it does not find authentication it will ask you if you want to set it up, and then take you through the process of setting up Devise with a single administrator account.
 
 	# rails g semi_static_install
 

@@ -30,7 +30,7 @@ SemiStatic::Engine.routes.draw do
 
   get "site/show"
 
-  match '/semi_static/dashboard' => 'dashboards#show', :as => 'semi_static_dashboard', :via => :get
+  match '/semi-static/dashboard' => 'dashboards#show', :as => 'semi_static_dashboard', :via => :get
 
   match '/system' => "system#update", :via => :put
 end
