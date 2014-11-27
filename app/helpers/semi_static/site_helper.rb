@@ -9,7 +9,10 @@ module SemiStatic
     }
 
     def predefined_tags
-      PREDEFINED.merge(SemiStatic::Engine.config.predefined.merge(SemiStatic::Engine.config.predefined){|k, v| Rails.application.routes.url_helpers.send(*v)})
+      # This does not work in ruby 1.9.3, depending on exact version:
+      #
+      # PREDEFINED.merge(SemiStatic::Engine.config.predefined.merge(SemiStatic::Engine.config.predefined){|k, v| Rails.application.routes.url_helpers.send(*v)})
+      PREDEFINED.merge(Hash[SemiStatic::Engine.config.predefined.map{|k, v| [k, Rails.application.routes.url_helpers.send(*v)]}])
     end
 
     def icon(tag)
