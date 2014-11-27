@@ -15,7 +15,8 @@
       .html
         = icon(e.tag) if e.youtube_id_str.blank?
         - if (style == :summary) || (style == :small)
-          %h1= link_to e.title, e, :style => "color: #{e.header_colour};" if e.youtube_id_str.blank?
+          - if e.youtube_id_str.blank?
+            %h1= link_to e.title, e, :style => "color: #{e.header_colour};"
           = entry_summary(e, e.summary_length)
         - else
           %h1{:style => "color: #{e.header_colour}"}= e.title
@@ -23,7 +24,8 @@
   - else
     .html
       = icon(e.tag) if e.youtube_id_str.blank?
-      %h1= link_to e.title, e, :style => "color: #{e.header_colour};" if e.youtube_id_str.blank?
+      - if e.youtube_id_str.blank?
+        %h1= link_to e.title, e, :style => "color: #{e.header_colour};"
       - if (style == :summary) || (style == :small)
         = entry_summary(e, e.summary_length)
       - else

@@ -19,7 +19,7 @@ module SemiStatic
       if Tag.use_sprites?
        "<div class='icon sprite mini' id=\"sprite_#{tag.position.to_s}\"></div>".html_safe
       elsif tag.icon_in_menu
-       "<div class='icon'><img src=\"#{tag.icon.url(:standard)}\"/></div>".html_safe
+       "<div class='icon'><img src=\"#{tag.icon.url(:standard)}\" alt=\"#{tag.title} icon\"/></div>".html_safe
       end
     end
 
