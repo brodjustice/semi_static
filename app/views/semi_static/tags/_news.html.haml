@@ -3,11 +3,11 @@
   - SemiStatic::Entry.news.not(@entry).limit(20).locale(I18n.locale).each do |e|
     .panel
       - if e.summary_length >= 0
-        %h3= link_to e.title, e
+        %h3= link_to e.title, semi_static.entry_path(e)
       - else
         %h3= e.title
       - if e.image_in_news && e.img.present?
         .image= link_to image_tag(e.img.url(:bar)), e
       - if e.summary_length > 0
         = entry_summary(e, e.summary_length)
-        .more= link_to t('more'), e
+        .more= link_to t('more'), semi_static.entry_path(e)

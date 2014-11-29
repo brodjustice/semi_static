@@ -4,6 +4,8 @@
     class TagsController < ApplicationController
   
     before_filter :authenticate_for_semi_static!, :except => :show
+
+    caches_page :show
   
     layout 'semi_static_dashboards'
   

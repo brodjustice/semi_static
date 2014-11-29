@@ -10,6 +10,8 @@ module SemiStatic
     has_many :links, :dependent => :destroy
   
     after_save :expire_site_page_cache
+
+    default_scope :order => 'position ASC'
   
     scope :locale, lambda {|locale| where("locale = ?", locale.to_s)}
   

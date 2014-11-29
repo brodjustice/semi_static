@@ -15,6 +15,14 @@ module SemiStatic
       PREDEFINED.merge(Hash[SemiStatic::Engine.config.predefined.map{|k, v| [k, Rails.application.routes.url_helpers.send(*v)]}])
     end
 
+    def entry_summary(e, l = 300)
+      if e.summary.blank?
+        truncate_html(e.body, :length => l)
+      else
+        simple_format(e.summary)
+      end
+    end
+
     def icon(tag)
       if Tag.use_sprites?
        "<div class='icon sprite mini' id=\"sprite_#{tag.position.to_s}\"></div>".html_safe

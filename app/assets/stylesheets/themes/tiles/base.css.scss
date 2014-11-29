@@ -58,7 +58,7 @@ html { overflow-y: scroll; }
 body{
   background-color: white; 
   margin: 0px;
-  font:16px 'Raleway', 'Ubuntu', Arial, Verdana, Helvetica, sans-serif;
+  font:16px Arial, Verdana, Helvetica, sans-serif;
   color: #181828;
   background:
     url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAIAAADZSiLoAAAAHElEQVQIHWP48+fP9+/f////zwCkgBwQC4ghAACODRqkCkEF0QAAAABJRU5ErkJggg==)
@@ -71,7 +71,7 @@ fieldset{
 }
 h2{ font-size: 20px;}
 #search-bar{ margin-top: 0px; margin-bottom: 10px; }
-#top .inner, #overlay-inner, #search-bar-inner, #container, #top-inner, #footer-inner{
+#overlay-inner, #search-bar-inner, #container, #footer-inner{
   max-width: 1024px; margin: 0px auto;
   background-color: transparent;
 }
@@ -85,7 +85,7 @@ h2{ font-size: 20px;}
     height: 394px;
   }
 }
-#top .inner, #overlay-inner, #search-bar-inner{
+#overlay-inner, #search-bar-inner{
   position: relative;
 }
 #search-wrapper{
@@ -149,7 +149,7 @@ h2{ font-size: 20px;}
   @if $banner-overlay == true {
     top: 33px;
   } @else {
-    top: 64px;
+    top: 0px;
   }
 }
 #banner-frame{
@@ -243,7 +243,7 @@ h2{ font-size: 20px;}
 #footer h3{color: $prime-color;}
 #footer .inner{padding: 0 2%;}
 
-#bar-in-menu ul, #top ul, #footer ul{list-style: none outside none; padding-left: 0px;}
+#bar-in-menu ul, #footer ul{list-style: none outside none; padding-left: 0px;}
 
 #footer .col:last-child h3, #footer .col:last-child li {
     text-align: right;
@@ -342,10 +342,10 @@ h2{ font-size: 20px;}
 #xing{float: right; padding: 0px 8px 3px 28px; background: transparent url(/assets/vert-sprites.png) 0px -188px no-repeat;}
 #facebook{float: right; padding: 0px 8px 3px 28px; background: transparent url(/assets/vert-sprites.png) 0px -55px no-repeat;}
 #youtube{float: right; padding: 0px 8px 3px 28px; background: transparent url(/assets/vert-sprites.png) 0px -25px no-repeat;}
-#bar-in-menu .lady, #top .lady{float: right; display: block; padding: 4px 8px 0px 28px; background: transparent url(/assets/vert-sprites.png) 0px -109px no-repeat;}
-#bar-in-menu .contact, #top .contact{float: right; display: block; padding: 4px 8px 0px 34px; background: transparent url(/assets/vert-sprites.png) 0px -84px no-repeat;}
+#bar-in-menu .lady{float: right; display: block; padding: 4px 8px 0px 28px; background: transparent url(/assets/vert-sprites.png) 0px -109px no-repeat;}
+#bar-in-menu .contact{float: right; display: block; padding: 4px 8px 0px 34px; background: transparent url(/assets/vert-sprites.png) 0px -84px no-repeat;}
 
-#bar-in-menu .icon, #top .icon{ background-size: 28px 237px; }
+#bar-in-menu .icon{ background-size: 28px 237px; }
 
 .icon.sprite{height: 100px; width: 100px; background: url(/system/icons/menu-sprites.png) center 0px no-repeat;}
 .icon.sprite.mini{height: 45px; width: 50px; background-size: 50px 250px;}
@@ -408,7 +408,7 @@ h2 a, h3 a{color: $secondary-color;}
   @if $banner-overlay == true {
     top: 75px;
   } @else {
-    top: -55px;
+    top: -27px;
     z-index: 2000;
     width: $logo-top-width;
   }
@@ -442,21 +442,12 @@ h2 a, h3 a{color: $secondary-color;}
 }
 
 
-#top{
-  height: 28px;
-  border-top: 3px solid $prime-color;
-  background-color: #f8f8f8;
-  z-index: 200; // for logo in banner
-}
-#top ul{
-  margin: 0; padding: 0;
-}
-#bar-in-menu li, #top-inner li{
+#bar-in-menu li{
   float: right;
   font-size: 18px;
   padding: 4px 24px 6px 24px;
 }
-#bar-in-menu li a, #top-inner li a{
+#bar-in-menu li a{
   color: $prime-color;
 }
 #bar-in-menu li{
