@@ -9,7 +9,7 @@ class SemiStaticInstallGenerator < Rails::Generators::Base
   PRECOMPILE_ASSETS = 'semi_static_application.css semi_static_full.css semi_static_application.js semi_static_dashboard.js theme.js'
   CONFIG_ASSETS_PRECOMPILE = "config.assets.precompile += %w( #{PRECOMPILE_ASSETS} )"
   ASSET_IMAGE_DIRECTORIES = %w(banners x2 flags)
-  DEVISE_FOR_GEMFILE = 'gem "devise"'
+  DEVISE_FOR_GEMFILE = "gem 'devise'\n"
   SITE_HELPER = 'helper SemiStatic::SiteHelper'
   AFTER_SIGN_IN_MODULE = "require 'semi_static/sign_in'\n  include SignIn"
 
@@ -162,7 +162,7 @@ class SemiStaticInstallGenerator < Rails::Generators::Base
   end
 
   def add_auth
-    inject_into_file "./Gemfile", "\n  " + DEVISE_FOR_GEMFILE, :before => /^end/
+    inject_into_file "./Gemfile", "\n  " + DEVISE_FOR_GEMFILE, :before => "group :assets do\n"
 
     # Have to install the bundle before we can do the devise generation
     run  "bundle install"

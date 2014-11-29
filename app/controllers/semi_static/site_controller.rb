@@ -4,7 +4,7 @@ module SemiStatic
 
   class SiteController < ApplicationController
 
-    include Rails::ApplicationHelper
+    # include Rails::ApplicationHelper
 
     caches_page :show
 
