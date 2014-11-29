@@ -30,7 +30,11 @@ module SemiStatic
       if SemiStatic::Engine.config.app_dashboard
         link_to 'Done', main_app.send(*SemiStatic::Engine.config.app_dashboard)
       else
-        link_to 'Done', semi_static_path_for_admins
+        if defined?(CanCan)
+          link_to 'Done', main_app.destroy_users_session_path, :method => :delete
+        else
+          link_to 'Done', main_app.destroy_admin_session_path, :method => :delete
+        end
       end
     end
 

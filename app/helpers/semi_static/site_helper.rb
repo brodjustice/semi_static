@@ -84,7 +84,7 @@ module SemiStatic
       if defined?(CanCan)
         main_app.users_path
       else
-        semi_static.admins_path
+        main_app.admins_path
       end
     end
 
@@ -92,7 +92,7 @@ module SemiStatic
       if defined?(CanCan)
         main_app.user_session_path
       else
-        semi_static.admin_session_path
+        main_app.admin_session_path
       end
     end
 

@@ -79,7 +79,7 @@ module SemiStatic
     # config.open_partials = {:cool_partial => 'site/cool_partial'}
     config.open_partials = {}
 
-    # If your application has it's own dashboard, expecially and admin dashboard, you may
+    # If your application has it's own dashboard, especially an admin dashboard, you may
     # want the semi_static admin to return to this dashboard when finished with the 
     # semi-static dashboard. If so put your dashboard path in here
     # config.app_dashboard = ['dashboard_path', 'admin']
