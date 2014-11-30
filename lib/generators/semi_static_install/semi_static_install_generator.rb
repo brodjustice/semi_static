@@ -3,7 +3,7 @@ class SemiStaticInstallGenerator < Rails::Generators::Base
 
   source_root File.expand_path('../templates', __FILE__)
 
-  GEMFILE_UNIQUE_ID = SEED_FILE_UNIQUE_ID = 'BL-SemiStatic-ct688G4zQ'
+  GEMFILE_UNIQUE_ID = 'BL-SemiStatic-ct688G4zQ'
   MOUNT_ROUTE = 'mount SemiStatic::Engine, :at => "/"'
   DEVISE_SECRET_KEY = 'config.secret_key'
   PRECOMPILE_ASSETS = 'semi_static_application.css semi_static_full.css semi_static_application.js semi_static_dashboard.js theme.js'

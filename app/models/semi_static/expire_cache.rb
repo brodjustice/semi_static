@@ -29,8 +29,10 @@ module SemiStatic
         FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/references").to_s)
         FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/photos.html").to_s)
         FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/photos").to_s)
-        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/entries.html").to_s)
+        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/features").to_s)
+        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/features.html").to_s)
         FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/entries").to_s)
+        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/entries.html").to_s)
       }
     end
   end
