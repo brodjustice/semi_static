@@ -385,7 +385,7 @@ label{
   width: auto;
 }
 
-form input{
+input[type=submit], .mid input, .mid textarea, .form-wrapper input[type=text], .form-wrapper textarea{
   -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
   -moz-box-sizing: border-box;    /* Firefox, other Gecko */
   box-sizing: border-box;         /* Opera/IE 8+ */
@@ -399,7 +399,7 @@ form input{
   padding: 10px 60px;
 }
 
-.form-wrapper input[type=text], .form-wrapper textarea{
+.new_contact input[type=text], .new_contact textarea, .form-wrapper input[type=text], .form-wrapper textarea{
   background: none repeat scroll 0 0 #FAFAFA;
   border: 1px solid #CCCCCC;
   border-radius: 2px;

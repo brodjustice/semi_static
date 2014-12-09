@@ -84,9 +84,8 @@ th{ text-align: left; }
 .mid.wide{max-width: 820px;}
 .mid.full{max-width: 1012px; width: 97.5%;}
 
-#dialog input[type=submit], .mid input[type=submit]{font-size: 20px; width: 80%; margin: 26px; text-align: center;}
+#dialog input[type=submit], .mid input[type=submit]{font-size: 20px; width: 80%; text-align: center;}
 
-.mid input, .mid textarea{ width: 96%; }
 .mid input[type=checkbox]{width: auto;}
 
 .list{
