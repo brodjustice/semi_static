@@ -1,6 +1,6 @@
 function housekeeping(){
   var s = skrollr.init({smoothScrolling:false, forceHeight:false, skrollrBody:'body-inner', mobileCheck: function() {
-    return (/Android|iPhone|iPad|iPod|BlackBerry/i).test(navigator.userAgent || navigator.vendor || window.opera);
+    return !(/Android|iPhone|iPad|iPod|BlackBerry/i).test(navigator.userAgent || navigator.vendor || window.opera);
   } });
 };
 
