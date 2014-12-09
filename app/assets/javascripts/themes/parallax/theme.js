@@ -1,8 +1,8 @@
 function housekeeping(){
-  var s = skrollr.init({smoothScrolling:false, forceHeight:false, skrollrBody:'body-inner', mobileCheck: function() {
-    return !(/Android|iPhone|iPad|iPod|BlackBerry/i).test(navigator.userAgent || navigator.vendor || window.opera);
-  } });
-};
+  if(!(/Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/i).test(navigator.userAgent || navigator.vendor || window.opera)){
+    var s = skrollr.init({smoothScrolling:false, forceHeight:false, skrollrBody:'body-inner'});
+  }
+}
 
 window.onload = housekeeping;
 
