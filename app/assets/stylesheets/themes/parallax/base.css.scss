@@ -111,7 +111,7 @@ a { text-decoration: none; color: #282828; }
 #footer-inner {
     margin: 0 auto;
     max-width: 960px;
-    padding: 40px 8% 10px;
+    padding: 40px 2% 10px;
 }
 
 #semi-static-home-page #toTop{
@@ -346,6 +346,7 @@ ul{padding: 0; margin: 0px;}
 }
 
 input[type='submit'], .button a{
+  -webkit-appearance: none;
   font-size: 24px;
   display: block;
   background-color: #4A78ED;
@@ -384,26 +385,29 @@ label{
   width: auto;
 }
 
+form input{
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;         /* Opera/IE 8+ */
+  -moz-box-sizing: border-box;
+}
+
 .form-wrapper {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 600px;
-    padding: 10px 60px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 600px;
+  padding: 10px 60px;
 }
 
 .form-wrapper input[type=text], .form-wrapper textarea{
-    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
-    box-sizing: border-box;         /* Opera/IE 8+ */
-    -moz-box-sizing: border-box;
-    background: none repeat scroll 0 0 #FAFAFA;
-    border: 1px solid #CCCCCC;
-    border-radius: 2px;
-    font-family: sans-serif;
-    font-size: 16px;
-    line-height: normal;
-    padding: 5px;
-    width: 100%;
+  background: none repeat scroll 0 0 #FAFAFA;
+  border: 1px solid #CCCCCC;
+  border-radius: 2px;
+  font-family: sans-serif;
+  font-size: 16px;
+  line-height: normal;
+  padding: 5px;
+  width: 100%;
 }
 
 .contact{
