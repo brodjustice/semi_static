@@ -9,6 +9,14 @@ module SemiStatic
 
     layout 'semi_static_application'
   
+    def current_user
+      if defined?(User)
+        current_user
+      else
+        current_admin
+      end
+    end
+
     def authenticate_for_semi_static!
       if defined?(CanCan)
         #

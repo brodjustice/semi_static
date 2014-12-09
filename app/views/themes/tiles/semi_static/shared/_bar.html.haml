@@ -1,0 +1,7 @@
+.bar_menu
+  %ul
+    = locales
+    %li.search.icon= link_to t('Search'), semi_static.search_entries_path
+    %li.contact.icon= link_to t('Contact'), semi_static.new_contact_path
+    - if SemiStatic::Tag.where('predefined_class = ?', 'Home').empty?
+      %li.home.icon= link_to 'Home', semi_static.home_path

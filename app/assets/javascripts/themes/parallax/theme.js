@@ -1,5 +1,7 @@
 function housekeeping(){
-  var s = skrollr.init({smoothScrolling:false, mobileCheck: function() { return false; } });
+  var s = skrollr.init({smoothScrolling:false, forceHeight:false, skrollrBody:'body-inner', mobileCheck: function() {
+    return (/Android|iPhone|iPad|iPod|BlackBerry/i).test(navigator.userAgent || navigator.vendor || window.opera);
+  } });
 };
 
 window.onload = housekeeping;
@@ -25,7 +27,7 @@ window.onload = housekeeping;
 		init: function(options) {
 			return _instance || new Skrollr(options);
 		},
-		VERSION: '0.6.26'
+		VERSION: '0.6.29'
 	};
 
 	//Minify optimization.
@@ -55,6 +57,8 @@ window.onload = housekeeping;
 	var DEFAULT_EASING = 'linear';
 	var DEFAULT_DURATION = 1000;//ms
 	var DEFAULT_MOBILE_DECELERATION = 0.004;//pixel/ms²
+
+	var DEFAULT_SKROLLRBODY = 'skrollr-body';
 
 	var DEFAULT_SMOOTH_SCROLLING_DURATION = 200;//ms
 
@@ -283,7 +287,7 @@ window.onload = housekeeping;
 		})());
 
 		if(_isMobile) {
-			_skrollrBody = document.getElementById('skrollr-body');
+			_skrollrBody = document.getElementById(options.skrollrBody || DEFAULT_SKROLLRBODY);
 
 			//Detect 3d transform if there's a skrollr-body (only needed for #skrollr-body).
 			if(_skrollrBody) {
@@ -1572,8 +1576,14 @@ window.onload = housekeeping;
 	 * Returns the height of the document.
 	 */
 	var _getDocumentHeight = function() {
-		var skrollrBodyHeight = (_skrollrBody && _skrollrBody.offsetHeight || 0);
-		var bodyHeight = Math.max(skrollrBodyHeight, body.scrollHeight, body.offsetHeight, documentElement.scrollHeight, documentElement.offsetHeight, documentElement.clientHeight);
+		var skrollrBodyHeight = 0;
+		var bodyHeight;
+
+		if(_skrollrBody) {
+			skrollrBodyHeight = Math.max(_skrollrBody.offsetHeight, _skrollrBody.scrollHeight);
+		}
+
+		bodyHeight = Math.max(skrollrBodyHeight, body.scrollHeight, body.offsetHeight, documentElement.scrollHeight, documentElement.offsetHeight, documentElement.clientHeight);
 
 		return bodyHeight - documentElement.clientHeight;
 	};

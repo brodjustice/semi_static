@@ -19,30 +19,33 @@
       %th
       %th
   
-    - SemiStatic::Tag.all.each do |tag|
-      - tag.entries.each do |entry|
-        %tr
-          %td= link_to entry.title, edit_entry_path(entry)
-          %td= link_to entry.tag.name, edit_entry_path(entry)
-          %td.tick
-            = image_tag('tick.png', :title => "Entry master is #{entry.master_entry.locale + ': ' + entry.master_entry.title}") unless entry.master_entry.nil?
-          %td.tick
-            = image_tag('tick.png', :title => 'Visible in home page') if entry.home_page
-          %td.tick
-            = image_tag('tick.png', :title => 'Visible in news') if entry.news_item
-          %td.tick
-            = image_tag('tick.png', :title => 'Show side bar') if entry.side_bar
-          %td.number= entry.position.to_s
-          %td
-            = entry.banner.name unless entry.banner.nil?
-          %td.tick
-            - if entry.seo.nil?
-              = link_to image_tag('/assets/add.png', :title => "Add SEO meta tags"), new_entry_seo_path(entry, :return => entries_path), :remote => true
-            - else
-              = link_to image_tag('/assets/application_form_edit.png', :title => "Edit SEO meta tags"), edit_seo_path(entry.seo, :return => entries_path), :remote => true
-          %td
-            = link_to image_tag('tick.png', :title => 'YouTube Video'), "http://youtu.be/#{entry.youtube_id_str}" unless entry.youtube_id_str.blank?
-          %td.number= entry.photos.count.to_s
-          %td= entry.locale.to_s
-          %td= link_to image_tag('/assets/page_copy.png', :title => "Use #{[entry.locale, ': ', entry.title].join} as master for new entry"), new_entry_path(:master => entry)
-          %td= link_to image_tag('/assets/bin.png'), entry, :method => :delete, :data => { :confirm => 'Are you sure?' }
+    - SemiStatic::Entry.order(:tag_id).each do |entry|
+      %tr
+        %td= link_to entry.title, edit_entry_path(entry)
+        %td
+          - if entry.tag
+            = link_to entry.tag.name, edit_entry_path(entry)
+          - else
+            = 'Error!'
+        %td.tick
+          = image_tag('tick.png', :title => "Entry master is #{entry.master_entry.locale + ': ' + entry.master_entry.title}") unless entry.master_entry.nil?
+        %td.tick
+          = image_tag('tick.png', :title => 'Visible in home page') if entry.home_page
+        %td.tick
+          = image_tag('tick.png', :title => 'Visible in news') if entry.news_item
+        %td.tick
+          = image_tag('tick.png', :title => 'Show side bar') if entry.side_bar
+        %td.number= entry.position.to_s
+        %td
+          = entry.banner.name unless entry.banner.nil?
+        %td.tick
+          - if entry.seo.nil?
+            = link_to image_tag('/assets/add.png', :title => "Add SEO meta tags"), new_entry_seo_path(entry, :return => entries_path), :remote => true
+          - else
+            = link_to image_tag('/assets/application_form_edit.png', :title => "Edit SEO meta tags"), edit_seo_path(entry.seo, :return => entries_path), :remote => true
+        %td
+          = link_to image_tag('tick.png', :title => 'YouTube Video'), "http://youtu.be/#{entry.youtube_id_str}" unless entry.youtube_id_str.blank?
+        %td.number= entry.photos.count.to_s
+        %td= entry.locale.to_s
+        %td= link_to image_tag('/assets/page_copy.png', :title => "Use #{[entry.locale, ': ', entry.title].join} as master for new entry"), new_entry_path(:master => entry)
+        %td= link_to image_tag('/assets/bin.png'), entry, :method => :delete, :data => { :confirm => 'Are you sure?' }

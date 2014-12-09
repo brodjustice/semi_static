@@ -6,6 +6,7 @@
 /* SASS */
 $prime-color: #ff2700;
 $secondary-color: #303030;
+$contrast-color: #f0f0f0;
 
 /* Change to match your logo and its dimensions */
 $logo: 'logo2.png';
@@ -33,6 +34,10 @@ $banner-e: 'banner03.jpg';
 /* Name of image files in the your applications assets/images/banners directory that */
 /* will be used for the single mobile (small screen width) mobile banner. Should be 750px x 300px */
 
+$banner-tablet: 'banner-tablet.jpg';
 $banner-mobile: 'banner-mobile.jpg';
+
+/* Lighter version of icons */
+$vert-sprites: 'vert-sprites-light.png';
 
 /* Add your custom variables, if needed below here */

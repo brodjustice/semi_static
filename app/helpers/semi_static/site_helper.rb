@@ -17,7 +17,7 @@ module SemiStatic
 
     def entry_summary(e, l = 300)
       if e.summary.blank?
-        truncate_html(e.body, :length => l)
+        truncate_html(e.body, :length => l) unless (l < 1)
       else
         simple_format(e.summary)
       end

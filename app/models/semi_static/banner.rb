@@ -8,6 +8,7 @@ module SemiStatic
     has_many :tags
 
     THEME = {
+      'tiles' => {:desktop => :desktop, :mobile => :mobile},
       'menu-right' => {:desktop => :desktopy500, :mobile => :mobile, :entry => :entry},
       'standard-2col-1col' => {:desktop => :desktop, :mobile => :mobile},
       'plain-3col' => {:desktop => :desktop, :mobile => :mobile},
@@ -20,7 +21,7 @@ module SemiStatic
        :styles => { :desktop=> "1500x300#",
                     :entry => "900x500#",
                     :mobile => "750x300#",
-                    :parallax => "1000x",
+                    :parallax => "1000x>",
                     :desktopy500 => "1500x500#",
                     :mobiley500 => "750x500#" },
        :convert_options => { :desktop => "-strip -gravity Center -quality 80",

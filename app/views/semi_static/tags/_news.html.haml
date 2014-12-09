@@ -1,5 +1,5 @@
 .news
-  %h2= t('News') + ':'
+  %h2= t('News')
   - SemiStatic::Entry.news.not(@entry).limit(20).locale(I18n.locale).each do |e|
     .panel
       - if e.summary_length >= 0

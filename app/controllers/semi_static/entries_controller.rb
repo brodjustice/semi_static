@@ -22,10 +22,15 @@
   
     # GET /articles/search
     def search
-      @entries = Entry.search(params[:q]).records
-      @query = params[:q]
+      if params[:q].present?
+        @entries = Entry.search(params[:q]).records
+        @query = params[:q]
+        template = 'semi_static/entries/results'
+      else
+        template = 'semi_static/entries/search'
+      end
   
-      render action: "search", layout: 'semi_static_application'
+      render template: template, layout: 'semi_static_application'
     end
   
   

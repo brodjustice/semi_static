@@ -1,0 +1,10 @@
+.tiles
+  - SemiStatic::Entry.home.locale(I18n.locale).each_slice(4) do |e4|
+    .wrap_x_4
+      - e4.each_slice(2) do |e2|
+        .wrap_x_2
+          - e2.each do |e|
+            .wrap_x_1.col.span_1_of_4
+              .single{:class => e.style_class, :style => "background-color:#{e.background_colour}; color: #{e.colour}"}
+                .entry.panel{:style => "background-color:#{e.background_colour}; color: #{e.colour}"}
+                  = render :partial => 'semi_static/entries/entry', :locals => {:e => e, :style => :summary}

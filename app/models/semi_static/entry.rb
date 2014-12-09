@@ -30,6 +30,7 @@ module SemiStatic
     has_attached_file :img,
        :styles => {
          :bar=> "304x>",
+         :tile=> "241x>",
          :small=> "290x>",
          :panel=> "324x>",
          :medium => '443x>',
@@ -37,6 +38,7 @@ module SemiStatic
          :big=> "750x>"
        },
        :convert_options => { :bar => "-strip -gravity Center -quality 80",
+                             :tile => "-strip -gravity Center -quality 80",
                              :small => "-strip -gravity Center -quality 80",
                              :panel => "-strip -gravity Center -quality 80",
                              :medium => "-strip -gravity Center -quality 80",
@@ -53,6 +55,7 @@ module SemiStatic
     DISPLAY_ENTRY_SYM = DISPLAY_ENTRY.invert
 
     THEME = {
+      'tiles' => {:desktop => :panel, :mobile => :panel, :small => :small, :summary => :tile, :show => :big},
       'menu-right' => {:desktop => :panel, :mobile => :panel, :small => :small, :summary => :medium, :show => :big},
       'standard-2col-1col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel},
       'plain-3col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel},

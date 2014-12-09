@@ -2,15 +2,9 @@
   .col.span_2_of_3
     .panel.group.list
       .icon= image_tag('/assets/search.png')
-      %h1= @entries.count.to_s + ' Search results for ' + @query
-      %table
-        - @entries.__send__ controller.action_name == 'search' ? :each_with_hit : :each do |e, hit|
-          %tr
-            %td{:colspan => 2}
-              .icon= image_tag(e.tag.icon.url(:standard)) if e.tag.icon.present?
-              %h2= link_to (hit.try(:highlight).try(:title)   ? hit.highlight.title.join.html_safe : e.title), e
-          %tr.fragment
-            %td= hit.try(:highlight).try(:body) ? hit.highlight.body.join('&hellip;').html_safe : e.body.html_safe
-            %td.score= (hit._score * 100).round.to_s + '%'
+      %h1= 'Search'
+      = form_tag search_entries_path, method: 'get', :class => 'searchform' do
+        = text_field_tag :q, params[:q], :placeholder => t('Search'), :class => 'searchfield'
+        = image_submit_tag 'search-small.png', :class => 'searchbutton', :alt => t('Search')
   .col.span_1_of_3
-    = render :partial => 'semi_static/tags/side_bar', :locals => {:start => 1, :entrytag => @entries.first ? @entries.first.tag : nil}
+    = render :partial => 'semi_static/tags/news'
