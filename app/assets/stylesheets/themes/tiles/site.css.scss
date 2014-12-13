@@ -1,3 +1,17 @@
+@-webkit-keyframes fadein {
+  0%   { opacity: 0.0; }
+  100%   { opacity: 1.0; }
+}
+
+@keyframes fadein {
+  0%   { opacity: 0.0; }
+  100%   { opacity: 1.0; }
+}
+
+.jimmy{
+  color: blue;
+}
+
 .panel.feint{
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
 }
@@ -13,19 +27,12 @@
   color: white;
 }
 
-#overlay.header{
-  height:auto;
-}
+#overlay{height: auto;}
+#banner + #overlay.header{height: 354px;}
 
-#overlay-2{
-  @if $banner-overlay == true {
-    height: 281px;
-  } @else {
-    height: 312px;
-  }
+@media only screen and (max-width: 820px) {
+  #overlay{height: 98px;}
 }
-
-#banner + #overlay #menu-wrapper{top: -312px;}
 
 #menu-wrapper{
   top: 0;
@@ -38,7 +45,7 @@
 }
 
 h1 a{ color: $prime-color;}
-.doc{
+.side-bar .list .section, .doc{
   clear: both;
   border-top: 1px solid #d0d0d0;
   background-color: #f0f0f0;
@@ -70,7 +77,7 @@ th{ text-align: left; }
 }
 
 .side-bar h3:nth-child(even){
-  background-color: #eaf6fd;
+  background-color: #f4f4f4;
 }
 
 .side-bar .panel{
@@ -84,7 +91,6 @@ th{ text-align: left; }
 
 .list h3 a:hover{
   color: $prime-color;
-  margin-right: 3px;
 }
 
 .mid{
@@ -188,6 +194,11 @@ h2 .label-highlight, .fragment .label-highlight{
 
 .reference .photo.nutshell{
   vertical-align: inherit;
+}
+
+.photo img{
+  animation: fadein 0.5s 1 linear;
+  -webkit-animation: fadein 0.5s 1 linear;
 }
 
 .reference .spaced img{

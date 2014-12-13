@@ -1,0 +1,8 @@
+- unless @entries.blank?
+  %tr
+    %td
+    %td{:colspan => 9}
+      %table
+        = render :partial => 'index_head'
+        - @entries.each do |entry|
+          = render :partial => 'index_row', :locals => {:entry => entry}

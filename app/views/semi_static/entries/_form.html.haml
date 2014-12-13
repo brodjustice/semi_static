@@ -103,6 +103,8 @@
   %fieldset
     = f.label :position
     = f.text_field :position
+    = f.label :merge_with_previous
+    = f.check_box :merge_with_previous
   %fieldset.semi_static_youtube_id_str
     .infobox#youtube_id_str_text_box
       %h4= 'YouTube ID'
@@ -173,12 +175,16 @@
     = f.label :side_bar
     = f.check_box :side_bar
     %fieldset#side_bar_options
-      = f.label :side_bar_news, 'News'
-      = f.check_box :side_bar_news
-      = f.label :side_bar_social, 'Social links'
-      = f.check_box :side_bar_social
-      = f.label :side_bar_search, 'Search'
-      = f.check_box :side_bar_search
+      .col.span_3_of_5
+        = f.label :side_bar_news, 'News'
+        = f.check_box :side_bar_news
+        = f.label :side_bar_social, 'Social links'
+        = f.check_box :side_bar_social
+        = f.label :side_bar_search, 'Search'
+        = f.check_box :side_bar_search
+      .col.span_1_of_5
+        = f.label :side_bar_gallery, 'Gallery'
+        = f.text_field :side_bar_gallery
 
   %fieldset
     = f.label :style_class

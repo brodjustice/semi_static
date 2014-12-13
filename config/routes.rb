@@ -18,6 +18,7 @@ SemiStatic::Engine.routes.draw do
   resources :contacts, :except => [:edit, :update]
   resources :tags, :except => :show do
     resources :seos, :only => [:new, :create, :update]
+    resources :entries, :only => [:index]
   end
 
   match '/features/:slug' => 'tags#show', :as => 'feature', :via => :get

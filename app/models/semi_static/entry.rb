@@ -10,7 +10,7 @@ module SemiStatic
     attr_accessible :title, :body, :tag_id, :home_page, :summary, :img, :news_item, :image_in_news
     attr_accessible :position, :doc, :doc_description, :summary_length, :locale, :style_class, :header_colour, :background_colour, :colour
     attr_accessible :banner_id, :partial, :entry_position, :master_entry_id, :youtube_id_str
-    attr_accessible :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :unrestricted_html
+    attr_accessible :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_gallery, :unrestricted_html, :merge_with_previous
   
     belongs_to :tag
   
@@ -21,6 +21,7 @@ module SemiStatic
     scope :news, where('news_item = ?', true)
     scope :locale, lambda {|locale| where("locale = ?", locale.to_s)}
     scope :not, lambda {|entry| where("id != ?", (entry ? entry.id : 0))}
+    scope :unmerged, where('merge_with_previous = ?', false)
   
     has_one :seo, :as => :seoable
     belongs_to :master_entry, :class_name => SemiStatic::Entry
@@ -119,9 +120,15 @@ module SemiStatic
       super
     end
 
+    def next_merged_entry
+      if (e = self.tag.entries[self.tag.entries.index(self) + 1])
+        e.merge_with_previous ? e : nil
+      end
+    end
+
     # Might be a better way to do this with delegate...
     def photos_including_master
-      self.master_entry.nil? ? self.photos : self.photos + self.master_entry.photos
+      self.master_entry.nil? ? Photo.where(:entry_id => self.id) : Photo.where('entry_id=? OR entry_id=?', self.id, self.master_entry_id)
     end
   
     # To create SEO friendly urls

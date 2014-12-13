@@ -1,5 +1,5 @@
 !!! 5
-%html{ :xmlns => "http://www.w3.org/1999/xhtml", :lang => I18n.locale.to_s, "xml:lang" => I18n.locale.to_s}
+%html{ :xmlns => "http://www.w3.org/1999/xhtml", :lang => I18n.locale.to_s, "xml:lang" => I18n.locale.to_s, :prefix => "og: http://ogp.me/ns#"}
   %head
     %title= seo_title
     %meta{ :"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8" }/
@@ -9,9 +9,18 @@
     %meta{ :name => "rating", :content => "General" }/
     %meta{:name => 'viewport', :content => 'width=device-width, initial-scale=1.0'}/
 
+    -# Open Graph Meta Tags
+    %meta{ :property => "og:title", :content => seo_title }/
+    %meta{ :property => "og:locale", :content => I18n.locale.to_s }/
+    %meta{ :property => "og:url", :content => request.url }/
+    %meta{ :property => "og:site_name", :content => SemiStatic::Engine.config.site_name }/
+    %meta{ :property => "og:type", :content => 'website' }/
+    %meta{ :property => "og:image", :content => og_image_url }/
+
     = csrf_meta_tags
 
-    <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+    = render :partial => 'semi_static/shared/hosted_fonts'
+
     = javascript_include_tag 'theme'
     = stylesheet_link_tag 'semi_static_application', :media => 'all'
     %style{:type => "text/css"}

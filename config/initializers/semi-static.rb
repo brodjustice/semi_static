@@ -11,8 +11,12 @@ module SemiStatic
     config.copyright_year = '2014'
     config.copyright_owner = 'Business Landing Ltd'
     
-    # The site name will be used in the webpage title, etc. but also for the selasticsearch indexing
+    # The site name will be used in the webpage title, open graph meta tags, etc. but also for the elasticsearch indexing
     config.site_name = 'Business Landing Ltd'
+
+    # Correct logo path is important for the Open Graph meta tags
+    config.logo_image = '/assets/logo.png'
+
     config.info_email = 'info@business-landing.com'
     config.telephone = nil
     

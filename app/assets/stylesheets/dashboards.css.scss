@@ -67,6 +67,20 @@ input[type="submit"], .button{
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefefe', endColorstr='#e2e2e2', GradientType=0 );
 }
 
+table table th{
+  background-color: white;
+  background-image: none;
+}
+table table{
+  margin-bottom: 18px;
+}
+td.merge{
+  padding-left: 32px;
+}
+td.warn{
+  background-color: yellow;
+}
+
 #dashboard #menu a{
   color: #1f1f1f;
   text-shadow: none;

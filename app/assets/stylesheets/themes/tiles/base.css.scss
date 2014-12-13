@@ -17,14 +17,14 @@
   100% { font-size: 30px; }
 }
 
-@-webkit-keyframes mobile-grower {
-  0%   { font-size: 1px; }
-  100% { font-size: 22px; }
-}
-
 @keyframes grower {
   0%   { font-size: 1px; }
   100% { font-size: 30px; }
+}
+
+@-webkit-keyframes mobile-grower {
+  0%   { font-size: 1px; }
+  100% { font-size: 22px; }
 }
 
 @keyframes mobile-grower {
@@ -55,12 +55,7 @@ h2{ font-size: 20px;}
 #toTop{ display: none; }
 #overlay{
   position: relative;
-  //  z-index: 100;
-  @if $banner-overlay == true {
-    height: 300px;
-  } @else {
-    height: 365px;
-  }
+  height: 365px;
 }
 #top .inner, #overlay-inner, #search-bar-inner{
   position: relative;
@@ -102,6 +97,10 @@ h2{ font-size: 20px;}
 }
 #container:after{ content: ''; display: table; clear: both; }
 
+/* Override col widths, odd given the class names so probably refactor at some point */
+// .span_1_of_3.side-bar{ width: 23.8%; }
+// .span_2_of_3.main-col{ width: 74.6%; }
+
 /* Tile styles or sizes */
 .tiles .col{
   margin-top: 0;
@@ -129,11 +128,15 @@ h2{ font-size: 20px;}
 
 .tiles .single .panel{
   padding: 0px;
-  box-shadow: 0 0 5px #a0a0a0;
+  box-shadow: 0 0 5px #d0d0d0;
   max-height: 239px;
   overflow: hidden;
   max-width:241px;
   height: 239px;
+}
+
+.tiles .single .panel:hover{
+  box-shadow: 0 0 5px #a0a0a0;
 }
 
 .tiles .single .floater{
@@ -189,7 +192,7 @@ h2{ font-size: 20px;}
   margin: 0 2.7%;
 }
 .tiles .single .panel{
-  height: 25vw;
+  height: 23vw;
   max-height: 239px;
 }
 
@@ -223,11 +226,7 @@ h2{ font-size: 20px;}
   z-index: -10;
   background-color: white;
   border-bottom: 1px solid white;
-  @if $banner-overlay == true {
-    top: 33px;
-  } @else {
-    top: 88px;
-  }
+  top: 88px;
 }
 #banner-frame{
   background-color: transparent; position: relative; width: 100%; max-width: 1500px;
@@ -255,6 +254,7 @@ h2{ font-size: 20px;}
   position: absolute;
   top: 0px;
   background-position: center 0px;
+  background-repeat: no-repeat;
 }
 .bg{ z-index: -1; }
 
@@ -280,6 +280,7 @@ h2{ font-size: 20px;}
 #footer a{color: $contrast-color;}
 
 #bar-in-menu ul, #top ul, #footer ul{list-style: none outside none; padding-left: 0px;}
+#footer li{margin-bottom: 4px;}
 
 #footer .col:last-child h3, #footer .col:last-child li {
     text-align: right;
@@ -288,7 +289,7 @@ h2{ font-size: 20px;}
   animation: ticker 80s infinite linear;
   -webkit-animation: ticker 80s infinite linear;
   width: 100%;
-  height: 38px;
+  height: 51px;
   text-align: right; margin: 0px; color: white; font-size: 30px; font-weight: bold;
   font-family: "Times New Roman", Times, serif;
   background: transparent url(/assets/ticker.png) 0 0 repeat;
@@ -339,9 +340,9 @@ h2{ font-size: 20px;}
   border-bottom: none;
 }
 .gallery, .news, .social{
-  background-color: #171717;
-  background-color: $prime-color;
-  color: white;
+  background-color: white;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  color: #282828;
   margin-bottom: 10px;
   padding: 6px 11px;
   border-radius: 2px;
@@ -351,8 +352,18 @@ h2{ font-size: 20px;}
   line-height: 30px;
   width: 100%;
 }
-.gallery h2 a, .gallery h2, .news h2 a, .news h2{ text-align: right; color: white; border-bottom: 1px solid white; }
-.list h1{ color: $prime-color; border-bottom: 1px solid $prime-color; }
+
+.photo h2, .gallery h2 a, .gallery h2, .news h2 a, .news h2{
+  text-align: right; color: $secondary-color;
+  border-bottom: 1px dotted #b0b0b0;
+}
+
+.photo h2{
+  margin-bottom: 16px;
+  padding-bottom: 1px;
+  margin-top: 9px;
+}
+.list h1{ color: $secondary-color;}
 
 .social a{
   color: white;
@@ -391,11 +402,11 @@ h2{ font-size: 20px;}
 // .inner{ padding: 3%; }
 
 h1{font-size: 24px;}
-h1, h2, h3{ margin: 6px 0px 6px; color: $secondary-color}
+h1, h2, h3{ margin: 6px 0px 6px; color: $secondary-color; font-weight: lighter;}
 h2 a, h3 a{color: $secondary-color;}
 .panel h2{
   text-align: left;
-  color: $prime-color;
+  color: $secondary-color;
 }
 .panel.photo {
     text-align: center;
@@ -443,7 +454,7 @@ h2 a, h3 a{color: $secondary-color;}
   @if $banner-overlay {
     top: 200px;
   } @else {
-    top: 315px;
+    top: 306px;
   }
 }
 
@@ -693,14 +704,12 @@ h2 a, h3 a{color: $secondary-color;}
 
 /* Basic mobile portrait or perhaps tablet portrait layout */
 @media only screen and (max-width: 900px) {
-  .tablet{display: block;}
+  .mobile{display: block !important;}
   .desktop{display: none !important;}
   #banner0 {animation: none; opacity: 1.0; background-image: none; display: none;}
   #bannerBg {background-image: url(/assets/banners/#{$banner-tablet});}
 }
 @media only screen and (max-width: 450px) {
-  .mobile{display: block;}
-  .tablet{display: none !important;}
   #bannerBg {background-image: url(/assets/banners/#{$banner-mobile});}
 }
 
@@ -735,21 +744,9 @@ h2 a, h3 a{color: $secondary-color;}
   #top{position: fixed; width: 100%;}
   #menu-button{display: block;}
 
-  @if $banner-overlay == true {
-    /* Move logo and tagline due to menu being hidden */
-    #logo-wrapper{top: 80px;}
-    #tag-wrapper{top: 216px;}
-    #overlay.header{ height: 60px !important;}
-    #overlay:not(header){height: 327px;}
-    #overlay-2{ height: 268px !important;}
-
-  } @else {
-    #banner{top: 60px;}
-    #logo-wrapper{top: 3px;}
-    #overlay{height: 367px;}
-    #overlay.header{ height: 56px !important;}
-    #overlay-2{ height: 304px !important;}
-  }
+  #banner{top: 60px;}
+  #logo-wrapper{top: 3px;}
+  #overlay{height: 367px;}
 }
 
 /* Mobile portrait layout at less than 580px */
@@ -757,7 +754,6 @@ h2 a, h3 a{color: $secondary-color;}
   /* Stop adjusting margins by height %, it gets ugly this small */
   .col .img{margin: 0 auto; text-align:center;}
   .col{margin-top: 1px; margin-bottom: 3px;}
-
 }
 
 @media only screen and (min-width: 760px) {

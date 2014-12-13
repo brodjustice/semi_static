@@ -12,8 +12,7 @@
     # GET /tags
     # GET /tags.json
     def index
-      @tags = Tag.all
-  
+      @tags = Tag.unscoped.order(:locale, :position)
       respond_to do |format|
         format.html # index.html.erb
         format.json { render :json => @tags }

@@ -1,35 +1,10 @@
 -# TODO Massive re-factor required here
 - style ||= false
 .entry{:style => "background-color: #{e.background_colour}"}
-  - unless e.youtube_id_str.blank?
-    %h1= link_to e.title, e, :style => "color: #{e.header_colour};"
-    = youtube_video(e.youtube_id_str)
-  - if e.img.present?
-    .col.span_1_of_2.floater
-      .img
-        - if (style == :summary) || (style == :small)
-          = link_to image_tag(e.img_url_for_theme(style)), e
-        - else
-          = image_tag(e.img_url_for_theme)
-    .col.span_1_of_2.wrapping
-      .html
-        = icon(e.tag) if e.youtube_id_str.blank?
-        - if (style == :summary) || (style == :small)
-          - if e.youtube_id_str.blank?
-            %h1= link_to e.title, e, :style => "color: #{e.header_colour};"
-          = entry_summary(e, e.summary_length)
-        - else
-          %h1{:style => "color: #{e.header_colour}"}= e.title
-          = e.body.html_safe
-  - else
-    .html
-      = icon(e.tag) if e.youtube_id_str.blank?
-      - if e.youtube_id_str.blank?
-        %h1= link_to e.title, e, :style => "color: #{e.header_colour};"
-      - if (style == :summary) || (style == :small)
-        = entry_summary(e, e.summary_length)
-      - else
-        = e.body.html_safe
-
+  - loop do
+    = render :partial => 'semi_static/entries/entry_contents', :locals => {:style => style, :e => e }
+    = render :partial => 'document', :locals => {:e => e}  if e.doc.present? && (style == :show)
+    - break if (e = e.next_merged_entry).nil? || (style == :summary)
+    .section
   - if (style == :summary) || (style == :small)
     .more= link_to t(:more), e

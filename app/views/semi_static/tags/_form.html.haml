@@ -7,6 +7,13 @@
         });
 
     };
+    function check_side_bar(){
+      if($('#tag_side_bar').prop('checked')) {
+        $('#side_bar_options').show();
+      } else {
+        $('#side_bar_options').hide();
+      }
+    }
 
     $(document).ready(function() {
       $( "#tag_banner_id" ).change(function() {
@@ -83,6 +90,17 @@
       %br/
       = f.label :icon_resize, 'Resize icon'
       = f.check_box :icon_resize
+  %fieldset
+    = f.label :side_bar
+    = f.check_box :side_bar
+    %fieldset#side_bar_options
+      .col.span_3_of_5
+        = f.label :side_bar_news, 'News'
+        = f.check_box :side_bar_news
+        = f.label :side_bar_social, 'Social links'
+        = f.check_box :side_bar_social
+        = f.label :side_bar_search, 'Search'
+        = f.check_box :side_bar_search
   %fieldset
     .section.group
       .col.span_1_of_2

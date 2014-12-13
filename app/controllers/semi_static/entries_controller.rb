@@ -12,11 +12,16 @@
     # GET /entries
     # GET /entries.json
     def index
-      @entries = Entry.all
-  
+      if params[:tag_id].present?
+        @tag = Tag.find(params[:tag_id])
+        @entries = @tag.entries
+      else
+        @entries = Entry.unscoped.order(:locale, :tag_id, :position)
+      end
       respond_to do |format|
         format.html # index.html.erb
         format.json { render :json => @entries }
+        format.js
       end
     end
   

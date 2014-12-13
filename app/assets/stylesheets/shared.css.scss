@@ -1,4 +1,4 @@
-.entry a{
+.entry :not(.more) a{
   color: $prime-color;
   font-size: bold;
 }

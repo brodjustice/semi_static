@@ -2,10 +2,9 @@
   = render :partial => @entry.partial_path
 - if @entry.show_entries?
   .section
-    .col{:class => ('span_2_of_3' if @entry.side_bar)}
+    .col{:class => ('span_2_of_3 main-col' if @entry.side_bar)}
       .panel.group{:class => @entry.style_class, :style => "background-color:#{@entry.background_colour}; color:#{@entry.colour}"}
         = render :partial => 'entry', :locals => {:e => @entry, :style => :show}
-        = render :partial => 'document' if @entry.doc.present?
         = render :partial => 'photos' unless @entry.photos_including_master.blank?
     - if @entry.side_bar
       .col.span_1_of_3.side-bar
