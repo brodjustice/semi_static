@@ -1,4 +1,4 @@
-.entry :not(.more) a{
+.entry :not(.more .button) a{
   color: $prime-color;
   font-size: bold;
 }
