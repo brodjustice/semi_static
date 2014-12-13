@@ -8,7 +8,7 @@
           %td Message
           %td Date
       %tbody
-        - SemiStatic::Contact.limit(5).each do |c|
+        - SemiStatic::Contact.order('updated_at DESC').limit(5).each do |c|
           %tr
             %td
               = link_to c.fullname, c

@@ -1,11 +1,13 @@
 module SemiStatic
   module UsersHelper
     def roles_for(user)
-      r = user.roles.collect{|r| r.name}
-      if r.empty?
-        t('Warning_no_role_assigned')
-      else
-        r.join(' ')
+      if user.respond_to?(roles)
+        r = user.roles.collect{|r| r.name}
+        if r.empty?
+          t('Warning_no_role_assigned')
+        else
+          r.join(' ')
+        end
       end
     end
   

@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @admin.name
+%p
+  %b Surname:
+  = @admin.surname
+
+= link_to 'Edit', edit_admin_path(@admin)
+\|
+= link_to 'Back', admins_path

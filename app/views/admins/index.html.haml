@@ -1,0 +1,21 @@
+.mid
+  .button= link_to 'New Admin', new_admin_path
+  %h1 Admins
+  
+  %table
+    %tr
+      %th Roles
+      %th Email
+      %th Name
+      %th Surname
+      %th
+  
+    - @admins.each do |admin|
+      %tr
+        %td
+        -# = roles_for(admin)
+        %td= link_to admin.email, edit_admin_path(admin)
+        %td= link_to admin.name, edit_admin_path(admin)
+        %td= link_to admin.surname, edit_admin_path(admin)
+        %td= link_to image_tag('/assets/bin.png'), admin, :method => :delete, :data => { :confirm => 'Are you sure?' }
+  
