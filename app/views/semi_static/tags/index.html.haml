@@ -15,7 +15,7 @@
         %th= 'Bar'
         %th= 'Banner'
         %th= 'SEO'
-        %th= 'Entries (max)'
+        %th= 'Entries'
         %th
   
     %tbody
@@ -26,7 +26,8 @@
               .icon.sprite{:id => "sprite_#{tag.position}"}
             - elsif tag.icon.present?
               = image_tag(tag.icon.url)
-          %td= link_to tag.name, edit_tag_path(tag)
+          %td
+            = link_to tag.name, edit_tag_path(tag)
           %td.tick
             = image_tag('/assets/tick.png', :title => 'In menu') if tag.menu
           %td.number= tag.locale.to_s

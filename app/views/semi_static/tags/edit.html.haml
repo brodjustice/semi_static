@@ -1,7 +1,9 @@
-.mid
+.mid.feint
   - if @tag.seo.nil?
     .button= link_to 'Add SEO', new_tag_seo_path(@tag, :return => edit_tag_path(@tag)), :remote => true
   - else
     .button= link_to 'Edit SEO', edit_seo_path(@tag.seo, :return => edit_tag_path(@tag)), :remote => true
   %h1= 'Editing tag ' + @tag.name
   = render 'form'
+  .more
+    = link_to '', feature_path(@tag.slug)
