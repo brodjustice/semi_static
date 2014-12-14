@@ -20,6 +20,16 @@
   margin-bottom: 10px;
 }
 
+a.fb-share{
+  float: right; padding: 2px 2px 2px 28px;
+  background: transparent url(/assets/vert-sprites.png) 0px -58px no-repeat;
+  width: auto;
+  color: white;
+  margin-bottom: 4px;
+  color: #a4a4a4 !important;
+  font-weight: lighter !important; 
+}
+
 h1 a{ color: $prime-color;}
 .doc{
   clear: both;

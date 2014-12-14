@@ -187,6 +187,9 @@
         = f.text_field :side_bar_gallery
 
   %fieldset
+    = f.label :facebook_share, 'Show Facebook Share button'
+    = f.check_box :facebook_share
+  %fieldset
     = f.label :style_class
     = f.select :style_class, options_for_select(SemiStatic::EntriesHelper::STYLE_CLASSES.collect{|sc| [sc, sc]}, @entry.style_class)
   %fieldset

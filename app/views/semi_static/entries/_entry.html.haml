@@ -8,3 +8,5 @@
     .section
   - if (style == :summary) || (style == :small)
     .more= link_to t(:more), entry_path(entry)
+  - elsif entry.facebook_share
+    = link_to 'Share',  "https://www.facebook.com/sharer/sharer.php?u=#{request.url}", :class => 'fb-share'
