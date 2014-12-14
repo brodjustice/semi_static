@@ -21,13 +21,13 @@
 }
 
 a.fb-share{
-  float: right; padding: 2px 2px 2px 28px;
-  background: transparent url(/assets/vert-sprites.png) 0px -58px no-repeat;
+  float: right; padding: 1px 2px 1px 28px;
+  background: transparent url(/assets/vert-sprites.png) 0px -59px no-repeat;
   width: auto;
-  color: white;
-  margin-bottom: 4px;
-  color: #a4a4a4 !important;
   font-weight: lighter !important; 
+}
+.fb-share:after{
+  margin-bottom: 4px;
 }
 
 h1 a{ color: $prime-color;}
