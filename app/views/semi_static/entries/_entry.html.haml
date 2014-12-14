@@ -1,5 +1,5 @@
--# TODO Massive re-factor required here
 - style ||= false
+- entry = e
 .entry{:style => "background-color: #{e.background_colour}"}
   - loop do
     = render :partial => 'semi_static/entries/entry_contents', :locals => {:style => style, :e => e }
@@ -7,4 +7,4 @@
     - break if (e = e.next_merged_entry).nil? || (style == :summary)
     .section
   - if (style == :summary) || (style == :small)
-    .more= link_to t(:more), e
+    .more= link_to t(:more), entry_path(entry)

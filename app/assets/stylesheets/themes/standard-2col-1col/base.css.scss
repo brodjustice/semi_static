@@ -633,7 +633,7 @@ h2 a, h3 a{color: $secondary-color;}
 // the floating image left margin of the .floater (right col). This provides margin around the
 // left hand side of the floated image.
 .entry .wrapping{ margin-left: 0; }
-.entry .floater{ margin-left: 1.6%; }
+.entry .floater{ margin-left: 1.6%; position: relative; z-index: 10;}
 
 @media only screen and (max-width: 760px) {
   // For smaller portrait the % margin at the top is too
