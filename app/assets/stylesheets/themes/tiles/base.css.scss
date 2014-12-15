@@ -293,6 +293,7 @@ h2{ font-size: 20px;}
   text-align: right; margin: 0px; color: white; font-size: 30px; font-weight: bold;
   font-family: "Times New Roman", Times, serif;
   background: transparent url(/assets/ticker.png) 0 0 repeat;
+  background-size: $ticker-height $ticker-width;
   // If you want to play with CSS3 viewport widths:
   // font-size: 2.0vw !important;
 }

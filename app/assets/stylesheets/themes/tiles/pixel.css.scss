@@ -7,6 +7,7 @@
     background-image: url(/assets/x2/vert-sprites-light.png);
     background-size: 28px 275px;
   }
+  #tagline{ background-image: url(/assets/x2/ticker.png);}
   #mini-logo{ background: transparent url(/assets/x2/#{$logo-top}) 0 0 no-repeat; background-size: $logo-top-width $logo-top-height; }
   @if $banner-overlay == true {
     #logo{ background: transparent url(/assets/x2/#{$logo}) 0 0 no-repeat; background-size: $logo-width $logo-height; }
