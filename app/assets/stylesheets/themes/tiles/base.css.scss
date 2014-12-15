@@ -289,10 +289,10 @@ h2{ font-size: 20px;}
   animation: ticker 80s infinite linear;
   -webkit-animation: ticker 80s infinite linear;
   width: 100%;
-  height: 51px;
+  height: $ticker-height;
   text-align: right; margin: 0px; color: white; font-size: 30px; font-weight: bold;
   font-family: "Times New Roman", Times, serif;
-  background: transparent url(/assets/ticker.png) 0 0 repeat;
+  background: transparent url(/assets/ticker.png) 0 0 repeat-x;
   background-size: $ticker-height $ticker-width;
   // If you want to play with CSS3 viewport widths:
   // font-size: 2.0vw !important;
@@ -452,11 +452,9 @@ h2 a, h3 a{color: $secondary-color;}
 }
 
 #tag-wrapper{
-  @if $banner-overlay {
-    top: 200px;
-  } @else {
-    top: 306px;
-  }
+  top: 318px;
+  height: $ticker-height;
+  overflow: hidden;
 }
 
 #logo{
