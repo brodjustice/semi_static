@@ -445,14 +445,14 @@ h2 a, h3 a{color: $secondary-color;}
   @if $banner-overlay == true {
     top: 75px;
   } @else {
-    top: -27px;
+    top: -26px;
     z-index: 999;
     width: $logo-top-width;
   }
 }
 
 #tag-wrapper{
-  top: 318px;
+  top: 306px;
   height: $ticker-height;
   overflow: hidden;
 }

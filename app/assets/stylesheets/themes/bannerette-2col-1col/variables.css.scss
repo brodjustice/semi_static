@@ -1,0 +1,36 @@
+/*
+ * You can change the values of the variables here to get different layouts,
+ * but don't remove any variable else the SASS will not compile
+ */
+
+/* SASS */
+$prime-color: #ff2700;
+$secondary-color: #303030;
+
+/* Change to match your logo and its dimensions */
+$logo: 'logo2.png';
+$logo-width: 200px;
+$logo-height: 166px;
+
+$logo-top: 'logo.png';
+$logo-top-width: 276px;
+$logo-top-height: 160px;
+
+/* Set to banner-overlay to false to have alternate home page layout with uncluttered banner image */
+$banner-overlay: false;
+
+/* For wide view ports you can have the search bar in the banner IF banner-overlay is true */
+$search-bar-in-banner: false;
+
+/* Name of image files in the your applications assets/images/banners directory that make */
+/* up the 3 animated home page banners. Should be 1500px x 300px */
+$banner-a: 'banner04.jpg';
+$banner-b: 'banner00.jpg';
+$banner-c: 'banner01.jpg';
+
+/* Name of image files in the your applications assets/images/banners directory that */
+/* will be used for the single mobile (small screen width) mobile banner. Should be 750px x 300px */
+
+$banner-mobile: 'banner-mobile.jpg';
+
+/* Add your custom variables, if needed below here */
