@@ -303,7 +303,7 @@ h2{ font-size: 20px;}
     text-align: right;
 }
 #tagline{
-  width: 90%; text-align: right; margin: 0px auto; color: $prime-color; font-size: 30px; font-weight: normal;
+  width: 90%; text-align: right; margin: 0px auto; color: $prime-color; font-size: 30px; font-weight: lighter;
   // If you want to play with CSS3 viewport widths:
   // font-size: 2.3vw !important;
   animation: grower 1s linear;
@@ -509,10 +509,10 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
   padding: 4px 24px 6px 24px;
 }
 #bar-in-menu li a, #top-inner li a{
-  font-weight: normal;
+  font-weight: lighter;
   color: #494949;
-  font-size: 18px;
-  font: 18px Arial,Verdana,Helvetica,sans-serif;
+  font-size: 16px;
+  // font: 18px Arial,Verdana,Helvetica,sans-serif;
 }
 #bar-in-menu li{
   font-size: 16px;
@@ -531,7 +531,7 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
 
 #menu a{
   color: #494949;
-  font-size: 16px;
+  font-size: 18px;
   /* text-shadow: white -1px 1px 0px, rgba(98, 0, 105, 0.4) -2px 2px 0px; */
   text-shadow: white 0px 1px 0px;
   text-shadow: 0 1px 0 #ffffff;

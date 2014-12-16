@@ -36,8 +36,8 @@ html { overflow-y: scroll; }
 body{
   background-color: white; 
   margin: 0px;
-  // font:16px 'Raleway', 'Ubuntu', Arial, Verdana, Helvetica, sans-serif;
-  font:16px Arial, Verdana, Helvetica, sans-serif;
+  font-family: Arial, Verdana, Helvetica, sans-serif;
+  font-size: 16px;
   color: #181828;
   background: url(/assets/satin.jpg) repeat;
 }
@@ -500,7 +500,8 @@ h2 a, h3 a{color: $secondary-color;}
 }
 #bar-in-menu li, #top-inner li{
   float: right;
-  font-size: 18px;
+  font-size: 16px;
+  font-weight: lighter;
   padding: 4px 24px 6px 24px;
 }
 #bar-in-menu li a, #top-inner li a{
