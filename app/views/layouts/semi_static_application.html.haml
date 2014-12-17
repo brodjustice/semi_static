@@ -28,25 +28,12 @@
 
     %script
       = ObjectSpace.each_object(Sprockets::Environment).first.find_asset('semi-static.js').source.html_safe
-
     
     = yield :ujs
 
     %link{:rel => 'shortcut icon', :href => '/assets/favicon.ico'}
   %body{:id => "semi_static_#{controller_name.classify.downcase}"}
     #body-inner
-      = render :partial => 'semi_static/shared/top'
-      = yield :banner
-      = render :partial => 'semi_static/shared/overlay'
-      #frame
-        #container
-          - unless flash.blank?
-            #notice
-              = flash[:alert]
-              = flash[:error]
-              = flash[:notice]
-          #dialog{:style => 'display: none;'}
-          #content
-            =yield
+      = render :partial => 'semi_static/shared/application_body'
       = render :partial => 'semi_static/shared/footer'
       = render :partial => SemiStatic::Engine.config.analytics_partial unless SemiStatic::Engine.config.analytics_partial.nil?

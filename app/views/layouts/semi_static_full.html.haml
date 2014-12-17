@@ -20,7 +20,9 @@
     = csrf_meta_tags
 
     = javascript_include_tag 'semi_static_application'
-    <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+
+    = render :partial => 'semi_static/shared/hosted_fonts'
+
     = stylesheet_link_tag 'semi_static_application', :media => 'all'
     %style{:type => "text/css"}
       = yield :header_css

@@ -55,32 +55,26 @@
 }
 
 @-webkit-keyframes loading {
-  0%   { width: 0px;}
-  100%   { width: 1012px;}
+  0%   { width: 0%;}
+  100%   { width: 100%;}
 }
 
 @keyframes loading {
-  0%   { width: 0px;}
-  100%   { width: 1012px;}
+  0%   { width: 0%;}
+  100%   { width: 100%;}
 }
 
 #banner-frame{
   overflow: hidden;
 }
 
-#banner-frame:after,
-#banner:after{
+#banner-loading{
   content: '';
   position: absolute;
   height: 2px;
-  top: 398px;
-  width: 1012px;
-  background-color: rgba(255,255,255,0.5);
-  // background-color: #c0c0c0;
+  bottom: 0px;
+  width: 100%;
   text-align: center;
-  z-index: 2;
-}
-#banner:after{
   animation: loading 10s linear infinite;
   animation-timing-function: linear;
   -webkit-animation-duration: 10s;
@@ -121,8 +115,6 @@ h2{ font-size: 20px;}
   height: 0px;
 }
 #frame{
-  // background: -moz-linear-gradient(bottom, #dde6ed 0%, #f0f4f8 7%, #fdffff 16%, #fdfefe 65%, #e4eaf1 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
-
   background: rgba(221,230,237,1);
   background: -moz-linear-gradient(top, rgba(221,230,237,1) 0%, rgba(240,244,248,1) 7%, rgba(253,255,255,1) 16%, rgba(253,254,254,1) 65%, rgba(228,234,241,1) 100%);
   background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(221,230,237,1)), color-stop(7%, rgba(240,244,248,1)), color-stop(16%, rgba(253,255,255,1)), color-stop(65%, rgba(253,254,254,1)), color-stop(100%, rgba(228,234,241,1)));
@@ -134,7 +126,7 @@ h2{ font-size: 20px;}
 
   border-top: 1px solid #ffffff;
   border-bottom: 1px solid #bccfdb;
-  padding: 405px 0 8px; 
+  padding: 0px 0 8px; 
 }
 #top .inner, #overlay-inner, #search-bar-inner{
   position: relative;
@@ -151,10 +143,10 @@ h2{ font-size: 20px;}
 #menu-button, #menu-close{
   display: none;
   float: right;
-  color: $prime-color; font-weight: bold;
+  color: $contrast-color; font-weight: bold;
   padding: 3px 2px 4px 32px;
   margin: 2px 12px 0px 0px;
-  background: transparent url(/assets/vert-sprites.png) left -216px no-repeat;
+  background: transparent url(/assets/vert-sprites-light.png) left -244px no-repeat;
   cursor: pointer;
   position: relative;
   z-index: 500;
@@ -191,24 +183,13 @@ h2{ font-size: 20px;}
 //
 
 #banner{
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
-  height: 0px;
   position: relative;
-  width: 1012px;
-  margin: 0 auto;
+  max-width: 1012px;
+  margin: 0 auto 12px;
   z-index: 1;
   background-color: white;
   top: 8px;
 }
-#banner-frame{
-  background-color: transparent; position: relative; width: 100%; max-width: 1500px;
-  padding: 10px 0px; margin: 0px auto;
-  -webkit-box-shadow: inset 25px 0px 25px -15px rgba(255, 255, 255, 1.0), inset -25px 0px 25px -15px rgba(255, 255, 255, 1.0);
-  -moz-box-shadow: inset 25px 0px 25px -15px rgba(255, 255, 255, 1.0), inset -25px 0px 25px -15px rgba(255, 255, 255, 1.0);
-  box-shadow: inset 25px 0px 25px -15px rgba(255, 255, 255, 1.0), inset -25px 0px 25px -15px rgba(255, 255, 255, 1.0);
-  height: 380px;
-}
-
 
 #banner0{
   background:transparent url(/assets/banners/#{$banner-b}) center 0px no-repeat; z-index: -10;
@@ -234,8 +215,6 @@ h2{ font-size: 20px;}
   opacity: 0.0;
 }
 
-#banner2, #banner3{display: none; }
-
 #banner4{
   background:transparent url(/assets/banners/#{$banner-a}) center 0px no-repeat; z-index: -50;
   animation: fader 30s linear infinite; animation-delay: 20s;
@@ -248,15 +227,33 @@ h2{ font-size: 20px;}
   opacity: 1.0;
 }
 
+#banner0, #banner1, #banner4, #bannerBg{
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 #bannerBg{
-  background:transparent url(/assets/banners/#{$banner-a}) center 0px no-repeat;
+  background-image: url(/assets/banners/#{$banner-a});
+  position: relative;
   z-index: -50;
 }
 
 #banner .bg{
-  height: 400px;
-  max-width: 1012px;
-  width:100%;
+  width: 100%;
+}
+
+#banner .bg img, #bannerBg img{
+  width: 100%; visibility: hidden;
+  border: 0; margin: 0; padding: 0;
+  // Weirdness. For some reason the fake image we use to cause the backgrounds to be
+  // responsive has a 4px margin at the top, making the backgrounds then 4px larger
+  // than they should be at full screen width. This is the case for Firefox and webkit
+  // so there must be an error in the CSS. But where? Until we find this, just subtract
+  // with a negative margin:
+  margin-top: -4px;
+}
+
+#banner .bg{
   position: absolute;
   top: 0px;
   background-position: center 0px;
@@ -299,7 +296,7 @@ h2{ font-size: 20px;}
     text-align: right;
 }
 #tagline{
-  width: 1012px; text-align: right; margin: 0px auto; color: $prime-color; font-size: 30px; font-weight: lighter;
+  max-width: 1012px; width: 98%; text-align: right; margin: 0px auto; color: $prime-color; font-size: 30px; font-weight: lighter;
   // If you want to play with CSS3 viewport widths:
   // font-size: 2.3vw !important;
   animation: grower 1s linear;
@@ -445,42 +442,36 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
 
 #menu-wrapper{
   z-index: 1000;
-  top: -38px;
+  top: 85px;
 }
 
 #logo-wrapper{
-  top: -132px;
+  top: 3px;
   z-index: 2000;
   width: $logo-top-width;
 }
 
 #tag-wrapper{
-  top: -89px;
+  top: 43px;
   overflow: hidden;
 }
 
 #logo{
-  @if $banner-overlay == true {
-    height: $logo-height; width: $logo-width;
-    margin: 0 auto;
-    background: transparent url(/assets/#{$logo}) center center no-repeat;
-  } @else {
-    background: transparent url(/assets/#{$logo-top}) left center no-repeat;
-    height: $logo-top-height;
-  }
+  background: transparent url(/assets/#{$logo-top}) left center no-repeat;
+  height: $logo-top-height;
 }
 
 #mini-logo{
   width: $logo-top-width; height: $logo-top-height;
   background: transparent url(/assets/#{$logo-top}) 0 0 no-repeat;
   position: absolute;
-  top: 5px;
+  top: 3px;
   left: 0px;
 }
 
 
 #top{
-  height: 134px;
+  height: 120px;
   z-index: 200; // for logo in banner
 
   background: rgba(255,255,255,1);
@@ -666,11 +657,6 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
     width: 98.5%;
 }
 
-/* Remove inner shadow when width greater than 1500px */
-@media only screen and (max-width: 1500px) {
-  #banner-frame{box-shadow: none;};
-}
-
 /* Search input overflows already at less than 1020px */
 @media only screen and (max-width: 1020px) {
 .searchform input[type='text'] { width: 74%;}
@@ -695,12 +681,6 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
   .floater{ margin-left: 0 !important; }
 
   .searchform input[type='text'] { width: 66%;}
-}
-
-@if $search-bar-in-banner == true {
-  @media only screen and (min-width: 950px) {
-    #search-bar{ position: relative; z-index: 500; margin-top: -71px; margin-bottom: 26px;}
-  }
 }
 
 /* Basic mobile portrait or perhaps tablet portrait layout */
@@ -742,24 +722,12 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
   /* No Firefox support for background-position-x, but applies only usually to mobile any */
   #selected.wrapper .icon.sprite{background-position-x: left;}
 
+  /* Adjust the tag line size */
+  #tagline{font-size: 16px; font-size: 3vw;}
 
-  #top{position: fixed; width: 100%;}
+  #top{position: fixed; width: 100%; height: 85px;}
+  #frame{padding-top: 74px;}
   #menu-button{display: block;}
-
-  @if $banner-overlay == true {
-    /* Move logo and tagline due to menu being hidden */
-    #logo-wrapper{top: 80px;}
-    #tag-wrapper{top: 216px;}
-    #overlay.header{ height: 60px !important;}
-    #overlay:not(header){height: 327px;}
-    #overlay-2{ height: 268px !important;}
-
-  } @else {
-    #logo-wrapper{top: 8px;}
-    #overlay{height: 360px;}
-    #overlay.header{ height: 56px !important;}
-    #overlay-2{ height: 304px !important;}
-  }
 }
 
 /* Mobile portrait layout at less than 580px */

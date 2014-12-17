@@ -1,0 +1,27 @@
+#top
+  #menu-button{:onclick => 'semiStaticOpenMenu()'}
+    = t('Menu')
+  #top-inner
+    = render 'semi_static/shared/bar'
+  #overlay
+    #overlay-inner
+      = render 'semi_static/shared/menu'
+      #logo-wrapper
+        #logo
+      #tag-wrapper
+        #tagline
+          = t('TagLine')
+#frame
+  #banner
+    #bannerBg
+      = image_tag('/assets/banners/banner.jpg')
+    #banner0.bg
+      = image_tag('/assets/banners/banner.jpg')
+    #banner1.bg
+      = image_tag('/assets/banners/banner.jpg')
+    #banner4.bg
+      = image_tag('/assets/banners/banner.jpg')
+    #banner-loading
+  #container
+    #content
+      =yield

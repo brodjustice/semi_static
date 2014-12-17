@@ -1,25 +1,3 @@
-#overlay.header{
-  height:auto;
-}
-
-#overlay-2{
-  @if $banner-overlay == true {
-    height: 281px;
-  } @else {
-    height: 312px;
-  }
-}
-
-#menu-wrapper{
-  top: 0;
-  position: relative;
-}
-
-#menu{
-  margin-top: 38px;
-  margin-bottom: 10px;
-}
-
 a.fb-share{
   float: right; padding: 1px 2px 1px 28px;
   background: transparent url(/assets/vert-sprites.png) 0px -59px no-repeat;
@@ -86,6 +64,11 @@ th{ text-align: left; }
   text-align: center;
   padding: 12px;
   min-height: 78px;
+}
+
+.list.panel{
+  border: none;
+  box-shadow: none;
 }
 
 .fragment td{
