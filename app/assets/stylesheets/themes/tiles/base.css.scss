@@ -767,3 +767,16 @@ h2 a, h3 a{color: $secondary-color;}
   .entry .col .img{margin: 0 auto; text-align:center;}
 }
 
+@media only screen and (orientation:portrait) {
+  #banner, .panel{
+    transform: translateZ(0); 
+  }
+}
+
+@media only screen and (orientation:landscape) {
+  #banner, .panel{
+    transform: translateZ(0); 
+  }
+}
+
+

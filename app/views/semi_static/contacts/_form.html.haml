@@ -20,8 +20,9 @@
     .col.span_1_of_2
       = f.text_field :telephone, :size => 51
       = f.label :telephone, t('Telephone')
-    = f.text_area :message, { :value => (@message ? t(@message) : ""), :rows => "12", :cols => "36"}
-    = f.label :message, t('Message')
+    .col.span_1_of_1
+      = f.text_area :message, { :value => (@message ? t(@message) : ""), :rows => "12", :cols => "36"}
+      = f.label :message, t('Message')
     %br/
   - @contact.agreements.each do |agreement|
     %fieldset
