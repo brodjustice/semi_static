@@ -18,8 +18,8 @@ module SemiStatic
       @selection = 'Gallery'
       @tag, @seo = Seo.photos(params[:tag_id], I18n.locale) 
   
-      layout = (current_user ? 'semi_static_dashboards' : 'semi_static_application')
-      template = (current_user ? 'semi_static/photos/admin_index' : 'semi_static/photos/index')
+      layout = (semi_static_admin? ? 'semi_static_dashboards' : 'semi_static_application')
+      template = (semi_static_admin? ? 'semi_static/photos/admin_index' : 'semi_static/photos/index')
   
       respond_to do |format|
         format.html { render :template => template, :layout => layout }
@@ -34,7 +34,7 @@ module SemiStatic
       @title = @photo.title
       @previous, @next = @photo.neighbour_ids
   
-      layout = (current_user ? 'semi_static_dashboards' : 'semi_static_full')
+      layout = (semi_static_admin? ? 'semi_static_dashboards' : 'semi_static_full')
   
       respond_to do |format|
         format.html { render :layout => layout }
@@ -56,7 +56,7 @@ module SemiStatic
   
     # GET /photos/1/edit
     def edit
-      layout = (current_user ? 'semi_static_dashboards' : 'semi_static_application')
+      layout = 'semi_static_application'
       @photo = Photo.find(params[:id])
       respond_to do |format|
         format.html { render :layout => layout }

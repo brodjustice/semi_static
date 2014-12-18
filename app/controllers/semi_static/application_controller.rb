@@ -9,7 +9,19 @@ module SemiStatic
 
     layout 'semi_static_application'
   
-    def current_user
+    def semi_static_admin?
+      if defined?(User)
+        if current_user.nil?
+          false
+        else
+          current_user.admin?
+        end
+      else
+        current_admin
+      end
+    end
+
+    def semi_static_current_user
       if defined?(User)
         current_user
       else
@@ -23,7 +35,7 @@ module SemiStatic
         # Not worth checking the CanCan abilities, but if you did it would be like:
         #
         # authorize! params[:action].to_sym, params[:controller].classify
-        current_user.admin?
+        semi_static_current_user.admin?
       else
         authenticate_admin!
       end
