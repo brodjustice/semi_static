@@ -310,7 +310,6 @@ h2{ font-size: 20px;}
   min-height: 50px;
   margin-bottom: 10px;
   position: relative;
-  border-bottom: 1px solid $prime-color;
 }
 
 .doc:after, .panel:after {
@@ -594,7 +593,7 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
 
 /* Keep menu text inside the box */
 #menu .wrapper .text{
-  display: blocK;
+  display: block;
   overflow: hidden;
 }
 
@@ -608,6 +607,9 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
 }
 
 #menu .wrapper a:hover{
+  text-decoration: underline;
+}
+#menu #selected a, #menu .wrapper a:hover{
   color: $prime-color;
 }
 
