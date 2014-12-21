@@ -2,7 +2,7 @@ require_dependency "semi_static/application_controller"
 
 module SemiStatic
   class AgreementsController < ApplicationController
-    before_filter :authenticate_for_semi_static
+    before_filter :authenticate_for_semi_static!
 
     def index
       @agreements = Agreement.all
@@ -24,13 +24,17 @@ module SemiStatic
 
     def edit
       @agreement = Agreement.find(params[:id])
+      respond_to do |format|
+        format.html { render :layout => 'semi_static_dashboards' }
+        format.json { render :json => @agreement }
+      end
     end
 
     def new
       @agreement = Agreement.new
 
       respond_to do |format|
-        format.html # new.html.erb
+        format.html { render :layout => 'semi_static_dashboards' }
         format.json { render :json => @agreement }
       end
     end

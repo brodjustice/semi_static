@@ -6,11 +6,12 @@ module SemiStatic
 
     scope :locale, lambda {|locale| where("locale = ?", locale.to_s)}
 
-    before_destroy :check_contacts
+    before_update :readonly
+    before_destroy :readonly
 
-    def check_contacts
+    def readonly
       unless self.contacts.empty?
-        self.errors.add(:base, 'Cannot delete, remove contacts first or unset the display attribute')
+        self.errors.add(:base, 'Cannot delete or edoit thus agreement, you must remove contacts first or unset the display attribute')
         false
       end
     end

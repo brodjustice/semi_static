@@ -1,7 +1,3 @@
 .mid
   %h2= 'Editing Agreement'
-  -if @agreement.contacts.size > 0
-    %h4= @agreement.contacts.size.to_s + ' contact(s) have agreed to this agreement, so you cannot change the text unless you delete the contacts'
-    = render :partial => 'semi_static/agreements/form', :locals => {:readonly => true }
-  - else
-    = render :partial => 'semi_static/agreements/form'
+  = render :partial => 'semi_static/agreements/form'

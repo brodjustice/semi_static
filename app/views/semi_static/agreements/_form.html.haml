@@ -7,13 +7,21 @@
 
 = form_for @agreement do |f|
   %fieldset
-    - if readonly = true
-      %h4 Agreement Text
-      %p
-        = @agreement.body
-    - else
+    - if @agreement.contacts.empty?
       = f.text_area :body
       = f.label :body, 'Agreement text body'
+    - else
+      = f.text_area :body, :readonly => 'readonly'
+      .infobox#body_box
+        %h4= 'Agreement with contacts'
+        %p
+          This
+          %em agreement
+          has been agreed by 
+          = @agreement.contacts.size.to_s
+          %em contacts.
+          As you do not want to change the wording of the the exact agreement that the conatacts have accepted you cannot edit or delete this agreement unless the contacts are deleted.
+      = f.label :body, 'Agreement text body', :class => 'infomarker'
   %fieldset
     = f.label :locale
     = f.select :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @agreement.locale)
