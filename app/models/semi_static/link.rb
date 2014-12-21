@@ -2,7 +2,7 @@ module SemiStatic
   class Link < ActiveRecord::Base
     include ExpireCache
 
-    attr_accessible :name, :position, :url
+    attr_accessible :name, :position, :url, :new_window
 
     belongs_to :fcol
 

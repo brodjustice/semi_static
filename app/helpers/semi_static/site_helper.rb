@@ -129,7 +129,11 @@ module SemiStatic
       end
       c += '<ul>'.html_safe
       fc.links.each{|l|
-        c += "<li><a href='#{l.url}'>#{l.name}</a></li>".html_safe
+        if l.new_window
+          c += "<li><a href='#{l.url}' target='_blank'>#{l.name}</a></li>".html_safe
+        else
+          c += "<li><a href='#{l.url}'>#{l.name}</a></li>".html_safe
+        end
       }
       c += '</ul></div></div>'.html_safe
       c.html_safe

@@ -4,6 +4,8 @@ module SemiStatic
   class LinksController < ApplicationController
 
     before_filter :authenticate_for_semi_static!
+
+    layout 'semi_static_dashboards'
   
     # GET /links
     # GET /links.json

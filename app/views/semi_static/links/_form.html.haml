@@ -12,6 +12,9 @@
   %fieldset
     = f.label :url
     = f.text_field :url
+    %br/
+    = f.check_box :new_window
+    = f.label :new_window, 'Cause link to open in new window'
   %fieldset
     = f.label :position
     = f.text_field :position
