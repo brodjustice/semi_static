@@ -16,8 +16,8 @@ module SemiStatic
       @selection = 'References'
       @tag, @seo = Seo.references(params[:tag_id], I18n.locale)
   
-      layout = (current_user ? 'semi_static_dashboards' : 'semi_static_application')
-      template = (current_user ? 'semi_static/references/admin_index' : 'semi_static/references/index')
+      layout = (semi_static_admin? ? 'semi_static_dashboards' : 'semi_static_application')
+      template = (semi_static_admin? ? 'semi_static/references/admin_index' : 'semi_static/references/index')
   
       respond_to do |format|
         format.html { render :template => template, :layout => layout }
