@@ -3,11 +3,12 @@
   .col.span_2_of_3
     .panel
       %h2= @reference.title
-      .group
-        .col.span_1_of_3
-          = image_tag(@reference.logo.url(:small), :title => "#{@reference.title}")
-        .col.span_2_of_3
-          = simple_format(@reference.body)
+      - if @reference.logo.present? || !@reference.body.empty?
+        .group
+          .col.span_1_of_3
+            = image_tag(@reference.logo.url(:small), :title => "#{@reference.title}") if @reference.logo.present?
+          .col.span_2_of_3
+            = simple_format(@reference.body)
       .quote
         = simple_format(@reference.quote)
   .col.span_1_of_3

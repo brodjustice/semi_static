@@ -48,6 +48,12 @@ module SemiStatic
       c.html_safe
     end
 
+    def home_custom
+      if (t = SemiStatic::Tag.locale(I18n.locale).find_by_name('Home')).present? && t.partial_before_entries?
+        render :partial => t.partial_path
+      end
+    end
+
     def page_footer
       #
       # Optimum layout is 4 columns, but we handle any

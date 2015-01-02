@@ -60,6 +60,7 @@ module SemiStatic
       'tiles' => {:desktop => :panel, :mobile => :panel, :small => :small, :summary => :tile, :show => :big},
       'menu-right' => {:desktop => :panel, :mobile => :panel, :small => :small, :summary => :medium, :show => :big},
       'standard-2col-1col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel},
+      'bannerless' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel},
       'bannerette-2col-1col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel},
       'plain-3col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel},
       'parallax' => {:desktop => :wide, :mobile => :panel, :summary => :panel, :show => :panel},

@@ -1,0 +1,18 @@
+#top
+  #menu-button{:onclick => 'semiStaticOpenMenu()'}
+    = t('Menu')
+  #top-inner
+    .bar_menu
+      %ul
+        = locales
+        %li.contact.icon= link_to t('Contact'), semi_static.new_contact_path
+
+  #overlay
+    #overlay-inner
+      = render 'semi_static/shared/menu'
+      #logo-wrapper
+        #logo
+#frame
+  #container
+    #content
+      =yield

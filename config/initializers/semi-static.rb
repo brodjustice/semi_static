@@ -34,8 +34,8 @@ module SemiStatic
     #   4. parallax
     #   5. menu-right
     #   6. tiles
-    #   7. bannerless-2col-1col
-    config.theme = 'standard-2col-1col'
+    #   7. bannerette-2col-1col
+    config.theme = 'bannerette-2col-1col'
     
     # This is the address to which the contact form data is sent to
     config.contact_email = 'info@business-landing.com'

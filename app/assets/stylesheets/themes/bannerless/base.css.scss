@@ -2,44 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-@keyframes fader {
-  0%   { opacity: 0.0; }
-  31%   { opacity: 0.0; }
-  34%   { opacity: 1.0; }
-  67%  { opacity: 1.0; }
-  69%  { opacity: 0.0; }
-  100%  { opacity: 0.0; }
-}
-
-@-webkit-keyframes fader {
-  0%   { opacity: 0.0; }
-  31%   { opacity: 0.0; }
-  34%   { opacity: 1.0; }
-  67%  { opacity: 1.0; }
-  69%  { opacity: 0.0; }
-  100%  { opacity: 0.0; }
-}
-
-@-webkit-keyframes grower {
-  0%   { margin-right: -1000px; }
-  100% { margin-right: 0px; }
-}
-
-@-webkit-keyframes mobile-grower {
-  0%   { font-size: 1px; }
-  100% { font-size: 22px; }
-}
-
-@keyframes grower {
-  0%   { margin-right: -1000px; }
-  100% { margin-right: 0px; }
-}
-
-@keyframes mobile-grower {
-  0%   { font-size: 1px; }
-  100% { font-size: 22px; }
-}
-
 @keyframes wobble {
   0% { transform: rotate(0deg); }
   1% { transform: rotate(5deg); }
@@ -54,36 +16,8 @@
   5% { -webkit-transform: rotate(0deg); }
 }
 
-@-webkit-keyframes loading {
-  0%   { width: 0%;}
-  100%   { width: 100%;}
-}
-
-@keyframes loading {
-  0%   { width: 0%;}
-  100%   { width: 100%;}
-}
-
 #banner-frame{
   overflow: hidden;
-}
-
-#banner-loading{
-  content: '';
-  position: absolute;
-  height: 2px;
-  bottom: 0px;
-  width: 100%;
-  text-align: center;
-  animation: loading 10s linear infinite;
-  animation-timing-function: linear;
-  -webkit-animation-duration: 10s;
-  -webkit-animation-name: loading;
-  -webkit-animation-delay: 0s;
-  -webkit-animation-timing-function: linear; /* Chrome, Safari, Opera */
-  -webkit-animation-iteration-count: infinite;
-  z-index: 2;
-  background-color: white;
 }
 
 html { overflow-y: scroll; }
@@ -115,17 +49,6 @@ h2{ font-size: 20px;}
   height: 0px;
 }
 #frame{
-  background: rgba(221,230,237,1);
-  background: -moz-linear-gradient(top, rgba(221,230,237,1) 0%, rgba(240,244,248,1) 7%, rgba(253,255,255,1) 16%, rgba(253,254,254,1) 65%, rgba(228,234,241,1) 100%);
-  background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(221,230,237,1)), color-stop(7%, rgba(240,244,248,1)), color-stop(16%, rgba(253,255,255,1)), color-stop(65%, rgba(253,254,254,1)), color-stop(100%, rgba(228,234,241,1)));
-  background: -webkit-linear-gradient(top, rgba(221,230,237,1) 0%, rgba(240,244,248,1) 7%, rgba(253,255,255,1) 16%, rgba(253,254,254,1) 65%, rgba(228,234,241,1) 100%);
-  background: -o-linear-gradient(top, rgba(221,230,237,1) 0%, rgba(240,244,248,1) 7%, rgba(253,255,255,1) 16%, rgba(253,254,254,1) 65%, rgba(228,234,241,1) 100%);
-  background: -ms-linear-gradient(top, rgba(221,230,237,1) 0%, rgba(240,244,248,1) 7%, rgba(253,255,255,1) 16%, rgba(253,254,254,1) 65%, rgba(228,234,241,1) 100%);
-  background: linear-gradient(to bottom, rgba(221,230,237,1) 0%, rgba(240,244,248,1) 7%, rgba(253,255,255,1) 16%, rgba(253,254,254,1) 65%, rgba(228,234,241,1) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dde6ed', endColorstr='#e4eaf1', GradientType=0 );
-
-  border-top: 1px solid #ffffff;
-  border-bottom: 1px solid #bccfdb;
   padding: 0px 0 8px; 
 }
 #top .inner, #overlay-inner, #search-bar-inner{
@@ -167,100 +90,6 @@ h2{ font-size: 20px;}
   margin: 6px;
 }
 #container:after{ content: ''; display: table; clear: both; }
-
-//
-// Banner animations
-//
-// Animation deleay and initial opacity is set to cause the banner images display in
-// css div order #banner2, #banner0, #banner1, #banner2, banner0, etc.. Putting common
-// css between these divs into the #banner .bg class causes error on some browsers so
-// leave them wheer they are for now
-//
-// Webkit currently has some bugs/oditties that mean the the 0% of the animation
-// is applied even if there is a delay. This means that we need fallback background
-// which is given by #bannerBg. This is also useful as the smaller mobile banner inside
-// the media query later
-//
-
-#banner{
-  position: relative;
-  max-width: 1012px;
-  margin: 0 auto 12px;
-  z-index: 1;
-  background-color: white;
-  top: 8px;
-  // min-height: 250px;
-}
-
-#banner0{
-  background:transparent url(/assets/banners/#{$banner-b}) center 0px no-repeat; z-index: -10;
-  animation: fader 30s linear infinite; animation-delay: 0s;
-  animation-timing-function: linear;
-  -webkit-animation-duration: 30s;
-  -webkit-animation-name: fader;
-  -webkit-animation-delay: 0s;
-  -webkit-animation-timing-function: linear; /* Chrome, Safari, Opera */
-  -webkit-animation-iteration-count: infinite;
-  opacity: 0.0;
-}
-
-#banner1{
-  background:transparent url(/assets/banners/#{$banner-c}) center 0px no-repeat; z-index: -20;
-  animation: fader 30s linear infinite; animation-delay: 10s;
-  animation-timing-function: linear;
-  -webkit-animation-duration: 30s;
-  -webkit-animation-name: fader;
-  -webkit-animation-delay: 10s;
-  -webkit-animation-timing-function: linear; /* Chrome, Safari, Opera */
-  -webkit-animation-iteration-count: infinite;
-  opacity: 0.0;
-}
-
-#banner4{
-  background:transparent url(/assets/banners/#{$banner-a}) center 0px no-repeat; z-index: -50;
-  animation: fader 30s linear infinite; animation-delay: 20s;
-  animation-timing-function: linear;
-  -webkit-animation-duration: 30s;
-  -webkit-animation-name: fader;
-  -webkit-animation-delay: 20s;
-  -webkit-animation-timing-function: linear; /* Chrome, Safari, Opera */
-  -webkit-animation-iteration-count: infinite;
-  opacity: 1.0;
-}
-
-#banner0, #banner1, #banner4, #bannerBg{
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-}
-#bannerBg{
-  background-image: url(/assets/banners/#{$banner-a});
-  position: relative;
-  z-index: -50;
-  min-height: 250px;
-}
-
-#banner .bg{
-  width: 100%;
-}
-
-#banner .bg img, #bannerBg img{
-  width: 100%; visibility: hidden;
-  border: 0; margin: 0; padding: 0;
-  // Weirdness. For some reason the fake image we use to cause the backgrounds to be
-  // responsive has a 4px margin at the top, making the backgrounds then 4px larger
-  // than they should be at full screen width. This is the case for Firefox and webkit
-  // so there must be an error in the CSS. But where? Until we find this, just subtract
-  // with a negative margin:
-  margin-top: -4px;
-}
-
-#banner .bg{
-  position: absolute;
-  top: 0px;
-  background-position: center 0px;
-}
-.bg{ z-index: -1; }
 
 #footer{
   background: rgba(228,234,241,1);
@@ -435,7 +264,7 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
     box-shadow: 0 0 2px #fff;
 }
 
-#tag-wrapper, #menu-wrapper, #logo-wrapper{
+#menu-wrapper, #logo-wrapper{
   width: 100%;
   margin: 0px auto;
   position: absolute;
@@ -443,18 +272,13 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
 
 #menu-wrapper{
   z-index: 1000;
-  top: 85px;
+  top: 40px;
 }
 
 #logo-wrapper{
   top: 3px;
   z-index: 2000;
   width: $logo-top-width;
-}
-
-#tag-wrapper{
-  top: 43px;
-  overflow: hidden;
 }
 
 #logo{
@@ -474,17 +298,6 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
 #top{
   height: 120px;
   z-index: 200; // for logo in banner
-
-  background: rgba(255,255,255,1);
-  background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 7%, rgba(236,240,244,1) 93%, rgba(221,230,237,1) 100%);
-  background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(7%, rgba(255,255,255,1)), color-stop(93%, rgba(236,240,244,1)), color-stop(100%, rgba(221,230,237,1)));
-  background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 7%, rgba(236,240,244,1) 93%, rgba(221,230,237,1) 100%);
-  background: -o-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 7%, rgba(236,240,244,1) 93%, rgba(221,230,237,1) 100%);
-  background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 7%, rgba(236,240,244,1) 93%, rgba(221,230,237,1) 100%);
-  background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 7%, rgba(236,240,244,1) 93%, rgba(221,230,237,1) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#dde6ed', GradientType=0 );
-
-  border-bottom: 1px solid #bccfdb;
 }
 
 #top ul{
@@ -522,13 +335,12 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
 }
 
 #menu a{
-  color: #494949;
+  color: $prime-color;
   font-size: 18px;
   /* text-shadow: white -1px 1px 0px, rgba(98, 0, 105, 0.4) -2px 2px 0px; */
   text-shadow: white 0px 1px 0px;
   text-shadow: 0 1px 0 #ffffff;
   font-weight: normal;
-  text-transform: uppercase;
 }
 
 #menu .col{
@@ -567,7 +379,7 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
   text-align: center; background-color: white; border: 1px solid #808080; border-radius: 4px;
   width: 88%; margin: 0 auto; padding: 6px 5%;
 }
-.html{ padding: 0; margin-bottom: 8px; }
+.html{ display: inline; padding: 0; margin-bottom: 8px; }
 .link, .more{
   clear: both;
   text-align: right;
