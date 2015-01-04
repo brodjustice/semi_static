@@ -8,7 +8,7 @@ module SemiStatic
 
     # Don't panic about the copyright, we are not claiming it. This is the copyright for the
     # website contents, so remove or edit it as appropriate
-    config.copyright_year = '2014'
+    config.copyright_year = '2015'
     config.copyright_owner = 'Business Landing Ltd'
     
     # The site name will be used in the webpage title, open graph meta tags, etc. but also for the elasticsearch indexing
@@ -35,6 +35,7 @@ module SemiStatic
     #   5. menu-right
     #   6. tiles
     #   7. bannerette-2col-1col
+    #   8. bannerless
     config.theme = 'bannerette-2col-1col'
     
     # This is the address to which the contact form data is sent to
