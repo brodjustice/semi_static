@@ -1,0 +1,4 @@
+- return if @entry == e
+%h3= link_to e.title, e
+- if e.img.present?
+  = link_to image_tag(e.img_url_for_theme(:summary)), entry_path(e)
