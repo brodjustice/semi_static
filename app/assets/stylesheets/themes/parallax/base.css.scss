@@ -392,6 +392,11 @@ input[type=submit], .mid input, .mid textarea, .form-wrapper input[type=text], .
   -moz-box-sizing: border-box;
 }
 
+.col.text-box{
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
 .form-wrapper {
   margin-left: auto;
   margin-right: auto;
