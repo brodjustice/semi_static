@@ -12,7 +12,7 @@ SemiStatic::Engine.routes.draw do
     resources :seos, :only => [:new, :create, :update]
   end
 
-  resources :banners, :references, :photos
+  resources :banners, :references, :photos, :newsletters
   resources :seos, :except => [:new, :create, :update]
   resources :agreements
   resources :contacts, :except => [:edit, :update]
@@ -21,7 +21,8 @@ SemiStatic::Engine.routes.draw do
     resources :entries, :only => [:index]
   end
 
-  match '/features/:slug' => 'tags#show', :as => 'feature', :via => :get
+  # match "/features/:slug" => 'tags#show', :as => 'feature', :via => :get
+  match "/#{SemiStatic::Engine.config.tag_paths[I18n.locale.to_s] || 'features'}/:slug" => 'tags#show', :as => 'feature', :via => :get
 
   match '/site/:content' => 'site#show', :as => 'site',
     :via => :get, :defaults => {:content => 'home'}

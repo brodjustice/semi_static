@@ -1,0 +1,22 @@
+.mid
+  .button= link_to 'New newsletter', new_newsletter_path
+  %h1 Newsletters
+
+  %table
+    %tr
+      %th Name
+      %th State
+      %th Entries
+      %th
+
+    - @newsletters.each do |n|
+      %tr
+        %td
+          - if SemiStatic::Newsletter::STATE_CODES[n.state] == :draft
+            = link_to n.name, edit_newsletter_path(n)
+          -  else
+            = n.name
+        %td= SemiStatic::Newsletter::STATE_CODES[n.state]
+        %td= n.entry_titles
+        %td= link_to image_tag('/assets/bin.png'), n, :method => :delete, :data => { :confirm => 'Are you sure?' }
+

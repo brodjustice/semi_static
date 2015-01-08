@@ -1,0 +1,24 @@
+= form_for @newsletter do |f|
+  - if @newsletter.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@newsletter.errors.count, "error")} prohibited this newsletter from being saved:"
+      %ul
+        - @newsletter.errors.full_messages.each do |msg|
+          %li= msg
+
+  %fieldset
+    = f.label :name
+    %br/
+    = f.text_field :name
+
+  -# %fieldset
+  -#   = f.label :state
+  -#   %br/
+  -#   = f.select :state, options_for_select(SemiStatic::Newsletter::STATES.collect{|k, v| [k, v]}, @newsletter.state)
+
+  - unless @newsletter.new_record?
+    %fieldset
+      .button
+        = link_to 'Add entry section', new_entry_path(:newsletter_id => @newsletter.id)
+  .actions
+    = f.submit 'Next'

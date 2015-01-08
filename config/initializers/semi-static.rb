@@ -91,5 +91,9 @@ module SemiStatic
     # semi-static dashboard. If so put your dashboard path in here
     # config.app_dashboard = ['dashboard_path', 'admin']
     config.app_dashboard = false
+
+    # To increase your SEO you can replace certain words in your URLs
+    # config.tag_paths = { 'en' => 'features', 'de' => 'merkmale' }
+    config.tag_paths = { 'en' => 'features', 'de' => 'merkmale' }
   end
 end
