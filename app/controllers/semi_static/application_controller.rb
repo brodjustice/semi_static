@@ -62,10 +62,11 @@ module SemiStatic
     end
   
     def set_locale
-      # I18n.locale = (session[:locale] = params[:locale] || session[:locale] || extract_locale_from_tld)
-      I18n.locale = session[:locale] = extract_locale_from_tld
+      if I18n.locale != (I18n.locale = session[:locale] = extract_locale_from_tld)
+        Rails.application.reload_routes!
+      end
     end
-  
+
     # We overwrite the standard page_cache_path method to make it depend on the locale
     def self.page_cache_path(path, extension = nil)
       page_cache_directory.to_s + '/' + I18n.locale.to_s + page_cache_file(path, extension)
