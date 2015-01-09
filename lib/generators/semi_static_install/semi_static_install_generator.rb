@@ -13,8 +13,6 @@ class SemiStaticInstallGenerator < Rails::Generators::Base
   SITE_HELPER = 'helper SemiStatic::SiteHelper'
   AFTER_SIGN_IN_MODULE = "require 'semi_static/sign_in'\n  include SignIn"
 
-
-
   def copy_database_migrations
     directory('../../../../db/migrate', destination_root + '/db/migrate')
   end
@@ -140,6 +138,17 @@ class SemiStaticInstallGenerator < Rails::Generators::Base
     end
   end
 
+  def copy_devise_views
+    if yes?("  SemiStatic  Would you like to copy the devise views to your application? (Y/N):")
+      # Copy view into app as we nearly always customise them
+      @admin_model_name ||= 'admin'
+      run("rails generate devise:views " + @admin_model_name)
+      # Copy the admin form with email fileds
+      copy_file './../../../../app/views/semi_static/admins/_form.html.haml', './app/views/admins/_form.html.haml'
+      remove_file './app/views/admins/_form.html.erb'
+    end
+  end
+
   private
 
   def seed_admin
@@ -162,7 +171,7 @@ class SemiStaticInstallGenerator < Rails::Generators::Base
   end
 
   def add_auth
-    inject_into_file "./Gemfile", "\n  " + DEVISE_FOR_GEMFILE, :before => "group :assets do\n"
+    inject_into_file "./Gemfile", "\n" + DEVISE_FOR_GEMFILE, :before => "group :assets do\n"
 
     # Have to install the bundle before we can do the devise generation
     run  "bundle install"
@@ -179,8 +188,16 @@ class SemiStaticInstallGenerator < Rails::Generators::Base
       inject_into_file "app/controllers/#{@admin_model_name.pluralize}_controller.rb", filter_instruction,
         :after => "ApplicationController"
       generate("devise", @admin_model_name)
-      # Copy view into app as we nearly always customise them
-      run("rails generate devise:views admins")
+
+      # Need to change the admin model to load the correct devise modules:
+      #   devise :database_authenticatable, :trackable, :timeoutable, :lockable
+      # This is pretty error prone as we don't know what devise will put in by default, but it's important to
+      # get rid of the registerable, else you will not be able to add admins
+      gsub_file "app/models/#{@admin_model_name}.rb", /^  devise.*$/, "  devise :database_authenticatable, :trackable, :timeoutable, :lockable"
+      gsub_file "app/models/#{@admin_model_name}.rb", /:recoverable.*$/, ""
+      gsub_file "app/models/#{@admin_model_name}.rb", /:rememberable.*$/, ""
+      gsub_file "app/models/#{@admin_model_name}.rb", /:registerable.*$/, ""
+
       say "  SemiStatic  Have added a default route for devise, you may want to edit config/routes later"
       say "  For the devise admin model (#{@admin_model_name}) you will typically want:"
       say "    Autenticable + Trackable"

@@ -48,7 +48,7 @@ module SemiStatic
                              :big => "-strip -gravity Center -quality 85"  }
   
     DIRTY_TAGS= %w(span br em b i u ul ol li a div p img hr  h1 h2 h3 h4 iframe)
-    DIRTY_ATTRIBUTES= %w(href class style id align src alt height width frameborder allowfullscreen)
+    DIRTY_ATTRIBUTES= %w(href class style id align src alt height width max-width frameborder allowfullscreen)
 
     ALLOWED_TAGS= %w(span br em b i u ul ol li a div p img hr h1 h2 h3 h4)
     ALLOWED_ATTRIBUTES= %w(href src align alt)
