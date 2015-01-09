@@ -14,4 +14,4 @@
                         = link_to image_tag(e.img_url_for_theme(:summary)), entry_path(e)
                     .col.span_1_of_2.wrapping
                       .html
-                        %h1{:style => "color: #{e.header_colour}"}= e.title
+                        %h1{:style => "color: #{e.header_colour}"}= link_to e.title, e
