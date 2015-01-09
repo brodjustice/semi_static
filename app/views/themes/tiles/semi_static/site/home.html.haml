@@ -1,3 +1,4 @@
+-# TODO - Refactor the CSS and remove extra divs
 .tiles
   - SemiStatic::Entry.home.locale(I18n.locale).each_slice(4) do |e4|
     .wrap_x_4
@@ -7,4 +8,10 @@
             .wrap_x_1.col.span_1_of_4
               .single{:class => e.style_class, :style => "background-color:#{e.background_colour}; color: #{e.colour}"}
                 .entry.panel{:style => "background-color:#{e.background_colour}; color: #{e.colour}"}
-                  = render :partial => 'semi_static/entries/entry', :locals => {:e => e, :style => :summary}
+                  .entry{:style => "background-color: #{e.background_colour}"}
+                    .col.span_1_of_2.floater
+                      .img
+                        = link_to image_tag(e.img_url_for_theme(:summary)), entry_path(e)
+                    .col.span_1_of_2.wrapping
+                      .html
+                        %h1{:style => "color: #{e.header_colour}"}= e.title
