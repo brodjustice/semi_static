@@ -290,8 +290,7 @@ h2{ font-size: 20px;}
   -webkit-animation: ticker 80s infinite linear;
   width: 100%;
   height: $ticker-height;
-  text-align: right; margin: 0px; color: white; font-size: 30px; font-weight: bold;
-  font-family: "Times New Roman", Times, serif;
+  text-align: right; margin: 0px; color: white; font-size: 30px;
   background: transparent url(/assets/ticker.png) 0 0 repeat-x;
   background-size: $ticker-height $ticker-width;
   // If you want to play with CSS3 viewport widths:
@@ -472,7 +471,7 @@ h2 a, h3 a{color: $secondary-color;}
   width: $logo-top-width; height: $logo-top-height;
   background: transparent url(/assets/#{$logo-top}) 0 0 no-repeat;
   position: absolute;
-  top: 3px;
+  top: 4px;
   left: 0px;
   z-index: 5000;
 }
