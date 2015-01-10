@@ -717,13 +717,12 @@ h2 a, h3 a{color: $secondary-color;}
   #menu, #top-inner ul{display: none;}
   #menu{
     padding-top: 8px; padding-bottom: 12px;
-    width: 90%; max-width: 330px; left: -10px; right: -10px;
-    position: fixed; background-color: #f8f8f8; top: 44px;
+    width: 100%; left: -10px; right: -10px;
+    position: fixed; background-color: #f8f8f8;
     border: 1px solid $prime-color;
     background-image: none;
-    border-radius: 2px;
-    box-shadow: 0 50px 500px black;
-    font-size: 16px;
+    font-size: 20px;
+    border-bottom: 4px solid $prime-color;
   }
   #menu .col{ width: 100%; }
   #menu-loading-wrapper{display: block;}
@@ -736,7 +735,7 @@ h2 a, h3 a{color: $secondary-color;}
     top: 16px;
     width: 30%;
   }
-  #menu .wrapper .text{height: 20px; text-align: center;}
+  #menu .wrapper .text{height: 30px; text-align: center;}
 
   .wrapper:not(#selected) .icon.sprite{background-image: none;}
 
@@ -744,7 +743,7 @@ h2 a, h3 a{color: $secondary-color;}
   #menu-button{display: block;}
 
   #banner{top: 60px;}
-  #logo-wrapper{top: 3px;}
+  #logo-wrapper{top: 4px;}
   #overlay{height: 367px;}
 }
 
