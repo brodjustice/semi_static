@@ -4,7 +4,7 @@
   - loop do
     = render :partial => 'semi_static/entries/entry_contents', :locals => {:style => style, :e => e }
     = render :partial => 'document', :locals => {:e => e}  if e.doc.present? && (style == :show)
-    - break if (e = e.next_merged_entry).nil? || (style == :summary)
+    - break if (e = e.next_merged_entry).nil? || ((style == :summary) && entry.truncate?)
     .section
   - if (style == :summary) || (style == :small)
     .more= link_to t(:more), entry_path(entry)

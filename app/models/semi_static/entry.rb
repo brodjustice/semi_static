@@ -129,6 +129,11 @@ module SemiStatic
       end
     end
 
+    def truncate?
+      (summary.blank? ? body.size : summary.size) > summary_length
+    end
+
+
     # Might be a better way to do this with delegate...
     def photos_including_master
       self.master_entry.nil? ? Photo.where(:entry_id => self.id) : Photo.where('entry_id=? OR entry_id=?', self.id, self.master_entry_id)
