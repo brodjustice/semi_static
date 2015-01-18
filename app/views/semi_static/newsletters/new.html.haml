@@ -1,5 +1,19 @@
 .mid
-  %h1 Drafting newsletter
+  %h1 Drafting new newsletter
 
-  = render 'form'
+  = form_for @newsletter do |f|
+    - if @newsletter.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@newsletter.errors.count, "error")} prohibited this newsletter from being saved:"
+        %ul
+          - @newsletter.errors.full_messages.each do |msg|
+            %li= msg
 
+    %fieldset
+      = f.label :name
+      = f.text_field :name
+      = f.label :subtitle
+      = f.text_field :subtitle
+
+    .actions
+      = f.submit 'Next'

@@ -1,0 +1,25 @@
+.button
+  = link_to 'New Subscriber', new_subscriber_path
+%h1 Listing subscribers
+
+%table
+  %tr
+    %th Name
+    %th Surname
+    %th Email
+    %th Telephone
+    %th Cancel token
+    %th
+    %th
+    %th
+
+- @subscribers.each do |subscriber|
+  %tr
+    %td= subscriber.name
+    %td= subscriber.surname
+    %td= subscriber.email
+    %td= subscriber.telephone
+    %td= subscriber.cancel_token
+    %td= link_to 'Show', subscriber
+    %td= link_to 'Edit', edit_subscriber_path(subscriber)
+    %td= link_to 'Destroy', subscriber, method: :delete, data: { confirm: "Confirm deletion of #{subscriber.fullname}" }

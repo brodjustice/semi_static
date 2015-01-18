@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @subscriber.name %>
+</p>
+
+<p>
+  <b>Surname:</b>
+  <%= @subscriber.surname %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @subscriber.email %>
+</p>
+
+<p>
+  <b>Telephone:</b>
+  <%= @subscriber.telephone %>
+</p>
+
+<p>
+  <b>Cancel token:</b>
+  <%= @subscriber.cancel_token %>
+</p>
+
+
+<%= link_to 'Edit', edit_subscriber_path(@subscriber) %> |
+<%= link_to 'Back', subscribers_path %>

@@ -14,7 +14,7 @@ module SemiStatic
     # The site name will be used in the webpage title, open graph meta tags, etc. but also for the elasticsearch indexing
     config.site_name = 'Business Landing Ltd'
 
-    # Correct logo path is important for the Open Graph meta tags
+    # Correct logo path is important for the Open Graph meta tags and newsletters
     config.logo_image = '/assets/logo.png'
 
     config.info_email = 'info@business-landing.com'

@@ -1,0 +1,19 @@
+%html
+  %head
+    %title=  @subject
+  %body{:style => "padding:0; margin:0 ; color:#333; font-family: 'Helvetica Neue', Helvetica,Tahoma,Verdana,Arial,sans-serif; background-color:#f8f8f8;"}
+    .newsletter{:style => 'padding:12px;background-color:white;max-width:768px;width:100%;position:relative; margin: 6px auto;'}
+      %div{:style => 'margin: 6px; float: right; position: relative; z-index: 1;'}
+        <img src="#{attachments['logo.jpg'].url}"/>
+      %h1{:style=>'font-size:40px;'}= @newsletter.name
+      %h3{:style=>'font-size:28px;'}= @newsletter.subtitle
+    .entry
+      - @newsletter.draft_entry_objects.each do |e|
+        - entry = e
+        - loop do
+          %h2= e.title
+          - if e.img.present?
+            %div{:style => 'margin: 0px 6px 6px 6px; float: right; position: relative; z-index: 1;'}
+              <img src="#{attachments[e.id.to_s].url}"/>
+          = e.body.html_safe
+          - break if (e = e.next_merged_entry).nil?

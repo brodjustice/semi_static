@@ -11,7 +11,19 @@ module SemiStatic
     validates_presence_of :email, :unless => :telephone?
   
     after_create :send_email
+    after_create :check_subscription
   
+    def check_subscription
+      unless self.email.blank? || self.agreements.subscriber.blank?
+        if (s = SemiStatic::Subscriber.find_by_email(self.email).first).blank?
+          s = SemiStatic::Subscriber.create(:surname => surname, :name => name, :email => email, :telephone => telephone)
+        else
+          attributes.each{|k,v| attributes.delete(k) if read_attribute(k).blank?}
+          s.update_attributes(attributes)
+        end
+      end
+    end
+
     def fullname
       name + ' ' + surname
     end

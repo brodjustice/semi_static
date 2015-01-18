@@ -6,19 +6,36 @@
         - @newsletter.errors.full_messages.each do |msg|
           %li= msg
 
-  %fieldset
-    = f.label :name
-    %br/
+  .newsletter
+    = image_tag(SemiStatic::Engine.config.logo_image, :class => 'logo')
     = f.text_field :name
+    = f.text_area :subtitle
 
-  -# %fieldset
-  -#   = f.label :state
-  -#   %br/
-  -#   = f.select :state, options_for_select(SemiStatic::Newsletter::STATES.collect{|k, v| [k, v]}, @newsletter.state)
+    .clear
+    - unless @newsletter.new_record?
+      %fieldset.action.prepend
+        %label= 'Insert entry'
+        = select_tag 'prepend', options_for_select(SemiStatic::Entry.all.collect{|e| [e.title, e.id]}.prepend(['- None -', nil])), :name => 'entry[prepend]'
 
-  - unless @newsletter.new_record?
-    %fieldset
-      .button
-        = link_to 'Add entry section', new_entry_path(:newsletter_id => @newsletter.id)
-  .actions
-    = f.submit 'Next'
+      - @newsletter.draft_entry_ids.each do |id| 
+        - e = SemiStatic::Entry.find_by_id(id)
+        - next if e.nil?
+        .panel.entry.flat
+          = render :partial => 'semi_static/entries/entry', :locals => {:e => e}
+          %fieldset.action.append
+            %label= 'Insert entry'
+            = select_tag 'append', options_for_select(SemiStatic::Entry.all.collect{|e| [e.title, e.id]}.prepend(['- None -', nil])), :name => "entry[append][#{e.id.to_s}]"
+    %table
+      %tr
+        %td
+          &copy;
+          = SemiStatic::Engine.config.copyright_year
+          = SemiStatic::Engine.config.copyright_owner
+        %td
+          = link_to t('Unsubscribe'), 'http://business-landing.com/'
+    
+  .mid
+    .actions
+      = f.submit 'Save'
+      = f.submit 'Save and send draft newsletter', :name => 'email_draft'
+      = f.submit 'Publish', :name => 'publish', :data => { :confirm => "Are you sure that you want to publish #{@newsletter.name}?" }

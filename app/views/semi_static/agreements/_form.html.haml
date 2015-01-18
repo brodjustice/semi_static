@@ -25,11 +25,14 @@
   %fieldset
     = f.label :locale
     = f.select :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @agreement.locale)
-    %br/
-    = f.label :display, 'Display on contact form'
+  %fieldset
     = f.check_box :display
+    = f.label :display, 'Display on contact form'
     %br/
-    = f.label :ticked_by_default, 'Ticked by default on contact form'
     = f.check_box :ticked_by_default
+    = f.label :ticked_by_default, 'Ticked by default on contact form'
+    %br/
+    = f.check_box :add_to_subscribers
+    = f.label :add_to_subscribers, 'When ticked/agreed by the contact, then the contact should be added to the subscribers (for Newsletters, etc.)'
   .actions
     = f.submit 'Submit'

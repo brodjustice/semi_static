@@ -1,0 +1,20 @@
+<html>
+<head>
+  <title>
+    <%= @subject %>
+  </title>
+</head>
+<body style = "padding:0; margin:0 ; color:#333; font-family: 'Helvetica Neue', Helvetica,Tahoma,Verdana,Arial,sans-serif; background-color:#f8f8f8;">
+  <div class='newsletter' style= 'padding:12px;background-color:white;max-width:768px;width:100%;position:relative; margin: 6px auto;'>
+    <div id='logo' style='margin: 6px; float: right; position: relative; z-index: 1;'>
+      <img src=<%= attachments['logo.jpg'].url %>/>
+      <h1 style='font-size:40px'>
+        <%= @newsletter.name %>
+      </h1>
+      <h3 style='font-size:28px'>
+        <%= @newsletter.subtitle %>
+      </h3>
+    <div>
+  </div>
+</body>
+</html>

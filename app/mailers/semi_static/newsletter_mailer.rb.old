@@ -1,0 +1,67 @@
+require "erb"
+require "haml"
+
+module SemiStatic
+  class NewsletterMailer < ActionMailer::Base
+
+    def draft(admin, newsletter)
+      @subject = newsletter.name
+      email = admin.email
+
+      @admin = admin
+      @newsletter = newsletter
+      @host = SemiStatic::Engine.config.mail_host
+      @locale = newsletter.locale
+
+      attachments.inline['logo.jpg'] = File.read("#{Rails.root}/app/assets/images/#{SemiStatic::Engine.config.logo_image.split('/').last}")
+
+      m = mail(:from => SemiStatic::Engine.config.mailer_from, :to => email, :subject => @subject)
+
+      render_to_file(newsletter, m)
+    end
+
+    def render_to_file(newsletter, email)
+      attachments = []
+
+      html_dir = Rails.root.join("public", "system", 'semi_static', 'newsletters', newsletter.id.to_s)
+      FileUtils.mkdir_p(html_dir)
+
+      if mail.attachments.any?
+        attachments_dir = File.join(html_dir, 'attachments')
+        FileUtils.mkdir_p(attachments_dir)
+
+        mail.attachments.each do |attachment|
+          filename = attachment.filename.gsub(/[^\w.]/, '_')
+          path = File.join(attachments_dir, filename)
+          unless File.exists?(path) # true if other parts have already been rendered
+            File.open(path, 'wb') { |f| f.write(attachment.return_body(email).raw_source) }
+          end
+          @attachments << [attachment.filename, "attachments/#{URI.escape(filename)}"]
+        end
+      end
+
+      content_type = email.part && email.part.first.content_type || email.content_type
+      file_path = File.join(html_dir, "#{content_type =~ /html/ ? 'rich' : 'plain'}.html")
+
+      File.open(file_path, 'w') do |f|
+        # f.write ERB.new(File.read(template_path)).result(binding)
+        f.write Haml::Engine.new(File.read(template_path)).render(binding)
+      end
+    end
+
+    def template_path
+      # Engine.root.join('app', 'views', 'semi_static', 'newsletter_mailer', 'draft.html.erb')
+      Engine.root.join('app', 'views', 'semi_static', 'newsletter_mailer', 'draft.html.haml')
+    end
+
+    def return_body(email)
+      main_body ||= begin
+        email_body = (email.part || mail).decoded
+        mail.attachments.each do |attachment|
+          email_body.gsub!(attachment.url, "attachments/#{attachment.filename}")
+        end
+        email_body
+      end
+    end
+  end
+end

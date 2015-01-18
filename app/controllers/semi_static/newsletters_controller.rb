@@ -64,11 +64,19 @@ module SemiStatic
     # PUT /newsletters/1.json
     def update
       @newsletter = Newsletter.find(params[:id])
+      @newsletter.add_entry(params[:entry])
   
       respond_to do |format|
         if @newsletter.update_attributes(params[:newsletter])
-          format.html { redirect_to @newsletter, notice: 'Newsletter was successfully updated.' }
-          format.json { head :no_content }
+          if params[:publish].present?
+            @newsletter.publish
+          elsif params[:email_draft].present?
+            NewsletterMailer.draft(current_admin, @newsletter).deliver && @newsletter.draft_sent
+            format.html { redirect_to newsletters_path, notice:  "Draft of Newsletter #{@newsletter.name} was sent to #{current_admin.email}" }
+          else
+            format.html { redirect_to newsletter_path(@newsletter), notice: 'Newsletter was updated.' }
+            format.json { head :no_content }
+          end
         else
           format.html { render action: "edit" }
           format.json { render json: @newsletter.errors, status: :unprocessable_entity }

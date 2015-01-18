@@ -3,7 +3,8 @@
   font-size: bold;
 }
 
-.caption, p{
+/* Stop element going outside of viewport on mobile screens */ 
+.html, .caption, p{
   word-wrap: break-word;
 }
 

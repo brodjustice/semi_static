@@ -31,9 +31,11 @@
       - if (theme_js = ObjectSpace.each_object(Sprockets::Environment).first.find_asset('theme.js'))
         = theme_js.source.html_safe
 
+    -# In the case of google analytics the async code must be in the head section in order that it
+    -# can be validated for google webmaster tools
+    = render :partial => SemiStatic::Engine.config.analytics_partial unless SemiStatic::Engine.config.analytics_partial.nil?
     %link{:rel => 'shortcut icon', :href => '/assets/favicon.ico'}
   %body#semi-static-home-page
     #body-inner
       = render :partial => 'semi_static/shared/home_body'
       = render :partial => 'semi_static/shared/footer'
-      = render :partial => SemiStatic::Engine.config.analytics_partial unless SemiStatic::Engine.config.analytics_partial.nil?
