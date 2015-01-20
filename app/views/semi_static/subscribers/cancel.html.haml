@@ -1,0 +1,16 @@
+.mid
+  = form_for(@subscriber) do |f|
+    - if @subscriber.errors.any?
+      #error_explanation
+        %h2= pluralize(@subscriber.errors.count, "error") + 'prohibited this subscription from changed:'
+        %ul
+          - @subscriber.errors.full_messages.each do |msg|
+            %li= msg
+    %h1 Cancel subscription
+    = hidden_field_tag 'token', @subscriber.cancel_token
+    = hidden_field_tag 'cancel'
+    .field
+      = f.text_field :email
+      = f.label :email, 'Please enter your email address so that we can cancel your subscription'
+    .actions
+      = f.submit 'Cancel'

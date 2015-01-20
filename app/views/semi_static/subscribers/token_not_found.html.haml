@@ -1,0 +1,8 @@
+.mid
+  %h1= 'Opps, sorry but we could not find your subscription to cancel'
+  %p
+    = 'If you think you still have a subscription, please send an email to: '
+  %p
+    = mail_to SemiStatic::Engine.config.contact_email
+  %p
+    = 'and we will cancel any subscription for your email address.'

@@ -13,13 +13,13 @@
     %th
     %th
 
-- @subscribers.each do |subscriber|
-  %tr
-    %td= subscriber.name
-    %td= subscriber.surname
-    %td= subscriber.email
-    %td= subscriber.telephone
-    %td= subscriber.cancel_token
-    %td= link_to 'Show', subscriber
-    %td= link_to 'Edit', edit_subscriber_path(subscriber)
-    %td= link_to 'Destroy', subscriber, method: :delete, data: { confirm: "Confirm deletion of #{subscriber.fullname}" }
+  - @subscribers.each do |subscriber|
+    %tr
+      %td= subscriber.name
+      %td= subscriber.surname
+      %td= subscriber.email
+      %td= subscriber.telephone
+      %td= subscriber.cancel_token
+      %td= link_to 'Show', subscriber
+      %td= link_to 'Edit', edit_subscriber_path(subscriber)
+      %td= link_to 'Destroy', subscriber, method: :delete, data: { confirm: "Confirm deletion of #{subscriber.fullname}" }

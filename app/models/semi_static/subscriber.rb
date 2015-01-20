@@ -14,9 +14,9 @@ module SemiStatic
     protected
 
     def generate_token
-      self.token = loop do
+      self.cancel_token = loop do
         random_token = SecureRandom.urlsafe_base64(nil, false)
-        break random_token unless Subscriber.exists?(token: random_token)
+        break random_token unless Subscriber.exists?(cancel_token: random_token)
       end
     end
   end

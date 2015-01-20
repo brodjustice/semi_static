@@ -15,7 +15,7 @@ module SemiStatic
   
     def check_subscription
       unless self.email.blank? || self.agreements.subscriber.blank?
-        if (s = SemiStatic::Subscriber.find_by_email(self.email).first).blank?
+        if (s = SemiStatic::Subscriber.find_by_email(self.email)).blank?
           s = SemiStatic::Subscriber.create(:surname => surname, :name => name, :email => email, :telephone => telephone)
         else
           attributes.each{|k,v| attributes.delete(k) if read_attribute(k).blank?}
