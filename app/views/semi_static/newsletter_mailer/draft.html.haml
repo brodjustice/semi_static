@@ -14,7 +14,7 @@
             %h2= e.title
             - if e.img.present?
               %div{:style => 'margin: 0px 6px 6px 6px; float: right; position: relative; z-index: 1;'}
-                <img src="#{attachments[e.id.to_s].url}"/>
+                <img src="#{attachments[e.id.to_s + '.jpg'].url}"/>
             = e.body.html_safe
             - break if (e = e.next_merged_entry).nil?
       %table{:class => 'footer', :style => 'width: 100%; border-top: 1px solid #c8c8c8; background-color: #f0f0f0'}

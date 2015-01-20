@@ -13,7 +13,7 @@ module SemiStatic
       attachments.inline['logo.jpg'] = File.read("#{Rails.root}/app/assets/images/#{SemiStatic::Engine.config.logo_image.split('/').last}")
       @newsletter.draft_entry_objects.each{|e|
         if e.img.present?
-          attachments.inline[e.id.to_s] = File.read("#{Rails.root}/public/#{e.img_url_for_theme(:desktop)}")
+          attachments.inline["#{e.id.to_s}.jpg"] = File.read("#{Rails.root}/public/#{e.img_url_for_theme(:desktop)}")
         end
       }
 
