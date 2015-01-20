@@ -33,8 +33,12 @@ module SemiStatic
         FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/features.html").to_s)
         FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/entries").to_s)
         FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/entries.html").to_s)
-        unless SemiStatic::Engine.config.tag_paths[l].nil?
-          FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/#{SemiStatic::Engine.config.tag_paths[l]}").to_s)
+
+        # If there are no config.tag_paths don't do this, as the path will resolve to the
+        # top level locales cache directory and it will be removed along with links
+        # to your assets and system directories
+        unless SemiStatic::Engine.config.tag_paths[l.to_s].nil?
+          FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/#{SemiStatic::Engine.config.tag_paths[l.to_s]}").to_s)
         end
       }
     end
