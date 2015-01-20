@@ -2,10 +2,16 @@ module SemiStatic
   class NewsletterMailer < ActionMailer::Base
 
     def draft(admin, newsletter)
-      @subject = newsletter.name
-      email = admin.email
+      prepare(newsletter)
 
-      @admin = admin
+      mail(:from => SemiStatic::Engine.config.mailer_from, :to => admin.email, :subject => @subject)
+    end
+
+    private
+
+    def prepare(newsletter)
+      @subject = newsletter.name
+
       @newsletter = newsletter
       @host = SemiStatic::Engine.config.mail_host
       @locale = newsletter.locale
@@ -19,8 +25,6 @@ module SemiStatic
           attachments[e.doc_file_name] = File.read("#{Rails.root}/public/#{e.doc}")
         end
       }
-
-      mail(:from => SemiStatic::Engine.config.mailer_from, :to => email, :subject => @subject)
     end
   end
 end
