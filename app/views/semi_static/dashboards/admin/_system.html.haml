@@ -33,6 +33,10 @@
     %h4= 'Expire Cache'
     #expire_cache
     = link_to 'Expire cache now', system_path(:cmd => {:expire_cache => :all}), :method => :put, :remote => true
+  .panel
+    %h4= 'Clean up possible errors'
+    #clean_up
+    = link_to 'Clean up now', system_path(:cmd => {:clean_up => :all}), :method => :put, :remote => true
   %div{:style => 'font-size: 10px; text-align: right;'}
     = 'Device pixel ratio = '
     %span#pixelRatio{:style => 'font-size: 10px; text-align: right;'}

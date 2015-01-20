@@ -16,7 +16,8 @@
         @tag = Tag.find(params[:tag_id])
         @entries = @tag.entries
       else
-        @entries = Entry.unscoped.order(:locale, :tag_id, :position)
+        @entries = Entry.unscoped.order(:locale, :tag_id, :position).exclude_newsletters
+        @newsletter_entries = Entry.unscoped.for_newsletters
       end
       respond_to do |format|
         format.html # index.html.erb
@@ -56,12 +57,14 @@
     # GET /entries/new
     # GET /entries/new.json
     def new
+      @entry = Entry.new
       if params[:master].present?
         master = Entry.find(params[:master])
         @entry = master.dup
         @entry.master_entry = master
-      else
-        @entry = Entry.new
+      elsif params[:newsletter]
+        @newsletter = Newsletter.find(params[:newsletter])
+        @entry.tag = @newsletter.tag
       end
   
       respond_to do |format|
@@ -78,7 +81,13 @@
     # POST /entries
     # POST /entries.json
     def create
-      @entry = Entry.new(params[:entry])
+      if params[:newsletter_id]
+        nl = SemiStatic::Newsletter.find(params[:newsletter_id])
+        @entry = nl.tag.entries.create(params[:entry])
+      else
+        @entry = Entry.new(params[:entry])
+      end
+
   
       respond_to do |format|
         if params[:preview]

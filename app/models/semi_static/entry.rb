@@ -16,6 +16,7 @@ module SemiStatic
     belongs_to :tag
   
     after_save :expire_site_page_cache
+    after_save :check_for_newsletter_entry
     before_destroy :expire_site_page_cache
   
     scope :home, where('home_page = ?', true)
@@ -23,6 +24,8 @@ module SemiStatic
     scope :locale, lambda {|locale| where("locale = ?", locale.to_s)}
     scope :not, lambda {|entry| where("id != ?", (entry ? entry.id : 0))}
     scope :unmerged, where('merge_with_previous = ?', false)
+    scope :exclude_newsletters, joins(:tag).where(:semi_static_tags => {:newsletter_id => nil})
+    scope :for_newsletters, includes(:tag).where('semi_static_tags.newsletter_id IS NOT NULL')
   
     has_one :seo, :as => :seoable
     belongs_to :master_entry, :class_name => SemiStatic::Entry
@@ -124,6 +127,7 @@ module SemiStatic
     end
 
     def next_merged_entry
+      return nil if self.tag.nil?
       if (e = self.tag.entries[self.tag.entries.index(self) + 1])
         e.merge_with_previous ? e : nil
       end
@@ -133,6 +137,12 @@ module SemiStatic
       (summary.blank? ? body.size : summary.size) > summary_length
     end
 
+    def check_for_newsletter_entry
+      unless (n = self.tag.newsletter).nil?
+        n.draft_entry_ids << self.id
+        n.save
+      end
+    end
 
     # Might be a better way to do this with delegate...
     def photos_including_master

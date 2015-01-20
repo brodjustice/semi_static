@@ -58,6 +58,9 @@
       %ul
         - @entry.errors.full_messages.each do |msg|
           %li= msg
+
+  = hidden_field_tag 'newsletter_id', @newsletter.id if @newsletter
+
   %fieldset
     = f.label :title
     %br/
@@ -66,20 +69,24 @@
     = f.label :locale
     = f.select :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @entry.locale)
     = f.label :tag_id
-    = f.select :tag_id, options_for_select(SemiStatic::Tag.all.collect{|t| [[t.locale, ': ', t.name].join, t.id]}, @entry.tag_id)
-  %fieldset
-    = f.label :home_page
-    = f.check_box :home_page
-    = f.label :news_item
-    = f.check_box :news_item
-    = f.label :image_in_news
-    = f.check_box :image_in_news
-  %fieldset
-    #selected_banner
-      - if @entry.banner.present?
-        = render :partial => 'semi_static/banners/show', :locals => {:banner => @entry.banner}
-    = f.label :banner
-    = f.select :banner_id, options_for_select(SemiStatic::Banner.all.collect{|b| [b.name, b.id]}.prepend(["- None -", 'none']), @entry.banner_id)
+    - if @newsletter
+      = f.select :tag_id, options_for_select(SemiStatic::Tag.unscoped.collect{|t| [[t.locale, ': ', t.name].join, t.id]}, @entry.tag_id)
+    - else
+      = f.select :tag_id, options_for_select(SemiStatic::Tag.all.collect{|t| [[t.locale, ': ', t.name].join, t.id]}, @entry.tag_id)
+  - unless @newsletter
+    %fieldset
+      = f.label :home_page
+      = f.check_box :home_page
+      = f.label :news_item
+      = f.check_box :news_item
+      = f.label :image_in_news
+      = f.check_box :image_in_news
+    %fieldset
+      #selected_banner
+        - if @entry.banner.present?
+          = render :partial => 'semi_static/banners/show', :locals => {:banner => @entry.banner}
+      = f.label :banner
+      = f.select :banner_id, options_for_select(SemiStatic::Banner.all.collect{|b| [b.name, b.id]}.prepend(["- None -", 'none']), @entry.banner_id)
   %fieldset
     = f.label :partial, 'Custom view'
     = f.select :partial, options_for_select(SemiStatic::Engine.config.open_partials.collect{|k, v| [k, k]}.prepend(["- None -", 'none']), @entry.partial)
@@ -104,21 +111,22 @@
     = f.text_field :position
     = f.label :merge_with_previous
     = f.check_box :merge_with_previous
-  %fieldset.semi_static_youtube_id_str
-    .infobox#youtube_id_str_text_box
-      %h4= 'YouTube ID'
-      %p
-        = 'If a YouTube video ID is given, then the video will be presented before the entry text and image'
-      %p
-        = 'If you are not sure what the YouTube ID is, then click on "share" underneath the YouTube video, and then copy the'
-        = 'URL link to the field below. Then click "Preview" at the bottom of this form to see if you have the correct ID'
-    = f.label :youtube_id_str, 'YouTube Video ID (optional)', :class => 'infomarker'
-    %br/
-    .field
-      = f.text_field :youtube_id_str
-      %span#validateYoutubeButton{:style => 'display: none'}
-        = button_to_function 'Click here to validate YouTube ID', 'validate_youtube_id();'
-    %fieldset.semi_static_entry_main_content
+  - unless @newsletter
+    %fieldset.semi_static_youtube_id_str
+      .infobox#youtube_id_str_text_box
+        %h4= 'YouTube ID'
+        %p
+          = 'If a YouTube video ID is given, then the video will be presented before the entry text and image'
+        %p
+          = 'If you are not sure what the YouTube ID is, then click on "share" underneath the YouTube video, and then copy the'
+          = 'URL link to the field below. Then click "Preview" at the bottom of this form to see if you have the correct ID'
+      = f.label :youtube_id_str, 'YouTube Video ID (optional)', :class => 'infomarker'
+      %br/
+      .field
+        = f.text_field :youtube_id_str
+        %span#validateYoutubeButton{:style => 'display: none'}
+          = button_to_function 'Click here to validate YouTube ID', 'validate_youtube_id();'
+  %fieldset.semi_static_entry_main_content
     = f.label :body
     %br/
     = f.text_area :body
@@ -170,24 +178,25 @@
     = f.label :doc_description, 'Document description (optional)'
     %br/
     = f.text_field :doc_description
-  %fieldset.semi_static_entry_main_content
-    = f.label :side_bar
-    = f.check_box :side_bar
-    %fieldset#side_bar_options
-      .col.span_3_of_5
-        = f.label :side_bar_news, 'News'
-        = f.check_box :side_bar_news
-        = f.label :side_bar_social, 'Social links'
-        = f.check_box :side_bar_social
-        = f.label :side_bar_search, 'Search'
-        = f.check_box :side_bar_search
-      .col.span_1_of_5
-        = f.label :side_bar_gallery, 'Gallery'
-        = f.text_field :side_bar_gallery
+  - unless @newsletter
+    %fieldset.semi_static_entry_main_content
+      = f.label :side_bar
+      = f.check_box :side_bar
+      %fieldset#side_bar_options
+        .col.span_3_of_5
+          = f.label :side_bar_news, 'News'
+          = f.check_box :side_bar_news
+          = f.label :side_bar_social, 'Social links'
+          = f.check_box :side_bar_social
+          = f.label :side_bar_search, 'Search'
+          = f.check_box :side_bar_search
+        .col.span_1_of_5
+          = f.label :side_bar_gallery, 'Gallery'
+          = f.text_field :side_bar_gallery
 
-  %fieldset
-    = f.label :facebook_share, 'Show Facebook Share button'
-    = f.check_box :facebook_share
+    %fieldset
+      = f.label :facebook_share, 'Show Facebook Share button'
+      = f.check_box :facebook_share
   %fieldset
     = f.label :style_class
     = f.select :style_class, options_for_select(SemiStatic::EntriesHelper::STYLE_CLASSES.collect{|sc| [sc, sc]}, @entry.style_class)

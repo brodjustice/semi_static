@@ -6,6 +6,7 @@ module SemiStatic
     serialize :draft_entry_ids, Array
 
     has_many :newsletter_deliveries
+    has_one :tag, :dependent => :destroy
 
     validates :name, :presence => true
     validates_uniqueness_of :name
@@ -13,6 +14,7 @@ module SemiStatic
     validate :duplicate_draft_entry_ids
 
     before_save :set_defaults
+    after_create :create_newsletter_tag
 
     STATES = {
       :draft => 0x1,
@@ -21,6 +23,10 @@ module SemiStatic
     }
 
     STATE_CODES = STATES.invert
+
+    def create_newsletter_tag
+      self.tag = SemiStatic::Tag.create(:name => self.name, :menu => false, :icon_in_menu => false)
+    end
 
     def duplicate_draft_entry_ids
       unless draft_entry_ids.uniq.length == draft_entry_ids.length

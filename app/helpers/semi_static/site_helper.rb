@@ -24,6 +24,7 @@ module SemiStatic
     end
 
     def icon(tag)
+      return '' if tag.nil?
       if Tag.use_sprites?
        "<div class='icon sprite mini' id=\"sprite_#{tag.position.to_s}\"></div>".html_safe
       elsif tag.icon_in_menu

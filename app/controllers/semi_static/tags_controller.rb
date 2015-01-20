@@ -12,7 +12,7 @@
     # GET /tags
     # GET /tags.json
     def index
-      @tags = Tag.unscoped.order(:locale, :position)
+      @tags = Tag.unscoped.order(:locale, :position).where(:newsletter_id => nil)
       respond_to do |format|
         format.html # index.html.erb
         format.json { render :json => @tags }

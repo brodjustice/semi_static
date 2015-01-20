@@ -11,6 +11,7 @@ module SemiStatic
     attr_accessor :icon_delete
   
     has_one :seo, :as => :seoable
+    belongs_to :newsletter
     has_many :entries, :dependent => :destroy
     belongs_to :banner
 
@@ -18,6 +19,7 @@ module SemiStatic
 
     scope :menu, where('menu = ?', true)
     scope :locale, lambda {|locale| where("locale = ?", locale.to_s)}
+    # default_scope order(:position).where(:newsletter_id => nil)
     default_scope order(:position)
   
     before_save :generate_slug, :add_sidebar_title

@@ -1,1 +1,5 @@
+.mid
+  .button
+    = link_to 'New Entry', new_entry_path(:newsletter => @newsletter)
+  = "Status: #{SemiStatic::Newsletter::STATE_CODES[@newsletter.state].to_s.humanize}"
 = render 'form'

@@ -7,3 +7,13 @@
     %tbody
       - @entries.each do |entry|
         = render :partial => 'index_row', :locals => {:entry => entry}
+
+  - unless @newsletter_entries.blank?
+    %h1 Newsletter Entries
+    %table
+      = render :partial => 'index_head'
+      %tbody
+        - @newsletter_entries.each do |entry|
+          = render :partial => 'index_row', :locals => {:entry => entry}
+
+    

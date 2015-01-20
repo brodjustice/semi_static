@@ -29,6 +29,11 @@ module SemiStatic
         false
       end
     end
+
+    # These things should never happen, but sometimes on a development system they will
+    def self.clean_up(*args)
+      Entry.all{|e| e.destroy if e.tag.nil?}
+    end
   
     def self.search_daemon_running?
       # Check if the pid file lock exists. Locally we would do:

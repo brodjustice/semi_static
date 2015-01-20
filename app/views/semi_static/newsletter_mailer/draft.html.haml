@@ -16,13 +16,20 @@
               %div{:style => 'margin: 0px 6px 6px 6px; float: right; position: relative; z-index: 1;'}
                 <img src="#{attachments[e.id.to_s + '.jpg'].url}"/>
             = e.body.html_safe
+            - if e.doc.present?
+              %table{:class => 'footer', :style => 'width: 100%; margin-top: 8px; border-top: 1px solid #c8c8c8; background-color: #f0f0f0'}
+                %tr
+                  %td
+                    = e.doc_description  
+                  %td{:style => 'text-align: right;'}
+                    = link_to e.doc_file_name, attachments[e.doc_file_name].url, :style => 'color: #282828;'
             - break if (e = e.next_merged_entry).nil?
-      %table{:class => 'footer', :style => 'width: 100%; border-top: 1px solid #c8c8c8; background-color: #f0f0f0'}
+      %table{:class => 'footer', :style => 'width: 100%; border-top: 1px solid #c8c8c8; margin-top: 8px; background-color: #f0f0f0'}
         %tr
           %td
             &copy;
             = SemiStatic::Engine.config.copyright_year
             = SemiStatic::Engine.config.copyright_owner
           %td{:style => 'text-align: right;'}
-            = link_to 'Unsubscribe', edit_subscriber_path(0, :token => 'xxxxxxxxx')
+            = link_to 'Unsubscribe', edit_subscriber_path(0, :token => 'xxxxxxxxx'), :style => 'color: #282828;'
 

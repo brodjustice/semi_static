@@ -15,6 +15,9 @@ module SemiStatic
         if e.img.present?
           attachments.inline["#{e.id.to_s}.jpg"] = File.read("#{Rails.root}/public/#{e.img_url_for_theme(:desktop)}")
         end
+        if e.doc.present?
+          attachments[e.doc_file_name] = File.read("#{Rails.root}/public/#{e.doc}")
+        end
       }
 
       mail(:from => SemiStatic::Engine.config.mailer_from, :to => email, :subject => @subject)
