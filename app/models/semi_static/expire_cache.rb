@@ -33,7 +33,9 @@ module SemiStatic
         FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/features.html").to_s)
         FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/entries").to_s)
         FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/entries.html").to_s)
-        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/#{SemiStatic::Engine.config.tag_paths[l]}").to_s)
+        unless SemiStatic::Engine.config.tag_paths[l].nil?
+          FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/#{SemiStatic::Engine.config.tag_paths[l]}").to_s)
+        end
       }
     end
   end
