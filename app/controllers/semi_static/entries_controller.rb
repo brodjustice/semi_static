@@ -16,7 +16,7 @@
       if params[:docs].present?
         template = '/semi_static/entries/documents'; layout = 'semi_static_application';
         @tag = Tag.find(params[:tag_id])
-        @entries = Entry.has_pdf
+        @entries = Entry.for_documents_tag
       else authenticate_for_semi_static!
         if params[:tag_id].present?
           @tag = Tag.find(params[:tag_id])

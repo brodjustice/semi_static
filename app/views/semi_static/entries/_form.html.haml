@@ -156,7 +156,7 @@
         The
         %em= 'summary length.'
         has some special values. The value of 0 means that no summary at all will be displayed, only the header and optionally the image.r
-        A negative value has the same effect as a 0 value, but there header will not even have a link to the actual entry. This isr
+        A negative value has the same effect as a 0 value, but there header will not even have a link to the actual entry. This is
         useful for displaying Twitter-like message in the news columns.
     = f.label :summary_length, 'Optimal summary length', :class => 'infomarker'
     = f.text_field :summary_length
@@ -171,13 +171,32 @@
     %br/
     = f.file_field :img
   %fieldset.semi_static_entry_main_content
-    = f.label :doc, 'Document for downloading (optional)'
-    %br/
-    = f.file_field :doc
+    .infobox#loaded_document
+      %h4 Currently loaded document
+      - if @entry.doc.present?
+        The currently loaded document is:
+        %ul
+          %li= @entry.doc_file_name
+          %li= @entry.doc_content_type
+      - else
+        No document is currently loaded
+    %span.infomarker
+      = f.file_field :doc
     %br/
     = f.label :doc_description, 'Document description (optional)'
     %br/
     = f.text_field :doc_description
+    .infobox#show_in_documents_tag
+      %h4= 'Show in documents tag'
+      %p
+        If you have a tag the uses the predefined 
+        %em= 'Documents'
+        tag then if this box is checked then the document will be listed for downlown in the
+        %em= 'Documents'
+        tag.
+    %span.infomarker
+      = f.check_box :show_in_documents_tag
+      = f.label :show_in_documents_tag, 'Show in documents tag (optional)'
   - unless @newsletter
     %fieldset.semi_static_entry_main_content
       = f.label :side_bar

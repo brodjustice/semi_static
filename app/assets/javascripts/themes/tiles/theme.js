@@ -47,8 +47,11 @@ function semiStaticTilesLoading(){
 function callback(e) {
     var e = window.e || e;
 
-    if !(e.target.className.match(/semi-static-loading/)) return;
-    semiStaticTilesLoading();
+    if (e.target.className.match(/semi-static-loading/)) {
+      semiStaticTilesLoading();
+    } else {
+      return;
+    }
 }
 
 if (document.addEventListener)

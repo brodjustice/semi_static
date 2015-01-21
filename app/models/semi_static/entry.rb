@@ -11,7 +11,7 @@ module SemiStatic
     attr_accessible :position, :doc, :doc_description, :summary_length, :locale, :style_class, :header_colour, :background_colour, :colour
     attr_accessible :banner_id, :partial, :entry_position, :master_entry_id, :youtube_id_str
     attr_accessible :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_gallery, :unrestricted_html, :merge_with_previous
-    attr_accessible :facebook_share
+    attr_accessible :facebook_share, :show_in_documents_tag
   
     belongs_to :tag
   
@@ -26,7 +26,7 @@ module SemiStatic
     scope :unmerged, where('merge_with_previous = ?', false)
     scope :exclude_newsletters, joins(:tag).where(:semi_static_tags => {:newsletter_id => nil})
     scope :for_newsletters, includes(:tag).where('semi_static_tags.newsletter_id IS NOT NULL')
-    scope :has_pdf, where("doc_content_type = ?", 'application/pdf')
+    scope :for_documents_tag, where("show_in_documents_tag = ?", true)
   
     has_one :seo, :as => :seoable
     belongs_to :master_entry, :class_name => SemiStatic::Entry
