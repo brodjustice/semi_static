@@ -26,6 +26,7 @@ module SemiStatic
     scope :unmerged, where('merge_with_previous = ?', false)
     scope :exclude_newsletters, joins(:tag).where(:semi_static_tags => {:newsletter_id => nil})
     scope :for_newsletters, includes(:tag).where('semi_static_tags.newsletter_id IS NOT NULL')
+    scope :has_pdf, where("doc_content_type = ?", 'application/pdf')
   
     has_one :seo, :as => :seoable
     belongs_to :master_entry, :class_name => SemiStatic::Entry
@@ -50,6 +51,8 @@ module SemiStatic
                              :wide => "-strip -gravity Center -quality 80",
                              :big => "-strip -gravity Center -quality 85"  }
   
+    validates_attachment_content_type :doc, :content_type => ['image/jpeg', 'image/png', 'image/gif', 'application/pdf']
+
     DIRTY_TAGS= %w(style table tr td th span br em b i u ul ol li a div p img hr  h1 h2 h3 h4 iframe)
     DIRTY_ATTRIBUTES= %w(href class style id align src alt height width max-width frameborder allowfullscreen)
 

@@ -11,7 +11,7 @@
                   .entry{:style => "background-color: #{e.background_colour}"}
                     .col.span_1_of_2.floater
                       .img
-                        = link_to image_tag(e.img_url_for_theme(:summary)), entry_path(e)
+                        = link_to image_tag(e.img_url_for_theme(:summary)), entry_path(e), :class => 'semi-static-loading'
                     .col.span_1_of_2.wrapping
                       .html
-                        %h1{:style => "color: #{e.header_colour}"}= link_to e.title, e
+                        %h1{:style => "color: #{e.header_colour}"}= link_to e.title, e, :class => 'semi-static-loading'

@@ -1,0 +1,14 @@
+= render :partial => 'semi_static/shared/custom_banner', :locals => {:banner_name => 'References'}
+- if @tag && @tag.partial_before_entries?
+  = render :partial => @tag.partial_path
+.section
+  .col.span_2_of_3
+    - @entries.each do |e|
+      .panel
+        %h2= link_to e.title, e
+        = render :partial => 'semi_static/entries/document', :locals => {:e => e}
+  .col.span_1_of_3.side-bar
+    - if @tag.side_bar
+      = render :partial => 'semi_static/entries/docs_side_bar'
+- if @tag && @tag.partial_after_entries?
+  = render :partial => @tag.partial_path

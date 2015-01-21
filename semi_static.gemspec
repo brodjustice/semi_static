@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.add_dependency "haml"
   s.add_dependency "haml-rails"
   s.add_dependency "debugger"
-  s.add_dependency "paperclip", "~> 2.7"
+  s.add_dependency "paperclip", "~> 4.2"
 
   s.add_dependency "truncate_html"
 

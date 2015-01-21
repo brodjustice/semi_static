@@ -3,7 +3,7 @@
   module SemiStatic
     class EntriesController < ApplicationController
   
-    before_filter :authenticate_for_semi_static!,  :except => [ :show, :search ]
+    before_filter :authenticate_for_semi_static!,  :except => [ :show, :search, :index ]
   
     caches_page :show
   
@@ -12,15 +12,22 @@
     # GET /entries
     # GET /entries.json
     def index
-      if params[:tag_id].present?
+      template = '/semi_static/entries/index'; layout = 'semi_static_dashboards';
+      if params[:docs].present?
+        template = '/semi_static/entries/documents'; layout = 'semi_static_application';
         @tag = Tag.find(params[:tag_id])
-        @entries = @tag.entries
-      else
-        @entries = Entry.unscoped.order(:locale, :tag_id, :position).exclude_newsletters
-        @newsletter_entries = Entry.unscoped.for_newsletters
+        @entries = Entry.has_pdf
+      else authenticate_for_semi_static!
+        if params[:tag_id].present?
+          @tag = Tag.find(params[:tag_id])
+          @entries = @tag.entries
+        else
+          @entries = Entry.unscoped.order(:locale, :tag_id, :position).exclude_newsletters
+          @newsletter_entries = Entry.unscoped.for_newsletters
+        end
       end
       respond_to do |format|
-        format.html # index.html.erb
+        format.html { render :template => template, :layout => layout }
         format.json { render :json => @entries }
         format.js
       end
