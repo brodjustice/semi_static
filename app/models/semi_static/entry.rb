@@ -147,6 +147,10 @@ module SemiStatic
       end
     end
 
+    def doc_mime_to_img
+      'file_extension_' + (doc_content_type.blank? ? 'none' : doc_content_type.split('/').last.downcase) + '.png'
+    end
+
     # Might be a better way to do this with delegate...
     def photos_including_master
       self.master_entry.nil? ? Photo.where(:entry_id => self.id) : Photo.where('entry_id=? OR entry_id=?', self.id, self.master_entry_id)

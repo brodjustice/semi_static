@@ -47,7 +47,7 @@ function semiStaticTilesLoading(){
 function callback(e) {
     var e = window.e || e;
 
-    if (e.target.className.match(/semi-static-loading/);) return;
+    if !(e.target.className.match(/semi-static-loading/)) return;
     semiStaticTilesLoading();
 }
 
