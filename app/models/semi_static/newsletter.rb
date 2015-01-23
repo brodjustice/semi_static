@@ -70,6 +70,11 @@ module SemiStatic
       }
     end
 
+    def published
+      self.state = STATES[:published]
+      self.save
+    end
+
     def draft_sent
       self.state = STATES[:draft_sent]
       self.save

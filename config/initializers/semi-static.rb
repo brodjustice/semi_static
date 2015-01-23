@@ -41,7 +41,11 @@ module SemiStatic
     # This is the address to which the contact form data is sent to
     config.contact_email = 'info@business-landing.com'
     
-    # These are the domains for your different language versions of your site
+    # These are the domains for your different language versions of your site. This will
+    # also be used used to generate the hreflang tags to point to the alternate language
+    # versions of the website home page. If you have multiple deomains for one language, eg. .com and
+    # a .biz, then this should be handled by a webserver redirect and only the main
+    # langauge domain should fo here (this is better for search indexing)
     config.localeDomains = { 'en' => 'http://127.0.0.1', 'de' => 'http://business-landing.de' }
     
     # You may want to have a fallback locale, especially during development. Set it here

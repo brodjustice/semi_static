@@ -42,9 +42,9 @@
     - SemiStatic::Seo.all.each do |seo|
       %tr
         %td= seo.locale.to_s
-        %td= seo.description || image_tag('/assets/error.png', :title => 'Description is empty')
+        %td= link_to (seo.description || image_tag('/assets/error.png', :title => 'Description is empty')), edit_seo_path(seo), :remote => true
         %td= link_to (seo.title || image_tag('/assets/error.png', :title => 'Title is empty')), edit_seo_path(seo), :remote => true
-        %td= link_to (seo.keywords || image_tag('/assets/error.png', :title => 'No keywords')), edit_seo_path(seo), :remote => true
+        %td= link_to seo.keywords, edit_seo_path(seo), :remote => true
         %td
           - unless seo.seoable.nil?
             = link_to [seo.seoable.title, ' (', seo.seoable.class.to_s.split('::').last, ')'].join, url_for(:controller => seo.seoable.class.to_s.underscore.pluralize, :action => :edit, :id => seo.seoable.id)

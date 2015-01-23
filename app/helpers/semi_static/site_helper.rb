@@ -16,6 +16,16 @@ module SemiStatic
       PREDEFINED.merge(Hash[SemiStatic::Engine.config.predefined.map{|k, v| [k, Rails.application.routes.url_helpers.send(*v)]}])
     end
 
+    def hreflang_tags
+      c = ''
+      if SemiStatic::Engine.config.localeDomains.count > 1
+        SemiStatic::Engine.config.localeDomains.keys.each{|k|
+          c += "<link rel=\"alternate\" href=\"#{SemiStatic::Engine.config.localeDomains[k.to_s]}\" hreflang=\"#{k.to_s}\" />"
+        }
+      c.html_safe
+      end
+    end
+
     def entry_summary(e, l = 300)
       if e.summary.blank?
         truncate_html(e.body, :length => l) unless (l < 1)

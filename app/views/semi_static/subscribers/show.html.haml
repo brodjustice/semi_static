@@ -1,0 +1,17 @@
+.dashboard.mid
+  %p
+    Name:
+    = @subscriber.name
+  %p
+    Surname:
+    = @subscriber.surname
+  %p
+    Email:
+    = mail_to @subscriber.email, @subscriber.email
+  %p
+    Telephone:
+    = @subscriber.telephone
+  
+  %p
+    Cancel token:
+    = @subscriber.cancel_token

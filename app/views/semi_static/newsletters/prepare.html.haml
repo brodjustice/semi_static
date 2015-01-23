@@ -1,0 +1,35 @@
+- content_for :ujs do
+  :javascript
+    $(document).ready(function() {
+      $('#all_subscribers').change(function() {
+        $('.subscribe_state').prop('checked', true);
+        alert('yay!');
+      });
+      // $("#entry_img").on('change', semiStaticPrepareUploadFromInput);
+    });
+
+.dashboard
+  .button
+    = link_to 'New Subscriber', new_subscriber_path
+
+  %h1 Subscriber list
+  %h4 Uncheck subscribers to remove from the newletter distribution
+  %table
+    %thead
+      %tr
+        %th= check_box_tag :all_subscribers, true, :checked => true
+        %th Name
+        %th Surname
+        %th Email
+        %th Since
+    %tbody
+      - @subscribers.each do |s|
+        %tr
+          %td.tick{:id => "subscriber_id_#{s.id}"}
+            - form_for s do |sub|
+              = sub.check_box :state, 1, :checked => true, :class => 'subscribe_state'
+          %td.name= s.name
+          %td.name= s.surname
+          %td.name= s.email
+          %td.name= s.created_at.strftime('%d-%b-%y')
+    

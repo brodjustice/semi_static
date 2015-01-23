@@ -1,6 +1,7 @@
 module SemiStatic
   class Subscriber < ActiveRecord::Base
     attr_accessible :cancel_token, :email, :name, :surname, :telephone
+    attr_accessor :state
 
     before_create :generate_token
 

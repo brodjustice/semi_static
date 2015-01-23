@@ -38,4 +38,4 @@
     .actions
       = f.submit 'Save'
       = f.submit 'Save and send draft newsletter', :name => 'email_draft'
-      = f.submit 'Publish', :name => 'publish', :data => { :confirm => "Are you sure that you want to publish #{@newsletter.name}?" }
+      = f.submit 'Prepare to publish', :name => 'prepare'
