@@ -4,13 +4,15 @@ module SemiStatic
     def draft(admin, newsletter)
       prepare(newsletter)
 
-      mail(:from => SemiStatic::Engine.config.mailer_from, :to => admin.email, :subject => @subject)
+      mail(:from => SemiStatic::Engine.config.mailer_from, :to => admin.email, :subject => @subject, :template_name => 'newsletter')
     end
 
     def publish(delivery)
       prepare(delivery.newsletter)
 
-      mail(:from => SemiStatic::Engine.config.mailer_from, :to => delivery.subscriber.email, :subject => @subject)
+      @subscriber = delivery.subscriber
+
+      mail(:from => SemiStatic::Engine.config.mailer_from, :to => @subscriber.email, :subject => @subject, :template_name => 'newsletter')
     end
 
     private

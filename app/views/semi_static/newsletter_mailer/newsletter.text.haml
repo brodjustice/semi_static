@@ -1,0 +1,22 @@
+=  @subject
+= '==================================================='
+
+= @newsletter.name
+= @newsletter.subtitle
+= "\r\n"
+= "\r\n"
+- @newsletter.draft_entry_objects.each do |e|
+  - entry = e
+  - loop do
+    = e.title
+    = '-------------------------------------------------------------------------------------'
+    = ActionController::Base.helpers.strip_tags(e.body.gsub(/<p>|<br>|<b\\>/, "\r\n"))
+    = "\r\n"
+    = "\r\n"
+    - break if (e = e.next_merged_entry).nil?
+= "\r\n"
+= "\r\n"
+= '-------------------------------------------------------------------------------------'
+- if @subscriber
+  To unsibscribe to this news letter please click on the following url or copy it into your browser:
+  = edit_subscriber_path(@subscriber, :token => @subscriber.cancel_token, :only_path => false)

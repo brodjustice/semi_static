@@ -31,5 +31,8 @@
             = SemiStatic::Engine.config.copyright_year
             = SemiStatic::Engine.config.copyright_owner
           %td{:style => 'text-align: right;'}
-            = link_to 'Unsubscribe', edit_subscriber_path(0, :token => 'xxxxxxxxx'), :style => 'color: #282828;'
+            - if @subscriber
+              = link_to 'Unsubscribe', edit_subscriber_path(@subscriber, :token => @subscriber.cancel_token), :style => 'color: #282828;'
+            - else
+              = link_to 'Unsubscribe', edit_subscriber_path(0, :token => 'xxxxxxxxx'), :style => 'color: #282828;'
 
