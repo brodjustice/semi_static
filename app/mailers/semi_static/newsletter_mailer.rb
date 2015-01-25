@@ -7,6 +7,12 @@ module SemiStatic
       mail(:from => SemiStatic::Engine.config.mailer_from, :to => admin.email, :subject => @subject)
     end
 
+    def publish(delivery)
+      prepare(delivery.newsletter)
+
+      mail(:from => SemiStatic::Engine.config.mailer_from, :to => delivery.subscriber.email, :subject => @subject)
+    end
+
     private
 
     def prepare(newsletter)

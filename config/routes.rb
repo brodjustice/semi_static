@@ -1,5 +1,4 @@
 SemiStatic::Engine.routes.draw do
-  resources :subscribers
 
 
   %w( 404 422 500 ).each do |code|
@@ -15,10 +14,6 @@ SemiStatic::Engine.routes.draw do
     resources :seos, :only => [:new, :create, :update]
   end
 
-  resources :banners, :references, :photos, :newsletters
-  resources :seos, :except => [:new, :create, :update]
-  resources :agreements
-  resources :contacts, :except => [:edit, :update]
   resources :tags, :except => :show do
     resources :seos, :only => [:new, :create, :update]
     resources :entries, :only => [:index]
@@ -36,6 +31,16 @@ SemiStatic::Engine.routes.draw do
     :defaults => { :content => 'home' }
 
   get "site/show"
+
+  resources :newsletters do
+    resources :newsletter_deliveries, :only => :index
+  end
+  resources :newsletter_deliveries, :only => :update
+  resources :subscribers
+  resources :banners, :references, :photos
+  resources :seos, :except => [:new, :create, :update]
+  resources :agreements
+  resources :contacts, :except => [:edit, :update]
 
   match '/semi-static/dashboard' => 'dashboards#show', :as => 'semi_static_dashboard', :via => :get
 

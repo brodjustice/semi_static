@@ -4,7 +4,6 @@
       .icon= image_tag('/assets/search.png')
       %h1= @results.count.to_s + ' Search results for ' + @query
       %table
-        - debugger
         - @results.__send__ controller.action_name == 'search' ? :each_with_hit : :each do |e, hit|
           %tr
             %td{:colspan => 2}

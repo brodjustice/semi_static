@@ -2,10 +2,12 @@
   :javascript
     $(document).ready(function() {
       $('#all_subscribers').change(function() {
-        $('.subscribe_state').prop('checked', true);
-        alert('yay!');
+        if ($(this).prop('checked')) {
+          $('.subscribe_state').prop('checked', true);
+        } else {
+          $('.subscribe_state').prop('checked', false);
+        }
       });
-      // $("#entry_img").on('change', semiStaticPrepareUploadFromInput);
     });
 
 .dashboard
@@ -13,23 +15,27 @@
     = link_to 'New Subscriber', new_subscriber_path
 
   %h1 Subscriber list
-  %h4 Uncheck subscribers to remove from the newletter distribution
-  %table
-    %thead
-      %tr
-        %th= check_box_tag :all_subscribers, true, :checked => true
-        %th Name
-        %th Surname
-        %th Email
-        %th Since
-    %tbody
-      - @subscribers.each do |s|
+  %h4 Uncheck subscribers to remove them from the newsletter distribution
+  = form_for @newsletter do |f|
+    %table
+      %thead
         %tr
-          %td.tick{:id => "subscriber_id_#{s.id}"}
-            - form_for s do |sub|
-              = sub.check_box :state, 1, :checked => true, :class => 'subscribe_state'
-          %td.name= s.name
-          %td.name= s.surname
-          %td.name= s.email
-          %td.name= s.created_at.strftime('%d-%b-%y')
-    
+          %th= check_box_tag "all_subscribers", true, :checked => true
+          %th Name
+          %th Surname
+          %th Email
+          %th Since
+          %th State
+      %tbody
+        - @subscribers.each do |s|
+          %tr
+            %td.tick{:id => "subscriber_id_#{s.id}"}
+              = check_box_tag "subscriber[#{s.id}]", 1, s.delivery_state(@newsletter) != SemiStatic::NewsletterDelivery::STATES[:sent], :class => 'subscribe_state'
+            %td.name= s.name
+            %td.name= s.surname
+            %td.name= s.email
+            %td.name= s.created_at.strftime('%d-%b-%y')
+            %td.name= SemiStatic::NewsletterDelivery::STATE_CODES[s.delivery_state(@newsletter)].to_s.humanize
+    .mid
+      .actions
+        = f.submit 'Publish', :name => 'publish'

@@ -7,6 +7,7 @@ module SemiStatic
 
     has_many :newsletter_deliveries
     has_one :tag, :dependent => :destroy
+    has_many :subscribers, :through => :newsletter_deliveries
 
     validates :name, :presence => true
     validates_uniqueness_of :name
@@ -80,9 +81,19 @@ module SemiStatic
       self.save
     end
 
-    # TODO: Methods below til EOF are probably no longer required
-    # as we simply send copy of email to be checked manually. The
-    # edit view is good enough and these extra views just add confusion.
+    def publish(s_ids)
+      s_ids.each{|id|
+        # Find the subscriber from the id
+        unless (s = Subscriber.find_by_id(id)).blank?
+          # Is the already a delievery that us marked as pending?
+          unless (nd = self.newsletter_deliveries.find_by_subscriber_id(id)) && (nd.state == NewsletterDelivery::STATES[:pending])
+            # Create a delivery and mark it as pending
+            self.newsletter_deliveries  << s.newsletter_deliveries.create(:state => NewsletterDelivery::STATES[:pending])
+          end
+        end
+      }
+    end
+
     def email_object_to_file(email)
       html_dir = Rails.root.join("public", "system", 'semi_static', 'newsletters', self.id.to_s)
       FileUtils.mkdir_p(html_dir)
@@ -90,6 +101,9 @@ module SemiStatic
       File.open(file_path, 'wb') {|f| f.write(Marshal.dump(email))}
     end
 
+    # TODO: Methods below til EOF are probably no longer required
+    # as we simply send copy of email to be checked manually. The
+    # edit view is good enough and these extra views just add confusion.
     def email_to_file(email)
       attachments = []
 

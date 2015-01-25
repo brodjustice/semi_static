@@ -1,0 +1,4 @@
+!= "$(\"#sending\").html('#{escape_javascript(render :partial => 'semi_static/newsletters/sending' )}');"
+var delivery_count = $('#progress').text();
+$('#progress').text((parseInt(delivery_count) + 1).toString());
+setTimeout(function(){ submit_to_send(); }, 2000);

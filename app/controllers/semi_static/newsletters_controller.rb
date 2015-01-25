@@ -69,8 +69,10 @@ module SemiStatic
       respond_to do |format|
         if @newsletter.update_attributes(params[:newsletter])
           if params[:publish].present?
-            NewsletterMailer.publish(@newsletter).deliver && @newsletter.published
-            @newsletter.publish
+            @newsletter.publish(params[:subscriber].keys)
+            @newsletter.published
+            @delivery = @newsletter.newsletter_deliveries.pending.first
+            format.html { render action: "sending" }
           elsif params[:prepare].present?
             @subscribers = Subscriber.all
             format.html { render action: "prepare" }
@@ -78,7 +80,7 @@ module SemiStatic
             NewsletterMailer.draft(current_admin, @newsletter).deliver && @newsletter.draft_sent
             format.html { redirect_to newsletters_path, notice:  "Draft of Newsletter #{@newsletter.name} was sent to #{current_admin.email}" }
           else
-            format.html { redirect_to newsletter_path(@newsletter), notice: 'Newsletter was updated.' }
+            format.html { render action: 'edit', notice: 'Newsletter was updated.' }
             format.json { head :no_content }
           end
         else

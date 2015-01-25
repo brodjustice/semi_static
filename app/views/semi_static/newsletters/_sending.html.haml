@@ -1,0 +1,10 @@
+%h2 Automatically Sending, please wait...
+= form_for @delivery, :remote => true do |f|
+  = f.hidden_field :state, :value => SemiStatic::NewsletterDelivery::STATES[:sent].to_s
+  = f.hidden_field :id, :value => @delivery.id.to_s
+  %p
+    = 'Name: ' + @delivery.subscriber.fullname
+  %p
+    = 'Email: ' + @delivery.subscriber.email
+  .actions
+    = f.submit 'Manual send'

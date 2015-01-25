@@ -1,0 +1,31 @@
+- content_for :ujs do
+  :javascript
+    function submit_to_send(){
+      $.ajax({
+        type: 'PUT',
+        url: "#{newsletter_delivery_path(0)}",
+        data: $('form').serializeArray(),
+        dataType: "script",
+        success: function(data) {
+            console.log(data);
+        }
+      });
+    }
+
+    $(document).ready(function() {
+      submit_to_send();
+    });
+
+.dashboard
+  .mid
+    .button
+      = link_to 'Cancel', newsletters_path, :id => 'cancel_button'
+ 
+    %h1= 'Sending newsletter ' + @newsletter.name
+  
+    %h4
+      = @newsletter.newsletter_deliveries.pending.count.to_s + ' subscribers: sent '
+      %span#progress= '0'
+
+    #sending
+      = render :partial => 'sending'

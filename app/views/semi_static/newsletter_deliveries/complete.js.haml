@@ -1,0 +1,4 @@
+!= "$(\"#sending\").html('#{escape_javascript(render :partial => 'semi_static/newsletters/complete' )}');"
+var delivery_count = $('#progress').text();
+$('#progress').text((parseInt(delivery_count) + 1).toString());
+$('#cancel_button').hide();

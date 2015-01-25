@@ -8,7 +8,7 @@
           %tr
             %td{:colspan => 2}
               .icon= image_tag(e.tag.icon.url(:standard)) if e.tag.icon.present?
-              %h2= link_to (hit.try(:highlight).try(:title) ? hit.highlight.title.join.html_safe : e.title), e
+              %h2= link_to (hit.try(:highlight).try(:title) ? hit.highlight.title.join.html_safe : e.merged_main_entry_with_title.title), e.merged_main_entry_with_title
           %tr.fragment
             %td= hit.try(:highlight).try(:body) ? hit.highlight.body.join('&hellip;').html_safe : e.body.html_safe
             %td.score= (hit._score * 100).round.to_s + '%'

@@ -1,0 +1,19 @@
+.mid.wide
+  %h1= 'Deliveries for ' + @newsletter.name 
+
+  %table
+    %tr
+      %th Name
+      %th Email
+      %th State
+      %th Date
+      %th
+
+    - @deliveries.each do |d|
+      %tr
+        %td= d.subscriber.fullname
+        %td= d.subscriber.email
+        %td.number= SemiStatic::NewsletterDelivery::STATE_CODES[d.state].to_s.humanize
+        %td.number= d.updated_at.strftime('%d-%b-%Y %H:%M')
+        %td
+

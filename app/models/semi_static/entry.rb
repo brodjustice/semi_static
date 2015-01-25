@@ -77,6 +77,11 @@ module SemiStatic
     default_scope order(:position)
     scope :additional_entries, lambda {|e| where('tag_id = ?', e.tag_id).where('id != ?', e.id)}
 
+    def new
+      self.body = ''
+      super
+    end
+
     def img_url_for_theme(screen = :desktop)
       screen = :summary if (screen == true)
       img.url(THEME[SemiStatic::Engine.config.theme][screen])
