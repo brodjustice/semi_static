@@ -1,8 +1,7 @@
 #top
-  %nav
-    #menu-button{:onclick => 'semiStaticOpenMenu()'}
-      = t('Menu')
-    #top-inner
-      = link_to semi_static.home_path do
-        #mini-logo
-      = render :partial => 'semi_static/shared/bar'
+  #menu-button{:onclick => 'semiStaticOpenMenu()'}
+    = t('Menu')
+  #top-inner
+    = link_to semi_static.home_path do
+      #mini-logo
+    = render :partial => 'semi_static/shared/bar'
