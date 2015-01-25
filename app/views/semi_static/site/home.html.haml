@@ -4,8 +4,9 @@
       .entry.panel{:class => e.style_class, :style => "background-color:#{e.background_colour}; color: #{e.colour}"}
         = render :partial => 'semi_static/entries/entry', :locals => {:e => e, :style => :summary}
   .col.span_1_of_3
-    = render :partial => 'semi_static/site/search'
-    = render :partial => 'semi_static/site/social'
-    = render :partial => SemiStatic::Engine.config.social_partial if SemiStatic::Engine.config.social_partial.present?
-    = render :partial => 'semi_static/tags/news'
-    = render :partial => 'semi_static/photos/side_bar'
+    %aside
+      = render :partial => 'semi_static/site/search'
+      = render :partial => 'semi_static/site/social'
+      = render :partial => SemiStatic::Engine.config.social_partial if SemiStatic::Engine.config.social_partial.present?
+      = render :partial => 'semi_static/tags/news'
+      = render :partial => 'semi_static/photos/side_bar'
