@@ -49,7 +49,7 @@ module SemiStatic
         end
       elsif semi_static_admin?
         @subscriber = Subscriber.find(params[:id])
-        layout = 'semi_static_dashboards'; template = 'semi_static/subscribers/show';
+        layout = 'semi_static_dashboards'; template = 'semi_static/subscribers/edit';
       end
 
       respond_to do |format|
