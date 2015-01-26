@@ -2,7 +2,7 @@
   #menu-button{:onclick => 'semiStaticOpenMenu()'}
     = t('Menu')
   #top-inner
-    .bar_menu
+    %nav.bar_menu
       %ul
         = locales
         %li.contact.icon= link_to t('Contact'), semi_static.new_contact_path
