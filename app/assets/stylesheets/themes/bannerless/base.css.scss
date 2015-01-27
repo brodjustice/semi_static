@@ -22,7 +22,14 @@
 
 html { overflow-y: scroll; }
 body{
-  background-color: white; 
+  background: rgba(255,255,255,1);
+  background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(47%, rgba(246,246,246,1)), color-stop(100%, rgba(237,237,237,1)));
+  background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+  background: -o-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+  background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+  background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed', GradientType=0 );
   margin: 0px;
   // font:16px "Open Sans", Helvetica Neue, Helvetica, Arial, sans-serif;
   font-family: 'Open Sans', Arial, Verdana, Helvetica, sans-serif;
@@ -198,7 +205,15 @@ h2{ font-size: 20px;}
   width: 100%;
 }
 .gallery h2 a, .gallery h2, .news h2 a, .news h2{ color: $prime-color; border-bottom: 1px solid $prime-color; }
-.list h1{ color: $prime-color; border-bottom: 1px solid $prime-color; }
+.list h1{ color: $prime-color;}
+.side-bar h1, .side-bar h3 { text-align: right; }
+.side-bar h3:nth-child(2n) {
+    background-color: #f4f4f4;
+}
+.list h3 a {
+    display: block;
+    padding: 5px 0;
+}
 
 .social a{
   color: white;

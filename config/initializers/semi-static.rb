@@ -99,6 +99,6 @@ module SemiStatic
     # To increase your SEO you can replace certain words in your URLs
     # IMPORTANT: Do not use symbols for your locale, eg. use 'en' not :en
     # config.tag_paths = { 'en' => 'features', 'de' => 'merkmale' }
-    config.tag_paths = { 'en' => 'features', 'de' => 'merkmale' }
+    config.tag_paths = { 'en' => 'features', 'de' => 'merkmale', 'es' => 'caracteristicas', 'it' => 'caratteristiche', 'fr' => 'caracteristiques' }
   end
 end

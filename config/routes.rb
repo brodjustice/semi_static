@@ -1,6 +1,4 @@
 SemiStatic::Engine.routes.draw do
-
-
   %w( 404 422 500 ).each do |code|
     get code, :to => "errors#show", :code => code
   end
@@ -27,8 +25,7 @@ SemiStatic::Engine.routes.draw do
   match '/site/:content' => 'site#show', :as => 'site',
     :via => :get, :defaults => {:content => 'home'}
 
-  root :to => 'site#show', :as => 'home', :via => :get,
-    :defaults => { :content => 'home' }
+  root :to => 'site#show', :as => 'home', :via => :get, :defaults => { :content => 'home' }
 
   get "site/show"
 
