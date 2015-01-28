@@ -4,7 +4,7 @@ module SemiStatic
   class SystemController < ApplicationController
     before_filter :authenticate_for_semi_static!
   
-    CMDS = %w(search_daemon search_reindex expire_cache clean_up)
+    CMDS = %w(search_daemon search_reindex expire_cache clean_up passenger_restart)
   
     def show
       action, @data, @partial = System.cmd(params[:cmd] || "show" )

@@ -34,6 +34,10 @@
     #expire_cache
     = link_to 'Expire cache now', system_path(:cmd => {:expire_cache => :all}), :method => :put, :remote => true
   .panel
+    %h4= 'Restart Passenger App Server (if used)'
+    #passenger_restart
+    = link_to 'Restart now', system_path(:cmd => {:passenger_restart => :all}), :method => :put, :remote => true
+  .panel
     %h4= 'Clean up possible errors'
     #clean_up
     = link_to 'Clean up now', system_path(:cmd => {:clean_up => :all}), :method => :put, :remote => true

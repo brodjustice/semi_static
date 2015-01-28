@@ -34,6 +34,12 @@ module SemiStatic
     def self.clean_up(*args)
       Entry.all{|e| e.destroy if e.tag.nil?}
     end
+
+    # Restart passenger app server (if used)
+    def self.passenger_restart(*args)
+      `touch #{Rails.root.to_s}/tmp/restart.txt`
+      $?.success?
+    end
   
     def self.search_daemon_running?
       # Check if the pid file lock exists. Locally we would do:
