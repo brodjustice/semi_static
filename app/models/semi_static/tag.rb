@@ -50,6 +50,10 @@ module SemiStatic
     def self.use_sprites?
       !Tag.where('position = ?', 0).empty?
     end
+
+    def self.for_documents(locale)
+      where("locale = ?", locale).where(:predefined_class => 'Documents').first
+    end
   
     def add_sidebar_title
       if self.sidebar_title.blank?
