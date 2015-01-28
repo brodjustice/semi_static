@@ -21,6 +21,7 @@ module SemiStatic
     scope :locale, lambda {|locale| where("locale = ?", locale.to_s)}
     # default_scope order(:position).where(:newsletter_id => nil)
     default_scope order(:position)
+    scope :predefined, lambda{|locale, pre| where("locale = ?", locale).where('predefined_class = ?', pre)}
   
     before_save :generate_slug, :add_sidebar_title
     after_save :expire_site_page_cache
@@ -51,9 +52,6 @@ module SemiStatic
       !Tag.where('position = ?', 0).empty?
     end
 
-    def self.for_documents(locale)
-      where("locale = ?", locale).where(:predefined_class => 'Documents').first
-    end
   
     def add_sidebar_title
       if self.sidebar_title.blank?

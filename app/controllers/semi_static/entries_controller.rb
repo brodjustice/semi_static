@@ -15,7 +15,7 @@
       template = '/semi_static/entries/index'; layout = 'semi_static_dashboards';
       if params[:docs].present?
         template = '/semi_static/entries/documents'; layout = 'semi_static_application';
-        @tag = params[:tag_id].present? ? Tag.find(params[:tag_id]) : Tag.for_documents(I18n.locale)
+        @tag = params[:tag_id].present? ? Tag.find(params[:tag_id]) : Tag.predefined(I18n.locale, 'Documents').first
         @entries = Entry.for_documents_tag
       else authenticate_for_semi_static!
         if params[:tag_id].present?
