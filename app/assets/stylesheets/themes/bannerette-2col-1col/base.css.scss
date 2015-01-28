@@ -86,6 +86,12 @@
   background-color: white;
 }
 
+#custom-banner-overlay{position: absolute; top: 0px; width: 100%; max-width: 1012px; z-index: 1000; height: 100%;}
+#custom-banner-overlay h1, #custom-banner-overlay h2{color: white;}
+.custom-banner-text-wrapper{position: absolute; width: 100%; color: white; min-height: 100px; bottom: 0px; z-index: 1001;}
+.custom-banner-bg{background-color: $prime-color; opacity: 0.5; position: absolute; height: 100%; width: 100%; z-index: -100;}
+.custom-text{z-index: 10; padding: 6px 12px 0px; height: 100%;}
+
 html { overflow-y: scroll; }
 body{
   background-color: white; 
