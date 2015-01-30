@@ -26,6 +26,8 @@ module SemiStatic
                              :bar => "-strip -quality 80",
                              :thumb => "-strip -gravity Center -quality 80",
                              :big => "-strip"  }
+
+    validates_attachment_content_type :img, :content_type => ['image/jpeg', 'image/png', 'image/gif']
   
     default_scope order(:position, :entry_id, :id)
     scope :home, where('home_page = ?', true)
