@@ -46,6 +46,10 @@ module SemiStatic
     # versions of the website home page. If you have multiple deomains for one language, eg. .com and
     # a .biz, then this should be handled by a webserver redirect and only the main
     # langauge domain should fo here (this is better for search indexing)
+    #
+    # You can also add a flag for google translate instead like this:
+    # { 'en' => 'http://my-website.com', 'es' => 'translate' }
+    #
     config.localeDomains = { 'en' => 'http://127.0.0.1', 'de' => 'http://business-landing.de' }
     
     # You may want to have a fallback locale, especially during development. Set it here

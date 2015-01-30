@@ -55,6 +55,9 @@ module SemiStatic
       c = ''
       ls = SemiStatic::Engine.config.localeDomains.reject{|k, v| k.to_s == I18n.locale.to_s}
       ls.each{|l, u|
+        if u.downcase == 'translate'
+          u = "http://translate.google.com/translate?hl=&sl=auto&tl=#{l}&u=#{url_encode(request.url)}"
+        end
         c+= "<li class='locale'><a href='#{u}'><img src='/assets/flags/#{l}.png' alt='#{l}'/></a></li>".html_safe
       }
       c.html_safe
