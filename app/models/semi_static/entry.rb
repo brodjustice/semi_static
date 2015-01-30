@@ -10,8 +10,9 @@ module SemiStatic
     attr_accessible :title, :body, :tag_id, :home_page, :summary, :img, :news_item, :image_in_news
     attr_accessible :position, :doc, :doc_description, :summary_length, :locale, :style_class, :header_colour, :background_colour, :colour
     attr_accessible :banner_id, :partial, :entry_position, :master_entry_id, :youtube_id_str
-    attr_accessible :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_gallery, :unrestricted_html, :merge_with_previous
+    attr_accessible :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_gallery, :unrestricted_html, :merge_with_previous, :raw_html
     attr_accessible :facebook_share, :show_in_documents_tag
+    attr_accessor :raw_html
   
     belongs_to :tag
   
@@ -130,13 +131,21 @@ module SemiStatic
     # choose to clean the html before it goes in the DB.
     #
     def unrestricted_html=(val); 
-      HTML::WhiteListSanitizer.allowed_protocols << 'data'
-      if val == ('1' || 'true' || true)
-        self.body = ActionController::Base.helpers.sanitize(self.body, :tags => DIRTY_TAGS, :attributes => DIRTY_ATTRIBUTES)
-      else
-        self.body = ActionController::Base.helpers.sanitize(self.body, :tags => ALLOWED_TAGS, :attributes => ALLOWED_ATTRIBUTES)
-      end
+      unless raw_html == true
+        HTML::WhiteListSanitizer.allowed_protocols << 'data'
+        if val == ('1' || 'true' || true)
+          self.body = ActionController::Base.helpers.sanitize(self.body, :tags => DIRTY_TAGS, :attributes => DIRTY_ATTRIBUTES)
+        else
+          self.body = ActionController::Base.helpers.sanitize(self.body, :tags => ALLOWED_TAGS, :attributes => ALLOWED_ATTRIBUTES)
+        end
       super
+      end
+    end
+
+    def raw_html=(val)
+      if val == ('1' || 'true' || true)
+        self.body = self.body
+      end
     end
 
     def youtube_id_str=(val)

@@ -1,0 +1,11 @@
+%fieldset.semi_static_entry_main_content
+  %label Body
+  %br/
+  = text_area_tag 'entry[body]', @entry.body, {:rows => '30'}
+  .infobox
+  %span.infomarker{:style => 'display: none'}
+    = check_box_tag 'entry[raw_html]', true, true
+  %br/
+  .button
+    = link_to 'Editor mode', edit_entry_path(@entry, :mode => :editor), :remote => true
+

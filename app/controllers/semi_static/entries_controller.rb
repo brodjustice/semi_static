@@ -83,6 +83,12 @@
     # GET /entries/1/edit
     def edit
       @entry = Entry.find(params[:id])
+      template = params[:mode] == 'html' ? 'semi_static/entries/edit_html' : 'semi_static/entries/edit'
+      respond_to do |format|
+        format.html { render :template => template }
+        format.js { render :template => template }
+        format.json { render :json => @entry }
+      end
     end
   
     # POST /entries

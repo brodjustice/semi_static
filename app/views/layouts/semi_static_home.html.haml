@@ -26,7 +26,6 @@
 
     %style{:type => "text/css"}
       = ObjectSpace.each_object(Sprockets::Environment).first.find_asset('home.css.scss').source
-      -# = Rails.application.assets.find_asset('semi_static/home.css').source
       = yield :header_css
 
     %script
