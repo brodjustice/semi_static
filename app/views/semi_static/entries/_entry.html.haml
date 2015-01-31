@@ -1,13 +1,16 @@
+-# TODO: Move to helper
 - style ||= false
 - entry = e
+- last_merged_entry = e
 %article
   .entry{:style => "background-color: #{e.background_colour}"}
     - loop do
+      - last_merged_entry = e
       = render :partial => 'semi_static/entries/entry_contents', :locals => {:style => style, :e => e }
       = render :partial => 'semi_static/entries/document', :locals => {:e => e}  if e.doc.present? && ((style == :show) || ((style == :summary) && !e.truncate?))
       - break if (e = e.next_merged_entry).nil? || ((style == :summary) && entry.truncate?)
       .section
-    - if ((style == :summary) && entry.truncate?) || (style == :small)
+    - if ((style == :summary) && last_merged_entry.truncate?) || (style == :small)
       .more= link_to t(:more), entry_path(entry)
     - elsif entry.facebook_share
       .button
