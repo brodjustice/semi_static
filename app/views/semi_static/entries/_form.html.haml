@@ -61,177 +61,212 @@
 
   = hidden_field_tag 'newsletter_id', @newsletter.id if @newsletter
 
-  %fieldset
-    = f.label :title
-    %br/
-    = f.text_field :title
-  %fieldset
-    = f.label :locale
-    = f.select :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @entry.locale)
-    = f.label :tag_id
-    - if @newsletter
-      = f.select :tag_id, options_for_select(SemiStatic::Tag.unscoped.collect{|t| [[t.locale, ': ', t.name].join, t.id]}, @entry.tag_id)
-    - else
-      = f.select :tag_id, options_for_select(SemiStatic::Tag.all.collect{|t| [[t.locale, ': ', t.name].join, t.id]}, @entry.tag_id)
-  - unless @newsletter
-    %fieldset
-      = f.label :home_page
-      = f.check_box :home_page
-      = f.label :news_item
-      = f.check_box :news_item
-      = f.label :image_in_news
-      = f.check_box :image_in_news
-    %fieldset
-      #selected_banner
-        - if @entry.banner.present?
-          = render :partial => 'semi_static/banners/show', :locals => {:banner => @entry.banner}
-      = f.label :banner
-      = f.select :banner_id, options_for_select(SemiStatic::Banner.all.collect{|b| [b.name, b.id]}.prepend(["- None -", 'none']), @entry.banner_id)
-  %fieldset
-    = f.label :partial, 'Custom view'
-    = f.select :partial, options_for_select(SemiStatic::Engine.config.open_partials.collect{|k, v| [k, k]}.prepend(["- None -", 'none']), @entry.partial)
-  %fieldset
-    .infobox#master_entry_box
-      %h4= 'Master entry'
-      %p
-        If an entry has a
-        %em master entry
-        than certain resources can be shared. The main example is that the current entry can share the same
-        gallery of photos as the
-        %em master entry.
-        This stops the need to load a duplicate set of photos, especially when the are multiple
-        language versions of the same entries.
-    = f.label :master_entry, 'Entry master', :class => 'infomarker'
-    = f.select :master_entry_id, options_for_select(SemiStatic::Entry.all.collect{|e|[[e.locale, ': ', e.title].join, e.id]}.prepend(["- None -", 'none']), @entry.master_entry_id)
-    %span#entry_position_select
-      = f.label :entry_position
-      = f.select :entry_position, options_for_select(SemiStatic::Entry::DISPLAY_ENTRY_SYM, @entry.entry_position)
-  %fieldset
-    = f.label :position
-    = f.text_field :position
-    = f.label :merge_with_previous
-    = f.check_box :merge_with_previous
-  - unless @newsletter
-    %fieldset.semi_static_youtube_id_str
-      .infobox#youtube_id_str_text_box
-        %h4= 'YouTube ID'
-        %p
-          = 'If a YouTube video ID is given, then the video will be presented before the entry text and image'
-        %p
-          = 'If you are not sure what the YouTube ID is, then click on "share" underneath the YouTube video, and then copy the'
-          = 'URL link to the field below. Then click "Preview" at the bottom of this form to see if you have the correct ID'
-      = f.label :youtube_id_str, 'YouTube Video ID (optional)', :class => 'infomarker'
-      %br/
-      .field
-        = f.text_field :youtube_id_str
-        %span#validateYoutubeButton{:style => 'display: none'}
-          = button_to_function 'Click here to validate YouTube ID', 'validate_youtube_id();'
-  #semi-static-entry-body
-    %fieldset.semi_static_entry_main_content
-      = f.label :body
-      %br/
-      = f.text_area :body
-      .infobox#unrestricted_html_check_box
-        %h4= 'Unrestricted HTML'
-        %p
-          = 'This best left un-checked if you are not sure what you are doing. If you check this'
-          = 'box then certain HTML will be allowed and you will have more flexibilty e.g. you will be allowed to embbed YouTube videos'
-      %span.infomarker
-      = f.check_box :unrestricted_html
-      = f.label :unrestricted_html
-      .button
-        = link_to 'HTML mode', edit_entry_path(@entry, :mode => :html), :remote => true
-  %fieldset
-    = f.label :summary
-    %br/
-    = f.text_area :summary, :rows => '8'
-    %br/
-    .infobox#summary_box
-      %h4= 'Summary length'
-      %p
-        Set length to the number of characters you want the maximum size of the summary to be. If you do not
-        provide text in the
-        %em= 'Summary box'
-        then the main body will be truncated as best as possible and th actual number of characters may be
-        less than the value given in the
-        %em= 'summary length.'
-      %p
-        The
-        %em= 'summary length.'
-        has some special values. The value of 0 means that no summary at all will be displayed, only the header and optionally the image.r
-        A negative value has the same effect as a 0 value, but there header will not even have a link to the actual entry. This is
-        useful for displaying Twitter-like message in the news columns.
-    = f.label :summary_length, 'Optimal summary length', :class => 'infomarker'
-    = f.text_field :summary_length
-
-  %fieldset.entry.semi_static_entry_main_content
-    - if @entry.img.present?
-      = image_tag(@entry.img.url(:panel), :title => @entry.title, :class => 'ri', :id => 'semi_static_image_for_upload')
-    - else
-      = image_tag('/assets/no-image-loaded.jpg', :title => 'No image', :class => 'ri', :id => 'semi_static_image_for_upload')
-    %br/
-    = f.label :img, 'Image (optional, will be resized to max 324px width)'
-    %br/
-    = f.file_field :img
-  %fieldset.semi_static_entry_main_content
-    .infobox#loaded_document
-      %h4 Currently loaded document
-      - if @entry.doc.present?
-        The currently loaded document is:
-        %ul
-          %li= @entry.doc_file_name
-          %li= @entry.doc_content_type
-      - else
-        No document is currently loaded
-    %span.infomarker
-      = f.file_field :doc
-    %br/
-    = f.label :doc_description, 'Document description (optional)'
-    %br/
-    = f.text_field :doc_description
-    .infobox#show_in_documents_tag
-      %h4= 'Show in documents tag'
-      %p
-        If you have a tag the uses the predefined 
-        %em= 'Documents'
-        tag then if this box is checked then the document will be listed for downlown in the
-        %em= 'Documents'
-        tag.
-    %span.infomarker
-      = f.check_box :show_in_documents_tag
-      = f.label :show_in_documents_tag, 'Show in documents tag (optional)'
-  - unless @newsletter
-    %fieldset.semi_static_entry_main_content
-      = f.label :side_bar
-      = f.check_box :side_bar
-      %fieldset#side_bar_options
-        .col.span_3_of_5
-          = f.label :side_bar_news, 'News'
-          = f.check_box :side_bar_news
-          = f.label :side_bar_social, 'Social links'
-          = f.check_box :side_bar_social
-          = f.label :side_bar_search, 'Search'
-          = f.check_box :side_bar_search
-        .col.span_1_of_5
-          = f.label :side_bar_gallery, 'Gallery'
-          = f.text_field :side_bar_gallery
-
-    %fieldset
-      = f.label :facebook_share, 'Show Facebook Share button'
-      = f.check_box :facebook_share
-  %fieldset
-    = f.label :style_class
-    = f.select :style_class, options_for_select(SemiStatic::EntriesHelper::STYLE_CLASSES.collect{|sc| [sc, sc]}, @entry.style_class)
-  %fieldset
-    = f.label :background_colour, 'Background CSS colors: black, yellow, #5f78c0, etc'
-    = f.text_field :background_colour
-    %br/
-    = f.label :header_colour, 'Header CSS colors: black, yellow, #5f78c0, etc'
-    = f.text_field :header_colour
-    %br/
-    = f.label :colour, 'Text CSS colors: black, yellow, #5f78c0, etc'
-    = f.text_field :colour
-
-  .actions
-    = button_to_function 'Preview', 'entry_preview();'
-    = f.submit 'Save'
+  .group
+    .col.span_2_of_3
+      %h2 Main Content
+      %fieldset
+        = f.label :title
+        %br/
+        = f.text_field :title
+      - unless @newsletter
+        %fieldset.semi_static_youtube_id_str
+          .infobox#youtube_id_str_text_box
+            %h4= 'YouTube ID'
+            %p
+              = 'If a YouTube video ID is given, then the video will be presented before the entry text and image'
+            %p
+              = 'If you are not sure what the YouTube ID is, then click on "share" underneath the YouTube video, and then copy the'
+              = 'URL link to the field below. Then click "Preview" at the bottom of this form to see if you have the correct ID'
+          = f.label :youtube_id_str, 'YouTube Video ID (optional)', :class => 'infomarker'
+          %br/
+          .field
+            = f.text_field :youtube_id_str
+            %span#validateYoutubeButton{:style => 'display: none'}
+              = button_to_function 'Click here to validate YouTube ID', 'validate_youtube_id();'
+        %fieldset
+          #selected_banner
+            - if @entry.banner.present?
+              = render :partial => 'semi_static/banners/show', :locals => {:banner => @entry.banner}
+          = f.label :banner
+          %br/
+          = f.select :banner_id, options_for_select(SemiStatic::Banner.all.collect{|b| [b.name, b.id]}.prepend(["- None -", 'none']), @entry.banner_id)
+      %fieldset
+        = f.label :partial, 'Custom view'
+        %br/
+        = f.select :partial, options_for_select(SemiStatic::Engine.config.open_partials.collect{|k, v| [k, k]}.prepend(["- None -", 'none']), @entry.partial)
+      %fieldset
+        .infobox#master_entry_box
+          %h4= 'Master entry'
+          %p
+            If an entry has a
+            %em master entry
+            than certain resources can be shared. The main example is that the current entry can share the same
+            gallery of photos as the
+            %em master entry.
+            This stops the need to load a duplicate set of photos, especially when the are multiple
+            language versions of the same entries.
+        = f.label :master_entry, 'Entry master', :class => 'infomarker'
+        %br/
+        = f.select :master_entry_id, options_for_select(SemiStatic::Entry.all.collect{|e|[[e.locale, ': ', e.title].join, e.id]}.prepend(["- None -", 'none']), @entry.master_entry_id)
+        %span#entry_position_select
+          = f.label :entry_position
+          = f.select :entry_position, options_for_select(SemiStatic::Entry::DISPLAY_ENTRY_SYM, @entry.entry_position)
+      #semi-static-entry-body
+        %fieldset.semi_static_entry_main_content
+          = f.label :body
+          %br/
+          = f.text_area :body
+          .infobox#unrestricted_html_check_box
+            %h4= 'Unrestricted HTML'
+            %p
+              = 'This best left un-checked if you are not sure what you are doing. If you check this'
+              = 'box then certain HTML will be allowed and you will have more flexibilty e.g. you will be allowed to embbed YouTube videos'
+          %span.infomarker
+          = f.check_box :unrestricted_html
+          = f.label :unrestricted_html
+          .button
+            = link_to 'HTML mode', edit_entry_path(@entry, :mode => :html), :remote => true
+      %fieldset
+        = f.label :summary
+        %br/
+        = f.text_area :summary, :rows => '8'
+        %br/
+        .infobox#summary_box
+          %h4= 'Summary length'
+          %p
+            Set length to the number of characters you want the maximum size of the summary to be. If you do not
+            provide text in the
+            %em= 'Summary box'
+            then the main body will be truncated as best as possible and th actual number of characters may be
+            less than the value given in the
+            %em= 'summary length.'
+          %p
+            The
+            %em= 'summary length.'
+            has some special values. The value of 0 means that no summary at all will be displayed, only the header and optionally the image.r
+            A negative value has the same effect as a 0 value, but there header will not even have a link to the actual entry. This is
+            useful for displaying Twitter-like message in the news columns.
+        = f.label :summary_length, 'Optimal summary length', :class => 'infomarker'
+        %br/
+        = f.text_field :summary_length, :size => 10
+    
+      %h2= 'Image (optional)'
+      %fieldset.entry.semi_static_entry_main_content
+        - if @entry.img.present?
+          = image_tag(@entry.img.url(:panel), :title => @entry.title, :class => 'ri', :id => 'semi_static_image_for_upload')
+        - else
+          = image_tag('/assets/no-image-loaded.jpg', :title => 'No image', :class => 'ri', :id => 'semi_static_image_for_upload')
+        %br/
+        = f.label :img, 'Image (optional, will be resized to max 324px width)'
+        %br/
+        = f.file_field :img
+        %br/
+        = f.label :image_captiom, 'Image caption (optional)'
+        %br/
+        = f.text_area :image_caption, :rows => 3
+      %h2= 'Document (optional)'
+      %fieldset.semi_static_entry_main_content
+        .infobox#loaded_document
+          %h4 Currently loaded document
+          - if @entry.doc.present?
+            The currently loaded document is:
+            %ul
+              %li= @entry.doc_file_name
+              %li= @entry.doc_content_type
+          - else
+            No document is currently loaded
+        %span.infomarker
+          = f.file_field :doc
+        %br/
+        = f.label :doc_description, 'Document description (optional)'
+        %br/
+        = f.text_area :doc_description, :rows => 3
+        %br/
+        %br/
+        .infobox#show_in_documents_tag
+          %h4= 'Show in documents tag'
+          %p
+            If you have a tag the uses the predefined 
+            %em= 'Documents'
+            tag then if this box is checked then the document will be listed for downlown in the
+            %em= 'Documents'
+            tag.
+        %span.infomarker
+          = f.check_box :show_in_documents_tag
+          = f.label :show_in_documents_tag, 'Show in documents tag (optional)'
+    .col.span_1_of_3
+      .sidebar
+        %h2 Position
+        %fieldset
+          = f.label :position
+          %br/
+          = f.text_field :position, :size => 10
+          %br/
+          = f.label :merge_with_previous
+          = f.check_box :merge_with_previous
+        %h2 Menu or Tag selection
+        %fieldset
+          = f.label :tag_id
+          - if @newsletter
+            = f.select :tag_id, options_for_select(SemiStatic::Tag.unscoped.collect{|t| [[t.locale, ': ', t.name].join, t.id]}, @entry.tag_id)
+          - else
+            = f.select :tag_id, options_for_select(SemiStatic::Tag.all.collect{|t| [[t.locale, ': ', t.name].join, t.id]}, @entry.tag_id)
+        - unless @newsletter
+          %h2 Home page and News sidebar
+          %fieldset
+            = f.label :home_page
+            = f.check_box :home_page
+            %br/
+            %br/
+            = f.label :news_item
+            = f.check_box :news_item
+            = f.label :image_in_news
+            = f.check_box :image_in_news
+        %h2 Language
+        %fieldset
+          = f.label :locale
+          = f.select :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @entry.locale)
+        - unless @newsletter
+          %h2 Sidebar configuration
+          %fieldset.semi_static_entry_main_content
+            = f.label :side_bar
+            = f.check_box :side_bar
+            %fieldset#side_bar_options
+              = f.label :side_bar_news, 'News'
+              = f.check_box :side_bar_news
+              = f.label :side_bar_social, 'Social links'
+              = f.check_box :side_bar_social
+              = f.label :side_bar_search, 'Search'
+              = f.check_box :side_bar_search
+              %br/
+              %br/
+              = f.label :side_bar_gallery, 'Number of gallery images'
+              %br/
+              = f.text_field :side_bar_gallery, :size => 10
+      
+        
+        %h2 Facebook
+        %fieldset
+          = f.label :facebook_share, 'Display Facebook Share button'
+          = f.check_box :facebook_share
+        %h2 Style settings
+        %fieldset
+          = f.label :style_class
+          = f.select :style_class, options_for_select(SemiStatic::EntriesHelper::STYLE_CLASSES.collect{|sc| [sc, sc]}, @entry.style_class)
+        %fieldset
+          = f.label :background_colour, 'Background CSS colors: black, yellow, #5f78c0, etc'
+          %br/
+          = f.text_field :background_colour, :size => 10
+          %br/
+          = f.label :header_colour, 'Header CSS colors: black, yellow, #5f78c0, etc'
+          %br/
+          = f.text_field :header_colour, :size => 10
+          %br/
+          = f.label :colour, 'Text CSS colors: black, yellow, #5f78c0, etc'
+          %br/
+          = f.text_field :colour, :size => 10
+      
+  .mid
+    .actions
+      = button_to_function 'Preview', 'entry_preview();'
+      = f.submit 'Save'

@@ -34,6 +34,16 @@ module SemiStatic
       end
     end
 
+    def image_section(e, style)
+      c = '<div vocab = "http://schema.org/" typeof="ImageObject">'.html_safe
+      c += "<meta  property='name' content='#{e.title}'>".html_safe
+      c += image_tag(e.img_url_for_theme(style))
+      unless e.image_caption.blank?
+        c += "<div class='caption' property='description'>#{e.image_caption}</div>".html_safe
+      end
+      c += '</div>'.html_safe
+    end
+
     def icon(tag)
       return '' if tag.nil?
       if Tag.use_sprites?

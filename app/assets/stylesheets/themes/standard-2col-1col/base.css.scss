@@ -377,6 +377,11 @@ h2 a, h3 a{color: $secondary-color;}
 }
 .caption{
   font-size: 14px;
+  text-align: center;
+  padding: 4px 4px 6px;
+  border: solid 1px #d0d0d0;
+  border-top: none;
+  margin-top: -4px;
 }
 .news .image{
   text-align: center;

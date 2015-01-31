@@ -25,6 +25,10 @@ h1{
     text-align: center;
 }
 
+.sidebar{
+  background-color: #f4f4f4; padding: 0 6px;
+}
+
 #dialog .button{
   margin-top: -8px;
 }
@@ -34,6 +38,10 @@ input[type="submit"], .button a {
 }
 input[type="submit"], .button{
   margin: 0px;
+}
+
+textarea{
+  width: 99%;
 }
 
 .mid.full{
