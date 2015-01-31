@@ -19,6 +19,7 @@ module SemiStatic
 
     has_attached_file :img,
        :url => "/system/banners/:id/:style/:filename",
+       :path => ":rails_root/public/system/banners/:id/:style/:filename",
        :styles => { :desktop=> "1500x300#",
                     :entry => "900x500#",
                     :mobile => "750x300#",
@@ -30,6 +31,8 @@ module SemiStatic
                              :header => "-strip -gravity Center -quality 75" ,
                              :desktopy500 => "-strip -gravity Center -quality 75" ,
                              :mobiley500 => "-strip -gravity Center -quality 75" }
+
+    validates_attachment_content_type :img, :content_type => ['image/jpeg', 'image/png', 'image/gif']
 
     after_save :expire_site_page_cache
 
