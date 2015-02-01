@@ -160,7 +160,7 @@ module SemiStatic
     end
 
     def raw_title
-      ActionController::Base.helpers.strip_tags(title.delete('&shy\;'))
+      ActionController::Base.helpers.strip_tags(title.gsub(/&shy;/, ''))
     end
 
     def raw_html=(val)
