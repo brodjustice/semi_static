@@ -6,9 +6,9 @@
     .img
       - if (style == :summary) || (style == :small)
         = link_to entry_path(e) do
-          = image_section(e, style)
+          = semantic_entry_image(e, style)
       - else
-        = image_section(e, style)
+        = semantic_entry_image(e, style)
   .col.span_1_of_2.wrapping
     .html
       = icon(e.tag) if e.youtube_id_str.blank?

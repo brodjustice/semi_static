@@ -8,6 +8,36 @@
   word-wrap: break-word;
 }
 
+/* Delicate handling of floating entry images with caption */
+.entry figure {
+  position: relative;
+  margin: 0 auto; /* to center it */
+  text-align: center;
+}
+
+.entry figure img {
+    max-width: 100%;
+    vertical-align: middle; /* to make sure images behave like blocks */
+}
+
+figure span{
+    display: inline-block;
+    position: relative;
+}
+
+.entry figure figcaption {
+    position: absolute;
+    right: 0; bottom: 0; left: 0;
+    background: white;
+    background: rgba(255,255,255, 0.7);
+}
+
+.entry figure .caption{
+  font-size: 14px;
+  text-align: center;
+  padding: 4px 4px 6px;
+}
+
 #toTop{
   display: none;
 }

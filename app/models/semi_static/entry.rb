@@ -142,6 +142,16 @@ module SemiStatic
       end
     end
 
+    # We allow the word break <wbr/> tag in the title for user control of long word breaking
+    def title
+      super.html_safe
+    end
+
+    def title=(t)
+      t = ActionController::Base.helpers.sanitize(t, :tags => %w(wbr)) unless t.html_safe?
+      super(t)
+    end
+
     def raw_html=(val)
       if val == ('1' || 'true' || true)
         self.body = self.body

@@ -34,14 +34,26 @@ module SemiStatic
       end
     end
 
-    def image_section(e, style)
-      c = '<div vocab = "http://schema.org/" typeof="ImageObject">'.html_safe
+    def semantic_entry_image(e, style)
+      c = '<figure vocab = "http://schema.org/" typeof="ImageObject"><span>'.html_safe
       c += "<meta  property='name' content='#{e.title}'>".html_safe
       c += image_tag(e.img_url_for_theme(style))
       unless e.image_caption.blank?
-        c += "<div class='caption' property='description'>#{e.image_caption}</div>".html_safe
+        c += "<figcaption class='caption' property='description'>#{e.image_caption}</figcaption>".html_safe
       end
-      c += '</div>'.html_safe
+      c += '</span></figure>'.html_safe
+    end
+
+    def semantic_photo(p, style)
+      c = '<figure vocab = "http://schema.org/" typeof="ImageObject">'.html_safe
+      c += "<a href='#{photo_path(p)}' class='photo'>".html_safe
+      c += "<h3 property='name'>#{p.title}</h3>".html_safe
+      c += image_tag(p.img.url(style), :class => 'photo')
+      c += '</a>'.html_safe
+      unless p.description.blank?
+        c += "<figcaption class='caption' property='description'>#{simple_format(p.description)}</figcaption>".html_safe
+      end
+      c += '</figure>'.html_safe
     end
 
     def icon(tag)

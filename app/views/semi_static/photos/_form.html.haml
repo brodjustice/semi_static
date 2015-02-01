@@ -13,32 +13,38 @@
         - @photo.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
-    = f.label :title
-    %br/
-    = f.text_field :title
+  .group
+    .col.span_2_of_3
+      .field
+        = f.label :title
+        %br/
+        = f.text_field :title
 
-  .field
-    .photo.entry
-      - if @photo.img.present?
-        = image_tag(@photo.img.url(:bar), :title => @photo.title, :size => '210x', :class => 'ri', :id => 'semi_static_image_for_upload')
-      - else
-        = image_tag('/assets/no-image-loaded.jpg', :title => 'No image', :class => 'ri', :id => 'semi_static_image_for_upload')
-    = f.file_field :img
+      .field
+        .photo.entry
+          - if @photo.img.present?
+            = image_tag(@photo.img.url(:bar), :title => @photo.title, :size => '210x', :class => 'ri', :id => 'semi_static_image_for_upload')
+          - else
+            = image_tag('/assets/no-image-loaded.jpg', :title => 'No image', :class => 'ri', :id => 'semi_static_image_for_upload')
+        = f.file_field :img
 
-  .field.wide
-    = f.label :description
-    %br/
-    = f.text_area :description, :rows => '10'
-  %fieldset
-    = f.label :entry_id, 'Entry link (optional)'
-    = f.select :entry_id, options_for_select(SemiStatic::Entry.all.collect{|e| [e.title, e.id]}.prepend(['- None -', nil]), @photo.entry_id)
-  %fieldset
-    = f.label :home_page
-    = f.check_box :home_page
-  %fieldset
-    = f.label :position
-    = f.text_field :position
+      .field.wide
+        = f.label :description, 'Caption'
+        %br/
+        = f.text_area :description, :rows => '3'
+    .col.span_1_of_3
+      .sidebar
+        %fieldset
+          = f.label :position
+          %br/
+          = f.text_field :position, :size => 10
+        %fieldset
+          = f.label :home_page
+          = f.check_box :home_page
+        %fieldset
+          = f.label :entry_id, 'Entry link (optional)'
+          = f.select :entry_id, options_for_select(SemiStatic::Entry.all.collect{|e| [e.title, e.id]}.prepend(['- None -', nil]), @photo.entry_id)
 
-  .actions
-    = f.submit 'Save'
+  .mid
+    .actions
+      = f.submit 'Save'

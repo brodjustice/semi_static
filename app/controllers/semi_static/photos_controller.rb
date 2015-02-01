@@ -56,7 +56,7 @@ module SemiStatic
   
     # GET /photos/1/edit
     def edit
-      layout = 'semi_static_application'
+      layout = 'semi_static_dashboards'
       @photo = Photo.find(params[:id])
       respond_to do |format|
         format.html { render :layout => layout }

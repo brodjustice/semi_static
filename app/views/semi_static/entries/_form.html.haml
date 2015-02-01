@@ -65,7 +65,20 @@
     .col.span_2_of_3
       %h2 Main Content
       %fieldset
-        = f.label :title
+        .infobox#word_break_entry_title
+          %h4= 'Long words in titles'
+          %p
+            = 'If your title contains long words, then you should specify the word break point so that it does'
+            = 'not overflow on mobile devices and generally behaves well when the screen (viewport) is resized. You'
+            = 'can suggest word break points by including the'
+            %b= '<wbr/>'
+            = 'tag.'
+          %p
+            = 'For example you could set the break point for \'Nottinghamshire\' to \'Notting-ham-shire\'by entering the following into'
+            = 'the title field:'
+          %p
+            = 'Notting<wbr/>ham<wbr/>shire'
+        = f.label :title, :class => 'infomarker'
         %br/
         = f.text_field :title
       - unless @newsletter

@@ -52,7 +52,7 @@
     def show
       @entry = Entry.find(params[:id])
       @tag = @entry.tag
-      @title = @entry.title
+      @title = ActionController::Base.helpers.strip_tags(@entry.title)
       @seo = @entry.seo
   
       respond_to do |format|
