@@ -14,12 +14,7 @@ module SemiStatic
     attr_accessible :facebook_share, :show_in_documents_tag, :image_caption
     attr_accessor :raw_html
 
-    settings index: { number_of_shards: 1 } do
-      mappings dynamic: 'false' do
-        indexes :title, analyzer: 'english'
-        indexes :body, analyzer: 'english'
-      end
-    end
+    settings index: { number_of_shards: 1, number_of_replicas: 1 }
   
     belongs_to :tag
   
@@ -85,6 +80,13 @@ module SemiStatic
     default_scope order(:position)
     scope :additional_entries, lambda {|e| where('tag_id = ?', e.tag_id).where('id != ?', e.id)}
 
+    def as_indexed_json(options={})
+      as_json(
+        only: [:raw_title, :body],
+        methods: [:raw_title]
+      )
+    end
+
     def new
       self.body = ''
       super
@@ -102,14 +104,14 @@ module SemiStatic
             multi_match: {
               query: query,
               fuzziness: 1,
-              fields: ['title^5', 'body']
+              fields: ['raw_title^5', 'body']
             }
           },
           highlight: {
             pre_tags: ['<em class="label label-highlight">'],
             post_tags: ['</em>'],
             fields: {
-              title:   { number_of_fragments: 0 },
+              raw_title:   { number_of_fragments: 0 },
               body: { fragment_size: 25 }
             }
           }
