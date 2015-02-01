@@ -8,33 +8,24 @@
   word-wrap: break-word;
 }
 
-/* Delicate handling of floating entry images with caption */
-.entry figure {
-  position: relative;
-  margin: 0 auto; /* to center it */
-  text-align: center;
-}
-
-.entry figure img {
-    max-width: 100%;
-    vertical-align: middle; /* to make sure images behave like blocks */
-}
-
-figure span{
-    display: inline-block;
-    position: relative;
-}
-
-.entry figure figcaption {
-    position: absolute;
-    right: 0; bottom: 0; left: 0;
-    background: white;
-    background: rgba(255,255,255, 0.7);
-}
-
-.entry figure .caption{
+.caption{
   font-size: 14px;
   text-align: center;
+  border-top: none;
+  width: 100%;
+}
+.entry .caption{
+  max-width: 324px;
+  margin: 0 auto;
+}
+.caption p{
+  margin-top:0px;
+}
+.entry .caption{
+  border-bottom: 1px solid #d0d0d0;
+}
+.entry .caption-inner{
+  margin-top: -4px;
   padding: 4px 4px 6px;
 }
 

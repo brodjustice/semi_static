@@ -78,6 +78,12 @@
             = 'the title field:'
           %p
             = 'Notting<wbr/>ham<wbr/>shire'
+          %p
+            = 'You can also use the'
+            %b= '&shy;'
+            = ' entity to allow word break but hyphenate, eg:'
+          %p
+            = 'Notting&shy;ham&shy;shire'
         = f.label :title, :class => 'infomarker'
         %br/
         = f.text_field :title

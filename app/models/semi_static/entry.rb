@@ -13,6 +13,13 @@ module SemiStatic
     attr_accessible :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_gallery, :unrestricted_html, :merge_with_previous, :raw_html
     attr_accessible :facebook_share, :show_in_documents_tag, :image_caption
     attr_accessor :raw_html
+
+    settings index: { number_of_shards: 1 } do
+      mappings dynamic: 'false' do
+        indexes :title, analyzer: 'english'
+        indexes :body, analyzer: 'english'
+      end
+    end
   
     belongs_to :tag
   
@@ -144,12 +151,16 @@ module SemiStatic
 
     # We allow the word break <wbr/> tag in the title for user control of long word breaking
     def title
-      super.html_safe
+      (t = super) ? t.html_safe : ''
     end
 
     def title=(t)
       t = ActionController::Base.helpers.sanitize(t, :tags => %w(wbr)) unless t.html_safe?
       super(t)
+    end
+
+    def raw_title
+      ActionController::Base.helpers.strip_tags(title.delete('&shy\;'))
     end
 
     def raw_html=(val)
@@ -195,7 +206,7 @@ module SemiStatic
   
     # To create SEO friendly urls
     def to_param
-      "#{id} #{title}".parameterize
+      "#{id} #{self.raw_title}".parameterize
     end
   end
 end

@@ -36,10 +36,10 @@ module SemiStatic
 
     def semantic_entry_image(e, style)
       c = '<figure vocab = "http://schema.org/" typeof="ImageObject"><span>'.html_safe
-      c += "<meta  property='name' content='#{e.title}'>".html_safe
+      c += "<meta  property='name' content='#{e.raw_title}'>".html_safe
       c += image_tag(e.img_url_for_theme(style))
       unless e.image_caption.blank?
-        c += "<figcaption class='caption' property='description'>#{e.image_caption}</figcaption>".html_safe
+        c += "<div class='caption'><figcaption class='caption-inner' property='description'>#{e.image_caption}</figcaption></div>".html_safe
       end
       c += '</span></figure>'.html_safe
     end
@@ -51,7 +51,7 @@ module SemiStatic
       c += image_tag(p.img.url(style), :class => 'photo')
       c += '</a>'.html_safe
       unless p.description.blank?
-        c += "<figcaption class='caption' property='description'>#{simple_format(p.description)}</figcaption>".html_safe
+        c += "<div class='caption'><figcaption class='caption-inner' property='description'>#{simple_format(p.description)}</figcaption></div>".html_safe
       end
       c += '</figure>'.html_safe
     end
