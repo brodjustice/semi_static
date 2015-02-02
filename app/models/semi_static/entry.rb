@@ -11,7 +11,7 @@ module SemiStatic
     attr_accessible :position, :doc, :doc_description, :summary_length, :locale, :style_class, :header_colour, :background_colour, :colour
     attr_accessible :banner_id, :partial, :entry_position, :master_entry_id, :youtube_id_str
     attr_accessible :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_gallery, :unrestricted_html, :merge_with_previous, :raw_html
-    attr_accessible :facebook_share, :show_in_documents_tag, :image_caption
+    attr_accessible :facebook_share, :show_in_documents_tag, :image_caption, :tag_line
     attr_accessor :raw_html
 
     settings index: { number_of_shards: 1, number_of_replicas: 1 }
@@ -82,8 +82,8 @@ module SemiStatic
 
     def as_indexed_json(options={})
       as_json(
-        only: [:raw_title, :body],
-        methods: [:raw_title]
+        only: [:raw_title, :body, :effective_tag_line],
+        methods: [:raw_title, :effective_tag_line]
       )
     end
 
@@ -104,7 +104,7 @@ module SemiStatic
             multi_match: {
               query: query,
               fuzziness: 1,
-              fields: ['raw_title^5', 'body']
+              fields: ['raw_title^5', 'body', 'effective_tag_line^2']
             }
           },
           highlight: {
@@ -112,6 +112,7 @@ module SemiStatic
             post_tags: ['</em>'],
             fields: {
               raw_title:   { number_of_fragments: 0 },
+              effective_tag_line:   { number_of_fragments: 0 },
               body: { fragment_size: 25 }
             }
           }
@@ -119,6 +120,10 @@ module SemiStatic
       )
     end
   
+    def effective_tag_line
+      tag_line || (banner.present? && banner.tag_line.present? ? banner.tag_line : nil )
+    end
+
     def merged_main_entry_with_title
       if !self.title.blank? || !self.merge_with_previous
         self

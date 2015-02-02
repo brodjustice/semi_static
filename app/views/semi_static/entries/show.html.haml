@@ -1,10 +1,10 @@
 - if @entry.banner
   - content_for :banner do
     #overlay-2
-      - unless @entry.banner.tag_line.blank?
+      - unless @entry.effective_tag_line.blank?
         #tag-wrapper
           #tagline
-            = @entry.banner.tag_line
+            = @entry.tag_line
     #banner
       #banner-frame
         .bg.desktop{:style => "background-image: url(#{@entry.banner.img_url_for_theme(:desktop)})"}

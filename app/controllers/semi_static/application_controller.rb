@@ -49,6 +49,13 @@ module SemiStatic
       render :layout => 'semi_static_application', :template => 'semi_static/errors/show', :status => @status_code
     end
 
+    rescue_from Elasticsearch::Transport::Transport::Errors::NotFound do |e|
+      @status_code = 404
+      @exception = e
+      @url = url_for(params)
+      render :layout => 'semi_static_application', :template => 'semi_static/errors/no_index', :status => @status_code
+    end
+
     def extract_locale_from_tld
       # Also it's up to you to make sure that the locale is actually available,
       # though I guess it could be done with something like this:

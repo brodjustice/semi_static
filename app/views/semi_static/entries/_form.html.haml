@@ -13,6 +13,13 @@
         $('#side_bar_options').hide();
       }
     }
+    function check_tag_line(){
+      if($('#entry_banner_id').val() == 'none') {
+        $('#tag_line_override').hide();
+      } else {
+        $('#tag_line_override').show();
+      }
+    }
     function check_entry_partial(){
       if($('#entry_partial').val() == 'none') {
         $('#entry_position_select').hide();
@@ -42,8 +49,9 @@
 
     $(document).ready(function() {
       $('#entry_body').jqte();
-      $( "#entry_banner_id" ).change(function() { load_banner_preview($('#entry_banner_id').val()); });
+      $( "#entry_banner_id" ).change(function() { check_tag_line(); load_banner_preview($('#entry_banner_id').val()); });
       check_side_bar();
+      check_tag_line();
       $('#entry_side_bar').change(function() { check_side_bar(); });
       check_entry_partial();
       $('#entry_partial').change(function() { check_entry_partial(); });
@@ -109,6 +117,10 @@
           = f.label :banner
           %br/
           = f.select :banner_id, options_for_select(SemiStatic::Banner.all.collect{|b| [b.name, b.id]}.prepend(["- None -", 'none']), @entry.banner_id)
+          #tag_line_override{:style => 'display: none'}
+            = f.label :tag_line, 'Tag line override (optional)'
+            %br/
+            = f.text_field :tag_line
       %fieldset
         = f.label :partial, 'Custom view'
         %br/
