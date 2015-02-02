@@ -7,7 +7,7 @@ module SemiStatic
   
     index_name SemiStatic::Engine.config.site_name.gsub(/( )/, '_').downcase
   
-    attr_accessible :title, :body, :tag_id, :home_page, :summary, :img, :news_item, :image_in_news
+    attr_accessible :title, :body, :tag_id, :home_page, :summary, :img, :news_item, :image_in_news, :image_disable
     attr_accessible :position, :doc, :doc_description, :summary_length, :locale, :style_class, :header_colour, :background_colour, :colour
     attr_accessible :banner_id, :partial, :entry_position, :master_entry_id, :youtube_id_str
     attr_accessible :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_gallery, :unrestricted_html, :merge_with_previous, :raw_html
@@ -66,7 +66,7 @@ module SemiStatic
     DISPLAY_ENTRY_SYM = DISPLAY_ENTRY.invert
 
     THEME = {
-      'tiles' => {:desktop => :panel, :mobile => :panel, :small => :small, :summary => :tile, :show => :big},
+      'tiles' => {:desktop => :panel, :mobile => :panel, :small => :small, :summary => :panel, :show => :big},
       'menu-right' => {:desktop => :panel, :mobile => :panel, :small => :small, :summary => :medium, :show => :big},
       'standard-2col-1col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel},
       'bannerless' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel},

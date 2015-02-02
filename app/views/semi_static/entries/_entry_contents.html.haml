@@ -1,7 +1,7 @@
 - unless e.youtube_id_str.blank?
   %h1= link_to e.title, e, :style => "color: #{e.header_colour};"
   = youtube_video(e.youtube_id_str)
-- if e.img.present?
+- if !e.image_disable && e.img.present?
   .col.span_1_of_2.floater
     .img
       - if (style == :summary) || (style == :small)

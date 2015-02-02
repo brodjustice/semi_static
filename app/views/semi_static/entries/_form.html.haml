@@ -185,10 +185,14 @@
       %fieldset.entry.semi_static_entry_main_content
         - if @entry.img.present?
           = image_tag(@entry.img.url(:panel), :title => @entry.title, :class => 'ri', :id => 'semi_static_image_for_upload')
+          %br/
+          = f.label :image_disable, 'Disable display of image and caption in entry'
+          = f.check_box :image_disable
+          %br/
         - else
           = image_tag('/assets/no-image-loaded.jpg', :title => 'No image', :class => 'ri', :id => 'semi_static_image_for_upload')
         %br/
-        = f.label :img, 'Image (optional, will be resized to max 324px width)'
+        = f.label :img, 'Image (optional, will be resized)'
         %br/
         = f.file_field :img
         %br/
