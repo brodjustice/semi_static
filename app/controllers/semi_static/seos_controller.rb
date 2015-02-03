@@ -48,6 +48,7 @@
       if params[:master].present?
         @seo.to_master
       end
+      @photos_without_caption = (@seo.seoable.is_a?(Entry) ? @seo.seoable.photos.without_caption : [])
 
       respond_to do |format|
         format.html { redirect_to params[:return] || seos_path }

@@ -12,7 +12,7 @@ module SemiStatic
     attr_accessible :banner_id, :partial, :entry_position, :master_entry_id, :youtube_id_str
     attr_accessible :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_gallery, :unrestricted_html, :merge_with_previous, :raw_html
     attr_accessible :facebook_share, :show_in_documents_tag, :image_caption, :tag_line
-    attr_accessor :raw_html
+    attr_accessor :raw_html, :doc_delete, :img_delete
 
     settings index: { number_of_shards: 1, number_of_replicas: 1 }
   
@@ -66,7 +66,7 @@ module SemiStatic
     DISPLAY_ENTRY_SYM = DISPLAY_ENTRY.invert
 
     THEME = {
-      'tiles' => {:desktop => :panel, :mobile => :panel, :small => :small, :summary => :panel, :show => :big},
+      'tiles' => {:desktop => :panel, :mobile => :panel, :small => :small, :summary => :panel, :show => :panel},
       'menu-right' => {:desktop => :panel, :mobile => :panel, :small => :small, :summary => :medium, :show => :big},
       'standard-2col-1col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel},
       'bannerless' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel},
@@ -121,6 +121,25 @@ module SemiStatic
   
     def effective_tag_line
       tag_line || (banner.present? && banner.tag_line.present? ? banner.tag_line : nil )
+    end
+
+    def tidy_dup
+      new_entry = self.dup
+      new_entry.doc_delete = true
+      new_entry.img_delete = true
+      new_entry
+    end
+
+    def doc_delete=(val)
+      if val == '1' || val == true
+        self.doc.clear
+      end
+    end
+
+    def img_delete=(val)
+      if val == '1' || val == true
+        self.img.clear
+      end
     end
 
     def merged_main_entry_with_title

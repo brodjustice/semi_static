@@ -68,7 +68,7 @@
       @entry = Entry.new
       if params[:master].present?
         master = Entry.find(params[:master])
-        @entry = master.dup
+        @entry = master.tidy_dup
         @entry.master_entry = master
       elsif params[:newsletter]
         @newsletter = Newsletter.find(params[:newsletter])
