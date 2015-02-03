@@ -1,3 +1,4 @@
+.button= link_to 'Download Entry HTML', entry_path(@entry, :format => 'text'), :target => "_blank"
 - if @entry.seo.nil?
   .button= link_to 'Add SEO', new_entry_seo_path(@entry, :return => edit_entry_path(@entry)), :remote => true
 - else

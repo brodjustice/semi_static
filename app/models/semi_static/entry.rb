@@ -76,7 +76,6 @@ module SemiStatic
       'plain-big-banner-3col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel}
     }
 
-  
     default_scope order(:position)
     scope :additional_entries, lambda {|e| where('tag_id = ?', e.tag_id).where('id != ?', e.id)}
 
@@ -168,6 +167,10 @@ module SemiStatic
 
     def raw_title
       ActionController::Base.helpers.strip_tags(title.gsub(/&shy;/, ''))
+    end
+
+    def explicit_title
+      raw_title.blank? ? "-- #{self.merged_main_entry_with_title.raw_title} (#{self.position.to_s})" : raw_title
     end
 
     def raw_html=(val)

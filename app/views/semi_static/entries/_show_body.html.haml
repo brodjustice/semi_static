@@ -3,9 +3,9 @@
 - if @entry.show_entries?
   .section
     .col{:class => ('span_2_of_3 main-col' if @entry.side_bar)}
-      .panel.group{:class => @entry.style_class, :style => "background-color:#{@entry.background_colour}; color:#{@entry.colour}"}
+      %article.panel.group{:class => @entry.style_class, :style => "background-color:#{@entry.background_colour}; color:#{@entry.colour}"}
         = render :partial => 'entry', :locals => {:e => @entry, :style => :show}
-        = render :partial => 'photos' unless @entry.photos_including_master.blank?
+        = photo_thumbs(@entry)
     - if @entry.side_bar
       .col.span_1_of_3.side-bar
         = render :partial => 'semi_static/tags/side_bar', :locals => {:entrytag => @entry.tag}

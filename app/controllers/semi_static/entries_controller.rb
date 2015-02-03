@@ -56,6 +56,7 @@
       @seo = @entry.seo
   
       respond_to do |format|
+        format.text { render :partial => 'semi_static/entries/entry' }
         format.html { render :layout => 'semi_static_application' }
         format.json { render :json => @entry }
       end

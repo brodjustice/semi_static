@@ -5,7 +5,7 @@
   .center
     - unless @photo.entry.blank?
       .link
-        = link_to truncate(@photo.entry.title, :length => 32), entry_path(@photo.entry)
+        = link_to truncate(@photo.entry.raw_title, :length => 32), entry_path(@photo.entry)
     - else
       -# Dot below fixes odd webkit behaviour of empty divs with % widths
       = '.'

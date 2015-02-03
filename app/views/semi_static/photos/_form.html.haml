@@ -1,8 +1,18 @@
 - content_for :ujs do
   :javascript
+    function check_entry_link(){
+      if($('#photo_entry_id').val() == '') {
+        $('#entry_gallery_position').hide();
+      } else {
+        $('#entry_gallery_position').show();
+      }
+    }
+
     $(document).ready(function() {
       semi_static_file_name_input = $('#photo_title');
       $("#photo_img").on('change', semiStaticPrepareUploadFromInput);
+      check_entry_link();
+      $("#photo_entry_id").on('change', check_entry_link);
     });
 
 = form_for @photo do |f|
@@ -38,12 +48,29 @@
           = f.label :position
           %br/
           = f.text_field :position, :size => 10
+          #entry_gallery_position{:style => 'display: none;'}
+            %br/
+            .infobox#gallery_control_settings
+              %h4= 'Gallery Control settings'
+              %p
+                = 'If you want your image to display as a thumbnail at the bottom of your entry, then be sure '
+                = 'to link the photo to the main entry, and NOT to a merged entry. Any photos set to display'
+                = 'as  thunbnails and then linked to a merged entry will NOT be display as thumbnails at all'
+              %p
+                = 'If the gallery setting of your photo is'
+                %b= 'main,'
+                = 'then the photo WILL be displayed if it is attached to a merged entry'
+         
+            = f.label :gallery_control, 'Entry Gallery position', :class => 'infomarker'
+            %br/
+            = f.select :gallery_control, options_for_select(SemiStatic::Photo::GALLERY_SYM.collect{|k,v| [k.to_s.humanize, v]}, @photo.gallery_control.to_i)
+
         %fieldset
           = f.label :home_page
           = f.check_box :home_page
         %fieldset
           = f.label :entry_id, 'Entry link (optional)'
-          = f.select :entry_id, options_for_select(SemiStatic::Entry.all.collect{|e| [e.title, e.id]}.prepend(['- None -', nil]), @photo.entry_id)
+          = f.select :entry_id, options_for_select(SemiStatic::Entry.all.collect{|e| [e.explicit_title, e.id]}.prepend(['- None -', nil]), @photo.entry_id)
 
   .mid
     .actions

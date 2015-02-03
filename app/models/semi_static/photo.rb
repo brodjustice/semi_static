@@ -10,7 +10,7 @@ module SemiStatic
   
     belongs_to :entry
   
-    attr_accessible :title, :description, :img, :home_page, :position, :entry_id
+    attr_accessible :title, :description, :img, :home_page, :position, :entry_id, :gallery_control
     has_attached_file :img,
        :styles => {
          :micro=> "40x40#",
@@ -18,19 +18,27 @@ module SemiStatic
          :small=> "148x>",
          :thumb=> "180x180#",
          :bar=> "304x>",
+         :boxpanel=> "324x324#",
          :big=> "640x>"
        },
        :convert_options => { :micro => "-strip -gravity Center",
                              :mini => "-strip -gravity Center",
                              :small => "-strip",
                              :bar => "-strip -quality 80",
+                             :boxpanel => "-strip -quality 80 -gravity Center",
                              :thumb => "-strip -gravity Center -quality 80",
                              :big => "-strip"  }
 
     validates_attachment_content_type :img, :content_type => ['image/jpeg', 'image/png', 'image/gif']
+
+    GALLERY_SYM = { :thumbs_and_sidebar => 1, :main => 2, :sidebar_only => 3, :invisible => 4 }
+    GALLERY = GALLERY_SYM.invert
   
     default_scope order(:position, :entry_id, :id)
     scope :home, where('home_page = ?', true)
+    scope :thumb, where('gallery_control = ?', GALLERY_SYM[:thumbs_and_sidebar])
+    scope :main, where('gallery_control = ?', GALLERY_SYM[:main])
+    scope :sidebar, where('gallery_control=? OR gallery_control=?', GALLERY_SYM[:thumbs_and_sidebar], GALLERY_SYM[:sidebar_only])
 
     after_save :expire_site_page_cache, :build_ordered_array
     after_destroy :expire_site_page_cache, :build_ordered_array

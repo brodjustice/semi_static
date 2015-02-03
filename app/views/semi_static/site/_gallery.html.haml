@@ -1,4 +1,4 @@
-- unless (p = @entry.photos_including_master.limit(@entry.side_bar_gallery)).empty?
+- unless (p = @entry.photos_including_master.sidebar.limit(@entry.side_bar_gallery)).empty?
   .side_bar
     - p.each do |p|
       .panel.photo

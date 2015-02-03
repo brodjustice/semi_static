@@ -122,12 +122,20 @@ th{ text-align: left; }
   min-height: 78px;
 }
 
+/* Search results */
+tr.head{ border-top: 1px solid #b0b0b0; }
+tr.head h2 a{ color: $prime-color; }
+.head td, td.score{background-color: #f0f0f0;}
+td.score a{display: block;}
+tr td.result{text-align: left; background-color: white;}
+
 .fragment td{
-  border-bottom: 1px solid $prime-color;
   padding-bottom: 16px;
   margin-bottom: 26px;
   text-align: left;
 }
+
+
 h2 .label-highlight, .fragment .label-highlight{
   background-color: $prime-color;
   color: white;
@@ -138,6 +146,9 @@ h2 .label-highlight, .fragment .label-highlight{
   text-align: right;
   width: 10%;
 }
+/* End Search Results */
+
+
 .fcol{
   border-top: 1px solid #a8a8a8;
 }
