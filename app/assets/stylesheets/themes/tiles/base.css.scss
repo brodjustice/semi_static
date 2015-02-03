@@ -158,6 +158,10 @@ h2{ font-size: 20px;}
   color: #383838;
 }
 
+.tiles .span_1_of_2.wrapping{
+  z-index: 20;
+}
+
 /* Now better tiles for browsers that support vw and vh */
 .tiles .col{
   margin: 0vw;
