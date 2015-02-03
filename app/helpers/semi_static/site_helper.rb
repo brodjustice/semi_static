@@ -157,6 +157,12 @@ module SemiStatic
       (@seo && !@seo.keywords.blank?) ? @seo.keywords : t('keywords')
     end
 
+    def seo_no_index?
+      if @seo && @seo.no_index
+        '<Meta Name="ROBOTS" Content="NOINDEX, NOFOLLOW">'.html_safe
+      end
+    end
+
     def og_image_url
       request.protocol + request.host + (@entry && @entry.img.present? ? @entry.img_url_for_theme : SemiStatic::Engine.config.logo_image)
     end

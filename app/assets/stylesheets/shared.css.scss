@@ -29,6 +29,11 @@
   padding: 4px 4px 6px;
 }
 
+.floater{
+  position: relative;
+  z-index: 10;
+}
+
 #toTop{
   display: none;
 }

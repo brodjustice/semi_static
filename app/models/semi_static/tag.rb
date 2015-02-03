@@ -37,6 +37,7 @@ module SemiStatic
     after_commit :check_for_sprites_file
 
     def title; name end
+    def raw_title; name end
 
     def generate_slug
       self.slug = name.parameterize

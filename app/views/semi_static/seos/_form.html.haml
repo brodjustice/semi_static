@@ -22,6 +22,10 @@
     = f.label :description
     %br/
     = f.text_field :description
+  %fieldset
+    = f.label :no_index, 'Request that search engines do not index this page'
+    %br/
+    = f.check_box :no_index
   
   .actions
     = f.submit 'Save'

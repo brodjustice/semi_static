@@ -2,7 +2,7 @@
 - if @entry.seo.nil?
   .button= link_to 'Add SEO', new_entry_seo_path(@entry, :return => edit_entry_path(@entry)), :remote => true
 - else
-  .button= link_to 'Edit SEO', edit_entry_path(@entry.seo, :return => edit_entry_path(@entry)), :remote => true
+  .button= link_to 'Edit SEO', edit_seo_path(@entry.seo, :return => edit_entry_path(@entry)), :remote => true
 %h1
   = 'Editing'
   = @entry.title

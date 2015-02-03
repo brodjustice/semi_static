@@ -151,6 +151,10 @@ th{
   left: 0;
 }
 
+#dialog fieldset{
+  margin: 0; padding: 0;
+}
+
 #dialog{
   left: 0; right: 0;
   position: fixed;
@@ -164,12 +168,17 @@ th{
   border-radius: 2px;
   padding: 12px;
   z-index: 10000;
+  box-sizing: border-box;
 }
 
 #dialog.wide{
   max-width: 500px;
 }
 
+#dialog input[type='text']{
+  max-width: 88%;
+  margin: 0 auto;
+}
 #dialog.wide input[type='text']{
   width: 97%;
 }

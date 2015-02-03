@@ -8,6 +8,7 @@
       %meta{ :name => "keywords", :content => seo_keywords }/
     %meta{ :name => "rating", :content => "General" }/
     %meta{:name => 'viewport', :content => 'width=device-width, initial-scale=1.0'}/
+    = seo_no_index?
 
     -# Open Graph Meta Tags
     %meta{ :property => "og:title", :content => seo_title }/

@@ -2,7 +2,7 @@ module SemiStatic
   class Seo < ActiveRecord::Base
     include ExpireCache
 
-    attr_accessible :keywords, :title, :description
+    attr_accessible :keywords, :title, :description, :no_index
     belongs_to :seoable, polymorphic: true
 
     default_scope order('created_at DESC')
@@ -27,7 +27,7 @@ module SemiStatic
 
     def self.new_from_master(seoable)
       if seoable.seo.nil?
-        seo = seoable.seo = Seo.new(:title => seoable.title)
+        seo = seoable.seo = Seo.new(:title => seoable.raw_title)
         unless (master = Seo.where(:master => true).first).nil?
           seo.keywords = master.keywords
           seo.description = master.description
