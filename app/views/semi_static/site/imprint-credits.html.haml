@@ -4,14 +4,16 @@
   - elsif SemiStatic::Engine.config.contact_partial.try('present?')
     = render :partial => SemiStatic::Engine.config.contact_partial
   - else
+    .imprint
+      %p
+        = SemiStatic::Engine.config.copyright_owner
+        %br/
+      %p
+        = t('Email') + ':'
+        = mail_to SemiStatic::Engine.config.info_email, SemiStatic::Engine.config.info_email
+  .imprint
+    %h2 Credits
     %p
-      = SemiStatic::Engine.config.copyright_owner
-      %br/
-    %p
-      = t('Email') + ':'
-      = mail_to SemiStatic::Engine.config.info_email, SemiStatic::Engine.config.info_email
-  %h2 Credits
-  %p
-    = link_to 'Website', semi_static_path_for_sign_in, :rel => 'nofollow'
-    = 'by'
-    = link_to 'Business Landing Ltd.', 'http://business-landing.com'
+      = link_to 'Website', semi_static_path_for_sign_in, :rel => 'nofollow'
+      = 'by'
+      = link_to 'Business Landing Ltd.', 'http://business-landing.com'

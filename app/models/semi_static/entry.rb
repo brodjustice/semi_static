@@ -66,7 +66,7 @@ module SemiStatic
     DISPLAY_ENTRY_SYM = DISPLAY_ENTRY.invert
 
     THEME = {
-      'tiles' => {:desktop => :panel, :mobile => :panel, :small => :small, :summary => :panel, :show => :panel},
+      'tiles' => {:desktop => :panel, :mobile => :panel, :small => :small, :summary => :panel, :home => :tile, :show => :panel},
       'menu-right' => {:desktop => :panel, :mobile => :panel, :small => :small, :summary => :medium, :show => :big},
       'standard-2col-1col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel},
       'bannerless' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel},
