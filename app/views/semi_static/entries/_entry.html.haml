@@ -6,8 +6,8 @@
   - loop do
     - last_merged_entry = e
     = render :partial => 'semi_static/entries/entry_contents', :locals => {:style => style, :e => e }
-    = render :partial => 'semi_static/entries/document', :locals => {:e => e}  if e.doc.present? && ((style == :show) || ((style == :summary) && !e.truncate?))
     = photo_main(e)
+    = render :partial => 'semi_static/entries/document', :locals => {:e => e}  if e.doc.present? && ((style == :show) || ((style == :summary) && !e.truncate?))
     - break if (e = e.next_merged_entry).nil? || ((style == :summary) && entry.truncate?)
     .section
   - if ((style == :summary) && last_merged_entry.truncate?) || (style == :small)

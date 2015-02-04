@@ -1,5 +1,5 @@
 - unless e.youtube_id_str.blank?
-  %h1= link_to e.title, e, :style => "color: #{e.header_colour};"
+  %h1= link_to e.title, e, :style => "color: #{e.header_colour};" unless e.title.blank?
   = youtube_video(e.youtube_id_str)
 - if !e.image_disable && e.img.present?
   .col.span_1_of_2.floater
@@ -14,7 +14,7 @@
       = icon(e.tag) if e.youtube_id_str.blank?
       - if (style == :summary) || (style == :small)
         - if e.youtube_id_str.blank?
-          %h1= link_to e.title, e, :style => "color: #{e.header_colour};"
+          %h1= link_to e.title, e, :style => "color: #{e.header_colour};" unless e.title.blank?
         = entry_summary(e, e.summary_length)
       - else
         %h1{:style => "color: #{e.header_colour}"}= e.title
@@ -23,7 +23,7 @@
   .html
     = icon(e.tag) if e.youtube_id_str.blank?
     - if e.youtube_id_str.blank?
-      %h1= link_to e.title, e, :style => "color: #{e.header_colour};"
+      %h1= link_to e.title, e, :style => "color: #{e.header_colour};" unless e.title.blank?
     - if (style == :summary) || (style == :small)
       = entry_summary(e, e.summary_length)
     - else

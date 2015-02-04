@@ -35,23 +35,23 @@ module SemiStatic
     end
 
     def semantic_entry_image(e, style)
-      c = '<figure vocab = "http://schema.org/" typeof="ImageObject">'.html_safe
-      c += "<meta  property='name' content='#{e.raw_title}'>".html_safe
+      c = '<figure vocab = "http://schema.org/" typeof="ImageObject"> '.html_safe
+      c += "<meta  property='name' content='#{e.raw_title}'> ".html_safe
       c += image_tag(e.img_url_for_theme(style))
       unless e.image_caption.blank?
-        c += "<div class='caption'><figcaption class='caption-inner' property='description'>#{e.image_caption}</figcaption></div>".html_safe
+        c += "<figcaption class='caption'> <div class='caption-inner' property='description'>#{e.image_caption}</div> </figcaption> ".html_safe
       end
       c += '</figure>'.html_safe
     end
 
     def semantic_photo(p, style)
-      c = '<figure vocab = "http://schema.org/" typeof="ImageObject">'.html_safe
-      c += "<a href='#{photo_path(p)}' class='photo'>".html_safe
+      c = '<figure vocab = "http://schema.org/" typeof="ImageObject"> '.html_safe
+      c += "<a href='#{photo_path(p)}' class='photo'> ".html_safe
       c += "<h3 property='name'>#{p.title}</h3>".html_safe
       c += image_tag(p.img.url(style), :class => 'photo')
       c += '</a>'.html_safe
       unless p.description.blank?
-        c += "<div class='caption'><figcaption class='caption-inner' property='description'>#{simple_format(p.description)}</figcaption></div>".html_safe
+        c += "<figcaption class='caption'> <div class='caption-inner' property='description'>#{p.description}</div> </figcaption> ".html_safe
       end
       c += '</figure>'.html_safe
     end
