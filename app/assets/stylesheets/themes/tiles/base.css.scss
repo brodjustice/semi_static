@@ -4,12 +4,12 @@
 
 @-webkit-keyframes ticker {
   0%   { background-position: 0px 0px; }
-  100%   { background-position: -1024px 0px; }
+  100%   { background-position: -2048px 0px; }
 }
 
 @keyframes ticker {
   0%   { background-position: 0px 0px; }
-  100%   { background-position: -1024px 0px; }
+  100%   { background-position: -2048px 0px; }
 }
 
 @-webkit-keyframes grower {
@@ -290,13 +290,13 @@ h2{ font-size: 20px;}
     text-align: right;
 }
 #tagline{
-  animation: ticker 80s infinite linear;
-  -webkit-animation: ticker 80s infinite linear;
+  animation: ticker 160s infinite linear;
+  -webkit-animation: ticker 160s infinite linear;
   width: 100%;
   height: $ticker-height;
   text-align: right; margin: 0px; color: white; font-size: 30px;
   background: transparent url(/assets/ticker.png) 0 0 repeat-x;
-  background-size: $ticker-height $ticker-width;
+  background-size: $ticker-width $ticker-height;
   // If you want to play with CSS3 viewport widths:
   // font-size: 2.0vw !important;
 }
