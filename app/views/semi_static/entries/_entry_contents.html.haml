@@ -1,3 +1,4 @@
+-# TODO: Major refactor required
 - unless e.youtube_id_str.blank?
   - unless e.title.blank?
     %h1= link_to e.title, e, :style => "color: #{e.header_colour};"
@@ -19,7 +20,8 @@
             %h1= link_to e.title, e, :style => "color: #{e.header_colour};"
         = entry_summary(e, e.summary_length)
       - else
-        %h1{:style => "color: #{e.header_colour}"}= e.title
+        - unless e.title.blank?
+          %h1{:style => "color: #{e.header_colour}"}= e.title
         = e.body.html_safe
 - else
   .html
