@@ -11,8 +11,8 @@ module SemiStatic
     attr_accessible :position, :doc, :doc_description, :summary_length, :locale, :style_class, :header_colour, :background_colour, :colour
     attr_accessible :banner_id, :partial, :entry_position, :master_entry_id, :youtube_id_str
     attr_accessible :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_gallery, :unrestricted_html, :merge_with_previous, :raw_html
-    attr_accessible :facebook_share, :show_in_documents_tag, :image_caption, :tag_line
-    attr_accessor :raw_html, :doc_delete, :img_delete
+    attr_accessible :facebook_share, :show_in_documents_tag, :image_caption, :tag_line, :raw_html
+    attr_accessor :doc_delete, :img_delete
 
     settings index: { number_of_shards: 1, number_of_replicas: 1 }
   
@@ -190,12 +190,6 @@ module SemiStatic
 
     def explicit_title
       raw_title.blank? ? "-- #{self.merged_main_entry_with_title.raw_title} (#{self.position.to_s})" : raw_title
-    end
-
-    def raw_html=(val)
-      if val == ('1' || 'true' || true)
-        self.body = self.body
-      end
     end
 
     def youtube_id_str=(val)

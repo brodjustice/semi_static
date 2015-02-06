@@ -32,6 +32,8 @@
       = ObjectSpace.each_object(Sprockets::Environment).first.find_asset('semi-static.js').source.html_safe
       - if (theme_js = ObjectSpace.each_object(Sprockets::Environment).first.find_asset('theme.js'))
         = theme_js.source.html_safe
+      - if (home_theme_js = ObjectSpace.each_object(Sprockets::Environment).first.find_asset('home_theme.js'))
+        = home_theme_js.source.html_safe
 
     -# In the case of google analytics the async code must be in the head section in order that it
     -# can be validated for google webmaster tools

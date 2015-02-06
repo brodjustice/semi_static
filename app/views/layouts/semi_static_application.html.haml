@@ -22,7 +22,7 @@
 
     = render :partial => 'semi_static/shared/hosted_fonts'
 
-    = javascript_include_tag 'theme' unless ObjectSpace.each_object(Sprockets::Environment).first.find_asset('theme.js').source.empty?
+    = javascript_include_tag 'theme' unless ObjectSpace.each_object(Sprockets::Environment).first.find_asset('theme.js').blank?
     = stylesheet_link_tag 'semi_static_application', :media => 'all'
     %style{:type => "text/css"}
       = yield :header_css

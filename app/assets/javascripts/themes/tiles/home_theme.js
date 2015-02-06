@@ -20,7 +20,6 @@
       sel.offsetHeight; // no need to store this anywhere, the reference is enough
       sel.style.display='';
     }
-
     w.addEventListener( "orientationchange", semiStaticRepaint, false );
 
 })( this );
@@ -32,7 +31,7 @@ function semiStaticTilesLoading(){
       i = ++i % 10;
       el.innerHTML = '&#9609' + Array(i + 1).join('&#9609;');
   }, 600);
-  setInterval(function(){
+  setTimeout(function(){
     document.getElementById('menu').style.display='block';
     document.getElementById('menu').style.borderWidth='0';
     document.getElementById('menu-main').style.display='none';

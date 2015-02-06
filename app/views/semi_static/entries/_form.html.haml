@@ -155,6 +155,15 @@
           %span.infomarker
           = f.check_box :unrestricted_html
           = f.label :unrestricted_html
+          - if @entry.raw_html
+            .infobox#raw_html_check_box
+              %h4= 'Raw HTML'
+              %p
+                = 'Indicates that this entry has been previously saved in raw mode. If you untick this box then there is a risk that'
+                = 'certain HTML tags and attributes will be removed and your entry will not display as before.'
+            %span.infomarker
+            = f.check_box :raw_html
+            = f.label :raw_html
           .button
             = link_to 'HTML mode', edit_entry_path(@entry, :mode => :html), :remote => true
       %fieldset
