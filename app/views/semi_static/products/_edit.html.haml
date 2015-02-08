@@ -1,0 +1,4 @@
+.button= link_to_function 'Cancel', "$('#dialog').hide();"
+%h1= 'Editing product ' + @product.name.to_s
+
+= render 'form'

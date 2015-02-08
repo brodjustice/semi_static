@@ -49,6 +49,11 @@ en:
   currency: 'Currency'
   inventory_level: 'Inventory level'
 
+  devise:
+    sessions:
+      user:
+        signed_in: ''
+        signed_out: ''
 
   activerecord:
    errors:

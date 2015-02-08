@@ -50,6 +50,12 @@ de:
   inventory_level: 'Bestand'
 
 
+  devise:
+    sessions:
+      user:
+        signed_in: ''
+        signed_out: ''
+
   activerecord:
    errors:
      models:
