@@ -1,4 +1,4 @@
-= render :partial => 'semi_static/shared/custom_banner', :locals => {:banner_name => 'Documents'}
+= render :partial => 'semi_static/shared/custom_banner', :locals => {:banner_name => ['Documents', 'Default']}
 - if @tag && @tag.partial_before_entries?
   = render :partial => @tag.partial_path
 .section

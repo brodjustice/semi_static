@@ -1,4 +1,4 @@
-= render :partial => 'semi_static/shared/custom_banner', :locals => {:banner_name => 'Contact'}
+= render :partial => 'semi_static/shared/custom_banner', :locals => {:banner_name => ['Contact', 'Default']}
 - if SemiStatic::Engine.config.contact_partial.nil?
   .mid
     %h2= t('Contact_form')

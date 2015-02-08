@@ -1,4 +1,5 @@
 - banner_name ||= ''
+- banner_name.kind_of?(Array) ? banner_name.first : banner_name
 - if (banner = SemiStatic::Banner.find_by_name(banner_name)).present?
   - content_for :banner do
     #overlay-2
