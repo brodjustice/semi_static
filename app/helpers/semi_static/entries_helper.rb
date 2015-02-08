@@ -41,5 +41,23 @@ module SemiStatic
        }
        c.html_safe
     end
+
+    def semantic_product(e)
+      return unless e.product.present?
+      c = '<div class="product" vocab = "http://schema.org/" typeof="IndividualProduct"><table>'; p = e.product
+      %w(name description color height depth width weight price inventory_level).each{|prop|
+        if prop == 'price' && p.price.present?
+          c += "<tr property='offers'  typeof='Offer' class='row'><td>#{t('price')}: </td><td><span property='priceCurrency'>#{p.currency}</span><span property='price'>#{p.price}</span></td></tr>".html_safe
+        elsif p.send(prop).present?
+          c += "<tr class='row'><td>#{t(prop)}: </td><td><span property='#{prop}'>#{p.send(prop)}</span></td></tr>".html_safe
+        end
+      }
+      c += '</table>'
+      if p.entry.present?
+        c += "<div class='row'>Image: <br/><a property='image' href='#{p.entry.img.url(:big)}'>#{request.url + p.entry.img.url(:big)}</a></div>".html_safe
+      end
+      c += '</div>'
+      c.html_safe
+    end
   end
 end

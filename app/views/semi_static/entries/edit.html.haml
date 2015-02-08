@@ -1,4 +1,8 @@
 .button= link_to 'Download Entry HTML', entry_path(@entry, :format => 'text'), :target => "_blank"
+- if @entry.product.nil?
+  .button= link_to 'Add Product', new_entry_product_path(@entry, :return => edit_entry_path(@entry)), :remote => true
+- else
+  .button= link_to 'Edit product', edit_entry_product_path(@entry, @entry.product, :return => edit_entry_path(@entry)), :remote => true
 - if @entry.seo.nil?
   .button= link_to 'Add SEO', new_entry_seo_path(@entry, :return => edit_entry_path(@entry)), :remote => true
 - else

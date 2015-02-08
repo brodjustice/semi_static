@@ -37,6 +37,19 @@ de:
   contact:
     pre: 'Wenn Sie mit uns Kontakt aufnehmen möchten, senden Sie uns eine kurze Notiz, wir rufen Sie gerne zurück!'
 
+  # Product Properties
+  pname: 'Name'
+  description: 'Beschreibung'
+  color: 'Farbe'
+  height: 'Hohe'
+  depth: 'Tiefe'
+  width: 'Breite '
+  weight: 'Gewicht '
+  price: ' Preis'
+  currency: 'Währung'
+  inventory_level: 'Bestand'
+
+
   activerecord:
    errors:
      models:

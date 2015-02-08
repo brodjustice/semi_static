@@ -31,5 +31,8 @@
     = image_tag("/assets/file-types/#{entry.doc_mime_to_img}", :title => entry.doc_file_name) if entry.doc.present?
   %td{:class => ('warn' if (entry.locale != entry.tag.locale)), :title => ('Warning: locales do not match' if (entry.locale != entry.tag.locale))}
     = entry.locale.to_s
+  %td.tick
+    - if entry.product.present?
+      = link_to image_tag('tick.png', :title => 'Click to edit product'), edit_entry_product_path(entry, entry.product, :return => entries_path), :remote => true
   %td= link_to image_tag('/assets/page_copy.png', :title => "Use #{[entry.locale, ': ', entry.title].join} as master for new entry"), new_entry_path(:master => entry)
   %td= link_to image_tag('/assets/bin.png'), entry, :method => :delete, :data => { :confirm => 'Are you sure?' }

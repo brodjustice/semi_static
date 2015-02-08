@@ -15,7 +15,7 @@ h1{
   position: relative;
 }
 
-.button {
+#dashboard .button {
     background: none repeat scroll 0 0 white;
     border: 1px solid #a8a8a8;
     border-radius: 4px;
@@ -23,6 +23,7 @@ h1{
     float: right;
     padding: 3px;
     text-align: center;
+    margin-left: 6px;
 }
 
 .sidebar{

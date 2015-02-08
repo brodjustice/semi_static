@@ -10,6 +10,7 @@ SemiStatic::Engine.routes.draw do
   resources :entries do
     collection { get :search }
     resources :seos, :only => [:new, :create, :update]
+    resources :products, :except => [:index]
   end
 
   resources :tags, :except => :show do
@@ -32,6 +33,8 @@ SemiStatic::Engine.routes.draw do
   resources :newsletters do
     resources :newsletter_deliveries, :only => :index
   end
+
+  resources :products, :only => :index
   resources :newsletter_deliveries, :only => :update
   resources :subscribers
   resources :banners, :references, :photos

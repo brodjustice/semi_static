@@ -37,6 +37,18 @@ en:
   contact:
     pre: 'Send us a message, we will phone you back!'
 
+  # Product Properties
+  pname: 'Name'
+  description: 'Description'
+  color: 'Colour'
+  height: 'Height'
+  depth: 'Depth'
+  width: 'Width'
+  weight: 'Weight'
+  price: 'Price'
+  currency: 'Currency'
+  inventory_level: 'Inventory level'
+
 
   activerecord:
    errors:

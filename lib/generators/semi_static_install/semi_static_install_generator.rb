@@ -6,7 +6,7 @@ class SemiStaticInstallGenerator < Rails::Generators::Base
   GEMFILE_UNIQUE_ID = 'BL-SemiStatic-ct688G4zQ'
   MOUNT_ROUTE = 'mount SemiStatic::Engine, :at => "/"'
   DEVISE_SECRET_KEY = 'config.secret_key'
-  PRECOMPILE_ASSETS = 'semi_static_application.css semi_static_full.css semi_static_application.js semi_static_dashboard.js theme.js'
+  PRECOMPILE_ASSETS = 'semi_static_application.css semi_static_full.css semi_static_application.js semi_static_dashboard.js home_theme.js theme.js'
   CONFIG_ASSETS_PRECOMPILE = "config.assets.precompile += %w( #{PRECOMPILE_ASSETS} )"
   ASSET_IMAGE_DIRECTORIES = %w(banners x2 flags)
   DEVISE_FOR_GEMFILE = "gem 'devise'\n"

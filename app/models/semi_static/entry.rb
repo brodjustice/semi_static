@@ -32,6 +32,7 @@ module SemiStatic
     scope :for_documents_tag, where("show_in_documents_tag = ?", true)
   
     has_one :seo, :as => :seoable
+    has_one :product
     belongs_to :master_entry, :class_name => SemiStatic::Entry
     belongs_to :banner
     has_many :photos
