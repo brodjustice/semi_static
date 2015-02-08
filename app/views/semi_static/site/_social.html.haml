@@ -1,4 +1,4 @@
-- unless SemiStatic::Engine.config.twitterID.try('nil?') && SemiStatic::Engine.config.facebookID.try('nil?') && SemiStatic::Engine.config.youtubeChannel.try('nil?') && SemiStatic::Engine.config.xingID.try('nil?')
+- if SemiStatic::Engine.config.twitterID.try('present?') || SemiStatic::Engine.config.facebookID.try('present?') || SemiStatic::Engine.config.youtubeChannel.try('present?') || SemiStatic::Engine.config.xingID.try('present?')
   .social
     -unless SemiStatic::Engine.config.twitterID.nil?
       = link_to "https://twitter.com/#{SemiStatic::Engine.config.twitterID}" do
