@@ -287,6 +287,10 @@
               = f.label :side_bar_gallery, 'Number of gallery images to show'
               %br/
               = f.text_field :side_bar_gallery, :size => 10
+              %br/
+              = f.label :show_image_titles, 'Show titles on images that are inside the "main" entry'
+              %br/
+              = f.check_box :show_image_titles
         %h2 Facebook
         %fieldset
           = f.label :facebook_share, 'Display Facebook Share button'

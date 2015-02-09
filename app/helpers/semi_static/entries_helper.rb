@@ -34,7 +34,7 @@ module SemiStatic
          c += '<div class="group">'
          g.each{|p|
            c += '<div class="col span_1_of_2">'
-           p && (c+= semantic_photo(p, :boxpanel))
+           p && (c+= semantic_photo(p, :boxpanel, e.show_image_titles))
            c += '</div>'
          }
          c += '</div>'

@@ -44,10 +44,14 @@ module SemiStatic
       c += '</figure>'.html_safe
     end
 
-    def semantic_photo(p, style)
+    def semantic_photo(p, style, show_title = true)
       c = '<figure vocab = "http://schema.org/" typeof="ImageObject"> '.html_safe
       c += "<a href='#{photo_path(p)}' class='photo'> ".html_safe
-      c += "<h3 property='name'>#{p.title}</h3>".html_safe
+      if show_title
+        c += "<h3 property='name'>#{p.title}</h3>".html_safe
+      else
+        c += "<meta property='name' content='#{p.title}'/>".html_safe
+      end
       c += image_tag(p.img.url(style), :class => 'photo')
       c += '</a>'.html_safe
       unless p.description.blank?
