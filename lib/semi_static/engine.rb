@@ -5,6 +5,8 @@ require 'elasticsearch/rails'
 module SemiStatic
   class Engine < ::Rails::Engine
     require 'haml'
+    require 'jquery-ui-rails'
+
     isolate_namespace SemiStatic
     initializer "semi_static.assets.precompile" do |app|
       # There is no load path for coffescript like there is for SASS so we can only use the sprokets load path

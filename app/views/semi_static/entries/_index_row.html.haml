@@ -1,4 +1,4 @@
-%tr
+%tr{:id => "entry_id_#{entry.id.to_s}"}
   %td{:class => ('merge' if entry.merge_with_previous)}
     = link_to (entry.title.blank? ? '<No Title>' : entry.title), edit_entry_path(entry)
   %td
@@ -26,7 +26,8 @@
       = link_to image_tag('/assets/application_form_edit.png', :title => "Edit SEO meta tags"), edit_seo_path(entry.seo, :return => entries_path), :remote => true
   %td
     = link_to image_tag('tick.png', :title => 'YouTube Video'), "http://youtu.be/#{entry.youtube_id_str}" unless entry.youtube_id_str.blank?
-  %td.number= entry.photos.count.to_s
+  %td.number
+    = link_to entry.photos.count.to_s, entry_photos_path(entry), :remote => true
   %td.tick
     = image_tag("/assets/file-types/#{entry.doc_mime_to_img}", :title => entry.doc_file_name) if entry.doc.present?
   %td{:class => ('warn' if (entry.locale != entry.tag.locale)), :title => ('Warning: locales do not match' if (entry.locale != entry.tag.locale))}

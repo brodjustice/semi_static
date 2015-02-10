@@ -15,3 +15,4 @@
 //= require semi-static.js
 //= require semi_static_admin.js
 //= require jquery-te-1.4.0.min.js
+//= require jquery-ui

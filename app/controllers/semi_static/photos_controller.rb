@@ -13,16 +13,22 @@ module SemiStatic
     # GET /photos
     # GET /photos.json
     def index
-      @photos = Photo.all
-      @photo = @photos.first
-      @selection = 'Gallery'
-      @tag, @seo = Seo.photos(params[:tag_id], I18n.locale) 
+      if params[:entry_id].present?
+        @entry = Entry.find(params[:entry_id])
+        @photos = @entry.photos
+      else
+        @photos = Photo.all
+        @photo = @photos.first
+        @selection = 'Gallery'
+        @tag, @seo = Seo.photos(params[:tag_id], I18n.locale) 
+      end
   
       layout = (semi_static_admin? ? 'semi_static_dashboards' : 'semi_static_application')
       template = (semi_static_admin? ? 'semi_static/photos/admin_index' : 'semi_static/photos/index')
   
       respond_to do |format|
         format.html { render :template => template, :layout => layout }
+        format.js { render :template => 'semi_static/photos/admin_entry_photos' }
       end
     end
   

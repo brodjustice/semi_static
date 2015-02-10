@@ -11,6 +11,7 @@ SemiStatic::Engine.routes.draw do
     collection { get :search }
     resources :seos, :only => [:new, :create, :update]
     resources :products, :except => [:index]
+    resources :photos, :only => :index
   end
 
   resources :tags, :except => :show do

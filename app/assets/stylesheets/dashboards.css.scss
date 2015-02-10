@@ -170,6 +170,9 @@ th{
   padding: 12px;
   z-index: 10000;
   box-sizing: border-box;
+  max-height: 90%;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 #dialog.wide{
@@ -185,8 +188,8 @@ th{
 }
 
 #dialog.entry.preview{
-  width: 669px;
-  max-width: none;
+  max-width: 692px;
+  width: 692px;
   top: 3px;
 }
 
