@@ -31,6 +31,8 @@
 
     %link{:rel => 'shortcut icon', :href => '/assets/favicon.ico'}
   %body
+    #dialog{:style => 'display: none;'}
+      #dialog-inner
     #body-inner
       = render :partial => 'semi_static/shared/application_body'
       = render :partial => 'semi_static/shared/footer'
