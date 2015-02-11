@@ -33,6 +33,7 @@ module SemiStatic
     # These things should never happen, but sometimes on a development system they will
     def self.clean_up(*args)
       Entry.all{|e| e.destroy if e.tag.nil?}
+      Product.all{|p| p.destroy if p.entry.nil?}
     end
 
     # Restart passenger app server (if used)
