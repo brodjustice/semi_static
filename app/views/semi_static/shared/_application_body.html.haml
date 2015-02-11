@@ -3,11 +3,6 @@
 = render :partial => 'semi_static/shared/overlay'
 #frame
   #container
-    - unless flash.blank?
-      #notice
-        = flash[:alert]
-        = flash[:error]
-        = flash[:notice]
     #dialog{:style => 'display: none;'}
     #content
       =yield
