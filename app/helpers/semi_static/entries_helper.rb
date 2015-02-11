@@ -13,6 +13,14 @@ module SemiStatic
       s.sub(/\.?0*$/, units[e])
     end
 
+    def entry_link_path(e)
+      if e.link_to_tag
+        feature_path(e.tag.slug)
+      else
+        entry_path(e)
+      end
+    end
+
     # Warning. If you remove the single space between <div ...> and <div ...> such that it is <div ...><div ...> you will get a
     # different layout. This is true for FF and Chrome. Maybe my basic HTML knowledge is poor, but I have no idea why this
     # space should make any difference

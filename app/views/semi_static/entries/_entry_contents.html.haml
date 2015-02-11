@@ -1,13 +1,13 @@
 -# TODO: Major refactor required
 - unless e.youtube_id_str.blank?
   - unless e.title.blank?
-    %h1= link_to e.title, e, :style => "color: #{e.header_colour};"
+    %h1= link_to e.title, entry_link_path(e), :style => "color: #{e.header_colour};"
   = youtube_video(e.youtube_id_str)
 - if !e.image_disable && e.img.present?
   .col.span_1_of_2.floater
     .img
       - if (style == :summary) || (style == :small)
-        = link_to entry_path(e) do
+        = link_to entry_link_path(e) do
           = semantic_entry_image(e, style)
       - else
         = semantic_entry_image(e, style)
@@ -17,7 +17,7 @@
       - if (style == :summary) || (style == :small)
         - if e.youtube_id_str.blank?
           - unless e.title.blank?
-            %h1= link_to e.title, e, :style => "color: #{e.header_colour};"
+            %h1= link_to e.title, entry_link_path(e), :style => "color: #{e.header_colour};"
         = entry_summary(e, e.summary_length)
       - else
         - unless e.title.blank?
@@ -30,7 +30,7 @@
     = icon(e.tag) if e.youtube_id_str.blank?
     - if e.youtube_id_str.blank?
       - unless e.title.blank?
-        %h1= link_to e.title, e, :style => "color: #{e.header_colour};"
+        %h1= link_to e.title, entry_link_path(e), :style => "color: #{e.header_colour};"
     - if (style == :summary) || (style == :small)
       = entry_summary(e, e.summary_length)
     - else

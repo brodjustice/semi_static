@@ -10,7 +10,7 @@
     - break if (e = e.next_merged_entry).nil? || ((style == :summary) && entry.truncate?)
     .section
   - if ((style == :summary) && last_merged_entry.truncate?) || (style == :small)
-    .more= link_to t(:more), entry_path(entry)
+    .more= link_to t(:more), entry_link_path(entry)
   - elsif entry.facebook_share
     .button
       = link_to 'Share',  "https://www.facebook.com/sharer/sharer.php?u=#{request.url}", :class => 'fb-share'
