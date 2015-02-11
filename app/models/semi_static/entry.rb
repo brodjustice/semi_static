@@ -9,7 +9,7 @@ module SemiStatic
   
     attr_accessible :title, :body, :tag_id, :home_page, :summary, :img, :news_item, :image_in_news, :image_disable
     attr_accessible :position, :doc, :doc_description, :summary_length, :locale, :style_class, :header_colour, :background_colour, :colour
-    attr_accessible :banner_id, :partial, :entry_position, :master_entry_id, :youtube_id_str
+    attr_accessible :banner_id, :partial, :entry_position, :master_entry_id, :youtube_id_str, :use_as_news_summary
     attr_accessible :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_gallery, :unrestricted_html, :merge_with_previous, :raw_html
     attr_accessible :facebook_share, :show_in_documents_tag, :image_caption, :tag_line, :raw_html, :show_image_titles
     attr_accessor :doc_delete, :img_delete

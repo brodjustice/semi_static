@@ -171,6 +171,9 @@
         %br/
         = f.text_area :summary, :rows => '8'
         %br/
+        = f.label :use_as_news_summary
+        = f.check_box :use_as_news_summary
+      %fieldset
         .infobox#summary_box
           %h4= 'Summary length'
           %p
