@@ -54,7 +54,7 @@ module SemiStatic
       }
       c += '</table>'
       if p.entry.present?
-        c += "<div class='row'>Image URL: <a property='image' href='#{p.entry.img.url(:big)}'>#{request.url + p.entry.img.url(:big)}</a></div>".html_safe
+        c += "<div class='group row'>Image URL: <a property='image' href='#{p.entry.img.url(:big)}'>#{request.url + p.entry.img.url(:big)}</a></div>".html_safe
       end
       c += '</div>'
       c.html_safe
