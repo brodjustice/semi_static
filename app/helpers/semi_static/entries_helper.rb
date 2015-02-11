@@ -14,7 +14,7 @@ module SemiStatic
     end
 
     def entry_link_path(e)
-      if e.link_to_tag
+      if e.link_to_tag && (controller_name != 'tags')
         feature_path(e.tag.slug)
       else
         entry_path(e)

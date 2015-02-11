@@ -1,6 +1,7 @@
 .news
   %h2= t('News')
-  - SemiStatic::Entry.news.not(@entry).limit(20).locale(I18n.locale).each do |e|
+  - SemiStatic::Entry.news.limit(20).locale(I18n.locale).each do |e|
+    - next if e == @entry && !e.use_as_news_summary
     .panel
       - if e.summary_length >= 0
         %h3= link_to e.title, semi_static.entry_path(e)
