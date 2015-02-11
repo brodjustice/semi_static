@@ -88,6 +88,14 @@ th{ text-align: left; }
   min-height: 78px;
 }
 
+.product table{
+  display: inline-table;
+}
+.product .row a{
+  font-size: 12px;
+  float: right;
+}
+
 .fragment td{
   border-bottom: 1px solid $prime-color;
   padding-bottom: 16px;

@@ -30,6 +30,7 @@ module SemiStatic
     end
 
     def authenticate_for_semi_static!
+      session[:user_intended_url] = url_for(params)
       if defined?(CanCan)
         #
         # Not worth checking the CanCan abilities, but if you did it would be like:
