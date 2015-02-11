@@ -23,6 +23,7 @@
         - unless e.title.blank?
           %h1{:style => "color: #{e.header_colour}"}= e.title
         = e.body.html_safe
+        = photo_main(e)
         = semantic_product(e)
 - else
   .html
@@ -34,4 +35,5 @@
       = entry_summary(e, e.summary_length)
     - else
       = e.body.html_safe
+      = photo_main(e)
       = semantic_product(e)

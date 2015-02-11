@@ -29,7 +29,7 @@ module SemiStatic
 
     def photo_main(e)
        return if (photos = e.photos_including_master.main).empty?
-       c = ''
+       c = "<div class='section'>"
        photos.in_groups_of(2).each{|g|
          c += '<div class="group">'
          g.each{|p|
@@ -39,6 +39,7 @@ module SemiStatic
          }
          c += '</div>'
        }
+       c += '</div>'
        c.html_safe
     end
 
