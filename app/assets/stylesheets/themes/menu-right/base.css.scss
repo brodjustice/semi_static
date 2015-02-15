@@ -21,7 +21,7 @@
 html { overflow-y: scroll;}
 body{
   // background-color: $secondary-color; 
-  background-color: #f0f0f0; 
+  background-color: white; 
   margin: 0px;
   font:16px 'Raleway', 'Ubuntu', Arial, Verdana, Helvetica, sans-serif;
   color: $font-color;
@@ -67,8 +67,7 @@ h2{ font-size: 20px;}
   position: relative;
 }
 
-#banner{ width: 100%; position: relative; margin: 0 0 12px; z-index: -1; max-height: 500px; overflow: hidden;}
-#banner img{width: 100%;}
+#banner{ background-color: white; width: 100%; position: relative; margin: 0 0 12px; z-index: -1; max-height: 500px; overflow: hidden;}
 
 #logo-wrapper{
   position: fixed;
@@ -202,6 +201,7 @@ h2{ font-size: 20px;}
 
 .skrollr-holder{
   margin: 0 auto;
+  text-align: center;
 }
 
 .section.row_0{

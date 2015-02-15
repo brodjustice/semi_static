@@ -24,7 +24,7 @@ module SemiStatic
                     :entry => "900x500#",
                     :mobile => "750x300#",
                     :parallax => "1000x>",
-                    :desktopy500 => "1500x500#",
+                    :desktopy500 => "1500x500>",
                     :mobiley500 => "750x500#" },
        :convert_options => { :desktop => "-strip -gravity Center -quality 80",
                              :entry => "-strip -gravity Center -quality 85" ,
