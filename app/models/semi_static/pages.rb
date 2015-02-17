@@ -14,7 +14,7 @@ module SemiStatic
     end
 
     def xml_priority
-      seo ? (seo.priority/10).to_s : '0.5'
+      seo ? (seo.priority.to_f/10).to_s : '0.5'
     end
 
     # This need improving, for example we should go through all the entries
