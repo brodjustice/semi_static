@@ -21,7 +21,7 @@ module SemiStatic
       self.send(cmd)
     end
   
-    def self.search_reindex(param)
+    def self.search_reindex(*args)
       if search_daemon_running?
         Entry.import
         Photo.import
@@ -59,9 +59,9 @@ module SemiStatic
       $?.success?
     end
   
-    def self.expire_cache(type)
+    def self.expire_cache(*args)
       # We ignore type for now and expire everything
-      ExpireCache.expire_site_page_cache
+      Pages.expire_site_page_cache
     end
 
     def self.search_daemon(state)
