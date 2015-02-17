@@ -1,7 +1,7 @@
 module SemiStatic
   class Photo < ActiveRecord::Base
 
-    include ExpireCache
+    include Pages
     include Elasticsearch
     include Elasticsearch::Model
     include Elasticsearch::Model::Callbacks
@@ -9,6 +9,7 @@ module SemiStatic
     index_name SemiStatic::Engine.config.site_name.gsub(/( )/, '_').downcase
   
     belongs_to :entry
+    has_one :seo, :as => :seoable
   
     attr_accessible :title, :description, :img, :home_page, :position, :entry_id, :gallery_control
     has_attached_file :img,
@@ -99,6 +100,14 @@ module SemiStatic
       )
     end
   
+    def locale
+      nil
+    end
+
+    def raw_title
+      title
+    end
+
     # To create SEO friendly urls
     def to_param
       "#{id} #{title}".parameterize

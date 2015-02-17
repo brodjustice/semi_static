@@ -6,6 +6,7 @@
     %th Entry Link
     %th{:colspan => 2} Position
     %th Home Page
+    %th SEO
     %th
 
   - @photos.each do |p|
@@ -21,4 +22,9 @@
       %td= SemiStatic::Photo::GALLERY[p.gallery_control].to_s.humanize
       %td.tick
         = image_tag('/assets/tick.png') if p.home_page
+      %td.tick
+        - if p.seo.nil?
+          = link_to image_tag('/assets/add.png', :title => "Add SEO meta tags"), new_photo_seo_path(p, :return => photos_path), :remote => true
+        - else
+          = link_to image_tag('/assets/application_form_edit.png', :title => "Edit SEO meta tags"), edit_seo_path(p.seo, :return => photos_path), :remote => true
       %td= link_to image_tag('/assets/bin.png'), photo_path(p), :method => :delete, :data => { :confirm => 'Are you sure?' }

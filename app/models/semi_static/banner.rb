@@ -1,6 +1,6 @@
 module SemiStatic
   class Banner < ActiveRecord::Base
-    include ExpireCache
+    include Pages
 
     attr_accessible :name, :tag_line, :img
 

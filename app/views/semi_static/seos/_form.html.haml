@@ -10,22 +10,51 @@
           %li= msg
 
   = hidden_field_tag :return, @return
-  %fieldset
-    = f.label :title
-    %br/
-    = f.text_field :title
-  %fieldset
-    = f.label :keywords, '5-10 keywords seperated by commas. If you are unsure about your keywords, it will be best to leave this blank'
-    %br/
-    = f.text_field :keywords
-  %fieldset
-    = f.label :description
-    %br/
-    = f.text_field :description
-  %fieldset
-    = f.label :no_index, 'Request that search engines do not index this page'
-    %br/
-    = f.check_box :no_index
+  .group
+    .col.span_1_of_2
+      %h2 Meta tags
+      %fieldset
+        = f.label :title
+        %br/
+        = f.text_field :title
+        %br/
+        %br/
+      %fieldset
+        = f.label :keywords, '5-10 keywords seperated by commas. If you are unsure about your keywords, it will be best to leave this blank'
+        %br/
+        = f.text_field :keywords
+        %br/
+        %br/
+      %fieldset
+        = f.label :description
+        %br/
+        = f.text_area :description, :rows => 5
+        %br/
+        %br/
+      %fieldset
+        = f.label :no_index, 'Request that search engines do not index this page'
+        %br/
+        = f.check_box :no_index
+    .col.span_1_of_2
+      %h2 Sitemap
+      %fieldset
+        = f.label :changefreq, 'Change Frequency'
+        = f.select :changefreq, options_for_select(SemiStatic::Seo::CHANGE_FREQ.each{|k, v| [k.to_s.humanize, v]}, @seo.changefreq)
+        %br/
+        %br/
+      %fieldset
+        = f.label :priority, 'Crawler Priority (0 to 10)'
+        = f.text_field :priority
+        %br/
+        %br/
+      %fieldset
+        = f.label :include_in_sitemap
+        = f.check_box :include_in_sitemap
+      %p
+        = 'Last update'
+        %br/
+        = @seo.seoable.updated_at.strftime('%d/%b/%y %H:%M')
+        
   
   .actions
     = f.submit 'Save'

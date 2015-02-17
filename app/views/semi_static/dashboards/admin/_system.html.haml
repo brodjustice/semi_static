@@ -20,27 +20,55 @@
       $('#pixelRatio').text(window.devicePixelRatio.toString());
     });
 
-.mid
-  .panel
-    %h4= 'Search Daemon'
-    #search_daemon_switch
-      = render :partial => 'semi_static/system/search_daemon'
-  .panel
-    %h4= 'Search Index'
-    #search_reindex_result
-    = link_to 'Reindex now', system_path(:cmd => {:search_reindex => :all}), :method => :put, :remote => true
-  .panel
-    %h4= 'Expire Cache'
-    #expire_cache
-    = link_to 'Expire cache now', system_path(:cmd => {:expire_cache => :all}), :method => :put, :remote => true
-  .panel
-    %h4= 'Restart Passenger App Server (if used)'
-    #passenger_restart
-    = link_to 'Restart now', system_path(:cmd => {:passenger_restart => :all}), :method => :put, :remote => true
-  .panel
-    %h4= 'Clean up possible errors'
-    #clean_up
-    = link_to 'Clean up now', system_path(:cmd => {:clean_up => :all}), :method => :put, :remote => true
+.dashboard
+  .group
+    .col.span_1_of_2
+      .panel
+        %h4= 'Search Daemon'
+        #search_daemon_switch
+          = render :partial => 'semi_static/system/search_daemon'
+    .col.span_1_of_2
+      .panel
+        %h4= 'Search Index'
+        #search_reindex_result
+        = link_to 'Reindex now', system_path(:cmd => {:search_reindex => :all}), :method => :put, :remote => true
+  .group
+    .col.span_1_of_2
+      .panel
+        %h4= 'Expire Cache'
+        #expire_cache
+        = link_to 'Expire cache now', system_path(:cmd => {:expire_cache => :all}), :method => :put, :remote => true
+    .col.span_1_of_2
+      .panel
+        %h4= 'Restart Passenger App Server (if used)'
+        #passenger_restart
+        = link_to 'Restart now', system_path(:cmd => {:passenger_restart => :all}), :method => :put, :remote => true
+  .group
+    .col.span_1_of_2
+      .panel
+        .infobox#word_break_entry_title
+          %h4= 'Generate a sitemap sutable for submission to Google, Bing, etc.'
+          %p
+            = 'Some words of warning'
+          %p
+            = 'If you submit a sitemap you then face the challange of generating a new site map and submitting it every time that you make'
+            = 'a change.'
+          %p
+            = 'You should always manually check the site map before submission. Errors in the sitemap could seriously hurt your search'
+            = 'engine rankings'
+          %p
+            = 'This will NOT generate ULRs in the sitemap for predefined tags unless they have actaully been allocated to a '
+            = 'real tag. So if you are manually using something like http://mysite.com/photos, this will not be included in'
+            = 'your site map unless it has been allocated to a real tag, eg. a tag called "Photos" that uses the pre-defined tag "Gallery".'
+        %h4.infomarker= 'Sitemaps'
+        #generate_sitemap
+        - SemiStatic::Engine.config.localeDomains.each do |k, v|
+          = link_to "Generate for #{v}", system_path(:format => :xml, :cmd => {:generate_sitemap => :all}, :locale => k), :method => :put
+    .col.span_1_of_2
+      .panel
+        %h4= 'Clean up possible errors'
+        #clean_up
+        = link_to 'Clean up now', system_path(:cmd => {:clean_up => :all}), :method => :put, :remote => true
   %div{:style => 'font-size: 10px; text-align: right;'}
     = 'Device pixel ratio = '
     %span#pixelRatio{:style => 'font-size: 10px; text-align: right;'}

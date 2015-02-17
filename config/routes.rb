@@ -35,10 +35,14 @@ SemiStatic::Engine.routes.draw do
     resources :newsletter_deliveries, :only => :index
   end
 
+  resources :photos do
+    resources :seos, :only => [:new, :create, :update]
+  end
+
   resources :products, :only => :index
   resources :newsletter_deliveries, :only => :update
   resources :subscribers
-  resources :banners, :references, :photos
+  resources :banners, :references
   resources :seos, :except => [:new, :create, :update]
   resources :agreements
   resources :contacts, :except => [:edit, :update]

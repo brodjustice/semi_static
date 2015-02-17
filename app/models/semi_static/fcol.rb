@@ -1,6 +1,6 @@
 module SemiStatic
   class Fcol < ActiveRecord::Base
-    include ExpireCache
+    include Pages
   
     ALLOWED_TAGS= %w(span br em b ul ol li a div p img hr)
     ALLOWED_ATTRIBUTES= %w(href style id align src alt)

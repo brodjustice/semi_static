@@ -26,6 +26,21 @@ module SemiStatic
       end
     end
 
+    def construct_url(p, l)
+      host = URI.parse(SemiStatic::Engine.config.localeDomains[l]).host
+      if p.kind_of?(Tag)
+        if p.predefined_class.present?
+          SemiStatic::Engine.config.localeDomains[l] + PREDEFINED[p.predefined_class]
+        else
+          SemiStatic::Engine.routes.url_for(:controller => p.class.to_s.underscore.pluralize, :action => 'show', :slug => p.slug, :host => host)
+        end
+      elsif p.kind_of?(String)
+        SemiStatic::Engine.config.localeDomains[l] + p
+      else
+        SemiStatic::Engine.routes.url_for(:controller => p.class.to_s.underscore.pluralize, :action => 'show', :id => p.to_param, :host => host)
+      end
+    end
+
     def entry_summary(e, l = 300, news = false)
       if e.summary.blank? || (!news && e.use_as_news_summary)
         truncate_html(e.body, :length => l) unless (l < 1)

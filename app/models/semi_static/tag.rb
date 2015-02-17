@@ -1,7 +1,7 @@
 module SemiStatic
   class Tag < ActiveRecord::Base
   
-    include ExpireCache
+    include Pages
     include PartialControl
   
     attr_accessible :name, :menu, :position, :icon, :icon_in_menu, :icon_delete, :sidebar_title

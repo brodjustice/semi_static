@@ -7,7 +7,7 @@ module SemiStatic
     include ActiveModel::Conversion
     extend ActiveModel::Naming
   
-    include ExpireCache
+    include Pages
   
     ES_BIN = '/usr/share/elasticsearch/bin/elasticsearch'
     ES_PID_DIR = '/tmp/pids'
@@ -28,6 +28,16 @@ module SemiStatic
       else
         false
       end
+    end
+
+    def self.generate_sitemap(*args)
+      l = args.last
+      pages = ['/site/imprint']
+      pages.concat(Tag.locale(l).select{|i| i.sitemappable })
+      pages.concat(Entry.locale(l).select{|i| i.sitemappable })
+      pages.concat(Photo.all.select{|i| i.sitemappable })
+      pages.concat(Reference.all.select{|i| i.sitemappable })
+      pages
     end
 
     # These things should never happen, but sometimes on a development system they will

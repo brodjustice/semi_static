@@ -1,9 +1,35 @@
 module SemiStatic
-  module ExpireCache
+  module Pages
+
     def expire_site_page_cache
-      ExpireCache.expire_site_page_cache
+      Pages.expire_site_page_cache
     end
-  
+
+    def sitemappable
+      self.seo.nil? || (!self.seo.no_index && self.seo.include_in_sitemap)
+    end
+
+    def xml_changefreq
+      self.seo && SemiStatic::Seo::CHANGE_FREQ_SYMS[self.seo.changefreq] != :unknown && SemiStatic::Seo::CHANGE_FREQ_SYMS[self.seo.changefreq].to_s.downcase
+    end
+
+    def xml_priority
+      seo ? (seo.priority/10).to_s : '0.5'
+    end
+
+    # This need improving, for example we should go through all the entries
+    # with 'home' set and find the latest up date, or wher the 'home'
+    # was unset, etc. This is not even considering predefined tags that
+    # have been added in the config. Sort of complex so we just return nil for now
+    
+    def xml_update
+      if self.kind_of?(Tag) && self.predefined_class.present?
+        nil
+      else
+        self.updated_at
+      end
+    end
+
     def self.expire_site_page_cache
       # Generally the whole site controller is made up of dynamic elements
       # that really change. This means we can use the page_cache, and just

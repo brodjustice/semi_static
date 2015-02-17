@@ -1,6 +1,6 @@
 module SemiStatic
   class Entry < ActiveRecord::Base
-    include ExpireCache
+    include Pages
     include PartialControl
     include Elasticsearch::Model
     include Elasticsearch::Model::Callbacks
