@@ -1,6 +1,6 @@
 module SemiStatic
   class Link < ActiveRecord::Base
-    include ExpireCache
+    include Pages
 
     attr_accessible :name, :position, :url, :new_window
 
