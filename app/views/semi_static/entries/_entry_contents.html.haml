@@ -5,12 +5,7 @@
   = youtube_video(e.youtube_id_str)
 - if !e.image_disable && e.img.present?
   .col.span_1_of_2.floater
-    .img
-      - if (style == :summary) || (style == :small)
-        = link_to entry_link_path(e) do
-          = semantic_entry_image(e, style)
-      - else
-        = semantic_entry_image(e, style)
+    = render :partial => 'semi_static/entries/image', :locals => {:e => e, :style => style}
   .col.span_1_of_2.wrapping
     .html
       = icon(e.tag) if e.youtube_id_str.blank?

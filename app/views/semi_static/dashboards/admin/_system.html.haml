@@ -62,8 +62,9 @@
             = 'your site map unless it has been allocated to a real tag, eg. a tag called "Photos" that uses the pre-defined tag "Gallery".'
         %h4.infomarker= 'Sitemaps'
         #generate_sitemap
-        - SemiStatic::Engine.config.localeDomains.each do |k, v|
-          = link_to "Generate for #{v}", system_path(:format => :xml, :cmd => {:generate_sitemap => :all}, :locale => k), :method => :put
+        %ul
+          - SemiStatic::Engine.config.localeDomains.each do |k, v|
+            %li= link_to "Generate for #{v}", system_path(:format => :xml, :cmd => {:generate_sitemap => :all}, :locale => k), :method => :put
     .col.span_1_of_2
       .panel
         %h4= 'Clean up possible errors'

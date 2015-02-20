@@ -34,7 +34,7 @@ module SemiStatic
       l = args.last
       pages = ['/site/imprint']
       pages.concat(Tag.locale(l).select{|i| i.sitemappable })
-      pages.concat(Entry.locale(l).select{|i| i.sitemappable })
+      pages.concat(Entry.unmerged.locale(l).select{|i| i.sitemappable })
       pages.concat(Photo.all.select{|i| i.sitemappable })
       pages.concat(Reference.all.select{|i| i.sitemappable })
       pages

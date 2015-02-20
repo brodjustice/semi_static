@@ -34,6 +34,14 @@
       }
     }
 
+    function check_image_controls(){
+      if($('#semi_static_entry_image img').attr('title') == 'Placeholder'){
+        $('#semi_static_entry_image_control').hide();
+      } else {
+        $('#semi_static_entry_image_control').show();
+      }
+    }
+
     function entry_preview(){
       var valuesToSubmit = $('form').serialize();
       $.ajax({
@@ -57,6 +65,12 @@
       $('#entry_partial').change(function() { check_entry_partial(); });
       $('#entry_entry_position').change(function() { check_entry_partial(); });
       $("#entry_img").on('change', semiStaticPrepareUploadFromInput);
+      check_image_controls();
+
+      $('#semi_static_image_for_upload').on('load', function () {
+        check_image_controls();
+      });
+
     });
 
 = form_for @entry do |f|
@@ -194,15 +208,15 @@
         = f.text_field :summary_length, :size => 10
     
       %h2= 'Image (optional)'
-      %fieldset.entry.semi_static_entry_main_content
+      %fieldset.entry.semi_static_entry_main_content#semi_static_entry_image
         - if @entry.img.present?
           = image_tag(@entry.img.url(:panel), :title => @entry.title, :class => 'ri', :id => 'semi_static_image_for_upload')
-          %br/
+        - else
+          = image_tag('/assets/no-image-loaded.jpg', :title => 'Placeholder', :class => 'ri', :id => 'semi_static_image_for_upload')
+        #semi_static_entry_image_control
           = f.label :image_disable, 'Disable display of image and caption in entry'
           = f.check_box :image_disable
           %br/
-        - else
-          = image_tag('/assets/no-image-loaded.jpg', :title => 'No image', :class => 'ri', :id => 'semi_static_image_for_upload')
         %br/
         = f.label :img, 'Image (optional, will be resized)'
         %br/

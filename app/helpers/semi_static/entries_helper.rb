@@ -25,7 +25,7 @@ module SemiStatic
     # different layout. This is true for FF and Chrome. Maybe my basic HTML knowledge is poor, but I have no idea why this
     # space should make any difference
     def photo_thumbs(e)
-       return if (photos = e.photos_including_master.thumb).empty?
+       return if e.nil? || (photos = e.photos_including_master.thumb).empty?
        c = "<div class='gallery doc'> <div class='spacer_wrapper'> ".html_safe
        photos.each{|p|
          c += "<div class='photo nutshell'> <div class='spaced'> ".html_safe
