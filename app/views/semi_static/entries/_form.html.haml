@@ -140,19 +140,6 @@
         %br/
         = f.select :partial, options_for_select(SemiStatic::Engine.config.open_partials.collect{|k, v| [k, k]}.prepend(["- None -", 'none']), @entry.partial)
       %fieldset
-        .infobox#master_entry_box
-          %h4= 'Master entry'
-          %p
-            If an entry has a
-            %em master entry
-            than certain resources can be shared. The main example is that the current entry can share the same
-            gallery of photos as the
-            %em master entry.
-            This stops the need to load a duplicate set of photos, especially when the are multiple
-            language versions of the same entries.
-        = f.label :master_entry, 'Entry master', :class => 'infomarker'
-        %br/
-        = f.select :master_entry_id, options_for_select(SemiStatic::Entry.all.collect{|e|[[e.locale, ': ', e.title].join, e.id]}.prepend(["- None -", 'none']), @entry.master_entry_id)
         %span#entry_position_select
           = f.label :entry_position
           = f.select :entry_position, options_for_select(SemiStatic::Entry::DISPLAY_ENTRY_SYM, @entry.entry_position)

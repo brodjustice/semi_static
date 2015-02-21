@@ -44,6 +44,7 @@
         = f.text_area :description, :rows => '3'
     .col.span_1_of_3
       .sidebar
+        %h2 Position
         %fieldset
           = f.label :position
           %br/
@@ -71,6 +72,11 @@
         %fieldset
           = f.label :entry_id, 'Entry link (optional)'
           = f.select :entry_id, options_for_select(SemiStatic::Entry.all.collect{|e| [e.explicit_title, e.id]}.prepend(['- None -', nil]), @photo.entry_id)
+        %h2 Language
+        %fieldset
+          = f.label :locale
+          = f.select :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @photo.locale)
+
 
   .mid
     .actions

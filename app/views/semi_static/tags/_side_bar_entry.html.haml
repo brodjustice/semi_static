@@ -1,1 +1,2 @@
-%h3= link_to e.title, e
+- unless e.title.blank?
+  %h3= link_to e.title, e

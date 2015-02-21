@@ -17,15 +17,21 @@ module SemiStatic
         @entry = Entry.find(params[:entry_id])
         @photos = @entry.photos
       else
-        @photos = Photo.all
+        @photos = Photo.locale(I18n.locale)
         @photo = @photos.first
         @selection = 'Gallery'
         @tag, @seo = Seo.photos(params[:tag_id], I18n.locale) 
       end
-  
-      layout = (semi_static_admin? ? 'semi_static_dashboards' : 'semi_static_application')
-      template = (semi_static_admin? ? 'semi_static/photos/admin_index' : 'semi_static/photos/index')
-  
+
+      if semi_static_admin?
+        @photos = Photo.all
+        layout = 'semi_static_dashboards'
+        template = 'semi_static/photos/admin_index'
+      else
+        layout = 'semi_static_application'
+        template = 'semi_static/photos/index'
+      end
+
       respond_to do |format|
         format.html { render :template => template, :layout => layout }
         format.js { render :template => 'semi_static/photos/admin_entry_photos' }
@@ -53,6 +59,10 @@ module SemiStatic
     # GET /photos/new.json
     def new
       @photo = Photo.new
+      if params[:master].present?
+        master = Photo.find(params[:master])
+        @photo = master.tidy_dup
+      end
   
       respond_to do |format|
         format.html { render :layout => 'semi_static_dashboards' }

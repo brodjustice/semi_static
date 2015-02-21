@@ -18,6 +18,7 @@ module SemiStatic
   
     belongs_to :tag
   
+    before_save :dup_master_id_photos
     after_save :expire_site_page_cache
     after_save :check_for_newsletter_entry
     before_destroy :expire_site_page_cache
@@ -126,9 +127,22 @@ module SemiStatic
 
     def tidy_dup
       new_entry = self.dup
-      new_entry.doc_delete = true
-      new_entry.img_delete = true
+      new_entry.img = self.img
+      new_entry.doc = self.doc
+      new_entry.save
       new_entry
+    end
+
+    def dup_master_id_photos
+      unless (e = Entry.find_by_id(self.master_entry_id)).blank?
+        e.photos.each{|p|
+          photo = p.tidy_dup
+          photo.locale = self.locale
+          self.photos << photo
+          self.master_entry_id = nil
+          photo.save
+        }
+      end
     end
 
     def doc_delete=(val)

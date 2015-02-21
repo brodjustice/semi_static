@@ -11,7 +11,8 @@ module SemiStatic
     belongs_to :entry
     has_one :seo, :as => :seoable
   
-    attr_accessible :title, :description, :img, :home_page, :position, :entry_id, :gallery_control
+    attr_accessible :title, :description, :img, :home_page, :position, :entry_id, :gallery_control, :locale
+
     has_attached_file :img,
        :styles => {
          :micro=> "40x40#",
@@ -41,6 +42,7 @@ module SemiStatic
     scope :main, where('gallery_control = ?', GALLERY_SYM[:main])
     scope :sidebar, where('gallery_control=? OR gallery_control=?', GALLERY_SYM[:thumbs_and_sidebar], GALLERY_SYM[:sidebar_only])
     scope :without_caption, where("description IS NULL or CAST(description as text) = ''")
+    scope :locale, lambda {|locale| where("locale = ?", locale.to_s)}
 
     after_save :expire_site_page_cache, :build_ordered_array
     after_destroy :expire_site_page_cache, :build_ordered_array
@@ -100,8 +102,11 @@ module SemiStatic
       )
     end
   
-    def locale
-      nil
+    def tidy_dup
+      new_photo = self.dup
+      new_photo.img = self.img
+      new_photo.save
+      new_photo
     end
 
     def raw_title
