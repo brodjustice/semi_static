@@ -29,7 +29,7 @@
       @title = @tag.name
       @seo = @tag.seo
 
-      @tag.entries.size == 1 && @tag.entries.first.link_to_tag && (@entry = @tag.entries.first)
+      @tag.entries.size == 1 && @tag.entries.first.link_to_tag && ((@entry = @tag.entries.first) && (@link_to_tag = true))
       !@tag.side_bar && (@group_size = 3)
   
       respond_to do |format|
