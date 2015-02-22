@@ -1,4 +1,4 @@
-- unless (p = SemiStatic::Photo.home).blank?
+- unless (p = SemiStatic::Photo.locale(I18n.locale).home).blank?
   .news
     %h2= link_to t('Gallery'), photos_path
     - p.each do |p|
