@@ -1,2 +1,2 @@
-- unless e.title.blank?
+- unless e.title.blank? || e.link_to_tag
   %h3= link_to e.title, e

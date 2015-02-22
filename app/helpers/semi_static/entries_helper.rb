@@ -21,6 +21,17 @@ module SemiStatic
       end
     end
 
+    def entry_title(e, linked = false)
+      return if e.title.blank?
+      if linked && !e.link_to_tag
+        content_tag(:h1){
+          content_tag(:a, e.title, :href => entry_path(e), :style => "color: #{e.header_colour}")
+        }
+      else
+        content_tag(:h1, e.title, :style => "color: #{e.header_colour};")
+      end
+    end
+
     # Warning. If you remove the single space between <div ...> and <div ...> such that it is <div ...><div ...> you will get a
     # different layout. This is true for FF and Chrome. Maybe my basic HTML knowledge is poor, but I have no idea why this
     # space should make any difference
@@ -35,13 +46,13 @@ module SemiStatic
        c += "</div> </div> ".html_safe
     end
 
-    def photo_main(e)
+    def photo_main(e, group_size = 2)
        return if (photos = e.photos_including_master.main).empty?
        c = "<div class='section'>"
-       photos.in_groups_of(2).each{|g|
+       photos.in_groups_of(group_size).each{|g|
          c += '<div class="group">'
          g.each{|p|
-           c += '<div class="col span_1_of_2">'
+           c += "<div class='col span_1_of_#{group_size.to_s}'>"
            p && (c+= semantic_photo(p, :boxpanel, e.show_image_titles))
            c += '</div>'
          }

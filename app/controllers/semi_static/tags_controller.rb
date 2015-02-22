@@ -29,9 +29,8 @@
       @title = @tag.name
       @seo = @tag.seo
 
-      if @tag.entries.size == 1 && @tag.entries.first.link_to_tag
-        @entry = @tag.entries.first
-      end
+      @tag.entries.size == 1 && @tag.entries.first.link_to_tag && (@entry = @tag.entries.first)
+      !@tag.side_bar && (@group_size = 3)
   
       respond_to do |format|
         format.html { render :layout => 'semi_static_application' }
