@@ -7,7 +7,9 @@
         %h3= link_to e.title, semi_static.entry_path(e)
       - else
         %h3= e.title
-      - if e.image_in_news && e.img.present?
+      - if e.news_img.present?
+        .image= link_to image_tag(e.news_img.url(:bar)), semi_static.entry_path(e)
+      - elsif e.image_in_news && e.img.present?
         .image= link_to image_tag(e.img.url(:bar)), semi_static.entry_path(e)
       - if e.summary_length > 0
         = entry_summary(e, e.summary_length, true)

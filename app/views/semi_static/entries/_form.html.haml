@@ -281,6 +281,9 @@
             = f.check_box :news_item
             = f.label :image_in_news
             = f.check_box :image_in_news
+          %fieldset
+            = f.label :news_img, 'Alternative image for news'
+            = f.file_field :news_img
         %h2 Language
         %fieldset
           = f.label :locale

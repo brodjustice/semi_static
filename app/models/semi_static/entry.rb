@@ -7,7 +7,7 @@ module SemiStatic
   
     index_name SemiStatic::Engine.config.site_name.gsub(/( )/, '_').downcase
   
-    attr_accessible :title, :body, :tag_id, :home_page, :summary, :img, :news_item, :image_in_news, :image_disable
+    attr_accessible :title, :body, :tag_id, :home_page, :summary, :img, :news_item, :image_in_news, :image_disable, :news_img
     attr_accessible :position, :doc, :doc_description, :summary_length, :locale, :style_class, :header_colour, :background_colour, :colour
     attr_accessible :banner_id, :partial, :entry_position, :master_entry_id, :youtube_id_str, :use_as_news_summary
     attr_accessible :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_gallery, :unrestricted_html, :merge_with_previous, :raw_html
@@ -38,6 +38,7 @@ module SemiStatic
     belongs_to :banner
     has_many :photos
     has_attached_file :doc
+
     has_attached_file :img,
        :styles => {
          :bar=> "304x>",
@@ -57,6 +58,8 @@ module SemiStatic
                              :big => "-strip -gravity Center -quality 85"  }
   
     validates_attachment_content_type :doc, :content_type => ['image/jpeg', 'image/png', 'image/gif', 'application/pdf']
+
+    has_attached_file :news_img, :styles => {:bar => "304x>"}, :convert_options => { :bar => "-strip -gravity Center -quality 80"}
 
     DIRTY_TAGS= %w(style table tr td th span br em b i u ul ol li a div p img hr  h1 h2 h3 h4 iframe)
     DIRTY_ATTRIBUTES= %w(href class style id align src alt height width max-width frameborder allowfullscreen)
