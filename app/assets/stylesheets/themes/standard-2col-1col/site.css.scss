@@ -177,8 +177,10 @@ h2 .label-highlight, .fragment .label-highlight{
   margin: auto;
 }
 
-.panel .gallery{
+.gallery, .panel .gallery{
   clear: both;
+}
+.panel .gallery{
   box-shadow: none;
 }
 

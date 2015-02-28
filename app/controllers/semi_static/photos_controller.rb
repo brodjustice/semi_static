@@ -21,6 +21,7 @@ module SemiStatic
         @photo = @photos.first
         @selection = 'Gallery'
         @tag, @seo = Seo.photos(params[:tag_id], I18n.locale) 
+        @entries = @tag.entries
       end
 
       if semi_static_admin?
