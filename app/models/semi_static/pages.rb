@@ -23,10 +23,15 @@ module SemiStatic
     # have been added in the config. Sort of complex so we just return nil for now
     
     def xml_update
-      if self.kind_of?(Tag) && self.predefined_class.present?
-        nil
-      else
+
+      if self.kind_of?(Tag) && self.seo
+        (self.updated_at > self.seo.updated_at) ? nil : self.seo.updated_at
+      elsif !self.kind_of?(Tag) && self.respond_to?('seo') && self.seo
+        (self.updated_at > self.seo.updated_at) ? self.updated_at : self.seo.updated_at
+      elsif  !self.kind_of?(Tag)
         self.updated_at
+      else
+        nil
       end
     end
 
