@@ -37,6 +37,7 @@
       %th= 'Page'
       %th= 'Master'
       %th= 'No Index'
+      %th= image_tag('/assets/calendar.png', :title => 'Last updated')
       %th
       %th
   
@@ -56,5 +57,6 @@
             = link_to image_tag('/assets/add.png', :title => 'Make this SEO meta set the master set'), edit_seo_path(seo, :master => true)
         %td.tick
           = image_tag('/assets/tick.png', :title => 'No indexing request to search engines') if seo.no_index
+        %td= seo.updated_at.strftime('%d/%b/%Y %H:%M')
         %td.tick= link_to image_tag('/assets/application_form_edit.png', :title => "Edit SEO meta tag"), edit_seo_path(seo, :return => seos_path), :remote => true
         %td.tick= link_to image_tag('/assets/bin.png'), seo, :method => :delete, :data => { :confirm => 'Are you sure?' }

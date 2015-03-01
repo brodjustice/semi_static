@@ -16,6 +16,7 @@
         %th= 'Banner'
         %th= 'SEO'
         %th= 'Entries'
+        %th= image_tag('/assets/calendar.png', :title => 'Last Update')
         %th
   
     %tbody
@@ -47,5 +48,6 @@
               = link_to image_tag('/assets/application_form_edit.png', :title => "Edit SEO meta tags"), edit_seo_path(tag.seo, :return => tags_path), :remote => true
           %td.number
             = link_to tag.entries.count.to_s + ' (' + tag.max_entries_on_index_page.to_s + ')', tag_entries_path(tag), :remote => true
+          %td.number= tag.updated_at.strftime('%d/%b/%y %H:%M')
           %td= link_to image_tag('/assets/bin.png'), tag, :method => :delete, :data => { :confirm => 'Are you sure?' }
     
