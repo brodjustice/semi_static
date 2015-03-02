@@ -51,10 +51,9 @@
         = f.label :include_in_sitemap
         = f.check_box :include_in_sitemap
       %p
-        = 'Last update'
+        = 'Last update (calculated)'
         %br/
-        = @seo.seoable.xml_update.strftime('%d/%b/%y %H:%M')
-        
+        = @seo.seoable.xml_update ? @seo.seoable.xml_update.strftime('%d/%b/%y %H:%M') : 'Unset'
   
   .actions
     = f.submit 'Save'
