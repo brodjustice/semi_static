@@ -3,11 +3,13 @@
   max-width: 900px;
 }
 
+/* WHY ??????
 @media only screen and (min-width: 900px) {
   #semi_static_entry .floater{
     display: none;
   }
 }
+*/ 
 
 
 .wrapping .html{
@@ -34,6 +36,10 @@
 
 #semi_static_tag .panel{
   margin-bottom: 70px;
+}
+
+body{
+  padding-top: 110px;
 }
 
 .mid.wide {

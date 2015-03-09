@@ -26,7 +26,8 @@ body{
   font:16px 'Raleway', 'Ubuntu', Arial, Verdana, Helvetica, sans-serif;
   color: $font-color;
   position: relative;
-  padding-top: 60px;
+  font-size: 14px;
+  padding-top: 89px;
 }
 
 a{text-decoration: none; color: $font-color;}
@@ -36,12 +37,11 @@ fieldset{
 h2{ font-size: 20px;}
 
 // TEMP ONLY - HIDE TILL WE KNOW WHERE THE SHOULD GO
-#search-bar, .social, .news, .locale, li.lady{
+#search-bar, .social, .news, .locale{
   display: none !important;
 }
 
 #top{
-  // display: none;
   position: fixed;
   width: 100%;
   min-height: 60px;
@@ -262,6 +262,7 @@ h2{ font-size: 20px;}
 #footer h3{color: $font-color;}
 #footer .col:last-child h3, #footer .col:last-child li { text-align: right; }
 
+#bar-in-menu{z-index: 1000;}
 #bar-in-menu ul, #top ul, #footer ul{list-style: none outside none; padding-left: 0px;}
 
 // Sprites
@@ -308,6 +309,12 @@ h2 a, h3 a{color: $font-color;}
 .more{
   position: relative;
   text-align: right;
+}
+
+#semi-static-home-page .entry .more {
+    bottom: 6px;
+    position: absolute;
+    right: 0;
 }
 
 .link a, .more a{
