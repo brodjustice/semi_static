@@ -33,7 +33,13 @@
       !@tag.side_bar && (@group_size = 3)
   
       respond_to do |format|
-        format.html { render :layout => 'semi_static_application' }
+        format.html {
+          if @tag.predefined_class && !SiteHelper::PREDEFINED[@tag.predefined_class].nil?
+            redirect_to SiteHelper::PREDEFINED[@tag.predefined_class]
+          else
+            render :layout => 'semi_static_application'
+          end
+        }
       end
     end
   
