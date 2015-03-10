@@ -328,7 +328,7 @@ h2{ font-size: 20px;}
   width: 100%;
 }
 .gallery h2 a, .gallery h2, .news h2 a, .news h2{ color: white; border-bottom: 1px solid white; }
-.list h1{ color: $prime-color; border-bottom: 1px solid $prime-color; }
+.list h1, .panel.list h2{ color: $prime-color; border-bottom: 1px solid $prime-color; text-align: center;}
 
 .social a{
   color: white;

@@ -1,18 +1,18 @@
 - obj = @entry || @tag
 - @tag ||= entrytag
-- unless @tag.nil?
-  .panel.list
-    %nav
-      - if SemiStatic::Tag.use_sprites?
-        .icon.sprite{:id => "sprite_#{@tag.position.to_s}"}
-      - else
-        .icon= image_tag(@tag.icon.url(:big)) if @tag.icon.present?
-      %h1= link_to @tag.sidebar_title, feature_path(@tag.slug), :style => "color: #{@tag.colour};"
-      .section
-        - @tag.entries.unmerged.each do |e|
-          = render :partial => 'semi_static/tags/side_bar_entry', :locals => {:e => e}
-- unless obj.nil?
-  %aside
+%aside
+  - unless @tag.nil?
+    .panel.list
+      %nav
+        - if SemiStatic::Tag.use_sprites?
+          .icon.sprite{:id => "sprite_#{@tag.position.to_s}"}
+        - else
+          .icon= image_tag(@tag.icon.url(:big)) if @tag.icon.present?
+        %h2= link_to @tag.sidebar_title, feature_path(@tag.slug), :style => "color: #{@tag.colour};"
+        .section
+          - @tag.entries.unmerged.each do |e|
+            = render :partial => 'semi_static/tags/side_bar_entry', :locals => {:e => e}
+  - unless obj.nil?
     = render :partial => 'semi_static/site/search' if obj.side_bar_search
     = render :partial => 'semi_static/site/social' if obj.side_bar_social
     = render :partial => 'semi_static/site/gallery' if obj.kind_of?(SemiStatic::Entry) && obj.side_bar_gallery

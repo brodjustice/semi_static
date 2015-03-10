@@ -3,26 +3,12 @@
   max-width: 900px;
 }
 
-/* WHY ??????
-@media only screen and (min-width: 900px) {
-  #semi_static_entry .floater{
-    display: none;
-  }
-}
-*/ 
-
-
 .wrapping .html{
   max-width: none;
 }
 
 .side-bar{
   display: none;
-}
-
-#semi_static_tag .col.span_2_of_3,
-#semi_static_entry .col.span_2_of_3{
-  width: 100%;
 }
 
 #semi_static_tag .img img{

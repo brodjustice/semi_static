@@ -26,7 +26,7 @@ body{
   font:16px 'Raleway', 'Ubuntu', Arial, Verdana, Helvetica, sans-serif;
   color: $font-color;
   position: relative;
-  font-size: 14px;
+  font-size: 16px;
   padding-top: 89px;
 }
 
@@ -231,7 +231,6 @@ h2{ font-size: 20px;}
 
 .wrapping{
   float: inherit;
-  width: 100%;
 }
 
 // .row_2 .panel{
@@ -362,6 +361,13 @@ h2 a, h3 a{color: $font-color;}
     width: 1000px; 
   }
 }
+
+// REMARK A: In multicolumn this provides an extra 1.6% that was left margin in .wrapping (left col) and puts it into the
+// the floating image left margin of the .floater (right col). This provides margin around the
+// left hand side of the floated image.
+.entry .wrapping{ margin-left: 0; }
+.entry .floater{ margin-left: 1.6%; position: relative; z-index: 10;}
+
 
 @media only screen and (max-width: 760px) {
   // For smaller portrait the % margin at the top is too
