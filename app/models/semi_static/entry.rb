@@ -28,6 +28,7 @@ module SemiStatic
     scope :locale, lambda {|locale| where("locale = ?", locale.to_s)}
     scope :not, lambda {|entry| where("id != ?", (entry ? entry.id : 0))}
     scope :unmerged, where('merge_with_previous = ?', false)
+    scope :not_linked_to_tag, where('link_to_tag = ?', false)
     scope :exclude_newsletters, joins(:tag).where(:semi_static_tags => {:newsletter_id => nil})
     scope :for_newsletters, includes(:tag).where('semi_static_tags.newsletter_id IS NOT NULL')
     scope :for_documents_tag, where("show_in_documents_tag = ?", true)

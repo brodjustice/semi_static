@@ -1,14 +1,14 @@
 @keyframes wobble {
   0% { transform: rotate(0deg); }
-  1% { transform: rotate(5deg); }
-  3% { transform: rotate(-5deg); }
+  1% { transform: rotate(2deg); }
+  3% { transform: rotate(-1deg); }
   5% { transform: rotate(0deg); }
 }
 
 @-webkit-keyframes wobble {
   0% { -webkit-transform: rotate(0deg); }
-  1% { -webkit-transform: rotate(5deg); }
-  3% { -webkit-transform: rotate(-5deg); }
+  1% { -webkit-transform: rotate(2deg); }
+  3% { -webkit-transform: rotate(-1deg); }
   5% { -webkit-transform: rotate(0deg); }
 }
 
@@ -204,26 +204,6 @@ h2{ font-size: 20px;}
   text-align: center;
 }
 
-/*
-.section.row_0{
-  padding: 0 12px;
-  margin: 0 -12px;
-  border-radius: 8px;
-  border: 1px solid #d8d8d8;
-  border-top: 1px solid white;
-  box-shadow: 0px 1px 2px #e0e0e0;
-  margin-bottom: 12px;
-  // background-color: rgba(255,255,255,0.1);
-  // background-color: #3ea6c3;
-  background-color: #589158;
-  color: white;
-}
-
-.section.row_0 h1, .section.row_0 h1 a{
-  color: white;
-}
-*/
-
 .floater{
   float: right;
 }
@@ -233,15 +213,6 @@ h2{ font-size: 20px;}
   float: inherit;
 }
 
-// .row_2 .panel{
-//   border: 1px solid #d8d8d8;
-//   padding: 0px 3px;
-//   border-top: 1px solid white;
-// }
-
-// .row_2 .html{
-//   padding: 5px;
-// }
 
 .section:after, #container:after{ content: ''; display: table; clear: both; }
 
@@ -294,11 +265,6 @@ h2{ font-size: 20px;}
 h1{font-size: 24px;}
 h1, h2, h3{ margin: 6px 0px 6px; color: $font-color}
 h2 a, h3 a{color: $font-color;}
-.panel h2{
-  text-align: center;
-  font-size: 28px;
-  color: $font-color;
-}
 
 .normal.panel{
   background: transparent;

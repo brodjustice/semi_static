@@ -21,7 +21,7 @@
                 .icon
                   .custom
         - if (@tag == t) && (t.name != 'Home')
-          - t.entries.each do |e|
+          - t.entries.unmerged.not_linked_to_tag.each do |e|
             .wrapper.sub
               = link_to e.title, e 
       #bar-in-menu
