@@ -20,9 +20,5 @@
               - else
                 .icon
                   .custom
-        - if (@tag == t) && (t.name != 'Home')
-          - t.entries.unmerged.not_linked_to_tag.each do |e|
-            .wrapper.sub
-              = link_to e.title, e 
       #bar-in-menu
         = render :partial => 'semi_static/shared/bar'

@@ -30,16 +30,15 @@ body{
   padding-top: 89px;
 }
 
+.entry{
+  padding: 12px;
+}
+
 a{text-decoration: none; color: $font-color;}
 fieldset{
   border: none;
 }
 h2{ font-size: 20px;}
-
-// TEMP ONLY - HIDE TILL WE KNOW WHERE THE SHOULD GO
-#search-bar, .social, .news, .locale{
-  display: none !important;
-}
 
 #top{
   position: fixed;

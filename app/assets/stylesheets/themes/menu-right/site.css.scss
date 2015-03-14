@@ -9,10 +9,6 @@ h2{ font-size: 18px; color: $secondary-color;}
   max-width: none;
 }
 
-.side-bar{
-  display: none;
-}
-
 #semi_static_tag .img img{
   position: relative;
   z-index: 10;
@@ -28,6 +24,11 @@ h2{ font-size: 18px; color: $secondary-color;}
 
 body{
   padding-top: 110px;
+}
+
+.news{
+  border: 1px dashed #c8c8c8;
+  padding: 18px;
 }
 
 .mid.wide {

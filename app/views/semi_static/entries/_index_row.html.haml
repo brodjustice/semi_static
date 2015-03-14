@@ -1,6 +1,9 @@
 %tr{:id => "entry_id_#{entry.id.to_s}"}
   %td{:class => ('merge' if entry.merge_with_previous)}
-    = link_to (entry.title.blank? ? '<No Title>' : entry.title), edit_entry_path(entry)
+    - if entry.title.blank? 
+      %span{:title => truncate_html(entry.body, :length => 75)}= '<No Title>'
+    - else
+      = link_to entry.title, edit_entry_path(entry)
   %td
     - if entry.tag
       = link_to entry.tag.name, edit_entry_path(entry)
