@@ -6,7 +6,7 @@
       = link_to entry.title, edit_entry_path(entry)
   %td
     - if entry.tag
-      = link_to entry.tag.name, edit_entry_path(entry)
+      = link_to entry.tag.name, edit_tag_path(entry.tag)
     - else
       = 'Error!'
   %td.tick

@@ -73,7 +73,7 @@ module SemiStatic
 
     THEME = {
       'tiles' => {:desktop => :panel, :mobile => :panel, :small => :small, :summary => :panel, :home => :tile, :show => :panel},
-      'menu-right' => {:desktop => :panel, :mobile => :panel, :small => :small, :summary => :medium, :show => :big},
+      'menu-right' => {:desktop => :panel, :mobile => :panel, :small => :small, :summary => :panel, :home => :tile, :show => :panel},
       'standard-2col-1col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel},
       'bannerless' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel},
       'bannerette-2col-1col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel},
@@ -97,9 +97,15 @@ module SemiStatic
       super
     end
 
-    def img_url_for_theme(screen = :desktop)
+    def img_url_for_theme(screen = :desktop, side_bar = true)
       screen = :summary if (screen == true)
-      img.url(THEME[SemiStatic::Engine.config.theme][screen])
+      # We assume a reasonable sized image (medium) should be served
+      # if there is no side bar
+      if !side_bar.nil? && !side_bar
+        img.url(:medium)
+      else
+        img.url(THEME[SemiStatic::Engine.config.theme][screen])
+      end
     end
 
     def self.search(query)

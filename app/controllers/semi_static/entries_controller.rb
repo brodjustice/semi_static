@@ -54,6 +54,7 @@
       @tag = @entry.tag
       @title = ActionController::Base.helpers.strip_tags(@entry.title)
       @seo = @entry.seo
+      @side_bar = @entry.side_bar
   
       respond_to do |format|
         format.text { render :partial => 'semi_static/entries/entry' }

@@ -30,7 +30,8 @@
       @seo = @tag.seo
 
       @tag.entries.size == 1 && @tag.entries.first.link_to_tag && ((@entry = @tag.entries.first) && (@link_to_tag = true))
-      !@tag.side_bar && (@group_size = 3)
+      @side_bar = @tag.side_bar
+      !@side_bar && (@group_size = 3)
   
       respond_to do |format|
         format.html {

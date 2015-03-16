@@ -1,57 +1,180 @@
-h1{ font-size: 22px;}
-h2{ font-size: 18px; color: $secondary-color;}
-#semi_static_entry .bg{
-  margin: 0 auto;
-  max-width: 900px;
+#logo-wrapper{
+  box-shadow: none;
+  background-color: transparent;
 }
 
-.wrapping .html{
-  max-width: none;
+#frame{
+  margin-top: 90px;
 }
 
-#semi_static_tag .img img{
+a.fb-share{
+  float: right; padding: 1px 2px 1px 28px;
+  background: transparent url(/assets/vert-sprites.png) 0px -59px no-repeat;
+  width: auto;
+  font-weight: lighter !important; 
+}
+.fb-share:after{
+  margin-bottom: 4px;
+}
+
+h1 a{ color: $prime-color;}
+.doc{
+  clear: both;
+  border-top: 1px solid #d0d0d0;
+  background-color: #f0f0f0;
+  padding: 0 6px;
+}
+.gallery.doc{
+  padding-top: 6px;
+  margin-bottom: 0px;
+}
+.doc:after{
+  margin: 6px;
+}
+.index.panel{
+  padding: 6px;
+}
+
+table{
+  width: 100%;
+}
+
+td{padding: 3px;}
+tr:nth-child(odd) td{background-color: #f0f0f0;}
+tr:last-child td{border-bottom: 1px solid #c8c8c8;}
+th{ text-align: left; }
+
+.list h3 a{display: block;}
+.list h3:hover a{ background-color: #f0f0f0; }
+
+.mid{
+  width: 80%; max-width: 560px; margin: 0px auto;
+  padding: 8px;
+  background: transparent url('/assets/white-60.png') 0 0 repeat;
+  margin-bottom: 34px;
+  border: 1px white solid;
+  border-radius: 2px;
+}
+.mid.wide{max-width: 820px;}
+.mid.full{max-width: 1012px; width: 97.5%;}
+
+#dialog input[type=submit], .mid input[type=submit], .mid input[type=button]{
+  font-size: 20px; width: 100%; margin: 0; text-align: center; box-sizing: border-box;
+}
+#dialog input[type=submit]:last-child, .mid input[type=submit]:last-child, .mid input[type=button]:last-child{
+  margin-bottom: 6px;
+}
+
+.mid input, .mid textarea{ width: 96%; }
+.mid input[type=radio], .mid input[type=checkbox]{width: auto;}
+
+.list{
+  text-align: center;
+  padding: 12px;
+}
+
+.product table{
+  display: inline-table;
+}
+.product .row a{
+  font-size: 12px;
+  float: right;
+}
+
+.fragment td{
+  border-bottom: 1px solid $prime-color;
+  padding-bottom: 16px;
+  margin-bottom: 26px;
+  text-align: left;
+}
+h2 .label-highlight, .fragment .label-highlight{
+  background-color: $prime-color;
+  color: white;
+  padding: 0 3px;
+}
+.fragment td.score{
+  font-size: 14px;
+  text-align: right;
+  width: 10%;
+}
+.fcol{
+  border-top: 1px solid #a8a8a8;
+}
+
+.spacer_wrapper {
+    margin: 0 auto;
+    max-width: 100%;
+    text-align: center;
+}
+
+.nutshell {
+    display: inline-block;
+    vertical-align: top;
+}
+#menu .nutshell{
+  width: 130px;
+}
+
+#menu.spacer_wrapper{
+  margin-top: 16px;
+}
+
+.spaced {
+    margin: 0 auto;
+}
+
+.references h2, .references h2 a{
+  color: $prime-color;
+}
+
+.quote{
+  padding-bottom: 12px;
+  text-align: left;
+}
+
+.spacer_wrapper.reference{
+  border-top: 1px solid white;
+  padding-top: 9px;
+  margin-top: 4px;
+}
+
+.reference .spaced{
+  height: 98px; width: 98px;
   position: relative;
-  z-index: 10;
+  background-color: white;
 }
 
-#semi_static_tag .img img, #semi_static_tag .img{
-  max-width: none;
+.spaced.blank{
+  background-color: transparent;
 }
 
-#semi_static_tag .panel{
-  margin-bottom: 70px;
+.reference .photo.nutshell{
+  vertical-align: inherit;
 }
 
-body{
-  padding-top: 110px;
+.reference .spaced img{
+  position: absolute;
+  top: 0; bottom: 0; left: 0; right: 0;
+  margin: auto;
 }
 
-.news{
-  border: 1px dashed #c8c8c8;
-  padding: 18px;
+.gallery, .panel .gallery{
+  clear: both;
+}
+.panel .gallery{
+  box-shadow: none;
 }
 
-.mid.wide {
-    max-width: 820px;
-}
-.mid {
-    background: url("/assets/white-60.png") repeat scroll 0 0 transparent;
-    border: 1px solid white;
-    border-radius: 2px;
-    margin: 0 auto 34px;
-    max-width: 560px;
-    padding: 8px;
-    width: 80%;
+.panel .gallery h2{
+  text-align: right;
+  border-bottom: 1px solid $prime-color;
+  margin-bottom : 10px;
 }
 
-.mid input, .mid textarea {
-    width: 96%;
+/* When only 2 cols the images can be bigger */
+.span_3_of_3 .span_1_of_2 img{
+  max-width: 443px;
 }
-button, input {
-    line-height: normal;
-}
-button, input, select, textarea {
-    font-family: inherit;
-    font-size: 100%;
-    margin: 0;
-}
+
+img.ri{ width: 100%; }
+.entry img{ max-width: 324px; }
