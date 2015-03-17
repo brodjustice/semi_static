@@ -7,6 +7,25 @@
   margin-top: 80px;
 }
 
+.news, .news .panel{
+  background-color: white;
+  color: #181818;
+}
+.news{
+  box-shadow: none;
+  margin-top: 12px;
+}
+
+.news h2{
+  color: white; background-color: $prime-color;
+  text-align: right;
+  margin: -6px -11px 5px;
+  padding: 12px;
+}
+.news h3 a{color: $secondary-color;}
+.news h3{color: $secondary-color; text-align: center;}
+
+
 a.fb-share{
   float: right; padding: 1px 2px 1px 28px;
   background: transparent url(/assets/vert-sprites.png) 0px -59px no-repeat;
