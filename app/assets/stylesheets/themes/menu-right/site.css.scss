@@ -7,6 +7,11 @@
   margin-top: 80px;
 }
 
+.panel h2, h2{
+  font-weight: normal;
+  color: #5d7c7c;
+}
+
 .news, .news .panel{
   background-color: white;
   color: #181818;
@@ -17,13 +22,13 @@
 }
 
 .news h2{
-  color: white; background-color: $prime-color;
   text-align: right;
-  margin: -6px -11px 5px;
-  padding: 12px;
+  color: $prime-color;
+  border-bottom: 1px solid $prime-color;
+  padding-bottom: 4px;
 }
 .news h3 a{color: $secondary-color;}
-.news h3{color: $secondary-color; text-align: center;}
+.news h3{color: $secondary-color; text-align: center; font-weight: normal;}
 
 
 a.fb-share{
