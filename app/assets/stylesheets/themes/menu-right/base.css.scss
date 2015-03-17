@@ -256,28 +256,26 @@ h2 a, h3 a{color: $secondary-color;}
     border-bottom-right-radius: 2px;
     box-shadow: 0 2px 2px black;
     margin-left: 12px;
-    padding: 4px 4px 4px 0px;
+    padding: 8px;
     top: 0;
-    width: 208px;
+    width: $logo-width;
     z-index: 2000;
     position: relative;
-    top: -4px;
 }
 
 #menu-wrapper{
   z-index: 1000;
-  top: -55px;
+  top: -64px;
   right: 0px;
   position: relative;
 }
 
 .bar_menu{
   position: relative;
-  top: -75px;
+  top: -80px;
   background-color: $secondary-color;
   height: 30px;
   float: right;
-  margin-top: -12px;
   border-bottom-left-radius: 2px;
   border-bottom-right-radius: 2px;
   margin-right: 12px;
@@ -289,21 +287,17 @@ h2 a, h3 a{color: $secondary-color;}
 #mini-logo{
   width: $logo-top-width; height: $logo-top-height;
   background: transparent url(/assets/#{$logo-top}) 0 0 no-repeat;
-  top: 2px;
-  margin-left: 12px;
 }
 
 
 #top{
   height: 75px;
-  // background-color: white;
   background: transparent url(/assets/white-60.png) 0 0 repeat;
   z-index: 200; // for logo in banner
   box-shadow: 0 0 7px #7c7c7c;
   width: 100%;
   position: absolute;
   top: 0px;
-  padding-top: 4px;
 }
 #top ul{
   margin: 0; padding: 0;
