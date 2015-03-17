@@ -72,7 +72,6 @@ h2{ font-size: 20px;}
   color: $prime-color; font-weight: bold;
   padding: 3px 2px 4px 32px;
   margin: 2px 12px 0px 0px;
-  background: transparent url(#{$vert-sprites}) left -216px no-repeat;
   cursor: pointer;
   position: relative;
   z-index: 500;
@@ -81,6 +80,15 @@ h2{ font-size: 20px;}
 #menu-button{
   // Create bigger click area
   padding-bottom: 34px;
+}
+
+#menu-button .menu-line{
+  height: 8px;
+  width: 80%;
+  background-color: $prime-color;
+  border-radius: 2px;
+  margin: 2px;
+  
 }
 
 #bar-in-menu{
@@ -325,6 +333,7 @@ h2 a, h3 a{color: $secondary-color;}
   margin: 0 auto;
   font-size: 20px;
   font-weight: bold;
+  padding-right: 12px;
 }
 
 #menu a{
@@ -501,12 +510,6 @@ h2 a, h3 a{color: $secondary-color;}
   .searchform input[type='text'] { width: 66%;}
 }
 
-@if $search-bar-in-banner == true {
-  @media only screen and (min-width: 950px) {
-    #semi-static-home-page #search-bar{ position: relative; z-index: 500; margin-top: -71px; margin-bottom: 26px;}
-  }
-}
-
 /* Basic mobile portrait or perhaps tablet portrait layout */
 @media only screen and (max-width: 750px) {
   .mobile{display: block !important;}
@@ -520,16 +523,19 @@ h2 a, h3 a{color: $secondary-color;}
   #menu, #top-inner ul{display: none;}
   #menu{
     padding-top: 8px; padding-bottom: 12px;
-    width: 90%; max-width: 330px; left: -10px; right: -10px;
-    position: fixed; background-color: #f8f8f8; top: 44px;
-    border: 1px solid $prime-color;
+    width: 100%;
+    position: fixed; background-color: #f8f8f8; top: 0px;
     background-image: none;
-    border-radius: 2px;
-    box-shadow: 0 50px 500px black;
-    font-size: 16px;
+    font-size: 26px;
   }
   #menu .col{ width: 100%; }
   #menu-loading-wrapper{display: block;}
+  #menu a{float: none; text-align: right; padding: 4px 14px;}
+
+  #menu-main .wrapper:nth-child(2n){background-color: #f0f0f0;}
+
+  // Hide .bar_menu
+  .bar_menu{height: 0px;}
 
   // Need to radically change the hover icons now menu has collapsed
   .icon .custom{
@@ -539,7 +545,7 @@ h2 a, h3 a{color: $secondary-color;}
     top: 16px;
     width: 30%;
   }
-  #menu .wrapper .text{height: 20px;}
+  #menu .wrapper .text{height: auto;}
 
   .wrapper:not(#selected) .icon.sprite{background-image: none;}
 
@@ -548,22 +554,7 @@ h2 a, h3 a{color: $secondary-color;}
 
 
   #top{position: fixed; width: 100%;}
-  #menu-button{display: block;}
-
-  @if $banner-overlay == true {
-    /* Move logo and tagline due to menu being hidden */
-    #logo-wrapper{top: 80px;}
-    #tag-wrapper{top: 216px;}
-    #overlay.header{ height: 60px !important;}
-    #overlay:not(header){height: 327px;}
-    #overlay-2{ height: 268px !important;}
-
-  } @else {
-    #logo-wrapper{top: 8px;}
-    #overlay{height: 360px;}
-    #overlay.header{ height: 56px !important;}
-    #overlay-2{ height: 304px !important;}
-  }
+  #menu-button{display: block; width: 50px;}
 }
 
 /* Mobile portrait layout at less than 580px */
