@@ -511,8 +511,6 @@ h2 a, h3 a{color: $secondary-color;}
 @media only screen and (max-width: 750px) {
   .mobile{display: block !important;}
   .desktop{display: none !important;}
-  #banner4, #banner3, #banner2, #banner1, #banner0 {animation: none; opacity: 1.0; background-image: none; display: none;}
-  #bannerBg {background-image: url(/assets/banners/#{$banner-mobile});}
 }
 
 @media only screen and (max-width: 820px) {

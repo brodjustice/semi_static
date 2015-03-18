@@ -7,7 +7,7 @@
   background-color: transparent;
 }
 
-.panel h2, h2{
+aside h2{
   font-weight: normal;
   color: #5d7c7c;
 }
@@ -21,14 +21,16 @@
   margin-top: 12px;
 }
 
-.news h2{
+.side-bar h2{
   text-align: right;
   color: $prime-color;
   border-bottom: 1px solid $prime-color;
   padding-bottom: 4px;
 }
-.news h3 a{color: $secondary-color;}
-.news h3{color: $secondary-color; text-align: center; font-weight: normal;}
+
+.side-bar h3 a{color: $secondary-color;}
+.side-bar h3{color: $secondary-color; text-align: center; font-weight: normal;}
+.side-bar .panel{box-shadow: none;}
 
 
 a.fb-share{
@@ -69,7 +71,7 @@ tr:last-child td{border-bottom: 1px solid #c8c8c8;}
 th{ text-align: left; }
 
 .list h3 a{display: block;}
-.list h3:hover a{ background-color: #f0f0f0; }
+.side-bar h3:hover a{ color: $prime-color; text-decoration: underline; }
 
 .mid{
   width: 80%; max-width: 560px; margin: 0px auto;
@@ -111,11 +113,6 @@ th{ text-align: left; }
   margin-bottom: 26px;
   text-align: left;
 }
-h2 .label-highlight, .fragment .label-highlight{
-  background-color: $prime-color;
-  color: white;
-  padding: 0 3px;
-}
 .fragment td.score{
   font-size: 14px;
   text-align: right;
@@ -145,10 +142,6 @@ h2 .label-highlight, .fragment .label-highlight{
 
 .spaced {
     margin: 0 auto;
-}
-
-.references h2, .references h2 a{
-  color: $prime-color;
 }
 
 .quote{
@@ -184,15 +177,6 @@ h2 .label-highlight, .fragment .label-highlight{
 
 .gallery, .panel .gallery{
   clear: both;
-}
-.panel .gallery{
-  box-shadow: none;
-}
-
-.panel .gallery h2{
-  text-align: right;
-  border-bottom: 1px solid $prime-color;
-  margin-bottom : 10px;
 }
 
 /* When only 2 cols the images can be bigger */
