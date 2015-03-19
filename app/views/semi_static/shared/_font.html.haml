@@ -1,23 +1,9 @@
--# You can always have the css delivered in the standard way with the following:
--#
--# = stylesheet_link_tag 'semi_static/application', :media => 'all'
--#
--# However, here you can choose to embed the small amount of CSS directly
--# into the header, which is then one less file to fetch and improves ratings
--# and load time
 %style{:type => "text/css"}
   :plain
     @font-face {
-      font-family: 'Raleway'; font-style: normal; font-weight: 200;
-      src: url('/assets/raleway-extralight.eot');
-      src: url('/assets/raleway-extralight.eot?#iefix') format('embedded-opentype'),
-           url('/assets/raleway200.woff') format('woff'),
-           url('/assets/raleway-extralight.ttf') format('truetype');
-    }
-    @font-face {
       font-family: 'Raleway'; font-style: normal; font-weight: 400;
-      src: url('/assets/raleway.eot');
-      src: url('/assets/raleway.eot?#iefix') format('embedded-opentype'),
-           url('/assets/raleway400.woff') format('woff'),
-           url('/assets/raleway-regular.ttf') format('truetype');
+      src: url('/assets/AvenirNextLTPro-Cn.eot');
+      src: url('/assets/AvenirNextLTPro-Cn.eot?#iefix') format('embedded-opentype'),
+           url('/assets/AvenirNextLTPro-Cn.woff') format('woff'),
+           url('/assets/AvenirNextLTPro-Regular.ttf') format('truetype');
     }

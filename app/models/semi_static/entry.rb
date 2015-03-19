@@ -27,11 +27,14 @@ module SemiStatic
     scope :news, where('news_item = ?', true)
     scope :locale, lambda {|locale| where("locale = ?", locale.to_s)}
     scope :not, lambda {|entry| where("id != ?", (entry ? entry.id : 0))}
+    scope :has_style, lambda {|style| where("style_class = ?", style)}
     scope :unmerged, where('merge_with_previous = ?', false)
     scope :not_linked_to_tag, where('link_to_tag = ?', false)
     scope :exclude_newsletters, joins(:tag).where(:semi_static_tags => {:newsletter_id => nil})
     scope :for_newsletters, includes(:tag).where('semi_static_tags.newsletter_id IS NOT NULL')
     scope :for_documents_tag, where("show_in_documents_tag = ?", true)
+    scope :with_image, where('img_file_name IS NOT NULL')
+    scope :without_image, where('img_file_name IS NULL')
   
     has_one :seo, :as => :seoable
     has_one :product
@@ -78,7 +81,7 @@ module SemiStatic
       'bannerless' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel},
       'bannerette-2col-1col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel},
       'plain-3col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel},
-      'parallax' => {:desktop => :wide, :mobile => :panel, :summary => :panel, :show => :panel},
+      'parallax' => {:desktop => :wide, :mobile => :panel, :summary => :panel, :home => :tile, :show => :panel},
       'plain-big-banner-3col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel}
     }
 

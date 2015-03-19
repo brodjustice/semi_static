@@ -426,6 +426,54 @@ input[type=submit], .mid input, .mid textarea, .form-wrapper input[type=text], .
   display: none;
 }
 
+.tiles{
+  background-color: white;
+}
+.tiles .group{
+  max-width: 960px;
+  margin: 0 auto;
+  padding-bottom: 24px;
+}
+.tile{
+  background-color: white;
+  text-align: center;
+}
+
+.tile .tile_image{
+  margin: 0 auto;
+  border: 10px solid #686868;
+  overflow: hidden;
+  width: 241px; height: 241px;
+  background-position: center center;
+  position: relative;
+}
+
+.tile_image .cover{
+  height: 241px; width: 241px;
+  position: absolute;
+  background-color: $prime-color;
+  opacity: 0.8;
+  visibility: hidden;
+}
+
+.tile_image h2{
+  color: white;
+  text-align: center;
+  visibility: hidden;
+  border-bottom: 1px solid white;
+}
+.title_wrapper{
+  height: 50%;
+  position: absolute;
+  z-index: 10;
+  margin: auto;
+  top: 0; bottom: 0; left: 0; right: 0;
+}
+
+.tile_image:hover h2, .tile_image:hover .cover{
+  visibility: visible;
+}
+
 @media only screen and (max-width: 680px) {
   .mobile{display: block;}
   .desktop{display: none;}
