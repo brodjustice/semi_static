@@ -450,9 +450,11 @@ input[type=submit], .mid input, .mid textarea, .form-wrapper input[type=text], .
   margin: 0 auto;
   border: 10px solid #686868;
   overflow: hidden;
-  width: 241px; height: 241px;
+  max-width: 241px; height: 241px;
   background-position: center center;
   position: relative;
+  position: relative;
+  width: 86%;
 }
 
 .tile_image .cover{
