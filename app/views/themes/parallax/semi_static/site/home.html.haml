@@ -26,7 +26,7 @@
     - SemiStatic::Entry.home.locale(I18n.locale).with_image.has_style('tile').each do |e|
       .col.span_1_of_3.tile
         = link_to entry_path(e) do
-          .tile_image{:style => "background-image: url(#{e.img_url_for_theme(:home)}"}
+          .tile_image{:style => "background-image: url(#{e.img_url_for_theme(:home)})"}
             .cover
             .title_wrapper
               %h2= e.title
