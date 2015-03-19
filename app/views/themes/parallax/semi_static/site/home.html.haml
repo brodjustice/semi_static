@@ -30,6 +30,8 @@
             .cover
             .title_wrapper
               %h2= e.title
+              .caption
+                = e.image_caption
 
 - if @tag && @tag.partial_after_entries?
   = render :partial => @tag.partial_path
