@@ -28,6 +28,7 @@ module SemiStatic
     scope :locale, lambda {|locale| where("locale = ?", locale.to_s)}
     scope :not, lambda {|entry| where("id != ?", (entry ? entry.id : 0))}
     scope :has_style, lambda {|style| where("style_class = ?", style)}
+    scope :not_style, lambda {|style| where("style_class != ?", style)}
     scope :unmerged, where('merge_with_previous = ?', false)
     scope :not_linked_to_tag, where('link_to_tag = ?', false)
     scope :exclude_newsletters, joins(:tag).where(:semi_static_tags => {:newsletter_id => nil})
@@ -81,7 +82,7 @@ module SemiStatic
       'bannerless' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel},
       'bannerette-2col-1col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel},
       'plain-3col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel},
-      'parallax' => {:desktop => :wide, :mobile => :panel, :summary => :panel, :home => :tile, :show => :panel},
+      'parallax' => {:desktop => :medium, :mobile => :medium, :summary => :medium, :home => :tile, :show => :medium},
       'plain-big-banner-3col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel}
     }
 

@@ -1,7 +1,7 @@
 - if @tag && @tag.partial_before_entries?
   = render :partial => @tag.partial_path
 
-- SemiStatic::Entry.home.locale(I18n.locale).without_image.each do |e|
+- SemiStatic::Entry.home.locale(I18n.locale).not_style('tile').each do |e|
   %section{:id => "entry-id-#{e.id.to_s}"}
     - if e.banner.present?
       .banner{:style => "background-image: url(#{e.banner.img_url_for_theme(:desktop)})", :data => {'bottom-top' => "background-position: 50% -#{banner_skrollr_offset(e.banner)}px;", 'top-bottom' => "background-position: 50% #{banner_skrollr_offset(e.banner)}px;", 'anchor-target' => "#entry-id-#{e.id.to_s}"}}
@@ -18,8 +18,8 @@
       -# .banner.bg.mobile{:style => "display: none; background-image: url(#{e.banner.img_url_for_theme(:mobile)})"}
       -#   .hsContainer
       -#     .hsContent
-  .panel{:class => e.style_class, :style => "background-color:#{e.background_colour}; color: #{e.colour}"}
-    = render :partial => 'semi_static/entries/entry', :locals => {:e => e, :summary => false}
+  .group.panel{:class => e.style_class, :style => "background-color:#{e.background_colour}; color: #{e.colour}"}
+    = render :partial => 'semi_static/entries/entry', :locals => {:e => e, :style => :summary}
 
 .tiles
   - SemiStatic::Entry.home.locale(I18n.locale).with_image.has_style('tile').in_groups_of(3) do |g|
