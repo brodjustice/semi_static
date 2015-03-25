@@ -7,8 +7,8 @@ module SemiStatic
   
     # Caching the show page seems to cause some problems when flicking through the
     # gallery with js. Since the js/ajax is so light anyway we have stopped caching
-    # the photo pages until we are clear about the problem.
-    # caches_page :show
+    # the photo pages js until we are clear about the problem.
+    caches_page :show, :if => Proc.new{|c| c.request.format.html?}
   
     # GET /photos
     # GET /photos.json
