@@ -1,7 +1,7 @@
 - if @tag && @tag.partial_before_entries?
   = render :partial => @tag.partial_path
 
-- SemiStatic::Entry.home.locale(I18n.locale).not_style('tile').each do |e|
+- SemiStatic::Entry.home.locale(I18n.locale).unmerged.not_style('tile').each do |e|
   %section{:id => "entry-id-#{e.id.to_s}"}
     - if e.banner.present?
       .banner{:style => "background-image: url(#{e.banner.img_url_for_theme(:desktop)})", :data => {'bottom-top' => "background-position: 50% -#{banner_skrollr_offset(e.banner)}px;", 'top-bottom' => "background-position: 50% #{banner_skrollr_offset(e.banner)}px;", 'anchor-target' => "#entry-id-#{e.id.to_s}"}}
