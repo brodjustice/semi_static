@@ -469,13 +469,14 @@ input[type=submit], .mid input, .mid textarea, .form-wrapper input[type=text], .
   position: absolute;
   background-color: $prime-color;
   opacity: 0.8;
+}
+.tile_image h2, .tile_image .cover, .tile_image .caption{
   visibility: hidden;
 }
 
 .tile_image h2{
   color: white;
   text-align: center;
-  visibility: hidden;
   border-bottom: 1px solid white;
   margin: 0 auto;
   font-size: 22px;
@@ -500,7 +501,7 @@ input[type=submit], .mid input, .mid textarea, .form-wrapper input[type=text], .
 .tile_image:hover{
   border-color: $prime-color;
 }
-.tile_image:hover h2{
+.tile_image:hover h2, .tile_image:hover .caption{
   visibility: visible;
 }
 .tile_image:hover .cover{
