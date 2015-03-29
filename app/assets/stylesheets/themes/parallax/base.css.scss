@@ -102,7 +102,7 @@ a { text-decoration: none; color: #282828; }
 }
 
 .entry{
-  padding: 50px 4%;
+  padding: 50px 4% 0px;
   text-align: justify;
 }
 .entry .col .img img {
@@ -113,7 +113,7 @@ a { text-decoration: none; color: #282828; }
   border-top: 1px solid #a8a8a8; background-color: #171717; position: relative; width: 100%;
   display: block; font-size: 18px; width: 100%; color: white; text-align: center;
 }
-#footer ul {
+#footer ul li{
     list-style: outside none none;
 }
 
