@@ -14,14 +14,48 @@
 
 - if @tag.partial_before_entries?
   = render :partial => @tag.partial_path
+
+
+
+
 - if @tag.show_entries?
-  .section
-    - @tag.entries[0..(@tag.max_entries_on_index_page - 1)].each_slice(2) do |row|
-      .section
-        - row.each do |e|
-          .col.span_1_of_2
-            .panel.group{:class => e.style_class, :style => "background-color:#{e.background_colour}; color:#{e.colour}"}
-              = render :partial => 'semi_static/entries/entry', :locals => {:e => e, :style => :summary}
+  - @tag.entries.unmerged.not_style('tile').each do |e|
+    %section{:id => "entry-id-#{e.id.to_s}"}
+      - if e.banner.present?
+        .banner{:style => "background-image: url(#{e.banner.img_url_for_theme(:desktop)})", :data => {'bottom-top' => "background-position: 50% -#{banner_skrollr_offset(e.banner)}px;", 'top-bottom' => "background-position: 50% #{banner_skrollr_offset(e.banner)}px;", 'anchor-target' => "#entry-id-#{e.id.to_s}"}}
+          .hsContainer
+            - if e.banner.tag_line.blank?
+              .hsContent
+                .parallax
+                  .parallax-inner
+            - else
+              .hsContent{:data => {:center => "opacity: 1", '0-top' => "opacity: 0.3", 'anchor-target' => "#entry-id-#{e.id.to_s} h2"}}
+                .parallax
+                  .parallax-inner
+                    %h2= e.banner.tag_line
+        -# .banner.bg.mobile{:style => "display: none; background-image: url(#{e.banner.img_url_for_theme(:mobile)})"}
+        -#   .hsContainer
+        -#     .hsContent
+    .group.panel{:class => e.style_class, :style => "background-color:#{e.background_colour}; color: #{e.colour}"}
+      = render :partial => 'semi_static/entries/entry', :locals => {:e => e, :style => :summary}
+  
+  .tiles
+    - @tag.entries.has_style('tile').in_groups_of(3) do |g|
+      .group
+        - g.each do |e|
+          - break if e.nil?
+          .col.span_1_of_3.tile
+            = link_to entry_path(e) do
+              .tile_image{:style => "background-image: url(#{e.img_url_for_theme(:home)})"}
+                .cover
+                .title_wrapper
+                  %h2= e.title
+                  .caption
+                    = e.image_caption
+
+
+
+
 - if @tag.partial_after_entries?
   = render :partial => @tag.partial_path
 
