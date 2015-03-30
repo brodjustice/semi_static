@@ -31,6 +31,15 @@ a { text-decoration: none; color: #282828; }
   display: none;
 }
 
+#menu-button .menu-line {
+  background-color: $secondary-color;
+  border-radius: 2px;
+  height: 8px;
+  margin: 2px auto;
+  width: 80%;
+  text-align: center;
+}
+
 #top, .bar-menu, #menu-wrapper{
   position: fixed; top: 0;
   background-color: #171717;
@@ -70,19 +79,20 @@ a { text-decoration: none; color: #282828; }
 #menu-button, #menu-close{
   display: none;
   float: right;
-  color: #f0f0f0; font-weight: bold;
+  color: #484848;
   padding: 0px 2px 4px 32px;
   margin: 5px 12px 0px 0px;
-  background: transparent url(/assets/vert-sprites.png) left -214px no-repeat;
   cursor: pointer;
   position: relative;
   z-index: 5000;
   overflow: hidden;
   line-height: 1.5;
+  font-size: 20px;
+  min-width: 50px;
+  text-align: center;
 }
 
 #menu-close{
-  color: #171717; font-weight: bold;
   line-height: 1.9;
 }
 
@@ -522,17 +532,13 @@ input[type=submit], .mid input, .mid textarea, .form-wrapper input[type=text], .
   #menu, #top-inner ul{display: none;}
   #menu{
     height: auto;
-    background-color: white;
+    background-color: white !important;
     padding-top: 8px; padding-bottom: 12px;
-    padding-left: 0px;
-    width: 90%; max-width: 330px; left: -10px; right: -10px;
-    position: fixed; top: 48px;
+    width: 100%;
+    position: fixed; top: 0px;
     border: 1px solid $prime-color;
     background-image: none;
-    border-radius: 2px;
-    box-shadow: 0 50px 500px black;
-    font-size: 16px;
-    margin: 0 auto;
+    font-size: 26px;
     text-align: center;
   }
   #menu a{color: #171717;}
@@ -540,6 +546,9 @@ input[type=submit], .mid input, .mid textarea, .form-wrapper input[type=text], .
   #menu .col .wrapper{padding-right: 0px;}
   #menu-loading-wrapper{display: block;}
   #menu-wrapper{z-index: 2020;}
+  #menu-filler{display: none;}
+  #menu-main .col.span_1_of_5{width: 100% !important;}
+
 
   // Need to radically change the hover icons now menu has collapsed
   .icon .custom{
@@ -557,7 +566,7 @@ input[type=submit], .mid input, .mid textarea, .form-wrapper input[type=text], .
   #selected.wrapper .icon.sprite{background-position-x: left;}
 
 
-  #top{position: fixed; height: 42px; width: 100%; z-index: 1000;}
+  #top{position: fixed; height: 76px; width: 100%; z-index: 1000;}
   #menu-button{display: block;}
 }
 
