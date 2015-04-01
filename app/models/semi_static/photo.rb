@@ -104,7 +104,9 @@ module SemiStatic
   
     def tidy_dup
       new_photo = self.dup
-      new_photo.img = self.img
+      if File.file?(img.path)
+        new_photo.img = self.img
+      end
       new_photo.save
       new_photo
     end
