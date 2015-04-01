@@ -34,6 +34,8 @@
       - if (home_theme_js = ObjectSpace.each_object(Sprockets::Environment).first.find_asset('home_theme.js'))
         = home_theme_js.source.html_safe
 
+    = yield :ujs
+
     -# In the case of google analytics the async code must be in the head section in order that it
     -# can be validated for google webmaster tools
     = render :partial => SemiStatic::Engine.config.analytics_partial unless SemiStatic::Engine.config.analytics_partial.nil?

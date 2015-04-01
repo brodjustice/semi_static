@@ -55,7 +55,15 @@ module SemiStatic
     def draft_entry_objects
       entries = []
       draft_entry_ids.each{|e|
-        entries << SemiStatic::Entry.find(e)
+        if (e_obj = SemiStatic::Entry.find_by_id(e))
+          entries << e_obj
+        else
+          # This is a bit messy, should probably be
+          # validated elsewhere to make sure that
+          # all ids in array are valid
+          draft_entry_ids.delete(e)
+          self.save
+        end
       }
       entries
     end
