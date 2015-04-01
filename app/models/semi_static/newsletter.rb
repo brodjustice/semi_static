@@ -88,6 +88,18 @@ module SemiStatic
       self.state = STATES[:draft_sent]
       self.save
     end
+ 
+    def order_entries_to_position
+      order_array = []
+      self.draft_entry_ids.each{|e_id|
+        e = Entry.find(e_id)
+        order_array << [e_id, e.position] 
+      }
+      order_array.sort {|a,b| a[1] <=> b[1]}.collect{|x| x[0]}.each_with_index{|e, i|
+        draft_entry_ids[i] = e
+      }
+      self.save
+    end
 
     def publish(s_ids)
       s_ids.each{|id|

@@ -108,8 +108,12 @@
         if params[:preview]
           format.js { render 'preview'}
         elsif @entry.save
-          format.html { redirect_to entries_path }
-          format.json { render :json => @entry, :status => :created, :location => @entry }
+          if params[:newsletter_id]
+            format.html { redirect_to edit_newsletter_path(params[:newsletter_id]) }
+          else
+            format.html { redirect_to entries_path }
+            format.json { render :json => @entry, :status => :created, :location => @entry }
+          end
         else
           format.html { render :action => "new" }
           format.json { render :json => @entry.errors, :status => :unprocessable_entity }

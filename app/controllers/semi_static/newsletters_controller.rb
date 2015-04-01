@@ -42,6 +42,9 @@ module SemiStatic
     # GET /newsletters/1/edit
     def edit
       @newsletter = Newsletter.find(params[:id])
+      if params[:position]
+        @newsletter.order_entries_to_position 
+      end
     end
   
     # POST /newsletters
