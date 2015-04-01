@@ -11,8 +11,8 @@
 
     - @deliveries.each do |d|
       %tr
-        %td= d.subscriber.fullname
-        %td= d.subscriber.email
+        %td= d.fullname || '<Deleted>'
+        %td= d.email || '<Deleted>'
         %td.number= SemiStatic::NewsletterDelivery::STATE_CODES[d.state].to_s.humanize
         %td.number= d.updated_at.strftime('%d-%b-%Y %H:%M')
         %td

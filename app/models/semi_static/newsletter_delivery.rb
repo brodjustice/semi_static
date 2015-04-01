@@ -17,6 +17,9 @@ module SemiStatic
     scope :pending, where(:state => NewsletterDelivery::STATES[:pending])
     scope :delivered, where(:state => NewsletterDelivery::STATES[:sent])
 
+    delegate :fullname, :to => :subscriber, :allow_nil => true
+    delegate :email, :to => :subscriber, :allow_nil => true
+
     def sent
       self.state = STATES[:sent]
       self.save
