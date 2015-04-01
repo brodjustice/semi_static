@@ -15,7 +15,8 @@ module SemiStatic
     config.site_name = 'Business Landing Ltd'
 
     # Correct logo path is important for the Open Graph meta tags and newsletters
-    config.logo_image = '/assets/logo.png'
+    # config.logo_image = '/assets/logo.png'
+    config.logo_image = nil
 
     config.info_email = 'info@business-landing.com'
     config.telephone = nil

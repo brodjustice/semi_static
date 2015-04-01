@@ -77,8 +77,8 @@ module SemiStatic
             @subscribers = Subscriber.all
             format.html { render action: "prepare" }
           elsif params[:email_draft].present?
-            NewsletterMailer.draft(current_admin, @newsletter).deliver && @newsletter.draft_sent
-            format.html { redirect_to newsletters_path, notice:  "Draft of Newsletter #{@newsletter.name} was sent to #{current_admin.email}" }
+            NewsletterMailer.draft(semi_static_current_user, @newsletter).deliver && @newsletter.draft_sent
+            format.html { redirect_to newsletters_path, notice:  "Draft of Newsletter #{@newsletter.name} was sent to #{semi_static_current_user.email}" }
           else
             format.html { render action: 'edit', notice: 'Newsletter was updated.' }
             format.json { head :no_content }

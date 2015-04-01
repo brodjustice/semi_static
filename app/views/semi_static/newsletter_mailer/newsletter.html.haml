@@ -12,11 +12,11 @@
         - loop do
           .entry
             %h2= e.title
-            - if e.img.present?
+            - if e.img.present? && File.file?(e.img.path)
               %div{:style => 'margin: 0px 6px 6px 6px; float: right; position: relative; z-index: 1;'}
                 <img src="#{attachments[e.id.to_s + '.jpg'].url}"/>
             %div{:style => 'font-size: 14px'}= e.body.html_safe
-            - if e.doc.present?
+            - if e.doc.present? && File.file?(e.doc.path)
               %table{:class => 'footer', :style => 'width: 100%; margin-top: 8px; border-top: 1px solid #c8c8c8; background-color: #f0f0f0'}
                 %tr
                   %td
