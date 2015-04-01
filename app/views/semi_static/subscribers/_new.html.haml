@@ -1,0 +1,12 @@
+%h2= 'Upload CSV file of subscribers'
+%p
+  The format must be:
+  %ul
+    %li= 'Column 1: First name'
+    %li= 'Column 2: Surname'
+    %li= 'Column 3: E-mail address'
+    %li= 'Column 4: (Optional) Telephone number'
+  The fields must be seperated with commas.
+= form_tag(subscribers_path(:cmd => :csv), multipart: true, method: :post) do
+  = file_field_tag :csv
+  = submit_tag 'Upload'

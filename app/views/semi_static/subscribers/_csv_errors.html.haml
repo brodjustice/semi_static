@@ -1,0 +1,19 @@
+%h2= "There were #{@errors.count.to_s} error(s)"
+%table
+  %thead
+    %tr
+      %th Error
+      %th Name
+      %th Surname
+      %th Email
+      %th Telephone
+  %tbody
+    - @errors.each do |e|
+      %tr
+        %td
+          %b= e[:error].full_messages.join(', ')
+        %td= e[:name]
+        %td= e[:surname]
+        %td= e[:email]
+        %td= e[:telephone]
+     

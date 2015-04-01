@@ -8,10 +8,11 @@ module SemiStatic
     before_create :generate_token
 
     validates_uniqueness_of :email
-
+    validates_format_of :email, :with => Devise.email_regexp
+    validates_presence_of :email
     
     def fullname
-      name + ' ' + surname
+      name.to_s + ' ' + surname.to_s
     end
 
     def delivery_state(newsletter)

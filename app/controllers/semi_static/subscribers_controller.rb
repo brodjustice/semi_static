@@ -1,3 +1,4 @@
+require 'csv'
 require_dependency "semi_static/application_controller"
 
 module SemiStatic
@@ -31,11 +32,16 @@ module SemiStatic
     # GET /subscribers/new
     # GET /subscribers/new.json
     def new
-      @subscriber = Subscriber.new
+      if params[:cmd] == 'csv'
+        # Nothing to do, this must be a js format request
+      else
+        @subscriber = Subscriber.new
+      end
   
       respond_to do |format|
         format.html # new.html.erb
         format.json { render json: @subscriber }
+        format.js
       end
     end
   
@@ -61,11 +67,25 @@ module SemiStatic
     # POST /subscribers
     # POST /subscribers.json
     def create
-      @subscriber = Subscriber.new(params[:subscriber])
+      if params[:cmd] == 'csv'
+        @errors = []
+        CSV.read(params[:csv].path).each{|row|
+          @subscriber = Subscriber.create(:name => row[0], :surname => row[1], :email => row[2], :telephone => row[3])
+          unless @subscriber.errors.empty?
+            @errors << {:error => @subscriber.errors, :name => row[0], :surname => row[1], :email => row[2], :telephone => row[3]}
+          end
+        }
+        notice = 'Subscribers CSV imported with ' + @errors.size.to_s + ' errors'
+      else
+        @subscriber = Subscriber.create(params[:subscriber])
+        notice = 'Subscriber was successfully created.'
+      end
+
+      @subscribers = Subscriber.all
   
       respond_to do |format|
-        if @subscriber.save
-          format.html { redirect_to @subscriber, notice: 'Subscriber was successfully created.' }
+        if (params[:cmd] == 'csv') || @subscriber.errors.empty?
+          format.html { render action: 'index', notice: notice }
           format.json { render json: @subscriber, status: :created, location: @subscriber }
         else
           format.html { render action: "new" }
@@ -86,6 +106,7 @@ module SemiStatic
           layout = 'semi_static_application'; template = 'semi_static/subscribers/cancel';
         end
       elsif authenticate_for_semi_static!
+        @subscriber = SemiStatic::Subscriber.find(params[:id])
         layout = 'semi_static_dashboards'; template = 'semi_static/subscribers/show';
       end
   
