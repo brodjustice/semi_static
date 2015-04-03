@@ -64,7 +64,7 @@ will find the english version of your home page at:
 
    public/en/home.html
 
-Your webserver needs to be configured to take advantage of this. For ngnix this will look something like this:
+Your webserver needs to be configured to take advantage of this. For ngnix the configuration will look something like this:
 
     server {
       # myapp.com
@@ -100,3 +100,16 @@ need to link the 'asset' and 'system' directories inside each of the public loca
     # cd public/en
     # ln -s ../assets ./assets
     # ln -s ../system ./system
+
+= Integrating to your own app
+
+A number of helper method are  exposed by adding the following to your application_controller
+    
+   require 'semi_static/sign_in'
+   include SignIn
+   helper SemiStatic::SiteHelper
+
+In your controllers you can then for example use authenticate_admin!
+
+    before_filter :authenticate_admin!, :except => [ :new, :create ]
+
