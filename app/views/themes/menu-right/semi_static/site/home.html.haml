@@ -7,7 +7,7 @@
         .col.span_1_of_3
           %article
             .entry.panel{:class => e.style_class, :style => "background-color:#{e.background_colour}; color: #{e.colour}"}
-              .img= link_to semantic_entry_image(e, :home), e
+              .img= link_to semantic_entry_image(e, :home, 241), e
               %h1= link_to e.title, e
               = entry_summary(e)
               .more

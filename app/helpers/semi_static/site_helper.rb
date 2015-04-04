@@ -49,10 +49,23 @@ module SemiStatic
       end
     end
 
-    def semantic_entry_image(e, style)
+    # This allows us to deal with images that are smaller than expected. We set the max-width inline according
+    # to the uploaded file size. This then stops the image from being displayed larger than the origional.
+    def image_with_style(e, style, max_width)
+      if max_width
+        image_tag(e.img_url_for_theme(style, @side_bar), :style => "max-width: #{max_width.to_s + 'px'};")
+      elsif !e.img_dimensions.blank?
+        w = [e.img.styles[SemiStatic::Entry::THEME[SemiStatic::Engine.config.theme][style]].geometry.split('x').first.to_i, e.img_dimensions[0]].min
+        image_tag(e.img_url_for_theme(style, @side_bar), :style => "max-width: #{w.to_s + 'px'};")
+      else
+        image_tag(e.img_url_for_theme(style, @side_bar))
+      end
+    end
+
+    def semantic_entry_image(e, style, max_width=nil)
       c = '<figure vocab = "http://schema.org/" typeof="ImageObject"> '.html_safe
       c += "<meta  property='name' content='#{e.raw_title}'> ".html_safe
-      c += image_tag(e.img_url_for_theme(style, @side_bar))
+      c += image_with_style(e, style, max_width)
       unless e.image_caption.blank? || style == :home
         c += "<figcaption class='caption'> <div class='caption-inner' property='description'>#{e.image_caption}</div> </figcaption> ".html_safe
       end

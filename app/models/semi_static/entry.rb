@@ -22,6 +22,9 @@ module SemiStatic
     after_save :expire_site_page_cache
     after_save :check_for_newsletter_entry
     before_destroy :expire_site_page_cache
+    before_save :extract_dimensions
+
+    serialize :img_dimensions
   
     scope :home, where('home_page = ?', true)
     scope :news, where('news_item = ?', true)
@@ -76,14 +79,14 @@ module SemiStatic
     DISPLAY_ENTRY_SYM = DISPLAY_ENTRY.invert
 
     THEME = {
-      'tiles' => {:desktop => :panel, :mobile => :panel, :small => :small, :summary => :panel, :home => :tile, :show => :panel},
-      'menu-right' => {:desktop => :panel, :mobile => :panel, :small => :small, :summary => :panel, :home => :tile, :show => :panel},
-      'standard-2col-1col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel},
-      'bannerless' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel},
-      'bannerette-2col-1col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel},
-      'plain-3col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel},
-      'parallax' => {:desktop => :medium, :mobile => :medium, :summary => :medium, :home => :tile, :show => :medium},
-      'plain-big-banner-3col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel}
+      'tiles' => {:desktop => :panel, :mobile => :panel, :small => :small, :summary => :panel, :home => :tile, :show => :panel, :medium => :medium},
+      'menu-right' => {:desktop => :panel, :mobile => :panel, :small => :small, :summary => :panel, :home => :tile, :show => :panel, :medium => :medium},
+      'standard-2col-1col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel, :medium => :medium},
+      'bannerless' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel, :medium => :medium},
+      'bannerette-2col-1col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel, :medium => :medium},
+      'plain-3col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel, :medium => :medium},
+      'parallax' => {:desktop => :medium, :mobile => :medium, :summary => :medium, :home => :tile, :show => :medium, :medium => :medium},
+      'plain-big-banner-3col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel, :medium => :medium}
     }
 
     default_scope order(:position)
@@ -164,6 +167,7 @@ module SemiStatic
         self.doc.clear
       end
     end
+
 
     def img_delete=(val)
       if val == '1' || val == true
@@ -259,6 +263,18 @@ module SemiStatic
     # To create SEO friendly urls
     def to_param
       "#{id} #{self.raw_title}".parameterize
+    end
+
+    private 
+
+    # Retrieves dimensions for image assets
+    # @note Do this after resize operations to account for auto-orientation.
+    def extract_dimensions
+      tempfile = img.queued_for_write[:original]
+      unless tempfile.nil?
+        geometry = Paperclip::Geometry.from_file(tempfile)
+        self.img_dimensions = [geometry.width.to_i, geometry.height.to_i]
+      end
     end
   end
 end

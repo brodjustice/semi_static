@@ -30,6 +30,7 @@
       @seo = @tag.seo
 
       @tag.entries.size == 1 && @tag.entries.first.link_to_tag && ((@entry = @tag.entries.first) && (@link_to_tag = true))
+      !@link_to_tag && (@summaries = true)
       @side_bar = @tag.side_bar
       !@side_bar && (@group_size = 3)
   

@@ -3,7 +3,7 @@
   .col.span_2_of_3
     - SemiStatic::Entry.unscoped.order(:position).home.locale(I18n.locale).unmerged.each do |e|
       .entry.panel{:class => e.style_class, :style => "background-color:#{e.background_colour}; color: #{e.colour}"}
-        = render :partial => 'semi_static/entries/entry', :locals => {:e => e, :style => :summary}
+        = render :partial => 'semi_static/entries/entry', :locals => {:e => e, :style => :show}
     = home_custom_after
   .col.span_1_of_3
     %aside
