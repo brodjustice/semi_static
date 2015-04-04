@@ -23,7 +23,7 @@ module SemiStatic
 
     def entry_title(e, linked = false)
       return if e.title.blank?
-      if linked && !@link_to_tag
+      if linked && !e.link_to_tag
         content_tag(:h1){
           content_tag(:a, e.title, :href => entry_path(e), :style => "color: #{e.header_colour}")
         }
