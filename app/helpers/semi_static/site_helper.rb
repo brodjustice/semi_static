@@ -178,11 +178,19 @@ module SemiStatic
     end
 
     def seo_title
-      @seo ? (@seo.title.blank? ? @title || SemiStatic::Engine.config.site_name : @seo.title) : (@title || SemiStatic::Engine.config.site_name)
+      if @seo
+        @seo.title || @title || SemiStatic::Engine.config.site_name
+      else
+        @title || SemiStatic::Seo.master_title || SemiStatic::Engine.config.site_name
+      end
     end
 
     def seo_description
-      (@seo && !@seo.description.blank?) ? @seo.description : SemiStatic::Engine.config.site_name
+      if @seo
+        @seo.description || SemiStatic::Engine.config.site_name
+      else
+        SemiStatic::Seo.master_description || SemiStatic::Engine.config.site_name
+      end
     end
 
     def seo_keywords
@@ -190,9 +198,7 @@ module SemiStatic
     end
 
     def seo_no_index?
-      if @seo && @seo.no_index
-        '<Meta Name="ROBOTS" Content="NOINDEX, NOFOLLOW">'.html_safe
-      end
+      @seo && @seo.no_index && '<Meta Name="ROBOTS" Content="NOINDEX, NOFOLLOW">'.html_safe
     end
 
     def og_image_url

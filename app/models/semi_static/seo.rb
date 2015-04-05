@@ -22,6 +22,14 @@ module SemiStatic
     before_destroy :expire_site_page_cache
     before_create :set_defaults
 
+    def self.master_title
+      self.master.first && self.master.first.title
+    end
+
+    def self.master_description
+      self.master.first && self.master.first.description
+    end
+
     def set_defaults
       self.changefreq = CHANGE_FREQ[:unknown]
     end
