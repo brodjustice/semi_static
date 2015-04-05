@@ -198,7 +198,9 @@ module SemiStatic
     end
 
     def seo_no_index?
-      @seo && @seo.no_index && '<Meta Name="ROBOTS" Content="NOINDEX, NOFOLLOW">'.html_safe
+      if @seo && @seo.no_index
+        '<Meta Name="ROBOTS" Content="NOINDEX, NOFOLLOW">'.html_safe
+      end
     end
 
     def og_image_url

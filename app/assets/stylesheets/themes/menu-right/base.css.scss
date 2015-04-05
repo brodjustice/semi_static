@@ -548,6 +548,9 @@ h2 a, h3 a{color: $secondary-color;}
   #menu-button{display: block; width: 50px;}
 }
 
+@media only screen and (max-width: 1420px) {
+  #frame{margin-top: 55px !important;}
+}
 /* Mobile portrait layout at less than 580px */
 @media only screen and (max-width: 580px) {
   /* Stop adjusting margins by height %, it gets ugly this small */
