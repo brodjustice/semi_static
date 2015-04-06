@@ -204,7 +204,7 @@ module SemiStatic
     end
 
     def og_image_url
-      request.protocol + request.host + (@entry && @entry.img.present? ? @entry.img_url_for_theme : SemiStatic::Engine.config.logo_image)
+      request.protocol + request.host + (@entry && @entry.img.present? ? @entry.img_url_for_theme : (SemiStatic::Engine.config.logo_image || ''))
     end
 
     #
