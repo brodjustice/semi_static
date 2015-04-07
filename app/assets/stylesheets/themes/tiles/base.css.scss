@@ -48,7 +48,7 @@ fieldset{
 }
 h2{ font-size: 20px;}
 #search-bar{ margin-top: 0px; margin-bottom: 10px; }
-#top .inner, #overlay-inner, #search-bar-inner, #container, #top-inner, #footer-inner{
+.container, #top .inner, #overlay-inner, #search-bar-inner, #container, #top-inner, #footer-inner{
   max-width: 1024px; margin: 0px auto;
   background-color: transparent;
 }

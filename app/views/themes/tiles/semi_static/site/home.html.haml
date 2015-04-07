@@ -1,4 +1,5 @@
 -# TODO - Refactor the CSS and remove extra divs
+= home_custom
 .tiles
   - SemiStatic::Entry.home.locale(I18n.locale).each_slice(4) do |e4|
     .wrap_x_4
@@ -15,3 +16,5 @@
                     .col.span_1_of_2.wrapping
                       .html
                         %h1{:style => "color: #{e.header_colour}"}= link_to e.title, e, :class => 'semi-static-loading'
+= home_custom_after
+
