@@ -1,6 +1,0 @@
-= home_custom
-.section
-  - SemiStatic::Entry.unscoped.order(:position).home.locale(I18n.locale).unmerged.each do |e|
-    .col.span_1_of_2{:class => cycle('section', 'null')}
-      .entry.panel{:class => e.style_class, :style => "background-color:#{e.background_colour}; color: #{e.colour}"}
-        = render :partial => 'semi_static/entries/entry', :locals => {:e => e}

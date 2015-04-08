@@ -6,29 +6,20 @@
 /* SASS */
 $prime-color: #ff2700;
 $secondary-color: #303030;
-$contrast-color: #303030;
+$font-color: #181818;
 
 /* Change to match your logo and its dimensions */
-$logo: 'logo2.png';
-$logo-width: 200px;
-$logo-height: 166px;
+$logo: 'logo.png';
+$logo-width: 270px;
+$logo-height: 117px;
 
-$logo-top: 'logo.png';
-$logo-top-width: 276px;
-$logo-top-height: 160px;
+$logo-top: 'logo-top.png';
+$logo-top-width: 120px;
+$logo-top-height: 54px;
 
-/* For wide view ports you can have the search bar in the banner IF banner-overlay is true */
-$search-bar-in-banner: false;
-
-/* Name of image files in the your applications assets/images/banners directory that make */
-/* up the 3 animated home page banners. Should be 1012px x 400px */
-$banner-a: 'banner04.jpg';
-$banner-b: 'banner00.jpg';
-$banner-c: 'banner01.jpg';
-
-/* Name of image files in the your applications assets/images/banners directory that */
-/* will be used for the single mobile (small screen width) mobile banner. Should be 750px x 400px */
-
-$banner-mobile: 'banner-mobile.jpg';
+/* The sprites file for various icons */
+$vert-sprites: '/assets/vert-sprites.png';
+$vert-x2-sprites: '/assets/x2/vert-sprites.png';
+$vert-sprites-height: 237px;
 
 /* Add your custom variables, if needed below here */
