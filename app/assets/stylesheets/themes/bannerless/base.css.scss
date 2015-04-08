@@ -262,7 +262,7 @@ h2 a, h3 a{color: $secondary-color;}
 
 #menu-wrapper{
   z-index: 1000;
-  top: -3px;
+  top: 5px;
   right: 0px;
   position: relative;
 }
@@ -316,7 +316,7 @@ h2 a, h3 a{color: $secondary-color;}
 }
 .home{ padding-left: 52px !important; background: transparent url(/assets/home.png) 21px 2px no-repeat; background-size: auto !important;}
 
-#menu-main{float: right; width: 100%;}
+#menu-main{float: right;}
 #menu-main .wrapper:hover{text-decoration: none;}
 #menu-main .col{margin-left: 16px; width: auto; float: right;}
 #menu-main .wrapper:hover{
