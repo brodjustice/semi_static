@@ -6,7 +6,7 @@ module SemiStatic
   
     attr_accessible :name, :menu, :position, :icon, :icon_in_menu, :icon_delete, :sidebar_title
     attr_accessible :predefined_class, :colour, :icon_resize, :locale, :max_entries_on_index_page
-    attr_accessible :banner_id, :partial, :entry_position, :tag_line
+    attr_accessible :banner_id, :partial, :entry_position, :tag_line, :use_as_plus_one_column
     attr_accessible :side_bar, :side_bar_news, :side_bar_social, :side_bar_search
     attr_accessor :icon_delete
   
@@ -17,6 +17,7 @@ module SemiStatic
 
     validates :name, :uniqueness => {:scope => :locale}
 
+    scope :use_as_plus_one_column, where('use_as_plus_one_column = ?', true)
     scope :menu, where('menu = ?', true)
     scope :locale, lambda {|locale| where("locale = ?", locale.to_s)}
     # default_scope order(:position).where(:newsletter_id => nil)

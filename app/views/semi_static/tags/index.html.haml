@@ -12,6 +12,7 @@
         %th= 'Menu'
         %th= 'Locale'
         %th= 'Position'
+        %th= '+1'
         %th= 'Bar'
         %th= 'Banner'
         %th= 'SEO'
@@ -34,6 +35,8 @@
           %td.number= tag.locale.to_s
           %td.number
             = tag.position if tag.menu
+          %td.tick
+            = image_tag('/assets/tick.png', :title => 'Has side-bar') if tag.use_as_plus_one_column
           %td.tick
             = image_tag('/assets/tick.png', :title => 'Has side-bar') if tag.side_bar
           %td

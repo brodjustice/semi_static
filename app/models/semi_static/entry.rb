@@ -104,6 +104,14 @@ module SemiStatic
       super
     end
 
+    def self.get_news_or_plus_one_column(entry, locale)
+       if t = Tag.use_as_plus_one_column.locale(locale).first
+         t.entries.not(entry).limit(20).locale(locale)
+       else 
+         self.news.not(entry).limit(20).locale(locale)
+       end
+    end
+
     def img_url_for_theme(screen = :desktop, side_bar = true)
       screen = :summary if (screen == true)
       # We assume a reasonable sized image (medium) should be served

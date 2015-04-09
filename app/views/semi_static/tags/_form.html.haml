@@ -90,21 +90,23 @@
       %br/
       = f.select :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @tag.locale)
     .col.span_1_of_2
+      %fieldset
+        = f.label :use_as_plus_one_column
+        = f.check_box :use_as_plus_one_column
       = f.label :predefined_class, 'Predefined Tag'
       = f.select :predefined_class, options_for_select(predefined_tags.keys.collect{|k| [k, k]}.prepend(["- None -", nil]), @tag.predefined_class)
-      %br/
-      %br/
-      = f.label :menu
-      = f.check_box :menu
-      %br/
-      = f.label :icon_in_menu
-      = f.check_box :icon_in_menu
-      %br/
-      = f.label :icon_delete, 'Delete icon'
-      = f.check_box :icon_delete
-      %br/
-      = f.label :icon_resize, 'Resize icon'
-      = f.check_box :icon_resize
+      %fieldset
+        = f.label :menu
+        = f.check_box :menu
+        %br/
+        = f.label :icon_in_menu
+        = f.check_box :icon_in_menu
+        %br/
+        = f.label :icon_delete, 'Delete icon'
+        = f.check_box :icon_delete
+        %br/
+        = f.label :icon_resize, 'Resize icon'
+        = f.check_box :icon_resize
   %fieldset
     = f.label :side_bar
     = f.check_box :side_bar
