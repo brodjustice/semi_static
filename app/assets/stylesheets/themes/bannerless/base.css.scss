@@ -44,7 +44,7 @@ a{text-decoration: none; color: black;}
 fieldset{
   border: none;
 }
-h2{ font-size: 20px;}
+h2{ font-size: 20px; font-weight: normal;}
 #search-bar{ margin-top: 0px; margin-bottom: 10px; }
 #top .inner, #overlay-inner, #search-bar-inner, #container, #top-inner, #footer-inner{
   max-width: 1024px; margin: 0px auto;
@@ -151,9 +151,7 @@ h2{ font-size: 20px;}
 
 /* TODO: News not shown on home page for this theme, so move to site.css */
 .index.panel, .news .panel{
-  background-color: $prime-color;
-  color: white;
-  border-bottom: 1px dashed white;
+  border-bottom: 1px dashed $prime-color;
   padding: 2px 0px 0px;
   box-shadow: none;
   min-height: 0;
@@ -185,16 +183,10 @@ h2{ font-size: 20px;}
   color: white;
 }
 
-.highlight h2 a, .news h3 a, .news h3{
-  color: white;
-}
 .panel:last-child{
   border-bottom: none;
 }
 .gallery, .news, .social{
-  background-color: #171717;
-  background-color: $prime-color;
-  color: white;
   margin-bottom: 10px;
   padding: 6px 11px;
   border-radius: 2px;
@@ -204,7 +196,7 @@ h2{ font-size: 20px;}
   line-height: 30px;
   width: 100%;
 }
-.gallery h2 a, .gallery h2, .news h2 a, .news h2{ color: white; border-bottom: 1px solid white; }
+.gallery h2 a, .gallery h2, .news h2 a, .news h2{ border-bottom: 1px solid $prime-color; }
 .list h1, .panel.list h2{ color: $prime-color; border-bottom: 1px solid $prime-color; text-align: center;}
 
 .social a{
@@ -228,7 +220,7 @@ h2{ font-size: 20px;}
 
 h1{font-size: 24px; font-weight: normal;}
 h1{ margin: 6px 0px 8px; color: $prime-color}
-h2, h3{ margin: 6px 0px 6px; color: $secondary-color}
+h2, h3{ margin: 6px 0px 6px; color: $secondary-color;  font-weight: normal;}
 h2 a, h3 a{color: $secondary-color;}
 .panel h2{
   text-align: left;
