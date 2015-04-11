@@ -12,8 +12,7 @@
         %th= 'Menu'
         %th= 'Locale'
         %th= 'Position'
-        %th= '+1'
-        %th= 'Bar'
+        %th= 'Side bar'
         %th= 'Banner'
         %th= 'SEO'
         %th= 'Entries'
@@ -36,9 +35,8 @@
           %td.number
             = tag.position if tag.menu
           %td.tick
-            = image_tag('/assets/tick.png', :title => 'Has side-bar') if tag.use_as_plus_one_column
-          %td.tick
-            = image_tag('/assets/tick.png', :title => 'Has side-bar') if tag.side_bar
+            = tag.side_bar_tag.name if !tag.side_bar_tag.nil? && !tag.side_bar_news
+            = image_tag('/assets/tick.png', :title => 'Has side-bar') if tag.side_bar_news
           %td
             - if tag.predefined_class && SemiStatic::Banner.find_by_name(tag.predefined_class)
               = tag.predefined_class

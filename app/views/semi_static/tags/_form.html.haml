@@ -91,8 +91,6 @@
       = f.select :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @tag.locale)
     .col.span_1_of_2
       %fieldset
-        = f.label :use_as_plus_one_column
-        = f.check_box :use_as_plus_one_column
       = f.label :predefined_class, 'Predefined Tag'
       = f.select :predefined_class, options_for_select(predefined_tags.keys.collect{|k| [k, k]}.prepend(["- None -", nil]), @tag.predefined_class)
       %fieldset
@@ -118,6 +116,9 @@
         = f.check_box :side_bar_social
         = f.label :side_bar_search, 'Search'
         = f.check_box :side_bar_search
+        %br/
+        = f.label :side_bar_tag_id, 'Tag for sidebar'
+        = f.select :side_bar_tag_id, options_for_select(SemiStatic::Tag.locale(@tag.locale).collect{|t| [t.name, t.id]}.prepend(["- None -", nil]), @tag.side_bar_tag_id)
   %fieldset
     .section.group
       .col.span_1_of_2

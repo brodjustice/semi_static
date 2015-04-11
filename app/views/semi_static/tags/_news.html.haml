@@ -1,6 +1,7 @@
+- klass = @entry || @tag
 .news
-  %h2= SemiStatic::Tag.use_as_plus_one_column.locale(locale).first.try('name') || t('News')
-  - SemiStatic::Entry.get_news_or_plus_one_column(@entry, I18n.locale).each do |e|
+  %h2= klass.side_bar_tag.nil? ? t('News') : klass.side_bar_tag.name
+  - klass.get_side_bar_entries.each do |e|
     - next if e == @entry && !e.use_as_news_summary
     .panel
       - if e.summary_length >= 0

@@ -6,8 +6,8 @@ module SemiStatic
   
     attr_accessible :name, :menu, :position, :icon, :icon_in_menu, :icon_delete, :sidebar_title
     attr_accessible :predefined_class, :colour, :icon_resize, :locale, :max_entries_on_index_page
-    attr_accessible :banner_id, :partial, :entry_position, :tag_line, :use_as_plus_one_column
-    attr_accessible :side_bar, :side_bar_news, :side_bar_social, :side_bar_search
+    attr_accessible :banner_id, :partial, :entry_position, :tag_line
+    attr_accessible :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_tag_id
     attr_accessor :icon_delete
   
     has_one :seo, :as => :seoable
@@ -15,9 +15,11 @@ module SemiStatic
     has_many :entries, :dependent => :destroy
     belongs_to :banner
 
+    has_many :displays_as_side_bar, :foreign_key => :side_bar_tag_id, :class_name => 'SemiStatic::Tag'
+    belongs_to :side_bar_tag, :foreign_key => :side_bar_tag_id, :class_name => 'SemiStatic::Tag'
+
     validates :name, :uniqueness => {:scope => :locale}
 
-    scope :use_as_plus_one_column, where('use_as_plus_one_column = ?', true)
     scope :menu, where('menu = ?', true)
     scope :locale, lambda {|locale| where("locale = ?", locale.to_s)}
     # default_scope order(:position).where(:newsletter_id => nil)
@@ -58,6 +60,13 @@ module SemiStatic
       !Tag.where('position = ?', 0).empty?
     end
 
+    def get_side_bar_entries
+      if self.side_bar_tag.present?
+        self.side_bar_tag.entries.limit(20)
+      else
+        SemiStatic::Entry.news.limit(20).locale(self.locale)
+      end
+    end
   
     def add_sidebar_title
       if self.sidebar_title.blank?

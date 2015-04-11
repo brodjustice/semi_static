@@ -1,6 +1,6 @@
 /* High res 'retina' screens */
 @media (device-pixel-ratio: 2), (-moz-device-pixel-ratio: 2), (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dppx) {
-  #top .icon, #twitter, #facebook, #youtube, #xing, #menu-button, #menu-close { background-size: 28px $vert-sprites-height; background-image: url(#{$vert-x2-sprites});}
+  #top li.icon, #twitter, #facebook, #youtube, #xing, #menu-button, #menu-close { background-size: 28px $vert-sprites-height; background-image: url(#{$vert-x2-sprites});}
   #mini-logo{ background: transparent url(/assets/x2/#{$logo-top}) 0 0 no-repeat; background-size: $logo-top-width $logo-top-height; }
   #logo{ background: transparent url(/assets/x2/#{$logo-top}) 0 0 no-repeat; background-size: $logo-top-width $logo-top-height; }
   #menu-button, #menu-close{background-image: none;}

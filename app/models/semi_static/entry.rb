@@ -10,7 +10,7 @@ module SemiStatic
     attr_accessible :title, :body, :tag_id, :home_page, :summary, :img, :news_item, :image_in_news, :image_disable, :news_img
     attr_accessible :position, :doc, :doc_description, :summary_length, :locale, :style_class, :header_colour, :background_colour, :colour
     attr_accessible :banner_id, :partial, :entry_position, :master_entry_id, :youtube_id_str, :use_as_news_summary
-    attr_accessible :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_gallery, :unrestricted_html, :merge_with_previous, :raw_html
+    attr_accessible :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_gallery, :side_bar_tag_id, :unrestricted_html, :merge_with_previous, :raw_html
     attr_accessible :facebook_share, :show_in_documents_tag, :image_caption, :tag_line, :raw_html, :show_image_titles, :link_to_tag
     attr_accessor :doc_delete, :img_delete
 
@@ -45,6 +45,9 @@ module SemiStatic
     belongs_to :master_entry, :class_name => SemiStatic::Entry
     belongs_to :banner
     has_many :photos
+
+    belongs_to :side_bar_tag, :foreign_key => :side_bar_tag_id, :class_name => 'SemiStatic::Tag'
+
     has_attached_file :doc
 
     has_attached_file :img,
@@ -102,14 +105,6 @@ module SemiStatic
     def new
       self.body = ''
       super
-    end
-
-    def self.get_news_or_plus_one_column(entry, locale)
-       if t = Tag.use_as_plus_one_column.locale(locale).first
-         t.entries.not(entry).limit(20).locale(locale)
-       else 
-         self.news.not(entry).limit(20).locale(locale)
-       end
     end
 
     def img_url_for_theme(screen = :desktop, side_bar = true)
@@ -180,6 +175,14 @@ module SemiStatic
     def img_delete=(val)
       if val == '1' || val == true
         self.img.clear
+      end
+    end
+
+    def get_side_bar_entries
+      if self.side_bar_tag.present?
+        self.side_bar_tag.entries.limit(20)
+      else
+        SemiStatic::Entry.news.limit(20).locale(self.tag.locale)
       end
     end
 

@@ -301,6 +301,9 @@
               = f.label :side_bar_search, 'Search'
               = f.check_box :side_bar_search
               %br/
+              = f.label :side_bar_tag_id, 'Tag for sidebar'
+              = f.select :side_bar_tag_id, options_for_select(SemiStatic::Tag.locale(@entry.locale).collect{|t| [t.name, t.id]}.prepend(["- None -", nil]), @entry.side_bar_tag_id)
+              %br/
               %br/
               = f.label :side_bar_gallery, 'Number of gallery images to show'
               %br/
