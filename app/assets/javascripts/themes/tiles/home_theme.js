@@ -23,38 +23,3 @@
     w.addEventListener( "orientationchange", semiStaticRepaint, false );
 
 })( this );
-
-function semiStaticTilesLoading(){
-  var el = document.getElementById('menu-loading'),
-    i = 0,
-    load = setInterval(function() {
-      i = ++i % 10;
-      el.innerHTML = '&#9609' + Array(i + 1).join('&#9609;');
-  }, 600);
-  setTimeout(function(){
-    document.getElementById('menu').style.display='block';
-    document.getElementById('menu').style.borderWidth='0';
-    document.getElementById('menu-main').style.display='none';
-    document.getElementById('bar-in-menu').style.display='none';
-    document.getElementById('menu').style.display='block';
-    document.getElementById('menu-loading-wrapper').style.display='block';
-    document.getElementById('menu-loading').style.display='block';
-  }, 1000);
-  true
-}
-
-function callback(e) {
-    var e = window.e || e;
-
-    if (e.target.className.match(/semi-static-loading/)) {
-      semiStaticTilesLoading();
-    } else {
-      return;
-    }
-}
-
-if (document.addEventListener)
-  document.addEventListener('click', callback, false);
-else
-  document.attachEvent('onclick', callback);
-
