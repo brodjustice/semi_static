@@ -9,6 +9,15 @@ module SemiStatic
       'Gallery' => SemiStatic::Engine.routes.url_helpers.photos_path
     }
 
+    MAX_MENU_TAGS = {
+      'bannerless' => 10,
+      'menu-right' => 10
+    }
+
+    def max_menu_tags
+      MAX_MENU_TAGS[SemiStatic::Engine.config.theme] || 5
+    end
+
     def predefined_tags
       # This does not work in ruby 1.9.3, depending on exact version:
       #

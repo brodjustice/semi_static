@@ -5,7 +5,7 @@
     #menu-close{:onclick => 'semiStaticCloseMenu()'}
       = t('Close')
     #menu-main.section.group
-      - SemiStatic::Tag.menu.locale(I18n.locale.to_s).limit(5).each_with_index do |t, i|
+      - SemiStatic::Tag.menu.locale(I18n.locale.to_s).limit(max_menu_tags).each_with_index do |t, i|
         .col.span_1_of_5
           .wrapper{:id => ('selected' if ((@tag == t) || (@selection == t.predefined_class)))}
             = link_to t.name, t.predefined_class.blank? ? semi_static.feature_path(t.slug) : "#{predefined_tags[t.predefined_class]}?tag_id=#{t.id}", :class => 'text ', :onclick => 'semiStaticLoading()'

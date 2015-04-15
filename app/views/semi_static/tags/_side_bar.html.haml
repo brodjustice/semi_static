@@ -16,4 +16,4 @@
     = render :partial => 'semi_static/site/search' if obj.side_bar_search
     = render :partial => 'semi_static/site/social' if obj.side_bar_social
     = render :partial => 'semi_static/site/gallery' if obj.kind_of?(SemiStatic::Entry) && obj.side_bar_gallery
-    = render :partial => 'semi_static/tags/news' if obj.side_bar_news
+    = render :partial => 'semi_static/tags/news' if obj.side_bar
