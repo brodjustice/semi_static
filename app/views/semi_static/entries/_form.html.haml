@@ -187,9 +187,10 @@
           %p
             The
             %em= 'summary length.'
-            has some special values. The value of 0 means that no summary at all will be displayed, only the header and optionally the image.r
+            has some special values. The value of 0 means that no summary at all will be displayed, only the header and optionally the image.
             A negative value has the same effect as a 0 value, but there header will not even have a link to the actual entry. This is
-            useful for displaying Twitter-like message in the news columns.
+            useful for displaying Twitter-like message in the news columns. Leaving the summary size blank means that even actual header
+            text will not be displayed.
         = f.label :summary_length, 'Optimal summary length', :class => 'infomarker'
         %br/
         = f.text_field :summary_length, :size => 10
