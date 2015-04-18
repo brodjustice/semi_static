@@ -22,7 +22,7 @@ module SemiStatic
     end
 
     def entry_title(e, linked = false)
-      return if e.title.blank? || e.summary.blank?
+      return if e.title.blank? || e.summary_length.blank?
       if linked && !e.link_to_tag
         content_tag(:h1){
           content_tag(:a, e.title, :href => entry_path(e), :style => "color: #{e.header_colour}")
@@ -30,6 +30,16 @@ module SemiStatic
       else
         content_tag(:h1, e.title, :style => "color: #{e.header_colour};")
       end
+    end
+
+    def link_to_next_entry(entry)
+      return unless entry && (n = entry.next_entry)
+      "<a href='#{entry_path(n)}' class='next-entry'>#{t('Next')}</a>".html_safe
+    end
+
+    def link_to_previous_entry(entry)
+      return unless entry && (p = entry.previous_entry)
+      "<a href='#{entry_path(p)}' class='previous-entry'>#{t('Previous')}</a>".html_safe
     end
 
     # Warning. If you remove the single space between <div ...> and <div ...> such that it is <div ...><div ...> you will get a

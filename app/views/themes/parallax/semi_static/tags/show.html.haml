@@ -15,9 +15,6 @@
 - if @tag.partial_before_entries?
   = render :partial => @tag.partial_path
 
-
-
-
 - if @tag.show_entries?
   - @tag.entries.unmerged.not_style('tile').each do |e|
     %section{:id => "entry-id-#{e.id.to_s}"}

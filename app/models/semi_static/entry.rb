@@ -165,6 +165,14 @@ module SemiStatic
       end
     end
 
+    def next_entry
+      self.tag.entries.select{|e| e.position > self.position}.first
+    end
+
+    def previous_entry
+      self.tag.entries.select{|e| e.position < self.position}.last
+    end
+
     def doc_delete=(val)
       if val == '1' || val == true
         self.doc.clear

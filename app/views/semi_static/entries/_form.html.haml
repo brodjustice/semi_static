@@ -23,14 +23,8 @@
     function check_entry_partial(){
       if($('#entry_partial').val() == 'none') {
         $('#entry_position_select').hide();
-        $('.semi_static_entry_main_content').show();
       } else {
         $('#entry_position_select').show();
-        if($('#entry_entry_position').val() == "#{SemiStatic::Entry::DISPLAY_ENTRY_SYM[:none]}"){
-          $('.semi_static_entry_main_content').hide();
-        } else {
-          $('.semi_static_entry_main_content').show();
-        }
       }
     }
 
