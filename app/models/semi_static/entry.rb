@@ -88,7 +88,7 @@ module SemiStatic
       'bannerless' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel, :medium => :medium},
       'bannerette-2col-1col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel, :medium => :medium},
       'plain-3col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel, :medium => :medium},
-      'parallax' => {:desktop => :medium, :mobile => :medium, :summary => :medium, :home => :tile, :show => :medium, :medium => :medium},
+      'parallax' => {:desktop => :medium, :mobile => :medium, :summary => :medium, :tile => :tile, :home => :tile, :show => :medium, :medium => :medium},
       'plain-big-banner-3col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel, :medium => :medium}
     }
 
