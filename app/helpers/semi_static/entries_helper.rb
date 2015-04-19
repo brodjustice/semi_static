@@ -32,14 +32,11 @@ module SemiStatic
       end
     end
 
-    def x_link_to_next_entry(entry)
-      return unless entry && (n = entry.next_entry)
-      "<a href='#{entry_path(n)}' class='next-entry'>#{t('Next')}</a>".html_safe
-    end
-
-    def link_to_next_entry(entry)
+    def link_to_next_entry(entry, default_path = nil)
       if entry && (n = entry.next_entry)
         "<a href='#{entry_path(n)}' class='next-entry'>#{t('Next')}</a>".html_safe
+      elsif default_path
+        "<a href='#{default_path}' class='next-entry'>#{t('Next')}</a>".html_safe
       else
         "<div class='no-entry'></div>".html_safe
       end
