@@ -260,7 +260,7 @@ module SemiStatic
     end
 
     def truncate?
-      (summary.present? && !use_as_news_summary) || (body.size > summary_length)
+      (summary.present? && !use_as_news_summary) || (body.size > (summary_length || 0))
     end
 
     def check_for_newsletter_entry
