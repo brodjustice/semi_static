@@ -62,7 +62,7 @@ module SemiStatic
 
     def get_side_bar_entries
       if self.side_bar_tag.present?
-        self.side_bar_tag.entries.limit(20)
+        self.side_bar_tag.entries.unmerged.limit(20)
       else
         SemiStatic::Entry.news.limit(20).locale(self.locale)
       end
