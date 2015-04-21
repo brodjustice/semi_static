@@ -89,7 +89,6 @@ h2{ font-size: 20px; font-weight: normal;}
 
 #bar-in-menu{
   margin-top: 22px;
-  border-top: dashed 1px $prime-color;
   display: none;
 }
 
@@ -515,7 +514,11 @@ h2 a, h3 a{color: $secondary-color;}
   #menu-main .wrapper:nth-child(2n){background-color: #f0f0f0;}
 
   // Hide .bar_menu
-  .bar_menu{height: 0px;}
+  //.bar_menu{height: 0px;}
+  #bar-in-menu li.locale{padding-right: 0px; padding-left: 0px;}
+  .bar_menu{margin-right: 0px;}
+  #bar-in-menu .icon{padding-left: 12px;}
+  #menu a{margin-left: 6px;}
 
   // Need to radically change the hover icons now menu has collapsed
   .icon .custom{
