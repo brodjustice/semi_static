@@ -240,8 +240,12 @@ module SemiStatic
       ActionController::Base.helpers.strip_tags(title.gsub(/&shy;/, ''))
     end
 
-    def explicit_title
-      raw_title.blank? ? "-- #{self.merged_main_entry_with_title.raw_title} (#{self.position.to_s})" : raw_title
+    def explicit_title(with_id = false)
+      if with_id
+        raw_title.blank? ? "-- #{self.merged_main_entry_with_title.raw_title} (##{self.id.to_s})" : "#{raw_title} (##{self.id.to_s})"
+      else
+        raw_title.blank? ? "-- #{self.merged_main_entry_with_title.raw_title} (#{self.position.to_s})" : raw_title
+      end
     end
 
     def youtube_id_str=(val)
