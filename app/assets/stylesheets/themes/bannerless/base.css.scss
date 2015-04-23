@@ -515,7 +515,7 @@ h2 a, h3 a{color: $secondary-color;}
   #menu-main .wrapper:nth-child(2n){background-color: #f0f0f0;}
 
   // Hide .bar_menu
-  .bar_menu{margin-right: 0px;}
+  .bar_menu{margin-right: 0px; display: none;}
   #bar-in-menu li.locale{padding-right: 0px; padding-left: 0px;}
   #bar-in-menu .icon{padding-left: 12px;}
   #menu a{margin-left: 6px;}
