@@ -1,11 +1,13 @@
-#logo-wrapper{
-  box-shadow: none;
-}
+//
+// Changes to top layout from home...
+//
 
-.panel.list{
-  box-shadow: none;
-}
+#frame{ margin-top: 75px;}
+#container{padding-top: 12px;}
 
+//
+// The rest
+//
 a.fb-share{
   float: right; padding: 1px 2px 1px 28px;
   background: transparent url(/assets/vert-sprites.png) 0px -59px no-repeat;
@@ -16,7 +18,6 @@ a.fb-share{
   margin-bottom: 4px;
 }
 
-h1 a{ color: $prime-color;}
 .doc{
   clear: both;
   border-top: 1px solid #d0d0d0;

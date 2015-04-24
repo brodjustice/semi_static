@@ -1,4 +1,23 @@
-= render :partial => 'semi_static/shared/banner'
+#top
+  #menu-button{:onclick => 'semiStaticOpenMenu()'}
+    = t('Menu')
+    .menu-line
+    .menu-line
+    .menu-line
+  #bar.contain
+    #bar-inner
+      = render 'semi_static/shared/bar'
+    #logo-wrapper
+      #logo
+  #overlay
+    #overlay-inner
+      = render 'semi_static/shared/menu'
+= yield :banner
+#tag
+  #tag-wrapper
+    #tagline
+      = t('TagLine')
+= yield :banner_below_tagline
 #frame
   #container
     #content

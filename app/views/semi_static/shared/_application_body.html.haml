@@ -1,8 +1,22 @@
-= render :partial => 'semi_static/shared/top'
+#top
+  #menu-button{:onclick => 'semiStaticOpenMenu()'}
+    = t('Menu')
+    .menu-line
+    .menu-line
+    .menu-line
+  #bar.contain
+    #bar-inner
+      = render 'semi_static/shared/bar'
+    #logo-wrapper
+      = link_to semi_static.home_path do
+        #logo
+  #overlay
+    #overlay-inner
+      = render 'semi_static/shared/menu'
 = yield :banner
-= render :partial => 'semi_static/shared/overlay'
 #frame
   #container
     #dialog{:style => 'display: none;'}
     #content
       =yield
+
