@@ -10,6 +10,7 @@
     #logo-wrapper
       = link_to semi_static.home_path do
         #logo
+          = SemiStatic::Engine.config.site_name
   #overlay
     #overlay-inner
       = render 'semi_static/shared/menu'

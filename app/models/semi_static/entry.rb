@@ -291,7 +291,6 @@ module SemiStatic
     private 
 
     # Retrieves dimensions for image assets
-    # @note Do this after resize operations to account for auto-orientation.
     def extract_dimensions
       tempfile = img.queued_for_write[:original]
       unless tempfile.nil?

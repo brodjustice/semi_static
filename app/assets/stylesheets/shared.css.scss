@@ -1,6 +1,13 @@
-.entry :not(.more .button) a{
-  color: $prime-color;
-  font-size: bold;
+.entry p a{
+  color: $secondary-color;
+  border-bottom: 0.0625rem solid #dcdcdc;
+  text-decoration: none;
+  transition: border-color 0.2s ease-out 0s;
+}
+
+.entry p a:hover,
+.entry p a:focus{
+  border-bottom: 0.0625rem solid #a0a0a0;
 }
 
 /* Stop element going outside of viewport on mobile screens */ 

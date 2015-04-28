@@ -1,6 +1,10 @@
 #container:after{ content: ''; display: table; clear: both; }
 
-#top{z-index: 10;}
+#top{position: fixed; z-index: 10; top: 0;}
+
+#frame{
+  margin-top: 77px;
+}
 
 #content{
   width: 100%;
@@ -8,12 +12,6 @@
 
 #content:after{
   clear:both;
-}
-
-#mini-logo{
-  left: 8px;
-  top: 6px;
-  position: absolute;
 }
 
 #overlay{
@@ -30,10 +28,6 @@
   margin: 0 5%;
 }
 
-ul{
-  list-style: circle inside;
-  line-height: 1.6;
-}
 .doc{
   clear: both;
   border-top: 1px solid #d0d0d0;

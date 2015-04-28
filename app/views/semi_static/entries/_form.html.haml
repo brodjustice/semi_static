@@ -255,13 +255,13 @@
           - else
             = f.select :tag_id, options_for_select(SemiStatic::Tag.all.collect{|t| [[t.locale, ': ', t.name].join, t.id]}, @entry.tag_id)
           %br/
+          %br/
           .infobox#show_in_documents_tag
             %h4= 'Link to Tag'
             %p
               = 'If you have checked this box then clicks on the entry summary will not go directly to the full'
               = 'entry page, but to the index of entries for this page, i.e. the page that you get when'
               = 'you click on the tag in the menu.'
-          %br/
           %span.infomarker
             = f.label :link_to_tag
             = f.check_box :link_to_tag
