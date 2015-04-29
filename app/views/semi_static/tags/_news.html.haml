@@ -1,4 +1,4 @@
-- klass = @entry || @tag
+- klass = @entry || @tag || SemiStatic::Tag.predefined(I18n.locale.to_s, 'Home').first
 .news
   %h2= klass.side_bar_tag.nil? ? t('News') : klass.side_bar_tag.name
   - klass.get_side_bar_entries.each do |e|

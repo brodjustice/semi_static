@@ -1,5 +1,5 @@
 function housekeeping(){
-  if(!(/Android|iPhone|iPod|BlackBerry|Windows Phone/i).test(navigator.userAgent || navigator.vendor || window.opera)){
+  if(!(/Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/i).test(navigator.userAgent || navigator.vendor || window.opera)){
     var s = skrollr.init({smoothScrolling:false, forceHeight:false, skrollrBody:'body-inner'});
   }
 }
