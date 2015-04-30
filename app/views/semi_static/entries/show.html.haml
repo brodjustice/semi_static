@@ -1,13 +1,3 @@
 - if @entry.banner
-  - content_for :banner do
-    #overlay-2
-      - unless @entry.effective_tag_line.blank?
-        #tag-wrapper
-          #tagline
-            = @entry.tag_line
-    #banner
-      #banner-frame
-        .bg.desktop{:style => "background-image: url(#{@entry.banner.img_url_for_theme(:desktop)})"}
-        .bg.mobile{:style => "display: none; background-image: url(#{@entry.banner.img_url_for_theme(:mobile)})"}
-
-= render :partial => 'semi_static/entries/show_body'
+  = render :partial => 'semi_static/shared/banner', :locals => {:banner => @entry.banner, :tag_line => @entry.effective_tag_line}
+= render :partial => 'semi_static/entries/show'

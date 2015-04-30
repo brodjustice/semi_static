@@ -71,13 +71,15 @@ fieldset{
 }
 h2{ font-size: 20px;}
 #search-bar{ margin-top: 0px; margin-bottom: 10px; }
-#top .inner, #overlay-inner, #search-bar-inner, #container, #top-inner, #footer-inner{
+#top-wrapper, #overlay-inner, #search-bar-inner, #container, #top-inner, #footer-inner{
   max-width: 1024px; margin: 0px auto;
   background-color: transparent;
+  position: relative;
 }
 #toTop{ display: none; }
 #overlay{
   position: relative;
+  top: 61px;
   //  z-index: 100;
   @if $banner-overlay == true {
     height: 300px;
@@ -102,11 +104,16 @@ h2{ font-size: 20px;}
   float: right;
   color: $prime-color; font-weight: bold;
   padding: 3px 2px 4px 32px;
-  margin: 2px 12px 0px 0px;
-  background: transparent url(#{$vert-sprites}) left -216px no-repeat;
+  margin: 0px 12px 0px 0px;
   cursor: pointer;
   position: relative;
   z-index: 500;
+}
+
+#close-sym{
+  font-size: 48px;
+  margin-top: -16px;
+  text-align: right;
 }
 
 #menu-button{
@@ -114,16 +121,29 @@ h2{ font-size: 20px;}
   padding-bottom: 34px;
 }
 
-#bar-in-menu{
-  margin-top: 22px;
-  border-top: dashed 1px $prime-color;
-  display: none;
+#menu-button .menu-line{
+  height: 8px; width: 80%;
+  background-color: $prime-color;
+  border-radius: 2px; margin: 2px;
+}
+
+#bar-menu {
+    float: right;
+    font-size: 14px;
+    height: 30px;
+    right: 0;
+    z-index: 1000;
 }
 
 #content{
   margin: 6px;
 }
 #container:after{ content: ''; display: table; clear: both; }
+
+#frame{
+  position: relative;
+  margin-top: 62px;
+}
 
 //
 // Banner animations
@@ -139,6 +159,10 @@ h2{ font-size: 20px;}
 // the media query later
 //
 
+#banner-wrapper{
+  height: 300px;
+  position: relative;
+}
 #banner{
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
   height: 300px;
@@ -146,11 +170,6 @@ h2{ font-size: 20px;}
   width: 100%;
   z-index: -10;
   background-color: white;
-  @if $banner-overlay == true {
-    top: 33px;
-  } @else {
-    top: 64px;
-  }
 }
 #banner-frame{
   background-color: transparent; position: relative; width: 100%; max-width: 1500px;
@@ -243,7 +262,7 @@ h2{ font-size: 20px;}
 #footer h3{color: $prime-color;}
 #footer .inner{padding: 0 2%;}
 
-#bar-in-menu ul, #top ul, #footer ul{list-style: none outside none; padding-left: 0px;}
+#bar-menu ul, #top ul, #footer ul{list-style: none outside none; padding-left: 0px;}
 
 #footer .col:last-child h3, #footer .col:last-child li {
     text-align: right;
@@ -338,14 +357,15 @@ h2{ font-size: 20px;}
 
 #ddock{float: right;width: 97px; margin-top: 0px; margin-right: 8px; height: 32px; background:transparent url(/assets/hoz-sprites.png) 0 center no-repeat;}
 #html5{float: right;margin: -4px 5px 0 0px; width: 25px; height: 33px; background:transparent url(/assets/hoz-sprites.png) -97px center no-repeat;}
+
 #twitter{float: right; padding: 0px 8px 3px 28px; background: transparent url(#{$vert-sprites}) 0px 5px no-repeat;}
-#xing{float: right; padding: 0px 8px 3px 28px; background: transparent url(#{$vert-sprites}) 0px -188px no-repeat;}
+#xing{float: right; padding: 0px 8px 3px 28px; background: transparent url(#{$vert-sprites}) 0px -190px no-repeat;}
 #facebook{float: right; padding: 0px 8px 3px 28px; background: transparent url(#{$vert-sprites}) 0px -55px no-repeat;}
 #youtube{float: right; padding: 0px 8px 3px 28px; background: transparent url(#{$vert-sprites}) 0px -25px no-repeat;}
-#bar-in-menu .lady, #top .lady{float: right; display: block; padding: 4px 8px 0px 28px; background: transparent url(#{$vert-sprites}) 0px -109px no-repeat;}
-#bar-in-menu .contact, #top .contact{float: right; display: block; padding: 4px 8px 0px 34px; background: transparent url(#{$vert-sprites}) 0px -84px no-repeat;}
-
-#bar-in-menu .icon, #top .icon{ background-size: 28px $vert-sprites-height; }
+#bar-menu .lady a{float: right; display: block; padding: 4px 8px 0px 28px; background: transparent url(#{$vert-sprites}) 0px -109px no-repeat;}
+#bar-menu .contact a{float: right; display: block; padding: 4px 8px 0px 34px; background: transparent url(#{$vert-sprites}) 0px -84px no-repeat;}
+#bar-menu .search a{float: right; display: block; padding: 4px 8px 0px 30px; background: transparent url(#{$vert-sprites}) 0px -221px no-repeat;}
+#twitter, #xing, #facebook, #youtube, #bar-menu .icon a{ background-size: 28px $vert-sprites-height; }
 
 .icon.sprite{height: 100px; width: 100px; background: url(/system/icons/menu-sprites.png) center 0px no-repeat;}
 .icon.sprite.mini{height: 45px; width: 50px; background-size: 50px 250px;}
@@ -394,40 +414,22 @@ h2 a, h3 a{color: $secondary-color;}
 
 #menu-wrapper{
   z-index: 1000;
-  @if $banner-overlay == true {
-    top: 12px;
-  } @else {
-    top: 350px;
-  }
+  top: 316px;
 }
 
 #logo-wrapper{
-  @if $banner-overlay == true {
-    top: 75px;
-  } @else {
-    top: -55px;
-    z-index: 2000;
-    width: $logo-top-width;
-  }
+  z-index: 2000;
+  width: $logo-top-width;
 }
 
 #tag-wrapper{
-  @if $banner-overlay {
-    top: 200px;
-  } @else {
-    top: 240px;
-  }
+  top: 240px;
 }
 
 #logo{
-  @if $banner-overlay == true {
-    height: $logo-height; width: $logo-width;
-    margin: 0 auto;
-    background: transparent url(/assets/#{$logo}) center center no-repeat;
-  } @else {
-    background: transparent url(/assets/#{$logo-top}) left center no-repeat;
-    height: $logo-top-height;
-  }
+  color: transparent;
+  background: transparent url(/assets/#{$logo-top}) left center no-repeat;
+  height: $logo-top-height;
 }
 
 #mini-logo{
@@ -440,7 +442,7 @@ h2 a, h3 a{color: $secondary-color;}
 
 
 #top{
-  height: 28px;
+  height: 61px;
   border-top: 3px solid $prime-color;
   background-color: #f8f8f8;
   z-index: 200; // for logo in banner
@@ -448,21 +450,16 @@ h2 a, h3 a{color: $secondary-color;}
 #top ul{
   margin: 0; padding: 0;
 }
-#bar-in-menu li, #top-inner li{
+#bar-menu li{
   float: right;
   font-size: 18px;
-  padding: 4px 24px 6px 24px;
 }
 #top-inner li.locale{padding-left: 12px;}
-#bar-in-menu li a, #top-inner li a{
+#bar-menu li a{
   color: $prime-color;
-}
-#bar-in-menu li{
-  font-size: 16px;
-}
-#menu #bar-in-menu a{
   text-transform: none;
 }
+
 .home{ padding-left: 52px !important; background: transparent url(/assets/home.png) 21px 2px no-repeat; background-size: auto !important;}
 
 #menu{
@@ -588,7 +585,7 @@ h2 a, h3 a{color: $secondary-color;}
 }
 
 .locale img{
-  margin-top: -6px;
+  margin-top: -2px;
 }
 
 /* Custom menu icons */
@@ -652,12 +649,6 @@ h2 a, h3 a{color: $secondary-color;}
   .searchform input[type='text'] { width: 66%;}
 }
 
-@if $search-bar-in-banner == true {
-  @media only screen and (min-width: 950px) {
-    #semi-static-home-page #search-bar{ position: relative; z-index: 500; margin-top: -71px; margin-bottom: 26px;}
-  }
-}
-
 /* Basic mobile portrait or perhaps tablet portrait layout */
 @media only screen and (max-width: 750px) {
   .mobile{display: block !important;}
@@ -668,19 +659,49 @@ h2 a, h3 a{color: $secondary-color;}
 
 @media only screen and (max-width: 820px) {
   // Change menu to hidden pop-up on click and fixed position
-  #menu, #top-inner ul{display: none;}
+  #bar-menu, #menu{display: none;}
   #menu{
     padding-top: 8px; padding-bottom: 12px;
-    width: 90%; max-width: 330px; left: -10px; right: -10px;
-    position: fixed; background-color: #f8f8f8; top: 44px;
+    width: 100%;
+    position: fixed; background-color: #f8f8f8; top: 0px;
     border: 1px solid $prime-color;
     background-image: none;
-    border-radius: 2px;
-    box-shadow: 0 50px 500px black;
-    font-size: 16px;
+    box-shadow: none;
+    border: none;
+    text-shadow: none;
   }
-  #menu .col{ width: 100%; }
+  #bar{
+    border-top: 1px solid #d8d8d8;
+  }
+  #menu-wrapper{z-index: 0;}
+  #menu .col{ width: 100%; margin: 0;}
   #menu-loading-wrapper{display: block;}
+  #menu a{
+    float: none; text-align: right;
+    padding: 4px 14px; margin-left: 6px;
+    text-transform: none;
+  }
+  #menu-main .wrapper:nth-child(2n){background-color: #f0f0f0;}
+  #menu-main{
+    margin-top: 130px; background-color: $prime-color;
+  }
+  #menu .wrapper{background-color: white;}
+  #menu .wrapper .text{height: 42px; border-bottom: 1px solid #e0e0e0;}
+
+  #bar-menu{
+    position: fixed;
+    top: 76px;
+    padding: 8px 16px 0px;
+    margin: 16px 0px 0px 0px;
+    z-index: 1000;
+    border-top: solid 1px #d0d0d0;
+    width: 100%;
+  }
+  #bar-inner{
+    position: relative;
+    z-index: 1000;
+  }
+
 
   // Need to radically change the hover icons now menu has collapsed
   .icon .custom{
@@ -690,31 +711,19 @@ h2 a, h3 a{color: $secondary-color;}
     top: 16px;
     width: 30%;
   }
-  #menu .wrapper .text{height: 20px;}
 
   .wrapper:not(#selected) .icon.sprite{background-image: none;}
 
-  /* No Firefox support for background-position-x, but applies only usually to mobile any */
+  #tag-wrapper{top: 160px;}
+
+  /* No Firefox support for background-position-x, but applies only usually to mobile anyway */
   #selected.wrapper .icon.sprite{background-position-x: left;}
 
-
   #top{position: fixed; width: 100%;}
-  #menu-button{display: block;}
-
-  @if $banner-overlay == true {
-    /* Move logo and tagline due to menu being hidden */
-    #logo-wrapper{top: 80px;}
-    #tag-wrapper{top: 216px;}
-    #overlay.header{ height: 60px !important;}
-    #overlay:not(header){height: 327px;}
-    #overlay-2{ height: 268px !important;}
-
-  } @else {
-    #logo-wrapper{top: 8px;}
-    #overlay{height: 360px;}
-    #overlay.header{ height: 56px !important;}
-    #overlay-2{ height: 304px !important;}
-  }
+  #banner-wrapper{top: 61px;}
+  #frame{margin-top: 65px;}
+  #menu-button{display: block; width: 50px;}
+  #menu #selected a{text-decoration: underline;}
 }
 
 /* Mobile portrait layout at less than 580px */

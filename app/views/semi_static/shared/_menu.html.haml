@@ -4,7 +4,7 @@
     #menu-close{:onclick => 'semiStaticCloseMenu()'}
       = t('Close')
       #close-sym
-        &osol;
+        &otimes;
     #menu-main.section.group
       - SemiStatic::Tag.menu.locale(I18n.locale.to_s).limit(max_menu_tags).each_with_index do |t, i|
         .col.span_1_of_5

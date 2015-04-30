@@ -1,19 +1,21 @@
 #top
-  #menu-button{:onclick => 'semiStaticOpenMenu()'}
-    = t('Menu')
-    .menu-line
-    .menu-line
-    .menu-line
-  #bar.contain
-    #bar-inner
-      = render 'semi_static/shared/bar'
-    #logo-wrapper
-      = link_to semi_static.home_path do
-        #logo
-          = SemiStatic::Engine.config.site_name
-  #overlay
-    #overlay-inner
-      = render 'semi_static/shared/menu'
+  #top-wrapper
+    #menu-button{:onclick => 'semiStaticOpenMenu()'}
+      = t('Menu')
+      .menu-line
+      .menu-line
+      .menu-line
+    #bar.contain
+      #bar-inner
+        = render 'semi_static/shared/bar'
+      #logo-wrapper
+        = link_to semi_static.home_path do
+          #logo
+            = SemiStatic::Engine.config.site_name
+    = yield :pre_overlay
+    #overlay
+      #overlay-inner
+        = render 'semi_static/shared/menu'
 = yield :banner
 #frame
   #container
