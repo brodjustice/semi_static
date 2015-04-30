@@ -278,6 +278,7 @@ h2 a, h3 a{color: $secondary-color;}
   padding-left: 12px;
   box-shadow: 0 0 2px #686868;
   font-size: 14px;
+  z-index: 20000;
 }
 
 #mini-logo{
@@ -304,7 +305,7 @@ h2 a, h3 a{color: $secondary-color;}
   padding: 4px 24px 6px 24px;
 }
 #top-inner{height: 30px;}
-#top-inner li.locale{padding-left: 12px;}
+#top-inner li.locale{padding-left: 12px; padding-right: 12px;}
 #bar-in-menu li a, #top-inner li a{
   color: white;
 }
