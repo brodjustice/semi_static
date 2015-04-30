@@ -1,6 +1,6 @@
 /* High res 'retina' screens */
 @media (device-pixel-ratio: 2), (-moz-device-pixel-ratio: 2), (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  #top .icon, #twitter, #facebook, #youtube, #xing { background-size: 28px 237px; background-image: url(/assets/x2/vert-sprites.png);}
+  #top .icon a, #twitter, #facebook, #youtube, #xing { background-size: 28px 237px; background-image: url(/assets/x2/vert-sprites.png);}
   .link a, .more a, .feint .more a, .flat .more a, .news .more a{
     background-image: url(/assets/x2/vert-sprites.png);
     background-size: 28px 237px;
