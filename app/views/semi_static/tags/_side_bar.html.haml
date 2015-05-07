@@ -1,7 +1,7 @@
 - obj = @entry || @tag
 - @tag ||= entrytag
 %aside
-  - unless @tag.nil?
+  - unless @tag.nil? || @tag.entries.first.try(:link_to_tag)
     .panel.list
       %nav
         - if SemiStatic::Tag.use_sprites?

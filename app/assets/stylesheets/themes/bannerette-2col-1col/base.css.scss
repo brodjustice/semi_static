@@ -97,7 +97,7 @@ body{
   background-color: white; 
   margin: 0px;
   // font:16px "Open Sans", Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-family: Arial, Verdana, Helvetica, sans-serif;
+  font-family: 'Raleway', Arial, Verdana, Helvetica, sans-serif;
   font-size: 16px;
   color: #494949;
 }
@@ -161,12 +161,6 @@ h2{ font-size: 20px;}
 #menu-button{
   // Create bigger click area
   padding-bottom: 34px;
-}
-
-#bar-in-menu{
-  margin-top: 22px;
-  border-top: dashed 1px $prime-color;
-  display: none;
 }
 
 #content{
@@ -298,7 +292,7 @@ h2{ font-size: 20px;}
 #footer h3{color: $prime-color;}
 #footer .inner{padding: 0 2%;}
 
-#bar-in-menu ul, #top ul, #footer ul{list-style: none outside none; padding-left: 0px;}
+#bar-menu ul, #top ul, #footer ul{list-style: none outside none; padding-left: 0px;}
 
 #footer .col:last-child h3, #footer .col:last-child li {
     text-align: right;
@@ -385,15 +379,17 @@ h2{ font-size: 20px;}
 
 #ddock{float: right;width: 97px; margin-top: 0px; height: 32px; background:transparent url(/assets/hoz-sprites.png) 0 center no-repeat;}
 #html5{float: right;margin: -4px 5px 0 0px; width: 25px; height: 33px; background:transparent url(/assets/hoz-sprites.png) -97px center no-repeat;}
-#twitter{float: right; padding: 0px 8px 3px 28px; background: transparent url(/assets/vert-sprites-light.png) 0px 5px no-repeat;}
-#xing{float: right; padding: 0px 8px 3px 28px; background: transparent url(/assets/vert-sprites-light.png) 0px -188px no-repeat;}
-#facebook{float: right; padding: 0px 8px 3px 28px; background: transparent url(/assets/vert-sprites-light.png) 0px -55px no-repeat;}
-#youtube{float: right; padding: 0px 8px 3px 28px; background: transparent url(/assets/vert-sprites-light.png) 0px -25px no-repeat;}
-#bar-in-menu .lady, #top .lady{float: right; display: block; padding: 4px 8px 0px 28px; background: transparent url(/assets/vert-sprites-light.png) 0px -109px no-repeat;}
-#bar-in-menu .contact, #top .contact{float: right; display: block; padding: 4px 8px 0px 34px; background: transparent url(/assets/vert-sprites-light.png) 0px -84px no-repeat;}
 
-#bar-in-menu .icon, #top .icon{ background-size: 28px 275px; }
-.bar_menu{height: 16px; z-index: 100; position: absolute; z-index: 300; right: 0px;}
+#twitter{float: right; padding: 0px 8px 3px 28px; background: transparent url(#{$vert-sprites}) 0px 5px no-repeat;}
+#xing{float: right; padding: 0px 8px 3px 28px; background: transparent url(#{$vert-sprites}) 0px -190px no-repeat;}
+#facebook{float: right; padding: 0px 8px 3px 28px; background: transparent url(#{$vert-sprites}) 0px -55px no-repeat;}
+#youtube{float: right; padding: 0px 8px 3px 28px; background: transparent url(#{$vert-sprites}) 0px -25px no-repeat;}
+#bar-menu .lady a{float: right; display: block; padding: 4px 8px 0px 28px; background: transparent url(#{$vert-sprites}) 0px -109px no-repeat;}
+#bar-menu .contact a{float: right; display: block; padding: 4px 8px 0px 34px; background: transparent url(#{$vert-sprites}) 0px -84px no-repeat;}
+#bar-menu .search a{float: right; display: block; padding: 4px 8px 0px 30px; background: transparent url(#{$vert-sprites}) 0px -217px no-repeat;}
+#twitter, #xing, #facebook, #youtube, #bar-menu .icon a{ background-size: 28px $vert-sprites-height; }
+
+// .bar_menu{height: 16px; z-index: 100; position: absolute; z-index: 300; right: 0px;}
 
 .icon.sprite{height: 100px; width: 100px; background: url(/system/icons/menu-sprites.png) center 0px no-repeat;}
 .icon.sprite.mini{height: 45px; width: 50px; background-size: 50px 250px;}
@@ -496,26 +492,25 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
 #top ul{
   margin: 0; padding: 0;
 }
-#bar-in-menu li, #top-inner li{
+#bar-menu li{
   float: right;
   font-size: 16px;
   font-weight: lighter;
-  padding: 4px 24px 6px 24px;
+  padding: 0px 14px 6px;
 }
 #top-inner li.locale{
   padding-right: 0px;
   padding-left: 12px;
 }
-#bar-in-menu li a, #top-inner li a{
+#bar-menu li a, #top-inner li a{
   font-weight: lighter;
   color: #494949;
   font-size: 16px;
-  // font: 18px Arial,Verdana,Helvetica,sans-serif;
 }
-#bar-in-menu li{
+#bar-menu li{
   font-size: 16px;
 }
-#menu #bar-in-menu a{
+#menu #bar-menu a{
   text-transform: none;
 }
 .home{ padding-left: 52px !important; background: transparent url(/assets/home.png) 21px 2px no-repeat; background-size: auto !important;}
