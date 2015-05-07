@@ -8,7 +8,7 @@
   .col.span_1_of_3
     %aside
       = render :partial => 'semi_static/site/search'
-      = render :partial => 'semi_static/site/social'
+      = render :partial => 'semi_static/site/social' if !SemiStatic::Engine.config.has?(:social_in_footer)
       = render :partial => SemiStatic::Engine.config.social_partial if SemiStatic::Engine.config.social_partial.present?
       = render :partial => 'semi_static/tags/news'
       = render :partial => 'semi_static/photos/side_bar'

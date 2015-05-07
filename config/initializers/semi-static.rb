@@ -26,6 +26,7 @@ module SemiStatic
     config.twitterID = nil
     config.facebookID = nil
     config.xingID = nil
+    config.linkedinID = nil
 
     # Themes: Current options are:
     #

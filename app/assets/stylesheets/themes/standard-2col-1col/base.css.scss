@@ -108,6 +108,8 @@ h2{ font-size: 20px;}
   cursor: pointer;
   position: relative;
   z-index: 500;
+  text-align: center;
+  font-weight: normal;
 }
 
 #close-sym{
@@ -124,7 +126,7 @@ h2{ font-size: 20px;}
 #menu-button .menu-line{
   height: 8px; width: 80%;
   background-color: $prime-color;
-  border-radius: 2px; margin: 2px;
+  border-radius: 2px; margin: 2px auto;
 }
 
 #bar-menu {

@@ -19,5 +19,12 @@ module SemiStatic
       # Need to do this here rather than in config.after_initialize' as sprokets will by then have frozen the environment
       Rails.application.assets.append_path "#{SemiStatic::Engine.root}/app/assets/javascripts/themes/#{SemiStatic::Engine.config.theme}"
     end
+
+    # Extend config class as 'try?' will not work on it
+    config.class.class_eval do
+      def has?(val)
+        self.respond_to?(val) && self.send(val)
+      end
+    end
   end
 end

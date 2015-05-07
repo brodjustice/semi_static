@@ -304,8 +304,8 @@ h2{ font-size: 20px; font-weight: normal;}
   margin-bottom: 1px;
 }
 
-.panel.highlight{
-  background-color: $prime-color; color: white;
+.social, .panel.highlight{
+  background-color: $secondary-color; color: white;
 }
 
 .panel:last-child{
@@ -318,9 +318,15 @@ h2{ font-size: 20px; font-weight: normal;}
   border-radius: 2px;
 }
 .social{
-  padding: 6px 0px 4px;
+  padding: 2px 0px;
   line-height: 30px;
   width: 100%;
+  text-align: center;
+  height: 30px;
+}
+
+.social-inner{
+  display: inline-block;
 }
 .gallery h2 a, .gallery h2, .news h2 a, .news h2{ border-bottom: 1px solid #808080; }
 .list h1, .panel.list h2{ color: $prime-color; border-bottom: 1px solid #808080; text-align: center;}
@@ -334,11 +340,12 @@ h2{ font-size: 20px; font-weight: normal;}
 #ddock{float: right;width: 97px; margin-top: 0px; margin-right: 8px; height: 32px; background:transparent url(/assets/hoz-sprites.png) 0 center no-repeat;}
 #html5{float: right;margin: -4px 5px 0 0px; width: 25px; height: 33px; background:transparent url(/assets/hoz-sprites.png) -97px center no-repeat;}
 #twitter{float: right; padding: 0px 8px 3px 28px; background: transparent url(#{$vert-sprites}) 0px 5px no-repeat;}
-#xing{float: right; padding: 0px 8px 3px 28px; background: transparent url(#{$vert-sprites}) 0px -188px no-repeat;}
+#xing{float: right; padding: 0px 8px 3px 27px; background: transparent url(#{$vert-sprites}) 0px -188px no-repeat;}
 #facebook{float: right; padding: 0px 8px 3px 28px; background: transparent url(#{$vert-sprites}) 0px -55px no-repeat;}
 #youtube{float: right; padding: 0px 8px 3px 28px; background: transparent url(#{$vert-sprites}) 0px -25px no-repeat;}
+#linkedin{float: right; padding: 0px 8px 3px 28px; background: transparent url(#{$vert-sprites}) 0px -271px no-repeat;}
 
-.social, .panel:after{ content: ''; display: table; clear: both; }
+.social:after, .panel:after{ content: ''; display: table; clear: both; }
 
 h1{font-size: 24px; font-weight: normal;}
 h1{ margin: 6px 0px 8px; color: $prime-color}
