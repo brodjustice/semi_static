@@ -1,7 +1,8 @@
 - e ||= @entry || document
 .doc
-  .col.span_2_of_3
-    = e.doc_description
-  .col.span_1_of_3
-    .button
-      = link_to "Download (#{human_file_size(e.doc_file_size)})", e.doc.url
+  .doc-inner
+    .col.span_2_of_3
+      = e.doc_description
+    .col.span_1_of_3
+      .button
+        = link_to "Download (#{human_file_size(e.doc_file_size)})", e.doc.url

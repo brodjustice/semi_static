@@ -298,7 +298,7 @@ h2{ font-size: 20px;}
     text-align: right;
 }
 #tagline{
-  max-width: 1012px; width: 98%; text-align: right; margin: 0px auto; color: $prime-color; font-size: 30px; font-weight: lighter;
+  max-width: 1012px; width: 98%; text-align: right; margin: 0px auto; color: $prime-color; font-size: 30px; font-weight: normal;
   // If you want to play with CSS3 viewport widths:
   // font-size: 2.3vw !important;
   animation: grower 1s linear;
@@ -412,7 +412,7 @@ h2{ font-size: 20px;}
 h1{font-size: 24px;}
 h1, h2, h3{
   margin: 6px 0px 6px; color: $prime-color;
-  font-weight: lighter;
+  font-weight: normal;
 }
 h2 a, h3 a{color: $prime-color;}
 h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}

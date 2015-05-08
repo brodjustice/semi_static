@@ -1,55 +1,49 @@
-#frame{
-  margin-top: 75px;
-}
+//
+// Changes to top layout from home...
+//
 
-#logo-wrapper{
-  box-shadow: none;
-  background-color: transparent;
-}
+// #frame{ margin-top: 75px;}
+// #container{padding-top: 12px;}
 
-aside h2{
-  font-weight: normal;
-  color: #5d7c7c;
-}
-
-.news, .news .panel{
-  background-color: white;
-  color: #181818;
-}
-.news{
-  box-shadow: none;
-  margin-top: 12px;
-}
-
-.side-bar h2{
-  text-align: right;
-  color: $prime-color;
-  border-bottom: 1px solid $prime-color;
-  padding-bottom: 4px;
-}
-
-.side-bar h3 a{color: $secondary-color;}
-.side-bar h3{color: $secondary-color; text-align: center; font-weight: normal;}
-.side-bar .panel{box-shadow: none;}
-
-
+//
+// The rest
+//
 a.fb-share{
   float: right; padding: 1px 2px 1px 28px;
   background: transparent url(/assets/vert-sprites.png) 0px -59px no-repeat;
   width: auto;
-  font-weight: lighter !important; 
 }
 .fb-share:after{
   margin-bottom: 4px;
 }
 
-h1 a{ color: $prime-color;}
 .doc{
   clear: both;
   border-top: 1px solid #d0d0d0;
-  background-color: #f0f0f0;
-  padding: 0 6px;
+  padding: 0 12px;
 }
+.doc-inner{
+  background-color: #f0f0f0;
+  padding: 0 18px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+.doc-inner .button{
+  text-align: right;
+}
+
+.doc a{
+  color: $secondary-color;
+  border-bottom: 0.0625rem solid #dcdcdc;
+  text-decoration: none;
+  transition: border-color 0.2s ease-out 0s;
+}
+
+.doc a:hover,
+.doc p a:focus{
+  border-bottom: 0.0625rem solid #a0a0a0;
+}
+
 .gallery.doc{
   padding-top: 6px;
   margin-bottom: 0px;

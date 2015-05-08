@@ -83,7 +83,7 @@ h2{ font-size: 20px; font-weight: normal;}
   color: white;
   background: url(/assets/vert-sprites-light.png) no-repeat scroll 0 0 transparent;
   display: block;
-  padding: 4px 8px 0 34px;
+  padding: 5px 8px 0 34px;
 }
 
 #logo-wrapper {
@@ -194,7 +194,8 @@ h2{ font-size: 20px; font-weight: normal;}
 //
 // Dynamic content
 // -----------------
-#container{background-color: white !important; box-shadow: 0 0 2px #c8c8c8;}
+// #container{background-color: white !important; box-shadow: 0 0 2px #c8c8c8;}
+#container{background-color: white; box-shadow: 0 0 2px #c8c8c8;}
 #frame{margin-top: 105px;}
 
 /* Home page entry images are slightly smaller */
@@ -267,7 +268,7 @@ h2{ font-size: 20px; font-weight: normal;}
   border-radius: 2px;
 }
 
-.doc:after, .panel:after {
+.doc-inner:after, .panel:after {
     clear: both;
     content: "";
     display: table;
