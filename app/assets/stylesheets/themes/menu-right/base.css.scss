@@ -40,6 +40,7 @@ h2{ font-size: 20px; font-weight: normal;}
 #top{
   height: 75px;
   background-color: white;
+  position: relative;
   z-index: 200; // for logo in banner
   box-shadow: 0 0 7px #7c7c7c;
   width: 100%;
@@ -96,7 +97,7 @@ h2{ font-size: 20px; font-weight: normal;}
 
 #menu-wrapper{
   z-index: 1000;
-  top: -38px;
+  top: -40px;
   right: 0px;
   position: relative;
 }
@@ -156,6 +157,11 @@ h2{ font-size: 20px; font-weight: normal;}
   margin: 2px 12px 0px 0px;
   cursor: pointer; position: relative;
   z-index: 500;
+  font-size: 16px;
+}
+#close-sym{
+  text-align: right;
+  font-size: 28px;
 }
 
 #menu-button{
@@ -194,7 +200,7 @@ h2{ font-size: 20px; font-weight: normal;}
 // Dynamic content
 // -----------------
 #container{background-color: white !important; box-shadow: 0 0 2px #c8c8c8;}
-#frame{margin-top: -10px; position: relative; z-index: -1;}
+#frame{margin-top: -10px;}
 
 /* Home page entry images are slightly smaller */
 // #semi-static-home-page .entry img{
@@ -226,6 +232,7 @@ h2{ font-size: 20px; font-weight: normal;}
   max-width: 1024px;
   margin: 0 auto;
   padding: 0 12px;
+  overflow: auto;
 }
 #container:after{ content: ''; display: table; clear: both; }
 
@@ -493,6 +500,7 @@ h2 a, h3 a{color: $secondary-color;}
 @media only screen and (max-width: 820px) {
   // Change menu to hidden pop-up on click and fixed position
   #bar-menu, #menu{display: none;}
+  #frame{margin-top: 67px;}
   #tag{
      margin-top: 105px;
   }
@@ -509,7 +517,7 @@ h2 a, h3 a{color: $secondary-color;}
   #menu a{float: none; text-align: right; padding: 4px 14px; margin-left: 6px;}
   #menu-main .wrapper:nth-child(2n){background-color: #f0f0f0;}
   #menu-main{
-    margin-top: 73px; background-color: $prime-color;
+    margin-top: 50px; background-color: $prime-color;
     box-shadow: 0 0 7px #7c7c7c;
   }
   #menu .wrapper{background-color: white;}
