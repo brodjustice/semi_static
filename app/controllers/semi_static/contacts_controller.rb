@@ -42,7 +42,7 @@ module SemiStatic
     # POST /contacts
     # POST /contacts.json
     def create
-      @contact = Contact.new(params[:contact])
+      @contact = Contact.new(params[:contact].merge(:locale => I18n.locale.to_s))
   
       respond_to do |format|
         if @contact.save

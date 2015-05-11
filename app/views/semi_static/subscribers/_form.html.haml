@@ -17,5 +17,8 @@
   .field
     = f.text_field :telephone
     = f.label :telephone
+  .field
+    = f.label :locale
+    = f.select :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @subscriber.locale)
   .actions
     = f.submit

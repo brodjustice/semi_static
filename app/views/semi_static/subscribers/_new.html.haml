@@ -8,5 +8,9 @@
     %li= 'Column 4: (Optional) Telephone number'
   The fields must be seperated with commas.
 = form_tag(subscribers_path(:cmd => :csv), multipart: true, method: :post) do
-  = file_field_tag :csv
+  .field
+    = label_tag :locale
+    = select_tag :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, SemiStatic::Engine.config.default_locale)
+  .field
+    = file_field_tag :csv
   = submit_tag 'Upload'

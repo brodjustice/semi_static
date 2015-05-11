@@ -1,11 +1,12 @@
 module SemiStatic
   class Subscriber < ActiveRecord::Base
-    attr_accessible :cancel_token, :email, :name, :surname, :telephone
+    attr_accessible :cancel_token, :email, :name, :surname, :telephone, :locale
     attr_accessor :state
 
     has_many :newsletter_deliveries
 
     before_create :generate_token
+    before_destroy :send_notice
 
     validates_uniqueness_of :email
     validates_format_of :email, :with => Devise.email_regexp
@@ -19,6 +20,9 @@ module SemiStatic
       (nd = self.newsletter_deliveries.find_by_newsletter_id(newsletter.id)).nil? ? 0 : nd.state
     end
 
+    def send_notice
+      SemiStatic::SubscriberMailer.subscriber_notification(self).deliver
+    end
 
     protected
 
