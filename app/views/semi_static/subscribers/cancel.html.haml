@@ -11,6 +11,7 @@
     = hidden_field_tag 'cancel'
     .field
       = f.text_field :email
+      %br/
       = f.label :email, 'Please enter your email address so that we can cancel your subscription'
     .actions
       = f.submit 'Click to cancel my subscription'
