@@ -39,6 +39,9 @@ module SemiStatic
     #   7. bannerette-2col-1col
     #   8. bannerless
     config.theme = 'bannerette-2col-1col'
+
+    # Sepecific search box will be shown on home page unless this is set:
+    config.disable_search_in_home_page = false
     
     # This is the address to which the contact form data is sent to
     config.contact_email = 'info@business-landing.com'
