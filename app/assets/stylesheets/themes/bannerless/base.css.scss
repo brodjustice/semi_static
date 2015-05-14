@@ -158,6 +158,15 @@ h2{ font-size: 20px; font-weight: normal;}
   cursor: pointer; position: relative;
   z-index: 500;
 }
+#menu-close{
+  padding-top: 0px;
+  margin-top: 0px;
+  font-size: 16px;
+}
+#close-sym{
+  text-align: right;
+  font-size: 21px;
+}
 
 #menu-button{
   padding-bottom: 34px;
@@ -507,7 +516,7 @@ h2 a, h3 a{color: $secondary-color;}
   #menu a{float: none; text-align: right; padding: 4px 14px; margin-left: 6px;}
   #menu-main .wrapper:nth-child(2n){background-color: #f0f0f0;}
   #menu-main{
-    margin-top: 73px; background-color: $prime-color;
+    margin-top: 64px; background-color: $prime-color;
     box-shadow: 0 0 7px #7c7c7c;
   }
   #menu .wrapper{background-color: white;}
