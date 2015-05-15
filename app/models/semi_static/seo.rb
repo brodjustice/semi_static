@@ -51,7 +51,7 @@ module SemiStatic
     end
 
     def self.root(tag_id, locale)
-      tag = self.find_special(tag_id, locale, 'Home')
+      self.find_special(tag_id, locale, 'Home')
     end
 
     def self.new_from_master(seoable)

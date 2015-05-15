@@ -16,7 +16,7 @@ module SemiStatic
 
     def show
       @selection = 'Home'
-      @tag = Seo.root(params[:tag_id], I18n.locale).first
+      @tag, @seo = Seo.root(params[:tag_id], I18n.locale)
       @summaries = true
       @contact = Contact.new
       respond_to do |format|
