@@ -80,7 +80,7 @@ h2{ font-size: 20px; font-weight: normal;}
 }
 
 #bar-menu li a{
-  color: white;
+  color: #d8d8d8;
   background: url(/assets/vert-sprites-light.png) no-repeat scroll 0 0 transparent;
   display: block;
   padding: 5px 8px 0 34px;
@@ -127,6 +127,7 @@ h2{ font-size: 20px; font-weight: normal;}
 #logo{
   width: $logo-top-width; height: $logo-top-height;
   background: white url(/assets/#{$logo-top}) 0 0 no-repeat;
+  color:transparent;
 }
 
 #menu-main{float: right;}
