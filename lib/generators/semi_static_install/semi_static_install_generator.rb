@@ -139,13 +139,14 @@ class SemiStaticInstallGenerator < Rails::Generators::Base
   end
 
   def copy_devise_views
+    # Always remove the standard Devise _form as it does not have email fields
+    remove_file './app/views/admins/_form.html.erb'
     if yes?("  SemiStatic  Would you like to copy the devise views to your application? (Y/N):")
       # Copy view into app as we nearly always customise them
       @admin_model_name ||= 'admin'
       run("rails generate devise:views " + @admin_model_name)
       # Copy the admin form with email fileds
       copy_file './../../../../app/views/semi_static/admins/_form.html.haml', './app/views/admins/_form.html.haml'
-      remove_file './app/views/admins/_form.html.erb'
     end
   end
 

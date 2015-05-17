@@ -108,9 +108,8 @@ h2{ font-size: 20px; font-weight: normal;}
     max-width: 1400px;
 }
 
-#bar-menu .lady a{float: right; display: block; padding: 4px 8px 0px 28px; background: transparent url(#{$vert-sprites}) 0px -109px no-repeat;}
-#bar-menu .contact a{float: right; display: block; padding: 4px 8px 0px 34px; background: transparent url(#{$vert-sprites}) 0px -84px no-repeat;}
-#bar-menu .search a{float: right; display: block; padding: 4px 8px 4px 28px; background: transparent url(#{$vert-sprites}) 0px -216px no-repeat;}
+#bar-menu .contact a{float: right; display: block; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0px -194px no-repeat;}
+#bar-menu .search a{float: right; display: block; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0px -226px no-repeat;}
 #bar-menu .icon a{ background-size: 28px $vert-sprites-height; }
 
 #tag-wrapper{
@@ -314,7 +313,7 @@ h2{ font-size: 20px; font-weight: normal;}
   margin-bottom: 1px;
 }
 
-.social, .panel.highlight{
+.panel.highlight{
   background-color: $secondary-color; color: white;
 }
 
@@ -328,7 +327,6 @@ h2{ font-size: 20px; font-weight: normal;}
   border-radius: 2px;
 }
 .social{
-  line-height: 20px;
   padding: 2px 0px;
   width: 100%;
   text-align: center;
@@ -341,18 +339,21 @@ h2{ font-size: 20px; font-weight: normal;}
 .list h1, .panel.list h2{ color: $prime-color; border-bottom: 1px solid #808080; text-align: center;}
 
 .social a{
-  color: white;
+  color: $secondary-color;
+  vertical-align: bottom;
 }
 
 // Sprites
 
 #ddock{float: right;width: 97px; margin-top: 0px; margin-right: 8px; height: 32px; background:transparent url(/assets/hoz-sprites.png) 0 center no-repeat;}
 #html5{float: right;margin: -4px 5px 0 0px; width: 25px; height: 33px; background:transparent url(/assets/hoz-sprites.png) -97px center no-repeat;}
-#twitter{float: right; padding: 4px 8px 3px 28px; background: transparent url(#{$vert-sprites}) 0px 5px no-repeat;}
-#xing{float: right; padding: 4px 8px 3px 27px; background: transparent url(#{$vert-sprites}) 0px -188px no-repeat;}
-#facebook{float: right; padding: 4px 8px 3px 28px; background: transparent url(#{$vert-sprites}) 0px -55px no-repeat;}
-#youtube{float: right; padding: 4px 8px 3px 28px; background: transparent url(#{$vert-sprites}) 0px -25px no-repeat;}
-#linkedin{float: right; padding: 4px 8px 3px 28px; background: transparent url(#{$vert-sprites}) 0px -271px no-repeat;}
+
+#facebook{float: right; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0 -2px no-repeat;}
+#youtube{float: right; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0 -34px no-repeat;}
+#twitter{float: right; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0 -70px no-repeat;}
+#linkedin{float: right; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0 -98px no-repeat;}
+#googleplus{float: right; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0 -130px no-repeat;}
+#xing{float: right; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0 -162px no-repeat;}
 
 .social:after, .panel:after{ content: ''; display: table; clear: both; }
 
@@ -415,13 +416,13 @@ h2 a, h3 a{color: $secondary-color;}
 }
 .link{text-align: center;}
 .link a, .more a{
-  background: transparent url(#{$vert-sprites}) right -138px no-repeat;
+  background: transparent url(#{$vert-sprites}) right -290px no-repeat;
   background-size: 28px $vert-sprites-height;
-  padding: 4px 36px 1px 12px;
+  padding: 4px 32px 4px 8px;
   margin: 2px 0px 6px;
 }
 .feint .more a, .flat .more a, .news .more a{
-  background: transparent url(#{$vert-sprites}) right -162px no-repeat;
+  background: transparent url(#{$vert-sprites}) right -290px no-repeat;
   color: #d8d8d8;
 }
 

@@ -1,23 +1,28 @@
-- if SemiStatic::Engine.config.twitterID.try('present?') || SemiStatic::Engine.config.facebookID.try('present?') || SemiStatic::Engine.config.youtubeChannel.try('present?') || SemiStatic::Engine.config.xingID.try('present?') || SemiStatic::Engine.config.has?(:linkedinID)
+-# Refactor surely possible  here
+- if SemiStatic::Engine.config.twitterID.try('present?') || SemiStatic::Engine.config.facebookID.try('present?') || SemiStatic::Engine.config.youtubeChannel.try('present?') || SemiStatic::Engine.config.xingID.try('present?') || SemiStatic::Engine.config.has?(:linkedinID) ||  SemiStatic::Engine.config.has?(:googleplusID)
   .social
     .social-inner
       -unless SemiStatic::Engine.config.twitterID.nil?
-        = link_to "https://twitter.com/#{SemiStatic::Engine.config.twitterID}" do
-          #twitter
+        = link_to "https://twitter.com/#{SemiStatic::Engine.config.twitterID}", :alt => 'Twitter' do
+          #twitter{:title => "#{SemiStatic::Engine.config.site_name} on Twitter"}
             Twitter
       -unless SemiStatic::Engine.config.facebookID.nil?
-        = link_to "https://www.facebook.com/#{SemiStatic::Engine.config.facebookID}" do
-          #facebook
+        = link_to "https://www.facebook.com/#{SemiStatic::Engine.config.facebookID}", :alt => 'Facebook' do
+          #facebook{:title => "#{SemiStatic::Engine.config.site_name} on Facebook"}
             Facebook
       -unless SemiStatic::Engine.config.youtubeChannel.nil?
-        = link_to "https://www.youtube.com/#{SemiStatic::Engine.config.youtubeChannel}" do
-          #youtube
+        = link_to "https://www.youtube.com/#{SemiStatic::Engine.config.youtubeChannel}", :alt => 'YouTube' do
+          #youtube{:title => "#{SemiStatic::Engine.config.site_name} on YouTube"}
             YouTube
+      -if SemiStatic::Engine.config.has?(:googleplusID)
+        = link_to "https://plus.google.com/#{SemiStatic::Engine.config.googleplusID}", :alt => 'Google+' do
+          #googleplus{:title => "#{SemiStatic::Engine.config.site_name} on Google+"}
+            Google+
       -unless SemiStatic::Engine.config.xingID.nil?
-        = link_to "https://www.xing.com/#{SemiStatic::Engine.config.xingID}" do
-          #xing
+        = link_to "https://www.xing.com/#{SemiStatic::Engine.config.xingID}", :alt => 'Xing' do
+          #xing{:title => "#{SemiStatic::Engine.config.site_name} on Xing"}
             Xing
       -unless SemiStatic::Engine.config.linkedinID.nil?
-        = link_to "http://www.linkedin.com/company/#{SemiStatic::Engine.config.linkedinID}" do
-          #linkedin
+        = link_to "http://www.linkedin.com/company/#{SemiStatic::Engine.config.linkedinID}", :alt => 'LinkedIn' do
+          #linkedin{:title => "#{SemiStatic::Engine.config.site_name} on LinkedIn"}
             LinkedIn
