@@ -42,8 +42,16 @@ module SemiStatic
     # GET /newsletters/1/edit
     def edit
       @newsletter = Newsletter.find(params[:id])
+      template = 'edit'
       if params[:position]
         @newsletter.order_entries_to_position 
+      elsif params[:salutation]
+        template = 'salutation'
+      end
+
+      respond_to do |format|
+        format.html { render :template => "semi_static/newsletters/#{template}" }
+        format.js { render :template => "semi_static/newsletters/#{template}" }
       end
     end
   

@@ -13,6 +13,20 @@ class SemiStaticInstallGenerator < Rails::Generators::Base
   SITE_HELPER = 'helper SemiStatic::SiteHelper'
   AFTER_SIGN_IN_MODULE = "require 'semi_static/sign_in'\n  include SignIn"
 
+  # Belts and braces: Always run check to see if Device is included and registarable is set, since
+  # that will leave you wide open to anybody registering as admin
+  def device_auth_check
+    registerable_found = run 'grep registerable app/models/*.rb'
+    if registerable_found
+      say '    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+      say "    IMPORTANT WARNING: Found the string 'registerable' one of your models (see results above)."
+      say "    This could well be a MAJOR security problem in device that you really must correct." 
+      unless yes?("    We do not advise that you ignore this, but if you really know what you are doing, type Y to ignore (Y/N): ")
+        exit
+      end
+    end
+  end
+
   def copy_database_migrations
     directory('../../../../db/migrate', destination_root + '/db/migrate')
   end
@@ -145,7 +159,7 @@ class SemiStaticInstallGenerator < Rails::Generators::Base
       # Copy view into app as we nearly always customise them
       @admin_model_name ||= 'admin'
       run("rails generate devise:views " + @admin_model_name)
-      # Copy the admin form with email fileds
+      # Copy the admin form with email fields
       copy_file './../../../../app/views/semi_static/admins/_form.html.haml', './app/views/admins/_form.html.haml'
     end
   end
@@ -193,7 +207,7 @@ class SemiStaticInstallGenerator < Rails::Generators::Base
       # Need to change the admin model to load the correct devise modules:
       #   devise :database_authenticatable, :trackable, :timeoutable, :lockable
       # This is pretty error prone as we don't know what devise will put in by default, but it's important to
-      # get rid of the registerable, else you will not be able to add admins
+      # get rid of the registerable, else you will not be able to add admins and anybody can register
       gsub_file "app/models/#{@admin_model_name}.rb", /^  devise.*$/, "  devise :database_authenticatable, :trackable, :timeoutable, :lockable"
       gsub_file "app/models/#{@admin_model_name}.rb", /:recoverable.*$/, ""
       gsub_file "app/models/#{@admin_model_name}.rb", /:rememberable.*$/, ""

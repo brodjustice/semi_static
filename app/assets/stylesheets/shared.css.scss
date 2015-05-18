@@ -1,3 +1,9 @@
+// Next is just for admin sign in
+#new_admin input[type='email'], #new_admin input[type='password']{
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .entry p a{
   color: $secondary-color;
   border-bottom: 0.0625rem solid #dcdcdc;

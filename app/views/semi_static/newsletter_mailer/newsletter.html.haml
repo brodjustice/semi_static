@@ -7,6 +7,14 @@
         <img src="#{attachments['logo.jpg'].url}"/>
       %h1{:style=>'margin-top: 0px; font-size:40px;'}= @newsletter.name
       %h3{:style=>'font-size:28px;'}= @newsletter.subtitle
+
+      - if @newsletter.salutation
+        .panel.entry.flat
+          %p
+            = @newsletter.salutation_pre_text
+            = salutation_name(@newsletter. @subscriber) + ','
+          %p= @newsletter.salutation_post_text unless @newsletter.salutation_post_text.blank?
+
       - @newsletter.draft_entry_objects.each do |e|
         - entry = e
         - loop do

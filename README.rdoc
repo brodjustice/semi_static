@@ -95,6 +95,12 @@ Your webserver needs to be configured to take advantage of this. For ngnix this 
         add_header Cache-Control public;
         break;
       }
+
+      # Expires header reuired for some browsers, like Firefox. Setting expires to 0 will
+      # possibly lower your Google Pagespeed, so set to 60 seconds.
+      expires    modified +60s;
+      add_header Cache-Control public;
+
       client_max_body_size 20m;
 
       rails_env production;

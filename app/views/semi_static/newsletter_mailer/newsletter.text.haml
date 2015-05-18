@@ -5,6 +5,12 @@
 = @newsletter.subtitle
 = "\r\n"
 = "\r\n"
+- if @newsletter.salutation
+  = @newsletter.salutation_pre_text
+  = salutation_name(@newsletter, @subscriber) + ','
+  = "\r\n"
+  = @newsletter.salutation_post_text unless @newsletter.salutation_post_text.blank?
+
 - @newsletter.draft_entry_objects.each do |e|
   - entry = e
   - loop do
@@ -18,5 +24,5 @@
 = "\r\n"
 = '-------------------------------------------------------------------------------------'
 - if @subscriber
-  To unsibscribe to this news letter please click on the following url or copy it into your browser:
+  To unsibscribe to this newsletter please click on the following url or copy it into your browser:
   = edit_subscriber_path(@subscriber, :token => @subscriber.cancel_token, :only_path => false)

@@ -2,7 +2,7 @@ require "haml"
 
 module SemiStatic
   class Newsletter < ActiveRecord::Base
-    attr_accessible :name, :state, :locale, :subtitle
+    attr_accessible :name, :state, :locale, :subtitle, :salutation, :salutation_type, :salutation_pre_text, :salutation_post_text
     serialize :draft_entry_ids, Array
 
     has_many :newsletter_deliveries
@@ -24,6 +24,13 @@ module SemiStatic
     }
 
     STATE_CODES = STATES.invert
+
+    SALUTATION_TYPES = {
+      :first_name => 0x1,
+      :full_name => 0x2
+    }
+
+    SALUTATION_CODES = SALUTATION_TYPES.invert
 
     def create_newsletter_tag
       self.tag = SemiStatic::Tag.create(:name => self.name, :menu => false, :icon_in_menu => false)
