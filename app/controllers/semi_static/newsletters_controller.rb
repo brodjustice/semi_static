@@ -85,7 +85,7 @@ module SemiStatic
             @delivery = @newsletter.newsletter_deliveries.pending.first
             format.html { render action: "sending" }
           elsif params[:prepare].present?
-            @subscribers = Subscriber.all
+            @subscribers = Subscriber.where('locale = ?', @newsletter.locale)
             format.html { render action: "prepare" }
           elsif params[:email_draft].present?
             NewsletterMailer.draft(semi_static_current_user, @newsletter).deliver && @newsletter.draft_sent

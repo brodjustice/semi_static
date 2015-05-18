@@ -7,6 +7,7 @@
       %th Name
       %th State
       %th Entries
+      %th Locale
       %th{:title => 'Subscribers(Deliveries)'}= 'S'
       %th
 
@@ -19,6 +20,7 @@
           %ul
             - n.draft_entry_objects.each_with_index do |e, i|
               %li= link_to (i.to_s + ' ' + e.title), edit_entry_path(e)
+        %td.number= n.locale.to_s
         %td.number= link_to "#{n.subscribers.count.to_s}(#{n.newsletter_deliveries.delivered.count.to_s})", newsletter_newsletter_deliveries_path(n)
         %td= link_to image_tag('/assets/bin.png'), n, :method => :delete, :data => { :confirm => 'Are you sure?' }
 

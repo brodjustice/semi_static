@@ -14,6 +14,10 @@
       = f.text_field :name
       = f.label :subtitle
       = f.text_field :subtitle
+    %fieldset
+      = f.label :locale
+      = f.select :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @newsletter.locale)
+
 
     .actions
       = f.submit 'Next'

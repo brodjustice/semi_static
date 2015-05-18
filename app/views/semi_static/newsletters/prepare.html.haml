@@ -14,7 +14,7 @@
   .button
     = link_to 'New Subscriber', new_subscriber_path
 
-  %h1 Subscriber list
+  %h1= "Subscriber list (locale: #{@newsletter.locale.to_s})"
   %h4 Uncheck subscribers to remove them from the newsletter distribution
   = form_for @newsletter do |f|
     %table

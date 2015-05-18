@@ -21,7 +21,7 @@
     - unless @newsletter.new_record?
       %fieldset.action.prepend
         %label= 'Insert entry'
-        = select_tag 'prepend', options_for_select(SemiStatic::Entry.all.collect{|e| [e.title, e.id]}.prepend(['- None -', nil])), :name => 'entry[prepend]'
+        = select_tag 'prepend', options_for_select(SemiStatic::Entry.all.collect{|e| [e.explicit_title(true), e.id]}.prepend(['- None -', nil])), :name => 'entry[prepend]'
 
       - @newsletter.draft_entry_ids.each do |id| 
         - e = SemiStatic::Entry.find_by_id(id)
