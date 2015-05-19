@@ -24,6 +24,7 @@ module SemiStatic
       @newsletter = newsletter
       @host = SemiStatic::Engine.config.mail_host
       @locale = newsletter.locale
+      @site_url = SemiStatic::Engine.config.hosts_for_locales.invert[@locale]
 
       attachments.inline['logo.jpg'] = File.read("#{Rails.root}/app/assets/images/#{SemiStatic::Engine.config.logo_image.split('/').last}")
       @newsletter.draft_entry_objects.each{|e|
