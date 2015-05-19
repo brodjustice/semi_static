@@ -1,0 +1,21 @@
+.button= link_to_function 'Cancel', "$('#dialog').hide();"
+%h1= 'Sender email for ' + @newsletter.name
+
+= form_for(@newsletter) do |f|
+  - if @newsletter.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@newsletter.errors.count, "error")} prohibited this Newsletter Salutation from being saved:"
+      %ul
+        - @newsletter.errors.full_messages.each do |msg|
+          %li= msg
+
+  .group
+    .col.span_1_of_1
+      %fieldset
+        = f.label :sender_address
+        %br/
+        = f.text_field :sender_address
+        %br/
+        %br/
+  .actions
+    = f.submit 'Save'

@@ -2,8 +2,12 @@
   .button
     = link_to 'New Entry', new_entry_path(:newsletter => @newsletter)
   .button
-    = link_to 'Edit Salutation', edit_newsletter_path(@newsletter, :salutation => true), :remote => true
+    = link_to 'Salutation', edit_newsletter_path(@newsletter, :salutation => true), :remote => true
   .button
     = link_to 'Order to position', edit_newsletter_path(@newsletter, :position => :entries_to_position)
-  = "Status: #{SemiStatic::Newsletter::STATE_CODES[@newsletter.state].to_s.humanize}"
+  .button
+    = link_to 'Add CSS', edit_newsletter_path(@newsletter, :css => :true), :remote => true
+  .button
+    = link_to 'Sender address', edit_newsletter_path(@newsletter, :sender_address => :true), :remote => true
+  %h3= "Status: #{SemiStatic::Newsletter::STATE_CODES[@newsletter.state].to_s.humanize}"
 = render 'form'

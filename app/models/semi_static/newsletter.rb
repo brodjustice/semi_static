@@ -2,7 +2,7 @@ require "haml"
 
 module SemiStatic
   class Newsletter < ActiveRecord::Base
-    attr_accessible :name, :state, :locale, :subtitle, :salutation, :salutation_type, :salutation_pre_text, :salutation_post_text
+    attr_accessible :name, :state, :locale, :subtitle, :salutation, :salutation_type, :salutation_pre_text, :salutation_post_text, :css, :sender_address
     serialize :draft_entry_ids, Array
 
     has_many :newsletter_deliveries

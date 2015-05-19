@@ -1,0 +1,19 @@
+.button= link_to_function 'Cancel', "$('#dialog').hide();"
+%h1= 'CSS for ' + @newsletter.name
+
+= form_for(@newsletter) do |f|
+  - if @newsletter.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@newsletter.errors.count, "error")} prohibited this Newsletter Salutation from being saved:"
+      %ul
+        - @newsletter.errors.full_messages.each do |msg|
+          %li= msg
+
+  .group
+    .col.span_1_of_1
+      %fieldset
+        = f.label :css
+        %br/
+        = f.text_area :css, :rows => 8
+  .actions
+    = f.submit 'Save'

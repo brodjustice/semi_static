@@ -7,6 +7,9 @@
           %li= msg
 
   .newsletter
+    -# Add newsletter specific styles here
+    %style{:type => 'text/css'}
+      = @newsletter.css
     = image_tag(SemiStatic::Engine.config.logo_image, :class => 'logo')
     = f.text_field :name
     = f.text_area :subtitle

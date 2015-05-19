@@ -45,6 +45,10 @@ module SemiStatic
       template = 'edit'
       if params[:position]
         @newsletter.order_entries_to_position 
+      elsif params[:css]
+        template = 'css'
+      elsif params[:sender_address]
+        template = 'sender_address'
       elsif params[:salutation]
         template = 'salutation'
       end

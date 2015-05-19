@@ -1,6 +1,8 @@
 %html
   %head
     %title=  @subject
+    %style{:type => 'text/css'}
+      = @newsletter.css
   %body{:style => "padding:0; margin:0 ; color:#333; font-size: 14px; font-family: 'Helvetica Neue', Helvetica,Tahoma,Verdana,Arial,sans-serif; background-color:#f8f8f8;"}
     %div{:class => 'newsletter', :style => 'padding:12px;background-color:white;max-width:768px;width:100%;position:relative; margin: 6px auto;'}
       %div{:style => 'margin: 6px; float: right; position: relative; z-index: 1;'}
@@ -32,7 +34,7 @@
                   %td{:style => 'text-align: right;'}
                     = link_to e.doc_file_name, attachments[e.doc_file_name].url, :style => 'color: #282828;'
             - break if (e = e.next_merged_entry).nil?
-      %table{:class => 'footer', :style => 'width: 100%; border-top: 1px solid #c8c8c8; margin-top: 8px; background-color: #f0f0f0'}
+      %table{:class => 'footer', :style => 'width: 100%; border-top: 1px solid #c8c8c8; margin-top: 8px; background-color: #f8f8f8'}
         %tr
           %td
             &copy;
