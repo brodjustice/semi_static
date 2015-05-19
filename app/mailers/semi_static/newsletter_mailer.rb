@@ -1,5 +1,6 @@
 module SemiStatic
   class NewsletterMailer < ActionMailer::Base
+    helper SemiStatic::NewslettersHelper
 
     def draft(admin, newsletter)
       prepare(newsletter)

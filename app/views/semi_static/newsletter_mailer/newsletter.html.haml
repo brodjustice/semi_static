@@ -12,7 +12,7 @@
         .panel.entry.flat
           %p
             = @newsletter.salutation_pre_text
-            = salutation_name(@newsletter. @subscriber) + ','
+            = salutation_name(@newsletter, @subscriber) + ','
           %p= @newsletter.salutation_post_text unless @newsletter.salutation_post_text.blank?
 
       - @newsletter.draft_entry_objects.each do |e|
