@@ -20,9 +20,12 @@
   font-family: 'Open Sans', Arial, Verdana, Helvetica, sans-serif;
 }
 
+.newsletter h1{font-weight: bold; font-size: 40px;}
+.newsletter h2{font-weight: bold; font-size: 32px;}
+#newsletter-header{padding: 6px;}
+
 .newsletter .logo{
   margin: 6px;
-  float: right;
   position: relative;
   z-index: 1;
 }

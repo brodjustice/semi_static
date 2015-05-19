@@ -10,13 +10,10 @@
     -# Add newsletter specific styles here
     %style{:type => 'text/css'}
       = @newsletter.css
-    #newsletter-logo
-      = image_tag(SemiStatic::Engine.config.logo_image)
-    #newsletter-header
-      = link_to edit_newsletter_path(@newsletter, :header => true), :remote => true do
-        %h1= @newsletter.name
-        %h2= @newsletter.subtitle
-      
+    = image_tag(SemiStatic::Engine.config.logo_image, :class => 'logo')
+    = f.text_field :name
+    = f.text_area :subtitle
+
     - if @newsletter.salutation
       .panel.entry.flat
         %p
