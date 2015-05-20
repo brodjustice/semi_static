@@ -3,52 +3,56 @@
     %title=  @subject
     %style{:type => 'text/css'}
       = @newsletter.css
-  %body{:style => "padding:0; margin:0 ; color:#333; font-size: 14px; font-family: 'Helvetica Neue', 'Raleway', Helvetica,Tahoma,Verdana,Arial,sans-serif; background-color:#f8f8f8;"}
-    %table.newsletter{:style => 'padding:12px;background-color:white;max-width:768px;width:100%;position:relative; margin: 6px auto;'}
+  %body{:style => "padding:0; margin:0 ; color:#333; font-size: 14px; font-family: 'Helvetica Neue', 'Raleway', Helvetica,Tahoma,Verdana,Arial,sans-serif;"}
+    %table.newsletter{:style => 'background-color:white;max-width:768px;width:100%;position:relative; margin: 6px auto;'}
       %tr
         %td{:colspan => 2}
           #newsletter-logo
             <a href="#{@site_url}"><img src="#{attachments['logo.jpg'].url}"/></a>
       %tr#newsletter-header
-        %td{:colspan => 2}
+        %td{:colspan => 2, :style => 'padding: 6px;'}
           %h1= @newsletter.name
           %h2= @newsletter.subtitle
 
-      - if @newsletter.salutation
-        %tr
-          %td{:colspan => 2}
-            %p
-              = @newsletter.salutation_pre_text
-              = salutation_name(@newsletter, @subscriber) + ','
-            %p= @newsletter.salutation_post_text unless @newsletter.salutation_post_text.blank?
+      %tr
+        %td{:colspan => 2}
+          %table.newsletter
+            - if @newsletter.salutation
+              %tr
+                %td{:colspan => 2}
+                  %p
+                    = @newsletter.salutation_pre_text
+                    = salutation_name(@newsletter, @subscriber) + ','
+                  %p= @newsletter.salutation_post_text unless @newsletter.salutation_post_text.blank?
 
-      - @newsletter.draft_entry_objects.each do |e|
-        - entry = e
-        - loop do
-          %tr
-            %td{:colspan => 2}
-              %h1= e.title
-              - if e.img.present? && File.file?(e.img.path)
-                %div{:style => 'margin: 0px 6px 6px 6px; float: right; position: relative; z-index: 1;'}
-                  <img src="#{attachments[e.id.to_s + '.jpg'].url}"/>
-              = e.body.html_safe
-              - if e.doc.present? && File.file?(e.doc.path)
-                %table{:style => 'width: 100%; margin-top: 8px; border-top: 1px solid #c8c8c8; background-color: #f0f0f0'}
-                  %tr
-                    %td
-                      = e.doc_description  
-                    %td{:style => 'text-align: right;'}
-                      = link_to e.doc_file_name, attachments[e.doc_file_name].url, :style => 'color: #282828;'
-              - break if (e = e.next_merged_entry).nil?
-      %table{:style => 'width: 100%; border-top: 1px solid #c8c8c8; margin-top: 8px; background-color: #f8f8f8'}
-        %tr
-          %td
-            &copy;
-            = SemiStatic::Engine.config.copyright_year
-            = SemiStatic::Engine.config.copyright_owner
-          %td{:style => 'text-align: right;'}
-            - if @subscriber
-              = link_to 'Unsubscribe', edit_subscriber_path(@subscriber, :token => @subscriber.cancel_token, :only_path => false), :style => 'color: #282828;'
-            - else
-              = link_to 'Unsubscribe', edit_subscriber_path(0, :token => 'xxxxxxxxx', :only_path => false), :style => 'color: #282828;'
-
+            - @newsletter.draft_entry_objects.each do |e|
+              - entry = e
+              - loop do
+                %tr
+                  %td{:colspan => 2}
+                    %h1= e.title
+                    - if e.img.present? && File.file?(e.img.path)
+                      %div{:style => 'margin: 0px 6px 6px 6px; float: right; position: relative; z-index: 1;'}
+                        <img src="#{attachments[e.id.to_s + '.jpg'].url}"/>
+                    = e.body.html_safe
+                    - if e.doc.present? && File.file?(e.doc.path)
+                      %table{:style => 'width: 100%; margin-top: 8px; border-top: 1px solid #c8c8c8; background-color: #f0f0f0'}
+                        %tr
+                          %td
+                            = e.doc_description  
+                          %td{:style => 'text-align: right;'}
+                            = link_to e.doc_file_name, attachments[e.doc_file_name].url, :style => 'color: #282828;'
+                    - break if (e = e.next_merged_entry).nil?
+      %tr
+        %td{:colspan => 2}
+          %table{:style => 'width: 100%; border-top: 1px solid #c8c8c8; margin-top: 8px; background-color: #f8f8f8'}
+            %tr
+              %td
+                &copy;
+                = SemiStatic::Engine.config.copyright_year
+                = SemiStatic::Engine.config.copyright_owner
+              %td{:style => 'text-align: right;'}
+                - if @subscriber
+                  = link_to 'Unsubscribe', edit_subscriber_path(@subscriber, :token => @subscriber.cancel_token, :only_path => false), :style => 'color: #282828;'
+                - else
+                  = link_to 'Unsubscribe', edit_subscriber_path(0, :token => 'xxxxxxxxx', :only_path => false), :style => 'color: #282828;'

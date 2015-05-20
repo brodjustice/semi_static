@@ -41,7 +41,7 @@ table.newsletter td{
 
 .newsletter h1{font-weight: bold; font-size: 40px;}
 .newsletter h2{font-weight: bold; font-size: 32px;}
-#newsletter-header{padding: 6px;}
+#newsletter-header td{padding: 6px;}
 table .newsletter-footer td{
   border-top: 1px solid #c0c0c0;
   background-color: #f0f0f0;
@@ -66,7 +66,6 @@ table .newsletter-footer td{
 }
 
 .newsletter td{
-  text-align: center;
   background-color: white;
 }
 
