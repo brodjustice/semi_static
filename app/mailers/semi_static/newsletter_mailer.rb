@@ -13,7 +13,9 @@ module SemiStatic
 
       @subscriber = delivery.subscriber
 
-      mail(:from => @from, :to => @subscriber.email, :subject => @subject, :template_name => 'newsletter')
+      email_with_name = %("#{@subscriber.fullname}" <#{@subscriber.email}>)
+
+      mail(:from => @from, :to => email_with_name, :subject => @subject, :template_name => 'newsletter')
     end
 
     private

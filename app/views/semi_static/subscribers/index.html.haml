@@ -28,4 +28,4 @@
       %td= subscriber.locale
       %td= link_to 'Show', subscriber
       %td= link_to 'Edit', edit_subscriber_path(subscriber)
-      %td= link_to 'Destroy', subscriber, method: :delete, data: { confirm: "Confirm deletion of #{subscriber.fullname || '<blank>'}" }
+      %td= link_to image_tag('/assets/bin.png'), subscriber, method: :delete, data: { confirm: "Confirm deletion of #{subscriber.fullname || '<blank>'}" }

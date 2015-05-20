@@ -6,48 +6,51 @@
         - @newsletter.errors.full_messages.each do |msg|
           %li= msg
 
-  .newsletter
-    -# Add newsletter specific styles here
-    %style{:type => 'text/css'}
-      = @newsletter.css
-    #newsletter-logo
-      = image_tag(SemiStatic::Engine.config.logo_image)
-    #newsletter-header
-      = link_to edit_newsletter_path(@newsletter, :header => true), :remote => true do
-        %h1= @newsletter.name
-        %h2= @newsletter.subtitle
-      
-    - if @newsletter.salutation
-      .panel.entry.flat
-        %p
-          = @newsletter.salutation_pre_text
-          = salutation_name(@newsletter) + ','
-        %p= @newsletter.salutation_post_text unless @newsletter.salutation_post_text.blank?
-    .clear
-    - unless @newsletter.new_record?
-      %fieldset.action.prepend
-        %label= 'Insert entry'
-        = select_tag 'prepend', options_for_select(SemiStatic::Entry.all.collect{|e| [e.explicit_title(true), e.id]}.prepend(['- None -', nil])), :name => 'entry[prepend]'
-
+  %style{:type => 'text/css'}
+    = @newsletter.css
+  #newsletter-wrapper
+    %table.newsletter
+      %tr
+        %td{:colspan => 2}
+          #newsletter-logo= image_tag(SemiStatic::Engine.config.logo_image)
+      %tr#newsletter-header
+        %td{:colspan => 2}
+          = link_to edit_newsletter_path(@newsletter, :header => true), :remote => true do
+            %h1= @newsletter.name
+            %h2= @newsletter.subtitle
+            - unless @newsletter.new_record?
+              %fieldset.action.prepend
+                %label= 'Insert entry'
+                = select_tag 'prepend', options_for_select(SemiStatic::Entry.all.collect{|e| [e.explicit_title(true), e.id]}.prepend(['- None -', nil])), :name => 'entry[prepend]'
+        
+      - if @newsletter.salutation
+        %tr
+          %td{:colspan => 2}
+            %p
+              = @newsletter.salutation_pre_text
+              = salutation_name(@newsletter) + ','
+            %p= @newsletter.salutation_post_text unless @newsletter.salutation_post_text.blank?
+  
       - @newsletter.draft_entry_ids.each do |id| 
         - e = SemiStatic::Entry.find_by_id(id)
         - next if e.nil?
-        .panel.entry.flat
-          = render :partial => 'semi_static/entries/entry', :locals => {:e => e}
-          %fieldset.action.append
-            %label= 'Insert entry'
-            = select_tag 'append', options_for_select(SemiStatic::Entry.all.collect{|e| [e.title, e.id]}.prepend(['- None -', nil])), :name => "entry[append][#{e.id.to_s}]"
-    %table
-      %tr
+        %tr
+          %td{:colspan => 2}
+            = render :partial => 'semi_static/entries/entry', :locals => {:e => e}
+            %fieldset.action.append
+              %label= 'Insert entry'
+              = select_tag 'append', options_for_select(SemiStatic::Entry.all.collect{|e| [e.title, e.id]}.prepend(['- None -', nil])), :name => "entry[append][#{e.id.to_s}]"
+    %table.newsletter{:style => 'width: 100%; border-top: 1px solid #c8c8c8; margin-top: 8px; background-color: #f8f8f8'}
+      %tr.newsletter-footer
         %td
           &copy;
           = SemiStatic::Engine.config.copyright_year
           = SemiStatic::Engine.config.copyright_owner
         %td
           = link_to t('Unsubscribe'), 'http://business-landing.com/'
-    
-  .mid
-    .actions
-      = f.submit 'Update'
-      = f.submit 'Save and send draft newsletter', :name => 'email_draft'
-      = f.submit 'Prepare to publish', :name => 'prepare'
+      
+    .mid
+      .actions
+        = f.submit 'Update'
+        = f.submit 'Save and send draft newsletter', :name => 'email_draft'
+        = f.submit 'Prepare to publish', :name => 'prepare'
