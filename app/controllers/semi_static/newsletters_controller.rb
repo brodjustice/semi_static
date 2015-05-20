@@ -51,6 +51,8 @@ module SemiStatic
         template = 'sender_address'
       elsif params[:salutation]
         template = 'salutation'
+      elsif params[:header]
+        template = 'header'
       end
 
       respond_to do |format|

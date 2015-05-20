@@ -5,6 +5,9 @@
   background-color: white;
 }
 
+.newsletter a, .newsletter p a{ color: initial; text-decoration: initial;}
+.newsletter a:hover, .newsletter p a:hover{ color: initial; text-decoration: initial;}
+
 table.newsletter{
   border-width: 0px; border-collapse: collapse;
 }
@@ -36,7 +39,6 @@ table.newsletter td{
 #newsletter_subtitle {
   font-size: 28px;
   height: 70px;
-  font-family: 'Open Sans', Arial, Verdana, Helvetica, sans-serif;
 }
 
 .newsletter h1{font-weight: bold; font-size: 40px;}
