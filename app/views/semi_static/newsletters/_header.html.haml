@@ -1,5 +1,5 @@
 .button= link_to_function 'Cancel', "$('#dialog').hide();"
-%h1= 'Editing salutation for ' + @newsletter.name
+%h1= 'Editing header for ' + @newsletter.name
 
 = form_for(@newsletter) do |f|
   - if @newsletter.errors.any?

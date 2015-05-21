@@ -5,6 +5,8 @@ module SemiStatic
     def draft(admin, newsletter)
       prepare(newsletter)
 
+      @email = admin.email
+
       mail(:from => @from, :to => admin.email, :subject => @subject, :template_name => 'newsletter')
     end
 
@@ -12,6 +14,7 @@ module SemiStatic
       prepare(delivery.newsletter)
 
       @subscriber = delivery.subscriber
+      @email = @subscriber.email
 
       email_with_name = %("#{@subscriber.fullname}" <#{@subscriber.email}>)
 

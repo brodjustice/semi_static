@@ -3,7 +3,7 @@ module SemiStatic
     attr_accessible :cancel_token, :email, :name, :surname, :telephone, :locale
     attr_accessor :state
 
-    has_many :newsletter_deliveries
+    has_many :newsletter_deliveries, :dependent => :destroy
 
     before_create :generate_token
     before_destroy :send_notice
