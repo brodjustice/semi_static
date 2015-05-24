@@ -720,9 +720,25 @@ h2 a, h3 a{color: $secondary-color;}
   #menu .wrapper{background-color: white;}
   #menu .wrapper .text{height: 42px; border-bottom: 1px solid #e0e0e0;}
 
-  #menu-sub{
-    /* TEMP FIX, NEED TO MOVE TO MOBILE MENU */
+  #banner_marker + #overlay #menu-sub, #menu-sub{
     display: none;
+    z-index: 1000;
+    top: 28px !important;
+    background-color: white;
+    margin: 0px;
+    width: 100%;
+  }
+  #menu-sub a{
+    margin: 0px 3px 0px 3px;
+    padding-top: 6px;
+    padding-bottom: 22px;
+    display: block;
+    text-align: right;
+    background: white;
+    color: #282828;
+    box-shadow: none;
+    font-size: 20px;
+    border-bottom: 1px solid #e0e0e0;
   }
 
   #bar-menu{
