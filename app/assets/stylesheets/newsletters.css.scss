@@ -1,3 +1,10 @@
+#newsletter-wrapper{
+  table{width: auto;}
+}
+#newsletter-wrapper tr{
+  background-color: initial;
+}
+
 .newsletter{
   position: relative;
   max-width: 768px; width: 100%;
@@ -19,10 +26,6 @@ table.newsletter{
 
 .newsletter p{
   text-align: left;
-}
-
-table.newsletter td{
-  background-color: white;
 }
 
 #newsletter-header td{

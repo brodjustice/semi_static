@@ -54,6 +54,10 @@ module SemiStatic
       self.find_special(tag_id, locale, 'Home')
     end
 
+    def self.contact(tag_id, locale)
+      self.find_special(tag_id, locale, 'Contact')
+    end
+
     def self.new_from_master(seoable)
       if seoable.seo.nil?
         seo = seoable.seo = Seo.new(:title => seoable.raw_title)

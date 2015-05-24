@@ -32,7 +32,7 @@ module SemiStatic
 
     def self.generate_sitemap(*args)
       l = args.last
-      pages = ['/site/imprint']
+      pages = ['/site/imprint-credits']
       pages.concat(Tag.locale(l).select{|i| i.sitemappable })
       pages.concat(Entry.unmerged.locale(l).select{|i| i.sitemappable })
       pages.concat(Photo.all.select{|i| i.sitemappable })

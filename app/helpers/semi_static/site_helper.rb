@@ -11,7 +11,8 @@ module SemiStatic
 
     MAX_MENU_TAGS = {
       'bannerless' => 10,
-      'menu-right' => 10
+      'menu-right' => 10,
+      'standard-2col-1col' => 10
     }
 
     def max_menu_tags

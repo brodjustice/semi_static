@@ -91,10 +91,10 @@ h2{ font-size: 20px;}
   position: relative;
 }
 #search-wrapper{
-  background: transparent url(/assets/white-75.png) 0 0 repeat;
+  background-color: white;
   border: 1px solid white;
   border-radius: 2px;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
   padding: 4px 0px 4px 4px;
   text-align: center;
 }
@@ -344,8 +344,8 @@ h2{ font-size: 20px;}
   border-radius: 2px;
 }
 .social{
-  padding: 6px 0px 4px;
-  line-height: 30px;
+  padding: 0px;
+  line-height: 26px;
   width: 100%;
 }
 .gallery h2 a, .gallery h2, .news h2 a, .news h2{ color: white; border-bottom: 1px solid white; }
@@ -360,13 +360,18 @@ h2{ font-size: 20px;}
 #ddock{float: right;width: 97px; margin-top: 0px; margin-right: 8px; height: 32px; background:transparent url(/assets/hoz-sprites.png) 0 center no-repeat;}
 #html5{float: right;margin: -4px 5px 0 0px; width: 25px; height: 33px; background:transparent url(/assets/hoz-sprites.png) -97px center no-repeat;}
 
-#twitter{float: right; padding: 0px 8px 3px 28px; background: transparent url(#{$vert-sprites}) 0px 5px no-repeat;}
-#xing{float: right; padding: 0px 8px 3px 28px; background: transparent url(#{$vert-sprites}) 0px -190px no-repeat;}
-#facebook{float: right; padding: 0px 8px 3px 28px; background: transparent url(#{$vert-sprites}) 0px -55px no-repeat;}
-#youtube{float: right; padding: 0px 8px 3px 28px; background: transparent url(#{$vert-sprites}) 0px -25px no-repeat;}
-#bar-menu .lady a{float: right; display: block; padding: 4px 8px 0px 28px; background: transparent url(#{$vert-sprites}) 0px -109px no-repeat;}
-#bar-menu .contact a{float: right; display: block; padding: 4px 8px 0px 34px; background: transparent url(#{$vert-sprites}) 0px -84px no-repeat;}
-#bar-menu .search a{float: right; display: block; padding: 4px 8px 0px 30px; background: transparent url(#{$vert-sprites}) 0px -221px no-repeat;}
+#facebook{float: right; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0 1px no-repeat;}
+#youtube{float: right; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0 -31px no-repeat;}
+#twitter{float: right; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0 -63px no-repeat;}
+#linkedin{float: right; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0 -95px no-repeat;}
+#googleplus{float: right; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0 -127px no-repeat;}
+#xing{float: right; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0 -162px no-repeat;}
+#instagram{float: right; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0 -319px no-repeat;}
+
+#bar-menu .contact a{float: right; display: block; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0px -193px no-repeat;}
+#bar-menu .search a{float: right; display: block; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0px -226px no-repeat;}
+#bar-menu .icon a{ background-size: 28px $vert-sprites-height; }
+
 #twitter, #xing, #facebook, #youtube, #bar-menu .icon a{ background-size: 28px $vert-sprites-height; }
 
 .icon.sprite{height: 100px; width: 100px; background: url(/system/icons/menu-sprites.png) center 0px no-repeat;}
@@ -417,6 +422,30 @@ h2 a, h3 a{color: $secondary-color;}
 #menu-wrapper{
   z-index: 1000;
   top: 316px;
+}
+
+#menu-sub{
+  position: relative;
+  float: right;
+  clear: both;
+  top: -60px;
+  margin-right: 8px;
+}
+
+#menu-sub a{
+  font-weight: normal;
+  color: #606060;
+  padding: 1px 8px;
+  background-color: $prime-color;
+  color: white;
+  border-top-right-radius: 2px;
+  border-top-left-radius: 2px;
+  margin-left: 4px;
+  box-shadow: 0 0px 2px rgba(0, 0, 0, 0.3);
+}
+#menu-sub #selected a,
+#menu-sub a:hover{
+  text-decoration: underline;
 }
 
 #logo-wrapper{
@@ -481,7 +510,7 @@ h2 a, h3 a{color: $secondary-color;}
   color: #282828;
   /* text-shadow: white -1px 1px 0px, rgba(98, 0, 105, 0.4) -2px 2px 0px; */
   text-shadow: white 1px 1px 2px, white -1px -1px 2px;
-  font-weight: 900;
+  font-weight: normal;
   text-transform: uppercase;
 }
 
@@ -524,13 +553,13 @@ h2 a, h3 a{color: $secondary-color;}
 }
 .link{text-align: center;}
 .link a, .more a{
-  background: transparent url(#{$vert-sprites}) right -138px no-repeat;
+  background: transparent url(#{$vert-sprites}) right -259px no-repeat;
   background-size: 28px $vert-sprites-height;
   padding: 4px 36px 1px 12px;
   margin: 2px 0px 6px;
 }
 .feint .more a, .flat .more a, .news .more a{
-  background: transparent url(#{$vert-sprites}) right -162px no-repeat;
+  background: transparent url(#{$vert-sprites}) right -291px no-repeat;
   color: #d8d8d8;
 }
 
@@ -690,6 +719,11 @@ h2 a, h3 a{color: $secondary-color;}
   }
   #menu .wrapper{background-color: white;}
   #menu .wrapper .text{height: 42px; border-bottom: 1px solid #e0e0e0;}
+
+  #menu-sub{
+    /* TEMP FIX, NEED TO MOVE TO MOBILE MENU */
+    display: none;
+  }
 
   #bar-menu{
     position: fixed;

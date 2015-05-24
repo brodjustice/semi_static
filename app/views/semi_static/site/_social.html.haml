@@ -1,5 +1,5 @@
 -# Refactor surely possible  here
-- if SemiStatic::Engine.config.twitterID.try('present?') || SemiStatic::Engine.config.facebookID.try('present?') || SemiStatic::Engine.config.youtubeChannel.try('present?') || SemiStatic::Engine.config.xingID.try('present?') || SemiStatic::Engine.config.has?(:linkedinID) ||  SemiStatic::Engine.config.has?(:googleplusID)
+- if SemiStatic::Engine.config.twitterID.try('present?') || SemiStatic::Engine.config.facebookID.try('present?') || SemiStatic::Engine.config.youtubeChannel.try('present?') || SemiStatic::Engine.config.xingID.try('present?') || SemiStatic::Engine.config.has?(:linkedinID) ||  SemiStatic::Engine.config.has?(:googleplusID) ||  SemiStatic::Engine.config.has?(:instagramID)
   .social
     .social-inner
       -unless SemiStatic::Engine.config.twitterID.nil?
@@ -26,3 +26,7 @@
         = link_to "http://www.linkedin.com/company/#{SemiStatic::Engine.config.linkedinID}", :alt => 'LinkedIn' do
           #linkedin{:title => "#{SemiStatic::Engine.config.site_name} on LinkedIn"}
             LinkedIn
+      -unless SemiStatic::Engine.config.instagramID.nil?
+        = link_to "http://instagram.com/#{SemiStatic::Engine.config.instagramID}", :alt => 'LinkedIn' do
+          #instagram{:title => "#{SemiStatic::Engine.config.site_name} on Instagram"}
+            Instagram
