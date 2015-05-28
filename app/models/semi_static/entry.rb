@@ -11,7 +11,7 @@ module SemiStatic
     attr_accessible :position, :doc, :doc_description, :summary_length, :locale, :style_class, :header_colour, :background_colour, :colour
     attr_accessible :banner_id, :partial, :entry_position, :master_entry_id, :youtube_id_str, :use_as_news_summary
     attr_accessible :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_gallery, :side_bar_tag_id, :unrestricted_html, :merge_with_previous, :raw_html
-    attr_accessible :facebook_share, :show_in_documents_tag, :image_caption, :tag_line, :raw_html, :show_image_titles, :link_to_tag
+    attr_accessible :facebook_share, :show_in_documents_tag, :image_caption, :tag_line, :raw_html, :show_image_titles, :link_to_tag, :doc_delete
     attr_accessor :doc_delete, :img_delete
 
     settings index: { number_of_shards: 1, number_of_replicas: 1 }
@@ -36,7 +36,7 @@ module SemiStatic
     scope :not_linked_to_tag, where('link_to_tag = ?', false)
     scope :exclude_newsletters, joins(:tag).where(:semi_static_tags => {:newsletter_id => nil})
     scope :for_newsletters, includes(:tag).where('semi_static_tags.newsletter_id IS NOT NULL')
-    scope :for_documents_tag, where("show_in_documents_tag = ?", true)
+    scope :for_documents_tag, where("show_in_documents_tag = ?", true).where('doc_file_size IS NOT NULL')
     scope :with_image, where('img_file_name IS NOT NULL')
     scope :without_image, where('img_file_name IS NULL')
   
@@ -176,13 +176,15 @@ module SemiStatic
     def doc_delete=(val)
       if val == '1' || val == true
         self.doc.clear
+        self.doc_description = nil
+        self.show_in_documents_tag = false
       end
     end
-
 
     def img_delete=(val)
       if val == '1' || val == true
         self.img.clear
+        self.image_caption = nil
       end
     end
 

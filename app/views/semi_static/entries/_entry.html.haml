@@ -6,7 +6,8 @@
   - loop do
     - last_merged_entry = e
     = render :partial => 'semi_static/entries/entry_contents', :locals => {:style => style, :e => e }
-    = render :partial => 'semi_static/entries/document', :locals => {:e => e}  if e.doc.present? && (!@summaries && !e.truncate?)
+    - debugger
+    = render :partial => 'semi_static/entries/document', :locals => {:e => e}  if !e.doc_file_size.nil? && (!@summaries && !e.truncate?)
     - break if (e = e.next_merged_entry).nil? || (@summaries && entry.truncate?)
     .section
   - if (@summaries && last_merged_entry.truncate?)

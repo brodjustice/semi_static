@@ -216,6 +216,8 @@
             %ul
               %li= @entry.doc_file_name
               %li= @entry.doc_content_type
+            = f.label :doc_delete, 'Tick to delete this document on save'
+            = f.check_box :doc_delete
           - else
             No document is currently loaded
         %span.infomarker
@@ -256,7 +258,7 @@
             = f.select :tag_id, options_for_select(SemiStatic::Tag.all.collect{|t| [[t.locale, ': ', t.name].join, t.id]}, @entry.tag_id)
           %br/
           %br/
-          .infobox#show_in_documents_tag
+          .infobox#link_to_tag
             %h4= 'Link to Tag'
             %p
               = 'If you have checked this box then clicks on the entry summary will not go directly to the full'

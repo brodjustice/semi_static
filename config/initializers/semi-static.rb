@@ -107,6 +107,11 @@ module SemiStatic
     # config.app_dashboard = ['dashboard_path', 'admin']
     config.app_dashboard = false
 
+    # Or if you just want to add a menu item to the dashboards controller then add it here
+    # config.app_dashboard_menu_additions = false
+    # config.dashboard_menu_additions = {'analyses' => 'analyses_path'}
+    config.dashboard_menu_additions = nil
+
     # To increase your SEO you can replace certain words in your URLs
     # IMPORTANT: Do not use symbols for your locale, eg. use 'en' not :en
     # config.tag_paths = { 'en' => 'features', 'de' => 'merkmale' }

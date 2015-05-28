@@ -62,8 +62,8 @@ textarea{
 
 #dashboard #menu{
   width: 100%;
-  font-size: 18px;
-  padding-left: 0px;
+  font-size: 20px;
+  padding: 12px 0px 6px;
   height: auto;
   right: 0px;
   margin: 0 auto;
@@ -71,8 +71,10 @@ textarea{
   top: 0px;
   margin-bottom: 6px;
   max-width: 1024px;
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #c8c8c8;
 }
-#dashboard #menu, .button, th{
+button, th{
   background: rgba(254,254,254,1);
   background: -moz-linear-gradient(top, rgba(254,254,254,1) 0%, rgba(226,226,226,1) 100%);
   background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(254,254,254,1)), color-stop(100%, rgba(226,226,226,1)));

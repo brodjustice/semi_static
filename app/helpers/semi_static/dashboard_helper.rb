@@ -21,9 +21,15 @@ module SemiStatic
     # hack but saves a lot of time messing about with pluralisation
     # 
     def menu_for(role)
-      MENU[role.to_sym].collect{|p|
+      html = MENU[role.to_sym].collect{|p|
         send(p, role, ("\'selected\'" if (@selected || params[:controller]).include?(p[0..2])))
       }.join().html_safe
+      unless SemiStatic::Engine.config.dashboard_menu_additions.nil?
+        SemiStatic::Engine.config.dashboard_menu_additions.each{|title, url_method|
+          html += "<div class='nutshell spaced'><a href=\"#{main_app.send(url_method)}\">#{title.humanize}</a></div>".html_safe
+        }
+      end
+      html.html_safe
     end
 
     def semi_static_path_for_admin_sign_out
@@ -89,7 +95,7 @@ module SemiStatic
     end
   
     def system(role, cl_str = nil)
-      "<div class='nutshell spaced' #{cl_str}><a href=\"#{semi_static_dashboard_path}\">System</a></div>"
+      "<div class='nutshell spaced' #{cl_str}><a href=\"#{semi_static.semi_static_dashboard_path}\">System</a></div>"
     end
   
     def signout(role, cl_str = nil)

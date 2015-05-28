@@ -46,6 +46,10 @@ Start your app
 
 	# rails s
 
+= Browser support
+
+All modern browsers and IE >= 9 should be supported.
+
 = Configuration
 
 The minimal configuration will require you to edit the 'config/initializers/semi_static.rb' file. Edit that file to
@@ -90,8 +94,8 @@ Your webserver needs to be configured to take advantage of this. For ngnix the c
       }
 
       # Expires header required for some browsers e.g. Firefox. Setting expires to 0 will
-      # possibly lower your Google Pagespeed, so set to 60 seconds.
-      expires    modified +60s;
+      # possibly lower your Google Pagespeed, so set to 1 second.
+      expires    modified 1s;
       add_header Cache-Control public;
 
       client_max_body_size 20m;
@@ -119,3 +123,6 @@ In your controllers you can then for example use authenticate_admin!
 
     before_filter :authenticate_admin!, :except => [ :new, :create ]
 
+= Examples
+
+http://quantum-websites.com/info/portfolio
