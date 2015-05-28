@@ -196,17 +196,21 @@ module SemiStatic
       end
     end
 
+    def merged_main_entry
+      tag_entries = self.tag.entries
+      i = tag_entries.find_index{|e| e.id == self.id}
+      while (i >= 0) do
+        break unless tag_entries[i].merge_with_previous
+        i = i - 1
+      end
+      return tag_entries[i]
+    end
+
     def merged_main_entry_with_title
       if !self.title.blank? || !self.merge_with_previous
         self
       else
-        tag_entries = self.tag.entries
-        i = tag_entries.find_index{|e| e.id == self.id}
-        while (i >= 0) do
-          break unless tag_entries[i].merge_with_previous
-          i = i - 1
-        end
-        return tag_entries[i]
+        merged_main_entry
       end
     end
 

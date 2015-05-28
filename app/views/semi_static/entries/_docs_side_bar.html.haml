@@ -1,5 +1,6 @@
 - obj = @tag
 - @tag ||= entrytag
+- @entries ||= SemiStatic::Entry.for_documents_tag
 - unless @tag.nil?
   .panel.list
     - if SemiStatic::Tag.use_sprites?
@@ -8,7 +9,7 @@
       .icon= image_tag(@tag.icon.url(:big)) if @tag.icon.present?
     %h1= link_to @tag.sidebar_title, feature_path(@tag.slug), :style => "color: #{@tag.colour};"
     .section
-      - @entries.unmerged.each do |e|
+      - @entries.collect{|e| e.merged_main_entry}.uniq.each do |e|
         = render :partial => 'semi_static/tags/side_bar_entry', :locals => {:e => e}
 - unless obj.nil?
   = render :partial => 'semi_static/site/search' if obj.side_bar_search
