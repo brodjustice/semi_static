@@ -22,7 +22,7 @@ SemiStatic::Engine.routes.draw do
   match "/#{SemiStatic::Engine.config.tag_paths[I18n.locale.to_s] || 'features'}/:slug" => 'tags#show', :as => 'feature', :via => :get
   match "/features/:slug" => 'tags#show', :via => :get
 
-  match "/documents/index" => 'entries#index', :as => 'documents', :via => :get, :defaults => {:docs => 'all'}
+  match "/documents/index" => 'documents#index', :as => 'documents', :via => :get
 
   match '/site/:content' => 'site#show', :as => 'site',
     :via => :get, :defaults => {:content => 'home'}
