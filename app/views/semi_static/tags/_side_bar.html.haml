@@ -1,6 +1,7 @@
 - obj = @entry || @tag
 - @tag ||= entrytag
 %aside
+  = yield :side_bar_top
   - unless @tag.nil? || @tag.entries.first.try(:link_to_tag)
     .panel.list
       %nav

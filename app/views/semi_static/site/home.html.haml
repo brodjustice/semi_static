@@ -7,6 +7,7 @@
     = home_custom_after
   .col.span_1_of_3
     %aside
+      = yield :side_bar_top
       = render :partial => 'semi_static/site/search' unless SemiStatic::Engine.config.has?(:disable_search_in_home_page)
       = render :partial => 'semi_static/site/social' if !SemiStatic::Engine.config.has?(:social_in_footer)
       = render :partial => SemiStatic::Engine.config.social_partial if SemiStatic::Engine.config.social_partial.present?

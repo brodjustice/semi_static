@@ -23,7 +23,7 @@
           #xing{:title => "#{SemiStatic::Engine.config.site_name} on Xing"}
             Xing
       -unless SemiStatic::Engine.config.linkedinID.nil?
-        = link_to "http://www.linkedin.com/company/#{SemiStatic::Engine.config.linkedinID}", :alt => 'LinkedIn' do
+        = link_to "http://www.linkedin.com/#{SemiStatic::Engine.config.linkedinID}", :alt => 'LinkedIn' do
           #linkedin{:title => "#{SemiStatic::Engine.config.site_name} on LinkedIn"}
             LinkedIn
       -unless SemiStatic::Engine.config.instagramID.nil?
