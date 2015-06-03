@@ -19,7 +19,7 @@ module SemiStatic
           s = SemiStatic::Subscriber.create(:surname => surname, :name => name, :email => email, :telephone => telephone, :locale => locale)
         else
           attributes.each{|k,v| attributes.delete(k) if read_attribute(k).blank?}
-          s.update_attributes(attributes)
+          s.update_attributes(:name => s.name, :surname => s.surname, :telephone  => s.telephone, :locale => s.locale)
         end
       end
     end
