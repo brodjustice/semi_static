@@ -1,4 +1,5 @@
 -# TODO: Move to helper
+- suppress_merged ||= false
 - style ||= false
 - entry = e
 - last_merged_entry = e
@@ -8,7 +9,7 @@
     = render :partial => 'semi_static/entries/entry_contents', :locals => {:style => style, :e => e }
     -# = render :partial => 'semi_static/entries/document', :locals => {:e => e}  if !e.doc_file_size.nil? && (!@summaries && !e.truncate?)
     = render :partial => 'semi_static/entries/document', :locals => {:e => e}  unless e.doc_file_size.nil? || @summaries || (e.body.size > (e.summary_length || 0))
-    - break if (e = e.next_merged_entry).nil? || (@summaries && entry.truncate?)
+    - break if (e = e.next_merged_entry).nil? || (@summaries && entry.truncate?) || suppress_merged
     .section
   - if (@summaries && last_merged_entry.truncate?)
     .more= link_to t(:more), entry_link_path(entry)

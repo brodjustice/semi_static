@@ -82,7 +82,7 @@ module SemiStatic
     DISPLAY_ENTRY_SYM = DISPLAY_ENTRY.invert
 
     THEME = {
-      'tiles' => {:desktop => :panel, :mobile => :panel, :small => :small, :summary => :panel, :home => :tile, :show => :panel, :medium => :medium},
+      'tiles' => {:desktop => :panel, :mobile => :panel, :small => :small, :summary => :panel, :home => :tile, :show => :panel, :medium => :medium, :tile => :tile},
       'menu-right' => {:desktop => :panel, :mobile => :panel, :small => :small, :summary => :panel, :home => :tile, :show => :panel, :medium => :medium},
       'standard-2col-1col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel, :medium => :medium},
       'bannerless' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel, :medium => :medium},
@@ -260,6 +260,17 @@ module SemiStatic
         val = val.split('v=').last
       end
       super
+    end
+
+    def merged_entries
+      entries = []
+      unless (e = self.next_merged_entry).nil?
+        entries << e
+        while (e = e.next_merged_entry)
+          entries << e
+        end
+      end
+      entries
     end
 
     def next_merged_entry

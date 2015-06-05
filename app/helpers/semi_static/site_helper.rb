@@ -74,8 +74,11 @@ module SemiStatic
 
     def semantic_entry_image(e, style, max_width=nil)
       c = '<figure vocab = "http://schema.org/" typeof="ImageObject"> '.html_safe
-      c += "<meta  property='name' content='#{e.raw_title}'> ".html_safe
+      sc = e.raw_title.blank? ? e.image_caption : e.raw_title
+      c += "<meta  property='name' content='#{sc}'> ".html_safe
+      c += "<div class='#{style.to_s} image_wrapper'>".html_safe
       c += image_with_style(e, style, max_width)
+      c += '</div>'.html_safe
       unless e.image_caption.blank? || style == :home
         c += "<figcaption class='caption'> <div class='caption-inner' property='description'>#{e.image_caption}</div> </figcaption> ".html_safe
       end
