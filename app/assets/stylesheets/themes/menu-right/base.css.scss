@@ -411,13 +411,13 @@ h2 a, h3 a{color: $secondary-color;}
   padding-bottom: 8px;
 }
 .link{text-align: center;}
-.link a, .more a{
+a .link, .link a, .more a{
   background: transparent url(#{$vert-sprites}) right -138px no-repeat;
   background-size: 28px $vert-sprites-height;
   padding: 4px 36px 1px 12px;
   margin: 2px 0px 6px;
 }
-.feint .more a, .flat .more a, .news .more a{
+.feint.link, .feint .more a, .flat .more a, .news .more a{
   background: transparent url(#{$vert-sprites}) right -162px no-repeat;
   color: #d8d8d8;
 }
