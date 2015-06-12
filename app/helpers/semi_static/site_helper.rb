@@ -15,6 +15,10 @@ module SemiStatic
       'standard-2col-1col' => 10
     }
 
+    def select_layout(obj)
+      'semi_static_' + LAYOUTS[obj.layout_select || 0]
+    end
+
     def max_menu_tags
       MAX_MENU_TAGS[SemiStatic::Engine.config.theme] || 5
     end

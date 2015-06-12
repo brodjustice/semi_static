@@ -7,7 +7,7 @@ module SemiStatic
     attr_accessible :name, :menu, :position, :icon, :icon_in_menu, :icon_delete, :sidebar_title
     attr_accessible :predefined_class, :colour, :icon_resize, :locale, :max_entries_on_index_page
     attr_accessible :banner_id, :partial, :entry_position, :tag_line
-    attr_accessible :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_tag_id
+    attr_accessible :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_tag_id, :layout_select
     attr_accessor :icon_delete
   
     has_one :seo, :as => :seoable

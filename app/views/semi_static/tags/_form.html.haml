@@ -133,6 +133,12 @@
       .col.span_1_of_2
         = f.label :colour, 'CSS colors: black, yellow, #5f78c0, etc'
         = f.text_field :colour
+
+  %fieldset
+    .section.group
+      .col.span_1_of_1
+        = f.label :layout_select, 'Rails level layout for this page'
+        = f.select :layout_select, options_for_select(General::LAYOUTS.invert.collect{|k, v| [k, v]}, @tag.layout_select)
   
   .actions
     = f.submit 'Save'

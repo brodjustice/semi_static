@@ -8,6 +8,9 @@
     caches_page :show
   
     layout 'semi_static_dashboards'
+
+    require 'semi_static/general'
+    include General
   
     # GET /tags
     # GET /tags.json
@@ -39,7 +42,7 @@
           if @tag.predefined_class && !SiteHelper::PREDEFINED[@tag.predefined_class].nil?
             redirect_to SiteHelper::PREDEFINED[@tag.predefined_class]
           else
-            render :layout => 'semi_static_application'
+            render :layout => layout_select(@tag)
           end
         }
       end
