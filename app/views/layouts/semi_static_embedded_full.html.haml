@@ -1,0 +1,45 @@
+!!! 5
+%html{ :xmlns => "http://www.w3.org/1999/xhtml", :lang => I18n.locale.to_s, "xml:lang" => I18n.locale.to_s, :prefix => "og: http://ogp.me/ns#"}
+  %head
+    %title= seo_title
+    %meta{ :"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8" }/
+    %meta{ :name => "description", :content => seo_description}/
+    - unless seo_keywords.blank?
+      %meta{ :name => "keywords", :content => seo_keywords }/
+    %meta{ :name => "rating", :content => "General" }/
+    %meta{:name => 'viewport', :content => 'width=device-width, initial-scale=1.0'}/
+    = seo_no_index?
+
+    -# Open Graph Meta Tags
+    %meta{ :property => "og:title", :content => seo_title }/
+    %meta{ :property => "og:locale", :content => I18n.locale.to_s }/
+    %meta{ :property => "og:url", :content => request.url }/
+    %meta{ :property => "og:site_name", :content => SemiStatic::Engine.config.site_name }/
+    %meta{ :property => "og:type", :content => 'website' }/
+    %meta{ :property => "og:image", :content => og_image_url }/
+
+    = csrf_meta_tags
+
+    -# If you need extra fonts loaded, and you think it's better to load them from an external domain like
+    -# google fonts, then you can enable the next line:
+    -#      = render :partial => 'semi_static/shared/hosted_fonts'
+    -# However, foer speed puposes and for google page speed results it best to load them from your server,
+    -# so you need the following:
+    -#      = render :partial => 'semi_static/shared/font'
+    = render :partial => 'semi_static/shared/font'
+
+    %style{:type => "text/css"}
+      = ObjectSpace.each_object(Sprockets::Environment).first.find_asset('semi_static_application.css.scss').source
+      = yield :header_css
+
+    %script
+      = ObjectSpace.each_object(Sprockets::Environment).first.find_asset('semi_static_application.js').source.html_safe
+    
+    = yield :ujs
+
+    = render :partial => SemiStatic::Engine.config.analytics_partial unless SemiStatic::Engine.config.analytics_partial.nil?
+    %link{:rel => 'shortcut icon', :href => '/assets/favicon.ico'}
+  %body{:id => "semi_static_#{controller_name.classify.downcase}"}
+    #body-inner
+      = render :partial => 'semi_static/shared/application_body'
+      = render :partial => 'semi_static/shared/footer'
