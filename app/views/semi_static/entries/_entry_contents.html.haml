@@ -8,7 +8,7 @@
   .col.span_1_of_2.wrapping
     .html
       = icon(e.tag) if e.youtube_id_str.blank?
-      - if @summaries
+      - if @summaries && !e.merge_with_previous
         - if e.youtube_id_str.blank?
           = entry_title(e, true)
         = entry_summary(e, e.summary_length)
@@ -22,7 +22,7 @@
     = icon(e.tag) if e.youtube_id_str.blank?
     - if e.youtube_id_str.blank?
       = entry_title(e, true)
-    - if @summaries
+    - if @summaries && !e.merge_with_previous
       = entry_summary(e, e.summary_length)
     - else
       = e.body.html_safe
