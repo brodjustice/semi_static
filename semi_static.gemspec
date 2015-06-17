@@ -22,7 +22,9 @@ Gem::Specification.new do |s|
   s.add_dependency "haml"
   s.add_dependency "haml-rails"
   s.add_dependency "debugger"
-  s.add_dependency "paperclip", "~> 4.2"
+
+  # Later versions of paperlip require ruby 2.0+
+  s.add_dependency "paperclip", "4.2.1"
 
   s.add_dependency "truncate_html"
 
