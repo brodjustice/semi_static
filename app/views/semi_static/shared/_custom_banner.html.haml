@@ -1,6 +1,14 @@
 - banner_name ||= ''
 - banner_name.kind_of?(Array) ? banner_name.first : banner_name
 - if (banner = SemiStatic::Banner.find_by_name(banner_name)).present?
+
+  - content_for :header_css do
+    :plain
+      #banner-frame .bg{background-image: url("#{banner.img.url(:desktop)}");}
+      @media only screen and (max-width: 750px) {
+        #banner-frame .bg{background-image: url("#{banner.img.url(:mobile)}");}
+      }
+
   - content_for :pre_overlay do
     #banner_marker
 
@@ -8,8 +16,7 @@
     #banner-wrapper
       #banner
         #banner-frame
-          .bg.desktop{:style => "background-image: url(#{banner.img.url(:desktop)})"}
-          .bg.mobile{:style => "display: none; background-image: url(#{banner.img.url(:mobile)})"}
+          .bg
     #tag
       #tag-wrapper
         #tagline
