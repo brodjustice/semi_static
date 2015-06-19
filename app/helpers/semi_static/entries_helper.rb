@@ -14,7 +14,7 @@ module SemiStatic
     end
 
     def entry_link_path(e)
-      if e.link_to_tag && (controller_name != 'tags')
+      if e.link_to_tag && (controller_name != 'tags' || @summaries)
         feature_path(e.tag.slug)
       else
         entry_path(e)
@@ -23,10 +23,19 @@ module SemiStatic
 
     def entry_title(e, linked = false)
       return if e.title.blank? || e.summary_length.blank?
+
+      # Standard sort of link 
       if linked && !e.link_to_tag
         content_tag(:h1){
           content_tag(:a, e.title, :href => entry_path(e), :style => "color: #{e.header_colour}")
         }
+      # Summary that is linked to a tag
+      elsif linked && @summaries && e.link_to_tag
+        content_tag(:h1){
+          content_tag(:a, e.title, :href => feature_path(e.tag.slug), :style => "color: #{e.header_colour}")
+        }
+        
+      # No link
       else
         content_tag(:h1, e.title, :style => "color: #{e.header_colour};")
       end

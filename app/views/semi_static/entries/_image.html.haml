@@ -1,5 +1,5 @@
 .img
-  - if ((style == :summary) || (style == :small)) && !e.link_to_tag
+  - if @summaries || (((style == :summary) || (style == :small)) && !e.link_to_tag)
     = link_to entry_link_path(e) do
       = semantic_entry_image(e, style)
   - else
