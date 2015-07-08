@@ -15,5 +15,5 @@
   - if (@summaries && last_merged_entry.truncate?)
     .more= link_to t(:more), entry_link_path(entry)
   - elsif entry.facebook_share
-    .button
+    .button-wrapper
       = link_to 'Share',  "https://www.facebook.com/sharer/sharer.php?u=#{request.url}", :class => 'fb-share'

@@ -196,9 +196,8 @@ h2{ font-size: 20px; font-weight: normal;}
   color: black;
 }
 
-.locale img{
-  margin-top: -6px;
-}
+.locale img{ margin-top: -6px; }
+#bar-menu .locale a{background-image: none;}
 
 //
 // Dynamic content

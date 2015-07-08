@@ -81,11 +81,8 @@ h2{ font-size: 20px;}
   position: relative;
   top: 61px;
   //  z-index: 100;
-  @if $banner-overlay == true {
-    height: 300px;
-  } @else {
-    height: 394px;
-  }
+  // Overlay height must be 0 so as to to overlay the links and inputs
+  height: 0px;
 }
 #top .inner, #overlay-inner, #search-bar-inner{
   position: relative;

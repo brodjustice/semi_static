@@ -148,19 +148,26 @@ h2{ font-size: 20px;}
 #menu-button, #menu-close{
   display: none;
   float: right;
-  color: $contrast-color; font-weight: bold;
+  color: $secondary-color; font-weight: bold;
   padding: 3px 2px 4px 32px;
   margin: 2px 12px 0px 0px;
-  background: transparent url(/assets/vert-sprites-light.png) left -244px no-repeat;
   cursor: pointer;
   position: relative;
   z-index: 500;
 }
 
 #menu-button{
-  // Create bigger click area
-  padding-bottom: 34px;
+  padding: 8px;
+  background: $contrast-color;
+  border: 1px solid white;
 }
+
+#menu-button .menu-line{
+  height: 8px; width: 80%;
+  background-color: $prime-color;
+  border-radius: 2px; margin: 2px auto;
+}
+
 
 #content{
   margin: 6px;
@@ -388,6 +395,16 @@ h2{ font-size: 20px;}
 #bar-menu .search a{float: right; display: block; padding: 4px 8px 0px 30px; background: transparent url(#{$vert-sprites}) 0px -224px no-repeat;}
 #twitter, #xing, #facebook, #youtube, #bar-menu .icon a{ background-size: 28px $vert-sprites-height; }
 
+.button-wrapper{float:right; border: 1px solid #a8a8a8; border-radius: 4px; padding: 2px; }
+.button-wrapper:hover{box-shadow: 0 0 2px #c8c8c8;}
+a.fb-share{
+  float: right; padding: 5px 2px 5px 32px;
+  background: transparent url(#{$vert-sprites}) left -1px no-repeat;
+  width: auto;
+  font-weight: lighter !important;
+}
+
+
 // .bar_menu{height: 16px; z-index: 100; position: absolute; z-index: 300; right: 0px;}
 
 .icon.sprite{height: 100px; width: 100px; background: url(/system/icons/menu-sprites.png) center 0px no-repeat;}
@@ -449,7 +466,7 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
 
 #logo-wrapper{
   top: 3px;
-  z-index: 2000;
+  z-index: 999;
   width: $logo-top-width;
 }
 
@@ -575,13 +592,13 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
 }
 .link{text-align: center;}
 .link a, .more a{
-  background: transparent url(/assets/vert-sprites-light.png) right -140px no-repeat;
-  background-size: 28px 275px;
+  background: transparent url(#{$vert-sprites}) right -259px no-repeat;
+  background-size: 28px $vert-sprites-height;
   padding: 4px 36px 1px 12px;
   margin: 2px 0px 6px;
 }
 .feint .more a, .flat .more a, .news .more a{
-  background: transparent url(/assets/vert-sprites-light.png) right -164px no-repeat;
+  background: transparent url(#{$vert-sprites}) right -291px no-repeat;
   color: #d8d8d8;
 }
 
@@ -733,8 +750,8 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
   /* No Firefox support for background-position-x, but applies only usually to mobile any */
   #selected.wrapper .icon.sprite{background-position-x: left;}
 
-  /* Adjust the tag line size */
-  #tagline{font-size: 16px; font-size: 3vw;}
+  /* Adjust the tag line size and position */
+  #tagline{padding-right: 84px; width: auto; font-size: 16px; font-size: 3vw;}
 
   #top{position: fixed; width: 100%; height: 85px;}
   #frame{padding-top: 74px;}

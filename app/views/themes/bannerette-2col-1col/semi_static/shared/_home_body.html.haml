@@ -1,6 +1,9 @@
 #top
   #menu-button{:onclick => 'semiStaticOpenMenu()'}
     = t('Menu')
+    .menu-line
+    .menu-line
+    .menu-line
   #top-inner
     = render 'semi_static/shared/bar'
   #overlay
@@ -14,13 +17,13 @@
 #frame
   #banner
     #bannerBg
-      = image_tag('/assets/banners/banner.jpg')
+      = image_tag('banners/banner.jpg')
     #banner0.bg
-      = image_tag('/assets/banners/banner.jpg')
+      = image_tag('banners/banner.jpg')
     #banner1.bg
-      = image_tag('/assets/banners/banner.jpg')
+      = image_tag('banners/banner.jpg')
     #banner4.bg
-      = image_tag('/assets/banners/banner.jpg')
+      = image_tag('banners/banner.jpg')
     #custom-banner-overlay.bg
       = render :partial =>  'semi_static/site/banner-overlay' rescue nil
     #banner-loading
