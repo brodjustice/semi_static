@@ -5,14 +5,19 @@
     - klass.get_side_bar_entries.each do |e|
       - next if e == @entry && !e.use_as_news_summary
       .panel
-        - if e.summary_length >= 0
-          %h3= link_to e.title, semi_static.entry_path(e)
+        - if e.click_ad.present?
+          -# .image= link_to image_tag(e.img.url(:bar)), e.click_ad.url
+          = link_to e.click_ad.url do
+            = semantic_entry_image(e, :bar)
         - else
-          %h3= e.title
-        - if e.news_img.present?
-          .image= link_to image_tag(e.news_img.url(:bar)), semi_static.entry_path(e)
-        - elsif e.image_in_news && e.img.present?
-          .image= link_to image_tag(e.img.url(:bar)), semi_static.entry_path(e)
-        - if e.summary_length > 0
-          = entry_summary(e, e.summary_length, true)
-          .more= link_to t('more'), semi_static.entry_path(e)
+          - if e.summary_length >= 0
+            %h3= link_to e.title, semi_static.entry_path(e)
+          - else
+            %h3= e.title
+          - if e.news_img.present?
+            .image= link_to image_tag(e.news_img.url(:bar)), semi_static.entry_path(e)
+          - elsif e.image_in_news && e.img.present?
+            .image= link_to image_tag(e.img.url(:bar)), semi_static.entry_path(e)
+          - if e.summary_length > 0
+            = entry_summary(e, e.summary_length, true)
+            .more= link_to t('more'), semi_static.entry_path(e)

@@ -1,0 +1,21 @@
+/*
+ * You can change the values of the variables here to get different layouts,
+ * but don't remove any variable else the SASS will not compile
+ */
+
+/* SASS */
+$prime-color: #ff2700;
+$secondary-color: #303030;
+$font-color: #686868;
+
+/* Change to match your logo and its dimensions */
+$logo: 'logo.png';
+$logo-width: 270px;
+$logo-height: 117px;
+
+/* The sprites file for various icons */
+$vert-sprites: '/assets/vert-sprites-big-plus-grey.png';
+$vert-x2-sprites: '/assets/x2/vert-sprites-big-plus-grey.png';
+$vert-sprites-height: 352px;
+
+/* Add your custom variables, if needed below here */

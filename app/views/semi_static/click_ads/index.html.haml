@@ -1,0 +1,23 @@
+.mid.full
+  %table
+    %thead
+      %tr
+        %th= 'Tag'
+        %th= 'Entry'
+        %th= 'Client'
+        %th= 'URL'
+        %th= image_tag('calendar.png', :title => 'Last Update')
+        %th
+
+    %tbody
+      - @click_ads.each do |cl|
+        %tr
+          %td
+            = link_to cl.entry.tag.name, edit_tag_path(cl.entry.tag) if cl.entry
+          %td
+            = link_to cl.entry.title, edit_entry_path(cl.entry) if cl.entry
+          %td= cl.client
+          %td= cl.url
+          %td.number= cl.updated_at.strftime('%d/%b/%y %H:%M')
+          %td= link_to image_tag('bin.png'), cl, :method => :delete, :data => { :confirm => 'Are you sure?' }
+

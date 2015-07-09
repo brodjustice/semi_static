@@ -2,6 +2,10 @@
 - if SemiStatic::Engine.config.twitterID.try('present?') || SemiStatic::Engine.config.facebookID.try('present?') || SemiStatic::Engine.config.youtubeChannel.try('present?') || SemiStatic::Engine.config.xingID.try('present?') || SemiStatic::Engine.config.has?(:linkedinID) ||  SemiStatic::Engine.config.has?(:googleplusID) ||  SemiStatic::Engine.config.has?(:instagramID)
   .social
     .social-inner
+      -unless SemiStatic::Engine.config.youtubeChannel.nil?
+        = link_to "https://www.youtube.com/#{SemiStatic::Engine.config.youtubeChannel}" do
+          #youtube{:title => "#{SemiStatic::Engine.config.site_name} on YouTube"}
+            YouTube
       -unless SemiStatic::Engine.config.twitterID.nil?
         = link_to "https://twitter.com/#{SemiStatic::Engine.config.twitterID}" do
           #twitter{:title => "#{SemiStatic::Engine.config.site_name} on Twitter"}
@@ -10,10 +14,6 @@
         = link_to "https://www.facebook.com/#{SemiStatic::Engine.config.facebookID}" do
           #facebook{:title => "#{SemiStatic::Engine.config.site_name} on Facebook"}
             Facebook
-      -unless SemiStatic::Engine.config.youtubeChannel.nil?
-        = link_to "https://www.youtube.com/#{SemiStatic::Engine.config.youtubeChannel}" do
-          #youtube{:title => "#{SemiStatic::Engine.config.site_name} on YouTube"}
-            YouTube
       -if SemiStatic::Engine.config.has?(:googleplusID)
         = link_to "https://plus.google.com/#{SemiStatic::Engine.config.googleplusID}" do
           #googleplus{:title => "#{SemiStatic::Engine.config.site_name} on Google+"}

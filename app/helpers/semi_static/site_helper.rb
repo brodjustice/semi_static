@@ -9,9 +9,11 @@ module SemiStatic
       'Gallery' => SemiStatic::Engine.routes.url_helpers.photos_path
     }
 
+    # Unless set, will default to 5
     MAX_MENU_TAGS = {
       'bannerless' => 10,
       'menu-right' => 10,
+      'elegant' => 10,
       'standard-2col-1col' => 10
     }
 

@@ -1,0 +1,30 @@
+= form_for([@click_ad.entry, @click_ad]) do |f|
+  - if @click_ad.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@click_ad.errors.count, "error")} prohibited this click ad from being saved:"
+      %ul
+        - @click_ad.errors.full_messages.each do |msg|
+          %li= msg
+
+  = hidden_field_tag :return, @return
+  .group
+    .col.span_1_of_2
+      %h2 Meta tags
+      %fieldset
+        = f.label :client
+        %br/
+        = f.text_field :client
+        %br/
+        %br/
+    .col.span_1_of_2
+      %h2 Meta tags
+      %fieldset
+        = f.label :url
+        %br/
+        = f.text_field :url
+        %br/
+        %br/
+
+  .actions
+    = f.submit 'Save'
+

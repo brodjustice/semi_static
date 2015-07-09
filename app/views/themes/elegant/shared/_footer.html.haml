@@ -1,0 +1,16 @@
+#footer
+  #toTop
+    = link_to '#overlay' do
+      %span.arrow= t('Top')
+  #footer-wrapper
+    #footer-inner.section
+      .group
+        = page_footer
+      .group.notices
+        .copy
+          %p
+            &copy;
+            = SemiStatic::Engine.config.copyright_year
+            = SemiStatic::Engine.config.copyright_owner
+        .credits
+          = link_to t('ImprintAndCredits'), semi_static.site_path('imprint-credits')

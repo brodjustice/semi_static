@@ -7,6 +7,10 @@
   .button= link_to 'Add SEO', new_entry_seo_path(@entry, :return => edit_entry_path(@entry)), :remote => true
 - else
   .button= link_to 'Edit SEO', edit_seo_path(@entry.seo, :return => edit_entry_path(@entry)), :remote => true
+- if @entry.click_ad.nil?
+  .button= link_to 'Use as click ad', new_entry_click_ad_path(@entry, :return => edit_entry_path(@entry)), :remote => true
+- else
+  .button= link_to 'Edit click ad', edit_click_ad_path(@entry.click_ad, :return => edit_entry_path(@entry)), :remote => true
 .button
   = link_to_function 'Preview', 'entry_preview();'
 
