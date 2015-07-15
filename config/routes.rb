@@ -25,6 +25,7 @@ SemiStatic::Engine.routes.draw do
 
   match "/documents/index" => 'documents#index', :as => 'documents', :via => :get
 
+  get '/site/home', to: redirect('/')
   match '/site/:content' => 'site#show', :as => 'site',
     :via => :get, :defaults => {:content => 'home'}
 
