@@ -120,6 +120,17 @@ h2{ font-size: 20px; font-weight: normal;}
   text-shadow: -2px 8px 4px rgba(0, 0, 0, 0.2), 0 -5px 35px rgba(255, 255, 255, 0.3);
 }
 
+#banner-wrapper{
+  position: absolute;
+  top: 28px; 
+  z-index: 250;
+  width: 100%;
+}
+#banner-frame{width: 100%; text-align: center;}
+#banner .bg{background-repeat: none; background-position: center center; margin: 0 auto;}
+#banner .bg.desktop{ width: 1000px; height: 150px; }
+#banner .bg.mobile{ width: 750px; height: 150px; }
+
 #logo{
   // width: $logo-width;
   width: 1180px;
@@ -247,13 +258,13 @@ h2{ font-size: 20px; font-weight: normal;}
 // FOOTER
 //
 
-#footer{color: white; clear: both; min-height: 50px; background-color: transparent; margin-bottom: 32px;}
+#footer{color: #686868; clear: both; min-height: 50px; background-color: transparent; margin-bottom: 32px;}
 #footer-inner{background-color: #f7f7f6; min-height: 50px;}
-#footer a{color: white;}
+#footer a{color: #686868;}
 #footer img{float: right; margin: -9px 0 0 8px;}
 #footer .credits{float: left; width: 20%; text-align: center;}
 #footer .credits, #footer .copy{
-  color: white;
+  color: #686868;
   position: relative;
   top: 50%; 
   transform: translateY(-50%);
@@ -261,7 +272,7 @@ h2{ font-size: 20px; font-weight: normal;}
 }
 #footer .notices{ clear: both; font-size: 12px; margin-top: 8px; }
 #footer .copy{width: 40%; float: left; margin: 0px;}
-#footer .copy p{color: white; font-size: 12px; margin: 0; padding: 0 0 0 5px;}
+#footer .copy p{color: #686868; font-size: 12px; margin: 0; padding: 0 0 0 5px;}
 #footer .stamps{float: left; width: 40%; margin-top: -15px;}
 #footer h3{color: white; font-weight: normal;}
 #footer .inner{padding: 0 4%;}

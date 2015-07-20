@@ -13,6 +13,7 @@ module SemiStatic
       'bannerless' => {:desktop => :desktopy500, :mobile => :mobile, :entry => :entry},
       'standard-2col-1col' => {:desktop => :desktop, :mobile => :mobile},
       'bannerette-2col-1col' => {:desktop => :desktop, :mobile => :mobile},
+      'elegant' => {:desktop => :desktopSmall, :mobile => :mobileSmall},
       'plain-3col' => {:desktop => :desktop, :mobile => :mobile},
       'parallax' => {:desktop => :parallax, :mobile => :parallax},
       'plain-big-banner-3col' => {:desktop => :desktopy500, :mobile => :mobiley500}
@@ -25,6 +26,8 @@ module SemiStatic
                     :entry => "900x500#",
                     :mobile => "750x300#",
                     :parallax => "1000x>",
+                    :desktopSmall => "1000x150#",
+                    :mobileSmall => "750x150#",
                     :desktopy500 => "1500x500>",
                     :mobiley500 => "750x500#" },
        :convert_options => { :desktop => "-strip -gravity Center -quality 80",
