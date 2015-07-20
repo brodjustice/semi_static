@@ -1,0 +1,28 @@
+-# TODO: Major refactor required
+= entry_title(e, true)
+- unless e.youtube_id_str.blank?
+  = youtube_video(e.youtube_id_str)
+- if !e.image_disable && e.img.present?
+  .col.span_1_of_2.floater
+    = render :partial => 'semi_static/entries/image', :locals => {:e => e, :style => style}
+  .col.span_1_of_2.wrapping
+    .html
+      = icon(e.tag) if e.youtube_id_str.blank?
+      - if @summaries && !e.merge_with_previous
+        = entry_summary(e, e.summary_length)
+      - else
+        = e.body.html_safe
+        = photo_main(e, @group_size || 2)
+        = semantic_product(e)
+- else
+  .html
+    = icon(e.tag) if e.youtube_id_str.blank?
+    - if e.youtube_id_str.blank?
+      = entry_title(e, true)
+    - if @summaries && !e.merge_with_previous
+      = entry_summary(e, e.summary_length)
+    - else
+      = e.body.html_safe
+      = photo_main(e, @group_size || 2)
+      = semantic_product(e)
+

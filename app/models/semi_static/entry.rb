@@ -58,6 +58,7 @@ module SemiStatic
          :small=> "290x>",
          :panel=> "324x>",
          :medium => '443x>',
+         :twocol => '661x>',
          :wide => '960x>',
          :big=> "750x>"
        },
@@ -89,8 +90,8 @@ module SemiStatic
       'bannerless' => {:bar => :bar, :desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel, :medium => :medium},
       'bannerette-2col-1col' => {:bar => :bar, :desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel, :medium => :medium},
       'plain-3col' => {:bar => :bar, :desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel, :medium => :medium},
-      'parallax' => {:bar => :bar, :desktop => :medium, :mobile => :medium, :summary => :medium, :tile => :tile, :home => :tile, :show => :medium, :medium => :medium},
-      'elegant' => {:bar => :bar, :desktop => :medium, :mobile => :medium, :summary => :medium, :tile => :tile, :home => :tile, :show => :medium, :medium => :medium},
+      'parallax' => {:bar => :bar, :desktop => :twocol, :mobile => :medium, :summary => :medium, :tile => :tile, :home => :tile, :show => :medium, :medium => :medium},
+      'elegant' => {:bar => :bar, :desktop => :twocol, :mobile => :medium, :summary => :twocol, :tile => :tile, :home => :tile, :show => :twocol, :medium => :medium},
       'plain-big-banner-3col' => {:bar => :bar, :desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel, :medium => :medium}
     }
 
