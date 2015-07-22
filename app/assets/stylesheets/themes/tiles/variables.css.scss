@@ -37,11 +37,14 @@ $banner-e: 'banner03.jpg';
 $banner-tablet: 'banner-tablet.jpg';
 $banner-mobile: 'banner-mobile.jpg';
 
-/* Lighter version of icons */
-$vert-sprites: 'vert-sprites-light-alt.png';
+/* The sprites file for various icons */
+$vert-sprites: '/assets/vert-sprites-light-alt.png';
+$vert-x2-sprites: '/assets/x2/vert-sprites-light-alt.png';
+$vert-sprites-height: 275px;
+
 
 /* Ticker dimensions */
 $ticker-height: 40px;
-$ticker-width: 1100px;
+$ticker-width: 800px;
 
 /* Add your custom variables, if needed below here */
