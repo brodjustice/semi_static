@@ -316,3 +316,13 @@ table {
   border-spacing: 0;
 }
 */
+/* ===========================================
+   Semi-Static additions
+   =========================================== */
+/*
+ * Stop the darker/bolder looking fonts on some iOX devices
+ */
+html, html a{
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
