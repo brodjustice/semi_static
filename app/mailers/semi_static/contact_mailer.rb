@@ -1,7 +1,7 @@
 module SemiStatic
   class ContactMailer < ActionMailer::Base
     def contact_notification(contact)
-      subject = 'Website Equiry'
+      subject = 'Website contact request'
       email = SemiStatic::Engine.config.contact_email
 
       @contact = contact
