@@ -329,6 +329,8 @@ h2{ font-size: 20px;}
 .highlight h2 a, .news h3 a, .news h3{
   color: white;
 }
+.news p a{ color: white; text-decoration: underline; }
+
 .panel:last-child{
   border-bottom: none;
 }
