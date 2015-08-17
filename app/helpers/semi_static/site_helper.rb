@@ -226,6 +226,79 @@ module SemiStatic
       request.protocol + request.host + (@entry && @entry.img.present? ? @entry.img_url_for_theme : (SemiStatic::Engine.config.logo_image || ''))
     end
 
+      # Create a video tag with fallback options as shown below.
+    #
+    # Notes:
+    #   You should have a mp4 format video as first video in your array as this 
+    # solves a known iPad bug but also as the first video is used for the fallback 
+    # download option when flash is used.
+    #   Currently IE9 (9.0.8112) will not show the poster unless you also have the
+    # attribute  preload="none". A workaround would be to have the "poster" image
+    # as the first frame of your mp4 video, or to have it set by javascript only
+    # if IE is detected.
+    #   This helper has 2 of it's own options
+    # 1) "swf => true" - If this is set true AND there is a mp4 video source, then
+    # a fallback flash player will be inserted. This may mean that your
+    # page is no longer fully HTML5 compliant.
+    # 2) "swf_poster" - This will be used instead of the video_tag poster if present.
+    # This is sometimes required as the geometry of the video_tag may be different to
+    # that of the flash player
+    # 3) If you know what codecs will be required for your videos then you can make
+    # them explicit by putting them in the v_params hash like this:
+    #
+    #
+    # v_params = {
+    #   ".mp4" => "type=\'video/mp4; codecs=\"avc1.42E01E, mp4a.40.2\"\'",
+    #   ".webm" => "type=\'video/webm; codecs=\"vp8, vorbis\"\'",
+    #   ".ogv" => "type=\'video/ogg; codecs=\"theora, vorbis\"\'"
+    # }
+    #
+    # <video poster="video-clip.png" height=420 width=320 autoplay loop controls tabindex="0">
+    #   <source src="/path/to/video.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
+    #   <source src="/path/to/video.webm" type='video/webm; codecs="vp8, vorbis"' />
+    #   <source src="/path/to/video.ogv" type='video/ogg; codecs="theora, vorbis"' />
+    #   <a href="video.webm">Video not supported by your browser. Click here to download the video.</a>.
+    # <video>
+    #
+    # fallback_video_tag(["/system/attach/2/origional/video.mp4", "..."], {:autoplay => true, :size => "420x320"})
+    #
+    # Custom changes here are the additional play button (so 'controls' param should be ignored.)
+    def fallback_video_tag(videos, options = {})
+      v_params = {
+        ".mp4" => "type=\'video/mp4\'",
+        ".webm" => "type=\'video/webm\'",
+        ".ogv" => "type=\'video/ogg\'"
+      }
+      options.symbolize_keys!
+      options[:poster] = path_to_image(options[:poster]) if options[:poster]
+      if size = options.delete(:size)
+        options[:width], options[:height] = size.split("x") if size =~ %r{^\d+x\d+$}
+      end
+      videos = [ videos ] unless videos.is_a?(Array)
+      if (options.delete(:swf) && v_swf = videos.select{|v| File.extname(v).split('?').first =~ /mp4/}).present?
+        swf = fallback_swf_tag(v_swf, options.delete(:swf_poster) || options[:poster], :height => options[:height], :width => options[:width])
+      end
+      content_tag("video", options){
+        videos.reduce(''){|c, v|
+          if (v_type = File.extname(v).split('?').first) =~ /webm|ogv|mp4/
+            c << "<source src=\"#{v}\" #{v_params[v_type]}/>"
+          else
+            c << ""
+          end
+        }.html_safe + raw(swf) + raw("<a href=#{videos.first}>#{_('BrowserVideoNotSupported')}</a>")
+      }
+    end
+
+    def fallback_swf_tag(video, poster = nil, options = {})
+      options.symbolize_keys!
+      attrs = ""
+      options.each_pair{|key, value| attrs << key.to_s + "=" + value.to_s + " "}
+      swf = "/assets/video.swf"
+      raw("<embed " + attrs) +
+      raw("type = \"application/x-shockwave-flash\" src = #{swf} ") +
+      raw("flashvars=\"file=#{video}&stretching=none&autostart=false&image=#{poster}\"/>")
+    end
+
     #
     # Only used for parralax theme
     #

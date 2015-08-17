@@ -3,6 +3,7 @@
 
 en:
   keywords: ''
+  BrowserVideoNotSupported: 'Your browser does not support this video, please upgrade'
   News: 'News'
   NEWS: 'NEWS'
   ImprintAndCredits: 'Imprint and credits'
