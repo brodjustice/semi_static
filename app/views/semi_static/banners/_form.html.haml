@@ -37,7 +37,7 @@
     - if @banner.img.present?
       = image_tag(@banner.img_url_for_theme(:mobile), :title => @banner.name, :class => 'ri')
       %br/
-    = f.label :img, 'Image (Will be resized to 1500 x 300px)'
+    = f.label :img, 'Image'
     %br/
     = f.file_field :img
 

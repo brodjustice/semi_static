@@ -10,7 +10,7 @@ module SemiStatic
     THEME = {
       'tiles' => {:desktop => :desktop, :mobile => :mobile},
       'menu-right' => {:desktop => :desktopy500, :mobile => :mobile, :entry => :entry},
-      'bannerless' => {:desktop => :desktopy500, :mobile => :mobile, :entry => :entry},
+      'bannerless' => {:desktop => :desktopBig, :mobile => :mobileBig, :entry => :entry},
       'standard-2col-1col' => {:desktop => :desktop, :mobile => :mobile},
       'bannerette-2col-1col' => {:desktop => :desktop, :mobile => :mobile},
       'elegant' => {:desktop => :desktopSmall, :mobile => :mobileSmall},
@@ -26,6 +26,8 @@ module SemiStatic
                     :entry => "900x500#",
                     :mobile => "750x300#",
                     :parallax => "1000x>",
+                    :desktopBig => "1400x350#",
+                    :mobileBig => "580x350#",
                     :desktopSmall => "1000x150#",
                     :mobileSmall => "750x150#",
                     :desktopy500 => "1500x500>",
