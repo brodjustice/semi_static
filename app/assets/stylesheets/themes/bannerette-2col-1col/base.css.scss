@@ -307,13 +307,13 @@ h2{ font-size: 20px;}
   max-width: 1012px; width: 98%; text-align: right; margin: 0px auto; color: $prime-color; font-size: 30px; font-weight: normal;
   // If you want to play with CSS3 viewport widths:
   // font-size: 2.3vw !important;
-  animation: grower 1s linear;
+  animation: grower 1s ease;
   -webkit-animation-name: grower;
   -webkit-animation-duration: 1s;
 }
 
 .panel{
-  padding: 2px 8px 0px;
+  /* padding: 2px 8px 0px; */
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
   min-height: 50px;
   margin-bottom: 10px;
@@ -359,7 +359,6 @@ h2{ font-size: 20px;}
 }
 
 .highlight h2 a, .news h3 a, .news h3{
-  color: #494949;
   color: $prime-color;
 }
 .panel:last-child{
@@ -367,14 +366,14 @@ h2{ font-size: 20px;}
 }
 .gallery, .news, .social{
   margin-bottom: 10px;
-  padding: 6px 11px;
+  padding: 0 0 6px 11px;
 }
 .social{
   padding: 6px 0px 4px;
   line-height: 30px;
   width: 100%;
 }
-.gallery h2 a, .gallery h2, .news h2 a, .news h2{ color: $prime-color; border-bottom: 1px solid $prime-color; }
+.gallery h2 a, .gallery h2, .news h2 a, .news h2{ font-size: 24px; color: $prime-color; }
 .list h1{ color: $prime-color; border-bottom: 1px solid $prime-color; }
 
 .social a{
@@ -392,7 +391,7 @@ h2{ font-size: 20px;}
 #youtube{float: right; padding: 0px 8px 3px 28px; background: transparent url(#{$vert-sprites}) 0px -25px no-repeat;}
 #bar-menu .lady a{float: right; display: block; padding: 4px 8px 0px 28px; background: transparent url(#{$vert-sprites}) 0px -109px no-repeat;}
 #bar-menu .contact a{float: right; display: block; padding: 4px 8px 0px 34px; background: transparent url(#{$vert-sprites}) 0px -194px no-repeat;}
-#bar-menu .search a{float: right; display: block; padding: 4px 8px 0px 30px; background: transparent url(#{$vert-sprites}) 0px -224px no-repeat;}
+#bar-menu .search a{float: right; display: block; padding: 4px 8px 6px 30px; background: transparent url(#{$vert-sprites}) 0px -226px no-repeat;}
 #twitter, #xing, #facebook, #youtube, #bar-menu .icon a{ background-size: 28px $vert-sprites-height; }
 
 .button-wrapper{float:right; border: 1px solid #a8a8a8; border-radius: 4px; padding: 2px; }
@@ -436,6 +435,26 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
   text-align: left;
   color: $prime-color;
 }
+.panel.list h2{
+  text-align: right;
+  background-color: #f0f0f8;
+}
+
+.news h2, .entry h1{
+  padding: 2px 6px;
+  background-color: #f0f0f8;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.entry.panel{
+  padding: 0px;
+}
+
+.entry p{
+  padding-left: 6px; padding-right: 6px;
+}
+
 .panel.photo {
     text-align: center;
 }
@@ -565,7 +584,7 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
 }
 .searchform .searchfield {
     background: none repeat scroll 0 0 #FFFFFF;
-    border: 1px solid #f0f0f0;
+    border: 1px solid #f0f0f8;
     border-radius: 2px;
     // box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) inset;
     outline: medium none;
@@ -690,7 +709,7 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
 // the floating image left margin of the .floater (right col). This provides margin around the
 // left hand side of the floated image.
 .entry .wrapping{ margin-left: 0; }
-.entry .floater{ margin-left: 1.6%; position: relative; z-index: 10;}
+.entry .floater{ margin-left: 1.6%; margin-top: 0px; position: relative; z-index: 10;}
 
 @media only screen and (max-width: 760px) {
   // For smaller portrait the % margin at the top is too
