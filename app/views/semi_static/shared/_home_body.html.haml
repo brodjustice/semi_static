@@ -20,7 +20,10 @@
 #tag
   #tag-wrapper
     #tagline
-      = t('TagLine')
+      - if lookup_context.exists?('semi_static/shared/_tagline')
+        = render 'semi_static/shared/tagline'
+      - else
+        = t('TagLine')
 = yield :post_tagline
 = yield :pre_content
 #frame
