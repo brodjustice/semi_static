@@ -40,7 +40,7 @@ module SemiStatic
     #   6. tiles
     #   7. bannerette-2col-1col
     #   8. bannerless
-    config.theme = 'bannerette-2col-1col'
+    config.theme = 'standard-2col-1col'
 
     # Sepecific search box will be shown on home page unless this is set:
     config.disable_search_in_home_page = false
@@ -106,6 +106,15 @@ module SemiStatic
     # semi-static dashboard. If so put your dashboard path in here
     # config.app_dashboard = ['dashboard_path', 'admin']
     config.app_dashboard = false
+
+    # If you have your own 'users' devise model created with 'rails g devise user' 
+    # in order to have a user sign-in area, then add the model name here , eg:
+    # config.subscribers_model = {'User' => 'new_user_session_path'}
+    # If you do this, then you might need access to the 'users' via the dashbord,
+    # so then you will also need to add appropriate hash to the config.dashboard_menu_additions
+    # below, something like:
+    # config.dashboard_menu_additions = {'users' => 'users_path'}
+    config.subscribers_model = nil
 
     # Or if you just want to add a menu item to the dashboards controller then add it here
     # config.app_dashboard_menu_additions = false

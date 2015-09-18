@@ -1,0 +1,115 @@
+-# This custom partial will typically go in an entry. It will take the entry content and present that first. Then it will
+-# look for the next 3 merged entries and use their summaries as collapsible links to the full entries. Any other merged
+-# entries will be displayed after these 3 merged entries.
+-#
+-# The height must be calculated and fixed because if its not fixed then then transition will not work.
+-#
+-# Needs IE 9+
+-#
+- content_for :header_css do
+  :plain
+    #accWrapper{padding: 0 6px;}
+    .secWrapper{padding: 0 6px;}
+    article.accordion p{
+      padding: 0px 6px;
+    }
+    article.accordion {
+      display: block;
+      width: 100%;
+      padding: 6px 0px 1px;
+      margin: 0 auto;
+      background-color: #d8d8d8;
+      border-radius: 5px;
+      // box-shadow: 0 3px 3px rgba(0,0,0,0.3);
+    }
+    article.accordion section {
+      display: block;
+      width: 100%;
+      // padding: 0 1em;
+      margin: 0 auto 6px auto;
+      background-color: #0069aa;
+      overflow: hidden;
+      border-radius: 3px;
+    }
+    article.accordion section.initial {
+      height: 32px;
+    }
+    article.accordion section h2:hover {
+      background-color: #2089ca;
+    }
+    article.accordion section h2 {
+      font-size: 16px; font-weight: bold; width: 100%;
+      padding: 0px 6px; margin: 0; color: #d8d8d8;
+    }
+    article.accordion section h2 a::before {
+      content: '\25ba  ';
+    }
+    article.accordion section h2 a {
+      display: block; line-height: 2em; text-decoration: none; color: inherit; outline: 0 none;
+    }
+    article.accordion section, article.accordion section h2 {
+      -webkit-transition: all 1s ease;
+      -moz-transition: all 1s ease;
+      -ms-transition: all 1s ease;
+      -o-transition: all 1s ease;
+      transition: all 1s ease;
+    }
+    article.accordion section:target { height: 300px; background-color: #fff; }
+    article.accordion section:target h2 { font-size: 20px; color: #333; }
+    article.accordion section:target h2 a::before { content: '';}
+    article.accordion section:target h2:hover {background-color: transparent; pointer: default;}
+
+- content_for :ujs do
+  :javascript
+    function createClass(name, rules){
+      var style = document.createElement('style');
+      style.type = 'text/css';
+      document.getElementsByTagName('head')[0].appendChild(style);
+      if(!(style.sheet||{}).insertRule) 
+        (style.styleSheet || style.sheet).addRule(name, rules);
+      else
+        style.sheet.insertRule(name+"{"+rules+"}",0);
+    }
+    function semiStaticSetHeights() {
+      var elements = document.querySelectorAll('.semiStaticAcc');
+      var h, hMax = 0;
+      Array.prototype.forEach.call(elements, function(el, i){
+        h = el.offsetHeight
+        hMax = Math.max(h, hMax); 
+        if (el.classList)
+          el.classList.add('initial');
+        else
+          el.className += ' ' + 'initial';
+      });
+      createClass('article.accordion section:target', 'height:' + parseInt(hMax + 6) + 'px !important;');
+    }
+    window.onload = semiStaticSetHeights;
+
+
+-# Note: Some of this comes from /app/views/semi_static/entries/_show.html.haml so you may occasionally want to cross
+-# check for updates an bug fixes.
+-#
+.section
+  .col{:class => ('span_2_of_3 main-col' if @entry.side_bar)}
+    %article.panel.group{:class => @entry.style_class, :style => "background-color:#{@entry.background_colour}; color:#{@entry.colour}"}
+      = render :partial => 'entry', :locals => {:e => @entry, :style => (@entry.side_bar ? :show : :medium), :suppress_merged => true}
+      = photo_thumbs(@entry)
+    #accWrapper
+      %article.accordion
+        - @entry.merged_entries[0..2].each_with_index do |e, i|
+          .secWrapper
+            %section.semiStaticAcc{:id => "acc#{i}"}
+              %h2
+                %a{:href => "#acc#{i}"}= e.title
+              = entry_summary(e, e.summary_length)
+              .more= link_to t(:more), entry_link_path(e)
+
+    .panel.group{:class => @entry.style_class, :style => "background-color:#{@entry.background_colour}; color:#{@entry.colour}"}
+      - @entry.merged_entries[3..-1].each do |e|
+        = render :partial => 'semi_static/entries/entry_contents', :locals => {:style => :summary, :e => e }
+  - if @entry.side_bar
+    .col.span_1_of_3.side-bar
+      - if SemiStatic::Tag.predefined(I18n.locale.to_s, 'Documents').first == @tag
+        = render :partial => 'semi_static/entries/docs_side_bar', :locals => {:entrytag => @entry.tag}
+      - else
+        = render :partial => 'semi_static/tags/side_bar', :locals => {:entrytag => @entry.tag}

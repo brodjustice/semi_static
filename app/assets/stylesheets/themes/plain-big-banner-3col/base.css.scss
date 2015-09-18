@@ -48,7 +48,7 @@ fieldset{
 }
 h2{ font-size: 20px;}
 #search-bar{ margin-top: 0px; margin-bottom: 10px; }
-#top .inner, #search-bar-inner, #container, #top-inner, #footer-inner{
+#top-wrapper, #overlay-inner, #search-bar-inner, #container, #top-inner, #footer-inner{
   max-width: 1024px; margin: 0px auto;
   background-color: transparent;
 }
@@ -91,12 +91,6 @@ h2{ font-size: 20px;}
   border-bottom-left-radius: 8px;
 }
 
-#bar-in-menu{
-  margin-top: 22px;
-  border-top: dashed 1px $prime-color;
-  display: none;
-}
-
 #content{
   margin: 6px;
 }
@@ -119,20 +113,21 @@ h2{ font-size: 20px;}
 // the media query later
 //
 
+#banner-wrapper{
+  position: relative;
+  height: 500px;
+}
 #banner{
   height: 500px;
   position: absolute;
   width: 100%;
   z-index: -10;
   background-color: white;
-  top: 110px;
+  top: 0px;
 }
 #banner-frame{
   background-color: transparent; position: relative; width: 100%; max-width: 1500px;
   padding: 10px 0px; margin: 0px auto;
-  -webkit-box-shadow: inset 25px 0px 25px -15px rgba(255, 255, 255, 1.0), inset -25px 0px 25px -15px rgba(255, 255, 255, 1.0);
-  -moz-box-shadow: inset 25px 0px 25px -15px rgba(255, 255, 255, 1.0), inset -25px 0px 25px -15px rgba(255, 255, 255, 1.0);
-  box-shadow: inset 25px 0px 25px -15px rgba(255, 255, 255, 1.0), inset -25px 0px 25px -15px rgba(255, 255, 255, 1.0);
   height: 280px;
 }
 
@@ -220,7 +215,7 @@ h2{ font-size: 20px;}
 #footer h3{font-size: 18px; color: $prime-color;}
 #footer .inner{padding: 0 2%;}
 
-#bar-in-menu ul, #top ul, #footer ul{list-style: none outside none; padding-left: 0px;}
+#bar-menu ul, #top ul, #footer ul{list-style: none outside none; padding-left: 0px;}
 
 #footer .col:last-child h3, #footer .col:last-child li {
     text-align: right;
@@ -317,16 +312,22 @@ h2{ font-size: 20px;}
 
 // Sprites
 
-#ddock{float: right;width: 97px; margin-top: 0px; height: 32px; background:transparent url(/assets/hoz-sprites.png) 0 center no-repeat;}
+#ddock{float: right;width: 97px; margin-top: 0px; margin-right: 8px; height: 32px; background:transparent url(/assets/hoz-sprites.png) 0 center no-repeat;}
 #html5{float: right;margin: -4px 5px 0 0px; width: 25px; height: 33px; background:transparent url(/assets/hoz-sprites.png) -97px center no-repeat;}
-#twitter{float: right; padding: 0px 8px 3px 28px; background: transparent url(/assets/vert-sprites.png) 0px 5px no-repeat;}
-#xing{float: right; padding: 0px 8px 3px 28px; background: transparent url(/assets/vert-sprites.png) 0px -188px no-repeat;}
-#facebook{float: right; padding: 0px 8px 3px 28px; background: transparent url(/assets/vert-sprites.png) 0px -55px no-repeat;}
-#youtube{float: right; padding: 0px 8px 3px 28px; background: transparent url(/assets/vert-sprites.png) 0px -25px no-repeat;}
-#bar-in-menu .lady, #top .lady{float: right; display: block; padding: 4px 8px 0px 28px; background: transparent url(/assets/vert-sprites.png) 0px -109px no-repeat;}
-#bar-in-menu .contact, #top .contact{float: right; display: block; padding: 4px 8px 0px 34px; background: transparent url(/assets/vert-sprites.png) 0px -84px no-repeat;}
 
-#bar-in-menu .icon, #top .icon{ background-size: 28px 237px; }
+#facebook{float: right; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0 1px no-repeat;}
+#youtube{float: right; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0 -31px no-repeat;}
+#twitter{float: right; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0 -63px no-repeat;}
+#linkedin{float: right; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0 -95px no-repeat;}
+#googleplus{float: right; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0 -127px no-repeat;}
+#xing{float: right; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0 -160px no-repeat;}
+#instagram{float: right; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0 -319px no-repeat;}
+
+#bar-menu .contact a{float: right; display: block; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0px -193px no-repeat;}
+#bar-menu .search a{float: right; display: block; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0px -226px no-repeat;}
+#bar-menu .icon a{ background-size: 28px $vert-sprites-height; }
+
+#twitter, #xing, #facebook, #youtube, #bar-menu .icon a{ background-size: 28px $vert-sprites-height; }
 
 .icon.sprite{height: 100px; width: 100px; background: url(/system/icons/menu-sprites.png) center 0px no-repeat;}
 .icon.sprite.mini{height: 45px; width: 50px; background-size: 50px 250px;}
@@ -381,36 +382,36 @@ h2 a, h3 a{color: $secondary-color;}
 
 #menu-wrapper{
   z-index: 10;
-  top: 130px;
+  top: 15px;
 }
 
 #logo-wrapper{
-  top: -30px;
+  width: $logo-width;
+  margin: 0;
 }
 
 #tag-wrapper{
   border: 1px solid white; border-width: 1px 0px;
   width: 100%;
   max-width: 1500px;
-  top: 290px;
+  top: -100px;
   background-color: rgba(37,141,200,0.9);
   margin: 0 auto;
   z-index: -5;
 }
 
 #logo{
-  height: $logo-plain-height; width: $logo-plain-width;
-  margin: 0 auto;
-  background: transparent url(/assets/#{$logo-plain}) center center no-repeat;
+  height: $logo-height; width: $logo-width;
+  background: transparent url(/assets/#{$logo}) center center no-repeat;
 }
 
 #top{
-  display: none;
+  height: 61px;
 }
 #top ul{
   margin: 0; padding: 0;
 }
-#bar-in-menu li, #top-inner li{
+#bar-menu li, #top-inner li{
   float: right;
   font-size: 18px;
   padding: 4px 24px 6px 24px;

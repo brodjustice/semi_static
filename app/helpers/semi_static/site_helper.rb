@@ -299,6 +299,18 @@ module SemiStatic
       raw("flashvars=\"file=#{video}&stretching=none&autostart=false&image=#{poster}\"/>")
     end
 
+    def semi_static_path_for_admin_sign_out
+      if SemiStatic::Engine.config.app_dashboard
+        link_to 'Done', main_app.send(*SemiStatic::Engine.config.app_dashboard)
+      else
+        if defined?(CanCan)
+          link_to 'Done', main_app.destroy_users_session_path, :method => :delete
+        else
+          link_to 'Done', main_app.destroy_admin_session_path, :method => :delete
+        end
+      end
+    end
+
     #
     # Only used for parralax theme
     #

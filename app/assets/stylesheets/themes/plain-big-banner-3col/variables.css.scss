@@ -8,9 +8,9 @@ $prime-color: #499bea;
 $secondary-color: #309020;
 
 /* Change to match your logo and its dimensions */
-$logo-plain: 'bl-logo.png';
-$logo-plain-width: 253px;
-$logo-plain-height: 90px;
+$logo: 'logo2.png';
+$logo-width: 260px;
+$logo-height: 116px;
 
 /* For wide view ports you can have the search bar in the banner IF banner-overlay is true */
 $search-bar-in-banner: false;
@@ -27,5 +27,10 @@ $banner-e: 'banner03-big.jpg';
 /* will be used for the single mobile (small screen width) mobile banner */
 
 $banner-mobile: 'banner-mobile-big.jpg';
+
+/* The sprites file for various icons */
+$vert-sprites: '/assets/vert-sprites-big-grey.png';
+$vert-x2-sprites: '/assets/x2/vert-sprites-big-grey.png';
+$vert-sprites-height: 352px;
 
 /* Add your custom variables, if needed below here */

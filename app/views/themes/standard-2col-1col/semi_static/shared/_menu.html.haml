@@ -1,6 +1,5 @@
 #menu-sub
-  - SemiStatic::Tag.menu.locale(I18n.locale.to_s)[5..max_menu_tags].each_with_index do |t, i|
-    -# %span{:id => ('selected' if ((@tag == t) || (@selection == t.predefined_class)))}
+  - (SemiStatic::Tag.menu.locale(I18n.locale.to_s)[5..max_menu_tags] || []).each_with_index do |t, i|
     .wrapper
       = link_to t.name, t.predefined_class.blank? ? semi_static.feature_path(t.slug) : "#{predefined_tags[t.predefined_class]}?tag_id=#{t.id}", :class => 'text '
 #menu-wrapper

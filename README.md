@@ -66,7 +66,7 @@ Semi-static saves cached versions of your sites pages in the public directory, b
 of the content. Exactly which locales match which domains is set in 'config/initializers/semi-static.rb'. So for example your
 will find the english version of your home page at:
 
-   public/en/home.html
+    public/en/home.html
 
 Your webserver needs to be configured to take advantage of this. For ngnix the configuration will look something like this:
 
@@ -113,11 +113,11 @@ need to link the 'asset' and 'system' directories inside each of the public loca
 
 = Integrating to your own app
 
-A number of helper method are  exposed by adding the following to your application_controller
+A number of helper methods are  exposed by adding the following to your application_controller.rb
     
-   require 'semi_static/sign_in'
-   include SignIn
-   helper SemiStatic::SiteHelper
+    require 'semi_static/sign_in'
+    include SignIn
+    helper SemiStatic::SiteHelper
 
 In your controllers you can then for example use authenticate_admin!
 
