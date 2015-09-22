@@ -125,7 +125,7 @@ h2{ font-size: 20px;}
   top: 0px;
 }
 #banner-frame{
-  background-color: transparent; position: relative; width: 100%; max-width: 1000px;
+  background-color: transparent; position: relative; width: 100%; max-width: 1008px;
   padding: 10px 0px; margin: 0px auto;
   height: 280px;
 }
@@ -134,7 +134,7 @@ h2{ font-size: 20px;}
 
 #banner .bg{
   height: 300px;
-  max-width: 1000px;
+  max-width: 1008px;
   width:100%;
   position: absolute;
   top: 0px;
@@ -176,7 +176,7 @@ h2{ font-size: 20px;}
 .panel{
   padding: 2px 8px 0px;
   background-color: white;
-  border: 1px solid #d8d8d8;
+  // border: 1px solid #d8d8d8;
   min-height: 50px;
   margin-bottom: 10px;
   position: relative;
@@ -321,7 +321,7 @@ h2 a, h3 a{color: $secondary-color;}
 #tag-wrapper, #menu-wrapper, #logo-wrapper{
   width: 100%;
   margin: 0px auto;
-  max-width: 1012px;
+  max-width: 1008px;
   position: relative;
 }
 
@@ -339,7 +339,7 @@ h2 a, h3 a{color: $secondary-color;}
 #tag-wrapper{
   border: 1px solid white; border-width: 1px 0px;
   width: 100%;
-  max-width: 1000px;
+  max-width: 1012px;
   top: -100px;
   background-color: rgba(37,141,200,0.9);
   margin: 0 auto;
@@ -436,7 +436,7 @@ h2 a, h3 a{color: $secondary-color;}
 }
 .link{text-align: center;}
 .link a, .more a{
-  background: transparent url(/assets/vert-sprites.png) right -138px no-repeat;
+  background: transparent url(/assets/vert-sprites.png) right -260px no-repeat;
   background-size: 28px 237px;
   padding: 4px 36px 1px 12px;
   margin: 2px 0px 6px;
