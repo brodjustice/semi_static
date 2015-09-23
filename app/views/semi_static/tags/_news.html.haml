@@ -1,7 +1,7 @@
 - klass = @entry || @tag || SemiStatic::Tag.predefined(I18n.locale.to_s, 'Home').first
 .news
   - unless klass.nil?
-    %h2= klass.side_bar_tag.nil? ? t('News') : (klass.sidebar_title || klass.side_bar_tag.name)
+    %h2= klass.side_bar_tag.nil? ? t('News') : klass.side_bar_tag.sidebar_title
     - klass.get_side_bar_entries.each_with_index do |e, i|
       -# There are a lot of condition here where you don't display the summary
       -# in the side-bar. The must convaluted is when this is a tag and has
