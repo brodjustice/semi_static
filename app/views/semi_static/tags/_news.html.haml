@@ -2,11 +2,17 @@
 .news
   - unless klass.nil?
     %h2= klass.side_bar_tag.nil? ? t('News') : klass.side_bar_tag.name
-    - klass.get_side_bar_entries.each do |e|
-      - next if e == @entry && !e.use_as_news_summary
+    - klass.get_side_bar_entries.each_with_index do |e, i|
+      -# There are a lot of condition here where you don't display the summary
+      -# in the side-bar. The must convaluted is when this is a tag and has
+      -# only one entry (max_entries_on_index_page == 1) AND there is no
+      -# specific summary text AND this is that first entry (i == 0).
+      -# In this case we would just be repeating the same text in the
+      -# side-bar, so suppress it:
+      - next if @tag && @tag.max_entries_on_index_page == 1 && i == 0
+      - next if (e == @entry && !e.use_as_news_summary) || e.summary_length.blank?
       .panel
         - if e.click_ad.present?
-          -# .image= link_to image_tag(e.img.url(:bar)), e.click_ad.url
           = link_to e.click_ad.url do
             = semantic_entry_image(e, :bar)
         - else
