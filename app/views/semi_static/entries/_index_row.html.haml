@@ -1,16 +1,19 @@
 %tr{:id => "entry_id_#{entry.id.to_s}"}
   %td{:class => ('merge' if entry.merge_with_previous)}
-    - if entry.title.blank? 
+    - if entry.get_title.blank?
       %span{:title => truncate_html(entry.body, :length => 75)}= link_to '<No title>', edit_entry_path(entry)
     - else
-      = link_to entry.title, edit_entry_path(entry)
+      = link_to entry.get_title, edit_entry_path(entry)
   %td
     - if entry.tag
       = link_to entry.tag.name, edit_tag_path(entry.tag)
     - else
       = 'Error!'
-  %td.tick
-    = image_tag('tick.png', :title => "Merged with previous") if entry.merge_with_previous
+  %td.tick{:title => 'Click to add merged entry'}
+    - if entry.merge_with_previous
+      = link_to image_tag('tick.png'), new_entry_path(:merge => entry)
+    - else
+      = link_to image_tag('html_add.png'), new_entry_path(:merge => entry)
   %td.tick
     = image_tag('tick.png', :title => "Entry master is #{entry.master_entry.locale + ': ' + entry.master_entry.title}") unless entry.master_entry.nil?
   %td.tick
@@ -38,6 +41,6 @@
   %td.tick
     - if entry.product.present?
       = link_to image_tag('tick.png', :title => 'Click to edit product'), edit_entry_product_path(entry, entry.product, :return => entries_path), :remote => true
-  %td= entry.updated_at.strftime('%d/%b/%y %H:%M')
+  %td{:title => entry.updated_at.strftime('%H:%M')}= entry.updated_at.strftime('%d/%b/%y')
   %td= link_to image_tag('/assets/page_copy.png', :title => "Use #{[entry.locale, ': ', entry.title].join} as master for new entry"), new_entry_path(:master => entry)
-  %td= link_to image_tag('/assets/bin.png'), entry, :method => :delete, :data => { :confirm => 'Are you sure?' }
+  %td{:title => "Click to delete #{entry.get_title || 'entry'}"}= link_to image_tag('/assets/bin.png'), entry, :method => :delete, :data => { :confirm => 'Are you sure?' }

@@ -13,7 +13,7 @@
       - if @summaries && !e.merge_with_previous
         = entry_summary(e, e.summary_length)
       - else
-        = e.body.html_safe
+        = entry_body(e)
         = photo_main(e, @group_size || 2)
         = semantic_product(e)
 - else
@@ -22,6 +22,6 @@
     - if @summaries && !e.merge_with_previous
       = entry_summary(e, e.summary_length)
     - else
-      = e.body.html_safe
+      = entry_body(e)
       = photo_main(e, @group_size || 2)
       = semantic_product(e)

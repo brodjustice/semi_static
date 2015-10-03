@@ -71,7 +71,7 @@
   
       respond_to do |format|
         if @tag.save
-          format.html { redirect_to tags_path, :notice => 'Tag was successfully created.' }
+          format.html { redirect_to tags_path(:anchor => "tag_id_#{@tag.id}"), :notice => 'Tag was successfully created.' }
           format.json { render :json => @tag, :status => :created, :location => @tag }
         else
           format.html { render :action => "new" }
@@ -87,7 +87,7 @@
   
       respond_to do |format|
         if @tag.update_attributes(params[:tag])
-          format.html { redirect_to tags_path, :notice => 'Tag was successfully updated.' }
+          format.html { redirect_to tags_path(:anchor => "tag_id_#{@tag.id}"), :notice => 'Tag was successfully updated.' }
           format.json { head :no_content }
         else
           format.html { render :action => "edit" }

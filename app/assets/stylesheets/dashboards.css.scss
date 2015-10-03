@@ -50,6 +50,7 @@ input[type="submit"], .button{
 
 textarea{
   width: 99%;
+  margin-bottom: 6px;
 }
 
 .mid.full{
@@ -92,14 +93,25 @@ table table th{
   background-color: white;
   background-image: none;
 }
-table table{
-  margin-bottom: 18px;
+table table{ margin-bottom: 18px; }
+td.merge{ padding-left: 32px; }
+td.warn{ background-color: yellow; }
+#dashboard td a:hover{text-decoration: underline;}
+
+@keyframes flash {
+    0% { background-color:none;}
+    50% { background-color:#4bc63e;}        
+    100% {background-color:none;}
 }
-td.merge{
-  padding-left: 32px;
+@-webkit-keyframes flash {
+    0% { background-color:none;}
+    50% { background-color:#4bc63e;}        
+    100% {background-color:none;}
 }
-td.warn{
-  background-color: yellow;
+
+.flash{
+  animation: flash 2s ease-out; animation-iteration-count: 5;
+  -webkit-animation: flash 2s ease-out; -webkit-animation-iteration-count: 5;
 }
 
 #dashboard #menu a{

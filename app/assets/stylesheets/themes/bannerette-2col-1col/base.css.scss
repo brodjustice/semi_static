@@ -82,7 +82,8 @@
   -webkit-animation-delay: 0s;
   -webkit-animation-timing-function: linear; /* Chrome, Safari, Opera */
   -webkit-animation-iteration-count: infinite;
-  z-index: 2;
+  // z-index: 2;
+  z-index: 2000;
   background-color: white;
 }
 
@@ -446,6 +447,8 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
   margin-top: 0px;
   margin-bottom: 0px;
 }
+
+.entry h2, .entry h3{ margin-left: 6px; margin-right: 6px;}
 
 .entry.panel{
   padding: 0px;

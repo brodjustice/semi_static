@@ -69,6 +69,8 @@
         master = Entry.find(params[:master])
         @entry = master.tidy_dup
         @entry.master_entry = master
+      elsif params[:merge]
+        @entry.merge_with(Entry.find(params[:merge]))
       elsif params[:newsletter]
         @newsletter = Newsletter.find(params[:newsletter])
         @entry.tag = @newsletter.tag
@@ -109,7 +111,7 @@
           if params[:newsletter_id]
             format.html { redirect_to edit_newsletter_path(params[:newsletter_id]) }
           else
-            format.html { redirect_to entries_path }
+            format.html { redirect_to entries_path(:anchor => "entry_id_#{@entry.id}") }
             format.json { render :json => @entry, :status => :created, :location => @entry }
           end
         else
@@ -128,7 +130,7 @@
         if params[:preview] && (@entry.attributes = params[:entry])
           format.js { render 'preview'}
         elsif @entry.update_attributes(params[:entry])
-          format.html { redirect_to entries_path }
+          format.html { redirect_to entries_path(:anchor => "entry_id_#{@entry.id}") }
           format.js
         else
           format.html { render :action => "edit" }

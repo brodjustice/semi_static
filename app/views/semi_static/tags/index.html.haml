@@ -1,3 +1,9 @@
+- content_for :ujs do
+  :javascript
+    $(document).ready(function() {
+      $('#' + window.location.hash.substring(1)).children().addClass('flash');
+    });
+
 .mid.full
   .button= link_to 'New Tag', new_tag_path
   %h1 Tags
@@ -52,6 +58,6 @@
               = link_to image_tag('application_form_edit.png', :title => "Edit SEO meta tags"), edit_seo_path(tag.seo, :return => tags_path), :remote => true
           %td.number
             = link_to tag.entries.count.to_s + ' (' + tag.max_entries_on_index_page.to_s + ')', tag_entries_path(tag), :remote => true
-          %td.number= tag.updated_at.strftime('%d/%b/%y %H:%M')
+          %td.number{:title => tag.updated_at.strftime('%H:%M')}= tag.updated_at.strftime('%d/%b/%y')
           %td= link_to image_tag('bin.png'), tag, :method => :delete, :data => { :confirm => 'Are you sure?' }
     

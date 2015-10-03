@@ -57,9 +57,17 @@ module SemiStatic
       end
     end
 
+    def entry_body(e)
+      e.simple_text ? simple_format(e.body) : e.body.html_safe
+    end
+
     def entry_summary(e, l = 300, news = false)
       if e.summary.blank? || (!news && e.use_as_news_summary)
-        truncate_html(e.body, :length => l) unless (l.nil? || (l < 1))
+        if e.simple_text
+          simple_format(e.body[0..l] + '...')
+        else
+          truncate_html(e.body, :length => l) unless (l.nil? || (l < 1))
+        end
       else
         simple_format(e.summary)
       end

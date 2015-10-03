@@ -7,9 +7,9 @@ module SemiStatic
   
     index_name SemiStatic::Engine.config.site_name.gsub(/( )/, '_').downcase
   
-    attr_accessible :title, :body, :tag_id, :home_page, :summary, :img, :news_item, :image_in_news, :image_disable, :news_img
+    attr_accessible :title, :sub_title, :body, :tag_id, :home_page, :summary, :img, :news_item, :image_in_news, :image_disable, :news_img
     attr_accessible :position, :doc, :doc_description, :summary_length, :locale, :style_class, :header_colour, :background_colour, :colour
-    attr_accessible :banner_id, :partial, :entry_position, :master_entry_id, :youtube_id_str, :use_as_news_summary
+    attr_accessible :banner_id, :partial, :entry_position, :master_entry_id, :youtube_id_str, :use_as_news_summary, :simple_text
     attr_accessible :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_gallery, :side_bar_tag_id, :unrestricted_html, :merge_with_previous, :raw_html
     attr_accessible :facebook_share, :show_in_documents_tag, :image_caption, :tag_line, :raw_html, :show_image_titles, :link_to_tag, :doc_delete, :layout_select
     attr_accessor :doc_delete, :img_delete
@@ -87,7 +87,7 @@ module SemiStatic
       'tiles' => {:bar => :bar, :desktop => :panel, :mobile => :panel, :small => :small, :summary => :panel, :home => :tile, :show => :panel, :medium => :medium, :tile => :tile},
       'menu-right' => {:bar => :bar, :desktop => :panel, :mobile => :panel, :small => :small, :summary => :panel, :home => :tile, :show => :panel, :medium => :medium},
       'standard-2col-1col' => {:bar => :bar, :desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel, :medium => :medium},
-      'bannerless' => {:bar => :bar, :desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel, :medium => :medium},
+      'bannerless' => {:bar => :bar, :desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel, :medium => :medium, :tile => :tile},
       'bannerette-2col-1col' => {:bar => :bar, :desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel, :medium => :medium},
       'plain-3col' => {:bar => :bar, :desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel, :medium => :medium},
       'parallax' => {:bar => :bar, :desktop => :twocol, :mobile => :medium, :summary => :medium, :tile => :tile, :home => :tile, :show => :medium, :medium => :medium},
@@ -107,7 +107,14 @@ module SemiStatic
 
     def new
       self.body = ''
+      self.simple_text = true;
       super
+    end
+
+    def get_title
+      return title unless title.blank?
+      return sub_title unless sub_title.blank?
+      false
     end
 
     def img_url_for_theme(screen = :desktop, side_bar = true)
@@ -197,6 +204,13 @@ module SemiStatic
       else
         SemiStatic::Entry.news.limit(20).locale(self.tag.locale)
       end
+    end
+
+    def merge_with(e)
+      self.tag = e.tag; self.style_class = e.style_class
+      self.position = e.position + 1; self.colour = e.colour; self.header_colour = e.header_colour
+      self.locale = e.locale; self.background_colour = e.background_colour
+      self.merge_with_previous = true
     end
 
     def merged_main_entry

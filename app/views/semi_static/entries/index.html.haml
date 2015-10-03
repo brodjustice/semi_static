@@ -1,3 +1,10 @@
+- content_for :ujs do
+  :javascript
+    $(document).ready(function() {
+      $('#' + window.location.hash.substring(1)).children().addClass('flash');
+    });
+
+
 .mid.full
   .button= link_to 'New Entry', new_entry_path
   %h1 Entries
