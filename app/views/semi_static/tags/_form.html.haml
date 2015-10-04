@@ -49,11 +49,13 @@
       %ul
         - @tag.errors.full_messages.each do |msg|
           %li= msg
-
   %fieldset
     = f.label :name
     %br/
     = f.text_field :name
+    - if SemiStatic::Engine.config.try('subscribers_model')
+      = f.label :subscriber, 'Subscriber only content'
+      = f.check_box :subscriber
   %fieldset
     = f.label :sidebar_title
     %br/

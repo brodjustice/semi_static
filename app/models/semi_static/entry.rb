@@ -105,16 +105,14 @@ module SemiStatic
       )
     end
 
-    def new
-      self.body = ''
-      self.simple_text = true;
-      super
-    end
-
     def get_title
       return title unless title.blank?
       return sub_title unless sub_title.blank?
       false
+    end
+
+    def subscriber_content
+      SemiStatic::Engine.config.try('subscribers_model') && self.tag.subscriber
     end
 
     def img_url_for_theme(screen = :desktop, side_bar = true)

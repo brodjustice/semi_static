@@ -4,8 +4,13 @@
     class EntriesController < ApplicationController
   
     before_filter :authenticate_for_semi_static!,  :except => [ :show, :search ]
+    before_filter :authenticate_subscriber!,  :only => [ :show ]
   
-    caches_page :show
+    # We would like to do something like this:
+    #   caches_page :show, :if => :not_subscriber_content?
+    # but Rails 3.x will not take the :if. So we have to rewrite the
+    # page cache to a after_filter like this
+    after_filter(:only => :show) { |c| c.cache_page if not_subscriber_content?}
   
     layout 'semi_static_dashboards'
   
@@ -45,8 +50,6 @@
     # GET /entries/1
     # GET /entries/1.json
     def show
-      @entry = Entry.find(params[:id])
-      @tag = @entry.tag
       @title = ActionController::Base.helpers.strip_tags(@entry.title)
       @seo = @entry.seo
       @side_bar = @entry.side_bar
@@ -64,7 +67,7 @@
     # GET /entries/new
     # GET /entries/new.json
     def new
-      @entry = Entry.new
+      @entry = Entry.new(:simple_text => true, :body => '')
       if params[:master].present?
         master = Entry.find(params[:master])
         @entry = master.tidy_dup
@@ -151,5 +154,21 @@
         format.json { head :no_content }
       end
     end
+
+    private
+
+    def not_subscriber_content?
+      !@entry.subscriber_content
+    end
+
+    def authenticate_subscriber!
+      @entry = Entry.find(params[:id])
+      @tag = @entry.tag
+      if !current_admin && @entry.subscriber_content
+        session[:user_intended_url] = url_for(params) unless send('current_' + SemiStatic::Engine.config.subscribers_model.first[0].downcase)
+        send('authenticate_' + SemiStatic::Engine.config.subscribers_model.first[0].downcase + '!')
+      end
+    end
+
   end
 end

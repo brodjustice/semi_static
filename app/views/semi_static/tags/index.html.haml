@@ -16,6 +16,8 @@
         %th
         %th= 'Name'
         %th= 'Menu'
+        - if SemiStatic::Engine.config.try('subscribers_model')
+          %th.tick{:title => 'Subscriber content'}= image_tag('user.png', :title => 'Subscriber only content')
         %th= 'Locale'
         %th= 'Position'
         %th= 'Side bar'
@@ -38,6 +40,9 @@
             = link_to tag.name, edit_tag_path(tag)
           %td.tick
             = image_tag('tick.png', :title => 'In menu') if tag.menu
+          - if SemiStatic::Engine.config.try('subscribers_model')
+            %td.tick
+              = image_tag('user.png', :title => 'Subscriber only content') if tag.subscriber
           %td.number= tag.locale.to_s
           %td.number
             = tag.position if tag.menu
