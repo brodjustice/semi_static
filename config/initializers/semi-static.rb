@@ -42,8 +42,11 @@ module SemiStatic
     #   8. bannerless
     config.theme = 'standard-2col-1col'
 
-    # Sepecific search box will be shown on home page unless this is set:
+    # Specific search box will be shown on home page unless this is set:
     config.disable_search_in_home_page = false
+
+    # The path for your elasticsearch binary
+    config.elasticsearch = '/home/bl/elasticsearch/elasticsearch-1.7.2/bin/elasticsearch'
     
     # This is the address to which the contact form data is sent to
     config.contact_email = 'info@business-landing.com'

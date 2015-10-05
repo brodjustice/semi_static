@@ -9,13 +9,14 @@ module SemiStatic
   
     include Pages
   
-    ES_BIN = '/usr/share/elasticsearch/bin/elasticsearch'
+    ES_BIN = SemiStatic::Engine.config.elasticsearch
     ES_PID_DIR = '/tmp/pids'
   
     # This code mainly deals with starting up the elastic-search service and re-indexing. Our approach is to see
     # if there is a system-wide elastic search installed in /usr/share/elasticsearch/bin/elasticsearch. We will
     # not use the binary in the ./vendor directory as we assume that there are a number of Rails apps
     # sharing the search engine.
+    # All data can be deleted with (careful now!): curl -XDELETE 'http://localhost:9200/_all'
   
     def self.cmd(cmd)
       self.send(cmd)
