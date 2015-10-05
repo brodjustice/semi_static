@@ -39,6 +39,7 @@ module SemiStatic
     default_scope order(:position, :entry_id, :id)
     scope :home, where('home_page = ?', true)
     scope :thumb, where('gallery_control = ?', GALLERY_SYM[:thumbs_and_sidebar])
+    scope :not_invisible, where('gallery_control != ?', GALLERY_SYM[:invisible])
     scope :main, where('gallery_control = ?', GALLERY_SYM[:main])
     scope :sidebar, where('gallery_control=? OR gallery_control=?', GALLERY_SYM[:thumbs_and_sidebar], GALLERY_SYM[:sidebar_only])
     scope :without_caption, where("description IS NULL or CAST(description as text) = ''")

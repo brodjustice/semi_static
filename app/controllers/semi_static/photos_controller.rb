@@ -17,7 +17,7 @@ module SemiStatic
         @entry = Entry.find(params[:entry_id])
         @photos = @entry.photos
       else
-        @photos = Photo.locale(I18n.locale)
+        @photos = Photo.not_invisible.locale(I18n.locale)
         @photo = @photos.first
         @selection = 'Gallery'
         @tag, @seo = Seo.photos(params[:tag_id], I18n.locale) 
