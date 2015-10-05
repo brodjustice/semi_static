@@ -80,7 +80,7 @@ module SemiStatic
     ALLOWED_TAGS= %w(span br em b i u ul ol li a div p img hr h1 h2 h3 h4)
     ALLOWED_ATTRIBUTES= %w(href src align alt)
 
-    DISPLAY_ENTRY = {1 => :before, 2 => :after, 3 => :none}
+    DISPLAY_ENTRY = {1 => :before, 2 => :after, 3 => :none, 4 => :inline}
     DISPLAY_ENTRY_SYM = DISPLAY_ENTRY.invert
 
     THEME = {

@@ -15,6 +15,9 @@
     - else
       = link_to image_tag('html_add.png'), new_entry_path(:merge => entry)
   %td.tick
+    - unless entry.partial == 'none'
+      = image_tag('tick.png', :title => "#{entry.partial}")
+  %td.tick
     = image_tag('tick.png', :title => "Entry master is #{entry.master_entry.locale + ': ' + entry.master_entry.title}") unless entry.master_entry.nil?
   %td.tick
     = image_tag('tick.png', :title => 'Visible in home page') if entry.home_page

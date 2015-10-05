@@ -1,5 +1,9 @@
 module SemiStatic
   module PartialControl
+    def partial_inline?
+      !SemiStatic::Engine.config.open_partials[self.partial].nil? && entry_position == Entry::DISPLAY_ENTRY_SYM[:inline]
+    end
+
     def partial_before_entries?
       !SemiStatic::Engine.config.open_partials[self.partial].nil? && entry_position != Entry::DISPLAY_ENTRY_SYM[:before]
     end

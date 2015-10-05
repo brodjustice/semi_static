@@ -1,0 +1,8 @@
+-# This partial is paired with the col_span_1_of_2_wrapper partial and should come before that as a merged entry. It
+-# will them act as a side-box like div which will transition to full with on slim screens (like mobiles).
+.col.span_1_of_2.floater{:class => e.style_class, :style => "width: 49.2% !important; background-color:#{e.background_colour}; color:#{e.colour}"}
+  = entry_title(e)
+  = entry_body(e)
+  = photo_main(e, @group_size || 2)
+
+
