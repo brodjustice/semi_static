@@ -108,6 +108,8 @@
       respond_to do |format|
         if params[:preview]
           format.js { render 'preview'}
+        elsif params[:convert]
+          format.js { render 'convert'}
         elsif @entry.save
           if params[:newsletter_id]
             format.html { redirect_to edit_newsletter_path(params[:newsletter_id]) }

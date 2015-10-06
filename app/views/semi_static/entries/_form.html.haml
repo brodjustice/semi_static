@@ -1,4 +1,5 @@
 - content_for :ujs do
+  <script src="//cdn.ckeditor.com/4.5.4/standard/ckeditor.js"></script>
   :javascript
     function load_banner_preview(b_id){
       $.ajax({
@@ -62,9 +63,11 @@
     }
 
     function enable_editor(){
-      $('#entry_body').jqte();
+      CKEDITOR.replace('entry_body', {format_tags: 'p;h1;h2;h3;h4;h5;h6;pre;address;div'});
       $('#enable_editor').hide();
+      $('#convert_and_enable_editor').hide();
       $('#entry_simple_text').val('false');
+      $('#entry_text_area').css('margin-bottom', '6px');
     }
 
     $(document).ready(function() {
@@ -81,7 +84,6 @@
       $('#semi_static_image_for_upload').on('load', function () {
         check_image_controls();
       });
-
     });
 
 = form_for @entry do |f|
