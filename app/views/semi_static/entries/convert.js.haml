@@ -1,0 +1,4 @@
+!= "$(\"#entry_text_area\").html('#{escape_javascript(render :partial => 'semi_static/entries/convert')}');"
+$('#convert_and_enable_editor').hide();
+$('#entry_unrestricted_html').prop('checked', true);
+enable_editor();
