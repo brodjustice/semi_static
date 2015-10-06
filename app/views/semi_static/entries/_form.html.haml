@@ -36,6 +36,18 @@
       }
     }
 
+    function convert_to_editor(){
+      var valuesToSubmit = $('form').serialize();
+      $.ajax({
+        type: "POST",
+        url: $('form').attr('action') + '?convert=true',
+        data: valuesToSubmit,
+        dataType: "script"
+      }).success(function(json){
+        // ??
+      });
+      return false; // prevents normal behaviour
+    }
     function entry_preview(){
       var valuesToSubmit = $('form').serialize();
       $.ajax({
@@ -132,7 +144,8 @@
         %fieldset.semi_static_entry_main_content
           = f.label :body
           %br/
-          = f.text_area :body
+          #entry_text_area
+            = f.text_area :body
           .infobox#unrestricted_html_check_box
             %h4= 'Unrestricted HTML'
             %p
@@ -153,6 +166,8 @@
           - unless @entry.new_record?
             .button
               = link_to 'HTML mode', edit_entry_path(@entry, :mode => :html), :remote => true
+          #convert_and_enable_editor.button
+            = link_to_function 'Covert to editor', 'convert_to_editor();'
           #enable_editor.button
             = link_to_function 'Editor', 'enable_editor();'
       %fieldset

@@ -105,8 +105,6 @@
       else
         @entry = Entry.new(params[:entry])
       end
-
-  
       respond_to do |format|
         if params[:preview]
           format.js { render 'preview'}
@@ -132,6 +130,8 @@
       respond_to do |format|
         if params[:preview] && (@entry.attributes = params[:entry])
           format.js { render 'preview'}
+        elsif params[:convert] && (@entry.attributes = params[:entry])
+          format.js { render 'convert'}
         elsif @entry.update_attributes(params[:entry])
           format.html { redirect_to entries_path(:anchor => "entry_id_#{@entry.id}") }
           format.js

@@ -74,10 +74,10 @@ module SemiStatic
 
     has_attached_file :news_img, :styles => {:bar => "304x>"}, :convert_options => { :bar => "-strip -gravity Center -quality 80"}
 
-    DIRTY_TAGS= %w(style table tr td th span br em b i u ul ol li a div p img hr  h1 h2 h3 h4 iframe)
+    DIRTY_TAGS= %w(style table tr td th span br em b i u ul ol li a div p img hr h1 h2 h3 h4 h5 h6 iframe)
     DIRTY_ATTRIBUTES= %w(href class style id align src alt height width max-width frameborder allowfullscreen)
 
-    ALLOWED_TAGS= %w(span br em b i u ul ol li a div p img hr h1 h2 h3 h4)
+    ALLOWED_TAGS= %w(span br em b i u ul ol li a div p img hr h1 h2 h3 h4 h5 h6)
     ALLOWED_ATTRIBUTES= %w(href src align alt)
 
     DISPLAY_ENTRY = {1 => :before, 2 => :after, 3 => :none, 4 => :inline}
