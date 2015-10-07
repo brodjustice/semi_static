@@ -6,6 +6,7 @@
 /* SASS */
 $prime-color: #ff2700;
 $secondary-color: #303030;
+$font-color: #181818;
 
 /* Change to match your logo and its dimensions */
 $logo: 'logo.png';
@@ -13,8 +14,10 @@ $logo-width: 270px;
 $logo-height: 117px;
 
 /* The sprites file for various icons */
-$vert-sprites: '/assets/vert-sprites-light.png';
-$vert-x2-sprites: '/assets/x2/vert-sprites-light.png';
-$vert-sprites-height: 275px;
+/* The sprites file for various icons */
+$vert-sprites: '/assets/vert-sprites-big-grey.png';
+$vert-x2-sprites: '/assets/x2/vert-sprites-big-grey.png';
+$vert-sprites-height: 352px;
 
 /* Add your custom variables, if needed below here */
+

@@ -171,11 +171,9 @@ a { text-decoration: none; color: #282828; }
     padding: 0px 8px 0 34px;
 }
 
-#bar-menu .lady a{float: right; display: block; padding: 0px 8px 0px 28px; background: transparent url(#{$vert-sprites}) 0px -109px no-repeat;}
-#bar-menu .contact a{float: right; display: block; padding: 0px 8px 0px 34px; background: transparent url(#{$vert-sprites}) 0px -84px no-repeat;}
-#bar-menu .search a{float: right; display: block; padding: 0px 8px 4px 28px; background: transparent url(#{$vert-sprites}) 0px -216px no-repeat;}
+#bar-menu .contact a{float: right; display: block; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0px -194px no-repeat;}
+#bar-menu .search a{float: right; display: block; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0px -226px no-repeat;}
 #bar-menu .icon a{ background-size: 28px $vert-sprites-height; }
-
 
 #logo{
   background: transparent url(/assets/#{$logo}) left center no-repeat;
