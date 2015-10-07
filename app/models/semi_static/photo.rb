@@ -71,7 +71,7 @@ module SemiStatic
     end
 
     def self.build_ordered_array
-      @@ids = Photo.reorder(:entry_id, :position, :id).collect{|p| p.id}
+      @@ids = Photo.not_invisible.reorder(:entry_id, :position, :id).collect{|p| p.id}
     end
 
     @@ids = build_ordered_array
