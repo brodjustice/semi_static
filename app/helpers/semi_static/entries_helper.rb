@@ -2,8 +2,8 @@ module SemiStatic
   module EntriesHelper
     STYLE_CLASSES = ['normal', ' feint',  'flat',  'collapse', 'flat collapse', 'hard', 'highlight', 'wobble', 'dotted', 'tile', 'custom1', 'custom2', 'custom3']
 
-    def youtube_video(id)
-      "<div class='yt_video'> <iframe width='640' height='360' src='//www.youtube.com/embed/#{id}?rel=0&amp;controls=0&amp;showinfo=0' allowfullscreen></iframe></div>".html_safe
+    def youtube_video(id, width=640, height=360)
+      "<div class='yt_video'> <iframe width='#{width.to_s}' height='#{height.to_s}' src='//www.youtube.com/embed/#{id}?rel=0&amp;controls=0&amp;showinfo=0' allowfullscreen></iframe></div>".html_safe
     end
 
     def human_file_size(s)
