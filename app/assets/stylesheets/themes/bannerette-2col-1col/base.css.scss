@@ -315,10 +315,14 @@ h2{ font-size: 20px;}
 
 .panel{
   /* padding: 2px 8px 0px; */
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
   min-height: 50px;
   margin-bottom: 10px;
   position: relative;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.news .panel{
+  box-shadow: none;
 }
 
 .doc:after, .panel:after {
@@ -367,7 +371,7 @@ h2{ font-size: 20px;}
 }
 .gallery, .news, .social{
   margin-bottom: 10px;
-  padding: 0 0 6px 11px;
+  padding: 0 0 6px 0px;
 }
 .social{
   padding: 6px 0px 4px;
