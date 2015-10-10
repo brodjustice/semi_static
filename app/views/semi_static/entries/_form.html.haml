@@ -213,7 +213,21 @@
         %br/
         = f.label :img, 'Image (optional, will be resized)'
         %br/
-        = f.file_field :img
+        .infobox#loaded_image
+          %h4 Currently loaded image
+          - if @entry.img.present?
+            The currently loaded mage is:
+            %ul
+              %li= @entry.img_file_name
+              %li= @entry.img_content_type
+              %li= @entry.img_dimensions[0].to_s + 'px x ' + @entry.img_dimensions[1].to_s + 'px'
+              %li= link_to @entry.img.url, @entry.img.url
+            = f.label :img_delete, 'Tick to delete this image on save'
+            = f.check_box :img_delete
+          - else
+            No image is currently loaded
+        %span.infomarker
+          = f.file_field :img
         %br/
         = f.label :image_captiom, 'Image caption (optional)'
         %br/

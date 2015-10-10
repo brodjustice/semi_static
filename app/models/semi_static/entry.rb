@@ -11,10 +11,10 @@ module SemiStatic
     attr_accessible :position, :doc, :doc_description, :summary_length, :locale, :style_class, :header_colour, :background_colour, :colour
     attr_accessible :banner_id, :partial, :entry_position, :master_entry_id, :youtube_id_str, :use_as_news_summary, :simple_text
     attr_accessible :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_gallery, :side_bar_tag_id, :unrestricted_html, :merge_with_previous, :raw_html
-    attr_accessible :facebook_share, :show_in_documents_tag, :image_caption, :tag_line, :raw_html, :show_image_titles, :link_to_tag, :doc_delete, :layout_select
+    attr_accessible :facebook_share, :show_in_documents_tag, :image_caption, :tag_line, :raw_html, :show_image_titles, :link_to_tag, :doc_delete, :img_delete, :layout_select
     attr_accessor :doc_delete, :img_delete
 
-    settings index: { number_of_shards: 1, number_of_replicas: 1 }
+    settings index: { number_of_shards: 1, number_of_replicas: 0 }
   
     belongs_to :tag
   
