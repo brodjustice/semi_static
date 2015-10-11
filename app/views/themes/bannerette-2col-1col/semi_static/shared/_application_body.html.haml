@@ -18,11 +18,8 @@
 #frame
   = yield :banner
   #container
-    - unless flash.blank?
-      #notice
-        = flash[:alert]
-        = flash[:error]
-        = flash[:notice]
+    - flash.each do |key, value|
+      = content_tag :div, value, :id => "notice" unless value.blank?
     #dialog{:style => 'display: none;'}
     #content
       =yield

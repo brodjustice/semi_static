@@ -22,11 +22,8 @@
     #frame
       #container
         #container-inner
-          - unless flash.blank?
-            #notice
-              = flash[:alert]
-              = flash[:error]
-              = flash[:notice]
+          - flash.each do |key, value|
+            = content_tag :div, value, :id => "#{key}" unless value.blank?
           #header
             #header-inner
               = render :partial => 'semi_static/shared/dashboard_header'
