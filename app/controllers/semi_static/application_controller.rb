@@ -10,15 +10,7 @@ module SemiStatic
     layout 'semi_static_application'
   
     def semi_static_admin?
-      if defined?(User)
-        if current_user.nil?
-          false
-        else
-          current_user.admin?
-        end
-      else
-        current_admin
-      end
+      current_admin || (current_user && current_user.respond_to?('admin?') && current_user.admin?)
     end
 
     def semi_static_current_user
