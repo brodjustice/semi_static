@@ -1,6 +1,6 @@
 module SemiStatic
   module EntriesHelper
-    STYLE_CLASSES = ['normal', ' feint',  'flat',  'collapse', 'flat collapse', 'hard', 'highlight', 'wobble', 'dotted', 'tile', 'custom1', 'custom2', 'custom3']
+    STYLE_CLASSES = ['normal', ' feint',  'flat',  'collapse', 'flat collapse', 'hard', 'highlight', 'wobble', 'dotted', 'tile', 'extra-padding', 'custom1', 'custom2', 'custom3']
 
     def youtube_video(id, width=640, height=360)
       "<div class='yt_video'> <iframe width='#{width.to_s}' height='#{height.to_s}' src='//www.youtube.com/embed/#{id}?rel=0&amp;controls=0&amp;showinfo=0' allowfullscreen></iframe></div>".html_safe
@@ -19,6 +19,10 @@ module SemiStatic
       else
         entry_path(e)
       end
+    end
+
+    def entry_title_or_id(e)
+      (e.merge_with_previous ? '--> ' : '') + (e.get_title || "##{e.id.to_s}")
     end
 
     def entry_title(e, linked = false)
@@ -82,6 +86,14 @@ module SemiStatic
        }
        c += '</div>'
        c.html_safe
+    end
+
+    def sidebar_style(s)
+      c = "background-color:#{s.bg_color};color:#{s.color};"
+      if s.bg.present?
+        c += "background-image: url(\'#{s.bg.url(:bar)}\');"
+      end
+      c
     end
 
     def semantic_product(e)

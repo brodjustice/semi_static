@@ -14,7 +14,7 @@
     - @newsletters.each do |n|
       %tr
         %td
-          = link_to n.name, edit_newsletter_path(n)
+          = link_to n.name, edit_newsletter_path(n), :target => 'semi_static_newsletter'
         %td= SemiStatic::Newsletter::STATE_CODES[n.state].to_s.humanize
         %td
           %ul

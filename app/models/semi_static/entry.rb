@@ -10,7 +10,8 @@ module SemiStatic
     attr_accessible :title, :sub_title, :body, :tag_id, :home_page, :summary, :img, :news_item, :image_in_news, :image_disable, :news_img
     attr_accessible :position, :doc, :doc_description, :summary_length, :locale, :style_class, :header_colour, :background_colour, :colour
     attr_accessible :banner_id, :partial, :entry_position, :master_entry_id, :youtube_id_str, :use_as_news_summary, :simple_text
-    attr_accessible :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_gallery, :side_bar_tag_id, :unrestricted_html, :merge_with_previous, :raw_html
+    attr_accessible :sidebar_id, :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_gallery, :side_bar_tag_id, :unrestricted_html
+    attr_accessible :merge_with_previous, :raw_html
     attr_accessible :facebook_share, :show_in_documents_tag, :image_caption, :tag_line, :raw_html, :show_image_titles, :link_to_tag, :doc_delete, :img_delete, :layout_select
     attr_accessor :doc_delete, :img_delete
 
@@ -43,6 +44,7 @@ module SemiStatic
     has_one :seo, :as => :seoable
     has_one :product
     has_one :click_ad
+    belongs_to :sidebar
     belongs_to :master_entry, :class_name => SemiStatic::Entry
     belongs_to :banner
     has_many :photos

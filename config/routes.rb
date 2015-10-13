@@ -1,4 +1,5 @@
 SemiStatic::Engine.routes.draw do
+
   %w( 404 422 500 ).each do |code|
     get code, :to => "errors#show", :code => code
   end
@@ -41,6 +42,7 @@ SemiStatic::Engine.routes.draw do
     resources :seos, :only => [:new, :create, :update]
   end
 
+  resources :sidebars, :except => :show
   resources :products, :only => :index
   resources :newsletter_deliveries, :only => :update
   resources :subscribers

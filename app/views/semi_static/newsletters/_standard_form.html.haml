@@ -19,7 +19,7 @@
         %p
           = @newsletter.salutation_pre_text
           = salutation_name(@newsletter) + ','
-        %p= @newsletter.salutation_post_text unless @newsletter.salutation_post_text.blank?
+        = simple_format(@newsletter.salutation_post_text) unless @newsletter.salutation_post_text.blank?
     .clear
     - unless @newsletter.new_record?
       %fieldset.action.prepend

@@ -60,6 +60,7 @@ module SemiStatic
     # GET /photos/new.json
     def new
       @photo = Photo.new
+      @entries = Entry.unscoped.order(:locale, :tag_id, :position).exclude_newsletters
       if params[:master].present?
         master = Photo.find(params[:master])
         @photo = master.tidy_dup
@@ -75,6 +76,7 @@ module SemiStatic
     def edit
       layout = 'semi_static_dashboards'
       @photo = Photo.find(params[:id])
+      @entries = Entry.unscoped.order(:locale, :tag_id, :position).exclude_newsletters
       respond_to do |format|
         format.html { render :layout => layout }
         format.json { render json: @photo }

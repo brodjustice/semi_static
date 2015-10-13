@@ -42,6 +42,10 @@
         = f.label :description, 'Caption'
         %br/
         = f.text_area :description, :rows => '3'
+      .field
+        = f.label :entry_id, 'Use in entry (optional)'
+        %br
+        = f.select :entry_id, options_for_select(@entries.collect{|e| [entry_title_or_id(e), e.id]}.prepend(['- None -', nil]), @photo.entry_id)
     .col.span_1_of_3
       .sidebar
         %h2 Position
@@ -73,9 +77,6 @@
         %fieldset
           = f.label :home_page
           = f.check_box :home_page
-        %fieldset
-          = f.label :entry_id, 'Entry link (optional)'
-          = f.select :entry_id, options_for_select(SemiStatic::Entry.all.collect{|e| [e.explicit_title(true), e.id]}.prepend(['- None -', nil]), @photo.entry_id)
         %h2 Language
         %fieldset
           = f.label :locale

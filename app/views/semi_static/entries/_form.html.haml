@@ -63,7 +63,7 @@
     }
 
     function enable_editor(){
-      CKEDITOR.replace('entry_body', {format_tags: 'p;h1;h2;h3;h4;h5;h6;pre;address;div'});
+      CKEDITOR.replace('entry_body', {format_tags: 'p;h2;h3;h4;h5;h6;pre;address;div'});
       $('#enable_editor').hide();
       $('#convert_and_enable_editor').hide();
       $('#entry_simple_text').val('false');
@@ -328,12 +328,18 @@
             = f.label :side_bar
             = f.check_box :side_bar
             %fieldset#side_bar_options
+              = f.label :sidebar_id, 'Sidebar'
+              %br/
+              = f.select :sidebar_id, options_for_select(SemiStatic::Sidebar.all.collect{|s| [s.title.blank? ? "##{s.id.to_s}" : s.title, s.id]}.prepend(["- None -", nil]), @entry.sidebar_id)
+              %br/
+              %br/
               = f.label :side_bar_news, 'News'
               = f.check_box :side_bar_news
               = f.label :side_bar_social, 'Social links'
               = f.check_box :side_bar_social
               = f.label :side_bar_search, 'Search'
               = f.check_box :side_bar_search
+              %br/
               %br/
               = f.label :side_bar_tag_id, 'Tag for sidebar'
               = f.select :side_bar_tag_id, options_for_select(SemiStatic::Tag.locale(@entry.locale).collect{|t| [t.name, t.id]}.prepend(["- None -", nil]), @entry.side_bar_tag_id)

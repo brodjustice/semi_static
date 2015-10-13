@@ -18,10 +18,10 @@
           = link_to edit_newsletter_path(@newsletter, :header => true), :remote => true do
             %h1= @newsletter.name
             %h2= @newsletter.subtitle
-            - unless @newsletter.new_record?
-              %fieldset.action.prepend
-                %label= 'Insert entry'
-                = select_tag 'prepend', options_for_select(SemiStatic::Entry.all.collect{|e| [e.explicit_title(true), e.id]}.prepend(['- None -', nil])), :name => 'entry[prepend]'
+          - unless @newsletter.new_record?
+            %fieldset.action.prepend
+              %label= 'Insert entry'
+              = select_tag 'prepend', options_for_select(SemiStatic::Entry.unmerged.collect{|e| [e.explicit_title(true), e.id]}.prepend(['- None -', nil])), :name => 'entry[prepend]'
         
       - if @newsletter.salutation
         %tr
@@ -29,7 +29,7 @@
             %p
               = @newsletter.salutation_pre_text
               = salutation_name(@newsletter) + ','
-            %p= @newsletter.salutation_post_text unless @newsletter.salutation_post_text.blank?
+            = simple_format(@newsletter.salutation_post_text) unless @newsletter.salutation_post_text.blank?
   
       - @newsletter.draft_entry_ids.each do |id| 
         - e = SemiStatic::Entry.find_by_id(id)
@@ -39,7 +39,7 @@
             = render :partial => 'semi_static/entries/entry', :locals => {:e => e}
             %fieldset.action.append
               %label= 'Insert entry'
-              = select_tag 'append', options_for_select(SemiStatic::Entry.all.collect{|e| [e.title, e.id]}.prepend(['- None -', nil])), :name => "entry[append][#{e.id.to_s}]"
+              = select_tag 'append', options_for_select(SemiStatic::Entry.unmerged.collect{|e| [e.title, e.id]}.prepend(['- None -', nil])), :name => "entry[append][#{e.id.to_s}]"
     %table.newsletter{:style => 'width: 100%; border-top: 1px solid #c8c8c8; margin-top: 8px; background-color: #f8f8f8'}
       %tr.newsletter-footer
         %td
