@@ -13,11 +13,11 @@
         .section
           - @tag.entries.unmerged.each do |e|
             = render :partial => 'semi_static/tags/side_bar_entry', :locals => {:e => e}
-  - unless @tag.nil? || @entry.sidebar.nil?
-    .sidebar{:style => sidebar_style(@entry.sidebar), :class => @entry.sidebar.style_class }
-      - unless @entry.sidebar.title.blank?
-        %h2= @entry.sidebar.title
-      = @entry.sidebar.body.html_safe
+  -if  obj.kind_of?(SemiStatic::Entry) && obj.sidebar.present?
+    .sidebar{:style => sidebar_style(obj.sidebar), :class => obj.sidebar.style_class }
+      - unless obj.sidebar.title.blank?
+        %h2= obj.sidebar.title
+      = obj.sidebar.body.html_safe
   - unless obj.nil?
     = render :partial => 'semi_static/site/search' if obj.side_bar_search
     = render :partial => 'semi_static/site/social' if obj.side_bar_social
