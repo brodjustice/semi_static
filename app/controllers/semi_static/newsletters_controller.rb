@@ -39,6 +39,8 @@ module SemiStatic
       end
     end
   
+    templates = %w(sender_address salutation header)
+
     # GET /newsletters/1/edit
     def edit
       @newsletter = Newsletter.find(params[:id])
@@ -65,6 +67,9 @@ module SemiStatic
     # POST /newsletters.json
     def create
       @newsletter = Newsletter.new(params[:newsletter])
+      if params[:tag]
+        Tag.find(params[:tag]).entries.unmerged.collect{|e| @newsletter.draft_entry_ids << e.id} 
+      end
   
       respond_to do |format|
         if @newsletter.save

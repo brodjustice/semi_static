@@ -1,9 +1,23 @@
-#newsletter-wrapper{
-  table{width: auto;}
-}
-#newsletter-wrapper tr{
-  background-color: initial;
-}
+// These just to make it clearer on editing view
+#newsletter-wrapper{ box-shadow: 0 0 1px #a0a0a0; max-width: 768px; margin: 0 auto;}
+#newsletter-wrapper tr td{ background-color: white;}
+#newsletter-wrapper tr td.nl_entry{ padding-bottom: 52px; vertical-align: bottom;}
+
+
+// For the actual newsletter as well 
+.nutWrap{width: 100%; position: absolute; bottom: 0px;}
+// .nutWrap{width: 100%; position: relative; bottom: 0px;}
+.nutWrap a{color: white !important;}
+.newsletter .img{text-align: center;}
+.newsletter .img img{max-width: 100%; max-height: 324px;}
+table.newsletter{table-layout: fixed; position:relative; border-collapse: separate;}
+.newsletter td{width: 50%; position: relative; padding: 0px; border: 10px solid white;}
+// .newsletter td{width: 50%; position: relative; padding: 0px; border: 10px solid #e0e0e0;}
+.nl_entry{position: relative;}
+td h1, td h2{text-align: right;}
+td h3, td h4{margin: 0 12px; padding: 3px 6px;}
+td h3{min-height: 24px;}
+.nutWrapInner{min-height: 56px; padding: 0; background-color: rgb(1,107,167); border-top: 1px solid #a8a8a8; position: relative;}
 
 .newsletter{
   position: relative;
@@ -16,10 +30,6 @@
 .newsletter a, .newsletter p a{ color: initial; text-decoration: initial;}
 .newsletter a:hover, .newsletter p a:hover{ color: initial; text-decoration: initial;}
 
-table.newsletter{
-  border-width: 0px; border-collapse: collapse;
-}
-
 .newsletter tr{
   position: relative;
 }
@@ -30,10 +40,11 @@ table.newsletter{
 
 #newsletter_name, #newsletter_subtitle {
   font-size: 40px;
-  border: 0px;
+  border: 1px solid grey;
   margin: 0px 6px;
   padding: 0px;
   max-width: 460px;
+  color: $prime-color;
 }
 
 #newsletter_subtitle {
@@ -43,7 +54,6 @@ table.newsletter{
 
 .newsletter h1{font-weight: bold; font-size: 40px;}
 .newsletter h2{font-weight: bold; font-size: 32px;}
-#newsletter-header td{padding: 6px;}
 table .newsletter-footer td{
   border-top: 1px solid #c0c0c0;
   background-color: #f0f0f0;

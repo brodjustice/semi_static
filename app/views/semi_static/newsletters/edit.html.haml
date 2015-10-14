@@ -1,6 +1,8 @@
-.mid
+.mid.wide
   .button
     = link_to 'New Entry', new_entry_path(:newsletter => @newsletter)
+  .button
+    = link_to 'Edit header', edit_newsletter_path(@newsletter, :header => true), :remote => true
   .button
     = link_to 'Salutation', edit_newsletter_path(@newsletter, :salutation => true), :remote => true
   .button

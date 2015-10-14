@@ -11,18 +11,11 @@
   #newsletter-wrapper
     %table.newsletter
       %tr
-        %td{:colspan => 2}
+        %td
           #newsletter-logo= image_tag(SemiStatic::Engine.config.logo_image)
-      %tr#newsletter-header
-        %td{:colspan => 2}
-          = link_to edit_newsletter_path(@newsletter, :header => true), :remote => true do
-            %h1= @newsletter.name
-            %h2= @newsletter.subtitle
-          - unless @newsletter.new_record?
-            %fieldset.action.prepend
-              %label= 'Insert entry'
-              = select_tag 'prepend', options_for_select(SemiStatic::Entry.unmerged.collect{|e| [e.explicit_title(true), e.id]}.prepend(['- None -', nil])), :name => 'entry[prepend]'
-        
+        %td
+          %h1= @newsletter.name
+          %h2= @newsletter.subtitle
       - if @newsletter.salutation
         %tr
           %td{:colspan => 2}
@@ -31,15 +24,35 @@
               = salutation_name(@newsletter) + ','
             = simple_format(@newsletter.salutation_post_text) unless @newsletter.salutation_post_text.blank?
   
-      - @newsletter.draft_entry_ids.each do |id| 
-        - e = SemiStatic::Entry.find_by_id(id)
-        - next if e.nil?
+      - @newsletter.draft_entry_ids.each_slice(2) do |row| 
         %tr
-          %td{:colspan => 2}
-            = render :partial => 'semi_static/entries/entry', :locals => {:e => e}
-            %fieldset.action.append
-              %label= 'Insert entry'
-              = select_tag 'append', options_for_select(SemiStatic::Entry.unmerged.collect{|e| [e.title, e.id]}.prepend(['- None -', nil])), :name => "entry[append][#{e.id.to_s}]"
+          - row.each do |id|
+            %td.nl_entry
+              - e = SemiStatic::Entry.find_by_id(id)
+              - next if e.nil?
+              = link_to semi_static.entry_path(e) do
+                - if e.news_img.present?
+                  .img
+                    = image_tag(e.news_img.url)
+                - else
+                  .img
+                    -if e.img.present?
+                      = image_tag(e.img_url_for_theme(:panel))
+                    -else
+                      = image_tag('/assets/missing.jpg')
+              .nutWrap
+                .nutWrapInner
+                  %h3{:style => "color: #{e.header_colour}"}= link_to e.title, SemiStatic::Engine.routes.url_helpers.entry_path(e)
+                  -# %h4{:style => "color: #{e.header_colour}"}= link_to e.sub_title, SemiStatic::Engine.routes.url_helpers.entry_path(e)
+
+
+
+
+    -#          = render :partial => 'semi_static/entries/entry', :locals => {:e => e}
+
+    -#        %fieldset.action.append
+    -#          %label= 'Insert entry'
+    -#          = select_tag 'append', options_for_select(SemiStatic::Entry.unmerged.collect{|e| [e.title, e.id]}.prepend(['- None -', nil])), :name => "entry[append][#{e.id.to_s}]"
     %table.newsletter{:style => 'width: 100%; border-top: 1px solid #c8c8c8; margin-top: 8px; background-color: #f8f8f8'}
       %tr.newsletter-footer
         %td
@@ -49,8 +62,8 @@
         %td
           = link_to t('Unsubscribe'), 'http://business-landing.com/'
       
-    .mid
-      .actions
-        = f.submit 'Update'
-        = f.submit 'Save and send draft newsletter', :name => 'email_draft'
-        = f.submit 'Prepare to publish', :name => 'prepare'
+  .mid
+    .actions
+      = f.submit 'Update'
+      = f.submit 'Save and send draft newsletter', :name => 'email_draft'
+      = f.submit 'Prepare to publish', :name => 'prepare'
