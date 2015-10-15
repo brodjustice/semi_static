@@ -3,7 +3,15 @@ require "haml"
 module SemiStatic
   class Newsletter < ActiveRecord::Base
     attr_accessible :name, :state, :locale, :subtitle, :salutation, :salutation_type, :salutation_pre_text, :salutation_post_text, :css, :sender_address
-    serialize :draft_entry_ids, Array
+
+    # This is a serialized hash, for example:
+    # {12 => {}, 39 => {:img_url => './system/image-x.jpg'}, 199 => {}}
+    # The order has meaning here, so ruby > 1.9 is reqired to preserve the order of the hash
+    #
+    # Valid keys are:
+    #  :img_url - the URL of the image to use for the nutshell in the newsletter
+    #
+    serialize :draft_entry_ids, Hash
 
     has_many :newsletter_deliveries
     has_one :tag, :dependent => :destroy
@@ -12,7 +20,6 @@ module SemiStatic
     validates :name, :presence => true
     validates_uniqueness_of :name
     validates :locale, :presence => true
-    validate :duplicate_draft_entry_ids
 
     before_save :set_defaults
     after_create :create_newsletter_tag
@@ -36,17 +43,12 @@ module SemiStatic
       self.tag = SemiStatic::Tag.create(:name => self.name, :menu => false, :icon_in_menu => false)
     end
 
-    def duplicate_draft_entry_ids
-      unless draft_entry_ids.uniq.length == draft_entry_ids.length
-        errors.add(:draft_entry_ids, "Cannot have the same entry more than once")
-        false
-      else
-        true
-      end 
-    end
-
     def set_defaults
       self.state ||= STATES[:draft]
+      # Make sure that there is an image url for each entry
+      self.draft_entry_objects.each{|e|
+        self.draft_entry_ids[e.id][:img_url] ||= get_best_img(e)
+      }
     end
 
     def draft_entry_titles
@@ -61,7 +63,7 @@ module SemiStatic
 
     def draft_entry_objects
       entries = []
-      draft_entry_ids.each{|e|
+      draft_entry_ids.each{|e, v|
         if (e_obj = SemiStatic::Entry.find_by_id(e))
           entries << e_obj
         else
@@ -73,6 +75,18 @@ module SemiStatic
         end
       }
       entries
+    end
+
+    def swap_entry_image(e_id)
+      e = Entry.find_by_id(e_id)
+      urls = ([ e.news_img.present? ? e.news_img(:original) : nil, e.img.present? ? e.img(:panel) : nil ].concat( e.photos.collect{|p| p.img.url(:boxpanel)}).compact)
+      if urls.size < 2
+        nil
+      else
+        i = urls.index(self.draft_entry_ids[e_id][:img_url])
+        self.draft_entry_ids[e_id][:img_url] = urls[i + 1]
+        self.save
+      end
     end
 
     def add_entry(position = nil)
@@ -172,6 +186,18 @@ module SemiStatic
           email_body.gsub!(attachment.url, "attachments/#{attachment.filename}")
         end
         email_body
+      end
+    end
+
+    private
+
+    def get_best_img(e)
+      if e.news_img.present?
+        e.news_img.url(:original)
+      elsif e.img.present?
+        e.img.url(:panel)
+      else
+        '/assets/missing.jpg'
       end
     end
   end

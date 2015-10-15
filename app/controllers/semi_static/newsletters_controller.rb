@@ -39,7 +39,7 @@ module SemiStatic
       end
     end
   
-    templates = %w(sender_address salutation header)
+    templates = %w(sender_address salutation header swap_image)
 
     # GET /newsletters/1/edit
     def edit
@@ -53,6 +53,9 @@ module SemiStatic
         template = 'sender_address'
       elsif params[:salutation]
         template = 'salutation'
+      elsif params[:swap_image]
+        template = @newsletter.swap_entry_image(params[:swap_image].to_i).nil? ? 'select_image' : 'swap_image'
+        @entry = Entry.find_by_id(params[:swap_image])
       elsif params[:header]
         template = 'header'
       end
@@ -68,7 +71,7 @@ module SemiStatic
     def create
       @newsletter = Newsletter.new(params[:newsletter])
       if params[:tag]
-        Tag.find(params[:tag]).entries.unmerged.collect{|e| @newsletter.draft_entry_ids << e.id} 
+        Tag.find(params[:tag]).entries.unmerged.collect{|e| @newsletter.draft_entry_ids[e.id] = {}} 
       end
   
       respond_to do |format|

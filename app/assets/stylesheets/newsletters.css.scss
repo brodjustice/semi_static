@@ -1,7 +1,14 @@
 // These just to make it clearer on editing view
-#newsletter-wrapper{ box-shadow: 0 0 1px #a0a0a0; max-width: 768px; margin: 0 auto;}
+#newsletter-wrapper{ box-shadow: 0 0 1px #a0a0a0; max-width: 698px; margin: 0 auto;}
 #newsletter-wrapper tr td{ background-color: white;}
 #newsletter-wrapper tr td.nl_entry{ padding-bottom: 52px; vertical-align: bottom;}
+.newsletter .controls{position: absolute; top: 0px; display: none; width: 100%; background-color: #484848; color: white; font-size: 20px;}
+.newsletter .controls a{color: white; display: block;}
+.newsletter .controls a:hover{color: white; font-weight: bold;}
+.controls .swap, .controls .add{position: absolute; top: 0px; padding: 16px; background-color: black; color: white;}
+.controls .swap{left: 0px; border-bottom-right-radius: 32px;}
+.controls .add{right: 0px; border-bottom-left-radius: 32px;}
+.newsletter td:hover .controls{display: block;}
 
 
 // For the actual newsletter as well 

@@ -24,35 +24,21 @@
               = salutation_name(@newsletter) + ','
             = simple_format(@newsletter.salutation_post_text) unless @newsletter.salutation_post_text.blank?
   
-      - @newsletter.draft_entry_ids.each_slice(2) do |row| 
+      - @newsletter.draft_entry_objects.each_slice(2) do |row| 
         %tr
-          - row.each do |id|
+          - row.each do |e|
             %td.nl_entry
-              - e = SemiStatic::Entry.find_by_id(id)
-              - next if e.nil?
+              .controls
+                .swap{:title => 'Automatically swap the image for another in the entry'}
+                  = link_to '↔', semi_static.edit_newsletter_path(@newsletter, :swap_image => e.id), :remote => true
+                .add{:title => 'Add a new entry after this one'}
+                  = link_to '+', semi_static.edit_newsletter_path(@newsletter, :select_entry => e.id), :remote => true
               = link_to semi_static.entry_path(e) do
-                - if e.news_img.present?
-                  .img
-                    = image_tag(e.news_img.url)
-                - else
-                  .img
-                    -if e.img.present?
-                      = image_tag(e.img_url_for_theme(:panel))
-                    -else
-                      = image_tag('/assets/missing.jpg')
+                .img{:id => "entry_id_#{e.id}"}
+                  = render :partial => 'image', :locals => {:e => e}
               .nutWrap
                 .nutWrapInner
                   %h3{:style => "color: #{e.header_colour}"}= link_to e.title, SemiStatic::Engine.routes.url_helpers.entry_path(e)
-                  -# %h4{:style => "color: #{e.header_colour}"}= link_to e.sub_title, SemiStatic::Engine.routes.url_helpers.entry_path(e)
-
-
-
-
-    -#          = render :partial => 'semi_static/entries/entry', :locals => {:e => e}
-
-    -#        %fieldset.action.append
-    -#          %label= 'Insert entry'
-    -#          = select_tag 'append', options_for_select(SemiStatic::Entry.unmerged.collect{|e| [e.title, e.id]}.prepend(['- None -', nil])), :name => "entry[append][#{e.id.to_s}]"
     %table.newsletter{:style => 'width: 100%; border-top: 1px solid #c8c8c8; margin-top: 8px; background-color: #f8f8f8'}
       %tr.newsletter-footer
         %td
