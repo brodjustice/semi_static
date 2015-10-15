@@ -36,7 +36,24 @@
             = image_tag(@photo.img.url(:bar), :title => @photo.title, :size => '210x', :class => 'ri', :id => 'semi_static_image_for_upload')
           - else
             = image_tag('/assets/no-image-loaded.jpg', :title => 'No image', :class => 'ri', :id => 'semi_static_image_for_upload')
-        = f.file_field :img
+
+
+        .infobox#loaded_image
+          %h4 Currently loaded image
+          - if @photo.img.present?
+            The currently loaded mage is:
+            %ul
+              %li= @photo.img_file_name
+              %li= 'Type: ' + @photo.img_content_type
+              %li= link_to @photo.img.url, @photo.img.url
+              %li= 'Other versions:'
+              %ul
+                - Paperclip::AttachmentRegistry.definitions_for(SemiStatic::Photo)[:img][:styles].keys.each do |s|
+                  %li= link_to @photo.img.url(s), @photo.img.url(s)
+          - else
+            No image is currently loaded
+        %span.infomarker
+          = f.file_field :img
 
       .field.wide
         = f.label :description, 'Caption'

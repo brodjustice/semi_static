@@ -219,9 +219,14 @@
             The currently loaded mage is:
             %ul
               %li= @entry.img_file_name
-              %li= @entry.img_content_type
-              %li= @entry.img_dimensions[0].to_s + 'px x ' + @entry.img_dimensions[1].to_s + 'px'
+              %li= 'Type: ' + (@entry.img_content_type || '<unknown>')
+              - unless @entry.img_dimensions.blank?
+                %li= @entry.img_dimensions[0].to_s + 'px x ' + @entry.img_dimensions[1].to_s + 'px'
               %li= link_to @entry.img.url, @entry.img.url
+              %li= 'Other versions:'
+              %ul
+                - Paperclip::AttachmentRegistry.definitions_for(SemiStatic::Entry)[:img][:styles].keys.each do |s|
+                  %li= link_to @entry.img.url(s), @entry.img.url(s)
             = f.label :img_delete, 'Tick to delete this image on save'
             = f.check_box :img_delete
           - else
