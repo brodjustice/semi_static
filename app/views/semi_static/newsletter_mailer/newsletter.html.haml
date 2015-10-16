@@ -59,24 +59,23 @@
                 = salutation_name(@newsletter, @subscriber) + ','
               %p= @newsletter.salutation_post_text unless @newsletter.salutation_post_text.blank?
 
-        - @newsletter.draft_entry_objects.each do |e|
-          - entry = e
-          - loop do
-            %tr
-              %td{:colspan => 2, :style => 'font-family: Roboto-Regular,Helvetica,Arial,sans-serif;'}
-                %h1= e.title
-                - if e.img.present? && File.file?(e.img.path)
-                  %div{:style => 'margin: 0px 6px 6px 6px; float: right; position: relative; z-index: 1;'}
+        - @newsletter.draft_entry_objects.each_slice(2) do |row|
+          %tr
+            - row.each do |e|
+              %td{:style => 'font-family: Roboto-Regular,Helvetica,Arial,sans-serif;'}
+                = link_to semi_static.entry_path(e) do
+                  %h2= e.title
+                  - if @newsletter.draft_entry_ids[e.id][:img_url].present?
                     <img src="#{attachments[e.id.to_s + '.jpg'].url}"/>
-                = e.body.html_safe
-                - if e.doc.present? && File.file?(e.doc.path)
-                  %table{:style => 'width: 100%; margin-top: 8px; border-top: 1px solid #c8c8c8; background-color: #f0f0f0'}
-                    %tr
-                      %td
-                        = e.doc_description  
-                      %td{:style => 'font-family: Roboto-Regular,Helvetica,Arial,sans-serif; text-align: right;'}
-                        = link_to e.doc_file_name, attachments[e.doc_file_name].url, :style => 'color: #282828;'
-                - break if (e = e.next_merged_entry).nil?
+                  %h2= e.title
+                  -# TODO: Take the false out of here and find the error
+                  - if e.doc.present? && File.file?(e.doc.path) && false
+                    %table{:style => 'width: 100%; margin-top: 8px; border-top: 1px solid #c8c8c8; background-color: #f0f0f0'}
+                      %tr
+                        %td
+                          = e.doc_description  
+                        %td{:style => 'font-family: Roboto-Regular,Helvetica,Arial,sans-serif; text-align: right;'}
+                          = link_to e.doc_file_name, attachments[e.doc_file_name].url, :style => 'color: #282828;'
   </table>
   <table width="100%" border="0" cellspacing="0" cellpadding="0" dir="ltr" class="mobwidth" bgcolor="#f5f5f5">
   %tr

@@ -1,0 +1,15 @@
+.button= link_to_function 'Cancel', "$('#dialog').hide();"
+%h1= 'Please select an entry to insert into the newsletter'
+= form_for @newsletter, :insert_entry => true do |f|
+  = hidden_field_tag 'entry[id]', @entry.id
+  %label= 'Select entry to insert:'
+  %br/
+  = select_tag "entry[new_entry_id]", options_for_select(@entries.collect{|e| [entry_title_or_id(e), e.id]})
+  %br/
+  %br/
+  %label= 'Position:'
+  %br/
+  = select_tag "entry[position]", options_for_select([ "Before", "After" ], "After")
+  %br/
+  %br/
+  = submit_tag 'Insert'

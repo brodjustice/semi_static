@@ -89,15 +89,29 @@ module SemiStatic
       end
     end
 
-    def add_entry(position = nil)
-      return if position.nil?
-      if position[:prepend] && !position[:prepend].blank?
-        draft_entry_ids.unshift(position[:prepend].to_i)
-      end
-      position[:append] && position[:append].each{|k,v|
-        next if v.blank?
-        draft_entry_ids.insert(draft_entry_ids.index(k.to_i) + 1, v.to_i)
+    def add_entry(entry = nil)
+      return if entry.nil?
+
+      # Get new entry to be inserted
+      e = Entry.find_by_id(entry[:new_entry_id])
+
+      # Must now completely rebuild the hash in the correct order
+      e_ids = self.draft_entry_ids.deep_dup
+      self.draft_entry_ids = {}
+      e_ids.collect{|k,v|
+        if k == entry[:id].to_i
+          if entry[:position] == 'After'
+            draft_entry_ids[k] = v
+            draft_entry_ids[e.id] = {:img_url => get_best_img(e)}
+          else
+            draft_entry_ids[e.id] = {:img_url => get_best_img(e)}
+            draft_entry_ids[k] = v
+          end
+        else
+          draft_entry_ids[k] = v
+        end
       }
+      self.save
     end
 
     def published

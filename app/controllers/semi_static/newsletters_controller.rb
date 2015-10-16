@@ -39,14 +39,18 @@ module SemiStatic
       end
     end
   
-    templates = %w(sender_address salutation header swap_image)
-
     # GET /newsletters/1/edit
     def edit
       @newsletter = Newsletter.find(params[:id])
       template = 'edit'
+
+      # TODO: Big refactor required here
       if params[:position]
         @newsletter.order_entries_to_position 
+      elsif params[:select_entry]
+        template = 'select_entry'
+        @entry = Entry.find_by_id(params[:select_entry])
+        @entries = Entry.unscoped.order(:locale, :tag_id, :position)
       elsif params[:css]
         template = 'css'
       elsif params[:sender_address]
@@ -102,8 +106,8 @@ module SemiStatic
             @subscribers = Subscriber.where('locale = ?', @newsletter.locale)
             format.html { render action: "prepare" }
           elsif params[:email_draft].present?
-            NewsletterMailer.draft(semi_static_current_user, @newsletter).deliver && @newsletter.draft_sent
-            format.html { redirect_to newsletters_path, notice:  "Draft of Newsletter #{@newsletter.name} was sent to #{semi_static_current_user.email}" }
+            NewsletterMailer.draft(semi_static_admin?, @newsletter).deliver && @newsletter.draft_sent
+            format.html { redirect_to newsletters_path, notice:  "Draft of Newsletter #{@newsletter.name} was sent to #{semi_static_admin?.email}" }
           else
             format.html { render action: 'edit', notice: 'Newsletter was updated.' }
             format.json { head :no_content }

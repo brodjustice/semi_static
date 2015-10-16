@@ -2,13 +2,15 @@
 #newsletter-wrapper{ box-shadow: 0 0 1px #a0a0a0; max-width: 698px; margin: 0 auto;}
 #newsletter-wrapper tr td{ background-color: white;}
 #newsletter-wrapper tr td.nl_entry{ padding-bottom: 52px; vertical-align: bottom;}
-.newsletter .controls{position: absolute; top: 0px; display: none; width: 100%; background-color: #484848; color: white; font-size: 20px;}
-.newsletter .controls a{color: white; display: block;}
-.newsletter .controls a:hover{color: white; font-weight: bold;}
-.controls .swap, .controls .add{position: absolute; top: 0px; padding: 16px; background-color: black; color: white;}
+.newsletter .controls{position: absolute; top: 0px; display: none; width: 100%; background-color: white; color: #484848; font-size: 20px;}
+.newsletter .controls a{color: #484848; display: block;}
+.newsletter .controls a:hover{color: black;}
+.controls .swap, .controls .add{position: absolute; top: 0px; padding: 16px; background-color: white; color: #484848;}
+.controls > *{border: 1px solid #a8a8a8; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);}
 .controls .swap{left: 0px; border-bottom-right-radius: 32px;}
 .controls .add{right: 0px; border-bottom-left-radius: 32px;}
 .newsletter td:hover .controls{display: block;}
+.nl_entry.selected{border-color: grey;}
 
 
 // For the actual newsletter as well 
