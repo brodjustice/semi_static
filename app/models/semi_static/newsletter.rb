@@ -9,7 +9,7 @@ module SemiStatic
     # The order has meaning here, so ruby > 1.9 is reqired to preserve the order of the hash
     #
     # Valid keys are:
-    #  :img_url - the URL of the image to use for the nutshell in the newsletter
+    #  :img_url - the url to use for the nutshell image in the newsletter
     #
     serialize :draft_entry_ids, Hash
 
@@ -22,7 +22,7 @@ module SemiStatic
     validates :locale, :presence => true
 
     before_save :set_defaults
-    after_create :create_newsletter_tag
+    # after_create :create_newsletter_tag
 
     STATES = {
       :draft => 0x1,
@@ -39,9 +39,9 @@ module SemiStatic
 
     SALUTATION_CODES = SALUTATION_TYPES.invert
 
-    def create_newsletter_tag
-      self.tag = SemiStatic::Tag.create(:name => self.name, :menu => false, :icon_in_menu => false)
-    end
+    # def create_newsletter_tag
+    #   self.tag = SemiStatic::Tag.create(:name => self.name, :menu => false, :icon_in_menu => false)
+    # end
 
     def set_defaults
       self.state ||= STATES[:draft]
@@ -79,7 +79,7 @@ module SemiStatic
 
     def swap_entry_image(e_id)
       e = Entry.find_by_id(e_id)
-      urls = ([ e.news_img.present? ? e.news_img(:original) : nil, e.img.present? ? e.img(:panel) : nil ].concat( e.photos.collect{|p| p.img.url(:boxpanel)}).compact)
+      urls = ([ e.news_img.present? ? e.news_img.url(:original) : nil, e.img.present? ? e.img.url(:panel) : nil ].concat( e.photos.collect{|p| p.img.url(:boxpanel)}).compact)
       if urls.size < 2
         nil
       else

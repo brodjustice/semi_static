@@ -1,0 +1,368 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+  <title><%= @newsletter.name + ' ' + @newsletter.subtitle %></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+  <style type="text/css">
+    body { -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; }
+    img { -ms-interpolation-mode:bicubic; }
+    .ExternalClass * { line-height: 120%; }
+    .rwf { width:100% !important; }
+
+    @media only screen and (max-width: 640px) {
+      *[class~=rdn640] { display:none !important; }
+      *[class~=rha640] { height:auto !important; }
+    }
+
+    @media only screen and (max-width: 480px) {
+      *[class~=rdb480] { display:block !important; margin:0 !important; padding:0 !important; }
+      *[class~=rdn480] { display:none !important; }
+      *[class~=rwa480] { width:auto !important; }
+      *[class~=rwf480] { width:100% !important; }
+      *[class~=rha480] { height:auto !important; }
+      *[class~=rmn480] { max-width:none !important; min-width:none !important; }
+      *[class~=rma480] { margin:0 auto !important; }
+      *[class~=rbn480] { border:none !important; }
+      *[class~=rfll480] { float:left !important; }
+      *[class~=ral480] { text-align:left !important; }
+      *[class~=rac480] { text-align:left !important; }
+      *[class~=rfs12_480] { font-size:12px !important; }
+      *[class~=rfs11_480] { font-size:11px !important; }
+
+      *[class~=mBody] { margin-right:0 !important; margin-left:0 !important; padding:0 !important; }
+      *[class~=logo] img { width:170px !important; }
+      *[class~=hl1] td { padding-bottom:0 !important; font-size:13px !important; line-height:1.1em !important; }
+      *[class~=eAttExc] { width:72px !important; font-size:60px !important; }
+      *[class~=eAttExc] img { width:7px !important; }
+      *[class~=eAttHdl] { font-size:21px !important; }
+      *[class~=eAttTxt] { padding-top:2px !important; font-size:15px !important; }
+      *[class~=eRecText] { max-width:240px !important; padding:5px 20px 0 !important; }
+      *[class~=eRecProd] { padding:12px 20px 20px !important; }
+      *[class~=eRecProd] a { display:block !important; max-width:240px !important; }
+      *[class~=mRecNote] { margin-top:-12px !important; background-color:#f7f8f3 !important; }
+      *[class~=mSepArrowUp] { margin-top:20px; margin-bottom:9px; }
+      *[class~=mSepArrowUp] a { display:block !important; height:57px !important; }
+
+      *[class~=prod_1x3_td] { width:48% !important; max-width:183px !important; }
+      *[class~=prod_1x3_pure] { position:relative !important; }
+      *[class~=prod_1x3_pure_img_tr] { position:absolute !important; }
+      *[class~=prod_1x3_pure_img_tr] img { width:136px !important; }
+      *[class~=prod_1x3_pure_txt_tr] { display:block !important; }
+      *[class~=prod_1x3_pure_txt] { display:block !important; min-height:113px !important; padding-left:143px !important; padding-bottom:10px !important; }
+      *[class~=mProd_1x3_pure]>tbody>tr>td:last-child .prod_1x3_pure_txt { padding-bottom:0 !important; }
+      *[class~=prod_1x3_pure_txt] td { padding:26px 0 0 !important; }
+
+      *[class~=navGrp] td { width:33% !important; }
+      *[class~=eMagCover] { padding-bottom:16px !important; }
+      *[class~=prodHl] { padding:12px 10px 3px !important; }
+      *[class~=eProdTitle] { padding-top:4px !important; padding-bottom:3px !important; font-size:19px !important; }
+      *[class~=eBtnTitle]>table>tbody>tr>td { padding-top:5px !important; }
+      *[class~=eProdSubtitle] { padding-bottom:18px !important; }
+      *[class~=btn] a { display:block !important; padding:0 2px 2px !important; font-size:14px !important; }
+
+      *[class~=swap_a_img] img { display:none !important; }
+      *[class~=swap_a_img] a { display:block !important; width:100% !important; background-position:center top !important; background-repeat:no-repeat !important; background-size:cover !important; }
+      td[class~=swap_a_img_left_top] a { background-position:left top !important; }
+      td[class~=swap_a_img_right_top] a { background-position:right top !important; }
+    }
+    .ecxbtn a { line-height:2em !important; }
+  </style>
+
+  <!--[if gte mso 9]>
+    <style type="text/css">
+        body { background-color:#ffffff !important; }
+        .btn { height:30px !important; line-height:normal !important; }
+        .mProd_1x3 .btn { height:21px !important; }
+        .eMagTsr { line-height:100% !important; }
+        .eMagBtn { padding-top:3px !important; padding-bottom:4px !important; }
+    </style>
+    <![endif]-->
+
+    <!--[if gte mso 10]><xml>
+        <o:OfficeDocumentSettings>
+            <o:AllowPNG/>
+            <o:PixelsPerInch>96</o:PixelsPerInch>
+        </o:OfficeDocumentSettings>
+    </xml><![endif]-->
+</head>
+
+<body class="mBody" width="100%" style="font-family:Arial, Helvetica, sans-serif; font-size:13px; color:#333333; text-align:left;" bgcolor="#f7f8f3">
+  <!-- html wrapper -->
+  <table class="wrh" id="top" width="100%" cellpadding="0" cellspacing="0" bgcolor="#f7f8f3" style="font-family:Arial, Helvetica, sans-serif; font-size:13px; color:#333333; text-align:left;">
+    <tr>
+      <td>&nbsp;</td>
+      <!-- content wrapper -->
+      <td align="center" style="width:602px; max-width:602px;">
+        <!-- content -->
+        <table width="602" cellpadding="11" cellspacing="0" style="max-width:602px; width:100% !important; " bgcolor="#ffffff">
+          <tr>
+            <td class="bCont" align="center" style="padding-top:9px; font-size:1px">
+              <!-- header -->
+              <table class="mHead" width="100%" cellpadding="0" cellspacing="0" style="width:100% !important;">
+                <tr>
+                  <td class="logo" width="45%" align="left" valign="top">
+                    <a href="<%= @site_url %>" target="_blank" style="text-decoration:none;">
+                      <img class="rha640" src="<%= attachments['logo.jpg'].url %>" border="0" style="display:block; font-family:'Times New Roman', Times, serif; font-size:30px; color:#868474; text-transform:uppercase;" alt="<%= SemiStatic::Engine.config.site_name %>" title="<%= SemiStatic::Engine.config.site_name %>" />
+                    </a>
+                  </td>
+                  <td class="hl1" align="right" valign="bottom" style="padding-left:20px;">
+                    <table cellpadding="0" cellspacing="0" style="font-family:Arial, Helvetica, sans-serif; font-size:18px; color:#868474;">
+                      <tr>
+                        <td align="right" valign="bottom" style="padding-bottom:9px; text-transform:uppercase;">
+                          <h1 style="color:#0060aa" class="rdn480"><%= @newsletter.name %></h1>
+                          <h2><%= @newsletter.subtitle %></h2>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+              <!-- /header -->
+
+              <!-- separator -->
+              <table class="mSep " width="100%" cellpadding="0" cellspacing="0" style="">
+                <tr>
+                  <td height="15" align="center" style="font-size:2px; line-height:2px;">&nbsp;</td>
+                </tr>
+              </table>
+              <!-- /separator -->
+
+              <% if false %>
+              <!-- ONE COLUMN SUB HEADER -->
+              <!-- Wide image here -->
+              <table width="100%" class="mProd_1x1" cellpadding="0" cellspacing="0" style="width:100% !important;">
+                <tbody>
+                  <tr>
+                    <td class="eProdImg_1x1 swap_a_img swap_a_img_right_top" align="left"><a href="http://quantum-websites.com" target="_blank" style="height:293px; background-image:url(http://quantum-websites.com/hosted_image.jpg); background-position:-9999px -9999px; background-repeat:no-repeat; text-decoration:none;"><img src="http://quantum-websites.com/hosted_image.jpg" border="0" width="580" style="display:block; max-width:580px; width:100% !important;" title="Header title" alt="Header alt"></a></td>
+                  </tr>
+                </tbody>
+              </table>
+              <!-- /wide image -->
+              <% end %> 
+
+              <!-- title + button text -->
+              <table class="mFeat" width="100%" cellpadding="0" cellspacing="0" style="width:100% !important;">
+                <tbody>
+                  <tr>
+                    <td align="left" valign="top">
+                      <table width="100%" cellpadding="0" cellspacing="0" style="width:100% !important;">
+                        <tbody>
+                          <tr>
+			  <td class="eProdTitle" align="left" style="padding-top:3px; padding-bottom:1px; font-family:font-family:Arial, Helvetica, sans-serif; font-size:18px; line-height:1.1em; color:#6e6d5e;">
+                            <p><%= [@newsletter.salutation_pre_text, salutation_name(@newsletter, @subscriber), ','].join(' ') %></p>
+                            <% unless @newsletter.salutation_post_text.blank? %>
+                              <%= simple_format(@newsletter.salutation_post_text) %>
+                            <% end %>
+                          </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <!-- /title + button text -->
+
+              <!-- separator -->
+              <!-- SEPARATOR -->
+              <table class="mSep rdn480" width="100%" cellpadding="0" cellspacing="0">
+                <tbody><tr>
+                  <td height="15" align="center" style="font-size:2px; line-height:2px;">&nbsp;</td>
+                </tr>
+              </tbody></table>
+              <!-- /SEPARATOR -->
+              <!-- /separator -->
+
+              <!-- Newsletter entries: 1x2 -->
+              <% @newsletter.draft_entry_objects.each_slice(2) do |row| %>
+              <% e = row.first %>
+              <table class="mProd_1x2" width="100%" cellpadding="0" cellspacing="0" style="width:100% !important;">
+                <tbody><tr>
+                  <td class="eProd_1x2_box rdb480 rwa480 rma480" width="48%" align="left" valign="top">
+                    <table class="eProd_1x2 rwf480" width="100%" cellpadding="0" cellspacing="0">
+                      <tbody><tr>
+                        <td class="eProdImg_1x2 rwa480" align="left" valign="bottom"><a href="<%= entry_url(e) %>" target="_blank" style="text-decoration:none;"><img class="rwf480 rmn480" src="<%= attachments[e.id.to_s + '.jpg'].url %>" width="280" border="0" style="display:block; max-width:280px; width:100% !important;" title="<%= e.title %>" alt="<%= e.title %>"></a></td>
+                      </tr>
+                      <tr>
+                        <td class="rwa480" align="center" style="padding-bottom: 4px; margin-bottom: 12px; border-bottom: 1px solid #a0a0a0;">
+                          <!-- title + button arrow -->
+                          <table width="100%" cellpadding="0" cellspacing="0">
+                            <tbody><tr>
+                              <td align="left" valign="top">
+                                <table width="100%" cellpadding="0" cellspacing="0">
+                                  <tbody><tr>
+                                    <td class="eProdTitle" align="left" style="padding-top:3px; padding-bottom:1px; font-family:Arial, Helvetica, sans-serif; font-size:18px; line-height:1.1em;"><a href="<%= entry_url(e) %>" target="_blank" style="display:block; color:#666454; text-decoration:none;"><%= e.title %></a></td>
+                                  </tr>
+                                  <tr>
+                                    <td class="eProdSubtitle" align="left" style="font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:1.1em;"><a href="<%= entry_url(e) %>" target="_blank" style="display:block; color:#aead9e; text-decoration:none;"><%= e.sub_title %></a></td>
+                                  </tr>
+                                </tbody></table>
+                              </td>
+                              <td class="eBtnTitle" align="right" valign="top">
+                                <table class="rflr480" cellpadding="0" cellspacing="0">
+                                  <tbody><tr>
+                                    <td style="padding-top:6px; padding-left:14px;">
+                                      <table class="rflr480" cellpadding="0" cellspacing="0">
+                                        <tbody><tr>
+                                          <td class="btn btnArrow" align="left" style="border-radius:4px; line-height:2em; font-family:'Average Sans', Arial, Helvetica, sans-serif; font-size:14px; color:#ffffff; text-transform:uppercase;" bgcolor="#0060aa"><a href="<%= entry_url(e) %>" target="_blank" style="display:block; color:#ffffff; text-decoration:none; white-space:nowrap;">&nbsp;&nbsp;&nbsp;<span style="font-family: 'Comic Sans MS', Marker Felt, Arial, Helvetica, sans-serif; font-size:16px;">&gt;</span>&nbsp;&nbsp;&nbsp;</a></td>
+                                        </tr>
+                                      </tbody></table>
+                                    </td>
+                                  </tr>
+                                </tbody></table>
+                              </td>
+                            </tr>
+                          </tbody></table>
+                          <!-- /title + button arrow -->
+                        </td>
+                      </tr>
+                    </tbody></table>
+                  </td>
+
+                  <td class="eProd_1x2_div rdn480" width="9" style="min-width:9px; max-width:9px; font-size:2px; border-right:1px solid #f7f8f4;">&nbsp;</td>
+                  <td class="eProd_1x2_div rdn480" width="9" style="min-width:9px; max-width:9px; font-size:2px; border-left:1px solid #f7f8f4;">&nbsp;</td>
+
+                  <% e = row.last %>
+                  <td class="eProd_1x2_box rdb480 rwa480 rma480" width="48%" align="right" valign="top">
+                    <table class="eProd_1x2 rwf480" width="100%" cellpadding="0" cellspacing="0">
+                      <tbody><tr>
+                        <td class="eProdImg_1x2 rwa480" align="left" valign="bottom"><a href="<%= entry_url(e) %>" target="_blank" style="text-decoration:none;"><img class="rwf480 rmn480" src="<%= attachments[e.id.to_s + '.jpg'].url %>" width="280" border="0" style="display:block; max-width:280px; width:100% !important;" title="<%= e.title %>" alt="<%= e.title %>"></a></td>
+                      </tr>
+                      <tr>
+                        <td class="rwa480" align="center"  style="padding-bottom: 4px; margin-bottom: 12px; border-bottom: 1px solid #a0a0a0;">
+                          <!-- title + button arrow -->
+                          <table width="100%" cellpadding="0" cellspacing="0">
+                            <tbody><tr>
+                              <td align="left" valign="top" style="border-bottom: 1px; border-color: #f4f4f4;">
+                                <table width="100%" cellpadding="0" cellspacing="0">
+                                  <tbody><tr>
+                                    <td class="eProdTitle" align="left" style="padding-top:3px; padding-bottom:1px;  font-family:Arial, Helvetica, sans-serif; font-size:18px; line-height:1.1em;"><a href="<%= attachments[e.id.to_s + '.jpg'].url %>" target="_blank" style="display:block; color:#666454; text-decoration:none;"><%= e.title %></a></td>
+                                  </tr>
+                                  <tr>
+                                    <td class="eProdSubtitle" align="left" style="font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:1.1em;"><a href="<%= attachments[e.id.to_s + '.jpg'].url %>" target="_blank" style="display:block; color:#aead9e; text-decoration:none;"><%= e.sub_title %></a></td>
+                                  </tr>
+                                </tbody></table>
+                              </td>
+                              <td class="eBtnTitle" align="right" valign="top">
+                                <table class="rflr480" cellpadding="0" cellspacing="0">
+                                  <tbody><tr>
+                                    <td style="padding-top:6px; padding-left:14px;">
+                                      <table class="rflr480" cellpadding="0" cellspacing="0">
+                                        <tbody><tr>
+                                          <td class="btn btnArrow" align="left" style="border-radius:4px; line-height:2em; font-family:'Average Sans', Arial, Helvetica, sans-serif; font-size:14px; color:#ffffff; text-transform:uppercase;" bgcolor="#0060aa"><a href="<%= attachments[e.id.to_s + '.jpg'].url %>" target="_blank" style="display:block; color:#ffffff; text-decoration:none; white-space:nowrap;">&nbsp;&nbsp;&nbsp;<span style="font-family: 'Comic Sans MS', Marker Felt, Arial, Helvetica, sans-serif; font-size:16px;">&gt;</span>&nbsp;&nbsp;&nbsp;</a></td>
+                                        </tr>
+                                      </tbody></table>
+                                    </td>
+                                  </tr>
+                                </tbody></table>
+                              </td>
+                            </tr>
+                          </tbody></table>
+                          <!-- /title + button arrow -->
+                        </td>
+                      </tr>
+                    </tbody></table>
+                  </td>
+                </tr>
+              </tbody></table>
+              <!-- /products: 1x2 -->
+
+              <!-- separator -->
+              <!-- SEPARATOR -->
+              <table class="mSep rdn480" width="100%" cellpadding="0" cellspacing="0">
+                <tbody><tr>
+                  <td height="25" align="center" style="font-size:2px; line-height:2px;">&nbsp;</td>
+                </tr>
+              </tbody></table>
+              <!-- /SEPARATOR -->
+              <!-- /separator -->
+              <% end %>
+
+              <!-- SEPARATOR standard -->
+              <table class="mSep" width="100%" cellpadding="0" cellspacing="0">
+                <tbody><tr>
+                  <td height="18" align="center" style="font-size:2px; line-height:2px;">&nbsp;</td>
+                </tr>
+              </tbody></table>
+              <!-- /SEPARATOR standard -->
+
+            </td>
+          </tr>
+        </table>
+        <!-- /content -->
+
+        <!-- separator -->
+        <table class="mSep mSepBelowLogo" width="100%" cellpadding="0" cellspacing="0" style="width:100% !important;">
+          <tr>
+            <td height="15" align="center" style="font-size:2px; line-height:2px;">&nbsp;</td>
+          </tr>
+        </table>
+        <!-- /separator -->
+
+      </td>
+      <!-- /content wrapper -->
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <!-- footer -->
+      <td align="center" style="width:602px; max-width:602px; padding-top:4px; padding-bottom:15;">
+  
+      <!-- navigation -->
+      <table class="mNav" width="100%" cellpadding="0" cellspacing="0" style="width:100% !important;">
+        <tr>
+          <td class="rdb480" align="center" valign="bottom">
+            <table class="navGrp rfs12_480 rfs11_480" width="100%" cellpadding="0" cellspacing="10" style="font-family:Muli, Arial, Helvetica, sans-serif; font-size:11px; color:#868474; white-space:nowrap;">
+              <tr>
+                <% SemiStatic::Tag.menu.locale(I18n.locale.to_s)[0..2].each do |t| %>
+                <td width="15%" align="center" valign="bottom" style="border-bottom:1px solid #b1b1a4; padding-bottom:3px;"><a target="_blank" href="<%= menu_from_tag(t) %>" style="color:#868474; text-transform:uppercase; text-decoration:none;"><%= t.name %></a></td>
+                <% end %>
+              </tr>
+            </table>
+          </td>
+          <td class="rdb480" align="center" valign="bottom">
+            <table class="navGrp rfs12_480 rfs11_480" width="100%" cellpadding="0" cellspacing="10" style="font-family:Muli, Arial, Helvetica, sans-serif; font-size:11px; color:#868474; white-space:nowrap;">
+              <tr>
+                <% SemiStatic::Tag.menu.locale(I18n.locale.to_s)[3..4].each do |t| %>
+                <td width="15%" align="center" valign="bottom" style="border-bottom:1px solid #b1b1a4; padding-bottom:3px;"><a target="_blank" href="<%= menu_from_tag(t) %>" style="color:#868474; text-transform:uppercase; text-decoration:none;"><%= t.name %></a></td>
+                <% end %>
+                <td width="15%" align="center" valign="bottom" style="border-bottom:1px solid #b1b1a4; padding-bottom:3px;"><a target="_blank" href="<%= new_contact_path %>" style="color:#868474; text-transform:uppercase; text-decoration:none;">Contact</a></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <!-- /navigation -->
+  
+      <!-- subscribe  -->
+      <table class="mInfo rfs12_480" width="100%" cellpadding="10" cellspacing="0" style="font-family:Arial, Helvetica, sans-serif; font-size:11px; color:#868474;">
+        <tr>
+          <td style="font-family: Arial; font-size: 11px; color:#868474; line-height: 17px; text-align: center;" class="txtCenter font12px lh15">
+              <a href="<%= edit_subscriber_path(@subscriber, :token => @subscriber.cancel_token, :only_path => false) %>" target="_blank" style="font-family: Arial; font-size: 11px; color:#868474; line-height: 17px; text-decoration: underline;" class="font12px lh15">Click here to unsubscribe from the this Newsletter</a>
+          </td>
+        </tr>
+        <tr>
+          <td style="font-family: Arial; font-size: 11px; color:#868474; line-height: 17px; text-align: left;" class="txtCenter font12px lh15">
+          </td>
+        </tr>
+      </table>
+      <!-- /unsubscribe -->
+  
+      <!-- Imprint -->
+      <table class="mLegalTxt rfs12_480" width="100%" cellpadding="10" cellspacing="0" style="font-family:Arial, Helvetica, sans-serif; font-size:11px; color:#868474;">
+        <tr>
+          <td align="center" style="padding-top:5px;">
+            <a href="<%= site_path('imprint-credits') %>" target="_blank" style="text-decoration:none; color:#868474">&copy;<%= SemiStatic::Engine.config.copyright_year + ' ' + SemiStatic::Engine.config.copyright_owner %></a>
+          </td>
+        </tr>
+      </table>
+      <!-- /imprint -->
+    </td>
+    <!-- /footer -->
+    <td>&nbsp;</td>
+    </tr>
+  </table>
+  <!-- /html wrapper -->
+</body>
+</html>

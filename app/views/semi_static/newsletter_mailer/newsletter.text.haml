@@ -12,17 +12,14 @@
   = @newsletter.salutation_post_text unless @newsletter.salutation_post_text.blank?
 
 - @newsletter.draft_entry_objects.each do |e|
-  - entry = e
-  - loop do
-    = e.title
-    = '-------------------------------------------------------------------------------------'
-    = ActionController::Base.helpers.strip_tags(e.body.gsub(/<p>|<br>|<b\\>/, "\r\n"))
-    = "\r\n"
-    = "\r\n"
-    - break if (e = e.next_merged_entry).nil?
+  = e.title
+  = "\r\n"
+  = e.sub_title unless e.sub_title.blank?
+  = "\r\n"
+  = entry_path(e)
 = "\r\n"
 = "\r\n"
 = '-------------------------------------------------------------------------------------'
 - if @subscriber
-  To unsibscribe to this newsletter please click on the following url or copy it into your browser:
+  To unsubscribe to this newsletter please click on the following url or copy it into your browser:
   = edit_subscriber_path(@subscriber, :token => @subscriber.cancel_token, :only_path => false)

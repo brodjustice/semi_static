@@ -32,6 +32,10 @@ module SemiStatic
       PREDEFINED.merge(Hash[SemiStatic::Engine.config.predefined.map{|k, v| [k, Rails.application.routes.url_helpers.send(*v)]}])
     end
 
+    def menu_from_tag(t)
+      t.predefined_class.blank? ? semi_static.feature_path(t.slug) : "#{predefined_tags[t.predefined_class]}?tag_id=#{t.id}"
+    end
+
     def hreflang_tags
       c = ''
       if SemiStatic::Engine.config.localeDomains.count > 1
