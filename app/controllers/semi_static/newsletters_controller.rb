@@ -55,6 +55,11 @@ module SemiStatic
         template = 'css'
       elsif params[:sender_address]
         template = 'sender_address'
+      elsif params[:newsletter_img]
+        template = 'newsletter_img'
+        @entry = Entry.find_by_id(params[:newsletter_img])
+      elsif params[:newsletter_img_updated]
+        @newsletter.use_newsletter_img(params[:newsletter_img_updated])
       elsif params[:salutation]
         template = 'salutation'
       elsif params[:swap_image]
@@ -94,7 +99,7 @@ module SemiStatic
     def update
       @newsletter = Newsletter.find(params[:id])
       @newsletter.add_entry(params[:entry])
-  
+
       respond_to do |format|
         if @newsletter.update_attributes(params[:newsletter])
           if params[:publish].present?
@@ -102,6 +107,8 @@ module SemiStatic
             @newsletter.published
             @delivery = @newsletter.newsletter_deliveries.pending.first
             format.html { render action: "sending" }
+          elsif params[:insert_newsletter_img].present?
+            @entry = Entry.find_by_id(params[:entry_id])
           elsif params[:prepare].present?
             @subscribers = Subscriber.where('locale = ?', @newsletter.locale)
             format.html { render action: "prepare" }

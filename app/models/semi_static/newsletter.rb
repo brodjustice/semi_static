@@ -61,6 +61,12 @@ module SemiStatic
       titles
     end
 
+    def use_newsletter_img(e_id)
+      e = Entry.find_by_id(e_id)
+      draft_entry_ids[e_id.to_i][:img_url] = e.newsletter_img(:crop)
+      self.save
+    end
+
     def draft_entry_objects
       entries = []
       draft_entry_ids.each{|e, v|
@@ -83,7 +89,7 @@ module SemiStatic
       if urls.size < 2
         nil
       else
-        i = urls.index(self.draft_entry_ids[e_id][:img_url])
+        i = urls.index(self.draft_entry_ids[e_id][:img_url]) || 0
         self.draft_entry_ids[e_id][:img_url] = urls[i + 1]
         self.save
       end

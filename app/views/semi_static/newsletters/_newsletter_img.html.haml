@@ -1,0 +1,9 @@
+.button= link_to_function 'Cancel', "$('#dialog').hide();"
+%h1= 'Upload a new image for this newsletter entry'
+= form_for(@entry) do |f|
+  = hidden_field_tag :redirect_to, edit_newsletter_path(@newsletter, :newsletter_img_updated => @entry.id.to_s)
+  = f.label :newsletter_img, 'Image for newsletter (optional)'
+  = f.file_field :newsletter_img
+  %br/
+  %br/
+  = f.submit 'Upload'

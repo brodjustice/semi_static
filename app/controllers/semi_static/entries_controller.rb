@@ -128,14 +128,19 @@
     # PUT /entries/1.json
     def update
       @entry = Entry.find(params[:id])
-
       respond_to do |format|
         if params[:preview] && (@entry.attributes = params[:entry])
           format.js { render 'preview'}
         elsif params[:convert] && (@entry.attributes = params[:entry])
           format.js { render 'convert'}
         elsif @entry.update_attributes(params[:entry])
-          format.html { redirect_to entries_path(:anchor => "entry_id_#{@entry.id}") }
+          format.html {
+            if params[:redirect_to].present?
+              redirect_to params[:redirect_to]
+            else
+              redirect_to entries_path(:anchor => "entry_id_#{@entry.id}")
+            end
+          }
           format.js
         else
           format.html { render :action => "edit" }

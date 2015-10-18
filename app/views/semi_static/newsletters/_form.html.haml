@@ -31,16 +31,21 @@
               .controls
                 .swap{:title => 'Automatically swap the image for another in the entry'}
                   = link_to '↔', semi_static.edit_newsletter_path(@newsletter, :swap_image => e.id), :remote => true
+                .new{:title => 'Upload a new newsletter image'}
+                  = link_to '□', semi_static.edit_newsletter_path(@newsletter, :newsletter_img => e.id), :remote => true
                 .add{:title => 'Add a new entry after this one'}
                   = link_to '+', semi_static.edit_newsletter_path(@newsletter, :select_entry => e.id), :remote => true
-              = link_to semi_static.entry_path(e) do
+              = link_to semi_static.edit_entry_path(e) do
                 .img{:id => "entry_id_#{e.id}"}
                   = render :partial => 'image', :locals => {:e => e}
+        %tr
+          - row.each do |e|
+            %td.titles
               .nutWrap
                 .nutWrapInner
-                  %h3= link_to e.title, SemiStatic::Engine.routes.url_helpers.entry_path(e)
+                  %h3= link_to e.title, semi_static.edit_entry_path(e)
                   - unless e.sub_title.blank?
-                    %h4= link_to e.sub_title, SemiStatic::Engine.routes.url_helpers.entry_path(e)
+                    %h4= link_to e.sub_title, semi_static.edit_entry_path(e)
     %table.newsletter{:style => 'width: 100%; border-top: 1px solid #c8c8c8; margin-top: 8px; background-color: #f8f8f8'}
       %tr.newsletter-footer
         %td
