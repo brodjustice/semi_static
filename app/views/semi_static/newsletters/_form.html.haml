@@ -38,7 +38,9 @@
                   = render :partial => 'image', :locals => {:e => e}
               .nutWrap
                 .nutWrapInner
-                  %h3{:style => "color: #{e.header_colour}"}= link_to e.title, SemiStatic::Engine.routes.url_helpers.entry_path(e)
+                  %h3= link_to e.title, SemiStatic::Engine.routes.url_helpers.entry_path(e)
+                  - unless e.sub_title.blank?
+                    %h4= link_to e.sub_title, SemiStatic::Engine.routes.url_helpers.entry_path(e)
     %table.newsletter{:style => 'width: 100%; border-top: 1px solid #c8c8c8; margin-top: 8px; background-color: #f8f8f8'}
       %tr.newsletter-footer
         %td

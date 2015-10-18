@@ -79,7 +79,7 @@ module SemiStatic
 
     def swap_entry_image(e_id)
       e = Entry.find_by_id(e_id)
-      urls = ([ e.news_img.present? ? e.news_img.url(:original) : nil, e.img.present? ? e.img.url(:panel) : nil ].concat( e.photos.collect{|p| p.img.url(:boxpanel)}).compact)
+      urls = ([ e.newsletter_img.present? ? e.newsletter_img(:crop) : nil, e.news_img.present? ? e.news_img.url(:original) : nil, e.img.present? ? e.img.url(:panel) : nil ].concat( e.photos.collect{|p| p.img.url(:boxpanel)}).compact)
       if urls.size < 2
         nil
       else
@@ -206,7 +206,9 @@ module SemiStatic
     private
 
     def get_best_img(e)
-      if e.news_img.present?
+      if e.newsletter_img.present?
+        e.newsletter_img.url(:crop)
+      elsif e.news_img.present?
         e.news_img.url(:original)
       elsif e.img.present?
         e.img.url(:panel)

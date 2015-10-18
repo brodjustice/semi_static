@@ -1,3 +1,7 @@
+- content_for :header_css do
+  :plain
+    #entry_sidebar_id{max-width: 286px;}
+
 - content_for :ujs do
   <script src="//cdn.ckeditor.com/4.5.4/standard/ckeditor.js"></script>
   :javascript
@@ -353,6 +357,17 @@
               = f.label :side_bar_gallery, 'Number of gallery images to show'
               %br/
               = f.text_field :side_bar_gallery, :size => 10
+        %h2 Newletter
+        %fieldset
+          .infobox#newsletter_img
+            %h4= 'Newsletter image (optional)'
+            - if @entry.newsletter_img.present?
+              = image_tag(@entry.newsletter_img(:crop))
+            %p
+              = 'If you add a image here it will be used inside any newletter generated with this entry'
+          %span.infomarker
+          = f.label :newsletter_img, 'Image for newsletter (optional)'
+          = f.file_field :newsletter_img
         %h2 Gallery Images
         %fieldset
           = f.label :show_image_titles, 'Show titles on images that are inside the "main" entry'

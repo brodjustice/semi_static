@@ -1,5 +1,5 @@
 // These just to make it clearer on editing view
-#newsletter-wrapper{ box-shadow: 0 0 1px #a0a0a0; max-width: 698px; margin: 0 auto;}
+#newsletter-wrapper{ box-shadow: 0 0 1px #a0a0a0; max-width: 606px; margin: 0 auto;}
 #newsletter-wrapper tr td{ background-color: white;}
 #newsletter-wrapper tr td.nl_entry{ padding-bottom: 52px; vertical-align: bottom;}
 .newsletter .controls{position: absolute; top: 0px; display: none; width: 100%; background-color: white; color: #484848; font-size: 20px;}
@@ -13,20 +13,18 @@
 .nl_entry.selected{border-color: grey;}
 
 
-// For the actual newsletter as well 
 .nutWrap{width: 100%; position: absolute; bottom: 0px;}
-// .nutWrap{width: 100%; position: relative; bottom: 0px;}
-.nutWrap a{color: white !important;}
 .newsletter .img{text-align: center;}
 .newsletter .img img{max-width: 100%; max-height: 324px;}
 table.newsletter{table-layout: fixed; position:relative; border-collapse: separate;}
 .newsletter td{width: 50%; position: relative; padding: 0px; border: 10px solid white;}
-// .newsletter td{width: 50%; position: relative; padding: 0px; border: 10px solid #e0e0e0;}
 .nl_entry{position: relative;}
 td h1, td h2{text-align: right;}
-td h3, td h4{margin: 0 12px; padding: 3px 6px;}
-td h3{min-height: 24px;}
-.nutWrapInner{min-height: 56px; padding: 0; background-color: rgb(1,107,167); border-top: 1px solid #a8a8a8; position: relative;}
+td h3, td h4{margin: 0 12px; padding: 0px;}
+td h3, td h4{margin: 0px;}
+td h3 a{color: #666454; font-size: 18px;}
+td h4 a{color: #aead9e !important; font-size: 13px;}
+.nutWrapInner{min-height: 56px; padding: 0 0 4px 0; background-color: white; border-bottom: 1px solid #a0a0a0; position: relative;}
 
 .newsletter{
   position: relative;
