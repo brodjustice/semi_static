@@ -2,7 +2,8 @@ require "haml"
 
 module SemiStatic
   class Newsletter < ActiveRecord::Base
-    attr_accessible :name, :state, :locale, :subtitle, :salutation, :salutation_type, :salutation_pre_text, :salutation_post_text, :css, :sender_address
+    attr_accessible :name, :state, :locale, :subtitle, :salutation, :salutation_type, :salutation_pre_text, :salutation_post_text, :css
+    attr_accessible :sender_address, :max_image_attachments
 
     # This is a serialized hash, for example:
     # {12 => {}, 39 => {:img_url => './system/image-x.jpg'}, 199 => {}}

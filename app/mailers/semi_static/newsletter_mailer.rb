@@ -34,7 +34,11 @@ module SemiStatic
       @site_url = SemiStatic::Engine.config.hosts_for_locales.invert[@locale]
       @from = @newsletter.sender_address || SemiStatic::Engine.config.info_email
 
-      attachments.inline['logo.jpg'] = File.read("#{Rails.root}/app/assets/images/#{SemiStatic::Engine.config.logo_image.split('/').last}")
+      if SemiStatic::Engine.config.try('newsletter_logo')
+        attachments.inline['logo.jpg'] = File.read("#{Rails.root}/app/assets/images/#{SemiStatic::Engine.config.newsletter_logo.split('/').last}")
+      else
+        attachments.inline['logo.jpg'] = File.read("#{Rails.root}/app/assets/images/#{SemiStatic::Engine.config.logo_image.split('/').last}")
+      end
       @newsletter.draft_entry_objects.each{|e|
         if @newsletter.draft_entry_ids[e.id][:img_url].present?
           img_file_path = "#{Rails.root}/public/#{URI.decode(@newsletter.draft_entry_ids[e.id][:img_url]).split('?').first}"

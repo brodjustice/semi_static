@@ -14,7 +14,7 @@ module SemiStatic
     # The site name will be used in the webpage title, open graph meta tags, etc. but also for the elasticsearch indexing
     config.site_name = 'Business Landing Ltd'
 
-    # Correct logo path is important for the Open Graph meta tags and newsletters
+    # Correct logo path is important for the Open Graph meta tags
     # config.logo_image = '/assets/logo.png'
     config.logo_image = nil
 
@@ -133,5 +133,10 @@ module SemiStatic
     # IMPORTANT: Do not use symbols for your locale, eg. use 'en' not :en
     # config.tag_paths = { 'en' => 'features', 'de' => 'merkmale' }
     config.tag_paths = { 'en' => 'features', 'de' => 'merkmale', 'es' => 'caracteristicas', 'it' => 'caratteristiche', 'fr' => 'caracteristiques' }
+
+    # If a newsletter logo is given, this will be used instead of the normal website or meta tags logo,
+    # this helps if you wnat to have a very compressed lightweight logo for you newsletters or just
+    # perhaps a different background
+    # config.newsletter_logo = '/assets/logo.jpg'
   end
 end

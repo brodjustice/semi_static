@@ -12,7 +12,7 @@
     %table.newsletter
       %tr
         %td
-          #newsletter-logo= image_tag(SemiStatic::Engine.config.logo_image)
+          #newsletter-logo= image_tag(SemiStatic::Engine.config.newsletter_logo || SemiStatic::Engine.config.logo_image)
         %td
           %h1= @newsletter.name
           %h2= @newsletter.subtitle

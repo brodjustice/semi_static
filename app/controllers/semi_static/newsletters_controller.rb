@@ -53,6 +53,8 @@ module SemiStatic
         @entries = Entry.unscoped.order(:locale, :tag_id, :position)
       elsif params[:css]
         template = 'css'
+      elsif params[:max_image_attachments]
+        template = 'max_image_attachments'
       elsif params[:sender_address]
         template = 'sender_address'
       elsif params[:newsletter_img]
@@ -117,6 +119,7 @@ module SemiStatic
             format.html { redirect_to newsletters_path, notice:  "Draft of Newsletter #{@newsletter.name} was sent to #{semi_static_admin?.email}" }
           else
             format.html { render action: 'edit', notice: 'Newsletter was updated.' }
+            format.js { render :template => 'semi_static/newsletters/close_dialog' }
             format.json { head :no_content }
           end
         else

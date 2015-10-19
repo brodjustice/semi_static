@@ -6,6 +6,8 @@
   .button
     = link_to 'Salutation', edit_newsletter_path(@newsletter, :salutation => true), :remote => true
   .button
+    = link_to 'Image limit', edit_newsletter_path(@newsletter, :max_image_attachments => :true), :remote => true
+  .button
     = link_to 'Order to position', edit_newsletter_path(@newsletter, :position => :entries_to_position)
   -# .button
   -#   = link_to 'Add CSS', edit_newsletter_path(@newsletter, :css => :true), :remote => true

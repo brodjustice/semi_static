@@ -75,7 +75,7 @@ module SemiStatic
     validates_attachment_content_type :doc, :content_type => ['image/jpeg', 'image/png', 'image/gif', 'application/pdf']
 
     has_attached_file :news_img, :styles => {:bar => "304x>"}, :convert_options => { :bar => "-strip -gravity Center -quality 80"}
-    has_attached_file :newsletter_img, :styles => {:crop => "280x280#"}, :convert_options => { :bar => "-strip -gravity Center -quality 70"}
+    has_attached_file :newsletter_img, :styles => {:crop => "280x280#"}, :convert_options => { :crop => "-strip -gravity Center -quality 50"}
 
     DIRTY_TAGS= %w(style table tr td th span br em b i u ul ol li a div p img hr h1 h2 h3 h4 h5 h6 iframe)
     DIRTY_ATTRIBUTES= %w(title href class style id align src alt height width max-width frameborder allowfullscreen)

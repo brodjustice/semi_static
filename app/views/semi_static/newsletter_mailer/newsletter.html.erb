@@ -87,6 +87,8 @@
     </xml><![endif]-->
 </head>
 
+<%- max_images = @newsletter.max_image_attachments + 1 %>
+
 <body class="mBody" width="100%" style="font-family:Arial, Helvetica, sans-serif; font-size:13px; color:#333333; text-align:left;" bgcolor="#f7f8f3">
   <!-- html wrapper -->
   <table class="wrh" id="top" width="100%" cellpadding="0" cellspacing="0" bgcolor="#f7f8f3" style="font-family:Arial, Helvetica, sans-serif; font-size:13px; color:#333333; text-align:left;">
@@ -177,12 +179,18 @@
               <!-- Newsletter entries: 1x2 -->
               <% @newsletter.draft_entry_objects.each_slice(2) do |row| %>
               <% e = row.first %>
+              <% left_entry = e %>
               <table class="mProd_1x2" width="100%" cellpadding="0" cellspacing="0" style="width:100% !important;">
                 <tbody><tr>
+                  <% max_images = max_images -1 %>
                   <td class="eProd_1x2_box rdb480 rwa480 rma480" width="48%" align="left" valign="top">
                     <table class="eProd_1x2 rwf480" width="100%" cellpadding="0" cellspacing="0">
                       <tbody><tr>
-                        <td class="eProdImg_1x2 rwa480" align="left" valign="bottom"><a href="<%= entry_url(e) %>" target="_blank" style="text-decoration:none;"><img class="rwf480 rmn480" src="<%= attachments[e.id.to_s + '.jpg'].url %>" width="280" border="0" style="display:block; max-width:280px; width:100% !important;" title="<%= e.title %>" alt="<%= e.title %>"></a></td>
+                        <% if max_images > 0 %>
+                          <td class="eProdImg_1x2 rwa480" align="left" valign="bottom"><a href="<%= entry_url(e) %>" target="_blank" style="text-decoration:none;"><img class="rwf480 rmn480" src="<%= attachments[e.id.to_s + '.jpg'].url %>" width="280" border="0" style="display:block; max-width:280px; width:100% !important;" title="<%= e.title %>" alt="<%= e.title %>"></a></td>
+                        <% else %>
+                          <td class="eProdImg_1x2 rwa480" align="left" valign="bottom"><a href="<%= entry_url(e) %>" target="_blank" style="text-decoration:none;"><img class="rwf480 rmn480" src="<%= 'http://' + @site_url + @newsletter.draft_entry_ids[e.id][:img_url] %>" width="280" border="0" style="display:block; max-width:280px; width:100% !important;" title="<%= e.title %>" alt="<%= e.title %>"></a></td>
+                        <% end %>
                       </tr>
                       <tr>
                         <td class="rwa480" align="center" style="padding-bottom: 4px; margin-bottom: 12px; border-bottom: 1px solid #a0a0a0;">
@@ -224,10 +232,16 @@
                   <td class="eProd_1x2_div rdn480" width="9" style="min-width:9px; max-width:9px; font-size:2px; border-left:1px solid #f7f8f4;">&nbsp;</td>
 
                   <% e = row.last %>
+                  <% max_images = max_images - 1 %>
                   <td class="eProd_1x2_box rdb480 rwa480 rma480" width="48%" align="right" valign="top">
+                    <%- unless e == left_entry %>
                     <table class="eProd_1x2 rwf480" width="100%" cellpadding="0" cellspacing="0">
                       <tbody><tr>
-                        <td class="eProdImg_1x2 rwa480" align="left" valign="bottom"><a href="<%= entry_url(e) %>" target="_blank" style="text-decoration:none;"><img class="rwf480 rmn480" src="<%= attachments[e.id.to_s + '.jpg'].url %>" width="280" border="0" style="display:block; max-width:280px; width:100% !important;" title="<%= e.title %>" alt="<%= e.title %>"></a></td>
+                        <% if max_images > 0 %>
+                          <td class="eProdImg_1x2 rwa480" align="left" valign="bottom"><a href="<%= entry_url(e) %>" target="_blank" style="text-decoration:none;"><img class="rwf480 rmn480" src="<%= attachments[e.id.to_s + '.jpg'].url %>" width="280" border="0" style="display:block; max-width:280px; width:100% !important;" title="<%= e.title %>" alt="<%= e.title %>"></a></td>
+                        <% else %>
+                          <td class="eProdImg_1x2 rwa480" align="left" valign="bottom"><a href="<%= entry_url(e) %>" target="_blank" style="text-decoration:none;"><img class="rwf480 rmn480" src="<%= 'http://' + @site_url + @newsletter.draft_entry_ids[e.id][:img_url] %>" width="280" border="0" style="display:block; max-width:280px; width:100% !important;" title="<%= e.title %>" alt="<%= e.title %>"></a></td>
+                      <% end %>
                       </tr>
                       <tr>
                         <td class="rwa480" align="center"  style="padding-bottom: 4px; margin-bottom: 12px; border-bottom: 1px solid #a0a0a0;">
@@ -237,7 +251,7 @@
                               <td align="left" valign="top" style="border-bottom: 1px; border-color: #f4f4f4;">
                                 <table width="100%" cellpadding="0" cellspacing="0">
                                   <tbody><tr>
-                                    <td class="eProdTitle" align="left" style="padding-top:3px; padding-bottom:1px;  font-family:Arial, Helvetica, sans-serif; font-size:18px; line-height:1.1em;"><a href="<%= attachments[e.id.to_s + '.jpg'].url %>" target="_blank" style="display:block; color:#666454; text-decoration:none;"><%= e.title %></a></td>
+                                    <td class="eProdTitle" align="left" style="padding-top:3px; padding-bottom:1px;  font-family:Arial, Helvetica, sans-serif; font-size:18px; line-height:1.1em;"><a href="<%= entry_url(e) %>" target="_blank" style="display:block; color:#666454; text-decoration:none;"><%= e.title %></a></td>
                                   </tr>
                                   <tr>
                                     <td class="eProdSubtitle" align="left" style="font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:1.1em;"><a href="<%= attachments[e.id.to_s + '.jpg'].url %>" target="_blank" style="display:block; color:#aead9e; text-decoration:none;"><%= e.sub_title %></a></td>
@@ -263,6 +277,7 @@
                         </td>
                       </tr>
                     </tbody></table>
+                    <% end %>
                   </td>
                 </tr>
               </tbody></table>
