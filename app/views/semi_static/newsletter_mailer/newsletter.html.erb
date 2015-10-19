@@ -101,7 +101,7 @@
           <tr>
             <td class="bCont" align="center" style="padding-top:9px; font-size:1px">
               <!-- header -->
-              <table class="mHead" width="100%" cellpadding="0" cellspacing="0" style="width:100% !important;">
+              <table class="mHead" width="100%" cellpadding="0" cellspacing="0" style="border-bottom: 1px solid #a8a8a8; width:100% !important;">
                 <tr>
                   <td class="logo" width="45%" align="left" valign="top">
                     <a href="<%= @site_url %>" target="_blank" style="text-decoration:none;">
@@ -331,7 +331,7 @@
             <table class="navGrp rfs12_480 rfs11_480" width="100%" cellpadding="0" cellspacing="10" style="font-family:Muli, Arial, Helvetica, sans-serif; font-size:11px; color:#868474; white-space:nowrap;">
               <tr>
                 <% SemiStatic::Tag.menu.locale(I18n.locale.to_s)[0..2].each do |t| %>
-                <td width="15%" align="center" valign="bottom" style="border-bottom:1px solid #b1b1a4; padding-bottom:3px;"><a target="_blank" href="<%= menu_from_tag(t) %>" style="color:#868474; text-transform:uppercase; text-decoration:none;"><%= t.name %></a></td>
+                <td width="15%" align="center" valign="bottom" style="border-bottom:1px solid #b1b1a4; padding-bottom:3px;"><a target="_blank" href="<%= "http://#{@site_url}#{menu_from_tag(t)}" %>" style="color:#868474; text-transform:uppercase; text-decoration:none;"><%= t.name %></a></td>
                 <% end %>
               </tr>
             </table>
@@ -340,9 +340,9 @@
             <table class="navGrp rfs12_480 rfs11_480" width="100%" cellpadding="0" cellspacing="10" style="font-family:Muli, Arial, Helvetica, sans-serif; font-size:11px; color:#868474; white-space:nowrap;">
               <tr>
                 <% SemiStatic::Tag.menu.locale(I18n.locale.to_s)[3..4].each do |t| %>
-                <td width="15%" align="center" valign="bottom" style="border-bottom:1px solid #b1b1a4; padding-bottom:3px;"><a target="_blank" href="<%= menu_from_tag(t) %>" style="color:#868474; text-transform:uppercase; text-decoration:none;"><%= t.name %></a></td>
+                <td width="15%" align="center" valign="bottom" style="border-bottom:1px solid #b1b1a4; padding-bottom:3px;"><a target="_blank" href="<%= "http://#{@site_url}#{menu_from_tag(t)}" %>" style="color:#868474; text-transform:uppercase; text-decoration:none;"><%= t.name %></a></td>
                 <% end %>
-                <td width="15%" align="center" valign="bottom" style="border-bottom:1px solid #b1b1a4; padding-bottom:3px;"><a target="_blank" href="<%= new_contact_path %>" style="color:#868474; text-transform:uppercase; text-decoration:none;">Contact</a></td>
+                <td width="15%" align="center" valign="bottom" style="border-bottom:1px solid #b1b1a4; padding-bottom:3px;"><a target="_blank" href="<%= new_contact_url %>" style="color:#868474; text-transform:uppercase; text-decoration:none;">Contact</a></td>
               </tr>
             </table>
           </td>
@@ -354,7 +354,7 @@
       <table class="mInfo rfs12_480" width="100%" cellpadding="10" cellspacing="0" style="font-family:Arial, Helvetica, sans-serif; font-size:11px; color:#868474;">
         <tr>
           <td style="font-family: Arial; font-size: 11px; color:#868474; line-height: 17px; text-align: center;" class="txtCenter font12px lh15">
-              <a href="<%= edit_subscriber_path(@subscriber, :token => @subscriber.cancel_token, :only_path => false) %>" target="_blank" style="font-family: Arial; font-size: 11px; color:#868474; line-height: 17px; text-decoration: underline;" class="font12px lh15">Click here to unsubscribe from the this Newsletter</a>
+              <a href="<%= edit_subscriber_path(@subscriber, :token => @subscriber.cancel_token, :only_path => false) %>" target="_blank" style="font-family: Arial; font-size: 11px; color:#868474; line-height: 17px; text-decoration: underline;" class="font12px lh15">Click here to unsubscribe from this Newsletter</a>
           </td>
         </tr>
         <tr>

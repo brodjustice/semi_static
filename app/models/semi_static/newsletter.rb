@@ -132,13 +132,16 @@ module SemiStatic
     end
  
     def order_entries_to_position
-      order_array = []
-      self.draft_entry_ids.each{|e_id|
-        e = Entry.find(e_id)
-        order_array << [e_id, e.position] 
+      # Must now completely rebuild the hash in the correct order
+      e_ids = self.draft_entry_ids.deep_dup
+      self.draft_entry_ids = {}
+      a = []
+      e_ids.each{|e,v|
+        a << [Entry.find_by_id(e).position, e] 
       }
-      order_array.sort {|a,b| a[1] <=> b[1]}.collect{|x| x[0]}.each_with_index{|e, i|
-        draft_entry_ids[i] = e
+      a.sort!
+      a.collect{|e| e.last}.each{|e_id|
+        draft_entry_ids[e_id] = e_ids[e_id]
       }
       self.save
     end

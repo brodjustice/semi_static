@@ -10,17 +10,17 @@
     = @newsletter.css
   #newsletter-wrapper
     %table.newsletter
-      %tr
+      %tr{:style => "border-bottom: 1px solid #a0a0a0;"}
         %td
           #newsletter-logo= image_tag(SemiStatic::Engine.config.newsletter_logo || SemiStatic::Engine.config.logo_image)
         %td
           %h1= @newsletter.name
           %h2= @newsletter.subtitle
-      - if @newsletter.salutation
+      - unless @newsletter.salutation_post_text.blank?
         %tr
           %td{:colspan => 2}
             %p
-              = @newsletter.salutation_pre_text
+              = @newsletter.salutation_pre_text unless @newsletter.salutation_pre_text.blank?
               = salutation_name(@newsletter) + ','
             = simple_format(@newsletter.salutation_post_text) unless @newsletter.salutation_post_text.blank?
   

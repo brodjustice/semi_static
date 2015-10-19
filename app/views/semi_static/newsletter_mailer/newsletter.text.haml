@@ -10,11 +10,11 @@
   = "\r\n"
   = @newsletter.salutation_post_text unless @newsletter.salutation_post_text.blank?
 
+  = "\r\n"
 - @newsletter.draft_entry_objects.each do |e|
   = e.title
   - unless e.sub_title.blank?
     = e.sub_title unless e.sub_title.blank?
-  = "\r\n"
   = entry_path(e, :only_path => false)
   = '-------------------------------------------------------------------------------------'
   = "\r\n"
