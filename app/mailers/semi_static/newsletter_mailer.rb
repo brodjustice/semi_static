@@ -34,20 +34,31 @@ module SemiStatic
       @site_url = SemiStatic::Engine.config.hosts_for_locales.invert[@locale]
       @from = @newsletter.sender_address || SemiStatic::Engine.config.info_email
 
-      if SemiStatic::Engine.config.try('newsletter_logo')
-        attachments.inline['logo.jpg'] = File.read("#{Rails.root}/app/assets/images/#{SemiStatic::Engine.config.newsletter_logo.split('/').last}")
+      max_images = @newsletter.max_image_attachments
+
+      if (b = Banner.find_by_name(@newsletter.subtitle))
+        @banner = true
+        attachments.inline['banner.jpg'] = File.read("#{Rails.root}/public#{b.img(:original)}")
       else
-        attachments.inline['logo.jpg'] = File.read("#{Rails.root}/app/assets/images/#{SemiStatic::Engine.config.logo_image.split('/').last}")
+        if SemiStatic::Engine.config.try('newsletter_logo')
+          attachments.inline['logo.jpg'] = File.read("#{Rails.root}/app/assets/images/#{SemiStatic::Engine.config.newsletter_logo.split('/').last}")
+        else
+          attachments.inline['logo.jpg'] = File.read("#{Rails.root}/app/assets/images/#{SemiStatic::Engine.config.logo_image.split('/').last}")
+        end
       end
+
       @newsletter.draft_entry_objects.each{|e|
         if @newsletter.draft_entry_ids[e.id][:img_url].present?
           img_file_path = "#{Rails.root}/public/#{URI.decode(@newsletter.draft_entry_ids[e.id][:img_url]).split('?').first}"
-          if File.file?(img_file_path)
-            attachments.inline["#{e.id.to_s}.jpg"] = File.read(img_file_path)
-          else
-            # Cannot find the file to load inline
-            attachments.inline["#{e.id.to_s}.jpg"] = File.read("#{Rails.root}/app/assets/images/missing.jpg")
+          if max_images > 0
+            if File.file?(img_file_path)
+              attachments.inline["#{e.id.to_s}.jpg"] = File.read(img_file_path)
+            else
+              # Cannot find the file to load inline
+              attachments.inline["#{e.id.to_s}.jpg"] = File.read("#{Rails.root}/app/assets/images/missing.jpg")
+            end
           end
+          max_images = max_images - 1
         end
         if e.doc.present?
           if File.file?(e.doc.path)

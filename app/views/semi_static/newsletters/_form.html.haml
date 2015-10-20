@@ -10,12 +10,18 @@
     = @newsletter.css
   #newsletter-wrapper
     %table.newsletter
-      %tr{:style => "border-bottom: 1px solid #a0a0a0;"}
-        %td
-          #newsletter-logo= image_tag(SemiStatic::Engine.config.newsletter_logo || SemiStatic::Engine.config.logo_image)
-        %td
-          %h1= @newsletter.name
-          %h2= @newsletter.subtitle
+      - if (b = SemiStatic::Banner.find_by_name(@newsletter.subtitle))
+        %tr{:style => "border-bottom: 1px solid #a0a0a0;"}
+          %td{:colspan => 2, :style => 'text-align: center;'}
+            = image_tag(b.img(:original))
+            %h3= [@newsletter.name, @newsletter.subtitle].join(' ')
+      - else
+        %tr{:style => "border-bottom: 1px solid #a0a0a0;"}
+          %td
+            #newsletter-logo= image_tag(SemiStatic::Engine.config.newsletter_logo || SemiStatic::Engine.config.logo_image)
+          %td
+            %h1= @newsletter.name
+            %h2= @newsletter.subtitle
       - unless @newsletter.salutation_post_text.blank?
         %tr
           %td{:colspan => 2}

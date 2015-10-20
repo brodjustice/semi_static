@@ -1,383 +1,590 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="format-detection" content="telephone=no" /> <!-- disable auto telephone linking in iOS -->
   <title><%= @newsletter.name + ' ' + @newsletter.subtitle %></title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
   <style type="text/css">
-    body { -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; }
-    img { -ms-interpolation-mode:bicubic; }
-    .ExternalClass * { line-height: 120%; }
-    .rwf { width:100% !important; }
+    /* RESET STYLES */
+    html { background-color:#E1E1E1; margin:0; padding:0; }
+    body, #bodyTable, #bodyCell, #bodyCell{height:100% !important; margin:0; padding:0; width:100% !important;font-family:Helvetica, Arial, "Lucida Grande", sans-serif;}
+    table{border-collapse:collapse;}
+    table[id=bodyTable] {width:100%!important;margin:auto;max-width:640px!important;color:#7A7A7A;font-weight:normal;}
+    img, a img{border:0; outline:none; text-decoration:none;height:auto; line-height:100%;}
+    a {text-decoration:none !important;border-bottom: 1px solid;}
+    h1, h2, h3, h4, h5, h6{color:#5F5F5F; font-weight:normal; font-family:Helvetica; font-size:20px; line-height:125%; text-align:Left; letter-spacing:normal;margin-top:0;margin-right:0;margin-bottom:10px;margin-left:0;padding-top:0;padding-bottom:0;padding-left:0;padding-right:0;}
 
-    @media only screen and (max-width: 640px) {
-      *[class~=rdn640] { display:none !important; }
-      *[class~=rha640] { height:auto !important; }
+    /* CLIENT-SPECIFIC STYLES */
+    .ReadMsgBody{width:100%;} .ExternalClass{width:100%;} /* Force Hotmail/Outlook.com to display emails at full width. */
+    .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div{line-height:100%;} /* Force Hotmail/Outlook.com to display line heights normally. */
+    table, td{mso-table-lspace:0pt; mso-table-rspace:0pt;} /* Remove spacing between tables in Outlook 2007 and up. */
+    #outlook a{padding:0;} /* Force Outlook 2007 and up to provide a "view in browser" message. */
+    img{-ms-interpolation-mode: bicubic;display:block;outline:none; text-decoration:none;} /* Force IE to smoothly render resized images. */
+    body, table, td, p, a, li, blockquote{-ms-text-size-adjust:100%; -webkit-text-size-adjust:100%; font-weight:normal!important;} /* Prevent Windows- and Webkit-based mobile platforms from changing declared text sizes. */
+    .ExternalClass td[class="ecxflexibleContainerBox"] h3 {padding-top: 10px !important;} /* Force hotmail to push 2-grid sub headers down */
+
+    /* /\/\/\/\/\/\/\/\/ TEMPLATE STYLES /\/\/\/\/\/\/\/\/ */
+
+    /* ========== Page Styles ========== */
+    h1{display:block;font-size:26px;font-style:normal;font-weight:normal;line-height:100%;}
+    h2{display:block;font-size:20px;font-style:normal;font-weight:normal;line-height:120%;}
+    h3{display:block;font-size:17px;font-style:normal;font-weight:normal;line-height:110%;}
+    h4{display:block;font-size:18px;font-style:italic;font-weight:normal;line-height:100%;}
+    .flexibleImage{height:auto;}
+    .linkRemoveBorder{border-bottom:0 !important;}
+    table[class=flexibleContainerCellDivider] {padding-bottom:0 !important;padding-top:0 !important;}
+
+    body, #bodyTable{background-color:#E1E1E1;}
+    #emailHeader{background-color:#E1E1E1;}
+    #emailBody{background-color:#FFFFFF;}
+    #emailFooter{background-color:#E1E1E1;}
+    .nestedContainer{background-color:#F8F8F8; border:1px solid #CCCCCC;}
+    .emailButton{background-color:#205478; border-collapse:separate;}
+    .buttonContent{color:#FFFFFF; font-family:Helvetica; font-size:18px; font-weight:bold; line-height:100%; padding:15px; text-align:center;}
+    .buttonContent a{color:#FFFFFF; display:block; text-decoration:none!important; border:0!important;}
+    .emailCalendar{background-color:#FFFFFF; border:1px solid #CCCCCC;}
+    .emailCalendarMonth{background-color:#205478; color:#FFFFFF; font-family:Helvetica, Arial, sans-serif; font-size:16px; font-weight:bold; padding-top:10px; padding-bottom:10px; text-align:center;}
+    .emailCalendarDay{color:#205478; font-family:Helvetica, Arial, sans-serif; font-size:60px; font-weight:bold; line-height:100%; padding-top:20px; padding-bottom:20px; text-align:center;}
+    .imageContentText {margin-top: 10px;line-height:0;}
+    .imageContentText a {line-height:0;}
+    #invisibleIntroduction {display:none !important;} /* Removing the introduction text from the view */
+
+    /*FRAMEWORK HACKS & OVERRIDES */
+    span[class=ios-color-hack] a {color:#275100!important;text-decoration:none!important;} /* Remove all link colors in IOS (below are duplicates based on the color preference) */
+    span[class=ios-color-hack2] a {color:#205478!important;text-decoration:none!important;}
+    span[class=ios-color-hack3] a {color:#8B8B8B!important;text-decoration:none!important;}
+    /* A nice and clean way to target phone numbers you want clickable and avoid a mobile phone from linking other numbers that look like, but are not phone numbers.  Use these two blocks of code to "unstyle" any numbers that may be linked.  The second block gives you a class to apply with a span tag to the numbers you would like linked and styled.
+    Inspired by Campaign Monitor's article on using phone numbers in email: http://www.campaignmonitor.com/blog/post/3571/using-phone-numbers-in-html-email/.
+    */
+    .a[href^="tel"], a[href^="sms"] {text-decoration:none!important;color:#606060!important;pointer-events:none!important;cursor:default!important;}
+    .mobile_link a[href^="tel"], .mobile_link a[href^="sms"] {text-decoration:none!important;color:#606060!important;pointer-events:auto!important;cursor:default!important;}
+
+
+    /* MOBILE STYLES */
+    @media only screen and (max-width: 480px){
+      /*////// CLIENT-SPECIFIC STYLES //////*/
+      body{width:100% !important; min-width:100% !important;} /* Force iOS Mail to render the email at full width. */
+
+      /* FRAMEWORK STYLES */
+      /*
+      CSS selectors are written in attribute
+      selector format to prevent Yahoo Mail
+      from rendering media query styles on
+      desktop.
+      */
+      /*td[class="textContent"], td[class="flexibleContainerCell"] { width: 100%; padding-left: 10px !important; padding-right: 10px !important; }*/
+      table[id="emailHeader"],
+      table[id="emailBody"],
+      table[id="emailFooter"],
+      table[class="flexibleContainer"],
+      td[class="flexibleContainerCell"] {width:100% !important;}
+      td[class="flexibleContainerBox"], td[class="flexibleContainerBox"] table {display: block;width: 100%;text-align: left;}
+      /*
+      The following style rule makes any
+      image classed with 'flexibleImage'
+      fluid when the query activates.
+      Make sure you add an inline max-width
+      to those images to prevent them
+      from blowing out.
+      */
+      td[class="imageContent"] img {height:auto !important; width:100% !important; max-width:100% !important; }
+      img[class="flexibleImage"]{height:auto !important; width:100% !important;max-width:100% !important;}
+      img[class="flexibleImageSmall"]{height:auto !important; width:auto !important;}
+
+
+      /*
+      Create top space for every second element in a block
+      */
+      table[class="flexibleContainerBoxNext"]{padding-top: 10px !important;}
+
+      /*
+      Make buttons in the email span the
+      full width of their container, allowing
+      for left- or right-handed ease of use.
+      */
+      table[class="emailButton"]{width:100% !important;}
+      td[class="buttonContent"]{padding:0 !important;}
+      td[class="buttonContent"] a{padding:15px !important;}
+
     }
 
-    @media only screen and (max-width: 480px) {
-      *[class~=rdb480] { display:block !important; margin:0 !important; padding:0 !important; }
-      *[class~=rdn480] { display:none !important; }
-      *[class~=rwa480] { width:auto !important; }
-      *[class~=rwf480] { width:100% !important; }
-      *[class~=rha480] { height:auto !important; }
-      *[class~=rmn480] { max-width:none !important; min-width:none !important; }
-      *[class~=rma480] { margin:0 auto !important; }
-      *[class~=rbn480] { border:none !important; }
-      *[class~=rfll480] { float:left !important; }
-      *[class~=ral480] { text-align:left !important; }
-      *[class~=rac480] { text-align:left !important; }
-      *[class~=rfs12_480] { font-size:12px !important; }
-      *[class~=rfs11_480] { font-size:11px !important; }
+    /*  CONDITIONS FOR ANDROID DEVICES ONLY
+    *   http://developer.android.com/guide/webapps/targeting.html
+    *   http://pugetworks.com/2011/04/css-media-queries-for-targeting-different-mobile-devices/ ;
+    =====================================================*/
 
-      *[class~=mBody] { margin-right:0 !important; margin-left:0 !important; padding:0 !important; }
-      *[class~=logo] img { width:170px !important; }
-      *[class~=hl1] td { padding-bottom:0 !important; font-size:13px !important; line-height:1.1em !important; }
-      *[class~=eAttExc] { width:72px !important; font-size:60px !important; }
-      *[class~=eAttExc] img { width:7px !important; }
-      *[class~=eAttHdl] { font-size:21px !important; }
-      *[class~=eAttTxt] { padding-top:2px !important; font-size:15px !important; }
-      *[class~=eRecText] { max-width:240px !important; padding:5px 20px 0 !important; }
-      *[class~=eRecProd] { padding:12px 20px 20px !important; }
-      *[class~=eRecProd] a { display:block !important; max-width:240px !important; }
-      *[class~=mRecNote] { margin-top:-12px !important; background-color:#f7f8f3 !important; }
-      *[class~=mSepArrowUp] { margin-top:20px; margin-bottom:9px; }
-      *[class~=mSepArrowUp] a { display:block !important; height:57px !important; }
-
-      *[class~=prod_1x3_td] { width:48% !important; max-width:183px !important; }
-      *[class~=prod_1x3_pure] { position:relative !important; }
-      *[class~=prod_1x3_pure_img_tr] { position:absolute !important; }
-      *[class~=prod_1x3_pure_img_tr] img { width:136px !important; }
-      *[class~=prod_1x3_pure_txt_tr] { display:block !important; }
-      *[class~=prod_1x3_pure_txt] { display:block !important; min-height:113px !important; padding-left:143px !important; padding-bottom:10px !important; }
-      *[class~=mProd_1x3_pure]>tbody>tr>td:last-child .prod_1x3_pure_txt { padding-bottom:0 !important; }
-      *[class~=prod_1x3_pure_txt] td { padding:26px 0 0 !important; }
-
-      *[class~=navGrp] td { width:33% !important; }
-      *[class~=eMagCover] { padding-bottom:16px !important; }
-      *[class~=prodHl] { padding:12px 10px 3px !important; }
-      *[class~=eProdTitle] { padding-top:4px !important; padding-bottom:3px !important; font-size:19px !important; }
-      *[class~=eBtnTitle]>table>tbody>tr>td { padding-top:5px !important; }
-      *[class~=eProdSubtitle] { padding-bottom:18px !important; }
-      *[class~=btn] a { display:block !important; padding:0 2px 2px !important; font-size:14px !important; }
-
-      *[class~=swap_a_img] img { display:none !important; }
-      *[class~=swap_a_img] a { display:block !important; width:100% !important; background-position:center top !important; background-repeat:no-repeat !important; background-size:cover !important; }
-      td[class~=swap_a_img_left_top] a { background-position:left top !important; }
-      td[class~=swap_a_img_right_top] a { background-position:right top !important; }
+    @media only screen and (-webkit-device-pixel-ratio:.75){
+      /* Put CSS for low density (ldpi) Android layouts in here */
     }
-    .ecxbtn a { line-height:2em !important; }
+
+    @media only screen and (-webkit-device-pixel-ratio:1){
+      /* Put CSS for medium density (mdpi) Android layouts in here */
+    }
+
+    @media only screen and (-webkit-device-pixel-ratio:1.5){
+      /* Put CSS for high density (hdpi) Android layouts in here */
+    }
+    /* end Android targeting */
+
+    /* CONDITIONS FOR IOS DEVICES ONLY
+    =====================================================*/
+    @media only screen and (min-device-width : 320px) and (max-device-width:568px) {
+
+    }
+    /* end IOS targeting */
   </style>
-
-  <!--[if gte mso 9]>
+  <!--[if mso 12]>
     <style type="text/css">
-        body { background-color:#ffffff !important; }
-        .btn { height:30px !important; line-height:normal !important; }
-        .mProd_1x3 .btn { height:21px !important; }
-        .eMagTsr { line-height:100% !important; }
-        .eMagBtn { padding-top:3px !important; padding-bottom:4px !important; }
+      .flexibleContainer{display:block !important; width:100% !important;}
     </style>
-    <![endif]-->
+  <![endif]-->
+  <!--[if mso 14]>
+    <style type="text/css">
+      .flexibleContainer{display:block !important; width:100% !important;}
+    </style>
+  <![endif]-->
 
-    <!--[if gte mso 10]><xml>
-        <o:OfficeDocumentSettings>
-            <o:AllowPNG/>
-            <o:PixelsPerInch>96</o:PixelsPerInch>
-        </o:OfficeDocumentSettings>
-    </xml><![endif]-->
-</head>
+  <%- max_images = @newsletter.max_image_attachments + 1 %>
 
-<%- max_images = @newsletter.max_image_attachments + 1 %>
+  </head>
+  <body bgcolor="#E1E1E1" leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
+    <center style="background-color:#E1E1E1;">
+      <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable" style="table-layout: fixed;max-width:100% !important;width: 100% !important;min-width: 100% !important;">
+        <tr>
+          <td align="center" valign="top" id="bodyCell">
+            <table bgcolor="#E1E1E1" border="0" cellpadding="0" cellspacing="0" width="640" id="emailHeader">
 
-<body class="mBody" width="100%" style="font-family:Arial, Helvetica, sans-serif; font-size:13px; color:#333333; text-align:left;" bgcolor="#f7f8f3">
-  <!-- html wrapper -->
-  <table class="wrh" id="top" width="100%" cellpadding="0" cellspacing="0" bgcolor="#f7f8f3" style="font-family:Arial, Helvetica, sans-serif; font-size:13px; color:#333333; text-align:left;">
-    <tr>
-      <td>&nbsp;</td>
-      <!-- content wrapper -->
-      <td align="center" style="width:602px; max-width:602px;">
-        <!-- content -->
-        <table width="602" cellpadding="11" cellspacing="0" style="max-width:602px; width:100% !important; " bgcolor="#ffffff">
-          <tr>
-            <td class="bCont" align="center" style="padding-top:9px; font-size:1px">
-              <!-- header -->
-              <table class="mHead" width="100%" cellpadding="0" cellspacing="0" style="border-bottom: 1px solid #a8a8a8; width:100% !important;">
-                <tr>
-                  <td class="logo" width="45%" align="left" valign="top">
-                    <a href="<%= @site_url %>" target="_blank" style="text-decoration:none;">
-                      <img class="rha640" src="<%= attachments['logo.jpg'].url %>" border="0" style="display:block; font-family:'Times New Roman', Times, serif; font-size:30px; color:#868474; text-transform:uppercase;" alt="<%= SemiStatic::Engine.config.site_name %>" title="<%= SemiStatic::Engine.config.site_name %>" />
-                    </a>
-                  </td>
-                  <td class="hl1" align="right" valign="bottom" style="padding-left:20px;">
-                    <table cellpadding="0" cellspacing="0" style="font-family:Arial, Helvetica, sans-serif; font-size:18px; color:#868474;">
-                      <tr>
-                        <td align="right" valign="bottom" style="padding-bottom:9px; text-transform:uppercase;">
-                          <h1 style="color:#0060aa" class="rdn480"><%= @newsletter.name %></h1>
-                          <h2><%= @newsletter.subtitle %></h2>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-              </table>
-              <!-- /header -->
+              <!-- HEADER ROW // -->
+              <tr>
+                <td align="center" valign="top">
+                  <!-- CENTERING TABLE // -->
+                  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                      <td align="center" valign="top">
+                        <!-- FLEXIBLE CONTAINER // -->
+                        <table border="0" cellpadding="10" cellspacing="0" width="640" class="flexibleContainer">
+                          <tr>
+                            <td valign="top" width="640" class="flexibleContainerCell">
 
-              <!-- separator -->
-              <table class="mSep " width="100%" cellpadding="0" cellspacing="0" style="">
-                <tr>
-                  <td height="15" align="center" style="font-size:2px; line-height:2px;">&nbsp;</td>
-                </tr>
-              </table>
-              <!-- /separator -->
+                              <!-- CONTENT TABLE // -->
+                              <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                  <td align="left" valign="middle" id="invisibleIntroduction" class="flexibleContainerBox" style="display:none !important; mso-hide:all;">
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:100%;">
+                                      <tr>
+                                        <td align="left" class="textContent">
+                                          <div style="font-family:Helvetica,Arial,sans-serif;font-size:13px;color:#828282;text-align:center;line-height:120%;">
+                                            <%= [@newsletter.name, @newsletter.subtitle].join(": ") %>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                  </td>
+                                  <td align="right" valign="middle" class="flexibleContainerBox">
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:100%;">
+                                      <tr>
+                                        <td align="left" class="textContent">
+                                          <!-- CONTENT // -->
+                                          <div style="font-family:Helvetica,Arial,sans-serif;font-size:13px;color:#828282;text-align:center;line-height:120%;">
+                                            If you can't see this message, <a href="<%= "http://#{@site_url}" %>" target="_blank" style="text-decoration:none;border-bottom:1px solid #828282;color:#828282;"><span style="color:#828282;">go&nbsp;to&nbsp;the&nbsp;website</span></a>.
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                        <!-- // FLEXIBLE CONTAINER -->
+                      </td>
+                    </tr>
+                  </table>
+                  <!-- // CENTERING TABLE -->
+                </td>
+              </tr>
+              <!-- // END -->
+
+            </table>
+            <!-- // END -->
+
+            <table bgcolor="#FFFFFF"  border="0" cellpadding="0" cellspacing="0" width="640" id="emailBody">
 
               <% if false %>
-              <!-- ONE COLUMN SUB HEADER -->
-              <!-- Wide image here -->
-              <table width="100%" class="mProd_1x1" cellpadding="0" cellspacing="0" style="width:100% !important;">
-                <tbody>
-                  <tr>
-                    <td class="eProdImg_1x1 swap_a_img swap_a_img_right_top" align="left"><a href="http://quantum-websites.com" target="_blank" style="height:293px; background-image:url(http://quantum-websites.com/hosted_image.jpg); background-position:-9999px -9999px; background-repeat:no-repeat; text-decoration:none;"><img src="http://quantum-websites.com/hosted_image.jpg" border="0" width="580" style="display:block; max-width:580px; width:100% !important;" title="Header title" alt="Header alt"></a></td>
-                  </tr>
-                </tbody>
-              </table>
-              <!-- /wide image -->
-              <% end %> 
-
-              <!-- title + button text -->
-              <table class="mFeat" width="100%" cellpadding="0" cellspacing="0" style="width:100% !important;">
-                <tbody>
-                  <tr>
-                    <td align="left" valign="top">
-                      <table width="100%" cellpadding="0" cellspacing="0" style="width:100% !important;">
-                        <tbody>
+              <# if you should need a big header %>
+              <tr>
+                <td align="center" valign="top">
+                  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="color:#FFFFFF;" bgcolor="#3498db">
+                    <tr>
+                      <td align="center" valign="top">
+                        <table border="0" cellpadding="0" cellspacing="0" width="640" class="flexibleContainer">
                           <tr>
-			  <td class="eProdTitle" align="left" style="padding-top:3px; padding-bottom:1px; font-family:font-family:Arial, Helvetica, sans-serif; font-size:18px; line-height:1.1em; color:#6e6d5e;">
-                            <p><%= [@newsletter.salutation_pre_text, salutation_name(@newsletter, @subscriber), ','].join(' ') %></p>
-                            <% unless @newsletter.salutation_post_text.blank? %>
-                              <%= simple_format(@newsletter.salutation_post_text) %>
-                            <% end %>
-                          </td>
+                            <td align="center" valign="top" width="640" class="flexibleContainerCell">
+                              <table border="0" cellpadding="30" cellspacing="0" width="100%">
+                                <tr>
+                                  <td align="center" valign="top" class="textContent">
+                                    <h1 style="color:#FFFFFF;line-height:100%;font-family:Helvetica,Arial,sans-serif;font-size:35px;font-weight:normal;margin-bottom:5px;text-align:center;"><%= @newsletter.name %></h1>
+                                    <%# Subtitle and text could go in here %>
+                                    <%#  <h2 style="text-align:center;font-weight:normal;font-family:Helvetica,Arial,sans-serif;font-size:23px;margin-bottom:10px;color:#205478;line-height:135%;">poss subtitle here</h2> %>
+                                    <%#  <div style="text-align:center;font-family:Helvetica,Arial,sans-serif;font-size:15px;margin-bottom:0;color:#FFFFFF;line-height:135%;">Poss text in here</div> %>
+                                  </td>
+                                </tr>
+                              </table>
+                              <!-- // CONTENT TABLE -->
+
+                            </td>
                           </tr>
-                        </tbody>
-                      </table>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <!-- /title + button text -->
-
-              <!-- separator -->
-              <!-- SEPARATOR -->
-              <table class="mSep rdn480" width="100%" cellpadding="0" cellspacing="0">
-                <tbody><tr>
-                  <td height="15" align="center" style="font-size:2px; line-height:2px;">&nbsp;</td>
-                </tr>
-              </tbody></table>
-              <!-- /SEPARATOR -->
-              <!-- /separator -->
-
-              <!-- Newsletter entries: 1x2 -->
-              <% @newsletter.draft_entry_objects.each_slice(2) do |row| %>
-              <% e = row.first %>
-              <% left_entry = e %>
-              <table class="mProd_1x2" width="100%" cellpadding="0" cellspacing="0" style="width:100% !important;">
-                <tbody><tr>
-                  <% max_images = max_images -1 %>
-                  <td class="eProd_1x2_box rdb480 rwa480 rma480" width="48%" align="left" valign="top">
-                    <table class="eProd_1x2 rwf480" width="100%" cellpadding="0" cellspacing="0">
-                      <tbody><tr>
-                        <% if max_images > 0 %>
-                          <td class="eProdImg_1x2 rwa480" align="left" valign="bottom"><a href="<%= entry_url(e) %>" target="_blank" style="text-decoration:none;"><img class="rwf480 rmn480" src="<%= attachments[e.id.to_s + '.jpg'].url %>" width="280" border="0" style="display:block; max-width:280px; width:100% !important;" title="<%= e.title %>" alt="<%= e.title %>"></a></td>
-                        <% else %>
-                          <td class="eProdImg_1x2 rwa480" align="left" valign="bottom"><a href="<%= entry_url(e) %>" target="_blank" style="text-decoration:none;"><img class="rwf480 rmn480" src="<%= 'http://' + @site_url + @newsletter.draft_entry_ids[e.id][:img_url] %>" width="280" border="0" style="display:block; max-width:280px; width:100% !important;" title="<%= e.title %>" alt="<%= e.title %>"></a></td>
-                        <% end %>
-                      </tr>
-                      <tr>
-                        <td class="rwa480" align="center" style="padding-bottom: 4px; margin-bottom: 12px; border-bottom: 1px solid #a0a0a0;">
-                          <!-- title + button arrow -->
-                          <table width="100%" cellpadding="0" cellspacing="0">
-                            <tbody><tr>
-                              <td align="left" valign="top">
-                                <table width="100%" cellpadding="0" cellspacing="0">
-                                  <tbody><tr>
-                                    <td class="eProdTitle" align="left" style="padding-top:3px; padding-bottom:1px; font-family:Arial, Helvetica, sans-serif; font-size:18px; line-height:1.1em;"><a href="<%= entry_url(e) %>" target="_blank" style="display:block; color:#666454; text-decoration:none;"><%= e.title %></a></td>
-                                  </tr>
-                                  <tr>
-                                    <td class="eProdSubtitle" align="left" style="font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:1.1em;"><a href="<%= entry_url(e) %>" target="_blank" style="display:block; color:#aead9e; text-decoration:none;"><%= e.sub_title %></a></td>
-                                  </tr>
-                                </tbody></table>
-                              </td>
-                              <td class="eBtnTitle" align="right" valign="top">
-                                <table class="rflr480" cellpadding="0" cellspacing="0">
-                                  <tbody><tr>
-                                    <td style="padding-top:6px; padding-left:14px;">
-                                      <table class="rflr480" cellpadding="0" cellspacing="0">
-                                        <tbody><tr>
-                                          <td class="btn btnArrow" align="left" style="border-radius:4px; line-height:2em; font-family:'Average Sans', Arial, Helvetica, sans-serif; font-size:14px; color:#ffffff; text-transform:uppercase;" bgcolor="#0060aa"><a href="<%= entry_url(e) %>" target="_blank" style="display:block; color:#ffffff; text-decoration:none; white-space:nowrap;">&nbsp;&nbsp;&nbsp;<span style="font-family: 'Comic Sans MS', Marker Felt, Arial, Helvetica, sans-serif; font-size:16px;">&gt;</span>&nbsp;&nbsp;&nbsp;</a></td>
-                                        </tr>
-                                      </tbody></table>
-                                    </td>
-                                  </tr>
-                                </tbody></table>
-                              </td>
-                            </tr>
-                          </tbody></table>
-                          <!-- /title + button arrow -->
-                        </td>
-                      </tr>
-                    </tbody></table>
-                  </td>
-
-                  <td class="eProd_1x2_div rdn480" width="9" style="min-width:9px; max-width:9px; font-size:2px; border-right:1px solid #f7f8f4;">&nbsp;</td>
-                  <td class="eProd_1x2_div rdn480" width="9" style="min-width:9px; max-width:9px; font-size:2px; border-left:1px solid #f7f8f4;">&nbsp;</td>
-
-                  <% e = row.last %>
-                  <% max_images = max_images - 1 %>
-                  <td class="eProd_1x2_box rdb480 rwa480 rma480" width="48%" align="right" valign="top">
-                    <%- unless e == left_entry %>
-                    <table class="eProd_1x2 rwf480" width="100%" cellpadding="0" cellspacing="0">
-                      <tbody><tr>
-                        <% if max_images > 0 %>
-                          <td class="eProdImg_1x2 rwa480" align="left" valign="bottom"><a href="<%= entry_url(e) %>" target="_blank" style="text-decoration:none;"><img class="rwf480 rmn480" src="<%= attachments[e.id.to_s + '.jpg'].url %>" width="280" border="0" style="display:block; max-width:280px; width:100% !important;" title="<%= e.title %>" alt="<%= e.title %>"></a></td>
-                        <% else %>
-                          <td class="eProdImg_1x2 rwa480" align="left" valign="bottom"><a href="<%= entry_url(e) %>" target="_blank" style="text-decoration:none;"><img class="rwf480 rmn480" src="<%= 'http://' + @site_url + @newsletter.draft_entry_ids[e.id][:img_url] %>" width="280" border="0" style="display:block; max-width:280px; width:100% !important;" title="<%= e.title %>" alt="<%= e.title %>"></a></td>
-                      <% end %>
-                      </tr>
-                      <tr>
-                        <td class="rwa480" align="center"  style="padding-bottom: 4px; margin-bottom: 12px; border-bottom: 1px solid #a0a0a0;">
-                          <!-- title + button arrow -->
-                          <table width="100%" cellpadding="0" cellspacing="0">
-                            <tbody><tr>
-                              <td align="left" valign="top" style="border-bottom: 1px; border-color: #f4f4f4;">
-                                <table width="100%" cellpadding="0" cellspacing="0">
-                                  <tbody><tr>
-                                    <td class="eProdTitle" align="left" style="padding-top:3px; padding-bottom:1px;  font-family:Arial, Helvetica, sans-serif; font-size:18px; line-height:1.1em;"><a href="<%= entry_url(e) %>" target="_blank" style="display:block; color:#666454; text-decoration:none;"><%= e.title %></a></td>
-                                  </tr>
-                                  <tr>
-                                    <td class="eProdSubtitle" align="left" style="font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:1.1em;"><a href="<%= attachments[e.id.to_s + '.jpg'].url %>" target="_blank" style="display:block; color:#aead9e; text-decoration:none;"><%= e.sub_title %></a></td>
-                                  </tr>
-                                </tbody></table>
-                              </td>
-                              <td class="eBtnTitle" align="right" valign="top">
-                                <table class="rflr480" cellpadding="0" cellspacing="0">
-                                  <tbody><tr>
-                                    <td style="padding-top:6px; padding-left:14px;">
-                                      <table class="rflr480" cellpadding="0" cellspacing="0">
-                                        <tbody><tr>
-                                          <td class="btn btnArrow" align="left" style="border-radius:4px; line-height:2em; font-family:'Average Sans', Arial, Helvetica, sans-serif; font-size:14px; color:#ffffff; text-transform:uppercase;" bgcolor="#0060aa"><a href="<%= attachments[e.id.to_s + '.jpg'].url %>" target="_blank" style="display:block; color:#ffffff; text-decoration:none; white-space:nowrap;">&nbsp;&nbsp;&nbsp;<span style="font-family: 'Comic Sans MS', Marker Felt, Arial, Helvetica, sans-serif; font-size:16px;">&gt;</span>&nbsp;&nbsp;&nbsp;</a></td>
-                                        </tr>
-                                      </tbody></table>
-                                    </td>
-                                  </tr>
-                                </tbody></table>
-                              </td>
-                            </tr>
-                          </tbody></table>
-                          <!-- /title + button arrow -->
-                        </td>
-                      </tr>
-                    </tbody></table>
-                    <% end %>
-                  </td>
-                </tr>
-              </tbody></table>
-              <!-- /products: 1x2 -->
-
-              <!-- separator -->
-              <!-- SEPARATOR -->
-              <table class="mSep rdn480" width="100%" cellpadding="0" cellspacing="0">
-                <tbody><tr>
-                  <td height="25" align="center" style="font-size:2px; line-height:2px;">&nbsp;</td>
-                </tr>
-              </tbody></table>
-              <!-- /SEPARATOR -->
-              <!-- /separator -->
+                        </table>
+                        <!-- // FLEXIBLE CONTAINER -->
+                      </td>
+                    </tr>
+                  </table>
+                  <!-- // CENTERING TABLE -->
+                </td>
+              </tr>
+              <!-- // MODULE ROW -->
               <% end %>
 
-              <!-- SEPARATOR standard -->
-              <table class="mSep" width="100%" cellpadding="0" cellspacing="0">
-                <tbody><tr>
-                  <td height="18" align="center" style="font-size:2px; line-height:2px;">&nbsp;</td>
-                </tr>
-              </tbody></table>
-              <!-- /SEPARATOR standard -->
 
-            </td>
-          </tr>
-        </table>
-        <!-- /content -->
 
-        <!-- separator -->
-        <table class="mSep mSepBelowLogo" width="100%" cellpadding="0" cellspacing="0" style="width:100% !important;">
-          <tr>
-            <td height="15" align="center" style="font-size:2px; line-height:2px;">&nbsp;</td>
-          </tr>
-        </table>
-        <!-- /separator -->
-
-      </td>
-      <!-- /content wrapper -->
-      <td>&nbsp;</td>
-    </tr>
-    <tr>
-      <td>&nbsp;</td>
-      <!-- footer -->
-      <td align="center" style="width:602px; max-width:602px; padding-top:4px; padding-bottom:15;">
-  
-      <!-- navigation -->
-      <table class="mNav" width="100%" cellpadding="0" cellspacing="0" style="width:100% !important;">
-        <tr>
-          <td class="rdb480" align="center" valign="bottom">
-            <table class="navGrp rfs12_480 rfs11_480" width="100%" cellpadding="0" cellspacing="10" style="font-family:Muli, Arial, Helvetica, sans-serif; font-size:11px; color:#868474; white-space:nowrap;">
+              <!-- MODULE ROW // -->
+              <% unless @banner.nil? %>
               <tr>
-                <% SemiStatic::Tag.menu.locale(I18n.locale.to_s)[0..2].each do |t| %>
-                <td width="15%" align="center" valign="bottom" style="border-bottom:1px solid #b1b1a4; padding-bottom:3px;"><a target="_blank" href="<%= "http://#{@site_url}#{menu_from_tag(t)}" %>" style="color:#868474; text-transform:uppercase; text-decoration:none;"><%= t.name %></a></td>
-                <% end %>
+                <td align="center" valign="top">
+                  <!-- CENTERING TABLE // -->
+                  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                      <td align="center" valign="top">
+                        <!-- FLEXIBLE CONTAINER // -->
+                        <table border="0" cellpadding="0" cellspacing="0" width="640" class="flexibleContainer">
+                          <tr>
+                            <td align="center" valign="middle" width="640" class="flexibleContainerCell">
+
+                              <!-- CONTENT TABLE // -->
+                              <table border="0" cellpadding="0" cellspacing="10" width="100%">
+                                <tr>
+                                  <td align="center" valign="middle" class="imageContent">
+                                    <img src="<%= attachments['banner.jpg'].url %>" width="500" class="flexibleImage" style="max-width:500px;width:100%;margin-top:12px; margin-bottom:12px;display:block;" alt="<%= SemiStatic::Engine.config.site_name %>" title="<%= SemiStatic::Engine.config.site_name %>" />
+                                  </td>
+                                </tr>
+                              </table>
+                              <!-- // CONTENT TABLE -->
+
+                            </td>
+                          </tr>
+                        </table>
+                        <!-- // FLEXIBLE CONTAINER -->
+                      </td>
+                    </tr>
+                  </table>
+                  <!-- // CENTERING TABLE -->
+                </td>
               </tr>
-            </table>
-          </td>
-          <td class="rdb480" align="center" valign="bottom">
-            <table class="navGrp rfs12_480 rfs11_480" width="100%" cellpadding="0" cellspacing="10" style="font-family:Muli, Arial, Helvetica, sans-serif; font-size:11px; color:#868474; white-space:nowrap;">
+              <!-- // MODULE ROW -->
+
+
+              <% else %>
+
+              <!-- MODULE ROW // -->
               <tr>
-                <% SemiStatic::Tag.menu.locale(I18n.locale.to_s)[3..4].each do |t| %>
-                <td width="15%" align="center" valign="bottom" style="border-bottom:1px solid #b1b1a4; padding-bottom:3px;"><a target="_blank" href="<%= "http://#{@site_url}#{menu_from_tag(t)}" %>" style="color:#868474; text-transform:uppercase; text-decoration:none;"><%= t.name %></a></td>
-                <% end %>
-                <td width="15%" align="center" valign="bottom" style="border-bottom:1px solid #b1b1a4; padding-bottom:3px;"><a target="_blank" href="<%= new_contact_url %>" style="color:#868474; text-transform:uppercase; text-decoration:none;">Contact</a></td>
+                <td align="center" valign="top">
+                  <!-- CENTERING TABLE // -->
+                  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                      <td align="center" valign="top">
+                        <!-- FLEXIBLE CONTAINER // -->
+                        <table border="0" cellpadding="30" cellspacing="0" width="640" class="flexibleContainer">
+                          <tr>
+                            <td valign="top" width="640" class="flexibleContainerCell">
+
+                              <!-- CONTENT TABLE // -->
+                              <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                  <td align="left" valign="top" class="flexibleContainerBox">
+                                    <table border="0" cellpadding="0" cellspacing="0" width="280" style="max-width:100%;">
+                                      <tr>
+                                        <td align="left" class="textContent">
+                                          <a href="<%= @site_url %>" target="_blank" style="text-decoration:none;">
+                                          <img src="<%= attachments['logo.jpg'].url %>" class="flexibleImage" style="max-width:100%;" alt="<%= SemiStatic::Engine.config.site_name %>" title="<%= SemiStatic::Engine.config.site_name %>" />
+                                          </a>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                  </td>
+                                  <td align="right" valign="top" class="flexibleContainerBox">
+                                    <table class="flexibleContainerBoxNext" border="0" cellpadding="0" cellspacing="0" width="280" style="max-width:100%;">
+                                      <tr>
+                                        <td align="left" class="textContent">
+                                          <h3 style="color:#5F5F5F;line-height:125%;font-family:Helvetica,Arial,sans-serif;font-size:20px;font-weight:normal;margin-top:0;margin-bottom:3px;text-align:right;"><%= @newsletter.subtitle %></h3>
+                                          <%# <div style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:15px;margin-bottom:0;color:#5F5F5F;line-height:135%;">Possible paragraph text here .</div> %>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                  </td>
+                                </tr>
+                              </table>
+                              <!-- // CONTENT TABLE -->
+
+                            </td>
+                          </tr>
+                        </table>
+                        <!-- // FLEXIBLE CONTAINER -->
+                      </td>
+                    </tr>
+                  </table>
+                  <!-- // CENTERING TABLE -->
+                </td>
               </tr>
+              <!-- // MODULE ROW -->
+
+              <% end %>
+
+
+              <!-- MODULE ROW // -->
+              <tr>
+                <td align="center" valign="top">
+                  <!-- CENTERING TABLE // -->
+                  <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#F8F8F8">
+                    <tr>
+                      <td align="center" valign="top">
+                        <!-- FLEXIBLE CONTAINER // -->
+                        <table border="0" cellpadding="0" cellspacing="0" width="640" class="flexibleContainer">
+                          <tr>
+                            <td align="center" valign="top" width="640" class="flexibleContainerCell">
+                              <table border="0" cellpadding="30" cellspacing="0" width="100%">
+                                <tr>
+                                  <td align="center" valign="top">
+
+                                    <!-- CONTENT TABLE // -->
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                      <tr>
+                                        <td valign="top" class="textContent">
+                                          <h3 mc:edit="header" style="color:#0060aa;line-height:125%;font-family:Helvetica,Arial,sans-serif;font-size:20px;font-weight:normal;margin-top:0;margin-bottom:3px;text-align:center;"><%= [@newsletter.name, @newsletter.subtitle].join(' ') %></h3>
+                                          <div mc:edit="body" style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:15px;margin-bottom:0;color:#5F5F5F;line-height:135%;">
+                                            <p><%= [@newsletter.salutation_pre_text, salutation_name(@newsletter, @subscriber), ','].join(' ') %></p>
+                                            <% unless @newsletter.salutation_post_text.blank? %>
+                                              <%= simple_format(@newsletter.salutation_post_text) %>
+                                            <% end %>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                    <!-- // CONTENT TABLE -->
+
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                        <!-- // FLEXIBLE CONTAINER -->
+                      </td>
+                    </tr>
+                  </table>
+                  <!-- // CENTERING TABLE -->
+                </td>
+              </tr>
+              <!-- // MODULE ROW -->
+
+              <!-- MODULE ROW // -->
+
+              <% @newsletter.draft_entry_objects.each_slice(2) do |row| %>
+              <% le = row.first %>
+              <% re = row.last %>
+
+              <tr>
+                <td align="center" valign="top">
+                  <!-- CENTERING TABLE // -->
+                  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                      <td align="center" valign="top">
+                        <!-- FLEXIBLE CONTAINER // -->
+                        <table border="0" cellpadding="30" cellspacing="0" width="640" class="flexibleContainer">
+                          <tr>
+                            <td valign="top" width="640" class="flexibleContainerCell">
+
+                              <!-- CONTENT TABLE // -->
+                              <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                  <td align="center" valign="top" class="flexibleContainerBox">
+                                    <table border="0" cellpadding="0" cellspacing="0" width="280" style="max-width:100%;">
+                                      <tr>
+                                        <td align="center" class="textContent">
+                                          <% max_images = max_images -1 %>
+                                          <% if max_images > 0 %>
+                                            <a href="<%= entry_url(le) %>" target="_blank" style="text-decoration:none;"><img src="<%= attachments[le.id.to_s + '.jpg'].url %>" width="280" border="0" class="flexibleImage" style="max-width:100%;" title="<%= le.title %>" alt="<%= le.title %>" /></a>
+                                          <% else %>
+                                            <a href="<%= entry_url(le) %>" target="_blank" style="text-decoration:none;"><img src="<%= 'http://' + @site_url + @newsletter.draft_entry_ids[le.id][:img_url] %>" width="280" border="0" class="flexibleImage" style="width:280px;max-width:100%;" title="<%= le.title %>" alt="<%= le.title %>" /></a>
+                                          <% end %>
+                                          <a href="<%= entry_url(le) %>" target="_blank" style="text-decoration:none;">
+                                            <h3 style="color:#5F5F5F;line-height:125%;font-family:Helvetica,Arial,sans-serif;font-size:20px;font-weight:normal;margin-top:10px;margin-bottom:3px;text-align:left;"><%= le.title %></h3>
+                                            <% unless le.sub_title.blank? %>
+                                            <div style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:14px;margin-bottom:0;color:#808080;line-height:135%;"><%= le.sub_title %></div>
+                                            <% end %>
+
+
+
+
+                                          </a>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                  </td>
+                                  <td align="center" valign="top" class="flexibleContainerBox">
+                                    <table class="flexibleContainerBoxNext" border="0" cellpadding="0" cellspacing="0" width="280" style="max-width:100%;">
+                                      <tr>
+                                        <td align="center" class="textContent">
+                                          <% unless le == re %>
+                                          <% max_images = max_images -1 %>
+                                          <% if max_images > 0 %>
+                                            <a href="<%= entry_url(re) %>" target="_blank" style="text-decoration:none;"><img src="<%= attachments[re.id.to_s + '.jpg'].url %>" width="280" border="0" class="flexibleImage" style="max-width:100%;" title="<%= re.title %>" alt="<%= re.title %>" /></a>
+                                          <% else %>
+                                            <a href="<%= entry_url(re) %>" target="_blank" style="text-decoration:none;"><img src="<%= 'http://' + @site_url + @newsletter.draft_entry_ids[re.id][:img_url] %>" width="280" border="0" class="flexibleImage" style="width:280px;max-width:100%;" title="<%= re.title %>" alt="<%= re.title %>" /></a>
+                                          <% end %>
+                                          <h3 style="color:#5F5F5F;line-height:125%;font-family:Helvetica,Arial,sans-serif;font-size:20px;font-weight:normal;margin-top:10px;margin-bottom:3px;text-align:left;"><%= re.title %></h3>
+                                          <% unless re.sub_title.blank? %>
+                                          <div style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:14px;margin-bottom:0;color:#808080;line-height:135%;"><%= re.sub_title %></div>
+                                          <% end %>
+                                          <% end %>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                  </td>
+                                </tr>
+                              </table>
+                              <!-- // CONTENT TABLE -->
+
+                            </td>
+                          </tr>
+                        </table>
+                        <!-- // FLEXIBLE CONTAINER -->
+                      </td>
+                    </tr>
+                  </table>
+                  <!-- // CENTERING TABLE -->
+                </td>
+              </tr>
+
+
+              <!-- // MODULE ROW -->
+              <% end %>
+
+
+            <!-- EMAIL FOOTER // -->
+            <table bgcolor="#E1E1E1" border="0" cellpadding="0" cellspacing="0" width="640" id="emailFooter">
+
+              <!-- FOOTER ROW // -->
+
+              <!-- MODULE DIVIDER // -->
+              <tr>
+                <td align="center" valign="top">
+                  <!-- CENTERING TABLE // -->
+                  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                      <td align="center" valign="top">
+                        <!-- FLEXIBLE CONTAINER // -->
+                        <table border="0" cellpadding="0" cellspacing="0" width="640" class="flexibleContainer">
+                          <tr>
+                            <td align="center" valign="bottom" width="640" class="flexibleContainerCell">
+                              <table class="flexibleContainerCellDivider" border="0" cellpadding="30" cellspacing="0" width="100%">
+                                <tr>
+                                  <td align="center" valign="top" style="padding-top:0px;padding-bottom:0px;">
+
+                                    <!-- CONTENT TABLE // -->
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                      <tr>
+                                        <td height="20" align="center" valign="top"></td>
+                                      </tr>
+                                    </table>
+                                    <!-- // CONTENT TABLE -->
+
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                        <!-- // FLEXIBLE CONTAINER -->
+                      </td>
+                    </tr>
+                  </table>
+                  <!-- // CENTERING TABLE -->
+                </td>
+              </tr>
+              <!-- // END -->
+
+              <tr>
+                <td align="center" valign="top">
+                  <!-- CENTERING TABLE // -->
+                  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                      <td align="center" valign="top">
+                        <!-- FLEXIBLE CONTAINER // -->
+                        <table border="0" cellpadding="0" cellspacing="0" width="640" class="flexibleContainer">
+                          <tr>
+                            <td align="center" valign="top" width="640" class="flexibleContainerCell">
+                              <table border="0" cellpadding="0" cellspacing="3" width="100%">
+                                <tr>
+                                  <% SemiStatic::Tag.menu.locale(I18n.locale.to_s)[0..5].each do |t| %>
+                                  <td bgcolor="#E1E1E1" width="100" align="center" valign="bottom" style="font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#828282;text-align:center;line-height:120%;"><a target="_blank" href="<%= "http://#{@site_url}#{menu_from_tag(t)}" %>" style="color:#868474; text-decoration:none;"><%= t.name %></a></td>
+                                  <% end %>
+                                  <td bgcolor="#E1E1E1" width="100" align="center" valign="bottom" style="font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#828282;text-align:center;line-height:120%;"><a target="_blank" href="<%= new_contact_url %>" style="color:#868474; text-decoration:none;">Contact</a></td>
+
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                        <!-- // FLEXIBLE CONTAINER -->
+                      </td>
+                    </tr>
+                  </table>
+                  <!-- // CENTERING TABLE -->
+                </td>
+              </tr>
+
+              <tr>
+                <td align="center" valign="top">
+                  <!-- CENTERING TABLE // -->
+                  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                      <td align="center" valign="top">
+                        <!-- FLEXIBLE CONTAINER // -->
+                        <table border="0" cellpadding="0" cellspacing="0" width="640" class="flexibleContainer">
+                          <tr>
+                            <td align="center" valign="top" width="640" class="flexibleContainerCell">
+                              <table border="0" cellpadding="30" cellspacing="0" width="100%">
+                                <tr>
+                                  <td valign="top" bgcolor="#E1E1E1">
+
+                                    <div style="font-family:Helvetica,Arial,sans-serif;font-size:13px;color:#828282;text-align:center;line-height:120%;">
+                                      <a href="<%= site_path('imprint-credits') %>" target="_blank" style="text-decoration:none; color:#868474">&copy;<%= SemiStatic::Engine.config.copyright_year + ' ' + SemiStatic::Engine.config.copyright_owner %></a>
+                                      <div style="margin-top: 6px;">If you do not want to recieve emails from us, you can <a href="" target="_blank" style="text-decoration:none;color:#828282;"><span style="color:#828282;">unsubscribe</span></a>.</div>
+                                    </div>
+
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                        <!-- // FLEXIBLE CONTAINER -->
+                      </td>
+                    </tr>
+                  </table>
+                  <!-- // CENTERING TABLE -->
+                </td>
+              </tr>
+
             </table>
+            <!-- // END -->
+
           </td>
         </tr>
       </table>
-      <!-- /navigation -->
-  
-      <!-- subscribe  -->
-      <table class="mInfo rfs12_480" width="100%" cellpadding="10" cellspacing="0" style="font-family:Arial, Helvetica, sans-serif; font-size:11px; color:#868474;">
-        <tr>
-          <td style="font-family: Arial; font-size: 11px; color:#868474; line-height: 17px; text-align: center;" class="txtCenter font12px lh15">
-              <a href="<%= edit_subscriber_path(@subscriber, :token => @subscriber.cancel_token, :only_path => false) %>" target="_blank" style="font-family: Arial; font-size: 11px; color:#868474; line-height: 17px; text-decoration: underline;" class="font12px lh15">Click here to unsubscribe from this Newsletter</a>
-          </td>
-        </tr>
-        <tr>
-          <td style="font-family: Arial; font-size: 11px; color:#868474; line-height: 17px; text-align: left;" class="txtCenter font12px lh15">
-          </td>
-        </tr>
-      </table>
-      <!-- /unsubscribe -->
-  
-      <!-- Imprint -->
-      <table class="mLegalTxt rfs12_480" width="100%" cellpadding="10" cellspacing="0" style="font-family:Arial, Helvetica, sans-serif; font-size:11px; color:#868474;">
-        <tr>
-          <td align="center" style="padding-top:5px;">
-            <a href="<%= site_path('imprint-credits') %>" target="_blank" style="text-decoration:none; color:#868474">&copy;<%= SemiStatic::Engine.config.copyright_year + ' ' + SemiStatic::Engine.config.copyright_owner %></a>
-          </td>
-        </tr>
-      </table>
-      <!-- /imprint -->
-    </td>
-    <!-- /footer -->
-    <td>&nbsp;</td>
-    </tr>
-  </table>
-  <!-- /html wrapper -->
-</body>
+    </center>
+  </body>
 </html>
