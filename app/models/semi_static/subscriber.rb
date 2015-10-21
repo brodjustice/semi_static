@@ -13,7 +13,7 @@ module SemiStatic
     validates_presence_of :email
     
     def fullname
-      name.to_s + ' ' + surname.to_s
+      (name == surname) ? name : [name, surname].join(' ')
     end
 
     def delivery_state(newsletter)
