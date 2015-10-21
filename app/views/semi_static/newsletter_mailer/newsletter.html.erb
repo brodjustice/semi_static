@@ -440,7 +440,7 @@
                                           <% else %>
                                             <a href="<%= entry_url(re) %>" target="_blank" style="text-decoration:none;"><img src="<%= 'http://' + @site_url + @newsletter.draft_entry_ids[re.id][:img_url] %>" width="280" border="0" class="flexibleImage" style="width:280px;max-width:100%;" title="<%= re.title %>" alt="<%= re.title %>" /></a>
                                           <% end %>
-                                          <a href="<%= entry_url(le) %>" target="_blank" style="text-decoration:none;">
+                                          <a href="<%= entry_url(re) %>" target="_blank" style="text-decoration:none;">
                                             <h3 style="color:#5F5F5F;line-height:125%;font-family:Helvetica,Arial,sans-serif;font-size:20px;font-weight:normal;margin-top:10px;margin-bottom:3px;text-align:left;"><%= re.title %></h3>
                                             <% unless re.sub_title.blank? %>
                                             <div style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:14px;margin-bottom:0;color:#808080;line-height:135%;"><%= re.sub_title %></div>
