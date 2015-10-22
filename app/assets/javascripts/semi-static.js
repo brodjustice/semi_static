@@ -13,3 +13,22 @@ function semiStaticCloseMenu(){
   document.getElementById('menu-close').style.display='none';
   document.getElementById('menu-button').style.display='block';
 }
+
+function semiStaticGetPR(){
+  var pr;
+  try {pr=window.devicePixelRatio} catch(err){pr=1}
+  return(pr);
+}
+
+function semiStaticAJAX(url){
+  var xhr = new XMLHttpRequest();
+  // Note: Params assume they are additional, "?" already exists
+  url=url + '&pratio=' + parseInt(semiStaticGetPR());
+  xhr.open('GET', encodeURI(url));
+  xhr.setRequestHeader("Accept", "text/javascript");
+  xhr.onload = function() {
+    if (xhr.status === 200) { eval(xhr.responseText); }
+    else { alert('Request failed.  Returned status of ' + xhr.status); }
+  };
+  xhr.send();
+}

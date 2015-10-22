@@ -1,0 +1,5 @@
+var d = document.getElementById('dialog');
+d.className = d.className += 'popped';
+d.setAttribute("style", "#{@popup_style}");
+document.getElementById('content').style.opacity = '0.2';
+!= "d.innerHTML=('#{escape_javascript(render :partial => 'semi_static/photos/popup')}');"

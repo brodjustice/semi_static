@@ -94,6 +94,24 @@
         %fieldset
           = f.label :home_page
           = f.check_box :home_page
+        %h2 Behaviour
+        %fieldset
+          .infobox#popup_control
+            %h4= 'Popup'
+            %p
+              = 'If checked, then the system will do a high speed AJAX request to load a high definition'
+              = 'copy of the image into a popup window. The size of this window will potentially be up to'
+              = '50% of the width and height (25% of the area) of the origional image that you loaded. You'
+              = 'must therefore be careful to load reasonalbly sizes images, ie. no 20Mbyte 10000px wide'
+              = 'images from high defination cameras, unless you scale them before loading to the system'
+            %p
+              = 'If the system detects that you hage a high definition (high DPI, double density or retina)'
+              = 'screen, then the system will load a highly compressed image into the pop up and set it to'
+              = 'display in double density. This is a very efficient and very effective way of showing high'
+              = 'resolution images'
+          %span.infomarker
+            = f.label :popup, 'Pop-up of larger image on click'
+            = f.check_box :popup
         %h2 Language
         %fieldset
           = f.label :locale

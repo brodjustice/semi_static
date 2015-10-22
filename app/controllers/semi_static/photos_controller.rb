@@ -42,16 +42,23 @@ module SemiStatic
     # GET /photos/1
     # GET /photos/1.json
     def show
+      template = 'show'
       @photo = Photo.find(params[:id])
-      @selection = 'Gallery'
-      @title = @photo.title
-      @previous, @next = @photo.neighbour_ids
+      unless params[:popup].present?
+        @selection = 'Gallery'
+        @title = @photo.title
+        @previous, @next = @photo.neighbour_ids
+      else
+        @pixel_ratio = params[:pratio].to_i || 1
+        @popup_style = popup_style(@photo, @pixel_ratio)
+        template = "semi_static/photos/popup"
+      end
   
       layout = (semi_static_admin? ? 'semi_static_dashboards' : 'semi_static_full')
   
       respond_to do |format|
         format.html { render :layout => layout }
-        format.js
+        format.js { render :template => template }
         format.json { render json: @photo }
       end
     end
@@ -126,5 +133,24 @@ module SemiStatic
         format.json { head :no_content }
       end
     end
+
+    private
+
+    # Derives and inline stype for double density popup image based on Photo(p) and pixel ratio (pr)
+    # The wierd thing is that the double density image is massively compressed, and is so not as
+    # not as many Mbytes as half width (1/4 of the area) version. However, because of the extra pixel
+    # density the image still renders better than the single density half width, 1/4 size, version
+    def popup_style(p, pr)
+      unless p.img_dimensions.blank?
+        pr = pr.round
+        w = p.img_dimensions.first/2
+        h = p.img_dimensions.last/2
+        url = ((pr > 1.5) ? @photo.img.url(:compressed) : @photo.img.url(:half))
+        "background-image: url(#{url}); background-size: #{w}px #{h}px; width:#{w}px; height:#{h}px;"
+      else
+        "background: url(#{p.img.url}) center center no-repeat; background-size: cover;"
+      end
+    end
+
   end
 end

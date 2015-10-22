@@ -11,7 +11,7 @@ module SemiStatic
     belongs_to :entry
     has_one :seo, :as => :seoable
   
-    attr_accessible :title, :description, :img, :home_page, :position, :entry_id, :gallery_control, :locale
+    attr_accessible :title, :description, :img, :home_page, :position, :entry_id, :gallery_control, :locale, :popup
 
     has_attached_file :img,
        :styles => {
@@ -21,11 +21,15 @@ module SemiStatic
          :thumb=> "180x180#",
          :bar=> "304x>",
          :boxpanel=> "324x324#",
-         :big=> "640x>"
+         :big=> "640x>",
+         :compressed=> "100%x100%",
+         :half=> "50%x50%"
        },
        :convert_options => { :micro => "-strip -gravity Center",
                              :mini => "-strip -gravity Center",
                              :small => "-strip",
+                             :compressed => "-strip -quality 30",
+                             :half => "-strip -quality 80",
                              :bar => "-strip -quality 80",
                              :boxpanel => "-strip -quality 80 -gravity Center",
                              :thumb => "-strip -gravity Center -quality 80",
@@ -47,6 +51,9 @@ module SemiStatic
 
     after_save :expire_site_page_cache, :build_ordered_array
     after_destroy :expire_site_page_cache, :build_ordered_array
+    before_save :extract_dimensions
+
+    serialize :img_dimensions
   
     # Really need the .or method for our scopes here, but it's not available so we would need to wrap this in a method,
     # but it turns out that Rails scopes don't deal correctly with ordering nil's. So we were doing
@@ -120,6 +127,19 @@ module SemiStatic
     def to_param
       "#{id} #{title}".parameterize
     end
+
+    private
+
+    # Retrieves dimensions for image assets
+    # Also used entry.rb
+    def extract_dimensions
+      tempfile = img.queued_for_write[:original]
+      unless tempfile.nil?
+        geometry = Paperclip::Geometry.from_file(tempfile)
+        self.img_dimensions = [geometry.width.to_i, geometry.height.to_i]
+      end
+    end
+
 
   end
 end
