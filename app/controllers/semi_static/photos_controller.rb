@@ -143,8 +143,8 @@ module SemiStatic
     def popup_style(p, pr)
       unless p.img_dimensions.blank?
         pr = pr.round
-        @width = p.img_dimensions.first/2
-        @height = p.img_dimensions.last/2
+        @width = p.img_dimensions.first.to_i/2
+        @height = p.img_dimensions.last.to_i/2
         url = ((pr > 1.5) ? @photo.img.url(:compressed) : @photo.img.url(:half))
         "background-image: url(#{url}); background-size: #{@width}px #{@height}px; width:#{@width}px; height:#{@height}px;"
       else
