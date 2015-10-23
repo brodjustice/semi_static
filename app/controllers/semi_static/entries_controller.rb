@@ -9,8 +9,10 @@
     # We would like to do something like this:
     #   caches_page :show, :if => :not_subscriber_content?
     # but Rails 3.x will not take the :if. So we have to rewrite the
-    # page cache to a after_filter like this
-    after_filter(:only => :show) { |c| c.cache_page if not_subscriber_content?}
+    # page cache to a after_filter like thia:s
+    #   after_filter(:only => :show) { |c| c.cache_page if cachable_content?}
+    # But then we also don't cache subsriber content or ajax requests (to the entry image):
+    caches_page :show, :if => Proc.new { |c| !c.request.format.js? && cachable_content? }
   
     layout 'semi_static_dashboards'
   
@@ -191,8 +193,8 @@
 
     private
 
-    def not_subscriber_content?
-      !@entry.subscriber_content
+    def cachable_content?
+      !lambda{ |controller| controller.request.format.js? } && !@entry.subscriber_content
     end
 
     def authenticate_subscriber!
