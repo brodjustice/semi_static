@@ -214,6 +214,27 @@
           = f.label :image_disable, 'Disable display of image and caption in entry'
           = f.check_box :image_disable
           %br/
+          .infobox#popup_control
+            %h4= 'Popup'
+            %p
+              = 'You can often click on the entry image to get to the final entry view. If this is'
+              = 'checked then the final entry will be clickable and the following will happen:'
+            %p
+              = 'The system will do a high speed AJAX request to load a high definition'
+              = 'copy of the image into a popup window. The size of this window will potentially be up to'
+              = '50% of the width and height (25% of the area) of the origional image that you loaded. You'
+              = 'must therefore be careful to load reasonalbly sizes images, ie. no 20Mbyte 10000px wide'
+              = 'images from high defination cameras, unless you scale them before loading to the system'
+            %p
+              = 'If the system detects that you hage a high definition (high DPI, double density or retina)'
+              = 'screen, then the system will load a highly compressed image into the pop up and set it to'
+              = 'display in double density. This is a very efficient and very effective way of showing high'
+              = 'resolution images'
+
+          %span.infomarker
+          = f.label :image_popup, 'Allow possible image pop up in the final entry'
+          = f.check_box :image_popup
+          %br/
         %br/
         = f.label :img, 'Image (optional, will be resized)'
         %br/

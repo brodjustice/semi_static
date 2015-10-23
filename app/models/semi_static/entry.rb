@@ -11,7 +11,7 @@ module SemiStatic
     attr_accessible :position, :doc, :doc_description, :summary_length, :locale, :style_class, :header_colour, :background_colour, :colour
     attr_accessible :banner_id, :partial, :entry_position, :master_entry_id, :youtube_id_str, :use_as_news_summary, :simple_text
     attr_accessible :sidebar_id, :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_gallery, :side_bar_tag_id, :unrestricted_html
-    attr_accessible :merge_with_previous, :raw_html
+    attr_accessible :merge_with_previous, :raw_html, :image_popup
     attr_accessible :facebook_share, :show_in_documents_tag, :image_caption, :tag_line, :raw_html, :show_image_titles, :link_to_tag, :doc_delete, :img_delete, :layout_select
     attr_accessor :doc_delete, :img_delete
 
@@ -55,6 +55,8 @@ module SemiStatic
 
     has_attached_file :img,
        :styles => {
+         :half => "50%x50%",
+         :compressed => "100%x100%",
          :bar=> "304x>",
          :tile=> "241x>",
          :small=> "290x>",
@@ -66,6 +68,8 @@ module SemiStatic
        },
        :convert_options => { :bar => "-strip -gravity Center -quality 80",
                              :tile => "-strip -gravity Center -quality 80",
+                             :half => "-strip -quality 80",
+                             :compressed => "-strip -quality 40",
                              :small => "-strip -gravity Center -quality 80",
                              :panel => "-strip -gravity Center -quality 80",
                              :medium => "-strip -gravity Center -quality 80",

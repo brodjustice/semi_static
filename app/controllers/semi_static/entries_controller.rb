@@ -50,16 +50,23 @@
     # GET /entries/1
     # GET /entries/1.json
     def show
-      @title = ActionController::Base.helpers.strip_tags(@entry.title)
-      @seo = @entry.seo
-      @side_bar = @entry.side_bar
-      # If we call this via a URL and this is a merged entry, then we
-      # need to only show this entry, not additional merged entries
-      @suppress_merged = @entry.merge_with_previous
+      unless params[:popup].present?
+        @title = ActionController::Base.helpers.strip_tags(@entry.title)
+        @seo = @entry.seo
+        @side_bar = @entry.side_bar
+        # If we call this via a URL and this is a merged entry, then we
+        # need to only show this entry, not additional merged entries
+        @suppress_merged = @entry.merge_with_previous
+      else
+        @pixel_ratio = params[:pratio].to_i || 1
+        @popup_style = popup_style(@entry, @pixel_ratio)
+        template = "semi_static/photos/popup"
+      end
   
       respond_to do |format|
         format.text { render :partial => 'semi_static/entries/entry' }
         format.html { render :layout => 'semi_static_application' }
+        format.js { render :template => template }
         format.json { render :json => @entry }
       end
     end
@@ -159,6 +166,26 @@
       respond_to do |format|
         format.html { redirect_to entries_url }
         format.json { head :no_content }
+      end
+    end
+
+    protected
+
+    # Derives and inline stype for double density popup image based on Photo(p) and pixel ratio (pr)
+    # The wierd thing is that the double density image is massively compressed, and is so not as
+    # not as many Mbytes as half width (1/4 of the area) version. However, because of the extra pixel
+    # density the image still renders better than the single density half width, 1/4 size, version
+    #
+    # TODO: This is also used in photos_controller, refactor into lib
+    def popup_style(e, pr)
+      unless e.img_dimensions.blank?
+        pr = pr.round
+        @width = e.img_dimensions.first.to_i/2
+        @height = e.img_dimensions.last.to_i/2
+        url = ((pr > 1.5) ? e.img.url(:compressed) : e.img.url(:half))
+        "background-image: url(#{url}); background-size: #{@width}px #{@height}px; width:#{@width}px; height:#{@height}px;"
+      else
+        "background: url(#{e.img.url}) center center no-repeat; background-size: cover;"
       end
     end
 

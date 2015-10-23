@@ -79,23 +79,32 @@ module SemiStatic
 
     # This allows us to deal with images that are smaller than expected. We set the max-width inline according
     # to the uploaded file size. This then stops the image from being displayed larger than the origional.
-    def image_with_style(e, style, max_width)
+    def image_with_style(e, style, max_width, popup=true)
+      if popup && e.image_popup
+        c = "<a onclick=\'semiStaticAJAX(\"#{entry_path(e, :popup => true)}\")\; return false;' href='#'> ".html_safe
+      else
+        c = ''
+      end
       if max_width
-        image_tag(e.img_url_for_theme(style, @side_bar), :style => "max-width: #{max_width.to_s + 'px'};")
+        c += image_tag(e.img_url_for_theme(style, @side_bar), :style => "max-width: #{max_width.to_s + 'px'};").html_safe
       elsif !e.img_dimensions.blank?
         w = [e.img.styles[SemiStatic::Entry::THEME[SemiStatic::Engine.config.theme][style]].geometry.split('x').first.to_i, e.img_dimensions[0]].min
-        image_tag(e.img_url_for_theme(style, @side_bar), :style => "max-width: #{w.to_s + 'px'};")
+        c += image_tag(e.img_url_for_theme(style, @side_bar), :style => "max-width: #{w.to_s + 'px'};").html_safe
       else
-        image_tag(e.img_url_for_theme(style, @side_bar))
+        c += image_tag(e.img_url_for_theme(style, @side_bar)).html_safe
       end
+      if popup && e.image_popup
+        c += "</a>".html_safe
+      end
+      c.html_safe
     end
 
-    def semantic_entry_image(e, style, max_width=nil)
+    def semantic_entry_image(e, style, max_width=nil, popup=true)
       c = '<figure vocab = "http://schema.org/" typeof="ImageObject"> '.html_safe
       sc = e.raw_title.blank? ? e.image_caption : e.raw_title
       c += "<meta  property='name' content='#{sc}'> ".html_safe
       c += "<div class='#{style.to_s} image_wrapper'>".html_safe
-      c += image_with_style(e, style, max_width)
+      c += image_with_style(e, style, max_width, popup)
       c += '</div>'.html_safe
       unless e.image_caption.blank? || style == :home
         c += "<figcaption class='caption'> <div class='caption-inner' property='description'>#{e.image_caption}</div> </figcaption> ".html_safe
