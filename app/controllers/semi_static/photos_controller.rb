@@ -134,7 +134,7 @@ module SemiStatic
       end
     end
 
-    private
+    protected
 
     # Derives and inline stype for double density popup image based on Photo(p) and pixel ratio (pr)
     # The wierd thing is that the double density image is massively compressed, and is so not as
@@ -143,10 +143,10 @@ module SemiStatic
     def popup_style(p, pr)
       unless p.img_dimensions.blank?
         pr = pr.round
-        w = p.img_dimensions.first/2
-        h = p.img_dimensions.last/2
+        @width = p.img_dimensions.first/2
+        @height = p.img_dimensions.last/2
         url = ((pr > 1.5) ? @photo.img.url(:compressed) : @photo.img.url(:half))
-        "background-image: url(#{url}); background-size: #{w}px #{h}px; width:#{w}px; height:#{h}px;"
+        "background-image: url(#{url}); background-size: #{@width}px #{@height}px; width:#{@width}px; height:#{@height}px;"
       else
         "background: url(#{p.img.url}) center center no-repeat; background-size: cover;"
       end
