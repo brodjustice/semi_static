@@ -737,6 +737,7 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
 @media only screen and (max-width: 750px) {
   .mobile{display: block !important;}
   .desktop{display: none !important;}
+  #footer ul{line-height: 26px;}
   #banner4, #banner3, #banner2, #banner1, #banner0 {animation: none; opacity: 1.0; background-image: none; display: none;}
   #bannerBg {
     background-image: url(/assets/banners/#{$banner-mobile});
