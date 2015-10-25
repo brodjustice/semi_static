@@ -34,6 +34,8 @@
         $('#entry_position_select').hide();
       }
       $('#tag_partial').change(function() {
+        var params = {'cmd':{'partial_description': $('#tag_partial').val()}}
+        $.ajax({url: "#{system_path()}", data: params, type: 'PUT', dataType: 'script'});
         if($('#tag_partial').val() == 'none') {
           $('#entry_position_select').hide();
         } else {
@@ -73,6 +75,9 @@
 
 
   %fieldset
+    .infobox.wide#partial_description
+      = render :partial => 'semi_static/system/partial_description', :object => @tag
+    %span.infomarker
     = f.label :partial, 'Custom view'
     = f.select :partial, options_for_select(SemiStatic::Engine.config.open_partials.collect{|k, v| [k, k]}.prepend(["- None -", 'none']), @tag.partial)
     %span#entry_position_select

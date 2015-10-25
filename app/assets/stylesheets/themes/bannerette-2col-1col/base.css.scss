@@ -292,7 +292,7 @@ h2{ font-size: 20px;}
   transform: translateY(-50%);
   -webkit-transform: translateY(-50%);
 }
-#footer .notices{ clear: both; font-size: 12px; margin-top: 8px; }
+#footer .notices{ clear: both; font-size: 12px; margin-top: 12px; }
 #footer .copy{width: 40%; float: left; margin: 0px;}
 #footer .copy p{font-size: 12px; margin: 0; padding: 0 0 0 5px;}
 #footer .stamps{float: left; width: 40%; margin-top: -15px;}
@@ -387,7 +387,7 @@ h2{ font-size: 20px;}
 
 // Sprites
 
-#ddock{float: right;width: 97px; margin-top: 0px; height: 32px; background:transparent url(/assets/hoz-sprites.png) 0 center no-repeat;}
+#ddock{float: right;width: 97px; margin: 0px 16px 0px; height: 32px; background:transparent url(/assets/hoz-sprites.png) 0 center no-repeat;}
 #html5{float: right;margin: -4px 5px 0 0px; width: 25px; height: 33px; background:transparent url(/assets/hoz-sprites.png) -97px center no-repeat;}
 
 #twitter{float: right; padding: 0px 8px 3px 28px; background: transparent url(#{$vert-sprites}) 0px 5px no-repeat;}
@@ -791,6 +791,7 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
   .col .img{margin: 0 auto; text-align:center;}
   .col{margin-top: 1px; margin-bottom: 3px;}
   #frame{padding-top: 94px;}
+  #ddock{display: none;}
 
   /* Tagline probably no longer fits */
   #tag-wrapper{display: none;}

@@ -21,5 +21,9 @@ module SemiStatic
       # If a open partial is selected with the none option they we do not even display the DB entry contents
       !(!SemiStatic::Engine.config.open_partials[self.partial].nil? && (entry_position == SemiStatic::Entry::DISPLAY_ENTRY_SYM[:none]))
     end
+
+    def partial_description
+      System.partial_description(self.partial)
+    end
   end
 end

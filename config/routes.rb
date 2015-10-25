@@ -54,6 +54,7 @@ SemiStatic::Engine.routes.draw do
 
   match '/semi-static/dashboard' => 'dashboards#show', :as => 'semi_static_dashboard', :via => :get
 
+  # All system cmd use update, even though the may realy be doing a get
   match '/system' => "system#update", :via => :put
 end
 

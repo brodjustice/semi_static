@@ -16,7 +16,7 @@
       = link_to image_tag('html_add.png'), new_entry_path(:merge => entry)
   %td.tick
     - unless entry.partial == 'none'
-      = image_tag('tick.png', :title => "#{entry.partial}")
+      = link_to image_tag('tick.png', :title => "#{entry.partial}"), system_path(:cmd => {:partial_description => entry.partial}), :method => :put, :remote => true
   %td.tick
     = image_tag('tick.png', :title => "Entry master is #{entry.master_entry.locale + ': ' + entry.master_entry.title}") unless entry.master_entry.nil?
   %td.tick

@@ -21,6 +21,22 @@ module SemiStatic
     def self.cmd(cmd)
       self.send(cmd)
     end
+
+    def self.partial_description(*args)
+      c = " "
+        if SemiStatic::Engine.config.open_partials[args.first]
+        path = File.dirname Rails.root.join('app', 'views') + SemiStatic::Engine.config.open_partials[args.first]
+        filename = "_#{SemiStatic::Engine.config.open_partials[args.first].split('/').last}.html.haml"
+        if File.exist? path + '/' + filename
+          File.open(path + '/' + filename) do |file|
+            while (line = file.gets)
+              c += line.split('-#').count == 2 ? line.split('-#').last.to_s.gsub!(/\n/, "\r ") : ''
+            end
+          end
+        end
+      end
+      c
+    end
   
     def self.search_reindex(*args)
       if search_daemon_running?

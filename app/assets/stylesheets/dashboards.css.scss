@@ -2,6 +2,10 @@ body{
   font-size: 14px;
   line-height: normal;
 }
+.code{
+  font-family: "Courier New", Courier, monospace;
+  white-space: pre;
+}
 
 #top{
   display: none;
@@ -147,12 +151,17 @@ fieldset {
 .infobox{
   margin: 8px auto 0px;
   width: 80%;
-  border: 1px solid #585858;
+  border: 1px solid #ccc;
   background: #f0f0f0;
   border-radius: 4px;
   z-index: 100;
   padding: 0 6px;
   display: none;
+}
+.infobox.wide{
+  width: auto;
+  padding-bottom: 6px;
+  margin-bottom: 6px;
 }
 tr.top td{
   background-color: #f0f0f0;

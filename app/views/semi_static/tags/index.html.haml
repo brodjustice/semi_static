@@ -50,7 +50,8 @@
             = tag.side_bar_tag.name if !tag.side_bar_tag.nil? && !tag.side_bar_news
             = image_tag('tick.png', :title => 'Has side-bar') if tag.side_bar_news
           %td.tick
-            = image_tag('tick.png', :title => tag.partial) unless (tag.partial == 'none')
+            - unless (tag.partial == 'none')
+              = link_to image_tag('tick.png', :title => tag.partial), system_path(:cmd => {:partial_description => tag.partial}), :method => :put, :remote => true
           %td
             - if tag.predefined_class && SemiStatic::Banner.find_by_name(tag.predefined_class)
               = tag.predefined_class
