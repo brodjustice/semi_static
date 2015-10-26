@@ -3,7 +3,10 @@ module SemiStatic
     STYLE_CLASSES = ['normal', ' feint',  'flat',  'collapse', 'flat collapse', 'hard', 'highlight', 'wobble', 'dotted', 'tile', 'extra-padding', 'custom1', 'custom2', 'custom3']
 
     def youtube_video(id, width=640, height=360)
-      "<div class='yt_video'> <iframe width='#{width.to_s}' height='#{height.to_s}' src='//www.youtube.com/embed/#{id}?rel=0&amp;controls=0&amp;showinfo=0' allowfullscreen></iframe></div>".html_safe
+      link_id = id.split(',').first
+      w = id.split(',')[1] || width
+      h = id.split(',')[2] || height
+      "<div class='yt_video'> <iframe width='#{w.to_s.squish}' height='#{h.to_s.squish}' src='//www.youtube.com/embed/#{link_id}?rel=0&amp;controls=0&amp;showinfo=0' allowfullscreen></iframe></div>".html_safe
     end
 
     def human_file_size(s)

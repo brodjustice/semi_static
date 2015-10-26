@@ -142,6 +142,12 @@
             %p
               = 'If you are not sure what the YouTube ID is, then click on "share" underneath the YouTube video, and then copy the'
               = 'URL link to the field below. Then click "Preview" at the bottom of this form to see if you have the correct ID'
+            %p
+              = 'By default your video will be shown in 640px (wide) x 360px (high). If you want to set the width and height'
+              = 'yourself then you can provide the dimensions seperated by commas. For example a youtube video with'
+              = 'id = abc123xyz, width = 400px, height = 300px, you should enter:'
+              %b= ' abc123xyz,400,300'
+    
           = f.label :youtube_id_str, 'YouTube Video ID (optional)', :class => 'infomarker'
           %br/
           .field
