@@ -8,8 +8,8 @@
 #popoff{background-color: transparent; width: 100%; height:100%; cursor:pointer;}
 .image_wrapper{position:relative;}
 .popable::after{
-  content:'↔'; font-size: 24px;position: absolute; top:3px; right:3px;
-  color: #e0e0e0; padding: 0 6px 6px; background-color: #211827;
+  content:'↔'; font-size: 20px;position: absolute; top:3px; right:3px;
+  color: #e0e0e0; padding: 0 5px 5px; background-color: rgba(0,0,0,0.7);
   border: 1px solid #d8d8d8; border-radius:100%;
   transform: rotate(135deg);
 }

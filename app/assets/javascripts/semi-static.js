@@ -22,7 +22,7 @@ function semiStaticGetPR(){
 
 function semiStaticAJAX(url){
   var xhr = new XMLHttpRequest();
-  // Note: Params assume they are additional, "?" already exists
+  // Note: Params assume that an additional, "?" already exists
   url=url + '&pratio=' + parseInt(semiStaticGetPR());
   xhr.open('GET', encodeURI(url));
   xhr.setRequestHeader("Accept", "text/javascript");

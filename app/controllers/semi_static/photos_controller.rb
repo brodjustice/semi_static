@@ -42,7 +42,7 @@ module SemiStatic
     # GET /photos/1
     # GET /photos/1.json
     def show
-      template = 'show'
+      template = 'semi_static/photos/show'
       @photo = Photo.find(params[:id])
       unless params[:popup].present?
         @selection = 'Gallery'

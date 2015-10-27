@@ -115,7 +115,7 @@ module SemiStatic
     def semantic_photo(p, style, show_title = true)
       c = '<figure vocab = "http://schema.org/" typeof="ImageObject"> '.html_safe
       if p.popup
-        c += "<a onclick=\'semiStaticAJAX(\"#{photo_path(p, :format => :js, :popup => true)}\")\; return false;' href='#{photo_path(p)}' class='photo'> ".html_safe
+        c += "<a class='popable' onclick=\'semiStaticAJAX(\"#{photo_path(p, :format => :js, :popup => true)}\")\; return false;' href='#{photo_path(p)}' class='photo'> ".html_safe
       else
         c += "<a href='#{photo_path(p)}' class='photo'> ".html_safe
       end
