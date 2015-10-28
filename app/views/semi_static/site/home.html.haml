@@ -1,17 +1,18 @@
 .section
-  = home_custom
-  - unless SemiStatic::Entry::DISPLAY_ENTRY[@tag.entry_position] == :none
-    .col.span_2_of_3
-      - SemiStatic::Entry.unscoped.order(:position).home.locale(I18n.locale).unmerged.each do |e|
-        .entry.panel{:class => e.style_class, :style => "background-color:#{e.background_colour}; color: #{e.colour}"}
-          = render :partial => 'semi_static/entries/entry', :locals => {:e => e, :style => :summary}
-  - if @tag.side_bar
-    = home_custom_after
-    .col.span_1_of_3
-      %aside
-        = yield :side_bar_top
-        = render :partial => 'semi_static/site/search' unless SemiStatic::Engine.config.has?(:disable_search_in_home_page)
-        = render :partial => 'semi_static/site/social' if !SemiStatic::Engine.config.has?(:social_in_footer)
-        = render :partial => SemiStatic::Engine.config.social_partial if SemiStatic::Engine.config.social_partial.present?
-        = render :partial => 'semi_static/tags/news'
-        = render :partial => 'semi_static/photos/side_bar'
+  - unless @tag.nil?
+    = home_custom
+    - unless SemiStatic::Entry::DISPLAY_ENTRY[@tag.entry_position] == :none
+      .col.span_2_of_3
+        - SemiStatic::Entry.unscoped.order(:position).home.locale(I18n.locale).unmerged.each do |e|
+          .entry.panel{:class => e.style_class, :style => "background-color:#{e.background_colour}; color: #{e.colour}"}
+            = render :partial => 'semi_static/entries/entry', :locals => {:e => e, :style => :summary}
+      = home_custom_after
+    - if @tag.side_bar
+      .col.span_1_of_3
+        %aside
+          = yield :side_bar_top
+          = render :partial => 'semi_static/site/search' unless SemiStatic::Engine.config.has?(:disable_search_in_home_page)
+          = render :partial => 'semi_static/site/social' if !SemiStatic::Engine.config.has?(:social_in_footer)
+          = render :partial => SemiStatic::Engine.config.social_partial if SemiStatic::Engine.config.social_partial.present?
+          = render :partial => 'semi_static/tags/news'
+          = render :partial => 'semi_static/photos/side_bar'
