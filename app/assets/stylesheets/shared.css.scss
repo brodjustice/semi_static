@@ -4,8 +4,9 @@
   box-sizing: border-box;
 }
 // DD photo dialog and stuff...
-.popped{max-width: 100%;display:block;position:fixed; background-attachment: local; overflow: auto; z-index:200; left:0; right:0; top:0; bottom:0; margin: auto;}
-#popoff{background-color: transparent; width: 100%; height:100%; cursor:pointer;}
+.popped{max-width: 96%;max-height:96%;display:block;position:fixed; background-attachment: local; overflow: visible; z-index:200; left:0; right:0; top:0; bottom:0; margin: auto;}
+#popoff{background-color: transparent; width: 100%; height:auto;; cursor:pointer;}
+#popup_caption{background-color: rgba(255,255,255,0.5); color: black; font-size: 18px; margin-top: 4px; border-radius: 0 0 50% 50%;padding: 12px; text-align:center;}
 .image_wrapper{position:relative;}
 .popable::after{
   content:'↔'; font-size: 20px;position: absolute; top:3px; right:3px;

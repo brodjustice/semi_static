@@ -62,6 +62,7 @@
       else
         @pixel_ratio = params[:pratio].to_i || 1
         @popup_style = popup_style(@entry, @pixel_ratio)
+        @caption = @entry.image_caption
         template = "semi_static/photos/popup"
       end
   
