@@ -10,7 +10,7 @@ module SemiStatic
     layout 'semi_static_application'
   
     def semi_static_admin?
-      (defined? current_admin && current_admin) || ((defined? current_user) && current_user.respond_to?('admin?') && current_user.admin?)
+      ((defined? current_admin) && current_admin) || ((defined? current_user) && current_user.respond_to?('admin?') && current_user.admin?)
     end
 
     def semi_static_current_user
