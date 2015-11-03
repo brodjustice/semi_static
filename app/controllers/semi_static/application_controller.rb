@@ -10,7 +10,7 @@ module SemiStatic
     layout 'semi_static_application'
   
     def semi_static_admin?
-      current_admin || ((defined? current_user) && current_user.respond_to?('admin?') && current_user.admin?)
+      (defined? current_admin && current_admin) || ((defined? current_user) && current_user.respond_to?('admin?') && current_user.admin?)
     end
 
     def semi_static_current_user
@@ -27,7 +27,11 @@ module SemiStatic
         # Not worth checking the CanCan abilities, but if you did it would be like:
         #
         # authorize! params[:action].to_sym, params[:controller].classify
-        semi_static_current_user.admin?
+        #
+        # But since the ability to access anything in semi_static implies the ability
+        # to access all of semi_static, we can just check for access to SemiStatic::Entry,
+        # else you have to add the entire model list to the CanCan ability.rb
+        authorize! :index, SemiStatic::Entry
       else
         authenticate_admin!
       end

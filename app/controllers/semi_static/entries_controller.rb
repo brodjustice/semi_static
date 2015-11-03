@@ -201,7 +201,7 @@
     def authenticate_subscriber!
       @entry = Entry.find(params[:id])
       @tag = @entry.tag
-      if !current_admin && @entry.subscriber_content
+      if !semi_static_admin? && @entry.subscriber_content
         session[:user_intended_url] = url_for(params) unless send('current_' + SemiStatic::Engine.config.subscribers_model.first[0].downcase)
         send('authenticate_' + SemiStatic::Engine.config.subscribers_model.first[0].downcase + '!')
       end
