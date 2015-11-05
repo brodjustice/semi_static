@@ -25,7 +25,11 @@ module SemiStatic
        :styles => { :desktop=> "1500x300#",
                     :entry => "900x500#",
                     :mobile => "750x300#",
+                    :background => "1600x>",
                     :parallax => "1000x>",
+                    :desktopBg => "1000x1000#",
+                    :tabletBg => "820x1000#",
+                    :mobileBg => "580x1000#",
                     :bannerette => "1012x300#",
                     :desktopBig => "1400x350#",
                     :mobileBig => "580x350#",
@@ -37,6 +41,11 @@ module SemiStatic
                              :entry => "-strip -gravity Center -quality 85" ,
                              :bannerette => "-strip -gravity Center -quality 80" ,
                              :header => "-strip -gravity Center -quality 75" ,
+                             :parallax => "-strip -gravity Center -quality 75" ,
+                             :background => "-strip -gravity Center -quality 75" ,
+                             :desktopBg => "-strip -gravity Center -quality 75" ,
+                             :tabletBg => "-strip -gravity Center -quality 70" ,
+                             :mobileBg => "-strip -gravity Center -quality 70" ,
                              :desktopy500 => "-strip -gravity Center -quality 75" ,
                              :mobiley500 => "-strip -gravity Center -quality 75" }
 

@@ -31,6 +31,7 @@
     = javascript_include_tag 'theme' unless ObjectSpace.each_object(Sprockets::Environment).first.find_asset('theme.js').source.empty?
     = stylesheet_link_tag 'semi_static_application', :media => 'all'
     %style{:type => "text/css"}
+      = render 'semi_static/shared/css_for_theme'
       = yield :header_css
 
     %script

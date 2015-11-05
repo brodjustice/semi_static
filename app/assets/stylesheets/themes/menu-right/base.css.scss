@@ -17,10 +17,11 @@ body{
   background-color: white; 
   margin: 0px;
   font:16px 'Raleway', 'Ubuntu', Arial, Verdana, Helvetica, sans-serif;
-  color: #181828;
-  background:
-    url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAIAAADZSiLoAAAAHElEQVQIHWP48+fP9+/f////zwCkgBwQC4ghAACODRqkCkEF0QAAAABJRU5ErkJggg==)
-    repeat;
+  color: $font-color;
+  background-repeat: repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  max-height: 1000px;
 }
 
 a{text-decoration: none; color: black;}
@@ -39,10 +40,8 @@ h2{ font-size: 20px; font-weight: normal;}
 
 #top{
   height: 75px;
-  background-color: white;
   position: relative;
   z-index: 200; // for logo in banner
-  box-shadow: 0 0 7px #7c7c7c;
   width: 100%;
   top: 0px;
 }
@@ -56,50 +55,46 @@ h2{ font-size: 20px; font-weight: normal;}
 
 #bar-menu{
   z-index: 1000;
-  box-shadow: 0 0 2px #686868;
-  background-color: $prime-color;
-  position: realtive;
+  padding-bottom: 2px;
+  position: relative;
   right: 0px;
   height: 30px;
   float: right;
-  border-bottom-left-radius: 2px;
-  border-bottom-right-radius: 2px;
   margin-right: 12px;
   font-size: 14px;
+  background-color: rgba(255,255,255,0.5);
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 0 2px #504540;
 }
 
 #bar-menu ul{
   list-style: outside none none; 
   font-size: 16px;
-  color: white;
+  line-height: 22px;
   margin: 0px 12px 0px 14px;
 }
 
 #bar-menu li{
   float: right;
+  text-transform: uppercase;
 }
 
 #bar-menu li a{
-  color: white;
   display: block;
   padding: 5px 0px 0 34px;
 }
 
 #logo-wrapper {
-    background: none repeat scroll 0 0 white;
-    border-bottom-left-radius: 2px;
-    border-bottom-right-radius: 2px;
-    margin-left: 12px;
-    width: $logo-width;
-    z-index: 2000;
-    position: relative;
+  width: $logo-width;
+  z-index: 2000;
+  position: relative;
 }
 
 #menu-wrapper{
   z-index: 1000;
-  top: -40px;
   right: 0px;
-  position: relative;
+  position: fixed;
+  top:136px;
 }
 
 .contain{
@@ -120,7 +115,7 @@ h2{ font-size: 20px; font-weight: normal;}
 
 #tagline{
   // If you want to play with CSS3 viewport widths: font-size: 2.3vw !important;
-  width: 90%; text-align: center; margin: 0px auto; color: #282828; text-shadow: 1px 2px 5px black; font-size: 28px; font-weight: normal;
+  width: 90%; text-align: center; margin: 0px auto; color: white; text-shadow: 1px 2px 5px black; font-size: 28px; font-weight: normal;
   text-shadow: -2px 8px 4px rgba(0, 0, 0, 0.2), 0 -5px 35px rgba(255, 255, 255, 0.3);
 }
 
@@ -132,18 +127,23 @@ h2{ font-size: 20px; font-weight: normal;}
 
 #menu-main{float: right;}
 #menu-main .wrapper:hover{text-decoration: none;}
-#menu-main .col{margin-left: 12px; width: auto; float: left;}
+#menu-main .col{margin-left: 12px; width: auto; float: none;}
 #menu-main .wrapper:hover{ text-decoration: underline; }
 
 #menu{
-  z-index: 500; width: 98%;
-  margin: 0 auto; font-size: 20px;
-  font-weight: bold; padding-right: 12px;
+  z-index: 500;
+  margin: 0 auto; font-size: 48px;
+  text-shadow: 0 0 2px #000;
+  font-weight: bold;
+  position: relative; right: 2%;
+  text-transform: uppercase;
 }
 
 #menu a{
-  color: #282828; font-weight: normal;
+  color: #fff; font-weight: normal;
   float: right; margin-left: 12px;
+  line-height: 54px;
+  padding: 4px;
 }
 
 #menu .col{
@@ -177,7 +177,7 @@ h2{ font-size: 20px; font-weight: normal;}
 #menu .wrapper .text{
   display: blocK;
   overflow: hidden;
-  height: 24px;
+  padding-top:32px;
 }
 
 #menu .wrapper .icon {
@@ -189,7 +189,7 @@ h2{ font-size: 20px; font-weight: normal;}
 }
 
 #menu .wrapper a:hover{
-  color: black;
+  text-shadow: 0 0 2ps $prime-color;
 }
 
 .locale img{
@@ -199,8 +199,7 @@ h2{ font-size: 20px; font-weight: normal;}
 //
 // Dynamic content
 // -----------------
-#container{background-color: white !important; box-shadow: 0 0 2px #c8c8c8;}
-#frame{margin-top: -10px;}
+#frame{margin-top: 54px;}
 
 /* Home page entry images are slightly smaller */
 // #semi-static-home-page .entry img{
@@ -229,10 +228,10 @@ h2{ font-size: 20px; font-weight: normal;}
 
 
 #content, .content{
-  max-width: 1024px;
-  margin: 0 auto;
+  max-width: 70%;
   padding: 0 12px;
   overflow: auto;
+  margin-bottom:24px;
 }
 #container:after{ content: ''; display: table; clear: both; }
 
@@ -240,7 +239,7 @@ h2{ font-size: 20px; font-weight: normal;}
 // FOOTER
 //
 
-#footer{color: white; clear: both; border-top: 1px solid #d8d8d8; min-height: 50px; background-color: $prime-color;}
+#footer{width: 100%; color: white; position: fixed; bottom: 0px;}
 #footer a{color: white;}
 #footer img{float: right; margin: -9px 0 0 8px;}
 #footer .credits{float: left; width: 20%; text-align: center;}
@@ -248,8 +247,6 @@ h2{ font-size: 20px; font-weight: normal;}
   color: white;
   position: relative;
   top: 50%; 
-  transform: translateY(-50%);
-  -webkit-transform: translateY(-50%);
 }
 #footer .notices{ clear: both; font-size: 12px; margin-top: 8px; }
 #footer .copy{width: 40%; float: left; margin: 0px;}
@@ -435,23 +432,12 @@ a .link, .link a, .more a{
 }
 
 
-/* Custom menu icons */
+/* Custom menu icons are not used, just the text in the wrapper */
 
-.icon .custom{
-  position: relative !important;
-  height: 40px;
-  border-bottom: 4px solid $prime-color;
-  opacity: 0.0;
-  display: block;
-  top: -17px;
-  margin-right: -10px;
-}
-
-#selected .icon .custom{opacity: 0.5 !important;}
-
-#menu:hover .wrapper .icon .custom{display: none; opacity: 0.0;}
-
-#menu .wrapper:hover .icon .custom{ opacity: 1.0 !important; display: block !important; }
+.wrapper .text{border-bottom:4px solid transparent;}
+#selected.wrapper .text{border-color: $secondary-color;}
+#menu:hover .wrapper .text{border-color: transparent;}
+#menu .wrapper:hover .text{border-color: $prime-color !important;}
 
 /* End custom menu icons */
 
