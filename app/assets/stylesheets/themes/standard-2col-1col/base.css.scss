@@ -368,8 +368,9 @@ h2{ font-size: 20px;}
 #xing{float: right; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0 -160px no-repeat;}
 #instagram{float: right; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0 -319px no-repeat;}
 
+#bar-menu .sign-in a{float: right; display: block; padding: 4px 12px 4px 32px; background: transparent url(/assets/user-icon-black.png) 4px 2px no-repeat;background-size: 24px 27px !important;}
 #bar-menu .contact a{float: right; display: block; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0px -193px no-repeat;}
-#bar-menu .search a{float: right; display: block; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0px -226px no-repeat;}
+#bar-menu .search a{float: right; display: block; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0px -225px no-repeat;}
 #bar-menu .icon a{ background-size: 28px $vert-sprites-height; }
 
 #twitter, #xing, #facebook, #youtube, #bar-menu .icon a{ background-size: 28px $vert-sprites-height; }

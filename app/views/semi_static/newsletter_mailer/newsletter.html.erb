@@ -560,7 +560,7 @@
 
                                     <div style="font-family:Helvetica,Arial,sans-serif;font-size:13px;color:#828282;text-align:center;line-height:120%;">
                                       <a href="<%= site_path('imprint-credits') %>" target="_blank" style="text-decoration:none; color:#868474">&copy;<%= SemiStatic::Engine.config.copyright_year + ' ' + SemiStatic::Engine.config.copyright_owner %></a>
-                                      <div style="margin-top: 6px;">If you do not want to recieve emails from us, you can <a href="" target="_blank" style="text-decoration:none;color:#828282;"><span style="color:#828282;">unsubscribe</span></a>.</div>
+                                      <div style="margin-top: 6px;">If you do not want to recieve emails from us, you can <a href="#{edit_subscriber_path(@subscriber, :token => @subscriber.cancel_token, :only_path => false)}" target="_blank" style="text-decoration:none;color:#828282;"><span style="color:#828282;">unsubscribe</span></a>.</div>
                                     </div>
 
                                   </td>

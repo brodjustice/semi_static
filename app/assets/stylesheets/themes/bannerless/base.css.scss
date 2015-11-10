@@ -193,7 +193,11 @@ h2{ font-size: 20px; font-weight: normal;}
 }
 
 #menu .wrapper a:hover{
-  color: black;
+  @if variable-exists(menu-hover-color) {
+    color: $menu-hover-color;
+  } @else {
+    color: black;
+  }
 }
 
 .locale img{ margin-top: -6px; }
@@ -283,6 +287,7 @@ h2{ font-size: 20px; font-weight: normal;}
   box-shadow: none;
   min-height: 0;
 }
+.doc-inner, .news{background-color:#f0f4f8;}
 
 /* Classes from site helper */
 .panel.hard{
@@ -309,11 +314,7 @@ h2{ font-size: 20px; font-weight: normal;}
 .panel.highlight{
   background-color: $secondary-color; color: white;
 }
-
-.panel:last-child{
-  border-bottom: none;
-}
-
+.panel:last-child{border-bottom: none;}
 .gallery, .news, .social{
   margin-bottom: 10px;
   padding: 6px 11px;
@@ -440,18 +441,32 @@ h2 a, h3 a{color: $secondary-color;}
 .icon .custom{
   position: relative !important;
   height: 40px;
-  border-bottom: 4px solid $prime-color;
   opacity: 0.0;
   display: block;
   top: -17px;
   margin-right: -10px;
+  @if variable-exists(menu-hover-color) {
+    border-bottom: 4px solid $menu-hover-color;
+  } @else {
+    border-bottom: 4px solid $prime-color;
+  }
 }
 
-#selected .icon .custom{opacity: 0.5 !important;}
-
+#selected .icon .custom{
+  @if variable-exists(menu-selected-underline-color) {
+    border-bottom: 4px solid $menu-selected-underline-color !important;
+    opacity: 1.0 !important;
+  } @else {
+    opacity: 0.5 !important;
+  }
+}
 #menu:hover .wrapper .icon .custom{display: none; opacity: 0.0;}
-
-#menu .wrapper:hover .icon .custom{ opacity: 1.0 !important; display: block !important; }
+#menu .wrapper:hover .icon .custom{
+  @if variable-exists(menu-selected-underline-color) {
+    border-bottom: 4px solid $menu-hover-color !important;
+  }
+  opacity: 1.0 !important; display: block !important;
+}
 
 /* End custom menu icons */
 

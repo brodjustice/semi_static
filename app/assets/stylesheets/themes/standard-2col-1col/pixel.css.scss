@@ -5,6 +5,7 @@
     background-image: url(#{$vert-x2-sprites});
     background-size: 28px $vert-sprites-height;
   }
+  #bar-menu .sign-in a{background-image:url(/assets/x2/user-icon-black.png);}
   #logo{ background: transparent url(/assets/x2/#{$logo-top}) 0 0 no-repeat; background-size: $logo-top-width $logo-top-height; }
 }
 
