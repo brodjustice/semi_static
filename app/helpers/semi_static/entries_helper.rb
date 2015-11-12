@@ -24,6 +24,14 @@ module SemiStatic
       end
     end
 
+    def alt_img_as_icon(e)
+      if e.alt_img.present? && !e.news_item
+        "<a href='#{entry_path(e)}'><img class='alt-img' src='#{e.alt_img.url}' alt='#{e.alt_img_file_name}'/></a>".html_safe
+      else
+        ''
+      end
+    end
+
     def entry_title_or_id(e)
       (e.merge_with_previous ? '--> ' : '') + (e.get_title || "##{e.id.to_s}")
     end

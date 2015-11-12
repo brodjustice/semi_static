@@ -21,6 +21,7 @@
   .html
     = icon(e.tag) if e.youtube_id_str.blank?
     - if e.youtube_id_str.blank?
+      = alt_img_as_icon(e)
       = entry_title(e, true)
     - if @summaries && !e.merge_with_previous
       = entry_summary(e, e.summary_length)

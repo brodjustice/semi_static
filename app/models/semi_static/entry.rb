@@ -15,6 +15,10 @@ module SemiStatic
     attr_accessible :facebook_share, :show_in_documents_tag, :image_caption, :tag_line, :raw_html, :show_image_titles, :link_to_tag, :doc_delete, :img_delete, :layout_select
     attr_accessor :doc_delete, :img_delete
 
+    # The news image is now actually used for various alternative fuctions, icons, etc.
+    alias_attribute :alt_img, :news_img
+    alias_attribute :alt_img_file_name, :news_img_file_name
+
     settings index: { number_of_shards: 1, number_of_replicas: 0 }
   
     belongs_to :tag

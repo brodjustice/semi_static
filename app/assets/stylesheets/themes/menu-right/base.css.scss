@@ -93,8 +93,7 @@ h2{ font-size: 20px; font-weight: normal;}
 #menu-wrapper{
   z-index: 1000;
   right: 0px;
-  position: fixed;
-  top:136px;
+  top:10%;
 }
 
 .contain{
@@ -220,6 +219,10 @@ h2{ font-size: 20px; font-weight: normal;}
   position: relative;
 }
 */
+#top, #overlay{
+  position: fixed;
+  width: 100%;
+}
 
 #search-wrapper{
   padding: 4px 0px 4px 4px;

@@ -40,20 +40,6 @@
   100% { font-size: 22px; }
 }
 
-@keyframes wobble {
-  0% { transform: rotate(0deg); }
-  1% { transform: rotate(5deg); }
-  3% { transform: rotate(-5deg); }
-  5% { transform: rotate(0deg); }
-}
-
-@-webkit-keyframes wobble {
-  0% { -webkit-transform: rotate(0deg); }
-  1% { -webkit-transform: rotate(5deg); }
-  3% { -webkit-transform: rotate(-5deg); }
-  5% { -webkit-transform: rotate(0deg); }
-}
-
 @-webkit-keyframes loading {
   0%   { width: 0%;}
   100%   { width: 100%;}
