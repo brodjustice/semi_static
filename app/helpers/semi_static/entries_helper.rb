@@ -24,8 +24,8 @@ module SemiStatic
       end
     end
 
-    def alt_img_as_icon(e)
-      if e.alt_img.present? && !e.news_item
+    def alt_img_as_icon(e, force=false)
+      if e.alt_img.present? && (force || !e.news_item)
         "<a href='#{entry_path(e)}'><img class='alt-img' src='#{e.alt_img.url}' alt='#{e.alt_img_file_name}'/></a>".html_safe
       else
         ''
