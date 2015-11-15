@@ -31,6 +31,7 @@
 
       @title = @tag.name
       @seo = @tag.seo
+      @banner_class = @tag.banner && 'bannered'
 
       @tag.entries.size == 1 && @tag.entries.first.link_to_tag && ((@entry = @tag.entries.first) && (@link_to_tag = true))
       !@link_to_tag && (@summaries = true)

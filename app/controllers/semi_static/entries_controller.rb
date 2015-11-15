@@ -56,6 +56,7 @@
         @title = ActionController::Base.helpers.strip_tags(@entry.title)
         @seo = @entry.seo
         @side_bar = @entry.side_bar
+        @banner_class = @entry.banner && 'bannered'
         # If we call this via a URL and this is a merged entry, then we
         # need to only show this entry, not additional merged entries
         @suppress_merged = @entry.merge_with_previous
