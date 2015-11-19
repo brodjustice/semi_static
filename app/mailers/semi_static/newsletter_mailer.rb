@@ -40,7 +40,7 @@ module SemiStatic
         @banner = true
         attachments.inline['banner.jpg'] = File.read("#{Rails.root}/public#{b.img(:original)}")
       else
-        if SemiStatic::Engine.config.try('newsletter_logo')
+        if SemiStatic::Engine.config.has?('newsletter_logo')
           attachments.inline['logo.jpg'] = File.read("#{Rails.root}/app/assets/images/#{SemiStatic::Engine.config.newsletter_logo.split('/').last}")
         else
           attachments.inline['logo.jpg'] = File.read("#{Rails.root}/app/assets/images/#{SemiStatic::Engine.config.logo_image.split('/').last}")

@@ -1,0 +1,6 @@
+%td.nl_entry
+  = render :partial => 'controls', :locals => {:e => e}
+  = link_to semi_static.edit_entry_path(e) do
+    .img{:id => "entry_id_#{e.id}"}
+      = render :partial => 'image', :locals => {:e => e}
+

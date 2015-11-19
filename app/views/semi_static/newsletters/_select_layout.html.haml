@@ -1,0 +1,10 @@
+.button= link_to_function 'Cancel', "$('#dialog').hide();"
+%h1= 'Please select a layout for this newsletter entry'
+= form_for @newsletter do |f|
+  = hidden_field_tag 'entry[id]', @entry.id
+  = hidden_field_tag :set_layout, true
+  %label= 'Layout:'
+  = select_tag "entry[layout]", options_for_select(SemiStatic::Newsletter::ENTRY_LAYOUTS.collect{|k,v| [k.to_s, v]}, @newsletter.draft_entry_ids[@entry.id][:layout])
+  %br/
+  %br/
+  = submit_tag 'Set'

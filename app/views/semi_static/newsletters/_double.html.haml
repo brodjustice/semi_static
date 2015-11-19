@@ -1,0 +1,12 @@
+%tr
+  - row.each do |e|
+    = render :partial => 'td_image', :locals => {:e => e}
+%tr
+  - row.each do |e|
+    %td.titles
+      .nutWrap
+        .nutWrapInner
+          %h3= link_to e.title, semi_static.edit_entry_path(e)
+          - unless e.sub_title.blank?
+            %h4= link_to e.sub_title, semi_static.edit_entry_path(e)
+

@@ -315,8 +315,7 @@ module SemiStatic
 
     def check_for_newsletter_entry
       unless (n = self.tag.newsletter).nil?
-        n.draft_entry_ids << self.id
-        n.save
+        n.add_entry({:new_entry_id => self.id})
       end
     end
 

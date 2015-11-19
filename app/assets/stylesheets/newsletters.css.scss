@@ -2,14 +2,15 @@
 #newsletter-wrapper{ box-shadow: 0 0 1px #a0a0a0; max-width: 606px; margin: 0 auto;}
 #newsletter-wrapper tr td{ background-color: white;}
 #newsletter-wrapper tr td.nl_entry{ vertical-align: top;}
-.newsletter .controls{position: absolute; top: 0px; display: none; width: 100%; background-color: white; color: #484848; font-size: 20px;}
+.newsletter .controls{position: absolute; top: 0px; display: none; width: 100%; height: 100%; color: #484848; font-size: 20px;}
 .newsletter .controls a{color: #484848; display: block;}
 .newsletter .controls a:hover{color: black;}
-.controls .new, .controls .swap, .controls .add{position: absolute; top: 0px; padding: 16px; background-color: white; color: #484848;}
+.controls .layout, .controls .new, .controls .swap, .controls .add{position: absolute; top: 0px; padding: 16px; background-color: white; color: #484848;}
 .controls > *{border: 1px solid #a8a8a8; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);}
 .controls .swap{left: 0px; border-bottom-right-radius: 32px;}
 .controls .add{right: 0px; border-bottom-left-radius: 32px;}
-.controls .new{width: 14px; left: 120px; border-bottom-right-radius: 32px; border-bottom-left-radius: 32px;}
+.controls .layout{left: 0px; top: auto; bottom: 0px; border-top-right-radius: 32px;}
+.controls .new{right:0px; top: auto; bottom:0px; border-top-left-radius: 32px;}
 .newsletter td:hover .controls{display: block;}
 .nl_entry.selected{border-color: grey;}
 
@@ -22,7 +23,7 @@ table.newsletter{table-layout: fixed; position:relative; border-collapse: separa
 .nl_entry{position: relative;}
 td h1, td h2{text-align: right;}
 td h3, td h4{margin: 0 12px; padding: 0px;}
-td h3, td h4{margin: 0px;}
+td h3, td h4{margin: 0 0 12px 0;}
 td h3 a{color: #666454; font-size: 18px;}
 td h4 a{color: #aead9e !important; font-size: 13px;}
 td.titles{border-top: 0px; vertical-align: bottom;}

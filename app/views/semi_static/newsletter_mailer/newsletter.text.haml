@@ -22,4 +22,4 @@
 = '====================================================================================='
 - if @subscriber
   To unsubscribe to this newsletter please click on the following url or copy it into your browser:
-  = edit_subscriber_path(@subscriber, :token => @subscriber.cancel_token, :only_path => false)
+  = edit_subscriber_path(@subscriber, :token => @subscriber.respond_to?('cancel_token') ? @subscriber.cancel_token : '', :only_path => false)

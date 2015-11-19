@@ -18,7 +18,7 @@
       - else
         %tr{:style => "border-bottom: 1px solid #a0a0a0;"}
           %td
-            #newsletter-logo= image_tag(SemiStatic::Engine.config.newsletter_logo || SemiStatic::Engine.config.logo_image)
+            #newsletter-logo= image_tag(SemiStatic::Engine.config.has?('newsletter_logo') || SemiStatic::Engine.config.has?('logo_image'))
           %td
             %h1= @newsletter.name
             %h2= @newsletter.subtitle
@@ -31,27 +31,11 @@
             = simple_format(@newsletter.salutation_post_text) unless @newsletter.salutation_post_text.blank?
   
       - @newsletter.draft_entry_objects.each_slice(2) do |row| 
-        %tr
+        - if @newsletter.draft_entry_ids[row.first.id][:layout].nil? || @newsletter.draft_entry_ids[row.first.id][:layout] == SemiStatic::Newsletter::ENTRY_LAYOUTS[:double]
+          = render :partial => 'double', :locals => {:row => row}
+        - else
           - row.each do |e|
-            %td.nl_entry
-              .controls
-                .swap{:title => 'Automatically swap the image for another in the entry'}
-                  = link_to '↔', semi_static.edit_newsletter_path(@newsletter, :swap_image => e.id), :remote => true
-                .new{:title => 'Upload a new newsletter image'}
-                  = link_to '□', semi_static.edit_newsletter_path(@newsletter, :newsletter_img => e.id), :remote => true
-                .add{:title => 'Add a new entry after this one'}
-                  = link_to '+', semi_static.edit_newsletter_path(@newsletter, :select_entry => e.id), :remote => true
-              = link_to semi_static.edit_entry_path(e) do
-                .img{:id => "entry_id_#{e.id}"}
-                  = render :partial => 'image', :locals => {:e => e}
-        %tr
-          - row.each do |e|
-            %td.titles
-              .nutWrap
-                .nutWrapInner
-                  %h3= link_to e.title, semi_static.edit_entry_path(e)
-                  - unless e.sub_title.blank?
-                    %h4= link_to e.sub_title, semi_static.edit_entry_path(e)
+            = render :partial => SemiStatic::Newsletter::ENTRY_LAYOUT_CODES[@newsletter.draft_entry_ids[row.first.id][:layout]].to_s, :locals => {:e => e}
     %table.newsletter{:style => 'width: 100%; border-top: 1px solid #c8c8c8; margin-top: 8px; background-color: #f8f8f8'}
       %tr.newsletter-footer
         %td
@@ -59,7 +43,7 @@
           = SemiStatic::Engine.config.copyright_year
           = SemiStatic::Engine.config.copyright_owner
         %td
-          = link_to t('Unsubscribe'), 'http://business-landing.com/'
+          = link_to t('Unsubscribe'), edit_subscriber_url(0, :token => 'XXXXXXXXX', :only_path => false)
       
   .mid
     .actions

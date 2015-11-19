@@ -1,0 +1,10 @@
+.controls
+  .swap{:title => 'Automatically swap the image for another in the entry'}
+    = link_to '↔', semi_static.edit_newsletter_path(@newsletter, :swap_image => e.id), :remote => true
+  .new{:title => 'Upload a new newsletter image'}
+    = link_to '□', semi_static.edit_newsletter_path(@newsletter, :newsletter_img => e.id), :remote => true
+  .add{:title => 'Add a new entry after this one'}
+    = link_to '+', semi_static.edit_newsletter_path(@newsletter, :select_entry => e.id), :remote => true
+  .layout{:title => 'Change layout'}
+    = link_to '⊞', semi_static.edit_newsletter_path(@newsletter, :select_layout => e.id), :remote => true
+

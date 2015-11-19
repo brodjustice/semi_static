@@ -59,7 +59,7 @@ textarea{
 }
 
 .mid.full{
-  max-width: 1024px;
+  max-width: 100%;
 }
  
 #dashboard #top{
@@ -101,6 +101,9 @@ table table th{
 table table{ margin-bottom: 18px; }
 td.merge{ padding-left: 32px; }
 td.warn{ background-color: yellow; }
+
+th.short{font-size: 8px;}
+th.short:hover{ font-size: 14px; }
 #dashboard td a:hover{text-decoration: underline;}
 
 @keyframes flash {

@@ -51,6 +51,9 @@ module SemiStatic
         template = 'select_entry'
         @entry = Entry.find_by_id(params[:select_entry])
         @entries = Entry.unscoped.order(:locale, :tag_id, :position)
+      elsif params[:select_layout]
+        @entry = Entry.find_by_id(params[:select_layout])
+        template = 'select_layout'
       elsif params[:css]
         template = 'css'
       elsif params[:max_image_attachments]
@@ -81,7 +84,7 @@ module SemiStatic
     # POST /newsletters.json
     def create
       @newsletter = Newsletter.new(params[:newsletter])
-      if params[:tag]
+      unless params[:tag].blank?
         Tag.find(params[:tag]).entries.unmerged.collect{|e| @newsletter.draft_entry_ids[e.id] = {}} 
       end
   
@@ -100,7 +103,7 @@ module SemiStatic
     # PUT /newsletters/1.json
     def update
       @newsletter = Newsletter.find(params[:id])
-      @newsletter.add_entry(params[:entry])
+      @newsletter.add_entry(params[:entry]) unless params[:set_layout].present?
 
       respond_to do |format|
         if @newsletter.update_attributes(params[:newsletter])
@@ -109,6 +112,9 @@ module SemiStatic
             @newsletter.published
             @delivery = @newsletter.newsletter_deliveries.pending.first
             format.html { render action: "sending" }
+          elsif params[:set_layout]
+            @newsletter.set_layout(params[:entry][:id], params[:entry][:layout])
+            format.html { render action: "edit" }
           elsif params[:insert_newsletter_img].present?
             @entry = Entry.find_by_id(params[:entry_id])
           elsif params[:prepare].present?

@@ -11,11 +11,12 @@ module SemiStatic
     #
     # Valid keys are:
     #  :img_url - the url to use for the nutshell image in the newsletter
+    #  :layout - :double, :single_left, :text_only
     #
     serialize :draft_entry_ids, Hash
 
     has_many :newsletter_deliveries
-    has_one :tag, :dependent => :destroy
+    has_one :tag
     has_many :subscribers, :through => :newsletter_deliveries
 
     validates :name, :presence => true
@@ -23,7 +24,7 @@ module SemiStatic
     validates :locale, :presence => true
 
     before_save :set_defaults
-    # after_create :create_newsletter_tag
+    after_create :create_newsletter_tag
 
     STATES = {
       :draft => 0x1,
@@ -40,9 +41,15 @@ module SemiStatic
 
     SALUTATION_CODES = SALUTATION_TYPES.invert
 
-    # def create_newsletter_tag
-    #   self.tag = SemiStatic::Tag.create(:name => self.name, :menu => false, :icon_in_menu => false)
-    # end
+    ENTRY_LAYOUTS = {:double => 0x1, :single_left => 0x2, :text_only => 0x3}
+
+    ENTRY_LAYOUT_CODES = ENTRY_LAYOUTS.invert
+
+    def create_newsletter_tag
+      unless self.tag
+        self.tag = SemiStatic::Tag.create(:name => self.name, :menu => false, :icon_in_menu => false)
+      end
+    end
 
     def set_defaults
       self.state ||= STATES[:draft]
@@ -84,6 +91,11 @@ module SemiStatic
       entries
     end
 
+    def set_layout(e_id, layout)
+      self.draft_entry_ids[e_id.to_i][:layout] = layout.to_i
+      self.save
+    end
+
     def swap_entry_image(e_id)
       e = Entry.find_by_id(e_id)
       urls = ([ e.newsletter_img.present? ? e.newsletter_img(:crop) : nil, e.news_img.present? ? e.news_img.url(:original) : nil, e.img.present? ? e.img.url(:panel) : nil ].concat( e.photos.collect{|p| p.img.url(:boxpanel)}).compact)
@@ -105,19 +117,23 @@ module SemiStatic
       # Must now completely rebuild the hash in the correct order
       e_ids = self.draft_entry_ids.deep_dup
       self.draft_entry_ids = {}
-      e_ids.collect{|k,v|
-        if k == entry[:id].to_i
-          if entry[:position] == 'After'
-            draft_entry_ids[k] = v
-            draft_entry_ids[e.id] = {:img_url => get_best_img(e)}
+      if e_ids.empty?
+        draft_entry_ids[e.id] = {:img_url => get_best_img(e)}
+      else
+        e_ids.collect{|k,v|
+          if k == entry[:id].to_i
+            if entry[:position] == 'After'
+              draft_entry_ids[k] = v
+              draft_entry_ids[e.id] = {:img_url => get_best_img(e)}
+            else
+              draft_entry_ids[e.id] = {:img_url => get_best_img(e)}
+              draft_entry_ids[k] = v
+            end
           else
-            draft_entry_ids[e.id] = {:img_url => get_best_img(e)}
             draft_entry_ids[k] = v
           end
-        else
-          draft_entry_ids[k] = v
-        end
-      }
+        }
+      end
       self.save
     end
 

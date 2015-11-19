@@ -17,7 +17,7 @@
     %fieldset
       %label= 'Build from tag (optional)'
       %br/
-      = select_tag :tag, options_for_select(SemiStatic::Tag.unscoped.collect{|t| [[t.locale, ': ', t.name].join, t.id]}.prepend(["- None -", 'none']))
+      = select_tag :tag, options_for_select(SemiStatic::Tag.unscoped.collect{|t| [[t.locale, ': ', t.name].join, t.id]}.prepend(["- None -", nil]))
     %fieldset
       = f.label :locale
       = f.select :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @newsletter.locale)

@@ -35,6 +35,13 @@
 .span_2_of_4 { width: 49.2%; }
 .span_1_of_4 { width: 23.8%; }
 
+/*  GRID OF FIVE    */
+.span_5_of_5 { width: 100%; }
+.span_4_of_5 { width: 79.68%; }
+.span_3_of_5 { width: 59.36%; }
+.span_2_of_5 { width: 39.04%; }
+.span_1_of_5 { width: 18.72%; }
+
 @media only screen and (max-width: 860px) {
   .span_1_of_2_of_1_of_4{ width: 100%; }
 }
