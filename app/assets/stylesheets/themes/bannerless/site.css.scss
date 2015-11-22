@@ -9,9 +9,11 @@
 // The rest
 //
 a.fb-share{
-  float: right; padding: 1px 2px 1px 28px;
-  background: transparent url(/assets/vert-sprites.png) 0px -59px no-repeat;
+  float: right; padding: 1px 2px 1px 32px;
+  background: transparent url(#{$vert-sprites}) 0px 0px no-repeat;
   width: auto;
+  line-height: 30px;
+  color: #a0a0a0;
 }
 .fb-share:after{
   margin-bottom: 4px;

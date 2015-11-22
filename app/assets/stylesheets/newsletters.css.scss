@@ -5,12 +5,13 @@
 .newsletter .controls{position: absolute; top: 0px; display: none; width: 100%; height: 100%; color: #484848; font-size: 20px;}
 .newsletter .controls a{color: #484848; display: block;}
 .newsletter .controls a:hover{color: black;}
-.controls .layout, .controls .new, .controls .swap, .controls .add{position: absolute; top: 0px; padding: 16px; background-color: white; color: #484848;}
+.controls .remove, .controls .layout, .controls .new, .controls .swap, .controls .add{position: absolute; top: 0px; padding: 16px; background-color: white; color: #484848;}
 .controls > *{border: 1px solid #a8a8a8; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);}
 .controls .swap{left: 0px; border-bottom-right-radius: 32px;}
 .controls .add{right: 0px; border-bottom-left-radius: 32px;}
 .controls .layout{left: 0px; top: auto; bottom: 0px; border-top-right-radius: 32px;}
 .controls .new{right:0px; top: auto; bottom:0px; border-top-left-radius: 32px;}
+.controls .remove{margin: 0 auto; width: 16px; top: 0; left: 0; right: 0; text-align: center; bottom:auto; border-bottom-left-radius: 32px;border-bottom-right-radius: 32px;}
 .newsletter td:hover .controls{display: block;}
 .nl_entry.selected{border-color: grey;}
 

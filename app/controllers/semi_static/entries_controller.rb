@@ -110,9 +110,11 @@
     # POST /entries
     # POST /entries.json
     def create
+      debugger
       if params[:newsletter_id]
         nl = SemiStatic::Newsletter.find(params[:newsletter_id])
         @entry = nl.tag.entries.create(params[:entry])
+        nl.add_entry(@entry)
       else
         @entry = Entry.new(params[:entry])
       end

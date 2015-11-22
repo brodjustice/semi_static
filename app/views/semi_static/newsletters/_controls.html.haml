@@ -7,4 +7,6 @@
     = link_to '+', semi_static.edit_newsletter_path(@newsletter, :select_entry => e.id), :remote => true
   .layout{:title => 'Change layout'}
     = link_to '⊞', semi_static.edit_newsletter_path(@newsletter, :select_layout => e.id), :remote => true
+  .remove{:title => 'Remove'}
+    = link_to 'x', semi_static.edit_newsletter_path(@newsletter, :remove => e.id)
 

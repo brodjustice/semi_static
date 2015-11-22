@@ -112,7 +112,7 @@ module SemiStatic
       return if entry.nil?
 
       # Get new entry to be inserted
-      e = Entry.find_by_id(entry[:new_entry_id])
+      entry.kind_of?(SemiStatic::Entry) ? e = entry : e = Entry.find_by_id(entry[:new_entry_id])
 
       # Must now completely rebuild the hash in the correct order
       e_ids = self.draft_entry_ids.deep_dup
@@ -146,6 +146,11 @@ module SemiStatic
       self.state = STATES[:draft_sent]
       self.save
     end
+
+    def remove_entry_id(id)
+      self.draft_entry_ids.delete(id.to_i)
+      self.save
+    end
  
     def order_entries_to_position
       # Must now completely rebuild the hash in the correct order
@@ -173,60 +178,6 @@ module SemiStatic
           end
         end
       }
-    end
-
-    def email_object_to_file(email)
-      html_dir = Rails.root.join("public", "system", 'semi_static', 'newsletters', self.id.to_s)
-      FileUtils.mkdir_p(html_dir)
-      file_path = File.join(html_dir, self.name.parameterize)
-      File.open(file_path, 'wb') {|f| f.write(Marshal.dump(email))}
-    end
-
-    # TODO: Methods below til EOF are probably no longer required
-    # as we simply send copy of email to be checked manually. The
-    # edit view is good enough and these extra views just add confusion.
-    def email_to_file(email)
-      attachments = []
-
-      html_dir = Rails.root.join("public", "system", 'semi_static', 'newsletters', self.id.to_s)
-      FileUtils.mkdir_p(html_dir)
-
-      if email.attachments.any?
-        attachments_dir = File.join(html_dir, 'attachments')
-        FileUtils.mkdir_p(attachments_dir)
-
-        email.attachments.each do |attachment|
-          filename = attachment.filename.gsub(/[^\w.]/, '_')
-          path = File.join(attachments_dir, filename)
-          unless File.exists?(path) # true if other parts have already been rendered
-            File.open(path, 'wb') { |f| f.write(attachment.return_body(email).raw_source) }
-          end
-          attachments << [attachment.filename, "attachments/#{URI.escape(filename)}"]
-        end
-      end
-
-      content_type = email.part && email.part.first.content_type || email.content_type
-      file_path = File.join(html_dir, "#{content_type =~ /html/ ? 'rich' : 'plain'}.html")
-
-      File.open(file_path, 'w') do |f|
-        f.write ERB.new(File.read(template_path)).result(binding)
-        # f.write Haml::Engine.new(File.read(template_path)).render(binding)
-      end
-    end
-
-    def template_path
-      Engine.root.join('app', 'views', 'semi_static', 'newsletter_mailer', 'draft.html.erb')
-      # Engine.root.join('app', 'views', 'semi_static', 'newsletter_mailer', 'draft.html.haml')
-    end
-
-    def return_body(email)
-      main_body ||= begin
-        email_body = (email.part || mail).decoded
-        mail.attachments.each do |attachment|
-          email_body.gsub!(attachment.url, "attachments/#{attachment.filename}")
-        end
-        email_body
-      end
     end
 
     private

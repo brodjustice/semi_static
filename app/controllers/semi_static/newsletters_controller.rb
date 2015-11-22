@@ -54,6 +54,8 @@ module SemiStatic
       elsif params[:select_layout]
         @entry = Entry.find_by_id(params[:select_layout])
         template = 'select_layout'
+      elsif params[:remove]
+        @newsletter.remove_entry_id(params[:remove])
       elsif params[:css]
         template = 'css'
       elsif params[:max_image_attachments]
