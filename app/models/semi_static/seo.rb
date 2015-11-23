@@ -6,6 +6,8 @@ module SemiStatic
     attr_accessible :include_in_sitemap, :changefreq, :priority
     belongs_to :seoable, polymorphic: true
 
+    validates_length_of :description, maximum: 255
+
     CHANGE_FREQ = {
       :always => 0, :hourly => 1, :daily => 2,
       :weekly => 3, :monthly => 4, :yearly => 5,

@@ -83,7 +83,7 @@
           format.html { redirect_to params[:return] || url_for(:controller => @seo.seoable.class.to_s.underscore.pluralize, :action => :index), :notice => 'SEO meta tags updated' }
           format.json { head :no_content }
         else
-          format.html { render :action => "edit" }
+          format.html { redirect_to seos_path, :notice => 'ERROR: SEO tags not updated. ' + @seo.errors.full_messages.join(', ') }
           format.json { render :json => @seo.errors, :status => :unprocessable_entity }
         end
       end

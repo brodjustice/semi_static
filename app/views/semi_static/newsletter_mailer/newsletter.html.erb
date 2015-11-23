@@ -395,6 +395,8 @@
               <% le = row.first %>
               <% re = row.last %>
 
+              <% if @newsletter.draft_entry_ids[le.id][:layout] == nil || @newsletter.draft_entry_ids[le.id][:layout] == SemiStatic::Newsletter::ENTRY_LAYOUTS[:double] %>
+
               <tr>
                 <td align="center" valign="top">
                   <!-- CENTERING TABLE // -->
@@ -420,6 +422,42 @@
                   <!-- // CENTERING TABLE -->
                 </td>
               </tr>
+
+              <% else %>
+
+              <% row.each do |e| %>
+
+              <% break if e.nil? %>
+ 
+              <tr>
+                <td align="center" valign="top">
+                  <!-- CENTERING TABLE // -->
+                  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                      <td align="center" valign="top">
+                        <!-- FLEXIBLE CONTAINER // -->
+                        <table border="0" cellpadding="30" cellspacing="0" width="640" class="flexibleContainer">
+                          <tr>
+                            <td valign="top" width="640" class="flexibleContainerCell">
+
+                              <!-- CONTENT TABLE -->
+                              <%= render :partial => SemiStatic::Newsletter::ENTRY_LAYOUT_CODES[@newsletter.draft_entry_ids[e.id][:layout]].to_s, :locals => {:e => e} %>
+                              <!-- // CONTENT TABLE -->
+
+                            </td>
+                          </tr>
+                        </table>
+                        <!-- // FLEXIBLE CONTAINER -->
+                      </td>
+                    </tr>
+                  </table>
+                  <!-- // CENTERING TABLE -->
+                </td>
+              </tr>
+
+              <% end %>
+
+              <% end %>
 
 
               <!-- // MODULE ROW -->
