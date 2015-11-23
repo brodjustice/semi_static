@@ -1,3 +1,4 @@
+- double = false
 = form_for @newsletter do |f|
   - if @newsletter.errors.any?
     #error_explanation
@@ -30,12 +31,15 @@
               = salutation_name(@newsletter) + ','
             = simple_format(@newsletter.salutation_post_text) unless @newsletter.salutation_post_text.blank?
   
-      - @newsletter.draft_entry_objects.each_slice(2) do |row| 
-        - if @newsletter.draft_entry_ids[row.first.id][:layout].nil? || @newsletter.draft_entry_ids[row.first.id][:layout] == SemiStatic::Newsletter::ENTRY_LAYOUTS[:double]
-          = render :partial => 'double', :locals => {:row => row}
+      - @newsletter.draft_entry_objects.each_with_index do |e, i| 
+        - if double
+          - double = false
+          - next
+        - if @newsletter.draft_entry_ids[e.id][:layout].nil? || @newsletter.draft_entry_ids[e.id][:layout] == SemiStatic::Newsletter::ENTRY_LAYOUTS[:double]
+          = render :partial => 'double', :locals => {:row => [e, @newsletter.draft_entry_objects[i + 1]]}
+          - double = true
         - else
-          - row.each do |e|
-            = render :partial => SemiStatic::Newsletter::ENTRY_LAYOUT_CODES[@newsletter.draft_entry_ids[row.first.id][:layout]].to_s, :locals => {:e => e}
+          = render :partial => SemiStatic::Newsletter::ENTRY_LAYOUT_CODES[@newsletter.draft_entry_ids[e.id][:layout]].to_s, :locals => {:e => e}
     %table.newsletter{:style => 'width: 100%; border-top: 1px solid #c8c8c8; margin-top: 8px; background-color: #f8f8f8'}
       %tr.newsletter-footer
         %td

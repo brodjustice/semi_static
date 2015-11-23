@@ -21,10 +21,10 @@
 <td align="left" class="textContent">
 <h3 style="color:#5F5F5F;line-height:125%;font-family:Helvetica,Arial,sans-serif;font-size:20px;font-weight:normal;margin-top:0;margin-bottom:3px;text-align:left;"><%= e.title %></h3>
 <% unless e.sub_title.blank? %>
-<div style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:14px;margin-bottom:0;color:#808080;line-height:135%;"><%= e.sub_title %></div>
+<h4 style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:16px;margin-bottom:0;color:#808080;line-height:135%;"><%= e.sub_title %></h4>
 <% end %>
 
-<div style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:15px;margin-bottom:0;color:#5F5F5F;line-height:135%;"><%= e.summary %></div>
+<div style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:14px;margin-bottom:0;color:#5F5F5F;line-height:125%;"><%= entry_summary(e, e.summary_length) %></div>
 </td>
 </tr>
 </table>

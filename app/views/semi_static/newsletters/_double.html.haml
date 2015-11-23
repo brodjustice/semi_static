@@ -1,3 +1,5 @@
+- if row.last.nil? 
+  - row[1]= row.first
 %tr
   - row.each do |e|
     = render :partial => 'td_image', :locals => {:e => e}
