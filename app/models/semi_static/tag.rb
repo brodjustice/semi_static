@@ -23,7 +23,6 @@ module SemiStatic
     scope :menu, where('menu = ?', true)
     scope :for_subscribers, where('subscriber = ?', true)
     scope :locale, lambda {|locale| where("locale = ?", locale.to_s)}
-    # default_scope order(:position).where(:newsletter_id => nil)
     default_scope order(:position)
     scope :predefined, lambda{|locale, pre| where("locale = ?", locale).where('predefined_class = ?', pre)}
   

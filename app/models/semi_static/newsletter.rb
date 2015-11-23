@@ -24,7 +24,7 @@ module SemiStatic
     validates :locale, :presence => true
 
     before_save :set_defaults
-    after_create :create_newsletter_tag
+    before_create :create_newsletter_tag
 
     STATES = {
       :draft => 0x1,
@@ -46,8 +46,8 @@ module SemiStatic
     ENTRY_LAYOUT_CODES = ENTRY_LAYOUTS.invert
 
     def create_newsletter_tag
-      unless self.tag
-        self.tag = SemiStatic::Tag.create(:name => self.name, :menu => false, :icon_in_menu => false)
+      if self.tag.nil?
+        self.tag = SemiStatic::Tag.create(:locale => self.locale, :name => self.name, :menu => false, :icon_in_menu => false)
       end
     end
 
