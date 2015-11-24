@@ -391,81 +391,80 @@
 
               <!-- MODULE ROW // -->
 
-              <% @newsletter.draft_entry_objects.each_slice(2) do |row| %>
-              <% le = row.first %>
-              <% re = row.last %>
 
-              <% if @newsletter.draft_entry_ids[le.id][:layout] == nil || @newsletter.draft_entry_ids[le.id][:layout] == SemiStatic::Newsletter::ENTRY_LAYOUTS[:double] %>
-
-              <tr>
-                <td align="center" valign="top">
-                  <!-- CENTERING TABLE // -->
-                  <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                    <tr>
-                      <td align="center" valign="top">
-                        <!-- FLEXIBLE CONTAINER // -->
-                        <table border="0" cellpadding="30" cellspacing="0" width="640" class="flexibleContainer">
-                          <tr>
-                            <td valign="top" width="640" class="flexibleContainerCell">
-
-                              <!-- CONTENT TABLE -->
-                              <%= render :partial => 'double', :locals => {:le => le, :re => re} %>
-                              <!-- // CONTENT TABLE -->
-
-                            </td>
-                          </tr>
-                        </table>
-                        <!-- // FLEXIBLE CONTAINER -->
-                      </td>
-                    </tr>
-                  </table>
-                  <!-- // CENTERING TABLE -->
-                </td>
-              </tr>
-
-              <%= render :partial => 'divider' %>
-
-              <% else %>
-
-              <% row.each do |e| %>
-
-              <% break if e.nil? %>
- 
-              <tr>
-                <td align="center" valign="top">
-                  <!-- CENTERING TABLE // -->
-                  <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                    <tr>
-                      <td align="center" valign="top">
-                        <!-- FLEXIBLE CONTAINER // -->
-                        <table border="0" cellpadding="30" cellspacing="0" width="640" class="flexibleContainer">
-                          <tr>
-                            <td valign="top" width="640" class="flexibleContainerCell">
-
-                              <!-- CONTENT TABLE -->
-                              <%= render :partial => SemiStatic::Newsletter::ENTRY_LAYOUT_CODES[@newsletter.draft_entry_ids[e.id][:layout]].to_s, :locals => {:e => e} %>
-                              <!-- // CONTENT TABLE -->
-
-                            </td>
-                          </tr>
-                        </table>
-                        <!-- // FLEXIBLE CONTAINER -->
-                      </td>
-                    </tr>
-                  </table>
-                  <!-- // CENTERING TABLE -->
-                </td>
-              </tr>
-
-              <%= render :partial => 'divider' %>
-
-              <% end %>
-
-              <% end %>
-
-
+              <%# START OF LOOP THROUGH ENTRIES %>
+              <% double = false %>
+              <% @newsletter.draft_entry_objects.each_with_index do |e, i| %>
+                <% if double %>
+                  <% double = false %>
+                  <% next %>
+                <% end %>
+                <% if @newsletter.draft_entry_ids[e.id][:layout] == SemiStatic::Newsletter::ENTRY_LAYOUTS[:double_text] || @newsletter.draft_entry_ids[e.id][:layout] == SemiStatic::Newsletter::ENTRY_LAYOUTS[:double] %>
+                  <% double = true %>
+                  <% le = e %>
+                  <% if @newsletter.draft_entry_objects[i + 1].nil? %>
+                    <% re = e %>
+                  <% else %>
+                    <% re = @newsletter.draft_entry_objects[i + 1] %>
+                  <% end %>
+                  <tr>
+                    <td align="center" valign="top">
+                      <!-- CENTERING TABLE // -->
+                      <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                          <td align="center" valign="top">
+                            <!-- FLEXIBLE CONTAINER // -->
+                            <table border="0" cellpadding="30" cellspacing="0" width="640" class="flexibleContainer">
+                              <tr>
+                                <td valign="top" width="640" class="flexibleContainerCell">
+    
+                                  <!-- CONTENT TABLE -->
+                                  <%= render :partial => SemiStatic::Newsletter::ENTRY_LAYOUT_CODES[@newsletter.draft_entry_ids[e.id][:layout]].to_s, :locals => {:le => le, :re => re} %>
+                                  <!-- // CONTENT TABLE -->
+    
+                                </td>
+                              </tr>
+                            </table>
+                            <!-- // FLEXIBLE CONTAINER -->
+                          </td>
+                        </tr>
+                      </table>
+                      <!-- // CENTERING TABLE -->
+                    </td>
+                  </tr>
+                  <%= render :partial => 'divider' %>
+                <% else %>
+                  <% break if e.nil? %>
+                  <% break if @newsletter.draft_entry_ids[e.id][:layout].nil? %>
+                  <tr>
+                    <td align="center" valign="top">
+                      <!-- CENTERING TABLE // -->
+                      <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                          <td align="center" valign="top">
+                            <!-- FLEXIBLE CONTAINER // -->
+                            <table border="0" cellpadding="30" cellspacing="0" width="640" class="flexibleContainer">
+                              <tr>
+                                <td valign="top" width="640" class="flexibleContainerCell">
+    
+                                  <!-- CONTENT TABLE -->
+                                  <%= render :partial => SemiStatic::Newsletter::ENTRY_LAYOUT_CODES[@newsletter.draft_entry_ids[e.id][:layout]].to_s, :locals => {:e => e} %>
+                                  <!-- // CONTENT TABLE -->
+    
+                                </td>
+                              </tr>
+                            </table>
+                            <!-- // FLEXIBLE CONTAINER -->
+                          </td>
+                        </tr>
+                      </table>
+                      <!-- // CENTERING TABLE -->
+                    </td>
+                  </tr>
+                  <%= render :partial => 'divider' %>
+                <% end %>
               <!-- // MODULE ROW -->
-              <% end %>
+            <% end %>
 
 
             <!-- EMAIL FOOTER // -->
@@ -524,9 +523,9 @@
                               <table border="0" cellpadding="0" cellspacing="3" width="100%">
                                 <tr>
                                   <% SemiStatic::Tag.menu.locale(I18n.locale.to_s)[0..5].each do |t| %>
-                                  <td bgcolor="#E1E1E1" width="100" align="center" valign="bottom" style="font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#828282;text-align:center;line-height:120%;"><a target="_blank" href="<%= "http://#{@site_url}#{menu_from_tag(t)}" %>" style="color:#868474; text-decoration:none;"><%= t.name %></a></td>
+                                  <td bgcolor="#E1E1E1" cellspacing="2" align="center" valign="bottom" style="font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#828282;text-align:center;line-height:120%;"><a target="_blank" href="<%= "http://#{@site_url}#{menu_from_tag(t)}" %>" style="color:#868474; text-decoration:none;"><%= t.name %></a></td>
                                   <% end %>
-                                  <td bgcolor="#E1E1E1" width="100" align="center" valign="bottom" style="font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#828282;text-align:center;line-height:120%;"><a target="_blank" href="<%= new_contact_url %>" style="color:#868474; text-decoration:none;">Contact</a></td>
+                                  <td bgcolor="#E1E1E1" cellspacing="2" align="center" valign="bottom" style="font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#828282;text-align:center;line-height:120%;"><a target="_blank" href="<%= new_contact_url %>" style="color:#868474; text-decoration:none;">Contact</a></td>
 
                                 </tr>
                               </table>

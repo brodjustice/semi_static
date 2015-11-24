@@ -35,9 +35,11 @@
         - if double
           - double = false
           - next
-        - if @newsletter.draft_entry_ids[e.id][:layout].nil? || @newsletter.draft_entry_ids[e.id][:layout] == SemiStatic::Newsletter::ENTRY_LAYOUTS[:double]
-          = render :partial => 'double', :locals => {:row => [e, @newsletter.draft_entry_objects[i + 1]]}
+        - if @newsletter.draft_entry_ids[e.id][:layout] == SemiStatic::Newsletter::ENTRY_LAYOUTS[:double] || @newsletter.draft_entry_ids[e.id][:layout] == SemiStatic::Newsletter::ENTRY_LAYOUTS[:double_text]
+          = render :partial => SemiStatic::Newsletter::ENTRY_LAYOUT_CODES[@newsletter.draft_entry_ids[e.id][:layout]].to_s, :locals => {:row => [e, @newsletter.draft_entry_objects[i + 1]]}
           - double = true
+        - elsif @newsletter.draft_entry_ids[e.id][:layout].nil?
+          = render 'text_only', :locals => {:e => e}
         - else
           = render :partial => SemiStatic::Newsletter::ENTRY_LAYOUT_CODES[@newsletter.draft_entry_ids[e.id][:layout]].to_s, :locals => {:e => e}
     %table.newsletter{:style => 'width: 100%; border-top: 1px solid #c8c8c8; margin-top: 8px; background-color: #f8f8f8'}

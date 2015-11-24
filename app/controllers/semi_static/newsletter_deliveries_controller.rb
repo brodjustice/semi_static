@@ -19,7 +19,6 @@ module SemiStatic
       @delivery.sent
       if (@delivery = @delivery.newsletter.newsletter_deliveries.pending.first).nil?
         template = 'semi_static/newsletter_deliveries/complete'
-        newsletter.email_object_to_file(email)
       end
 
       respond_to do |format|

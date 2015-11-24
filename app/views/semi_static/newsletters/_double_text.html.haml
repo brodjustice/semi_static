@@ -1,0 +1,13 @@
+- if row.last.nil? 
+  - row[1]= row.first
+%tr
+  - row.each do |e|
+    %td.titles
+      = render :partial => 'controls', :locals => {:e => e}
+      .nutWrap
+        .nutWrapInner
+          %h3= link_to e.title, semi_static.edit_entry_path(e)
+          - unless e.sub_title.blank?
+            %h4= link_to e.sub_title, semi_static.edit_entry_path(e)
+          = entry_summary(e, e.summary_length)
+

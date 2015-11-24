@@ -2,7 +2,7 @@
 #newsletter-wrapper{ box-shadow: 0 0 1px #a0a0a0; max-width: 606px; margin: 0 auto;}
 #newsletter-wrapper tr td{ background-color: white;}
 #newsletter-wrapper tr td.nl_entry{ vertical-align: top;}
-.newsletter .controls{position: absolute; top: 0px; display: none; width: 100%; height: 100%; color: #484848; font-size: 20px;}
+.newsletter .controls{position: absolute; top: 0px; display: none; width: 100%; height: 100%; color: #484848; font-size: 20px;z-index:100;}
 .newsletter .controls a{color: #484848; display: block;}
 .newsletter .controls a:hover{color: black;}
 .controls .remove, .controls .layout, .controls .new, .controls .swap, .controls .add{position: absolute; top: 0px; padding: 16px; background-color: white; color: #484848;}

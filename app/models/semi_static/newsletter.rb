@@ -41,7 +41,7 @@ module SemiStatic
 
     SALUTATION_CODES = SALUTATION_TYPES.invert
 
-    ENTRY_LAYOUTS = {:double => 0x1, :single_left => 0x2, :text_only => 0x3}
+    ENTRY_LAYOUTS = {:double => 0x1, :single_left => 0x2, :text_only => 0x3, :double_text => 0x4, :image_above => 0x5}
 
     ENTRY_LAYOUT_CODES = ENTRY_LAYOUTS.invert
 
@@ -108,29 +108,36 @@ module SemiStatic
       end
     end
 
-    def add_entry(entry = nil)
+    def add_entry(entry = nil, at_end = false)
       return if entry.nil?
 
       # Get new entry to be inserted
       entry.kind_of?(SemiStatic::Entry) ? e = entry : e = Entry.find_by_id(entry[:new_entry_id])
 
-      # Must now completely rebuild the hash in the correct order
+      # Must now completely rebuild the hash in the correct order, also if we change inplace
+      # then the serialzed attribute is not saved to the DB, so it's best to dup and rebuild
+      # to avoid the problem
       e_ids = self.draft_entry_ids.deep_dup
       self.draft_entry_ids = {}
-      if e_ids.empty?
-        draft_entry_ids[e.id] = {:img_url => get_best_img(e)}
+      if e_ids.empty? || at_end
+        self.draft_entry_ids_will_change!
+        self.draft_entry_ids = e_ids.merge(e.id => {:img_url => get_best_img(e), :layout => ENTRY_LAYOUTS[:text_only]})
+        self.draft_entry_ids_will_change!
+        self.save
+        # Arrrrgggghhhhhh!!! Is this a Rails bug? No matter what we do here, the new contents of the draft_entry_ids
+        # simply refuses to be saved to the DB. It's impossible to update at this point!!!
       else
         e_ids.collect{|k,v|
           if k == entry[:id].to_i
             if entry[:position] == 'After'
-              draft_entry_ids[k] = v
-              draft_entry_ids[e.id] = {:img_url => get_best_img(e)}
+              self.draft_entry_ids[k] = v
+              self.draft_entry_ids[e.id] = {:img_url => get_best_img(e), :layout => ENTRY_LAYOUTS[:text_only]}
             else
-              draft_entry_ids[e.id] = {:img_url => get_best_img(e)}
-              draft_entry_ids[k] = v
+              self.draft_entry_ids[e.id] = {:img_url => get_best_img(e), :layout => ENTRY_LAYOUTS[:text_only]}
+              self.draft_entry_ids[k] = v
             end
           else
-            draft_entry_ids[k] = v
+            self.draft_entry_ids[k] = v
           end
         }
       end

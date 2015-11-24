@@ -1,0 +1,35 @@
+<!-- CONTENT TABLE // -->
+<table align="left" border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td align="center" valign="top" class="flexibleContainerBox">
+      <table border="0" cellpadding="0" cellspacing="0" width="280" style="max-width:100%;">
+        <tr>
+          <td align="center" class="textContent">
+            <h3 style="color:#5F5F5F;line-height:125%;font-family:Helvetica,Arial,sans-serif;font-size:20px;font-weight:normal;margin-top:10px;margin-bottom:3px;text-align:left;"><%= le.title %></h3>
+            <% unless le.sub_title.blank? %>
+              <div style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:14px;margin-bottom:0;color:#808080;line-height:135%;"><%= le.sub_title %></div>
+            <% end %>
+            <div style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:14px;margin-bottom:0;color:#5F5F5F;line-height:135%;"><%= entry_summary(le, le.summary_length) %></div>
+          </td>
+        </tr>
+      </table>
+    </td>
+    <td align="center" valign="top" class="flexibleContainerBox">
+      <table class="flexibleContainerBoxNext" border="0" cellpadding="0" cellspacing="0" width="280" style="max-width:100%;">
+        <tr>
+          <td align="center" class="textContent">
+            <% unless le == re %>
+              <h3 style="color:#5F5F5F;line-height:125%;font-family:Helvetica,Arial,sans-serif;font-size:20px;font-weight:normal;margin-top:10px;margin-bottom:3px;text-align:left;"><%= re.title %></h3>
+              <% unless re.sub_title.blank? %>
+                <div style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:14px;margin-bottom:0;color:#808080;line-height:135%;"><%= re.sub_title %></div>
+              <% end %>
+              <div style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:14px;margin-bottom:0;color:#5F5F5F;line-height:135%;"><%= entry_summary(re, re.summary_length) %></div>
+            <% end %>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- // CONTENT TABLE -->
+
