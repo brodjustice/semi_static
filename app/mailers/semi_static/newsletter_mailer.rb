@@ -2,6 +2,8 @@ module SemiStatic
   class NewsletterMailer < ActionMailer::Base
     helper SemiStatic::NewslettersHelper
     helper SemiStatic::SiteHelper
+    include TruncateHtmlHelper
+    helper_method :truncate_html
 
     def draft(admin, newsletter)
       prepare(newsletter)
