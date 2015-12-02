@@ -1,0 +1,31 @@
+= 'Website request for ' + SemiStatic::Engine.config.site_name
+
+= h 'Name: ' + @contact.name
+
+= h 'Surname: ' + @contact.surname
+
+= h 'Email: ' +  @contact.email
+
+= h 'Telephone: ' + @contact.telephone
+
+= '-------------------- Message -------------------'
+
+= h @contact.message
+
+= '------------------ Message end -----------------'
+
+The contact ticked the following agreements:
+
+= ''  
+
+- @contact.agreements.each do |a|
+  = '-  ' + a.body  
+
+  = ''  
+
+  - if a.add_to_subscribers
+    = '---- This agremment allowed us to add the Contact to the subsribers list'
+
+= '-------------------------------------------'
+
+

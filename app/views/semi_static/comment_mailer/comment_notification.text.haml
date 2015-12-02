@@ -1,0 +1,19 @@
+= 'Comment posted on ' + SemiStatic::Engine.config.site_name
+
+= h 'Name: ' + @comment.name
+
+= h 'Email: ' +  @comment.email
+
+= '-------------------- Comment -------------------'
+
+= h @comment.body
+
+= '------------------ Comment end -----------------'
+
+To delete this comment please click on the link below:
+
+= link_to entry_comment_path(@comment.entry, @comment), entry_comment_path(@comment.entry, @comment)
+
+= '-------------------------------------------'
+
+

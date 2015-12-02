@@ -1,0 +1,8 @@
+#comments
+  %h3= pluralize(@entry.comments.count, "comment")
+  - @entry.comments.each do |c|
+    - break if c.new_record?
+    .comment{:id => "comment_id_#{c.id}"}
+      .name= [c.name, t('on', :default => 'on'), c.created_at.strftime('%d-%M-%Y')].join(' ')
+      = simple_format(c.body)
+  = render :partial => 'semi_static/comments/form'

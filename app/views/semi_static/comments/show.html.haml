@@ -1,0 +1,12 @@
+.dashboard.mid
+  .button
+    = link_to image_tag('/assets/bin.png'), entry_comment_path(@comment.entry, @comment), :method => :delete, :data => { :confirm => 'Are you sure?' }
+  %h1= "Comment on #{@comment.entry.title} by #{@comment.name}"
+  %h2= @comment.created_at.strftime('%d-%m-%y %H:%M')
+  %p
+    Company:
+    = @comment.company
+  %p
+    Email:
+    = @comment.email
+  = simple_format(@comment.body) 

@@ -1,0 +1,32 @@
+= form_for(@comment, :url => entry_comments_path(@entry, :anchor => 'error_explanation'), :html => {:onsubmit => "semiStaticPostAJAX(\'#{entry_comments_path(@entry)}\');return false;"}) do |f|
+  - if @comment.errors.any?
+    #error_explanation
+      %h2= pluralize(@comment.errors.count, "error") + ' prohibited this comment from being saved:'
+
+      %ul
+        - @comment.errors.full_messages.each do |msg|
+          %li= msg
+  = f.label :body, t('Comment')
+  %br/
+  = f.text_area :body, :rows => 6, :placeholder => t('Add_your_comment')
+  %br/
+  = f.label :name, t('Name')
+  %br/
+  = f.text_field :name
+  %br/
+  = f.label :email, t('Email_not_displayed')
+  %br/
+  = f.email_field :email
+  %br/
+  = f.label :company, t('Company_optional')
+  %br/
+  = f.text_field :company
+  %br/
+  %br/
+  #captcha
+    = captcha
+    = f.label :captcha, t('Please type the number in the image')
+    = f.text_field :captcha
+    %br/
+  .actions
+    = f.submit t('Send'), :onclick => "semiStaticPostAJAX(\'#{entry_comments_path(@entry)}\');return false;"

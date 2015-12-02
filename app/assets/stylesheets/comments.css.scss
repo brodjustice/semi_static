@@ -1,0 +1,23 @@
+#comments{padding: 6px 10% 0;}
+#comments form{position:relative; box-sizing:border-box;}
+#comments input[type="text"], #comments input[type='email'], #comments textarea {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
+    box-sizing: border-box;
+    width: 100%;
+    outline: medium none;
+    padding: 8px 6px 6px 8px;
+    margin-bottom: 10px;
+}
+#comments .actions{
+  width: 100%; text-align:right; padding: 2px 0 2px;
+}
+.comment{
+  border-top: solid #d0d0d0 1px;
+}
+#comments .name{margin-top: 6px;font-weight: bold}
+#comments label{font-size: 12px; color: #606060;}
+#captcha{height:75px;}
+img.captcha{float: right;width:150px;height:50px;border: 1px solid #d0d0d0;}
+#comments input#comment_captcha{width: 50%;}
