@@ -13,6 +13,7 @@ module SemiStatic
     attr_accessible :sidebar_id, :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_gallery, :side_bar_tag_id, :unrestricted_html
     attr_accessible :merge_with_previous, :raw_html, :image_popup
     attr_accessible :facebook_share, :show_in_documents_tag, :image_caption, :tag_line, :raw_html, :show_image_titles, :link_to_tag, :doc_delete, :img_delete, :layout_select
+    attr_accessible :enable_comments, :comment_strategy
     attr_accessor :doc_delete, :img_delete
 
     # The news image is now actually used for various alternative fuctions, icons, etc.
@@ -52,6 +53,7 @@ module SemiStatic
     belongs_to :master_entry, :class_name => SemiStatic::Entry
     belongs_to :banner
     has_many :photos
+    has_many :comments, :dependent => :destroy
 
     belongs_to :side_bar_tag, :foreign_key => :side_bar_tag_id, :class_name => 'SemiStatic::Tag'
 
@@ -91,6 +93,8 @@ module SemiStatic
 
     ALLOWED_TAGS= %w(span div br em b i u ul ol li a div p img hr h1 h2 h3 h4 h5 h6)
     ALLOWED_ATTRIBUTES= %w(title href src align alt)
+
+    COMMENT_STRATEGY = {:captcha_and_email_alert => 1, :open => 2}
 
     DISPLAY_ENTRY = {1 => :before, 2 => :after, 3 => :none, 4 => :inline}
     DISPLAY_ENTRY_SYM = DISPLAY_ENTRY.invert

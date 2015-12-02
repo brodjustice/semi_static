@@ -54,6 +54,7 @@ th{ text-align: left; }
   margin-bottom: 34px;
   border: 1px white solid;
   border-radius: 2px;
+  box-sizing:border-box;
 }
 .mid.wide{max-width: 820px;}
 .mid.full{max-width: 1012px; width: 97.5%;}

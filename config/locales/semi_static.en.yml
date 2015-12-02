@@ -55,6 +55,9 @@ en:
       user:
         signed_in: ''
         signed_out: ''
+    failure:
+      timeout: ''
+
 
   activerecord:
    errors:

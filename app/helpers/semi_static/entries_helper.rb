@@ -83,6 +83,13 @@ module SemiStatic
        c += "</div> </div> ".html_safe
     end
 
+    CAPTCHA_CODES = ['0353', '2004', '5433', '6615', '6995', '7764', '7888', '7960']
+
+    def captcha
+      code = CAPTCHA_CODES.sample
+      image_tag("/assets/captchas/#{code}.jpg", 'data-code' => code, :class => 'captcha') + hidden_field_tag('comment[captcha_code]', code)
+    end
+
     def photo_main(e, group_size = 2)
        return if (photos = e.photos_including_master.main).empty?
        c = "<div class='section'>"

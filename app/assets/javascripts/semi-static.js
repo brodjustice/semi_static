@@ -28,7 +28,6 @@ function semiStaticAJAX(url){
   xhr.setRequestHeader("Accept", "text/javascript");
   xhr.onload = function() {
     if (xhr.status === 200) { eval(xhr.responseText); }
-    else { alert('Request failed.  Returned status of ' + xhr.status); }
   };
   xhr.send();
 }

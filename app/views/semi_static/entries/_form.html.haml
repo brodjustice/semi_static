@@ -25,6 +25,13 @@
         $('#tag_line_override').show();
       }
     }
+    function check_comments(){
+      if($('#entry_enable_comments').prop('checked')) {
+        $('#comment_strategy').show();
+      } else {
+        $('#comment_strategy').hide();
+      }
+    }
     function check_entry_partial(){
       var params = {'cmd':{'partial_description': $('#entry_partial').val()}}
       $.ajax({url: "#{system_path()}", data: params, type: 'PUT', dataType: 'script'});
@@ -81,6 +88,8 @@
       check_side_bar();
       check_tag_line();
       $('#entry_side_bar').change(function() { check_side_bar(); });
+      check_comments();
+      $('#entry_enable_comments').change(function() { check_comments(); });
       check_entry_partial();
       $('#entry_partial').change(function() { check_entry_partial(); });
       $('#entry_entry_position').change(function() { check_entry_partial(); });
@@ -341,10 +350,10 @@
             = f.label :link_to_tag
             = f.check_box :link_to_tag
         %h2 Banner
+        #selected_banner
+          - if @entry.banner.present?
+            = render :partial => 'semi_static/banners/show', :locals => {:banner => @entry.banner}
         %fieldset
-          #selected_banner
-            - if @entry.banner.present?
-              = render :partial => 'semi_static/banners/show', :locals => {:banner => @entry.banner}
           = f.label :banner
           %br/
           = f.select :banner_id, options_for_select(SemiStatic::Banner.all.collect{|b| [b.name, b.id]}.prepend(["- None -", 'none']), @entry.banner_id)
@@ -363,9 +372,33 @@
             = f.check_box :news_item
             = f.label :image_in_news
             = f.check_box :image_in_news
-          %fieldset
-            = f.label :news_img, 'Alternative image for news'
-            = f.file_field :news_img
+          .infobox#link_to_tag
+            %h4= 'Alternate image'
+            %p
+              = 'By deafult this image will be used for a news column summary instead of the main entry'
+              = 'image. It may also be used in other ways, like as an image for a Newsletter or as an'
+              = 'icon for a custom entry'
+              %h3 Currently loaded image
+              - if @entry.news_img.present?
+                The currently loaded mage is:
+                %ul
+                  %li= @entry.news_img_file_name
+                  %li= 'Type: ' + (@entry.news_img_content_type || '<unknown>')
+                  %li= link_to @entry.news_img.url, @entry.news_img.url
+              - else
+                No image is currently loaded
+          %fieldset.infomarker
+            %span
+              = f.label :news_img, 'Alternative image'
+              = f.file_field :news_img
+        %h2 Blog functions
+        %fieldset
+          = f.label :enable_comments, 'Enable comments'
+          = f.check_box :enable_comments
+          #comment_strategy
+            %br/
+            = f.label :comment_strategy, 'Comment procedure'
+            = f.select :comment_strategy, options_for_select(SemiStatic::Entry::COMMENT_STRATEGY.collect{|k,v| [k.to_s.humanize, v]}, @entry.comment_strategy)
         %h2 Language
         %fieldset
           = f.label :locale
@@ -396,7 +429,7 @@
               = f.label :side_bar_gallery, 'Number of gallery images to show'
               %br/
               = f.text_field :side_bar_gallery, :size => 10
-        %h2 Newletter
+        %h2 Newsletter
         %fieldset
           .infobox#newsletter_img
             %h4= 'Newsletter image (optional)'

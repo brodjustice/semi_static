@@ -1,11 +1,30 @@
+- if @entry.enable_comments && !@entry.comment_strategy.nil?
+  - content_for :ujs do
+    :javascript
+      function semiStaticPostAJAX(url){
+        var formElement = document.querySelector("form");
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', encodeURI(url + '?this-is-AJAX'));
+        xhr.setRequestHeader("Accept", "text/javascript");
+        xhr.onload = function() {
+          if (xhr.status === 200) { eval(xhr.responseText); }
+        };
+        xhr.send(new FormData(formElement));
+      }
+
+      window.onload=function(){
+        semiStaticAJAX("#{entry_comments_path(@entry, :unused => true)}")
+      }
+
 - if @entry.partial_before_entries?
   = render :partial => @entry.partial_path
 - if @entry.show_entries?
   .section
     .col{:class => ('span_2_of_3 main-col' if @entry.side_bar)}
       %article.panel.group{:class => @entry.style_class, :style => "background-color:#{@entry.background_colour}; color:#{@entry.colour}"}
-        = render :partial => 'entry', :locals => {:e => @entry, :style => (@entry.side_bar ? :show : :medium)}
+        = render :partial => 'semi_static/entries/entry', :locals => {:e => @entry, :style => (@entry.side_bar ? :show : :medium)}
         = photo_thumbs(@entry)
+        #semi_static_async
     - if @entry.side_bar
       .col.span_1_of_3.side-bar
         - if SemiStatic::Tag.predefined(I18n.locale.to_s, 'Documents').first == @tag

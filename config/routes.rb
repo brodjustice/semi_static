@@ -14,6 +14,7 @@ SemiStatic::Engine.routes.draw do
     resources :seos, :only => [:new, :create, :update]
     resources :products, :except => [:index]
     resources :photos, :only => :index
+    resources :comments, :except => :new
   end
 
   resources :tags, :except => :show do
@@ -24,6 +25,7 @@ SemiStatic::Engine.routes.draw do
   match "/#{SemiStatic::Engine.config.tag_paths[I18n.locale.to_s] || 'features'}/:slug" => 'tags#show', :as => 'feature', :via => :get
   match "/features/:slug" => 'tags#show', :via => :get
 
+  match "/comments/index" => 'comments#index', :as => 'comments', :via => :get
   match "/documents/index" => 'documents#index', :as => 'documents', :via => :get
 
   get '/site/home', to: redirect('/')

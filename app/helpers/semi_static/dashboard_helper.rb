@@ -11,7 +11,7 @@ module SemiStatic
     # The menu is the list of top level intruments 
     MENU = {
       :visitor => [],
-      :admin => ['tags', 'entries', 'sidebars', 'products', 'banners', 'footer', 'gallery', 'references',
+      :admin => ['tags', 'entries', 'comments', 'sidebars', 'products', 'banners', 'footer', 'gallery', 'references',
                   'admins', 'contacts', 'agreements', 'seos', 'newsletters',
                   'subscribers', 'click_ads', 'system'],
       :user => []
@@ -74,6 +74,10 @@ module SemiStatic
   
     def entries(role, cl_str = nil)
       "<div class='nutshell spaced' #{cl_str}><a href=\"#{semi_static.entries_path}\">Entries</a></div>"
+    end
+  
+    def comments(role, cl_str = nil)
+      "<div class='nutshell spaced' #{cl_str}><a href=\"#{semi_static.comments_path}\">Comments</a></div>"
     end
   
     def sidebars(role, cl_str = nil)

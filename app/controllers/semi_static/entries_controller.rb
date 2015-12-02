@@ -66,6 +66,10 @@
         @caption = @entry.image_caption
         template = "semi_static/photos/popup"
       end
+
+      if @entry.enable_comments
+        @comment = @entry.comments.new
+      end
   
       respond_to do |format|
         format.text { render :partial => 'semi_static/entries/entry' }

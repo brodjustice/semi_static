@@ -10,8 +10,11 @@ body{
 #top{
   display: none;
 }
-#frame{
+#dashboard #frame{
   margin-top: 0px;
+}
+#dashboard table{
+  width: 100%;
 }
 h1{
   font-size: 24px;
@@ -40,6 +43,17 @@ h1{
 
 .sidebar{
   background-color: #f4f4f4; padding: 0 6px;
+}
+.sidebar input[type='text']{
+  max-width: 80%;
+}
+
+#dashboard h2 {
+    background-color: #515f68;
+    color: #f0f8ff;
+    padding: 2px 6px;
+    margin: 0 0 4px 0;
+    font-size: 24px;
 }
 
 #dialog .button{
@@ -77,7 +91,7 @@ textarea{
   top: 0px;
   margin-bottom: 6px;
   max-width: 1024px;
-  background-color: #f0f0f0;
+  background-color: #515f68;
   border-bottom: 1px solid #c8c8c8;
 }
 button, th{
@@ -123,7 +137,7 @@ th.short:hover{ font-size: 14px; }
 }
 
 #dashboard #menu a{
-  color: #1f1f1f;
+  color: #fff;
   text-shadow: none;
 }
 
@@ -184,7 +198,6 @@ th{
 
 #content{
   width: 98%;
-  max-width: none;
   margin: 0 auto;
   left: 0;
 }
@@ -201,7 +214,6 @@ th{
   box-shadow: 0 0 4px #787878;
   border: 1px solid #484848;
   margin: 0 auto;
-  z-index: 100;
   background-color: white;
   border-radius: 2px;
   padding: 12px;
