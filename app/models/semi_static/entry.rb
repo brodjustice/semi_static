@@ -12,11 +12,11 @@ module SemiStatic
     attr_accessible :banner_id, :partial, :entry_position, :master_entry_id, :youtube_id_str, :use_as_news_summary, :simple_text
     attr_accessible :sidebar_id, :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_gallery, :side_bar_tag_id, :unrestricted_html
     attr_accessible :merge_with_previous, :raw_html, :image_popup
-    attr_accessible :facebook_share, :show_in_documents_tag, :image_caption, :tag_line, :raw_html, :show_image_titles, :link_to_tag, :doc_delete, :img_delete, :layout_select
-    attr_accessible :enable_comments, :comment_strategy
-    attr_accessor :doc_delete, :img_delete
+    attr_accessible :facebook_share, :show_in_documents_tag, :image_caption, :tag_line, :raw_html, :show_image_titles, :link_to_tag, :doc_delete, :img_delete, :alt_img_delete
+    attr_accessible :enable_comments, :comment_strategy, :layout_select
+    attr_accessor :doc_delete, :img_delete, :alt_img_delete
 
-    # The news image is now actually used for various alternative fuctions, icons, etc.
+    # The news image is now also used for various alternative fuctions, icons, etc.
     alias_attribute :alt_img, :news_img
     alias_attribute :alt_img_file_name, :news_img_file_name
 
@@ -211,6 +211,12 @@ module SemiStatic
       if val == '1' || val == true
         self.img.clear
         self.image_caption = nil
+      end
+    end
+
+    def alt_img_delete=(val)
+      if val == '1' || val == true
+        self.news_img.clear
       end
     end
 

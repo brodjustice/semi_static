@@ -5,14 +5,19 @@
 = h 'Email: ' +  @comment.email
 
 = '-------------------- Comment -------------------'
-
+= ' '
 = h @comment.body
-
+= ' '
 = '------------------ Comment end -----------------'
+= ' '
+To view this comment please click on the link below:
+= entry_url(@comment.entry, :anchor => "comment_id_#{@comment.id}")
 
+= ' '
 To delete this comment please click on the link below:
 
-= link_to entry_comment_path(@comment.entry, @comment), entry_comment_path(@comment.entry, @comment)
+=entry_comment_url(@comment.entry, @comment)
+= ' '
 
 = '-------------------------------------------'
 

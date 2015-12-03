@@ -20,9 +20,13 @@ en:
   Name: 'Name'
   Surname: 'Surname'
   Email: 'E-mail'
+  Email_not_displayed: 'E-mail (your e-mail address will not be displayed)'
+  Add_your_comment: 'Add your comment...'
   Message: 'Message'
   Telephone: 'Telephone'
   Contact_us: 'Contact us!'
+  Comment: 'Comment'
+  Company_optional: 'Company (optional)'
   Thank_you: "Thanks!"
   Thank_you_for_your_equiry: 'Thank you for your enquiry, we will respond shortly'
   Address: 'Address'
@@ -37,6 +41,7 @@ en:
   Error_500: 'Sorry, this is a little embarrassing but we had an uncorrectable error on our website. Please use the menu to continue navigating our website'
   contact:
     pre: 'Send us a message, we will phone you back!'
+
 
   # Product Properties
   pname: 'Name'

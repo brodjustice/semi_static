@@ -149,14 +149,20 @@ module SemiStatic
       '<div class="onoffswitch-inner"></div><div class="onoffswitch-switch"></div></label></div>'.html_safe
     end
   
-    def locales
+    # By default will show a flag icon for each alternate locale or translation. If flag is set to false it
+    # will instead show each language symbol as 2 characters.
+    def locales(flags=true)
       c = ''
-      ls = SemiStatic::Engine.config.localeDomains.reject{|k, v| k.to_s == I18n.locale.to_s}
+      ls = (flags ? SemiStatic::Engine.config.localeDomains.reject{|k, v| k.to_s == I18n.locale.to_s} : SemiStatic::Engine.config.localeDomains)
       ls.each{|l, u|
         if u.downcase == 'translate'
           u = "http://translate.google.com/translate?hl=&sl=auto&tl=#{l}&u=#{url_encode(request.url)}"
         end
-        c+= "<li class='locale'><a href='#{u}'><img src='/assets/flags/#{l}.png' alt='#{l}'/></a></li>".html_safe
+        if flags
+          c+= "<li class='locale'><a href='#{u}'><img src='/assets/flags/#{l}.png' alt='#{l}'/></a></li>".html_safe
+        else
+          c+= "<li class='locale'><a href='#{u}'>#{l}</a></li>".html_safe
+        end
       }
       c.html_safe
     end

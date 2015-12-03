@@ -375,7 +375,7 @@
           .infobox#link_to_tag
             %h4= 'Alternate image'
             %p
-              = 'By deafult this image will be used for a news column summary instead of the main entry'
+              = 'By default this image will be used for a news column summary instead of the main entry'
               = 'image. It may also be used in other ways, like as an image for a Newsletter or as an'
               = 'icon for a custom entry'
               %h3 Currently loaded image
@@ -385,6 +385,8 @@
                   %li= @entry.news_img_file_name
                   %li= 'Type: ' + (@entry.news_img_content_type || '<unknown>')
                   %li= link_to @entry.news_img.url, @entry.news_img.url
+                = f.label :alt_img_delete, 'Tick to delete this image on save'
+                = f.check_box :alt_img_delete
               - else
                 No image is currently loaded
           %fieldset.infomarker
