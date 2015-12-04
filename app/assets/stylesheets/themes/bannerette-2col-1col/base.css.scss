@@ -128,8 +128,9 @@ h2{ font-size: 20px;}
   background-color: white; 
   border: 1px solid white;
   border-radius: 2px;
-  padding: 4px 0px 4px 4px;
+  padding: 0px 34px 4px 4px;
   text-align: center;
+  background: transparent url(#{$vert-sprites}) right -226px no-repeat;
 }
 
 #menu-button, #menu-close{
@@ -537,6 +538,7 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
 }
 #bar-menu li{
   font-size: 16px;
+  margin-top: 3px;
 }
 #menu #bar-menu a{
   text-transform: none;
@@ -577,16 +579,14 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
 }
 .searchform .searchfield {
     background: none repeat scroll 0 0 #FFFFFF;
-    border: 1px solid #f0f0f8;
-    border-radius: 2px;
+    border: 1px solid #808080;
     // box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) inset;
     outline: medium none;
-    padding: 8px 6px 6px 8px;
+    padding: 4px 3px 3px 4px;
     width: 202px;
 }
 .searchform input[type='text'] {
     font: 16px "Open Sans", Arial, Verdana, Helvetica, sans-serif;
-    width: 260px;
 }
 .searchbutton{
   vertical-align: bottom;

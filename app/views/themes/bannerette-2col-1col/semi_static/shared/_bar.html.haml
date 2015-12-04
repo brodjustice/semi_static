@@ -1,7 +1,12 @@
 %nav.bar-menu#bar-menu
   %ul
     = locales(false)
-    %li.search.icon= link_to t('Search'), semi_static.search_entries_path
+    %li
+      #search-bar
+        #search-bar-inner
+          #search-wrapper.search.icon
+            = form_tag search_entries_path, method: 'get', :class => 'searchform' do
+              = text_field_tag :q, params[:q], :placeholder => t('Search'), :class => 'searchfield'
     %li.contact.icon= link_to t('Contact'), semi_static.new_contact_path
     - if SemiStatic::Engine.config.try('subscribers_model')
       %li.sign-in.icon= link_to t('Sign_In'), main_app.send(SemiStatic::Engine.config.subscribers_model.values[0])
