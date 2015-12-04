@@ -161,7 +161,11 @@ module SemiStatic
         if flags
           c+= "<li class='locale'><a href='#{u}'><img src='/assets/flags/#{l}.png' alt='#{l}'/></a></li>".html_safe
         else
-          c+= "<li class='locale'><a href='#{u}'>#{l}</a></li>".html_safe
+          if session[:locale] == l
+            c+= "<li class='locale selected'><a href='#{u}'>#{l}</a></li>".html_safe
+          else
+            c+= "<li class='locale'><a href='#{u}'>#{l}</a></li>".html_safe
+          end
         end
       }
       c.html_safe

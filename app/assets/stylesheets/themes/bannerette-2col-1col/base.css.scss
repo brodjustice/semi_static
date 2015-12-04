@@ -526,9 +526,13 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
   font-weight: lighter;
   padding: 0px 14px 6px;
 }
+#top-inner li.locale a{ padding: 3px; }
+#top-inner li.selected.locale a{background-color:$secondary-color; color: white;}
+
 #top-inner li.locale{
   padding-right: 0px;
   padding-left: 12px;
+  margin-top:9px;
 }
 #bar-menu li a, #top-inner li a{
   font-weight: lighter;
