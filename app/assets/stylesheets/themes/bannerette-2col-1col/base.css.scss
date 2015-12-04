@@ -83,7 +83,6 @@ html { overflow-y: scroll; }
 body{
   background-color: white; 
   margin: 0px;
-  // font:16px "Open Sans", Helvetica Neue, Helvetica, Arial, sans-serif;
   font-family: 'Raleway', Arial, Verdana, Helvetica, sans-serif;
   font-size: 16px;
   color: #494949;
@@ -580,13 +579,13 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
 .searchform .searchfield {
     background: none repeat scroll 0 0 #FFFFFF;
     border: 1px solid #808080;
-    // box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) inset;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) inset;
     outline: medium none;
-    padding: 4px 3px 3px 4px;
+    padding: 5px 3px 4px 4px;
     width: 202px;
 }
 .searchform input[type='text'] {
-    font: 16px "Open Sans", Arial, Verdana, Helvetica, sans-serif;
+    font-size: 14px;
 }
 .searchbutton{
   vertical-align: bottom;
