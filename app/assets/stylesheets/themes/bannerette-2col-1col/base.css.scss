@@ -435,7 +435,7 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
   margin-bottom: 0px;
 }
 
-.entry h1 + h2, .entry h3{
+.entry h2, .entry h3, .entry h4{
   margin-left: 6px; margin-right: 6px;
   // display: inline-block;
 }
