@@ -530,6 +530,7 @@ h2 a, h3 a{color: $secondary-color;}
   #menu-main{
     margin-top: 64px; background-color: $prime-color;
     box-shadow: 0 0 7px #7c7c7c;
+    width: 100%;
   }
   #menu .wrapper{background-color: white;}
   #menu .wrapper .text{height: auto; border-bottom: 1px solid #e0e0e0;}

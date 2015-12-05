@@ -379,7 +379,7 @@ h2{ font-size: 20px;}
 #youtube{float: right; padding: 0px 8px 3px 28px; background: transparent url(#{$vert-sprites}) 0px -25px no-repeat;}
 #bar-menu .contact a{float: right; display: block; padding: 4px 34px 0px 8px; background: transparent url(#{$vert-sprites}) right -194px no-repeat;}
 #bar-menu .search a{float: right; display: block; padding: 4px 30px 6px 8px; background: transparent url(#{$vert-sprites}) right -226px no-repeat;}
-#bar-menu .sign-in a{float: right; display: block; padding: 4px 8px 2px 30px; background: transparent url(/assets/user-icon.png) right 0px no-repeat; background-size: 28px 32px !important;}
+#bar-menu .sign-in a{float: right; display: block; padding: 4px 32px 2px 8px; background: transparent url(/assets/user-icon.png) right 0px no-repeat; background-size: 28px 32px !important;}
 #twitter, #xing, #facebook, #youtube, #bar-menu .icon a{ background-size: 28px $vert-sprites-height; }
 
 .button-wrapper{float:right; border: 1px solid #a8a8a8; border-radius: 4px; padding: 2px; }
@@ -437,7 +437,7 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
 
 .entry h1 + h2, .entry h3{
   margin-left: 6px; margin-right: 6px;
-  display: inline-block;
+  // display: inline-block;
 }
 
 .entry.panel{
