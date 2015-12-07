@@ -6,18 +6,21 @@
       #close-sym
         &otimes;
     #menu-main.section.group
-      - SemiStatic::Tag.menu.locale(I18n.locale.to_s).limit(max_menu_tags).each_with_index do |t, i|
+      - SemiStatic::Tag.menu.locale(I18n.locale.to_s).limit(max_menu_tags).each_with_index do |mt, i|
         .col.span_1_of_5
-          .wrapper{:id => ('selected' if ((@tag == t) || (@selection == t.predefined_class)))}
-            = link_to t.name, menu_from_tag(t), :class => 'text '
+          .wrapper{:id => ('selected' if ((@tag == mt) || (@selection == mt.predefined_class)))}
+            = link_to mt.name, menu_from_tag(mt), :class => 'text '
             - if SemiStatic::Tag.use_sprites?
               .icon.sprite{:id => "sprite_#{(i + 1).to_s}"}
             - else
-              - if t.icon_in_menu && t.icon.present?
-                - if t.icon_resize
-                  .icon= image_tag(t.icon.url(:big))
+              - if mt.icon_in_menu && mt.icon.present?
+                - if mt.icon_resize
+                  .icon= image_mt(mt.icon.url(:big))
                 - else
-                  .icon= image_tag(t.icon.url)
+                  .icon= image_mt(mt.icon.url)
               - else
                 .icon
                   .custom
+            - if lookup_context.exists?('semi_static/shared/_hover_menu')
+              = render :partial => 'semi_static/shared/hover_menu', :locals => {:mt => mt}
+

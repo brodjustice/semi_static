@@ -155,6 +155,44 @@ h2{ font-size: 20px;}
   border-radius: 2px; margin: 2px auto;
 }
 
+@-webkit-keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.sub-menu{
+  display: none;
+  background-color: white;
+  position:absolute;
+  width: 200%;
+  min-width: 200px;
+  margin: 4px -50%;
+  border: 1px solid #e8e8e8;
+  border-top: none;
+  border-radius: 2px;
+  padding: 6px;
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  z-index: -1;
+}
+#menu .wrapper:hover .sub-menu{
+  display:block;
+}
+#menu .sub-menu a{
+  display: block;
+  font-size: 16px;
+  font-weight: normal;
+  text-transform:none;
+  padding: 3px;
+  color: #686868;
+}
 
 #content{
   margin: 6px;
@@ -573,6 +611,10 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
 // Right float menu
 #menu-main .col{
   width: auto; float: right; margin-left: 3%;
+}
+
+// Hover sub menu
+.sub-menu{
 }
 
 .searchform {
