@@ -4,6 +4,8 @@
   .section
     - if @tag.side_bar
       .col.span_2_of_3.main-col
+        - if @tag.partial_inline?
+          = render :partial => @tag.partial_path
         = render 'semi_static/tags/main_col'
       .col.span_1_of_3.side-bar
         = render 'semi_static/tags/side_bar'

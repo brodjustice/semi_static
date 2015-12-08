@@ -5,12 +5,12 @@ module SemiStatic
     end
 
     def partial_before_entries?
-      !SemiStatic::Engine.config.open_partials[self.partial].nil? && entry_position != Entry::DISPLAY_ENTRY_SYM[:before]
+      SemiStatic::Engine.config.open_partials[self.partial].present? && ![Entry::DISPLAY_ENTRY_SYM[:before], Entry::DISPLAY_ENTRY_SYM[:inline]].include?(entry_position)
     end
 
     def partial_after_entries?
       !partial_before_entries? &&
-      !SemiStatic::Engine.config.open_partials[self.partial].nil? && entry_position != Entry::DISPLAY_ENTRY_SYM[:after]
+      !SemiStatic::Engine.config.open_partials[self.partial].nil? && ![Entry::DISPLAY_ENTRY_SYM[:after], Entry::DISPLAY_ENTRY_SYM[:inline]].include?(entry_position)
     end
 
     def partial_path
