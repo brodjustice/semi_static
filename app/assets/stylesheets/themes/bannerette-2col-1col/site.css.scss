@@ -7,6 +7,32 @@
   height: 300px;
 }
 
+
+#banner-tag-wrapper{
+  top: 181px;
+  overflow: hidden;
+  width: 100%;
+  margin: 0px auto;
+  position: absolute;
+  z-index: 100;
+}
+
+#banner-tagline {
+    color: white;
+    text-align: center;
+    text-shadow: 0 0 4px #484848;
+    width: 96%;
+    animation: 1s ease 0s normal none 1 running grower;
+    color: white;
+    font-size: 30px;
+    font-weight: normal;
+    margin: 0 auto;
+    max-width: 1012px;
+    text-align: center;
+    width: 98%;
+}
+
+
 .fb-share:after{
   margin-bottom: 4px;
 }
