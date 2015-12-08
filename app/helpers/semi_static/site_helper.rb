@@ -6,6 +6,7 @@ module SemiStatic
       'References' => SemiStatic::Engine.routes.url_helpers.references_path,
       'Contact' => SemiStatic::Engine.routes.url_helpers.new_contact_path,
       'Documents' => SemiStatic::Engine.routes.url_helpers.documents_path,
+      'News' => SemiStatic::Engine.routes.url_helpers.news_path,
       'Gallery' => SemiStatic::Engine.routes.url_helpers.photos_path
     }
 
