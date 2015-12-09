@@ -2,9 +2,9 @@
   - content_for :ujs do
     :javascript
       function semiStaticPostAJAX(url){
-        var formElement = document.querySelector("form");
+        var formElement = document.getElementById("commentFormData");
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', encodeURI(url + '?this-is-AJAX'));
+        xhr.open('POST', encodeURI(url));
         xhr.setRequestHeader("Accept", "text/javascript");
         xhr.onload = function() {
           if (xhr.status === 200) { eval(xhr.responseText); }
@@ -15,6 +15,7 @@
       window.onload=function(){
         semiStaticAJAX("#{entry_comments_path(@entry, :unused => true)}")
       }
+
 
 - if @entry.partial_before_entries?
   = render :partial => @entry.partial_path

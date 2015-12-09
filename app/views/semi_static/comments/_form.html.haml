@@ -1,4 +1,4 @@
-= form_for(@comment, :url => entry_comments_path(@entry, :anchor => 'error_explanation'), :html => {:onsubmit => "semiStaticPostAJAX(\'#{entry_comments_path(@entry)}\');return false;"}) do |f|
+= form_for(@comment, :url => entry_comments_path(@entry, :anchor => 'error_explanation'), :html => {:id => 'commentFormData', :onsubmit => "semiStaticPostAJAX(\'#{entry_comments_path(@entry)}\');return false;"}) do |f|
   - if @comment.errors.any?
     #error_explanation
       %h2= pluralize(@comment.errors.count, "error") + ' prohibited this comment from being saved:'
