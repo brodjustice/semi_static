@@ -38,6 +38,9 @@
 
     .col.span_1_of_3
       %fieldset
+        = f.label :partial, 'Custom view'
+        = f.select :partial, options_for_select(SemiStatic::Engine.config.open_partials.collect{|k, v| [k, k]}.prepend(["- None -", 'none']), @sidebar.partial)
+      %fieldset
         = f.label :bg, 'Background image'
         .sidebar-bg
           - if @sidebar.bg.present?
