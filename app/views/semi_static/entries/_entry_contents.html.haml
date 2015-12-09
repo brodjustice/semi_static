@@ -1,6 +1,6 @@
 -# TODO: Major refactor required
 - unless e.youtube_id_str.blank?
-  = entry_title(e, true)
+  = entry_title(e, linked || true)
   = youtube_video(e.youtube_id_str)
 - if !e.image_disable && e.img.present?
   .col.span_1_of_2.floater
@@ -10,10 +10,10 @@
       = icon(e.tag) if e.youtube_id_str.blank?
       - if @summaries && !e.merge_with_previous
         - if e.youtube_id_str.blank?
-          = entry_title(e, true)
+          = entry_title(e, linked || true)
         = entry_summary(e, e.summary_length)
       - else
-        = entry_title(e)
+        = entry_title(e, linked)
         = entry_body(e)
         = photo_main(e, @group_size || 2)
         = semantic_product(e)
@@ -22,7 +22,7 @@
     = icon(e.tag) if e.youtube_id_str.blank?
     - if e.youtube_id_str.blank?
       = alt_img_as_icon(e)
-      = entry_title(e, true)
+      = entry_title(e, linked || true)
     - if @summaries && !e.merge_with_previous
       = entry_summary(e, e.summary_length)
     - else

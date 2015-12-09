@@ -1,9 +1,10 @@
 -# TODO: Major refactor required
 -# The main diff for this theme is that the h1/header span the entry
 -# even if an image is present
+- linked = linked.nil? ? true : linked
 - unless !e.image_disable && e.img.present?
   = alt_img_as_icon(e)
-= entry_title(e, true)
+= entry_title(e, linked)
 - unless e.youtube_id_str.blank?
   = youtube_video(e.youtube_id_str)
 - if !e.image_disable && e.img.present?

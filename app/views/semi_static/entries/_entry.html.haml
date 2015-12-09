@@ -1,6 +1,7 @@
--# TODO: Move to helper
+-# TODO: Refactor, Move to helper
 - suppress_merged ||= (@suppress_merged || false)
 - style ||= false
+- linked = linked.nil? ? true : linked
 - entry = e
 - last_merged_entry = e
 .entry{:style => "background-color: #{e.background_colour}"}
@@ -9,7 +10,7 @@
     - if e.partial_inline?
       = render :partial => e.partial_path, :locals => {:style => style, :e => e }
     - else
-      = render :partial => 'semi_static/entries/entry_contents', :locals => {:style => style, :e => e }
+      = render :partial => 'semi_static/entries/entry_contents', :locals => {:style => style, :e => e, :linked => linked }
     = render :partial => 'semi_static/entries/document', :locals => {:e => e}  unless e.doc_file_size.nil? || (@summaries && (e.body.size > (e.summary_length || 0)))
     - break if (e = e.next_merged_entry).nil? || (@summaries && entry.truncate?) || suppress_merged
     - unless e.partial_inline?
