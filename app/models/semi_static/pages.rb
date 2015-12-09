@@ -55,6 +55,7 @@ module SemiStatic
   
       I18n.available_locales.each{|l|
         FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/index.html").to_s)
+        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/news.html").to_s)
         FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/site").to_s)
         FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/references.html").to_s)
         FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/references").to_s)

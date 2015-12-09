@@ -331,7 +331,7 @@
           %br/
           = f.label :merge_with_previous
           = f.check_box :merge_with_previous
-        %h2 Menu or Tag selection
+        %h2 Menu &amp; Tag selection
         %fieldset
           = f.label :tag_id
           - if @newsletter
@@ -349,6 +349,17 @@
           %span.infomarker
             = f.label :link_to_tag
             = f.check_box :link_to_tag
+          %br/
+          %br/
+          .infobox#alt_title
+            %h4= 'Alternative title'
+            %p
+              = 'This can be used as an alternative title for the entry. For example, if you want the'
+              = 'menu description for this entry to be different to the actual entry title then put'
+              = 'the desired menu description text in here.'
+          %span.infomarker
+            = f.label :alt_title, 'Alternative title'
+            = f.text_field :alt_title
         %h2 Banner
         #selected_banner
           - if @entry.banner.present?

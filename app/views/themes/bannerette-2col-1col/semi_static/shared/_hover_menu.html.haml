@@ -1,4 +1,4 @@
 - return if mt.entries.unmerged.blank?
 .sub-menu
   - mt.entries.unmerged.each do |e|
-    = link_to e.title, semi_static.entry_path(e)
+    = link_to e.menu_title, semi_static.entry_path(e)
