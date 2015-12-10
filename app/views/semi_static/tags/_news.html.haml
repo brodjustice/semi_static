@@ -9,7 +9,7 @@
       %h2= title
     - klass.get_side_bar_entries.each_with_index do |e, i|
       -# There are a lot of condition here where you don't display the summary
-      -# in the side-bar. The must convaluted is when this is a tag and has
+      -# in the side-bar. The most convaluted is when this is a tag and has
       -# only one entry (max_entries_on_index_page == 1) AND there is no
       -# specific summary text AND this is that first entry (i == 0).
       -# In this case we would just be repeating the same text in the

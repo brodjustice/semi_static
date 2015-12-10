@@ -334,6 +334,7 @@
         %h2 Menu &amp; Tag selection
         %fieldset
           = f.label :tag_id
+          %br/
           - if @newsletter
             = f.select :tag_id, options_for_select(SemiStatic::Tag.unscoped.collect{|t| [[t.locale, ': ', t.name].join, t.id]}, @entry.tag_id)
           - else
@@ -360,6 +361,16 @@
           %span.infomarker
             = f.label :alt_title, 'Alternative title'
             = f.text_field :alt_title
+        %fieldset
+          .infobox#acts_as_tag_info
+            %h4= 'Acts as Tag'
+            %p
+              = 'If set, then none of the other fields in this form matter as this entry will simply'
+              = 'redirect to the tag specified. This can be useful for building menus with many'
+              = 'levels of hierarchy'
+          %span.infomarker
+            = f.label :acts_as_tag_id
+          = f.select :acts_as_tag_id, options_for_select(SemiStatic::Tag.unscoped.collect{|t| [[t.locale, ': ', t.name].join, t.id]}.prepend(["- None -", nil]), @entry.acts_as_tag_id)
         %h2 Banner
         #selected_banner
           - if @entry.banner.present?

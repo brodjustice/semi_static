@@ -18,6 +18,16 @@ module SemiStatic
       'standard-2col-1col' => 10
     }
 
+    # For GET you should call this rather than entry_path so that entries
+    # acting as tags can be intercepted
+    def entry_link(e, options = {})
+      if e.acts_as_tag_id
+        SemiStatic::Engine.routes.url_helpers.feature_path(e.acts_as_tag.slug, options)
+      else
+        SemiStatic::Engine.routes.url_helpers.entry_path(e, options)
+      end
+    end
+
     def select_layout(obj)
       'semi_static_' + LAYOUTS[obj.layout_select || 0]
     end

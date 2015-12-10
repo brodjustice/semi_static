@@ -485,6 +485,9 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
 .entry p{
   padding-left: 6px; padding-right: 6px;
 }
+.entry ol, .entry li{
+  padding-right: 12px;
+}
 
 .panel.photo {
     text-align: center;
@@ -629,6 +632,8 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
     outline: medium none;
     padding: 5px 3px 4px 4px;
     width: 202px;
+    border-radius:0;
+    -webkit-border-radius:0;
 }
 .searchform input[type='text'] {
     font-size: 14px;

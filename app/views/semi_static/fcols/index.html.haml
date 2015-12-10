@@ -16,7 +16,7 @@
         %td.fcol= fcol.locale.to_s
         %td.fcol= fcol.position
         %td.fcol= '-'
-        %td.fcol{:colspan => 2}= link_to fcol.name, edit_fcol_path(fcol)
+        %td.fcol{:colspan => 2}= link_to (fcol.name.blank? ? '<no name>' : fcol.name), edit_fcol_path(fcol)
         %td.fcol= link_to image_tag('/assets/bin.png'), fcol, :method => :delete, :data => { :confirm => 'Are you sure?' }
         %td.fcol
           .button= link_to 'Add link', new_fcol_link_path(fcol)

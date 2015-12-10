@@ -11,7 +11,7 @@ module SemiStatic
     attr_accessible :position, :doc, :doc_description, :summary_length, :locale, :style_class, :header_colour, :background_colour, :colour
     attr_accessible :banner_id, :partial, :entry_position, :master_entry_id, :youtube_id_str, :use_as_news_summary, :simple_text
     attr_accessible :sidebar_id, :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_gallery, :side_bar_tag_id, :unrestricted_html
-    attr_accessible :merge_with_previous, :raw_html, :image_popup, :alt_title
+    attr_accessible :merge_with_previous, :raw_html, :image_popup, :alt_title, :acts_as_tag_id
     attr_accessible :facebook_share, :show_in_documents_tag, :image_caption, :tag_line, :raw_html, :show_image_titles, :link_to_tag, :doc_delete, :img_delete, :alt_img_delete
     attr_accessible :enable_comments, :comment_strategy, :layout_select
     attr_accessor :doc_delete, :img_delete, :alt_img_delete
@@ -23,6 +23,7 @@ module SemiStatic
     settings index: { number_of_shards: 1, number_of_replicas: 0 }
   
     belongs_to :tag
+    belongs_to :acts_as_tag, :class_name => "SemiStatic::Tag"
   
     before_save :dup_master_id_photos
     after_save :expire_site_page_cache

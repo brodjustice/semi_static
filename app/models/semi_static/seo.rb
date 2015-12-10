@@ -34,7 +34,7 @@ module SemiStatic
 
     def set_defaults
       self.changefreq = CHANGE_FREQ[:unknown]
-      if self.seoable.is_a?(Entry) && (self.seoable.link_to_tag || self.seoable.merge_with_previous)
+      if self.seoable.is_a?(Entry) && (self.act_as_tag_id || self.seoable.link_to_tag || self.seoable.merge_with_previous)
         self.include_in_sitemap = false
         self.no_index = true
       end
