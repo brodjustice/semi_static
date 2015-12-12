@@ -25,17 +25,9 @@
     # GET /tags/1
     # GET /tags/1.json
     def show
-      # There is a special predefined tag called for 'news', so check if this is it. 
-      if params[:predefined] == 'news' &&
-        !(@tag = Tag.predefined(locale.to_s, 'News').first).nil?
-        # Set predefined temporarily to nil so the format below does
-        # try and redirect to an actual controller
-        @tag.predefined_class = nil
-      else
-        # You might want to look for slugs of different locales, especially if these are custom
-        # pages. So first look for tag in current locale and if this fails take first matching tag
-        @tag = Tag.where(:locale => locale.to_s).find_by_slug(params[:slug]) || Tag.find_by_slug!(params[:slug])
-      end
+      # You might want to look for slugs of different locales, especially if these are custom
+      # pages. So first look for tag in current locale and if this fails take first matching tag
+      @tag = Tag.where(:locale => locale.to_s).find_by_slug(params[:slug]) || Tag.find_by_slug!(params[:slug])
 
       @title = @tag.name
       @seo = @tag.seo

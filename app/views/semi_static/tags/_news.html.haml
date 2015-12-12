@@ -2,8 +2,8 @@
 .news
   - unless klass.nil?
     - title = klass.side_bar_tag.nil? ? t('News') : klass.side_bar_tag.sidebar_title
-    - if SemiStatic::Tag.predefined(I18n.locale.to_s, 'News').first
-      = link_to news_path do
+    - if news_tag = SemiStatic::Tag.predefined(I18n.locale.to_s, 'News').first
+      = link_to feature_path(news_tag.slug) do
         %h2= title
     - else
       %h2= title
