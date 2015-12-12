@@ -113,16 +113,17 @@ module SemiStatic
     # If you have your own 'users' devise model created with 'rails g devise user' 
     # in order to have a user sign-in area, then add the model name here , eg:
     # config.subscribers_model = {'User' => 'new_user_session_path'}
+    config.subscribers_model = nil
+
     #
     # In this case semi_static will assume that there is a dashboard path that
-    # can be infered from the model name, eg:
+    # can be inferred from the model name, eg:
     #   user_dashboard_path
     #
     # If you do this, then you might need access to the 'users' via the dashbord,
     # so then you will also need to add appropriate hash to the config.dashboard_menu_additions
     # below, something like:
     # config.dashboard_menu_additions = {'users' => 'users_path'}
-    config.subscribers_model = nil
 
     # Or if you just want to add a menu item to the dashboards controller then add it here
     # config.app_dashboard_menu_additions = false

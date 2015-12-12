@@ -4,7 +4,7 @@
     class EntriesController < ApplicationController
   
     before_filter :authenticate_for_semi_static!,  :except => [ :show, :search ]
-    before_filter :authenticate_subscriber!,  :only => [ :show ]
+    before_filter :authenticate_semi_static_subscriber!,  :only => [ :show ]
   
     # We would like to do something like this:
     #   caches_page :show, :if => :not_subscriber_content?
@@ -201,10 +201,11 @@
     private
 
     def cachable_content?
-      !lambda{ |controller| controller.request.format.js? } && !@entry.subscriber_content
+      # !lambda{ |controller| controller.request.format.js? } && !@entry.subscriber_content
+      !request.format.js? && !@entry.subscriber_content
     end
 
-    def authenticate_subscriber!
+    def authenticate_semi_static_subscriber!
       @entry = Entry.find(params[:id])
       @tag = @entry.tag
       if !semi_static_admin? && @entry.subscriber_content
