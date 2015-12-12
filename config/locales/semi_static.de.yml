@@ -16,14 +16,27 @@ de:
   Send_me_reset_password_instructions: 'Send me reset password instructions'
   Forgot_password?: 'Passwort vergessen?'
   Change_my_password: 'Password ändern'
-  Send: 'Schicken'
+  Send: 'Senden'
   Name: 'Vorname'
   Surname: 'Nachname'
   Email: 'E-mail'
   Message: 'Nachricht'
   Telephone: 'Telefon'
   Contact_us: 'Contact us!'
-  Thank_you: "Thanks!"
+  Thank_you: "Danke!"
+
+  Email_not_displayed: 'E-mail (wird nicht angezeigt)'
+  Add_your_comment: 'Hier kommentieren...'
+  Telephone: 'Telefon'
+  Contact_us: 'Contact us!'
+  Comment: 'Kommentar'
+  n_of_comments:
+      zero: "0 Kommentar"
+      one: "1 Kommentar"
+      other: "%{count} Kommentare"
+  Company_optional: 'Firma (optional)'
+  PleaseTypeNumber: 'Bitte nummmer in Bild eingeben'
+
   Thank_you_for_your_equiry: 'Thank you for your enquiry, we will respond shortly'
   Address: 'Anschrift'
   Contact_form: 'Anfrageformular'

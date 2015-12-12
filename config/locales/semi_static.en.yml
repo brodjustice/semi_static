@@ -26,7 +26,12 @@ en:
   Telephone: 'Telephone'
   Contact_us: 'Contact us!'
   Comment: 'Comment'
+  n_of_comments:
+      zero: "0 comments"
+      one: "1 comment"
+      other: "%{count} comments"
   Company_optional: 'Company (optional)'
+  PleaseTypeNumber: 'Please type number in image'
   Thank_you: "Thanks!"
   Thank_you_for_your_equiry: 'Thank you for your enquiry, we will respond shortly'
   Address: 'Address'

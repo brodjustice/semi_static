@@ -77,7 +77,11 @@ module SemiStatic
        c = "<div class='gallery doc'> <div class='spacer_wrapper'> ".html_safe
        photos.each{|p|
          c += "<div class='photo nutshell'> <div class='spaced'> ".html_safe
-         c += link_to image_tag(p.img.url(:mini), :title => "#{p.title} - #{truncate(p.description, :length => 50)}"), photo_path(p)
+         if p.popup
+           c += link_to(image_tag(p.img.url(:mini), :title => "#{p.title} - #{truncate(p.description, :length => 50)}"), photo_path(p), :onclick => "semiStaticAJAX('#{photo_path(p, :format => :js, :popup => true)}'); return false;")
+         else
+           c += link_to image_tag(p.img.url(:mini), :title => "#{p.title} - #{truncate(p.description, :length => 50)}"), photo_path(p)
+         end
          c += "</div> </div> ".html_safe
        }
        c += "</div> </div> ".html_safe

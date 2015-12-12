@@ -1,5 +1,5 @@
 #comments
-  %h3= pluralize(@entry.comments.count, "comment")
+  %h3= t("n_of_comments", :count => @entry.comments.count)
   - @entry.comments.each do |c|
     - break if c.new_record?
     .comment{:id => "comment_id_#{c.id}"}
