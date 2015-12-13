@@ -92,7 +92,7 @@ module SemiStatic
     # to the uploaded file size. This then stops the image from being displayed larger than the origional.
     def image_with_style(e, style, max_width, popup=true)
       if popup && e.image_popup
-        c = "<a class='popable' onclick=\'semiStaticAJAX(\"#{entry_path(e, :popup => true)}\")\; return false;' href='#'> ".html_safe
+        c = "<a class='popable' onclick=\'semiStaticAJAX(\"#{entry_path(e, :format => :js, :popup => true)}\")\; return false;' href='#'> ".html_safe
       else
         c = ''
       end

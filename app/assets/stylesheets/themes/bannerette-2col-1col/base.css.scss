@@ -137,7 +137,7 @@ h2{ font-size: 20px;}
   float: right;
   color: $secondary-color; font-weight: bold;
   padding: 3px 2px 4px 32px;
-  margin: 2px 12px 0px 0px;
+  margin: 2px 2px 0px 0px;
   cursor: pointer;
   position: relative;
   z-index: 500;
@@ -169,8 +169,8 @@ h2{ font-size: 20px;}
   display: none;
   background-color: white;
   position:absolute;
-  min-width: 200px;
-  margin: 4px 0 0 -10px;
+  min-width: 160px;
+  // margin: 4px 0 0 -10px;
   text-align: right;
   border: 1px solid #e8e8e8;
   border-top: none;
@@ -180,8 +180,11 @@ h2{ font-size: 20px;}
   animation-name: fadeIn;
   -webkit-animation-duration: 0.5s;
   animation-duration: 0.5s;
-  right: -8px;
   z-index: -1;
+}
+#menu .sub-menu a{
+  border-bottom: 1px solid #f0f0f0;
+  padding: 8px 0;
 }
 #menu .wrapper:hover .sub-menu{
   display:block;
@@ -783,14 +786,17 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
   #menu, #top-inner ul{display: none;}
   #menu{
     padding-top: 8px; padding-bottom: 12px;
-    width: 90%; max-width: 330px; left: -10px; right: -10px;
-    position: fixed; background-color: #f8f8f8; top: 44px;
-    border: 1px solid $prime-color;
+    width: 100%;
+    position: fixed; background-color: #f8f8f8; top: 75px;
     background-image: none;
     border-radius: 2px;
-    box-shadow: 0 50px 500px black;
     font-size: 16px;
   }
+  .sub-menu{
+    position: relative;
+    display: block;
+  }
+  #menu .sub-menu a{padding: 10px;}
   #menu .col{ width: 100%; }
   #menu-loading-wrapper{display: block;}
 
@@ -802,8 +808,7 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
     top: 16px;
     width: 30%;
   }
-  #menu .wrapper .text{height: 20px;}
-
+  #menu .wrapper .text{height: 36px;}
   .wrapper:not(#selected) .icon.sprite{background-image: none;}
 
   /* No Firefox support for background-position-x, but applies only usually to mobile any */
