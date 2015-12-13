@@ -846,3 +846,12 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
   .entry .col .img{margin: 0 auto; text-align:center;}
 }
 
+@media only screen and (max-width: 380px) {
+  #footer .credits, #footer .copy, #footer #footer-wrapper .stamps{
+    transform: none;
+    margin: 10px auto;
+    float: none;
+    text-align: center;
+    width: 100%;
+  }
+}
