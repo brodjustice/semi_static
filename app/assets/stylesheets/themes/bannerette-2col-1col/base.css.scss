@@ -171,7 +171,7 @@ h2{ font-size: 20px;}
   position:absolute;
   min-width: 200px;
   margin: 4px 0 0 -10px;
-  text-align: left;
+  text-align: right;
   border: 1px solid #e8e8e8;
   border-top: none;
   border-radius: 2px;
@@ -180,6 +180,7 @@ h2{ font-size: 20px;}
   animation-name: fadeIn;
   -webkit-animation-duration: 0.5s;
   animation-duration: 0.5s;
+  right: -8px;
   z-index: -1;
 }
 #menu .wrapper:hover .sub-menu{
@@ -741,11 +742,6 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
 .panel iframe, .video iframe {
     border: medium none;
     width: 98.5%;
-}
-
-/* Search input overflows already at less than 1020px */
-@media only screen and (max-width: 1020px) {
-.searchform input[type='text'] { width: 74%;}
 }
 
 // REMARK A: In multicolumn this provides an extra 1.6% that was left margin in .wrapping (left col) and puts it into the

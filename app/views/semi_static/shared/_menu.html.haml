@@ -21,6 +21,6 @@
               - else
                 .icon
                   .custom
-            - if lookup_context.exists?('semi_static/shared/_hover_menu')
+            - if SemiStatic::Engine.config.has?('hover_menu') && lookup_context.exists?('semi_static/shared/_hover_menu')
               = render :partial => 'semi_static/shared/hover_menu', :locals => {:mt => mt}
 

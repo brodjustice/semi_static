@@ -32,6 +32,14 @@
     width: 98%;
 }
 
+// Very specific margin and padding styling, may need adjusting...
+.entry p{ margin: 0 0 10px 0; }
+.entry h2 {margin-top: 14px; margin-bottom: 6px;}
+.panel .entry h2 + p, .panel .entry h3 + p{margin-top: 4px;}
+.entry h1 + p, .entry h1 + h2 {margin-top: 0px;}
+//.entry .html h2{margin-top: 0;}
+.entry .floater + .wrapping{margin-top: 0;}
+.entry .html h2, .entry .html p, .entry h1 + p, .entry h1 + .floater + .wrapping{margin-top: 14px;}
 
 .fb-share:after{
   margin-bottom: 4px;
