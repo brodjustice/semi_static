@@ -14,7 +14,7 @@ module SemiStatic
         layout = 'semi_static_application'
         template = 'semi_static/comments/index'
       elsif semi_static_admin?
-        @comments = Comment.all
+        @comments = Comment.order('created_at DESC')
         layout = 'semi_static_dashboards'
         template = 'semi_static/comments/admin_index'
       end

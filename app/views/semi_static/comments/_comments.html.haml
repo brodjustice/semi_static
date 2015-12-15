@@ -1,6 +1,6 @@
 #comments
   %h3= t("n_of_comments", :count => @entry.comments.count)
-  - @entry.comments.each do |c|
+  - @entry.comments.order('created_at DESC').each do |c|
     - break if c.new_record?
     .comment{:id => "comment_id_#{c.id}"}
       .name= [c.name, t('on', :default => 'on'), c.created_at.strftime('%d %b %Y')].join(' ')
