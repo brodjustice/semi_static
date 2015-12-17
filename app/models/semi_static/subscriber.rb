@@ -1,6 +1,6 @@
 module SemiStatic
   class Subscriber < ActiveRecord::Base
-    attr_accessible :cancel_token, :email, :name, :surname, :telephone, :locale
+    attr_accessible :cancel_token, :email, :name, :surname, :telephone, :locale, :company, :position, :country
     attr_accessor :state
 
     has_many :newsletter_deliveries, :dependent => :destroy

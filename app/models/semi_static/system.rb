@@ -17,6 +17,7 @@ module SemiStatic
     # not use the binary in the ./vendor directory as we assume that there are a number of Rails apps
     # sharing the search engine.
     # All data can be deleted with (careful now!): curl -XDELETE 'http://localhost:9200/_all'
+    # If you need to create an index you can do this manually with: curl -XPUT 'http://localhost:9200/myindexname/'
   
     def self.cmd(cmd)
       self.send(cmd)
@@ -40,6 +41,7 @@ module SemiStatic
   
     def self.search_reindex(*args)
       if search_daemon_running?
+        Entry.__elasticsearch__.create_index! force: true
         Entry.import
         Photo.import
       else
@@ -81,7 +83,7 @@ module SemiStatic
       Pages.expire_site_page_cache
     end
 
-    def self.search_daemon(state)
+    def self.search_daemon(state, *args)
       if state == 'on'
         if search_daemon_running?
           true

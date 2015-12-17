@@ -10,6 +10,7 @@ module SemiStatic
     THEME = {
       'tiles' => {:desktop => :desktop, :mobile => :mobile},
       'menu-right' => {:desktop => :desktopy500, :mobile => :mobile, :entry => :entry},
+      'background-cover' => {:desktop => :desktopy500, :mobile => :mobile, :entry => :entry},
       'bannerless' => {:desktop => :desktopBig, :mobile => :mobileBig, :entry => :entry},
       'standard-2col-1col' => {:desktop => :desktop, :mobile => :mobile},
       'bannerette-2col-1col' => {:desktop => :bannerette, :mobile => :mobile},

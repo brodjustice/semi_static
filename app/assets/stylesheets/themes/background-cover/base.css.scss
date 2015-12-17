@@ -1,0 +1,570 @@
+// Place all the styles related to the site controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+//
+// ANIMATIONS
+// ---------------
+
+
+//
+// HTML, BODY and general CSS
+// ----------------------------
+
+html { overflow-y: scroll; }
+body{
+  background-color: white; 
+  margin: 0px;
+  font:16px 'Raleway', 'Ubuntu', Arial, Verdana, Helvetica, sans-serif;
+  color: $font-color;
+  background-repeat: repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  max-height: 1000px;
+}
+
+a{text-decoration: none; color: black;}
+fieldset{ border: none; }
+
+//
+// HEADER TAG STYLES
+//
+
+h1 a{ color: $prime-color;}
+h2{ font-size: 20px; font-weight: normal;}
+
+//
+// BODY 'HEADER', or anything before #frame and dynamic content
+// ------------------------------------------------------------
+
+#top{
+  height: 75px;
+  position: relative;
+  z-index: 200; // for logo in banner
+  width: 100%;
+  top: 0px;
+}
+#top ul{
+  margin: 0; padding: 0;
+}
+
+#bar{
+  background-color: rgba(0,0,0,0.5);
+  -webkit-border-radius: 0 0 4px 4px;
+  border-radius: 0 0 4px 4px;
+}
+
+#bar-menu{
+  z-index: 1000;
+  padding-bottom: 2px;
+  position: relative;
+  right: 0px;
+  height: 30px;
+  float: right;
+  margin-right: 12px;
+  font-size: 14px;
+}
+
+#bar-menu ul{
+  list-style: outside none none; 
+  font-size: 16px;
+  line-height: 22px;
+  margin: 0px 12px 0px 14px;
+}
+
+#bar-menu li{
+  float: right;
+  text-transform: uppercase;
+}
+
+#bar-menu li a{
+  display: block;
+  padding: 5px 0px 0 34px;
+  color: white;
+}
+
+#logo-wrapper {
+  width: $logo-width;
+  z-index: 2000;
+  position: relative;
+}
+
+#menu-wrapper{
+  position: absolute;
+  z-index: 1000;
+  right: 0px;
+  top:32px;
+}
+
+#overlay, .contain{
+  margin: 0 auto;
+  max-width: 1400px;
+}
+
+#overlay{
+  position: absolute;
+  min-height: 200px;
+  top: 0; left: 0; right: 0;
+}
+
+#bar-menu .lady a{float: right; display: block; padding: 4px 8px 0px 28px; background: transparent url(#{$vert-sprites}) 0px -109px no-repeat;}
+#bar-menu .contact a{float: right; display: block; padding: 4px 8px 0px 34px; background: transparent url(#{$vert-sprites}) 0px -192px no-repeat;}
+#bar-menu .search a{float: right; display: block; padding: 4px 8px 4px 28px; background: transparent url(#{$vert-sprites}) 0px -224px no-repeat;}
+#bar-menu .icon a{ background-size: 28px $vert-sprites-height; }
+
+#tag{
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+}
+#tag-wrapper{
+  clear: both;
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+}
+
+#tagline{
+  // If you want to play with CSS3 viewport widths: font-size: 2.3vw !important;
+  width: 90%; text-align: center; margin: 0px auto; color: white; text-shadow: 1px 2px 5px black; font-size: 28px; font-weight: normal;
+  text-shadow: -2px 8px 4px rgba(0, 0, 0, 0.2), 0 -5px 35px rgba(255, 255, 255, 0.3);
+}
+
+#logo{
+  width: $logo-width; height: $logo-height;
+  background: transparent url(/assets/#{$logo}) 0 0 no-repeat;
+  color: transparent;
+  margin-left: 12px;
+}
+
+#menu-main .wrapper:hover{text-decoration: none;}
+#menu-main .col{margin-left: 12px; width: auto;}
+#menu-main .wrapper:hover{ text-decoration: underline; }
+
+#menu{
+  z-index: 500;
+  margin: 0 auto; font-size: 30px;
+  text-shadow: 0 0 2px #000;
+  font-weight: bold;
+  position: relative; right: 2%;
+  // text-transform: uppercase;
+}
+
+#menu a{
+  color: $prime-color; font-weight: normal;
+  float: right; margin-left: 12px;
+  line-height: 30px;
+  padding: 4px;
+}
+
+#menu .col{
+  text-align:right;
+}
+
+#menu-button, #menu-close{
+  display: none; float: right;
+  color: $prime-color; font-weight: bold;
+  padding: 3px 2px 4px 32px;
+  margin: 2px 12px 0px 0px;
+  cursor: pointer; position: relative;
+  z-index: 500;
+  font-size: 16px;
+}
+#close-sym{
+  text-align: right;
+  font-size: 28px;
+}
+
+#menu-button{
+  padding-bottom: 34px;
+}
+
+#menu-button .menu-line{
+  height: 8px; width: 80%;
+  background-color: $prime-color;
+  border-radius: 2px; margin: 2px;
+}
+
+#menu .wrapper .text{
+  display: block;
+  overflow: hidden;
+}
+
+#menu .wrapper .icon {
+    left: 0;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    z-index: -1;
+}
+
+#menu .wrapper a:hover{
+  text-shadow: 0 0 2ps $prime-color;
+}
+
+.locale img{
+  margin-top: -6px;
+}
+
+//
+// Dynamic content
+// -----------------
+#frame{margin-top: 72px;}
+
+/* Home page entry images are slightly smaller */
+// #semi-static-home-page .entry img{
+//   max-width: 241px;
+// }
+
+#search-bar{ margin-top: 0px; margin-bottom: 10px; }
+
+//#top .inner, #overlay-inner, #search-bar-inner, #container, #top-inner, #footer-inner{
+#container, #menu-wrapper, #footer-inner, #tag-wrapper{
+  margin: 0px auto;
+  max-width: 1400px;
+  background-color: transparent;
+}
+
+/*
+#top .inner, #overlay-inner, #search-bar-inner{
+  position: relative;
+}
+*/
+#top{
+  position: fixed;
+  width: 100%;
+}
+
+#search-wrapper{
+  padding: 4px 0px 4px 4px;
+  text-align: center;
+}
+
+
+#content, .content{
+  max-width: 800px;
+  padding: 0 12px;
+  overflow: visible;
+  margin: 0 auto 24px;
+  width: 80%;
+  background-color: rgba(255,255,255,0.8);
+}
+#container:after{ content: ''; display: table; clear: both; }
+
+//
+// FOOTER
+//
+
+#footer{width: 100%; color: white; position: fixed; bottom: 0px;}
+#footer a{color: white;}
+#footer img{float: right; margin: -9px 0 0 8px;}
+#footer .credits{float: left; width: 20%; text-align: center;}
+#footer .credits, #footer .copy{
+  color: white;
+  position: relative;
+  top: 50%; 
+}
+#footer .notices{ clear: both; font-size: 12px; margin-top: 8px; }
+#footer .copy{width: 40%; float: left; margin: 0px;}
+#footer .copy p{color: white; font-size: 12px; margin: 0; padding: 0 0 0 5px;}
+#footer .stamps{float: left; width: 40%; margin-top: -15px;}
+#footer h3{color: white; font-weight: normal;}
+#footer .inner{padding: 0 4%;}
+
+#bar-in-menu ul, #top ul, #footer ul{list-style: none outside none; padding-left: 0px;}
+
+#footer .col:last-child h3, #footer .col:last-child li {
+    text-align: right;
+}
+
+.panel{
+  padding: 2px 8px 0px;
+  background-color: white;
+  min-height: 50px;
+  margin-bottom: 10px;
+  position: relative;
+  border-radius: 2px;
+}
+
+.doc-inner:after, .panel:after {
+    clear: both;
+    content: "";
+    display: table;
+}
+
+
+/* TODO: News not shown on home page for this theme, so move to site.css */
+.index.panel, .news .panel{
+  border-bottom: 1px solid #e0e0e0;
+  padding: 2px 0px 0px;
+  box-shadow: none;
+  min-height: 0;
+}
+
+/* Classes from site helper */
+.panel.hard{
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 1.0);
+}
+
+.panel:last-child.dotted, .panel.dotted{
+  border: 1px dashed #c1c1c1;
+  box-shadow: none;
+}
+
+.panel.feint{
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.panel.wobble, .panel.flat{
+  box-shadow: none; border: 0px;
+}
+
+.panel.collapse{
+  margin-bottom: 1px;
+}
+
+.social, .panel.highlight{
+  background-color: $secondary-color; color: white;
+}
+
+.panel:last-child{
+  border-bottom: none;
+}
+
+.gallery, .news, .social{
+  margin-bottom: 10px;
+  padding: 6px 11px;
+  border-radius: 2px;
+}
+.social{
+  padding: 2px 0px;
+  line-height: 30px;
+  width: 100%;
+  text-align: center;
+  height: 30px;
+}
+
+.social-inner{
+  display: inline-block;
+}
+.gallery h2 a, .gallery h2, .news h2 a, .news h2{ border-bottom: 1px solid #808080; }
+.list h1, .panel.list h2{ color: $prime-color; border-bottom: 1px solid #808080; text-align: center;}
+
+.social a{
+  color: white;
+}
+
+// Sprites
+
+#ddock{float: right;width: 97px; margin-top: 0px; margin-right: 8px; height: 32px; background:transparent url(/assets/hoz-sprites.png) 0 center no-repeat;}
+#html5{float: right;margin: -4px 5px 0 0px; width: 25px; height: 33px; background:transparent url(/assets/hoz-sprites.png) -97px center no-repeat;}
+#twitter{float: right; padding: 0px 8px 3px 28px; background: transparent url(#{$vert-sprites}) 0px 5px no-repeat;}
+#xing{float: right; padding: 0px 8px 3px 27px; background: transparent url(#{$vert-sprites}) 0px -188px no-repeat;}
+#facebook{float: right; padding: 0px 8px 3px 28px; background: transparent url(#{$vert-sprites}) 0px -55px no-repeat;}
+#youtube{float: right; padding: 0px 8px 3px 28px; background: transparent url(#{$vert-sprites}) 0px -25px no-repeat;}
+#linkedin{float: right; padding: 0px 8px 3px 28px; background: transparent url(#{$vert-sprites}) 0px -271px no-repeat;}
+
+.social:after, .panel:after{ content: ''; display: table; clear: both; }
+
+h1{font-size: 24px; font-weight: normal;}
+h1{ margin: 6px 0px 8px; color: $prime-color}
+h2, h3{ margin: 6px 0px 6px; color: $secondary-color;  font-weight: normal;}
+h2 a, h3 a{color: $secondary-color;}
+.panel h2{
+  text-align: left;
+  color: $prime-color;
+}
+.panel.photo {
+    text-align: center;
+}
+.news .image{
+  text-align: center;
+}
+.news .image img, .index .photo img, .panel.photo img {
+    max-width: 100%;
+}
+.news .image img, .index .photo img, .panel img.logo, .panel.photo img {
+    border: 1px solid white;
+    box-shadow: 0 0 2px #fff;
+}
+
+.searchform {
+    display: inline-block;
+    margin: 0px;
+    width: 100%;
+}
+
+
+.searchform .searchfield {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #BCBBBB;
+    border-radius: 2px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) inset;
+    outline: medium none;
+    padding: 8px 6px 6px 8px;
+    width: 202px;
+}
+.searchform input[type='text'] {
+    font: 16px Arial,Helvetica,sans-serif;
+    width: 260px;
+}
+.searchbutton{
+  vertical-align: bottom;
+}
+
+#notice{
+  text-align: center; background-color: white; border: 1px solid #808080; border-radius: 4px;
+  width: 88%; margin: 0 auto; padding: 6px 5%;
+}
+
+.html{ padding: 0; margin-bottom: 8px; }
+.link, .more{
+  clear: both;
+  text-align: right;
+  padding-bottom: 8px;
+}
+.link{text-align: center;}
+a .link, .link a, .more a{
+  background: transparent url(#{$vert-sprites}) right -138px no-repeat;
+  background-size: 28px $vert-sprites-height;
+  padding: 4px 36px 1px 12px;
+  margin: 2px 0px 6px;
+}
+.feint.link, .feint .more a, .flat .more a, .news .more a{
+  background: transparent url(#{$vert-sprites}) right -162px no-repeat;
+  color: #d8d8d8;
+}
+
+.feint .more a, .flat .more a{
+  color: #b0b0b0;
+}
+.panel .icon{
+  float: left;
+}
+
+#menu .wrapper{
+  position: relative;
+  z-index: 10;
+}
+
+
+/* Custom menu icons are not used, just the text in the wrapper */
+
+.wrapper .text{border-bottom:4px solid transparent;}
+#selected.wrapper .text{border-color: $secondary-color;}
+#menu:hover .wrapper .text{border-color: transparent;}
+#menu .wrapper:hover .text{border-color: $prime-color !important;}
+
+/* End custom menu icons */
+
+/* To help when inserting YouTube videos... */
+.panel iframe, .video iframe {
+    border: medium none;
+    width: 98.5%;
+}
+
+//
+// Start of responsive design
+//
+
+@media only screen and (max-width: 1400px) {
+  #bar{ border-radius: 0px; -webkit-border-radius: 0px;}
+}
+
+// REMARK A: In multicolumn this provides an extra 1.6% that was left margin in .wrapping (left col) and puts it into the
+// the floating image left margin of the .floater (right col). This provides margin around the
+// left hand side of the floated image.
+.entry .wrapping{ margin-left: 0; }
+.entry .floater{ margin-left: 1.6%; position: relative; z-index: 10;}
+
+@media only screen and (max-width: 760px) {
+  // For smaller portrait the % margin at the top is too
+  // small so we fine tune here by forcing a reasonable
+  // margin between the image amd the top of the
+  // panel
+  .floater img{margin-top: 6px !important; }
+
+  // Once the column stops floating we need to get rid of that tweak
+  // we mentioned in REMARK A above.
+  .wrapping{ margin-left: 1.6%; }
+  .floater{ margin-left: 0 !important; }
+
+  .searchform input[type='text'] { width: 66%;}
+}
+
+/* Basic mobile portrait or perhaps tablet portrait layout */
+@media only screen and (max-width: 750px) {
+  .mobile{display: block !important;}
+  .desktop{display: none !important;}
+}
+
+@media only screen and (max-width: 820px) {
+  // Change menu to hidden pop-up on click and fixed position
+  #bar-menu, #menu{display: none;}
+  #menu{
+    padding-top: 8px; padding-bottom: 12px;
+    width: 100%;
+    position: fixed; top: 0px;
+    background-image: none;
+    font-size: 26px;
+  }
+  #menu-wrapper{z-index: 0;}
+  #menu .col{ width: 100%; margin: 0;}
+  #menu-loading-wrapper{display: block;}
+  #menu a{float: none; text-align: right; padding: 4px 14px; margin-left: 6px;}
+  #menu-main .wrapper:nth-child(2n){background-color: #f0f0f0;}
+  #menu-main{
+    margin-top: 50px; background-color: $prime-color;
+    box-shadow: 0 0 7px #7c7c7c;
+  }
+  #menu .wrapper{background-color: white;}
+  #menu .wrapper .text{height: auto; border-bottom: 1px solid #e0e0e0;}
+
+  #bar-menu{
+    position: fixed;
+    top: 76px;
+    margin-right: 0px;
+    width: 100%;
+    padding: 8px 0;
+    z-index: 1000;
+  }
+  #bar-inner{
+    position: relative;
+    z-index: 1000;
+  }
+
+  // Need to radically change the hover icons now menu has collapsed
+  .icon .custom{
+    border: none;
+  }
+  .wrapper:not(#selected) .icon.sprite{background-image: none;}
+  #menu-main #selected{background-color: #f0f0f0;}
+
+  /* No Firefox support for background-position-x, but applies only usually to mobile any */
+  #selected.wrapper .icon.sprite{background-position-x: left;}
+
+  #top{position: fixed; width: 100%;}
+  #menu-button{display: block; width: 50px;}
+}
+
+/* Mobile portrait layout at less than 580px */
+@media only screen and (max-width: 580px) {
+  /* Stop adjusting margins by height %, it gets ugly this small */
+  .col .img{margin: 0 auto; text-align:center;}
+  .col{margin-top: 1px; margin-bottom: 3px;}
+
+  /* Google page mobile test is gonna punish you if the footer links are too close together */
+  #footer li{margin-bottom: 8px;}
+}
+
+@media only screen and (min-width: 760px) {
+  .wrapping{ float: none !important; width: auto !important; }
+  .floater{ float: right !important; width: auto !important; }
+} 
+
+@media only screen and (max-width: 760px) {
+  .entry .span_2_of_2 { width: 100%; }
+  .entry .span_1_of_2 { width: 100%; }
+  .entry .col .img{margin: 0 auto; text-align:center;}
+}

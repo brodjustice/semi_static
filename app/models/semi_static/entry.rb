@@ -21,7 +21,15 @@ module SemiStatic
     alias_attribute :alt_img_file_name, :news_img_file_name
 
     settings index: { number_of_shards: 1, number_of_replicas: 0 }
-  
+
+    settings analysis: { analyzer: { semi_static: { tokenizer: 'standard', char_filter: 'html_strip' } } } do
+      mappings dynamic: 'false' do
+        indexes :body, type: 'string', analyzer: 'semi_static'
+        indexes :raw_title
+        indexes :effective_tag_line
+      end
+    end
+
     belongs_to :tag
     belongs_to :acts_as_tag, :class_name => "SemiStatic::Tag"
   
@@ -103,6 +111,7 @@ module SemiStatic
     THEME = {
       'tiles' => {:bar => :bar, :desktop => :panel, :mobile => :panel, :small => :small, :summary => :panel, :home => :tile, :show => :panel, :medium => :medium, :tile => :tile},
       'menu-right' => {:bar => :bar, :desktop => :panel, :mobile => :panel, :small => :small, :summary => :panel, :home => :tile, :show => :panel, :medium => :medium},
+      'background-cover' => {:bar => :bar, :desktop => :panel, :mobile => :panel, :small => :small, :summary => :panel, :home => :tile, :show => :panel, :medium => :medium},
       'standard-2col-1col' => {:bar => :bar, :desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel, :medium => :medium},
       'bannerless' => {:bar => :bar, :desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel, :medium => :medium, :tile => :tile},
       'bannerette-2col-1col' => {:bar => :bar, :desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel, :medium => :medium},
@@ -174,6 +183,10 @@ module SemiStatic
   
     def effective_tag_line
       tag_line || (banner.present? && banner.tag_line.present? ? banner.tag_line : nil )
+    end
+
+    def stripped_body
+      ActionController::Base.helpers.strip_tags(self.body)
     end
 
     def tidy_dup

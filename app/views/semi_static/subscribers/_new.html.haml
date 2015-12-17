@@ -6,6 +6,9 @@
     %li= 'Column 2: Surname'
     %li= 'Column 3: E-mail address'
     %li= 'Column 4: (Optional) Telephone number'
+    %li= 'Column 5: (Optional) Position'
+    %li= 'Column 6: (Optional) Company'
+    %li= 'Column 7: (Optional) Country'
   The fields must be seperated with commas.
 = form_tag(subscribers_path(:cmd => :csv), multipart: true, method: :post) do
   .field

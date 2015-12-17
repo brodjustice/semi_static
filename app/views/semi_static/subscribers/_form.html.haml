@@ -18,6 +18,15 @@
     = f.text_field :telephone
     = f.label :telephone
   .field
+    = f.text_field :position
+    = f.label :position
+  .field
+    = f.text_field :company
+    = f.label :company
+  .field
+    = f.text_field :country
+    = f.label :country
+  .field
     = f.label :locale
     = f.select :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @subscriber.locale)
   .actions

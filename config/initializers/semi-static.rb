@@ -40,7 +40,8 @@ module SemiStatic
     #   6. tiles
     #   7. bannerette-2col-1col
     #   8. bannerless
-    config.theme = 'standard-2col-1col'
+    #   9. background-cover
+    config.theme = 'bannerless'
 
     # Specific search box will be shown on home page unless this is set:
     config.disable_search_in_home_page = false
