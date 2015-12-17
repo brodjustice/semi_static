@@ -23,10 +23,12 @@
         - else
           - if e.summary_length >= 0
             %h3= link_to e.title, semi_static.entry_path(e)
-            %h4= link_to e.sub_title, semi_static.entry_path(e) unless e.sub_title.blank?
+            - unless e.sub_title.blank?
+              %h4= link_to e.sub_title, semi_static.entry_path(e)
           - else
             %h3= e.title
-            %h4= e.sub_title unless e.sub_title.blank?
+            - unless e.sub_title.blank?
+              %h4= e.sub_title
           - if e.news_img.present?
             .image= link_to image_tag(e.news_img.url(:bar)), semi_static.entry_path(e)
           - elsif e.image_in_news && e.img.present?
