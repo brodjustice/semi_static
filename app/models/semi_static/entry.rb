@@ -26,6 +26,7 @@ module SemiStatic
       mappings dynamic: 'false' do
         indexes :body, type: 'string', analyzer: 'semi_static'
         indexes :raw_title
+        indexes :locale
         indexes :effective_tag_line
       end
     end
@@ -126,7 +127,7 @@ module SemiStatic
 
     def as_indexed_json(options={})
       as_json(
-        only: [:raw_title, :body, :effective_tag_line],
+        only: [:raw_title, :body, :effective_tag_line, :locale],
         methods: [:raw_title, :effective_tag_line]
       )
     end
@@ -158,15 +159,18 @@ module SemiStatic
       end
     end
 
-    def self.search(query)
+    def self.search(query, locale='en')
       __elasticsearch__.search(
         {
           query: {
             multi_match: {
               query: query,
               fuzziness: 1,
-              fields: ['raw_title^5', 'body', 'effective_tag_line^2']
+              fields: ['raw_title^5', 'body', 'effective_tag_line^2', 'locale']
             }
+          },
+          filter: {
+            term: { locale: locale }
           },
           highlight: {
             pre_tags: ['<em class="label label-highlight">'],

@@ -30,6 +30,6 @@
               = hit.try(:highlight).try(:body) ? hit.highlight.body.join('&hellip;').html_safe : truncate_html(e.body, :length => 100)
             - unless score_displayed
               %td.score= (hit._score * 100).round.to_s + '%'
-  .col.span_1_of_3
+  .col.span_1_of_3.side-bar
     = render :partial => 'semi_static/tags/side_bar', :locals => {:start => 1, :entrytag => @sidebar_tag}
     = render :partial => 'semi_static/site/search'

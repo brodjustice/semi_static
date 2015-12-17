@@ -38,7 +38,7 @@
     # GET /articles/search
     def search
       if params[:q].present?
-        @entries = Entry.search(params[:q]).records
+        @entries = Entry.search(params[:q], session[:locale]).records
         @query = params[:q]
         template = 'semi_static/entries/results'
       else

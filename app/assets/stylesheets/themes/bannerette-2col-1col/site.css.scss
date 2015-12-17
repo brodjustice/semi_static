@@ -32,6 +32,9 @@
     width: 98%;
 }
 
+.side-bar #search-wrapper{padding-right: 0px;}
+.side-bar #search-wrapper:hover{cursor:pointer;}
+
 // Very specific margin and padding styling, may need adjusting...
 .entry p{ margin: 0 0 10px 0; }
 .entry h2 {margin-top: 14px; margin-bottom: 6px;}
