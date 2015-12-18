@@ -16,9 +16,15 @@
 .image_wrapper{position:relative;}
 .popable::after{
   content:'↔'; font-size: 20px;position: absolute; top:3px; right:3px;
-  color: #e0e0e0; padding: 0 5px 5px; background-color: rgba(0,0,0,0.7);
-  border: 1px solid #d8d8d8; border-radius:100%;
+  color: #e0e0e0; padding: 4px; background-color: rgba(0,0,0,0.7);
+  border: 1px solid #d8d8d8; border-radius:50%;
+  height: 24px;
+  width: 24px;
+  line-height: 22px;
   transform: rotate(135deg);
+}
+@-moz-document url-prefix() {
+    .popable::after{line-height:20px;}
 }
 
 .extra-padding{padding: 6px;}
