@@ -1,6 +1,6 @@
 .col.span_2_of_3
   .panel.group.list
-    %h1= [@entries.count.to_s, t('SearchResultsFor'), @query].join(' ')
+    %h1= [@hit_count.to_s, t('SearchResultsFor'), @query].join(' ')
     %table.results
       - @entries.__send__ controller.action_name == 'search' ? :each_with_hit : :each do |e, hit|
         - score_displayed = false
