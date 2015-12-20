@@ -2,7 +2,7 @@
   - unless @tag.nil?
     = home_custom
     - unless SemiStatic::Entry::DISPLAY_ENTRY[@tag.entry_position] == :none
-      .col.span_2_of_3
+      .col{:class => ('span_2_of_3 main-col' if @tag.side_bar)}
         - SemiStatic::Entry.unscoped.order(:position).home.locale(I18n.locale).unmerged.each do |e|
           .entry.panel{:class => e.style_class, :style => "background-color:#{e.background_colour}; color: #{e.colour}"}
             = render :partial => 'semi_static/entries/entry', :locals => {:e => e, :style => :summary}

@@ -210,7 +210,7 @@ h2{ font-size: 20px; font-weight: normal;}
 //
 // Dynamic content
 // -----------------
-#frame{margin-top: 72px;}
+#frame{margin-top: 64px;}
 
 /* Home page entry images are slightly smaller */
 // #semi-static-home-page .entry img{
@@ -284,7 +284,7 @@ h2{ font-size: 20px; font-weight: normal;}
   min-height: 50px;
   margin-bottom: 10px;
   position: relative;
-  border-radius: 2px;
+  border-radius: 0 0 2px 2px;
 }
 
 .doc-inner:after, .panel:after {
@@ -426,7 +426,7 @@ h2 a, h3 a{color: $secondary-color;}
 }
 .link{text-align: center;}
 a .link, .link a, .more a{
-  background: transparent url(#{$vert-sprites}) right -138px no-repeat;
+  background: transparent url(#{$vert-sprites}) right -260px no-repeat;
   background-size: 28px $vert-sprites-height;
   padding: 4px 36px 1px 12px;
   margin: 2px 0px 6px;

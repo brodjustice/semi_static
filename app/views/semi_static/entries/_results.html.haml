@@ -1,0 +1,31 @@
+.col.span_2_of_3
+  .panel.group.list
+    %h1= [@entries.count.to_s, t('SearchResultsFor'), @query].join(' ')
+    %table.results
+      - @entries.__send__ controller.action_name == 'search' ? :each_with_hit : :each do |e, hit|
+        - score_displayed = false
+        -# Do not show entries that have NO_INDEX set
+        - next unless e.sitemappable && e.tag.sitemappable
+        - @sidebar_tag ||= e.tag
+        %tr.head
+          %td
+            .icon= image_tag(e.tag.icon.url(:standard)) if e.tag.icon.present?
+            -# TODO: Move to helper and do link to tag perhaps if blank
+            - title = (hit.try(:highlight).try(:raw_title) ? hit.highlight.raw_title.join.html_safe : e.merged_main_entry_with_title.raw_title)
+            - title = title.blank? ? e.tag.name : title
+            %h2= link_to title, e.merged_main_entry_with_title
+          %td
+            .more
+              = link_to t('Show'), e.merged_main_entry_with_title
+        - if hit.try(:highlight).try(:effective_tag_line)
+          %tr
+            %td.result
+              %h2= hit.highlight.effective_tag_line.join('&hellip;').html_safe
+            %td.score{:rowspan => 2}
+              = link_to ((hit._score * 100).round.to_s + '%'), e.merged_main_entry_with_title
+            - score_displayed = true
+        %tr
+          %td.result
+            = hit.try(:highlight).try(:body) ? hit.highlight.body.join('&hellip;').html_safe : truncate_html(e.body, :length => 100)
+          - unless score_displayed
+            %td.score= (hit._score * 100).round.to_s + '%'
