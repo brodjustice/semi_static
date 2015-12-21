@@ -1,7 +1,7 @@
 module SemiStatic
   module NewslettersHelper
     def salutation_name(newsletter, subscriber = nil)
-      if subscriber
+      if subscriber.respond_to?('fullname')
         case newsletter.salutation_type
         when SemiStatic::Newsletter::SALUTATION_TYPES[:first_name]
           @subscriber.name
