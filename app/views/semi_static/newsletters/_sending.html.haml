@@ -3,8 +3,8 @@
   = f.hidden_field :state, :value => SemiStatic::NewsletterDelivery::STATES[:sent].to_s
   = f.hidden_field :id, :value => @delivery.id.to_s
   %p
-    = 'Name: ' + @delivery.subscriber.fullname
+    = 'Name: ' + @delivery.subscriber.fullname.to_s
   %p
-    = 'Email: ' + @delivery.subscriber.email
+    = 'Email: ' + @delivery.subscriber.email.to_s
   .actions
     = f.submit 'Manual send'
