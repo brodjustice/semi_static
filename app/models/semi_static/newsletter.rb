@@ -41,7 +41,7 @@ module SemiStatic
 
     SALUTATION_CODES = SALUTATION_TYPES.invert
 
-    ENTRY_LAYOUTS = {:double => 0x1, :single_left => 0x2, :text_only => 0x3, :double_text => 0x4, :image_above => 0x5}
+    ENTRY_LAYOUTS = {:double => 0x1, :single_left => 0x2, :text_only => 0x3, :double_text => 0x4, :image_above => 0x5, :float_left_no_link => 0x6, :image_center_no_link => 0x7}
 
     ENTRY_LAYOUT_CODES = ENTRY_LAYOUTS.invert
 

@@ -1,0 +1,9 @@
+%tr
+  %td.nl_entry{:colspan => '2'}
+    = render :partial => 'controls', :locals => {:e => e}
+    .img{:style => 'text-align:center;margin-bottom:10px;', :id => "entry_id_#{e.id}"}
+      = render :partial => 'image', :locals => {:e => e}
+    = e.title
+    - unless e.sub_title.blank?
+      %h4= e.sub_title
+    = entry_summary(e, e.summary_length)

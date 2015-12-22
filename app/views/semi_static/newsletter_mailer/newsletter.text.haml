@@ -15,7 +15,12 @@
   = e.title
   - unless e.sub_title.blank?
     = e.sub_title unless e.sub_title.blank?
-  = entry_path(e, :only_path => false)
+
+  - unless SemiStatic::Newsletter::ENTRY_LAYOUT_CODES[@newsletter.draft_entry_ids[e.id][:layout]].to_s.include?('no_link')
+    = entry_path(e, :only_path => false)
+  - else
+    = strip_tags(entry_summary(e, e.summary_length))
+    
   = '-------------------------------------------------------------------------------------'
   = "\r\n"
 = "\r\n"
@@ -23,3 +28,4 @@
 - if @subscriber
   To unsubscribe to this newsletter please click on the following url or copy it into your browser:
   = edit_subscriber_path(@subscriber, :token => @subscriber.respond_to?('cancel_token') ? @subscriber.cancel_token : '', :only_path => false)
+

@@ -1,0 +1,23 @@
+<!-- CONTENT TABLE // -->
+<table align="left" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td align="left" valign="top" class="flexibleContainerBox">
+
+<% @max_images = @max_images -1 %>
+<% if @max_images > 0 %>
+  <img src="<%= attachments[e.id.to_s + '.jpg'].url %>" width="560" class="flexibleImage" style="text-align:center; margin-bottom:10px;max-width:100%;" alt="<%= e.title %>" title="<%= e.title %>" />
+<% else %>
+  <img src="<%= 'http://' + @site_url + @newsletter.draft_entry_ids[e.id][:img_url] %>" width="280" class="flexibleImage" style="max-width:100%;" alt="<%= e.title %>" title="<%= e.title %>" />
+<% end %>
+
+<h3 style="color:#5F5F5F;line-height:125%;font-family:Helvetica,Arial,sans-serif;font-size:20px;font-weight:normal;margin-top:0;margin-bottom:3px;text-align:left;"><%= e.title %></h3>
+<% unless e.sub_title.blank? %>
+<h4 style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:16px;margin-bottom:0;color:#808080;line-height:135%;"><%= e.sub_title %></h4>
+<% end %>
+
+<div style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:14px;margin-bottom:0;color:#5F5F5F;line-height:125%;"><%= entry_summary(e, e.summary_length) %></div>
+
+</td>
+</tr>
+</table>
+<!-- // CONTENT TABLE -->
