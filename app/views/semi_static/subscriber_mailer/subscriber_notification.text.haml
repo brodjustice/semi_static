@@ -2,8 +2,8 @@
 
 = h 'Name: ' + [ @subscriber.name, @subscriber.surname ].join(" ")
 
-= h 'Email: ' +  @subscriber.email
+= h 'Email: ' +  @subscriber.email.to_s
 
-= h 'Telephone: ' + @subscriber.telephone
+= h 'Telephone: ' + @subscriber.telephone.to_s
 
 Has unsubscribed and has thus been deleted from the subscriber database. You should take care to remove the subscribers details from any other databases and to ensure that you do not add the subscribers to the database again without their explicit instruction.
