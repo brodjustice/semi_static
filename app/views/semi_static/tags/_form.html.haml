@@ -117,6 +117,10 @@
     = f.check_box :side_bar
     %fieldset#side_bar_options
       .col.span_3_of_5
+        = f.label :sidebar_id, 'Sidebar'
+        %br/
+        = f.select :sidebar_id, options_for_select(SemiStatic::Sidebar.all.collect{|s| [s.title.blank? ? "##{s.id.to_s}" : s.title, s.id]}.prepend(["- None -", nil]), @tag.sidebar_id)
+        %br/
         = f.label :side_bar_news, 'News'
         = f.check_box :side_bar_news
         = f.label :side_bar_social, 'Social links'

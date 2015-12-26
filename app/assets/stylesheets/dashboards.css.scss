@@ -13,7 +13,7 @@ body{
 #dashboard #frame{
   margin-top: 0px;
 }
-#dashboard table{
+#dashboard table:not(.cke_dialog){
   width: 100%;
 }
 h1{
