@@ -17,6 +17,10 @@ SemiStatic::Engine.routes.draw do
     resources :comments, :except => :new
   end
 
+  resources :seo, :only => [] do
+    resources :hreflangs, :except => :show
+  end
+
   resources :tags, :except => :show do
     resources :seos, :only => [:new, :create, :update]
     resources :entries, :only => [:index]

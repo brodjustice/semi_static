@@ -46,7 +46,7 @@
   .group
     .col.span_1_of_2
       .panel
-        .infobox#word_break_entry_title
+        .infobox#sitemaps
           %h4= 'Generate a sitemap sutable for submission to Google, Bing, etc.'
           %p
             = 'Some words of warning'
@@ -65,6 +65,22 @@
         %ul
           - SemiStatic::Engine.config.localeDomains.each do |k, v|
             %li= link_to "Generate for #{v}", system_path(:format => :xml, :cmd => {:generate_sitemap => :all}, :locale => k), :method => :put
+    .col.span_1_of_2
+      .panel
+        .infobox#generate_static_pages
+          %h4= 'Generate all static pages for the website'
+          %p
+            = 'By default your website static pages will be built on demand as the requests for the pages'
+            = 'are processed by the Rails application. However you can build all the static pages in advance'
+            = 'and thus have the advantage of a potentially better user experience and possibly eliminating'
+            = 'problems where search enging crawlers time-out or falsely conclude that your website takes'
+            = 'a long while to respond.'
+        %h4.infomarker= 'Generate static pages'
+        #generate_sitemap
+        %ul
+          - SemiStatic::Engine.config.localeDomains.each do |k, v|
+            %li= link_to "For #{v}", system_path(:cmd => {:generate_static_pages => :all}, :locale => k), :method => :put
+  .group
     .col.span_1_of_2
       .panel
         %h4= 'Clean up possible errors'

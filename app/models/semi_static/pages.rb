@@ -13,6 +13,19 @@ module SemiStatic
       self.seo && SemiStatic::Seo::CHANGE_FREQ_SYMS[self.seo.changefreq] != :unknown && SemiStatic::Seo::CHANGE_FREQ_SYMS[self.seo.changefreq].to_s.downcase
     end
 
+    # Get a link to the equivalent alternate page in the given locale. If root is set and no alternate page is found
+    # then just link to the home page (root) of the alternate website
+    def hreflang_link(locale, root=false)
+      link = nil
+      if self.seo && !self.seo.hreflangs.empty?
+        link = self.seo.hreflangs.find_by_locale(locale) && self.seo.hreflangs.find_by_locale(locale).href
+      end
+      if link.nil? && root
+        link = SemiStatic::Engine.config.localeDomains.select{|k, v| k == locale}[locale]
+      end
+      link
+    end
+
     def xml_priority
       seo ? (seo.priority.to_f/10).to_s : '0.5'
     end

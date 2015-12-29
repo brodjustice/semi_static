@@ -44,23 +44,33 @@ module SemiStatic
     end
 
     def menu_from_tag(t)
-      t.predefined_class.blank? ? semi_static.feature_path(t.slug) : "#{predefined_tags[t.predefined_class]}?tag_id=#{t.id}"
+      t.predefined_class.blank? ? semi_static.feature_path(t.slug) : predefined_tags[t.predefined_class]
     end
 
-    def hreflang_tags
+    def hreflang_tags(root=false)
       c = ''
-      if SemiStatic::Engine.config.localeDomains.count > 1
+      langs = []
+      if SemiStatic::Engine.config.localeDomains.count > 1 && !(page = @entry || @tag).nil?
         SemiStatic::Engine.config.localeDomains.keys.each{|k|
-          c += "<link rel=\"alternate\" href=\"#{SemiStatic::Engine.config.localeDomains[k.to_s]}\" hreflang=\"#{k.to_s}\" />"
+          if !(link = page.hreflang_link(k, root)).nil?
+            c += "<link rel=\"alternate\" href=\"#{link}\" hreflang=\"#{k.to_s}\" />"
+            langs << k.to_s
+          end
         }
-      c.html_safe
+        # If we have any alternate lang links at all then according to the Google recomendations
+        # we must also add a META tag for the current page in it's own locale. So we do that
+        # here.
+        if !langs.blank? && !langs.include?(session[:locale].to_s)
+          c += "<link rel=\"alternate\" href=\"#{request.url}\" hreflang=\"#{session[:locale].to_s}\" />"
+        end
+        c.html_safe
       end
     end
 
     def construct_url(p, l)
       host = URI.parse(SemiStatic::Engine.config.localeDomains[l]).host
       if p.kind_of?(Tag)
-        if p.predefined_class.present?
+        if p.predefined_class.present? && !PREDEFINED[p.predefined_class].nil?
           SemiStatic::Engine.config.localeDomains[l] + PREDEFINED[p.predefined_class]
         else
           SemiStatic::Engine.routes.url_for(:controller => p.class.to_s.underscore.pluralize, :action => 'show', :slug => p.slug, :host => host)
@@ -164,18 +174,23 @@ module SemiStatic
     # will instead show each language symbol as 2 characters.
     def locales(flags=true)
       c = ''
+      # TODO: The checking for entry or tag is primative and does not cover predefined tags
+      page = @entry || @tag
       ls = (flags ? SemiStatic::Engine.config.localeDomains.reject{|k, v| k.to_s == I18n.locale.to_s} : SemiStatic::Engine.config.localeDomains)
       ls.each{|l, u|
-        if u.downcase == 'translate'
-          u = "http://translate.google.com/translate?hl=&sl=auto&tl=#{l}&u=#{url_encode(request.url)}"
+        if u.downcase == 'translate' 
+          link = "http://translate.google.com/translate?hl=&sl=auto&tl=#{l}&u=#{url_encode(request.url)}"
+        else
+          # If this is a special page, with no tag or entry, then it will not be seoable so just point locales to the root of the alternate locale website
+          page.nil? && (link = u)
         end
         if flags
-          c+= "<li class='locale'><a href='#{u}'><img src='/assets/flags/#{l}.png' alt='#{l}'/></a></li>".html_safe
+          c+= "<li class='locale'><a href='#{link || page.hreflang_link(l) || u}'><img src='/assets/flags/#{l}.png' alt='#{l}'/></a></li>".html_safe
         else
           if session[:locale] == l
-            c+= "<li class='locale selected'><a href='#{u}'>#{l}</a></li>".html_safe
+            c+= "<li class='locale selected'><a href='#{link || page.hreflang_link(l) || u}'>#{l}</a></li>".html_safe
           else
-            c+= "<li class='locale'><a href='#{u}'>#{l}</a></li>".html_safe
+            c+= "<li class='locale'><a href='#{link || page.hreflang_link(l) || u}'>#{l}</a></li>".html_safe
           end
         end
       }

@@ -51,12 +51,22 @@ module SemiStatic
 
     def self.generate_sitemap(*args)
       l = args.last
-      pages = ['/site/imprint-credits']
+      pages = ['/site/imprint-credits', '/contacts/new']
       pages.concat(Tag.locale(l).select{|i| i.sitemappable })
       pages.concat(Entry.unmerged.locale(l).select{|i| i.sitemappable })
-      pages.concat(Photo.all.select{|i| i.sitemappable })
+      pages.concat(Photo.locale(l).select{|i| i.sitemappable })
       pages.concat(Reference.all.select{|i| i.sitemappable })
       pages
+    end
+
+    def self.generate_static_pages(*args)
+      # Use the sitemap generator to get all the pages for the last arg (locale)
+      generate_sitemap(args.last)
+    end
+
+    def self.load_url(*args)
+      res = `curl #{args.first} -o '/dev/null' 2>&1`
+      [$?.success?, args.first, res]
     end
 
     # These things should never happen, but sometimes on a development system they will
