@@ -1,0 +1,30 @@
+- content_for :ujs do
+  :javascript
+    $(document).ready(function() {
+      $('td.url').each(function() {
+        var data = 'cmd%5Bload_url%5D=' + $(this).attr('data-url');
+
+        $.ajax({
+          url: "#{system_path()}",
+          type: 'PUT',
+          data: data,
+          dataType: 'script'
+        });
+      });
+    });
+
+
+.full
+  %h1 Pages for 
+  
+  %table
+    %thead
+      %th= 'Page'
+      %th= 'Status'
+    %tbody
+      - @result.collect{|p| construct_url(p, @locale)}.each do |url|
+        %tr
+          %td
+            = link_to url, url
+          %td{:id => url.parameterize, :class => 'url', 'data-url' => url}
+            = 'Unknown'

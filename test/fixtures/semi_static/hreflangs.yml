@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  locale: MyString
+  href: MyString
+  seo_id: 1
+
+two:
+  locale: MyString
+  href: MyString
+  seo_id: 1

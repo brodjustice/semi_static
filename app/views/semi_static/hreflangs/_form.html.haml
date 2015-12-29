@@ -1,0 +1,24 @@
+= form_for([@seo, @hreflang]) do |f|
+  - if @hreflang.errors.any?
+    #error_explanation
+      %h2= pluralize(@hreflang.errors.count, "error") + ' prohibited this hreflang from being saved:'
+      %ul
+        - @hreflang.errors.full_messages.each do |msg|
+          %li= msg
+
+  %fieldset
+    = f.label :locale
+    %br/
+    = f.select :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @hreflang.locale)
+    %br/
+    %br/
+
+  %fieldset
+    = f.label :href, 'URL'
+    %br/
+    = f.text_field :href
+    %br/
+    %br/
+
+  .actions
+    = f.submit
