@@ -13,7 +13,7 @@
         .section
           - @tag.entries.unmerged.each do |e|
             = render :partial => 'semi_static/tags/side_bar_entry', :locals => {:e => e}
-  -if  obj.sidebar.present?
+  -if  obj.present? && obj.sidebar.present?
     - unless obj.sidebar.partial.blank?
       = render :partial => SemiStatic::Engine.config.open_partials[obj.sidebar.partial]
     - else

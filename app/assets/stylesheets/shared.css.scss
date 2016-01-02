@@ -23,6 +23,9 @@
   line-height: 22px;
   transform: rotate(135deg);
 }
+.side_bar .popable::after{
+  top: 42px;right:12px;
+}
 @-moz-document url-prefix() {
     .popable::after{line-height:20px;}
 }

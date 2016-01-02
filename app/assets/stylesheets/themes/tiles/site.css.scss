@@ -29,8 +29,12 @@
   text-align: center;
 }
 
+#semi_static_contact #frame, #semi_static_document #frame, .bannered #frame{margin-top: 0px;}
+#frame{margin-top: 70px;}
+
 @media only screen and (max-width: 820px) {
   #tag-wrapper{top: 250px;}
+  #frame{margin-top: 100px;}
 }
 
 h1 a{ color: $prime-color;}
@@ -126,7 +130,8 @@ th{ text-align: left; }
 
 .list{
   text-align: center;
-  padding: 12px;
+  // padding: 12px;
+  padding: 0px;
   min-height: 78px;
 }
 
