@@ -73,6 +73,8 @@ module SemiStatic
     def self.clean_up(*args)
       Entry.all{|e| e.destroy if e.tag.nil?}
       Product.all{|p| p.destroy if p.entry.nil?}
+      # Get rid of newsletter tags  where the actual newsletter has been deleted
+      Tag.select{|t| t.newsletter_id.present? && t.newsletter.nil?}.each{|t| t.destroy}
     end
 
     # Restart passenger app server (if used)

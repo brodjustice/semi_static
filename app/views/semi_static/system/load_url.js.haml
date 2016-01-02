@@ -1,1 +1,2 @@
-!= "$(\"##{@result[1].parameterize}\").html('#{escape_javascript(@result.first ? 'OK' : @result.last.to_s)}');"
+!= "$(\"##{@result[1].parameterize}\").removeClass('url-loading').html('#{escape_javascript(@result.first ? 'OK' : @result.last.to_s)}');"
+try_page_load();

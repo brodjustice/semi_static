@@ -1,23 +1,49 @@
 - content_for :ujs do
   :javascript
-    $(document).ready(function() {
-      $('td.url').each(function() {
-        var data = 'cmd%5Bload_url%5D=' + $(this).attr('data-url');
+    var success = false;
+    var timer;
+    function try_page_load(){
+      var el = $('td.url-not-loaded').first();
+      var data = 'cmd%5Bload_url%5D=' + el.attr('data-url');
 
+      if (el.length !== 0){
+        el.removeClass('url-not-loaded').addClass('url-loading').html('loading...');
         $.ajax({
           url: "#{system_path()}",
           type: 'PUT',
           data: data,
           dataType: 'script'
         });
-      });
+      } else {
+        el = $('td.url-loading').first();
+        data = 'cmd%5Bload_url%5D=' + el.attr('data-url');
+        el.removeClass('url-loading').addClass('url-re-trying').html('re-trying...')
+        if (el.length !== 0){
+          $.ajax({
+            url: "#{system_path()}",
+            type: 'PUT',
+            data: data,
+            dataType: 'script'
+          });
+        } else {
+          clearTimeout(timer);
+          $('#progress').html('Complete');
+          success = true;
+        }
+      }
+    }
+
+    $(document).ready(function() {
+      try_page_load();
+      timer = setInterval(function(){ try_page_load(); }, 60000);
     });
 
 
 .full
-  %h1 Pages for 
+  %h1= 'Pages for ' + SemiStatic::Engine.config.localeDomains[session[:locale].to_s].to_s
+  %h3#progress= 'Trying...'
   
-  %table
+  %table#pages
     %thead
       %th= 'Page'
       %th= 'Status'
@@ -26,5 +52,5 @@
         %tr
           %td
             = link_to url, url
-          %td{:id => url.parameterize, :class => 'url', 'data-url' => url}
+          %td{:id => url.parameterize, :class => 'url-not-loaded', 'data-url' => url}
             = 'Unknown'

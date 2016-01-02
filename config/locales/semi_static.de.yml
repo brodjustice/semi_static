@@ -38,6 +38,8 @@ de:
       other: "%{count} Kommentare"
   Company_optional: 'Firma (optional)'
   PleaseTypeNumber: 'Bitte nummmer in Bild eingeben'
+  GetInContact: 'Ihr Nachricht...'
+  Submit: 'Senden'
 
   Thank_you_for_your_equiry: 'Thank you for your enquiry, we will respond shortly'
   Address: 'Anschrift'

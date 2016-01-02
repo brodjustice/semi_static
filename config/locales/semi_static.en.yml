@@ -34,6 +34,9 @@ en:
       other: "%{count} comments"
   Company_optional: 'Company (optional)'
   PleaseTypeNumber: 'Please type number in image'
+  GetInContact: 'Get in contact...'
+  Submit: 'Send'
+
   Thank_you: "Thanks!"
   Thank_you_for_your_equiry: 'Thank you for your enquiry, we will respond shortly'
   Address: 'Address'
