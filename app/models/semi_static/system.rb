@@ -70,14 +70,16 @@ module SemiStatic
       # does not have an extension then the webserver may see this as a simple
       # text request. So we have to check the extension and if its blank tell
       # curl to set the 'text/html' header 
-      if (html = (URI.parse(url).path.split('.').count == 1 ||  URI.parse(url).path.split('.').last == 'html'))
+      uri = URI.parse(url)
+      if (html = (uri.path.split('.').count == 1 ||  uri.path.split('.').last == 'html'))
         res = `curl -iH "Accept:text/html" #{url} -o '/dev/null' 2>&1`
       else
         res = `curl #{url} -o '/dev/null' 2>&1`
       end
       s = $?.success?
       if s && html && !locale.blank?
-        file = "#{Rails.public_path}/#{locale.to_s}#{URI.parse(url).path}.html"
+        path = (uri.path == '/') ? '/index' : uri.path
+        file = "#{Rails.public_path}/#{locale.to_s}#{path}.html"
         if File.exist? file
           res = `gzip -c -9 #{file} > #{file}.gz`
         else

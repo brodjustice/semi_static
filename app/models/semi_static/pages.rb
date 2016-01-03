@@ -68,18 +68,26 @@ module SemiStatic
   
       I18n.available_locales.each{|l|
         FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/index.html").to_s)
+        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/index.html.gz").to_s)
         FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/news.html").to_s)
+        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/news.html.gz").to_s)
         FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/site").to_s)
         FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/references.html").to_s)
+        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/references.html.gz").to_s)
         FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/references").to_s)
         FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/photos.html").to_s)
+        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/photos.html.gz").to_s)
         FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/photos").to_s)
         FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/features").to_s)
         FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/features.html").to_s)
+        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/features.html.gz").to_s)
         FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/entries").to_s)
         FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/entries.html").to_s)
+        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/entries.html.gz").to_s)
         FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/documents/index.html").to_s)
+        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/documents/index.html.gz").to_s)
         FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/contacts/new.html").to_s)
+        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/contacts/new.html.gz").to_s)
 
         # If there are no config.tag_paths don't do this, as the path will resolve to the
         # top level locales cache directory and it will be removed along with links
