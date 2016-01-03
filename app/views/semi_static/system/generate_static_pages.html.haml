@@ -4,7 +4,7 @@
     var timer;
     function try_page_load(){
       var el = $('td.url-not-loaded').first();
-      var data = 'cmd%5Bload_url%5D=' + el.attr('data-url');
+      var data = 'cmd%5Bload_url%5D=' + el.attr('data-url') + '&locale=' + "#{params[:locale].to_s}";
 
       if (el.length !== 0){
         el.removeClass('url-not-loaded').addClass('url-loading').html('loading...');
@@ -40,7 +40,7 @@
 
 
 .full
-  %h1= 'Pages for ' + SemiStatic::Engine.config.localeDomains[session[:locale].to_s].to_s
+  %h1= 'Pages for ' + SemiStatic::Engine.config.localeDomains[params[:locale].to_s].to_s
   %h3#progress= 'Trying...'
   
   %table#pages

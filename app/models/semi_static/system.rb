@@ -65,24 +65,23 @@ module SemiStatic
     end
 
     # Need to have curl and gzip commands installed on system
-    # def self.load_url(url=nil, locale=nil, *args)
     def self.load_url(url=nil, locale=nil, *args)
       # url without type extension is considered html by default but if curl
       # does not have an extension then the webserver may see this as a simple
       # text request. So we have to check the extension and if its blank tell
       # curl to set the 'text/html' header 
-      if URI.parse(url).path.split('.').count == 1 ||  URI.parse(url).path.split('.').last == 'html'
+      if (html = (URI.parse(url).path.split('.').count == 1 ||  URI.parse(url).path.split('.').last == 'html'))
         res = `curl -iH "Accept:text/html" #{url} -o '/dev/null' 2>&1`
       else
         res = `curl #{url} -o '/dev/null' 2>&1`
       end
       s = $?.success?
-      if s && !locale.blank?
+      if s && html && !locale.blank?
         file = "#{Rails.public_path}/#{locale.to_s}#{URI.parse(url).path}.html"
         if File.exist? file
           res = `gzip -c -9 #{file} > #{file}.gz`
         else
-          res = 'Server responded but could not create static gzipped version'
+          res = 'Server responded but could not create static gzipped html version'
           s = false
         end
       end
