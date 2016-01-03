@@ -71,7 +71,7 @@ module SemiStatic
       # text request. So we have to check the extension and if its blank tell
       # curl to set the 'text/html' header 
       uri = URI.parse(url)
-      if (html = (uri.path.split('.').count == 1 ||  uri.path.split('.').last == 'html'))
+      if (html = (uri.path.split('.').count == 1 || uri.path.split('.').last == 'html'))
         res = `curl -iH "Accept:text/html" #{url} -o '/dev/null' 2>&1`
       else
         res = `curl #{url} -o '/dev/null' 2>&1`
