@@ -64,9 +64,29 @@ module SemiStatic
       generate_sitemap(args.last)
     end
 
-    def self.load_url(*args)
-      res = `curl #{args.first} -o '/dev/null' 2>&1`
-      [$?.success?, args.first, res]
+    # Need to have curl and gzip commands installed on system
+    # def self.load_url(url=nil, locale=nil, *args)
+    def self.load_url(url=nil, locale=nil, *args)
+      # url without type extension is considered html by default but if curl
+      # does not have an extension then the webserver may see this as a simple
+      # text request. So we have to check the extension and if its blank tell
+      # curl to set the 'text/html' header 
+      if URI.parse(url).path.split('.').count == 1 ||  URI.parse(url).path.split('.').last == 'html'
+        res = `curl -iH "Accept:text/html" #{url} -o '/dev/null' 2>&1`
+      else
+        res = `curl #{url} -o '/dev/null' 2>&1`
+      end
+      s = $?.success?
+      if s && !locale.blank?
+        file = "#{Rails.public_path}/#{locale.to_s}#{URI.parse(url).path}.html"
+        if File.exist? file
+          res = `gzip -c -9 #{file} > #{file}.gz`
+        else
+          res = 'Server responded but could not create static gzipped version'
+          s = false
+        end
+      end
+      [s, url, res]
     end
 
     # These things should never happen, but sometimes on a development system they will
