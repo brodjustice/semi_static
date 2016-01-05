@@ -28,6 +28,10 @@ module SemiStatic
       end
     end
 
+    def entry_menu_title(entry)
+      entry.alt_title.blank? ? entry.title : entry.alt_title
+    end
+
     def select_layout(obj)
       'semi_static_' + LAYOUTS[obj.layout_select || 0]
     end
@@ -73,7 +77,10 @@ module SemiStatic
         if p.predefined_class.present? && !PREDEFINED[p.predefined_class].nil?
           SemiStatic::Engine.config.localeDomains[l] + PREDEFINED[p.predefined_class]
         else
-          SemiStatic::Engine.routes.url_for(:controller => p.class.to_s.underscore.pluralize, :action => 'show', :slug => p.slug, :host => host)
+          # Cannot use this:
+          # SemiStatic::Engine.routes.url_for(:controller => p.class.to_s.underscore.pluralize, :action => 'show', :slug => p.slug, :host => host)
+          # as it would not use the correct locale to get the 'tag_paths[l]', so we have to build the url manually:
+          "http://#{host}/#{SemiStatic::Engine.config.tag_paths[l]}/#{p.slug}"
         end
       elsif p.kind_of?(String)
         SemiStatic::Engine.config.localeDomains[l] + p

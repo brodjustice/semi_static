@@ -52,8 +52,8 @@ module SemiStatic
     def self.generate_sitemap(*args)
       l = args.last
       pages = ['/site/imprint-credits', '/contacts/new']
-      pages.concat(Tag.locale(l).select{|i| i.sitemappable })
-      pages.concat(Entry.unmerged.locale(l).select{|i| i.sitemappable })
+      pages.concat(Tag.locale(l).select{|i| i.sitemappable && !i.subscriber })
+      pages.concat(Entry.unmerged.locale(l).select{|i| i.sitemappable && !i.subscriber_content })
       pages.concat(Photo.locale(l).select{|i| i.sitemappable })
       pages.concat(Reference.all.select{|i| i.sitemappable })
       pages
@@ -81,7 +81,7 @@ module SemiStatic
         path = (uri.path == '/') ? '/index' : uri.path
         file = "#{Rails.public_path}/#{locale.to_s}#{path}.html"
         if File.exist? file
-          res = `gzip -c -9 #{file} > #{file}.gz`
+          res = `gzip -c -6 #{file} > #{file}.gz`
         else
           res = 'Server responded but could not create static gzipped html version'
           s = false

@@ -11,7 +11,7 @@ module SemiStatic
     #
     # Valid keys are:
     #  :img_url - the url to use for the nutshell image in the newsletter
-    #  :layout - :double, :single_left, :text_only
+    #  :layout - :double, :single_left, :text_only, etc.
     #
     serialize :draft_entry_ids, Hash
 
@@ -41,7 +41,10 @@ module SemiStatic
 
     SALUTATION_CODES = SALUTATION_TYPES.invert
 
-    ENTRY_LAYOUTS = {:double => 0x1, :single_left => 0x2, :text_only => 0x3, :double_text => 0x4, :image_above => 0x5, :float_left_no_link => 0x6, :image_center_no_link => 0x7}
+    ENTRY_LAYOUTS = {
+      :double => 0x1, :single_left => 0x2, :text_only => 0x3, :double_text => 0x4, :image_above => 0x5,
+      :float_left_no_link => 0x6, :image_center_no_link => 0x7, :float_left => 0x8, :text_only_no_link => 0x9
+    }
 
     ENTRY_LAYOUT_CODES = ENTRY_LAYOUTS.invert
 

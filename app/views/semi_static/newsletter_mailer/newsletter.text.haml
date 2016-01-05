@@ -1,8 +1,8 @@
-= '==================================================='
+= @newsletter.name.gsub(/./, '=')
 = @newsletter.name
-= @newsletter.subtitle
-= '==================================================='
-= "\r\n"
+- unless @newsletter.subtitle.blank?
+  = @newsletter.subtitle
+= @newsletter.name.gsub(/./, '=')
 = "\r\n"
 - if @newsletter.salutation
   = @newsletter.salutation_pre_text
@@ -12,19 +12,21 @@
 
   = "\r\n"
 - @newsletter.draft_entry_objects.each do |e|
-  = e.title
+  = e.title.upcase
   - unless e.sub_title.blank?
-    = e.sub_title unless e.sub_title.blank?
+    = e.sub_title
+  = "\r\n"
+  = strip_tags(entry_summary(e, e.summary_length).gsub(/&quot;/, '\"').gsub(/&nbsp;/, ' ').sub(/<tr>/, '').sub(/<p>/, '').gsub(/<tr>/, '\n').gsub(/<td>/, "\t").gsub(/<p>/,'\n\n')).gsub(/\\n/, "\r\n")
 
+  = "\r\n"
   - unless SemiStatic::Newsletter::ENTRY_LAYOUT_CODES[@newsletter.draft_entry_ids[e.id][:layout]].to_s.include?('no_link')
     = entry_path(e, :only_path => false)
-  - else
-    = strip_tags(entry_summary(e, e.summary_length))
     
-  = '-------------------------------------------------------------------------------------'
+  = @newsletter.name.gsub(/./, '-')
   = "\r\n"
 = "\r\n"
-= '====================================================================================='
+= @newsletter.name.gsub(/./, '=')
+= "\r\n"
 - if @subscriber
   To unsubscribe to this newsletter please click on the following url or copy it into your browser:
   = edit_subscriber_path(@subscriber, :token => @subscriber.respond_to?('cancel_token') ? @subscriber.cancel_token : '', :only_path => false)

@@ -1,0 +1,7 @@
+%tr
+  %td{:colspan => 2}
+    = render :partial => 'controls', :locals => {:e => e}
+    %h3= e.title
+    %h4= e.sub_title if e.sub_title.present?
+    = entry_summary(e, e.summary_length)
+
