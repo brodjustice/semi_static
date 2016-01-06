@@ -8,14 +8,18 @@
 //
 // The rest
 //
-a.fb-share{
+a.li-share, a.fb-share{
   float: right; padding: 1px 2px 1px 32px;
   background: transparent url(#{$vert-sprites}) 0px 0px no-repeat;
   width: auto;
   line-height: 30px;
   color: #a0a0a0;
+  margin-right: 16px;
 }
-.fb-share:after{
+a.li-share{
+  background-position: 0 -96px;
+}
+.li-share::after, .fb-share:after{
   margin-bottom: 4px;
 }
 
@@ -43,6 +47,9 @@ a.fb-share{
 .doc a:hover,
 .doc p a:focus{
   border-bottom: 0.0625rem solid #a0a0a0;
+}
+.doc + .button-wrapper{
+  margin-top: 6px;
 }
 
 .gallery.doc{

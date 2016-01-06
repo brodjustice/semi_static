@@ -17,6 +17,8 @@
       .section
   - if (@summaries && last_merged_entry.truncate?)
     .more= link_to t(:more), entry_link_path(entry)
-  - elsif entry.facebook_share
-    .button-wrapper
-      = link_to 'Share',  "https://www.facebook.com/sharer/sharer.php?u=#{request.url}", :class => 'fb-share'
+  - else
+    - if entry.facebook_share || entry.linkedin_share
+      .button-wrapper
+        = link_to t('Share'),  "https://www.facebook.com/sharer/sharer.php?u=#{request.url}", :title => "Share on Facbook", :class => 'fb-share' if entry.facebook_share
+        = link_to t('Share'),  "https://www.linkedin.com/cws/share?url=#{request.url}", :title => "Share on LinkedIn", :class => 'li-share' if entry.linkedin_share

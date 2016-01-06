@@ -20,7 +20,13 @@ module SemiStatic
       end
   
       respond_to do |format|
-        format.html { render :template => template, :layout => layout }
+        format.html {
+          if @entry.present?
+            redirect_to entry_path(@entry, :anchor => "comments")
+          else
+            render :template => template, :layout => layout
+          end
+        }
         format.js
         format.json { render json: @comments }
       end
