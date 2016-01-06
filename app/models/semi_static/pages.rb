@@ -65,7 +65,7 @@ module SemiStatic
       # but none of these work. So we have to manually clear out the pages from the
       # public directory ourselves:
       #
-      unless obj.tag.newsletter.present?
+      unless !obj.nil? && obj.tag.newsletter.present?
         locales = obj.nil? ? I18n.available_locales : [obj.locale]
         locales.each{|l|
           CACHED.each{|c|
