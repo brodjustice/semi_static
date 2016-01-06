@@ -273,8 +273,10 @@ module SemiStatic
     end
 
     def seo_description
-      if @seo
-        @seo.description || SemiStatic::Engine.config.site_name
+      if @seo && !@seo.description.blank?
+        @seo.description
+      elsif @entry && !@entry.summary.blank?
+        truncate(@entry.summary, :length => 140, :separator => ' ')
       else
         SemiStatic::Seo.master_description || SemiStatic::Engine.config.site_name
       end
