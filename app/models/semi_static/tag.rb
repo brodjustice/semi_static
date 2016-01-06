@@ -42,6 +42,7 @@ module SemiStatic
 
     def title; name end
     def raw_title; name end
+    def tag; self end
 
     def generate_slug
       self.slug = name.parameterize

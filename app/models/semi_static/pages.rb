@@ -2,7 +2,7 @@ module SemiStatic
   module Pages
 
     def expire_site_page_cache
-      Pages.expire_site_page_cache
+      Pages.expire_site_page_cache(self)
     end
 
     def sitemappable
@@ -34,9 +34,7 @@ module SemiStatic
     # with 'home' set and find the latest up date, or wher the 'home'
     # was unset, etc. This is not even considering predefined tags that
     # have been added in the config. Sort of complex so we just return nil for now
-    
     def xml_update
-
       if self.kind_of?(Tag) && self.seo
         (self.updated_at > self.seo.updated_at) ? nil : self.seo.updated_at
       elsif !self.kind_of?(Tag) && self.respond_to?('seo') && self.seo
@@ -48,7 +46,9 @@ module SemiStatic
       end
     end
 
-    def self.expire_site_page_cache
+    CACHED = ["index.html", "index.html.gz", "news.html", "news.html.gz", "site", "references.html", "references.html.gz", "references", "photos.html", "photos.html.gz", "photos", "features", "features.html", "features.html.gz", "entries", "entries.html", "entries.html.gz", "documents/index.html", "documents/index.html.gz", "contacts/new.html", "contacts/new.html.gz"]
+
+    def self.expire_site_page_cache(obj=nil)
       # Generally the whole site controller is made up of dynamic elements
       # that really change. This means we can use the page_cache, and just
       # expire the whole lot when a update is made to certains classes.
@@ -65,37 +65,20 @@ module SemiStatic
       # but none of these work. So we have to manually clear out the pages from the
       # public directory ourselves:
       #
-  
-      I18n.available_locales.each{|l|
-        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/index.html").to_s)
-        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/index.html.gz").to_s)
-        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/news.html").to_s)
-        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/news.html.gz").to_s)
-        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/site").to_s)
-        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/references.html").to_s)
-        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/references.html.gz").to_s)
-        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/references").to_s)
-        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/photos.html").to_s)
-        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/photos.html.gz").to_s)
-        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/photos").to_s)
-        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/features").to_s)
-        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/features.html").to_s)
-        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/features.html.gz").to_s)
-        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/entries").to_s)
-        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/entries.html").to_s)
-        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/entries.html.gz").to_s)
-        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/documents/index.html").to_s)
-        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/documents/index.html.gz").to_s)
-        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/contacts/new.html").to_s)
-        FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/contacts/new.html.gz").to_s)
-
-        # If there are no config.tag_paths don't do this, as the path will resolve to the
-        # top level locales cache directory and it will be removed along with links
-        # to your assets and system directories
-        unless SemiStatic::Engine.config.tag_paths[l.to_s].nil?
-          FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/#{SemiStatic::Engine.config.tag_paths[l.to_s]}").to_s)
-        end
-      }
+      unless obj.tag.newsletter.present?
+        locales = obj.nil? ? I18n.available_locales : [obj.locale]
+        locales.each{|l|
+          CACHED.each{|c|
+            FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/#{c}").to_s)
+          }
+          # If there are no config.tag_paths don't do this, as the path will resolve to the
+          # top level locales cache directory and it will be removed along with links
+          # to your assets and system directories
+          unless SemiStatic::Engine.config.tag_paths[l.to_s].nil?
+            FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/#{SemiStatic::Engine.config.tag_paths[l.to_s]}").to_s)
+          end
+        }
+      end
     end
   end
 end
