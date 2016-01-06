@@ -25,6 +25,8 @@ module SemiStatic
     before_destroy :expire_site_page_cache
     before_create :set_defaults
 
+    def tag; seoable.tag end
+
     def self.master_title
       self.master.first && self.master.first.title
     end
