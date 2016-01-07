@@ -43,7 +43,8 @@ module SemiStatic
 
     ENTRY_LAYOUTS = {
       :double => 0x1, :single_left => 0x2, :text_only => 0x3, :double_text => 0x4, :image_above => 0x5,
-      :float_left_no_link => 0x6, :image_center_no_link => 0x7, :float_left => 0x8, :text_only_no_link => 0x9
+      :float_left_no_link => 0x6, :image_center_no_link => 0x7, :float_left => 0x8, :text_only_no_link => 0x9,
+      :image_only_no_link => 0x10
     }
 
     ENTRY_LAYOUT_CODES = ENTRY_LAYOUTS.invert
@@ -101,7 +102,7 @@ module SemiStatic
 
     def swap_entry_image(e_id)
       e = Entry.find_by_id(e_id)
-      urls = ([ e.newsletter_img.present? ? e.newsletter_img(:crop) : nil, e.news_img.present? ? e.news_img.url(:original) : nil, e.img.present? ? e.img.url(:panel) : nil ].concat( e.photos.collect{|p| p.img.url(:boxpanel)}).compact)
+      urls = ([ e.newsletter_img.present? ? e.newsletter_img(:crop) : nil, e.newsletter_img.present? ? e.newsletter_img(:original) : nil, e.news_img.present? ? e.news_img.url(:original) : nil, e.img.present? ? e.img.url(:panel) : nil ].concat( e.photos.collect{|p| p.img.url(:boxpanel)}).compact)
       if urls.size < 2
         nil
       else

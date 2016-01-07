@@ -1,0 +1,24 @@
+<!-- CONTENT TABLE // -->
+<% @max_images = @max_images -1 %>
+
+<% if e.alt_title.blank? %>
+
+<% if @max_images > 0 %>
+<img src="<%= attachments[e.id.to_s + '.jpg'].url %>" class="flexibleImage" style="text-align:center;max-width:640px;margin:0 auto;margin-top:0px; margin-bottom:0px;display:block;" alt="<%= e.title %>" title="<%= e.title %>" />
+<% else %>
+<img src="<%= 'http://' + @site_url + @newsletter.draft_entry_ids[e.id][:img_url] %>" class="flexibleImage" style="max-width:640px;margin:0 auto;margin-top:0px; margin-bottom:0px;display:block;" alt="<%= e.title %>" title="<%= e.title %>" />
+<% end %>
+
+<% else %>
+
+<a href="<%= e.alt_title %>">
+<% if @max_images > 0 %>
+<img src="<%= attachments[e.id.to_s + '.jpg'].url %>" class="flexibleImage" style="text-align:center;max-width:640px;margin: 0 auto;margin-top:0px; margin-bottom:0px;display:block;" alt="<%= e.title %>" title="<%= e.title %>" />
+<% else %>
+<img src="<%= 'http://' + @site_url + @newsletter.draft_entry_ids[e.id][:img_url] %>" class="flexibleImage" style="max-width:640px;margin:0 auto;margin-top:0px; margin-bottom:0px;display:block;" alt="<%= e.title %>" title="<%= e.title %>" />
+<% end %>
+</a>
+
+<% end %>
+
+<!-- // CONTENT TABLE -->

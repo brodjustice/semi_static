@@ -1,11 +1,6 @@
 - e ||= @entry
 - if @newsletter.draft_entry_ids[e.id][:img_url].present?
   = image_tag(@newsletter.draft_entry_ids[e.id][:img_url])
-- elsif e.news_img.present?
-  = image_tag(e.news_img.url)
-- else
-  -if e.img.present?
-    = image_tag(e.img_url_for_theme(:panel))
-  -else
-    = image_tag('/assets/missing.jpg')
+-else
+  = image_tag('/assets/missing.jpg')
 

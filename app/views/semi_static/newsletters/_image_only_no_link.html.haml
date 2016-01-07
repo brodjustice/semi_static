@@ -1,0 +1,10 @@
+%tr
+  %td{:colspan => 2, :style=>'text-align:center;'}
+    = render :partial => 'controls', :locals => {:e => e}
+    .img{:id => "entry_id_#{e.id}"}
+      - if e.alt_title.blank?
+        = render :partial => 'image', :locals => {:e => e}
+      - else
+        = link_to e.alt_title do
+          = render :partial => 'image', :locals => {:e => e}
+
