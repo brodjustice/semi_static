@@ -65,8 +65,11 @@ module SemiStatic
       # but none of these work. So we have to manually clear out the pages from the
       # public directory ourselves:
       #
-      unless !obj.nil? && obj.tag.newsletter.present?
-        locales = obj.nil? ? I18n.available_locales : [obj.locale]
+
+      # If this is a newsletter update, we don't need to expire the cache
+      unless (obj.kind_of?(Tag) || obj.kind_of?(Entry)) && obj.tag.newsletter.present?
+        # If this is an object with a locale, only expire the cache for tha locale
+        locales = (obj.nil? || !obj.respond_to?('locale')) ? I18n.available_locales : [obj.locale]
         locales.each{|l|
           CACHED.each{|c|
             FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/#{c}").to_s)
