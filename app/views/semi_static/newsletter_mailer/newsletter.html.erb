@@ -448,7 +448,8 @@
                         <tr>
                           <td align="center" valign="top">
                             <!-- FLEXIBLE CONTAINER // -->
-                            <table border="0" cellpadding="30" cellspacing="0" width="640" class="flexibleContainer">
+                            <%- cell_padding = SemiStatic::Newsletter::ENTRY_LAYOUT_CODES[@newsletter.draft_entry_ids[e.id][:layout]].to_s.include?('image_only') ? '0' : '30' %>
+                            <table border="0" cellpadding=<%= cell_padding %> cellspacing="0" width="640" class="flexibleContainer">
                               <tr>
                                 <td valign="top" width="640" class="flexibleContainerCell">
     
