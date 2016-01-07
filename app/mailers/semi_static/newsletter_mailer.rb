@@ -38,7 +38,7 @@ module SemiStatic
 
       max_images = @newsletter.max_image_attachments
 
-      if (b = Banner.find_by_name(@newsletter.subtitle))
+      if (b = @newsletter.tag.banner).present?
         @banner = true
         attachments.inline['banner.jpg'] = File.read("#{Rails.root}/public#{b.img(:original)}")
       else

@@ -223,7 +223,7 @@
                         <table border="0" cellpadding="0" cellspacing="0" width="640" class="flexibleContainer">
                           <tr>
                             <td align="center" valign="top" width="640" class="flexibleContainerCell">
-                              <table border="0" cellpadding="30" cellspacing="0" width="100%">
+                              <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
                                   <td align="center" valign="top" class="textContent">
                                     <h1 style="color:#FFFFFF;line-height:100%;font-family:Helvetica,Arial,sans-serif;font-size:35px;font-weight:normal;margin-bottom:5px;text-align:center;"><%= @newsletter.name %></h1>
@@ -264,10 +264,15 @@
                             <td align="center" valign="middle" width="640" class="flexibleContainerCell">
 
                               <!-- CONTENT TABLE // -->
-                              <table border="0" cellpadding="0" cellspacing="10" width="100%">
+                              <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
                                   <td align="center" valign="middle" class="imageContent">
-                                    <img src="<%= attachments['banner.jpg'].url %>" width="500" class="flexibleImage" style="max-width:500px;width:100%;margin-top:12px; margin-bottom:12px;display:block;" alt="<%= SemiStatic::Engine.config.site_name %>" title="<%= SemiStatic::Engine.config.site_name %>" />
+				  <% @max_images = @max_images -1 %>
+				  <% if @max_images > 0 %>
+                                    <img src="<%= attachments['banner.jpg'].url %>" width="640" class="flexibleImage" style="max-width:640px;width:100%;margin-top:0px; margin-bottom:0px;display:block;" alt="<%= @newsletter.tag.banner.name %>" title="<%= @newsletter.tag.banner.name %>" />
+				  <% else %>
+                                    <img src="<%= 'http://' + @site_url + @newsletter.tag.banner.img.url %>" width="640" class="flexibleImage" style="max-width:640px;width:100%;margin-top:0px; margin-bottom:0px;display:block;" alt="<%= @newsletter.tag.banner.name %>" title="<%= @newsletter.tag.banner.name %>" />
+				  <% end %>
                                   </td>
                                 </tr>
                               </table>
