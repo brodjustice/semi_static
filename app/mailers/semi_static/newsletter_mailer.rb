@@ -50,7 +50,7 @@ module SemiStatic
       end
 
       @newsletter.draft_entry_objects.each{|e|
-        if @newsletter.draft_entry_ids[e.id][:img_url].present?
+        if @newsletter.draft_entry_ids[e.id][:img_url].present? && SemiStatic::Newsletter.layout_has_image?(@newsletter.draft_entry_ids[e.id][:layout])
           img_file_path = "#{Rails.root}/public/#{URI.decode(@newsletter.draft_entry_ids[e.id][:img_url]).split('?').first}"
           if max_images > 0
             if File.file?(img_file_path)

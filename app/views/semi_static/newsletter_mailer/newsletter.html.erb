@@ -424,7 +424,9 @@
                                 <td valign="top" width="640" class="flexibleContainerCell">
     
                                   <!-- CONTENT TABLE -->
-                                  <%= render :partial => SemiStatic::Newsletter::ENTRY_LAYOUT_CODES[@newsletter.draft_entry_ids[e.id][:layout]].to_s, :locals => {:le => le, :re => re} %>
+                                  <% unless SemiStatic::Newsletter::ENTRY_LAYOUT_CODES[@newsletter.draft_entry_ids[e.id][:layout]].nil? %>
+                                    <%= render :partial => SemiStatic::Newsletter::ENTRY_LAYOUT_CODES[@newsletter.draft_entry_ids[e.id][:layout]].to_s, :locals => {:le => le, :re => re} %>
+                                  <% end %>
                                   <!-- // CONTENT TABLE -->
     
                                 </td>
@@ -454,7 +456,9 @@
                                 <td valign="top" width="640" class="flexibleContainerCell">
     
                                   <!-- CONTENT TABLE -->
-                                  <%= render :partial => SemiStatic::Newsletter::ENTRY_LAYOUT_CODES[@newsletter.draft_entry_ids[e.id][:layout]].to_s, :locals => {:e => e} %>
+                                  <% unless SemiStatic::Newsletter::ENTRY_LAYOUT_CODES[@newsletter.draft_entry_ids[e.id][:layout]].nil? %>
+                                    <%= render :partial => SemiStatic::Newsletter::ENTRY_LAYOUT_CODES[@newsletter.draft_entry_ids[e.id][:layout]].to_s, :locals => {:e => e} %>
+                                  <% end %>
                                   <!-- // CONTENT TABLE -->
     
                                 </td>

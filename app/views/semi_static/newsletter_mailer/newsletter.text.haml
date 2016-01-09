@@ -12,6 +12,7 @@
 
   = "\r\n"
 - @newsletter.draft_entry_objects.each do |e|
+  - next unless SemiStatic::Newsletter.layout_has_text?(@newsletter.draft_entry_ids[e.id][:layout])
   = e.title.upcase
   - unless e.sub_title.blank?
     = e.sub_title

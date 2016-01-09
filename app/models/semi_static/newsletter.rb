@@ -41,13 +41,23 @@ module SemiStatic
 
     SALUTATION_CODES = SALUTATION_TYPES.invert
 
+    # Number also acts as mask: 0xF00 is the number of images in layout, 0x1000 is set if there is text
+    ENTRY_LAYOUT_IMAGE_MASK = 0xF00
+    ENTRY_LAYOUT_TEXT_MASK = 0x1000
     ENTRY_LAYOUTS = {
-      :double => 0x1, :single_left => 0x2, :text_only => 0x3, :double_text => 0x4, :image_above => 0x5,
-      :float_left_no_link => 0x6, :image_center_no_link => 0x7, :float_left => 0x8, :text_only_no_link => 0x9,
-      :image_only_no_link => 0x10
+      :double => 0x1101, :single_left => 0x1102, :text_only => 0x1003, :double_text => 0x1004, :image_above => 0x1105,
+      :float_left_no_link => 0x1106, :image_center_no_link => 0x1107, :float_left => 0x1108, :text_only_no_link => 0x1009,
+      :image_only_no_link => 0x010a
     }
 
     ENTRY_LAYOUT_CODES = ENTRY_LAYOUTS.invert
+
+    def self.layout_has_text?(i)
+      (i & ENTRY_LAYOUT_TEXT_MASK) > 0
+    end
+    def self.layout_has_image?(i)
+      (i & ENTRY_LAYOUT_IMAGE_MASK) > 0
+    end
 
     def create_newsletter_tag
       if self.tag.nil?
