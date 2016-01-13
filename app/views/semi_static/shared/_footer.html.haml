@@ -9,8 +9,7 @@
       .group.notices
         .copy
           %p
-            &copy;
-            = SemiStatic::Engine.config.copyright_year
+            = "&copy;".html_safe + (SemiStatic::Engine.config.has?('copyright_year') || Date.today.year.to_s)
             = SemiStatic::Engine.config.copyright_owner
         .credits
           = link_to t('ImprintAndCredits'), semi_static.site_path('imprint-credits')

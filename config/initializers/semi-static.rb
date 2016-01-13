@@ -7,8 +7,11 @@ module SemiStatic
     end
 
     # Don't panic about the copyright, we are not claiming it. This is the copyright for the
-    # website contents, so remove or edit it as appropriate
-    config.copyright_year = '2015'
+    # website contents, so remove or edit it as appropriate. Leave the copyright year as
+    # nil and semi_static will use the current year (restart to update) else supply your
+    # own year:
+    # config.copyright_year = '2027'
+    config.copyright_year = nil
     config.copyright_owner = 'Business Landing Ltd'
     
     # The site name will be used in the webpage title, open graph meta tags, etc. but also for the elasticsearch indexing

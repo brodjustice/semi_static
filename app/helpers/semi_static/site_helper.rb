@@ -32,6 +32,10 @@ module SemiStatic
       entry.alt_title.blank? ? entry.title : entry.alt_title
     end
 
+    def subscriber_content
+      @subscriber_content || ((@entry && @tag).nil? ? false : (@entry || @tag).subscriber_content)
+    end
+
     def select_layout(obj)
       'semi_static_' + LAYOUTS[obj.layout_select || 0]
     end
