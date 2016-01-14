@@ -28,6 +28,10 @@ module SemiStatic
       end
     end
 
+    def copyright_year
+      ("&copy;" + (SemiStatic::Engine.config.has?('copyright_year') || Date.today.year.to_s)).html_safe
+    end
+
     def entry_menu_title(entry)
       entry.alt_title.blank? ? entry.title : entry.alt_title
     end

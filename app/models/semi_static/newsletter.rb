@@ -52,11 +52,12 @@ module SemiStatic
 
     ENTRY_LAYOUT_CODES = ENTRY_LAYOUTS.invert
 
-    def self.layout_has_text?(i)
-      (i & ENTRY_LAYOUT_TEXT_MASK) > 0
+    def self.layout_has_text?(i=0)
+      i.nil? ? false : ((i & ENTRY_LAYOUT_TEXT_MASK) > 0)
     end
-    def self.layout_has_image?(i)
-      (i & ENTRY_LAYOUT_IMAGE_MASK) > 0
+
+    def self.layout_has_image?(i=0)
+      i.nil? ? false : ((i & ENTRY_LAYOUT_IMAGE_MASK) > 0)
     end
 
     def create_newsletter_tag

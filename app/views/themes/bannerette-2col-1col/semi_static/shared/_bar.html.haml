@@ -9,6 +9,6 @@
               = text_field_tag :q, params[:q], :placeholder => t('Search'), :class => 'searchfield'
     %li.contact.icon= link_to t('Contact'), semi_static.new_contact_path
     - if SemiStatic::Engine.config.try('subscribers_model')
-      - label = subscriber_content ? 'Members' : 'Sign_In'
+      - label = subscriber_content ? 'subscribers.Area' : 'subscribers.Sign_In'
       %li.sign-in.icon= link_to t(label), main_app.send(SemiStatic::Engine.config.subscribers_model.values[0])
 

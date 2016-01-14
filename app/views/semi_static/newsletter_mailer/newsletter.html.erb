@@ -441,8 +441,9 @@
                   </tr>
                   <%= render :partial => 'divider' %>
                 <% else %>
+                  <%# Not a double %>
                   <% break if e.nil? %>
-                  <% break if @newsletter.draft_entry_ids[e.id][:layout].nil? %>
+                  <% next if @newsletter.draft_entry_ids[e.id][:layout].nil? %>
                   <tr>
                     <td align="center" valign="top">
                       <!-- CENTERING TABLE // -->
@@ -565,7 +566,7 @@
                                   <td valign="top" bgcolor="#E1E1E1">
 
                                     <div style="font-family:Helvetica,Arial,sans-serif;font-size:13px;color:#828282;text-align:center;line-height:120%;">
-                                      <a href="<%= site_path('imprint-credits') %>" target="_blank" style="text-decoration:none; color:#868474">&copy;<%= SemiStatic::Engine.config.copyright_year + ' ' + SemiStatic::Engine.config.copyright_owner %></a>
+                                      <a href="<%= site_path('imprint-credits') %>" target="_blank" style="text-decoration:none; color:#868474">&copy;<%= copyright_year + ' ' + SemiStatic::Engine.config.copyright_owner %></a>
                                       <div style="margin-top: 6px;">If you do not want to recieve emails from us, you can <a href=<%= edit_subscriber_url(@subscriber, :token => @subscriber.respond_to?('cancel_token') ? @subscriber.cancel_token : '', :only_path => false)%> target="_blank" style="text-decoration:none;color:#828282;"><span style="color:#828282;">unsubscribe</span></a>.</div>
                                     </div>
 
