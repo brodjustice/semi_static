@@ -5,6 +5,7 @@
   %table
     %tr
       %th Name
+      %th Tag
       %th State
       %th Entries
       %th Locale
@@ -16,6 +17,9 @@
         %td
           -# = link_to n.name, edit_newsletter_path(n), :target => 'semi_static_newsletter'
           = link_to n.name, edit_newsletter_path(n)
+        %td
+          - unless n.tag.nil?
+            = link_to n.tag.name, edit_tag_path(n.tag)
         %td= SemiStatic::Newsletter::STATE_CODES[n.state].to_s.humanize
         %td
           %ul
