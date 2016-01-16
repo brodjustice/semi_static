@@ -5,6 +5,7 @@ require 'truncate_html'
 
 module SemiStatic
   class Railtie < Rails::Railtie
+
     config.after_initialize do
 
       # Set up locales from the URL's provided in the config
@@ -39,6 +40,13 @@ module SemiStatic
       # So we would normally do this here:
       #   Rails.application.assets.append_path "#{SemiStatic::Engine.root}/app/assets/javascripts/themes/#{SemiStatic::Engine.config.theme}"
       # But here is too late! So this is an initializer in engine.rb
+
+      # Organise the social links
+      SemiStatic::Engine::SOCIAL_LINKS.each{|k, v|
+        if SemiStatic::Engine.config.respond_to?(k) && SemiStatic::Engine.config.send(k).present?
+          SemiStatic::Engine.social_links[k] = v[:domain] + SemiStatic::Engine.config.send(k)
+        end
+      }
 
       # We don't have autoload on the additional paths given to SASS above, so the compromise is to clear the cache on startup, else
       # the changes in the above directories may never be picked up.

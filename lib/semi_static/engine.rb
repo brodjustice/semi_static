@@ -7,6 +7,23 @@ module SemiStatic
     require 'haml'
     require 'jquery-ui-rails'
 
+    SOCIAL_LINKS = {
+      'youtubeChannel' => {:name => 'YouTube', :domain => 'https://www.youtube.com/'},
+      'xingID' => {:name => 'Xing', :domain => 'https://www.xing.com/'},
+      'googleplusID' => {:name => 'GooglePlus', :domain => 'https://plus.google.com/'},
+      'linkedinID' => {:name => 'LinkedIn', :domain => 'http://www.linkedin.com/'},
+      'facebookID' => {:name => 'Facebook', :domain => 'https://www.facebook.com/'},
+      'instagramID' => {:name => 'Instagram', :domain => 'http://instagram.com/'},
+      'kununuID' => {:name => 'Kununu', :domain => 'http://kununu.com/'},
+      'twitterID' => {:name => 'Twitter', :domain => 'https://twitter.com/'}
+    }
+
+    @@social_links = {}
+
+    def social_links
+      @@social_links
+    end
+
     initializer :load_environment_config do |app|
       # We need the files in the applications semi-static locales to override the engine if present, so make sure
       # that they are added at the end

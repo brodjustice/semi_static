@@ -1,32 +1,7 @@
--# Refactor surely possible  here
-- if SemiStatic::Engine.config.twitterID.try('present?') || SemiStatic::Engine.config.facebookID.try('present?') || SemiStatic::Engine.config.youtubeChannel.try('present?') || SemiStatic::Engine.config.xingID.try('present?') || SemiStatic::Engine.config.has?(:linkedinID) ||  SemiStatic::Engine.config.has?(:googleplusID) ||  SemiStatic::Engine.config.has?(:instagramID)
+- if SemiStatic::Engine.social_links.present?
   .social
     .social-inner
-      -unless SemiStatic::Engine.config.youtubeChannel.nil?
-        = link_to "https://www.youtube.com/#{SemiStatic::Engine.config.youtubeChannel}" do
-          #youtube{:title => "#{SemiStatic::Engine.config.site_name} on YouTube"}
-            YouTube
-      -unless SemiStatic::Engine.config.twitterID.nil?
-        = link_to "https://twitter.com/#{SemiStatic::Engine.config.twitterID}" do
-          #twitter{:title => "#{SemiStatic::Engine.config.site_name} on Twitter"}
-            Twitter
-      -unless SemiStatic::Engine.config.facebookID.nil?
-        = link_to "https://www.facebook.com/#{SemiStatic::Engine.config.facebookID}" do
-          #facebook{:title => "#{SemiStatic::Engine.config.site_name} on Facebook"}
-            Facebook
-      -if SemiStatic::Engine.config.has?(:googleplusID)
-        = link_to "https://plus.google.com/#{SemiStatic::Engine.config.googleplusID}" do
-          #googleplus{:title => "#{SemiStatic::Engine.config.site_name} on Google+"}
-            Google+
-      -unless SemiStatic::Engine.config.xingID.nil?
-        = link_to "https://www.xing.com/#{SemiStatic::Engine.config.xingID}" do
-          #xing{:title => "#{SemiStatic::Engine.config.site_name} on Xing"}
-            Xing
-      -unless SemiStatic::Engine.config.linkedinID.nil?
-        = link_to "http://www.linkedin.com/#{SemiStatic::Engine.config.linkedinID}" do
-          #linkedin{:title => "#{SemiStatic::Engine.config.site_name} on LinkedIn"}
-            LinkedIn
-      -unless SemiStatic::Engine.config.instagramID.nil?
-        = link_to "http://instagram.com/#{SemiStatic::Engine.config.instagramID}" do
-          #instagram{:title => "#{SemiStatic::Engine.config.site_name} on Instagram"}
-            Instagram
+      - SemiStatic::Engine.social_links.each do |s, l|
+        = link_to l do
+          %div{:id => SemiStatic::Engine::SOCIAL_LINKS[s][:name].downcase, :title => "#{SemiStatic::Engine.config.site_name} @ #{SemiStatic::Engine::SOCIAL_LINKS[s][:name]}"}
+            = SemiStatic::Engine::SOCIAL_LINKS[s][:name]

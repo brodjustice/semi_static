@@ -32,6 +32,8 @@ module SemiStatic
     config.linkedinID = nil
     config.googleplusID = nil
     config.instagramID = nil
+    config.kununuID = nil
+
 
     # Themes: Current options are:
     #

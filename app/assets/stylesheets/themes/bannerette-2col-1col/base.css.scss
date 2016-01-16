@@ -86,6 +86,7 @@ body{
   font-family: 'Raleway', Arial, Verdana, Helvetica, sans-serif;
   font-size: 16px;
   color: #494949;
+  text-rendering: optimizelegibility;
 }
 
 a{text-decoration: none; color: black;}
@@ -406,19 +407,24 @@ h2{ font-size: 20px;}
 .sidebar h2, .gallery h2 a, .gallery h2, .news h2 a, .news h2{ font-size: 24px; color: $prime-color; }
 .list h1{ color: $prime-color; border-bottom: 1px solid $prime-color; }
 
-.social a{
-  color: white;
-}
+.social a{color: transparent;}
+.social-inner a div{height:32px;width:38px;float:right;padding: 0px;overflow:hidden;background: transparent url(#{$vert-sprites}) 0 0 no-repeat;}
 
 // Sprites
 
 #ddock{float: right;width: 97px; margin: 0px 16px 0px; height: 32px; background:transparent url(/assets/hoz-sprites.png) 0 center no-repeat;}
 #html5{float: right;margin: -4px 5px 0 0px; width: 25px; height: 33px; background:transparent url(/assets/hoz-sprites.png) -97px center no-repeat;}
 
-#twitter{float: right; padding: 0px 8px 3px 28px; background: transparent url(#{$vert-sprites}) 0px 5px no-repeat;}
-#xing{float: right; padding: 0px 8px 3px 28px; background: transparent url(#{$vert-sprites}) 0px -190px no-repeat;}
-#facebook{float: right; padding: 0px 8px 3px 28px; background: transparent url(#{$vert-sprites}) 0px -55px no-repeat;}
-#youtube{float: right; padding: 0px 8px 3px 28px; background: transparent url(#{$vert-sprites}) 0px -25px no-repeat;}
+#twitter{background-position: 0px -62px;}
+#xing{background-position: 0px -158px;}
+#facebook{background-position: 0px 2px;}
+#youtube{background-position: 0px -30px;}
+#linkedin{background-position: 0 -94px;}
+#googleplus{background-position: 0 -126px;}
+#instagram{background-position: 0 -318px;}
+#kununu{background-position: 0 -350px;}
+
+
 #bar-menu .contact a{float: right; display: block; padding: 4px 34px 0px 8px; background: transparent url(#{$vert-sprites}) right -194px no-repeat;}
 #bar-menu .search a{float: right; display: block; padding: 4px 30px 6px 8px; background: transparent url(#{$vert-sprites}) right -226px no-repeat;}
 #bar-menu .sign-in a{float: right; display: block; padding: 4px 32px 2px 8px; background: transparent url(/assets/user-icon.png) right 0px no-repeat; background-size: 28px 32px !important;}

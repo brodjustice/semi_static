@@ -1,6 +1,6 @@
 /* High res 'retina' screens */
 @media (device-pixel-ratio: 2), (-moz-device-pixel-ratio: 2), (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  a.fb-share, #top .icon a, #twitter, #facebook, #youtube, #xing,
+  a.fb-share, #top .icon a, .social-inner a div,
   .link a, .more a, .feint .more a, .flat .more a, .news .more a, #search-wrapper{
     background-image: url(#{$vert-x2-sprites});
     background-size: 28px $vert-sprites-height;
