@@ -44,9 +44,16 @@
 .entry .floater + .wrapping{margin-top: 0;}
 .entry .html h2, .entry .html p, .entry h1 + p, .entry h1 + .floater + .wrapping{margin-top: 14px;}
 
-.fb-share:after{
-  margin-bottom: 4px;
+a[class*="-share"]{
+  float: right; padding: 1px 2px 1px 32px;
+  background: transparent url(#{$vert-sprites}) 0px 0px no-repeat;
+  width: auto;
+  line-height: 30px;
+  color: #a0a0a0;
+  margin-right: 16px;
 }
+a.li-share{ background-position: 0 -96px; }
+a.xi-share{ background-position: 0 -160px; }
 
 .extra-padding p{
   padding: 0 12px;

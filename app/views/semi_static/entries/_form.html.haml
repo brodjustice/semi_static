@@ -468,13 +468,16 @@
         %fieldset
           = f.label :show_image_titles, 'Show titles on images that are inside the "main" entry'
           = f.check_box :show_image_titles
-        %h2 Social shares
+        %h2 Social share buttons
         %fieldset
-          = f.label :facebook_share, 'Display Facebook Share button'
+          = f.label :facebook_share, 'Facebook'
           = f.check_box :facebook_share
           %br/
-          = f.label :linkedin_share, 'Display LinkedIn Share button'
+          = f.label :linkedin_share, 'LinkedIn'
           = f.check_box :linkedin_share
+          %br/
+          = f.label :xing_share, 'Xing'
+          = f.check_box :xing_share
         %h2 Style settings
         %fieldset
           = f.label :style_class

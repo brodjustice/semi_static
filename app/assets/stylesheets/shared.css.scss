@@ -111,9 +111,8 @@ h4{ font-weight: normal; color: black; margin-top: 6px; margin-bottom: 12px;}
   height: 20px;
 }
 
-.yt_video{
-  margin-top: 6px;  
-}
+// Not clear why this is needed, removed for now
+// .yt_video{ margin-top: 6px;  }
 
 .yt_video iframe{
   width: 100% !important; border: 0;

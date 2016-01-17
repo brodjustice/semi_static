@@ -19,6 +19,7 @@
     .more= link_to t(:more), entry_link_path(entry)
   - else
     - if entry.facebook_share || entry.linkedin_share
-      .button-wrapper
+      .social.button-wrapper
         = link_to t('Share'),  "https://www.facebook.com/sharer/sharer.php?u=#{request.url}", :title => "Share on Facebook", :class => 'fb-share' if entry.facebook_share
+        = link_to t('Share'),  "https://www.xing-share.com/app/user?op=share;sc_p=xing-share;url=#{request.url}", :title => "Share on Xing", :class => 'xi-share' if entry.xing_share
         = link_to t('Share'),  "https://www.linkedin.com/cws/share?url=#{request.url}", :title => "Share on LinkedIn", :class => 'li-share' if entry.linkedin_share
