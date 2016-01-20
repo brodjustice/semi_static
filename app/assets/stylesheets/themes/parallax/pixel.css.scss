@@ -1,7 +1,7 @@
 /* High res 'retina' screens */
 @media (device-pixel-ratio: 2), (-moz-device-pixel-ratio: 2), (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dppx) {
-  .link a, .more a, .feint .more a, .flat .more a, .news .more a,
-  #top li.icon a, #googleplus, #linkedin, #twitter, #facebook, #youtube, #xing, #menu-button, #menu-close { background-size: 28px $vert-sprites-height; background-image: url(#{$vert-x2-sprites});}
+  .button-wrapper a[class*='-share'], .link a, .more a, .feint .more a, .flat .more a, .news .more a,
+  #top li.icon a, .social .social-inner a div, #menu-button, #menu-close { background-size: 28px $vert-sprites-height; background-image: url(#{$vert-x2-sprites});}
   #logo{ background: transparent url(/assets/x2/#{$logo}) 0 0 no-repeat; background-size: $logo-width $logo-height; }
   #menu-button, #menu-close{background-image: none;}
 }

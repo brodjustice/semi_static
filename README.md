@@ -10,7 +10,9 @@ Some tricks that are used to get the fast performance:
 2. Most images in sprite form
 3. Home page fonts loaded in-line
 4. Home page css loaded in-line
-5. Full page cacheing whenever possible, with full multi-locale support
+5. HDPI image support via massive compression
+6. Full page cacheing whenever possible, with full multi-locale support
+7. Option to pre-build gzipped static pages
 
 = To install
 
@@ -59,7 +61,7 @@ you want.
 = Content
 
 The initial admin sign in email and password can by found in db/seeds.rb. Use this to sign in and start adding your content.
-Note: seeds.rb is created by the generator, so you must have run this fisrt as decribed above.
+Note: seeds.rb is created by the generator, so you must have run this first as decribed above.
 
 = Production environment webserver, assets and page cacheing
 

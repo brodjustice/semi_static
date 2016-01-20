@@ -1,5 +1,5 @@
 /* 
-  iPad, iPhone, Safarir or Chrome do not handle the resize of the vw css
+  iPad, iPhone, Safari or Chrome do not handle the resize of the vw css
   on orientation change as one would expect. So repaint the body html
   when we detect an orientation change.
 */
