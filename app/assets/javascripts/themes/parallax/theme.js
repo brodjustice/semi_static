@@ -1,10 +1,20 @@
+var menuHeight;
 function housekeeping(){
   if(!(/Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/i).test(navigator.userAgent || navigator.vendor || window.opera)){
     var s = skrollr.init({smoothScrolling:false, forceHeight:false, skrollrBody:'body-inner'});
   }
+  menuHeight = document.getElementById('menu').offsetHeight;
 }
 
 window.onload = housekeeping;
+
+/* Scroll smoothly to anchor taking into account the menu at the top */
+
+function semiStaticScrollTo(id) {
+  var el = document.getElementById(id).getBoundingClientRect().top;
+
+  window.scrollTo(0,(el - menuHeight + document.documentElement.scrollTop));
+}
 
 /*!
  * skrollr core

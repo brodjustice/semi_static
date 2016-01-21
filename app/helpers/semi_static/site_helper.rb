@@ -56,7 +56,11 @@ module SemiStatic
     end
 
     def menu_from_tag(t)
-      t.predefined_class.blank? ? semi_static.feature_path(t.slug) : predefined_tags[t.predefined_class]
+      if t.layout_select.present?
+        t.predefined_class.blank? ? semi_static.feature_path(t.slug) : predefined_tags[t.predefined_class]
+      else
+        [request.url, '#', t.name].join
+      end
     end
 
     def hreflang_tags(root=false)
