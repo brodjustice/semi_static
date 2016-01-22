@@ -7,6 +7,13 @@
         });
 
     };
+    function check_menu(){
+      if($('#tag_menu').prop('checked')) {
+        $('#target_options').show();
+      } else {
+        $('#target_options').hide();
+      }
+    }
     function check_side_bar(){
       if($('#tag_side_bar').prop('checked')) {
         $('#side_bar_options').show();
@@ -27,6 +34,11 @@
       $( "#tag_banner_id" ).change(function() {
         check_tag_line();
         load_banner_preview($('#tag_banner_id').val());
+      });
+
+      check_menu();
+      $("#tag_menu" ).change(function() {
+        check_menu();
       });
 
       check_tag_line();
@@ -112,6 +124,16 @@
         %br/
         = f.label :icon_resize, 'Resize icon'
         = f.check_box :icon_resize
+  %fieldset#target_options
+    = f.label :target_tag_id, 'Target tag (optional)'
+    %br
+    = f.select :target_tag_id, options_for_select(SemiStatic::Tag.all.collect{|t| [t.name, t.id]}.prepend(['- None -', nil]), @tag.target_tag_id)
+    %br/
+    = f.label :target_name, 'Target name (optional)'
+    %br/
+    = f.text_field :target_name
+
+
   %fieldset
     = f.label :side_bar
     = f.check_box :side_bar
@@ -149,7 +171,7 @@
     .section.group
       .col.span_1_of_1
         = f.label :layout_select, 'Rails level layout for this page'
-        = f.select :layout_select, options_for_select(General::LAYOUTS.invert.collect{|k, v| [k, v]}.append(["- None -", nil]), @tag.layout_select)
+        = f.select :layout_select, options_for_select(General::LAYOUTS.invert.collect{|k, v| [k, v]}, @tag.layout_select)
   
   .actions
     = f.submit 'Save'

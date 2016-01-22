@@ -1,20 +1,15 @@
 var menuHeight;
+var ssSkrollr;
+
 function housekeeping(){
   if(!(/Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/i).test(navigator.userAgent || navigator.vendor || window.opera)){
-    var s = skrollr.init({smoothScrolling:false, forceHeight:false, skrollrBody:'body-inner'});
+    ssSkrollr = skrollr.init({smoothScrolling:false, forceHeight:false, skrollrBody:'body-inner'});
   }
   menuHeight = document.getElementById('menu').offsetHeight;
 }
 
 window.onload = housekeeping;
 
-/* Scroll smoothly to anchor taking into account the menu at the top */
-
-function semiStaticScrollTo(id) {
-  var el = document.getElementById(id).getBoundingClientRect().top;
-
-  window.scrollTo(0,(el - menuHeight + document.documentElement.scrollTop));
-}
 
 /*!
  * skrollr core
@@ -1795,3 +1790,15 @@ function semiStaticScrollTo(id) {
 	}
 
 }(window, document));
+
+/* Scroll smoothly to anchor taking into account the menu at the top */
+
+function semiStaticScrollTo(id) {
+  var el = document.getElementById(id);
+
+  if(el != null){
+    // window.scrollTo(0,(el.getBoundingClientRect().top - menuHeight + document.documentElement.scrollTop));
+    ssSkrollr.animateTo(el.getBoundingClientRect().top - menuHeight + document.documentElement.scrollTop);
+    return(false);
+  }
+}
