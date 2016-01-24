@@ -1,7 +1,7 @@
 -# TODO: Refactor, Move to helper
 - suppress_merged ||= (@suppress_merged || false)
 - style ||= false
-- linked = (defined?(xxx)).nil? ? false : true
+- linked = ((defined?(linked)) && (linked || linked.nil?)) ? true : false
 - entry = e
 - last_merged_entry = e
 .entry{:style => "background-color: #{e.background_colour}"}

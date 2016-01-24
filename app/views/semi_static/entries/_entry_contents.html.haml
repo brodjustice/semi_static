@@ -1,5 +1,5 @@
 -# TODO: Major refactor required
-- linked = (defined?(xxx)).nil? ? false : true
+- linked = ((defined?(linked)) && (linked || linked.nil?)) ? true : false
 - unless e.youtube_id_str.blank?
   = entry_title(e, linked)
   = youtube_video(e.youtube_id_str)

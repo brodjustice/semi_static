@@ -158,12 +158,7 @@ a { text-decoration: none; color: #282828; }
 #bar-menu .icon a {
     background-size: 28px 275px;
 }
-#bar-menu .search a {
-    background: url(/assets/vert-sprites-light.png) no-repeat scroll 0 -216px transparent;
-    display: block;
-    float: right;
-    padding-left: 28px;
-}
+
 #bar-menu li a {
     background: url(/assets/vert-sprites-light.png) no-repeat scroll 0 0 transparent;
     color: white;
@@ -215,6 +210,34 @@ a { text-decoration: none; color: #282828; }
 #semi-static-home-page #toTop, .contact_form{
  background-color: #b74423;
 }
+
+.social a{color: transparent;}
+.social-inner a div{height:32px;width:38px;float:right;padding: 0px;overflow:hidden;background: transparent url(#{$vert-sprites}) 0 0 no-repeat;}
+
+// Sprites
+.more a{
+  background: transparent url(#{$vert-sprites}) no-repeat scroll right -290px;
+  color: #d8d8d8;
+  padding: 6px 40px 0 0;
+}
+
+#ddock{float: right;width: 97px; margin: 0px 16px 0px; height: 32px; background:transparent url(/assets/hoz-sprites.png) 0 center no-repeat;}
+#html5{float: right;margin: -4px 5px 0 0px; width: 25px; height: 33px; background:transparent url(/assets/hoz-sprites.png) -97px center no-repeat;}
+
+#twitter{background-position: 0px -62px;}
+#xing{background-position: 0px -158px;}
+#facebook{background-position: 0px 2px;}
+#youtube{background-position: 0px -30px;}
+#linkedin{background-position: 0 -94px;}
+#googleplus{background-position: 0 -126px;}
+#instagram{background-position: 0 -318px;}
+#kununu{background-position: 0 -350px;}
+
+
+#bar-menu .contact a{float: right; display: block; padding: 4px 34px 0px 8px; background: transparent url(#{$vert-sprites}) right -194px no-repeat;}
+#bar-menu .search a{float: right; display: block; padding: 4px 30px 6px 8px; background: transparent url(#{$vert-sprites}) right -226px no-repeat;}
+#bar-menu .sign-in a{float: right; display: block; padding: 4px 32px 2px 8px; background: transparent url(/assets/user-icon.png) right 0px no-repeat; background-size: 28px 32px !important;}
+#twitter, #xing, #facebook, #youtube, #bar-menu .icon a{ background-size: 28px $vert-sprites-height; }
 
 .entry{
   padding: 50px 4% 0px;

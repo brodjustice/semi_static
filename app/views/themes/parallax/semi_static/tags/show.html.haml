@@ -1,4 +1,3 @@
-%h1= @tag.name
 - if @tag.banner
   - content_for :banner do
     #overlay-2
@@ -17,7 +16,7 @@
 
 - if @tag.show_entries?
   - @tag.entries.unmerged.not_style('tile').each do |e|
-    %section{:id => "entry-id-#{e.id.to_s}"}
+    %article{:id => "entry-id-#{e.id.to_s}"}
       - if e.banner.present?
         .banner{:style => "background-image: url(#{e.banner.img_url_for_theme(:desktop)})", :data => {'bottom-top' => "background-position: 50% -#{banner_skrollr_offset(e.banner)}px;", 'top-bottom' => "background-position: 50% #{banner_skrollr_offset(e.banner)}px;", 'anchor-target' => "#entry-id-#{e.id.to_s}"}}
           .hsContainer
