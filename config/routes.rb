@@ -11,7 +11,7 @@ SemiStatic::Engine.routes.draw do
   resources :entries do
     collection { get :search }
     resources :click_ads, :only => [:new, :create, :update]
-    resources :seos, :only => [:new, :create, :update]
+    resources :seos, :only => [:new, :create, :update, :destroy]
     resources :products, :except => [:index]
     resources :photos, :only => :index
     resources :comments, :except => :new
@@ -22,7 +22,7 @@ SemiStatic::Engine.routes.draw do
   end
 
   resources :tags, :except => :show do
-    resources :seos, :only => [:new, :create, :update]
+    resources :seos, :only => [:new, :create, :update, :destroy]
     resources :entries, :only => [:index]
   end
 

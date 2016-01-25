@@ -172,6 +172,21 @@ module SemiStatic
       c += '</figure>'.html_safe
     end
 
+    def social_shares(e)
+      return unless (e.facebook_share || e.linkedin_share || e.xing_share)
+      c = '<div class="social button-wrapper"> '.html_safe
+      if e.facebook_share
+        c+= link_to t('Share'),  "https://www.facebook.com/sharer/sharer.php?u=#{request.url}", :title => "Share on Facebook", :class => 'fb-share'
+      end
+      if e.xing_share
+        c+= link_to t('Share'),  "https://www.xing-share.com/app/user?op=share;sc_p=xing-share;url=#{request.url}", :title => "Share on Xing", :class => 'xi-share'
+      end
+      if e.linkedin_share
+        c+= link_to t('Share'),  "https://www.linkedin.com/cws/share?url=#{request.url}", :title => "Share on LinkedIn", :class => 'li-share'
+      end
+      c += '</div>'.html_safe
+    end
+
     def icon(tag)
       return '' if tag.nil?
       if Tag.use_sprites?
@@ -288,9 +303,11 @@ module SemiStatic
       if @seo && !@seo.description.blank?
         @seo.description
       elsif @entry && !@entry.summary.blank?
-        truncate(@entry.summary, :length => 140, :separator => ' ')
+        truncate(strip_tags(@entry.summary), :length => 140, :separator => ' ')
+      elsif SemiStatic::Seo.master_description.present?
+        SemiStatic::Seo.master_description
       else
-        SemiStatic::Seo.master_description || SemiStatic::Engine.config.site_name
+        false
       end
     end
 

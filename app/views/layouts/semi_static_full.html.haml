@@ -3,6 +3,8 @@
   %head
     %title= @title || SemiStatic::Engine.config.site_name
     %meta{ :"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8" }/
+    - if seo_description
+      %meta{ :name => "description", :content => seo_description}/
     %meta{ :name => "description", :content => "#{SemiStatic::Engine.config.site_name}" }/
     - unless seo_keywords.blank?
       %meta{ :name => "keywords", :content => seo_keywords }/
@@ -11,7 +13,8 @@
 
     -# Open Graph Meta Tags
     %meta{ :property => "og:title", :content => seo_title }/
-    %meta{ :property => "og:description", :content => seo_description }/
+    - if seo_description
+      %meta{ :property => "og:description", :content => seo_description }/
     %meta{ :property => "og:locale", :content => I18n.locale.to_s }/
     %meta{ :property => "og:url", :content => request.url }/
     %meta{ :property => "og:site_name", :content => SemiStatic::Engine.config.site_name }/

@@ -1,4 +1,5 @@
 .button= link_to_function 'Cancel', "$('#dialog').hide();"
 %h1= ['Editing SEO meta tags for', @seo.seoable.raw_title].join(' ')
+.button= link_to 'Delete', polymorphic_path([@seo.seoable, @seo]), :method => :delete
 %h3= ['locale:', @seo.seoable.locale.to_s].join(' ')
 = render 'form'

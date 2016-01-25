@@ -93,10 +93,11 @@
     # DELETE /seos/1.json
     def destroy
       @seo = Seo.find(params[:id])
+      @seoable = @seo.seoable
       @seo.destroy
   
       respond_to do |format|
-        format.html { redirect_to seos_url }
+        format.html { redirect_to edit_polymorphic_url(@seoable) }
         format.json { head :no_content }
       end
     end

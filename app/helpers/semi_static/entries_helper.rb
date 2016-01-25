@@ -42,14 +42,14 @@ module SemiStatic
         if linked && !e.link_to_tag
           content_tag(:h1){ content_tag(:a, e.title, :href => entry_path(e), :style => "color: #{e.header_colour}") } +
           (e.sub_title.present? ? content_tag(:h2){ content_tag(:a, e.sub_title, :href => entry_path(e), :style => "color: #{e.header_colour}")} : '')
-        # Summary that is linked to a tag
-        elsif linked && @summaries && e.link_to_tag
+        # Summary that is linked to a tag (TODO: Does this ever happen, seems to now be covered in the tags_controller?)
+        elsif linked && @summaries && !e.link_to_tag
           content_tag(:h1){ content_tag(:a, e.title, :href => feature_path(e.tag.slug), :style => "color: #{e.header_colour}") } +
           (e.sub_title.present? ? content_tag(:h2){ content_tag(:a, e.sub_title, :href => feature_path(e.tag.slug), :style => "color: #{e.header_colour}")} : '')
         # No link
         else
           content_tag(:h1, e.title, :style => "color: #{e.header_colour};") +
-          (e.sub_title.present? ? content_tag(:h2, e.sub_title, :style => "color: #{e.header_colour};") : '')
+          (e.sub_title.present? ? content_tag(:h2, e.sub_title) : '')
         end
       end
     end
