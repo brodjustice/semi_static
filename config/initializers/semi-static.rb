@@ -75,7 +75,8 @@ module SemiStatic
     # You may want to have a fallback locale, especially during development. Set it here
     config.default_locale = 'en'
     
-    # These are settings for the contact form and mailer
+    # These are settings for the contact form and mailer. Make sure that the config.mailer_from
+    # has a full and correct domain, else some email systems will just silently ignore the email.
     config.mailer_from = 'contact_form@business-landing.com'
     config.mail_host = 'business-landing.com'
     

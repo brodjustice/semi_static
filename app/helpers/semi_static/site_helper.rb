@@ -173,7 +173,7 @@ module SemiStatic
     end
 
     def social_shares(e)
-      return unless (e.facebook_share || e.linkedin_share || e.xing_share)
+      return unless (e.facebook_share || e.linkedin_share || e.xing_share || e.twitter_share)
       c = '<div class="social button-wrapper"> '.html_safe
       if e.facebook_share
         c+= link_to t('Share'),  "https://www.facebook.com/sharer/sharer.php?u=#{request.url}", :title => "Share on Facebook", :class => 'fb-share'
@@ -183,6 +183,9 @@ module SemiStatic
       end
       if e.linkedin_share
         c+= link_to t('Share'),  "https://www.linkedin.com/cws/share?url=#{request.url}", :title => "Share on LinkedIn", :class => 'li-share'
+      end
+      if e.twitter_share
+        c+= link_to t('Share'),  "https://twitter.com/intent/tweet?url=#{request.url}&hashtags=#{SemiStatic::Engine.config.site_name.parameterize}", :title => "Share on Twitter", :class => 'tw-share'
       end
       c += '</div>'.html_safe
     end

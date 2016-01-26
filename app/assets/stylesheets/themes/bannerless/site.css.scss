@@ -10,7 +10,7 @@
 //
 h1{border-bottom: solid 1px #a0a0a0; display:flex; padding-bottom:5px;}
 
-a.li-share, a.fb-share{
+a.li-share, a.fb-share, a.tw-share{
   float: right; padding: 1px 2px 1px 32px;
   background: transparent url(#{$vert-sprites}) 0px 0px no-repeat;
   width: auto;
@@ -18,9 +18,8 @@ a.li-share, a.fb-share{
   color: #a0a0a0;
   margin-right: 16px;
 }
-a.li-share{
-  background-position: 0 -96px;
-}
+a.li-share{ background-position: 0 -96px; }
+a.tw-share{ background-position: 0 -64px; }
 .li-share::after, .fb-share:after{
   margin-bottom: 4px;
 }
