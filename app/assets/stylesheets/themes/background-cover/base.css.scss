@@ -12,7 +12,7 @@
 // HTML, BODY and general CSS
 // ----------------------------
 
-html { overflow-y: scroll; }
+html { overflow-y: scroll; overflow-x:hidden;}
 body{
   background-color: white; 
   margin: 0px;
@@ -91,44 +91,21 @@ h2{ font-size: 20px; font-weight: normal;}
 }
 
 #menu-wrapper{
+  padding-top:76px;
+  border-top: 1ps solid $prime-color;
+  background-color:#333;
+  color: white;
+  box-shadow: 0 0 5px rgba(34, 34, 34, 0.8) inset;
+  width:400px;
   position: absolute;
   z-index: 1000;
-  right: 0px;
-  top:32px;
-}
-
-#overlay, .contain{
-  margin: 0 auto;
-  max-width: 1400px;
-}
-
-#overlay{
-  position: absolute;
-  min-height: 200px;
-  top: 0; left: 0; right: 0;
-}
-
-#bar-menu .lady a{float: right; display: block; padding: 4px 8px 0px 28px; background: transparent url(#{$vert-sprites}) 0px -109px no-repeat;}
-#bar-menu .contact a{float: right; display: block; padding: 4px 8px 0px 34px; background: transparent url(#{$vert-sprites}) 0px -192px no-repeat;}
-#bar-menu .search a{float: right; display: block; padding: 4px 8px 4px 28px; background: transparent url(#{$vert-sprites}) 0px -224px no-repeat;}
-#bar-menu .icon a{ background-size: 28px $vert-sprites-height; }
-
-#tag{
-  max-width: 1400px;
-  width: 100%;
-  margin: 0 auto;
-}
-#tag-wrapper{
-  clear: both;
-  position: absolute;
-  bottom: 20px;
-  width: 100%;
-}
-
-#tagline{
-  // If you want to play with CSS3 viewport widths: font-size: 2.3vw !important;
-  width: 90%; text-align: center; margin: 0px auto; color: white; text-shadow: 1px 2px 5px black; font-size: 28px; font-weight: normal;
-  text-shadow: -2px 8px 4px rgba(0, 0, 0, 0.2), 0 -5px 35px rgba(255, 255, 255, 0.3);
+  right: -400px;
+  top:0;
+  overflow:hidden;
+  min-height:100%;
+  -moz-transition: right 0.5s linear;
+  -webkit-transition: right 0.5s linear;
+  transition: right 0.5s linear;
 }
 
 #logo{
@@ -138,22 +115,22 @@ h2{ font-size: 20px; font-weight: normal;}
   margin-left: 12px;
 }
 
+#menu-main .wrapper .text{text-align: right;}
 #menu-main .wrapper:hover{text-decoration: none;}
 #menu-main .col{margin-left: 12px; width: auto;}
-#menu-main .wrapper:hover{ text-decoration: underline; }
 
 #menu{
   z-index: 500;
   margin: 0 auto; font-size: 30px;
   text-shadow: 0 0 2px #000;
   font-weight: bold;
-  position: relative; right: 2%;
+  right: 2%;
   // text-transform: uppercase;
 }
 
 #menu a{
   color: $prime-color; font-weight: normal;
-  float: right; margin-left: 12px;
+  margin: auto 12px;
   line-height: 30px;
   padding: 4px;
 }
@@ -163,17 +140,18 @@ h2{ font-size: 20px; font-weight: normal;}
 }
 
 #menu-button, #menu-close{
-  display: none; float: right;
   color: $prime-color; font-weight: bold;
   padding: 3px 2px 4px 32px;
   margin: 2px 12px 0px 0px;
-  cursor: pointer; position: relative;
+  cursor: pointer; position: absolute;
+  top:0; right:0;
   z-index: 500;
-  font-size: 16px;
+  font-size: 18px;
 }
 #close-sym{
   text-align: right;
-  font-size: 28px;
+  font-size: 48px;
+  font-weight:light;
 }
 
 #menu-button{
@@ -181,9 +159,9 @@ h2{ font-size: 20px; font-weight: normal;}
 }
 
 #menu-button .menu-line{
-  height: 8px; width: 80%;
+  height: 10px; width: 90%;
   background-color: $prime-color;
-  border-radius: 2px; margin: 2px;
+  border-radius: 2px; margin: 3px;
 }
 
 #menu .wrapper .text{
@@ -219,8 +197,7 @@ h2{ font-size: 20px; font-weight: normal;}
 
 #search-bar{ margin-top: 0px; margin-bottom: 10px; }
 
-//#top .inner, #overlay-inner, #search-bar-inner, #container, #top-inner, #footer-inner{
-#container, #menu-wrapper, #footer-inner, #tag-wrapper{
+#container{
   margin: 0px auto;
   max-width: 1400px;
   background-color: transparent;
@@ -451,7 +428,7 @@ a .link, .link a, .more a{
 
 /* Custom menu icons are not used, just the text in the wrapper */
 
-.wrapper .text{border-bottom:4px solid transparent;}
+.wrapper .text{border-bottom:2px solid transparent;}
 #selected.wrapper .text{border-color: $secondary-color;}
 #menu:hover .wrapper .text{border-color: transparent;}
 #menu .wrapper:hover .text{border-color: $prime-color !important;}

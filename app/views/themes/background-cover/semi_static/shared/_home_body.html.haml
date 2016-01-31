@@ -1,0 +1,22 @@
+= render 'semi_static/shared/menu'
+#top
+  #top-wrapper
+    #menu-button{:onclick => 'semiStaticSlideOpenMenu()'}
+      = t('Menu')
+      .menu-line
+      .menu-line
+      .menu-line
+    #logo-wrapper
+      #logo
+    = yield :pre_overlay
+= yield :banner
+- if lookup_context.exists?('semi_static/shared/_home_theme_banner')
+  = render 'semi_static/shared/home_theme_banner'
+= yield :pre_content
+#frame
+  #container
+    #dialog{:style => 'display: none;'}
+    #content
+      =yield
+  = yield :post_content
+
