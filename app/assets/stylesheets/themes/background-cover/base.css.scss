@@ -45,45 +45,10 @@ h2{ font-size: 20px; font-weight: normal;}
   width: 100%;
   top: 0px;
 }
-#top ul{
-  margin: 0; padding: 0;
-}
 
-#bar{
-  background-color: rgba(0,0,0,0.5);
-  -webkit-border-radius: 0 0 4px 4px;
-  border-radius: 0 0 4px 4px;
+#logo-wrapper a{
+  color:transparent;
 }
-
-#bar-menu{
-  z-index: 1000;
-  padding-bottom: 2px;
-  position: relative;
-  right: 0px;
-  height: 30px;
-  float: right;
-  margin-right: 12px;
-  font-size: 14px;
-}
-
-#bar-menu ul{
-  list-style: outside none none; 
-  font-size: 16px;
-  line-height: 22px;
-  margin: 0px 12px 0px 14px;
-}
-
-#bar-menu li{
-  float: right;
-  text-transform: uppercase;
-}
-
-#bar-menu li a{
-  display: block;
-  padding: 5px 0px 0 34px;
-  color: white;
-}
-
 #logo-wrapper {
   width: $logo-width;
   z-index: 2000;
@@ -91,12 +56,12 @@ h2{ font-size: 20px; font-weight: normal;}
 }
 
 #menu-wrapper{
-  padding-top:76px;
   border-top: 1ps solid $prime-color;
   background-color:#333;
   color: white;
   box-shadow: 0 0 5px rgba(34, 34, 34, 0.8) inset;
   width:400px;
+  max-width:100%;
   position: absolute;
   z-index: 1000;
   right: -400px;
@@ -120,11 +85,12 @@ h2{ font-size: 20px; font-weight: normal;}
 #menu-main .col{margin-left: 12px; width: auto;}
 
 #menu{
-  z-index: 500;
+  z-index: 1000;
   margin: 0 auto; font-size: 30px;
   text-shadow: 0 0 2px #000;
   font-weight: bold;
   right: 2%;
+  margin-top:74px;
   // text-transform: uppercase;
 }
 
@@ -188,6 +154,24 @@ h2{ font-size: 20px; font-weight: normal;}
   text-shadow: 0 0 2ps $prime-color;
 }
 
+#bar-menu{
+  position:absolute;
+  z-index: 1000;
+  bottom:0px;
+  width: 100%;
+  margin: 0;
+  padding: 0 0 12px;
+  border-top: 1px solid $prime-color;
+}
+
+#bar-menu ul{margin:0;}
+
+#bar-menu li{
+  float:right;
+  font-size: 14px;
+  list-style: outside none none;
+}
+
 .locale img{
   margin-top: -6px;
 }
@@ -232,7 +216,6 @@ h2{ font-size: 20px; font-weight: normal;}
   overflow: visible;
   margin: 0 auto 24px;
   width: 80%;
-  background-color: rgba(255,255,255,0.8);
 }
 #container:after{ content: ''; display: table; clear: both; }
 
@@ -484,52 +467,8 @@ a .link, .link a, .more a{
 }
 
 @media only screen and (max-width: 820px) {
-  // Change menu to hidden pop-up on click and fixed position
-  #bar-menu, #menu{display: none;}
-  #menu{
-    padding-top: 8px; padding-bottom: 12px;
-    width: 100%;
-    position: fixed; top: 0px;
-    background-image: none;
-    font-size: 26px;
-  }
-  #menu-wrapper{z-index: 0;}
-  #menu .col{ width: 100%; margin: 0;}
-  #menu-loading-wrapper{display: block;}
-  #menu a{float: none; text-align: right; padding: 4px 14px; margin-left: 6px;}
-  #menu-main .wrapper:nth-child(2n){background-color: #f0f0f0;}
-  #menu-main{
-    margin-top: 50px; background-color: $prime-color;
-    box-shadow: 0 0 7px #7c7c7c;
-  }
-  #menu .wrapper{background-color: white;}
-  #menu .wrapper .text{height: auto; border-bottom: 1px solid #e0e0e0;}
-
-  #bar-menu{
-    position: fixed;
-    top: 76px;
-    margin-right: 0px;
-    width: 100%;
-    padding: 8px 0;
-    z-index: 1000;
-  }
-  #bar-inner{
-    position: relative;
-    z-index: 1000;
-  }
-
-  // Need to radically change the hover icons now menu has collapsed
-  .icon .custom{
-    border: none;
-  }
-  .wrapper:not(#selected) .icon.sprite{background-image: none;}
-  #menu-main #selected{background-color: #f0f0f0;}
-
   /* No Firefox support for background-position-x, but applies only usually to mobile any */
   #selected.wrapper .icon.sprite{background-position-x: left;}
-
-  #top{position: fixed; width: 100%;}
-  #menu-button{display: block; width: 50px;}
 }
 
 /* Mobile portrait layout at less than 580px */
@@ -552,3 +491,4 @@ a .link, .link a, .more a{
   .entry .span_1_of_2 { width: 100%; }
   .entry .col .img{margin: 0 auto; text-align:center;}
 }
+

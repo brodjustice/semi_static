@@ -1,0 +1,21 @@
+= render 'semi_static/shared/menu'
+#top
+  #top-wrapper
+    #menu-button{:onclick => 'semiStaticSlideOpenMenu()'}
+      = t('Menu')
+      .menu-line
+      .menu-line
+      .menu-line
+    #logo-wrapper
+      = link_to semi_static.home_path do
+        #logo
+        = SemiStatic::Engine.config.site_name
+    = yield :pre_overlay
+= yield :pre_content
+#frame
+  #container
+    #dialog{:style => 'display: none;'}
+    #content
+      =yield
+  = yield :post_content
+

@@ -22,4 +22,5 @@
                   .custom
             - if SemiStatic::Engine.config.has?('hover_menu') && lookup_context.exists?('semi_static/shared/_hover_menu')
               = render :partial => 'semi_static/shared/hover_menu', :locals => {:mt => mt}
-
+    = render :partial => 'semi_static/shared/bar'
+      
