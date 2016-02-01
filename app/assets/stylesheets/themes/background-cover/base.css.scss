@@ -86,8 +86,7 @@ h2{ font-size: 20px; font-weight: normal;}
 
 #menu{
   z-index: 1000;
-  margin: 0 auto; font-size: 30px;
-  text-shadow: 0 0 2px #000;
+  margin: 0 auto; font-size: 22px;
   font-weight: bold;
   right: 2%;
   margin-top:74px;
@@ -95,16 +94,28 @@ h2{ font-size: 20px; font-weight: normal;}
 }
 
 #menu a{
-  color: $prime-color; font-weight: normal;
   margin: auto 12px;
   line-height: 30px;
-  padding: 4px;
+  padding: 0px 8px 4px;
+  color:$prime-color;
+}
+#menu a.text{
+  margin-top: 18px;
+  font-weight: bold;
+  border-bottom:1px solid $prime-color;
 }
 
 #menu .col{
   text-align:right;
 }
 
+
+#menu .sub-menu a{
+  display:block;
+  font-weight: normal;
+  font-size:20px;
+  text-align:right;
+}
 #menu-button, #menu-close{
   text-align:center;
   color: $prime-color; font-weight: normal;
@@ -140,6 +151,7 @@ h2{ font-size: 20px; font-weight: normal;}
 #menu .wrapper .text{
   display: block;
   overflow: hidden;
+  margin-bottom: 12px;
 }
 
 #menu .wrapper .icon {
@@ -150,8 +162,8 @@ h2{ font-size: 20px; font-weight: normal;}
     z-index: -1;
 }
 
-#menu .wrapper a:hover{
-  text-shadow: 0 0 2ps $prime-color;
+#menu .wrapper:hover a.text::before, #menu .sub-menu a:hover::before{
+  content: '» ';
 }
 
 #bar-menu{
@@ -420,8 +432,8 @@ a .link, .link a, .more a{
 
 .wrapper .text{border-bottom:2px solid transparent;}
 #selected.wrapper .text{border-color: $secondary-color;}
-#menu:hover .wrapper .text{border-color: transparent;}
-#menu .wrapper:hover .text{border-color: $prime-color !important;}
+// #menu:hover .wrapper .text{border-color: transparent;}
+// #menu .wrapper:hover .text{border-color: $prime-color !important;}
 
 /* End custom menu icons */
 
