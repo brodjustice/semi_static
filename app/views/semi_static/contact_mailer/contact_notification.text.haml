@@ -1,16 +1,16 @@
 = 'Website request for ' + SemiStatic::Engine.config.site_name
 
-= h 'Name: ' + @contact.name
+= h 'Name: ' + @contact.name.to_s
 
-= h 'Surname: ' + @contact.surname
+= h 'Surname: ' + @contact.surname.to_s
 
-= h 'Email: ' +  @contact.email
+= h 'Email: ' +  @contact.email.to_s
 
-= h 'Telephone: ' + @contact.telephone
+= h 'Telephone: ' + @contact.telephone.to_s
 
 = '-------------------- Message -------------------'
 
-= h @contact.message
+= h @contact.message.to_s
 
 = '------------------ Message end -----------------'
 
@@ -19,7 +19,7 @@ The contact ticked the following agreements:
 = ''  
 
 - @contact.agreements.each do |a|
-  = '-  ' + a.body  
+  = '-  ' + a.body.to_s  
 
   = ''  
 
