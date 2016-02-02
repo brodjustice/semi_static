@@ -95,7 +95,9 @@
       $('#entry_entry_position').change(function() { check_entry_partial(); });
       $("#entry_img").on('change', semiStaticPrepareUploadFromInput);
       check_image_controls();
-
+      if(($('#entry_simple_text').val() == 'false') && ($('#entry_raw_html').prop('checked') != true)){
+        enable_editor();
+      };
       $('#semi_static_image_for_upload').on('load', function () {
         check_image_controls();
       });
