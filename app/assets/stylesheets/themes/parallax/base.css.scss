@@ -99,10 +99,6 @@ a { text-decoration: none; color: #282828; }
   text-align: center;
 }
 
-#menu-close{
-  line-height: 1.9;
-}
-
 #menu-button{
   // Create bigger click area
   padding-bottom: 34px;
@@ -665,6 +661,7 @@ input[type=submit], .mid input, .mid textarea, .form-wrapper input[type=text], .
     text-align: center;
   }
   #close-sym{font-size: 50px; margin-top: -30px; font-weight: bold;}
+  #menu-close{top:34px;}
   #menu a{color: #171717;}
   #menu .col{ width: 100%; padding-right: 0px;}
   #menu .col .wrapper{padding-right: 0px;}
@@ -672,9 +669,8 @@ input[type=submit], .mid input, .mid textarea, .form-wrapper input[type=text], .
   #menu-wrapper{z-index: 2020;}
   // #menu-filler{display: none;}
   #menu-main .col.span_1_of_5{width: 100% !important;}
+  #menu-main{background-color:white;}
   #bar-menu{margin-right: 0px; float: none; display: none;}
-  #logo-wrapper{top: 0px; left: 0px;}
-
 
   // Need to radically change the hover icons now menu has collapsed
   .icon .custom{
