@@ -1,11 +1,26 @@
+function semiStaticSlideOpenMenu(){
+  var menuWrapper = document.getElementById('menu-wrapper');
+  menuWrapper.style.right='0px';
+  document.getElementById('top-wrapper').style.height = '100%';
+  document.getElementById('top-wrapper').style.backgroundColor = 'transparent';
+}
+function semiStaticSlideCloseMenu(){
+  var menuWrapper = document.getElementById('menu-wrapper');
+  menuWrapper.style.right='-400px';
+  document.getElementById('top-wrapper').style.height = 'auto';
+  document.getElementById('top-wrapper').style.backgroundColor = topWrapperBgC;
+}
+
 var menuHeight;
 var ssSkrollr;
+var topWrapperBgC;
 
 function housekeeping(){
   if(!(/Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/i).test(navigator.userAgent || navigator.vendor || window.opera)){
     ssSkrollr = skrollr.init({smoothScrolling:false, forceHeight:false, skrollrBody:'body-inner'});
   }
-  menuHeight = document.getElementById('menu').offsetHeight;
+  menuHeight = document.getElementById('top-wrapper').offsetHeight;
+  topWrapperBgC = document.getElementById('top-wrapper').style.backgroundColor;
 }
 
 window.onload = housekeeping;
@@ -1796,6 +1811,7 @@ window.onload = housekeeping;
 function semiStaticScrollTo(id) {
   var el = document.getElementById(id);
 
+  semiStaticSlideCloseMenu();
   if(el != null){
     // window.scrollTo(0,(el.getBoundingClientRect().top - menuHeight + document.documentElement.scrollTop));
     ssSkrollr.animateTo(el.getBoundingClientRect().top - menuHeight + document.documentElement.scrollTop);

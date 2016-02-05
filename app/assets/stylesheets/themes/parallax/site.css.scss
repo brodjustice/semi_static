@@ -1,6 +1,6 @@
 #container:after{ content: ''; display: table; clear: both; }
 
-#top{position: fixed; z-index: 10; top: 0;}
+#top{position: fixed; background-color:white;z-index:100;top: 0;}
 
 #frame{
   margin-top: 77px;
@@ -14,10 +14,7 @@
   clear:both;
 }
 
-#overlay{
-  position: relative;
-  z-index: 1;
-}
+// #overlay{ position: relative; z-index: 1; }
 
 .floater .img{
   text-align: center;
@@ -128,7 +125,7 @@ h2 .label-highlight, .fragment .label-highlight{
   margin-top: 16px;
 }
 
-.bar_menu{display: none; float: right; width: 60%;}
+// .bar_menu{display: none; float: right; width: 60%;}
 
 .spaced {
     margin: 0 auto;
