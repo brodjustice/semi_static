@@ -1814,7 +1814,10 @@ function semiStaticScrollTo(id) {
   semiStaticSlideCloseMenu();
   if(el != null){
     // window.scrollTo(0,(el.getBoundingClientRect().top - menuHeight + document.documentElement.scrollTop));
-    ssSkrollr.animateTo(el.getBoundingClientRect().top - menuHeight + document.documentElement.scrollTop);
+    // ssSkrollr.animateTo(el.getBoundingClientRect().top - menuHeight + document.documentElement.scrollTop);
+
+    var offset = ssSkrollr.relativeToAbsolute(el, 'top', 'top');
+    ssSkrollr.animateTo(offset);
     return(false);
   }
 }
