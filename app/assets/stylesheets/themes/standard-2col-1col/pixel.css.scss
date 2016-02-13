@@ -1,6 +1,6 @@
 /* High res 'retina' screens */
 @media (device-pixel-ratio: 2), (-moz-device-pixel-ratio: 2), (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .news .more a, .more a, #top .icon a, #instagram, #twitter, #facebook, #youtube, #xing{ background-size: 28px $vert-sprites-height; background-image: url(#{$vert-x2-sprites});}
+  .button-wrapper a[class*='-share'], .news .more a, .more a, #top .icon a{ background-size: 28px $vert-sprites-height; background-image: url(#{$vert-x2-sprites});}
   .link a, .more a, .feint .more a, .flat .more a, .news .more a{
     background-image: url(#{$vert-x2-sprites});
     background-size: 28px $vert-sprites-height;

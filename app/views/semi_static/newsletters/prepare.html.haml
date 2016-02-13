@@ -1,12 +1,36 @@
+- content_for :header_css do
+  :plain
+    .category{float:right; margin:6px 6px 6px 24px;}
 - content_for :ujs do
   :javascript
+    function count_selected(){
+      $('#selected').text($('input[type="checkbox"].subscribe_state:checked').length);
+    }
     $(document).ready(function() {
+      $('.subscribe_state').change(function() {
+        count_selected();
+        return true;
+      });
       $('#all_subscribers').change(function() {
         if ($(this).prop('checked')) {
+          $('#categories input').prop('checked', true);
           $('.subscribe_state').prop('checked', true);
         } else {
+          $('#categories input').prop('checked', false);
           $('.subscribe_state').prop('checked', false);
         }
+        count_selected();
+      });
+      count_selected();
+      $('#categories input').each(function() {
+        $(this).change(function() {
+          if ($(this).prop('checked')) {
+            $('.' + $(this).prop('name').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'') + ' input').prop('checked', true);
+          } else {
+            $('.' + $(this).prop('name').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'') + ' input').prop('checked', false);
+          }
+          count_selected();
+        });
       });
     });
 
@@ -15,6 +39,15 @@
     = link_to 'New Subscriber', new_subscriber_path
 
   %h1= "Subscriber list (locale: #{@newsletter.locale.to_s})"
+  %h3
+    = "#{@subscribers.size.to_s} entries /"
+    %span#selected= '<unknown>'
+    = "selected"
+  #categories
+    - SemiStatic::SubscriberCategory.all.each do |c|
+      .category
+        = c.name
+        = check_box_tag c.name, nil, true
   %h4 Uncheck subscribers to remove them from the newsletter distribution
   = form_for @newsletter do |f|
     %table
@@ -25,16 +58,18 @@
           %th Surname
           %th Email
           %th Since
+          %th Category
           %th State
       %tbody
         - @subscribers.each do |s|
-          %tr
+          %tr{:class => "#{s.category_name && s.category_name.parameterize}"}
             %td.tick{:id => "subscriber_id_#{s.id}"}
               = check_box_tag "subscriber[#{s.id}]", 1, s.delivery_state(@newsletter) != SemiStatic::NewsletterDelivery::STATES[:sent], :class => 'subscribe_state'
             %td.name= s.name
             %td.name= s.surname
             %td.name= s.email
             %td.name= s.created_at.strftime('%d-%b-%y')
+            %td.name= s.category_name
             %td.name= SemiStatic::NewsletterDelivery::STATE_CODES[s.delivery_state(@newsletter)].to_s.humanize
     .mid
       .actions

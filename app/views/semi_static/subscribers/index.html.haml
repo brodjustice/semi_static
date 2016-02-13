@@ -1,4 +1,6 @@
 .button
+  = link_to 'New Category', new_subscriber_category_path, :remote => true
+.button
   = link_to 'New Subscriber', new_subscriber_path
 .button
   = link_to 'Upload CSV', new_subscriber_path(:cmd => :csv), :remote => true
@@ -12,7 +14,7 @@
     %th Surname
     %th Email
     %th Telephone
-    %th Cancel token
+    %th Category
     %th Locale
     %th
     %th
@@ -24,7 +26,7 @@
       %td= subscriber.surname
       %td= subscriber.email
       %td= subscriber.telephone
-      %td= subscriber.cancel_token
+      %td= subscriber.category_name
       %td= subscriber.locale
       %td= link_to 'Show', subscriber
       %td= link_to 'Edit', edit_subscriber_path(subscriber)

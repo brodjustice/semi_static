@@ -1,8 +1,9 @@
 module SemiStatic
   class Subscriber < ActiveRecord::Base
-    attr_accessible :cancel_token, :email, :name, :surname, :telephone, :locale, :company, :position, :country
+    attr_accessible :cancel_token, :email, :name, :surname, :telephone, :locale, :company, :position, :country, :subscriber_category_id
     attr_accessor :state
 
+    belongs_to :category, :class_name => SubscriberCategory, :foreign_key => :subscriber_category_id
     has_many :newsletter_deliveries, :dependent => :destroy
 
     before_create :generate_token
@@ -11,6 +12,8 @@ module SemiStatic
     validates_uniqueness_of :email
     validates_format_of :email, :with => Devise.email_regexp
     validates_presence_of :email
+
+    delegate :name, :to => :category, :allow_nil => true, :prefix => true
     
     def fullname
       (name == surname) ? name : [name, surname].join(' ')

@@ -1,0 +1,9 @@
+.button= link_to_function 'Cancel', "$('#dialog').hide();"
+%h2= 'New Subscriber Category'
+= form_for @subscriber_category do |f|
+  .field
+    = f.text_field :name
+    = f.label :name
+  .actions
+    = f.submit 'Create category'
+

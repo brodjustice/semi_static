@@ -12,6 +12,9 @@
   The fields must be seperated with commas.
 = form_tag(subscribers_path(:cmd => :csv), multipart: true, method: :post) do
   .field
+    = label_tag :subscriber_category_id
+    = select_tag :subscriber_category_id, options_for_select(SemiStatic::SubscriberCategory.all.collect{|sc| [sc.name, sc.id]})
+  .field
     = label_tag :locale
     = select_tag :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, SemiStatic::Engine.config.default_locale)
   .field

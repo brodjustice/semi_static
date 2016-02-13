@@ -21,6 +21,8 @@ module SemiStatic
           attributes.each{|k,v| attributes.delete(k) if read_attribute(k).blank?}
           s.update_attributes(:name => s.name, :surname => s.surname, :telephone  => s.telephone, :locale => s.locale)
         end
+        s.category = SemiStatic::SubscriberCategory.find_by_name('website')
+        s.save
       end
     end
 

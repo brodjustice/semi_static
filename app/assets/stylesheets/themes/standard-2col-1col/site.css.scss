@@ -12,15 +12,20 @@
   top: -330px;
 }
 
-a.fb-share{
-  float: right; padding: 1px 2px 1px 28px;
-  background: transparent url(/assets/vert-sprites.png) 0px -59px no-repeat;
+.entry .social a[class*="-share"]{
+  font-weight:100;
+}
+a[class*="-share"]{
+  float: right; padding: 1px 2px 1px 32px;
+  background: transparent url(#{$vert-sprites}) 0px 0px no-repeat;
   width: auto;
-  font-weight: lighter !important; 
+  line-height: 30px;
+  color: #a0a0a0;
+  margin-right: 16px;
 }
-.fb-share:after{
-  margin-bottom: 4px;
-}
+a.li-share{ background-position: 0 -96px; }
+a.xi-share{ background-position: 0 -160px; }
+a.tw-share{ background-position: 0 -64px; }
 
 h1 a{ color: $prime-color;}
 .doc{
