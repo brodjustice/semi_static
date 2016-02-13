@@ -533,7 +533,7 @@
                             <td align="center" valign="top" width="640" class="flexibleContainerCell">
                               <table border="0" cellpadding="0" cellspacing="3" width="100%">
                                 <tr>
-                                  <% SemiStatic::Tag.menu.locale(I18n.locale.to_s)[5..0].each do |t| %>
+                                  <% SemiStatic::Tag.menu.locale(I18n.locale.to_s)[0..5].reverse.each do |t| %>
                                   <td bgcolor="#E1E1E1" cellspacing="2" align="center" valign="bottom" style="font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#828282;text-align:center;line-height:120%;"><a target="_blank" href="<%= "http://#{@site_url}#{menu_from_tag(t)}" %>" style="color:#868474; text-decoration:none;"><%= t.name %></a></td>
                                   <% end %>
                                   <td bgcolor="#E1E1E1" cellspacing="2" align="center" valign="bottom" style="font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#828282;text-align:center;line-height:120%;"><a target="_blank" href="<%= new_contact_url %>" style="color:#868474; text-decoration:none;">Contact</a></td>
