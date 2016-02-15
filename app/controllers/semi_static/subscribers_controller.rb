@@ -69,7 +69,7 @@ module SemiStatic
     def create
       if params[:cmd] == 'csv'
         @errors = []
-        CSV.read(params[:csv].path).each{|row|
+        CSV.read(params[:csv].path, :encoding => 'bom|utf-8').each{|row|
           @subscriber = Subscriber.create(:name => row[0], :surname => row[1], :email => row[2], :telephone => row[3],
             :locale => params[:locale], :subscriber_category_id => params[:subscriber_category_id])
           unless @subscriber.errors.empty?
