@@ -22,6 +22,9 @@
   = "\r\n"
   - unless SemiStatic::Newsletter::ENTRY_LAYOUT_CODES[@newsletter.draft_entry_ids[e.id][:layout]].to_s.include?('no_link')
     = entry_path(e, :only_path => false)
+
+  - if e.alt_title.present? && e.alt_title.start_with?("http")
+    = e.alt_title
     
   = @newsletter.name.gsub(/./, '-')
   = "\r\n"
