@@ -51,7 +51,11 @@ module SemiStatic
 
     def self.generate_sitemap(*args)
       l = args.last
-      pages = ['/site/imprint-credits', '/contacts/new']
+      pages = ['/site/imprint-credits']
+      # Add contact page if it's not already predefined
+      if Tag.predefined(l, 'Contact').empty?
+        pages << '/contacts/new'
+      end
       pages.concat(Tag.locale(l).select{|i| i.sitemappable && !i.subscriber })
       pages.concat(Entry.unmerged.locale(l).select{|i| i.sitemappable && !i.subscriber_content })
       pages.concat(Photo.locale(l).select{|i| i.sitemappable })
