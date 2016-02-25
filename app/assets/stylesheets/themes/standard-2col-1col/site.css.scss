@@ -1,9 +1,12 @@
 #menu-wrapper{
   top: 16px;
 }
-#banner_marker{
-  height: 300px;
+#banner_marker{ height: 300px; }
+
+@media only screen and (max-width: 820px) {
+  #banner_marker{ height: auto; }
 }
+
 #banner-wrapper{
   height: 300px;
 }
