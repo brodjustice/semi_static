@@ -59,18 +59,6 @@
 figure{text-align: center;}
 figure img{width: 100%;}
 
-.product table td{
-  border: 1px solid white
-}
-.product .row{
-  background-color: #f0f0f0;
-  margin: 0px 1px;
-  padding: 1px 4px;
-}
-
-.product .row:last-child{
-  margin-bottom: 10px;
-}
 .entry .caption{
   max-width: 324px;
   margin: 0 auto;
@@ -110,9 +98,6 @@ h4{ font-weight: normal; color: black; margin-top: 6px; margin-bottom: 12px;}
   text-align: center;
   height: 20px;
 }
-
-// Not clear why this is needed, removed for now
-// .yt_video{ margin-top: 6px;  }
 
 .yt_video iframe{
   width: 100% !important; border: 0;

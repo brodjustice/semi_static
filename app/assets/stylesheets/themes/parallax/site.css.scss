@@ -6,13 +6,21 @@
   margin-top: 77px;
 }
 
-#content{
-  width: 100%;
-}
+#content{ width: 100%; }
 
-#content:after{
-  clear:both;
+#content:after{ clear:both; }
+
+a[class*="-share"]{
+  float: right; padding: 1px 2px 1px 32px;
+  background: transparent url(#{$vert-sprites}) 0px 0px no-repeat;
+  width: auto;
+  line-height: 30px;
+  color: #a0a0a0;
+  margin-right: 16px;
 }
+a.li-share{ background-position: 0 -96px; }
+a.xi-share{ background-position: 0 -160px; }
+a.tw-share{ background-position: 0 -64px; }
 
 // #overlay{ position: relative; z-index: 1; }
 

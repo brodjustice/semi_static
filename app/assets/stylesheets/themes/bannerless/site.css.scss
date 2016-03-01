@@ -140,6 +140,18 @@ th{ text-align: left; }
   font-size: 12px;
   float: right;
 }
+.product table td{
+  border: 1px solid white
+}
+.product .row{
+  background-color: #f0f0f0;
+  margin: 0px 1px;
+  padding: 1px 4px;
+}
+
+.product .row:last-child{
+  margin-bottom: 10px;
+}
 
 .fragment td{
   border-bottom: 1px solid $prime-color;
