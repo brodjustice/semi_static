@@ -6,7 +6,7 @@
   = link_to 'Upload CSV', new_subscriber_path(:cmd => :csv), :remote => true
 %h1=  "Listing #{@subscribers.count} subscribers"
 
-= render :partial => 'semi_static/subscribers/csv_errors' if @errors && !@errors.empty?
+= render :partial => 'semi_static/subscribers/csv_errors' if @added_count || (@errors && !@errors.empty?)
 
 %table
   %tr

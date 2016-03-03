@@ -69,14 +69,26 @@ module SemiStatic
     def create
       if params[:cmd] == 'csv'
         @errors = []
-        CSV.read(params[:csv].path, :encoding => 'bom|utf-8').each{|row|
-          @subscriber = Subscriber.create(:name => row[0], :surname => row[1], :email => row[2], :telephone => row[3],
-            :locale => params[:locale], :subscriber_category_id => params[:subscriber_category_id])
-          unless @subscriber.errors.empty?
-            @errors << {:error => @subscriber.errors, :name => row[0], :surname => row[1], :email => row[2], :telephone => row[3]}
-          end
-        }
-        notice = 'Subscribers CSV imported with ' + @errors.size.to_s + ' errors'
+        r = 1
+        @added_count = 0
+        begin
+          CSV.read(params[:csv].path, :encoding => 'bom|utf-8').each{|row|
+            @subscriber = Subscriber.create(:name => row[0], :surname => row[1], :email => row[2], :telephone => row[3],
+              :locale => params[:locale], :subscriber_category_id => params[:subscriber_category_id])
+            unless @subscriber.errors.empty?
+              @errors << {:error => @subscriber.errors, :name => row[0], :surname => row[1], :email => row[2], :telephone => row[3]}
+            else
+              @added_count += 1
+            end
+            r = row
+          }
+          notice = 'Subscribers CSV imported with ' + @errors.size.to_s + ' errors'
+        rescue ArgumentError
+          @subscriber = Subscriber.new
+          @subscriber.errors[:base] << 'File is not UTF-8 codeing, please convert to UTF-8 encoding'
+          @errors << {:error => @subscriber.errors, :name => "row #{r}", :surname => 'unreadable', :email => 'unreadable', :telephone => 'unreadable'}
+          notice = 'Subscribers CSV import FAILED with ' + @errors.size.to_s + ' errors'
+        end
       else
         @subscriber = Subscriber.create(params[:subscriber])
         notice = 'Subscriber was successfully created.'
@@ -134,6 +146,18 @@ module SemiStatic
         format.html { redirect_to subscribers_url }
         format.json { head :no_content }
       end
+    end
+
+    private
+
+    def validate_encodeing(csv_path, errors)
+      row = 0
+      begin
+        CSV.read(csv_path, :encoding => 'bom|utf-8').each{|r| row = r}
+      rescue ArgumentError
+        @errors << {:error => 'File is not UTF-8 codeing, please convert to UTF-8 encoding', :name => "row #{row}", :surname => 'unreadable', :email => 'unreadable', :telephone => 'unreadable'}
+      end
+      errors.empty?
     end
   end
 end
