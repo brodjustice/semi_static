@@ -14,7 +14,7 @@
           - @tag.entries.unmerged.each do |e|
             = render :partial => 'semi_static/tags/side_bar_entry', :locals => {:e => e}
   -if  obj.present? && obj.sidebar.present?
-    - unless obj.sidebar.partial.blank?
+    - unless obj.sidebar.partial.blank? || obj.sidebar.partial == 'none'
       = render :partial => SemiStatic::Engine.config.open_partials[obj.sidebar.partial]
     - else
       .sidebar{:style => sidebar_style(obj.sidebar), :class => obj.sidebar.style_class }
