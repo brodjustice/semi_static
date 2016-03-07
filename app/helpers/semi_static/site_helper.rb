@@ -28,6 +28,7 @@ module SemiStatic
         if options[:host]
           u = "http://#{options[:host]}#{u}"
         end
+        u
       else
         SemiStatic::Engine.routes.url_helpers.entry_path(e, options)
       end
