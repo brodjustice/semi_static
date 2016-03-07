@@ -167,6 +167,26 @@
         = f.label :colour, 'CSS colors: black, yellow, #5f78c0, etc'
         = f.text_field :colour
 
+  %h2 Advanced Settings
+  %fieldset
+    .infobox.wide#context_url_info
+      %h3 Generate context URL's
+      %p
+        Normally entries inside a tag have a url of this form
+      %pre
+        http://mydomain.com/entries/56-discounts-for-volume-users
+      %p
+        But if context_urls are set for the tag them the tag name will be used in the URL. So that if the tag is called 'pricing', then the URL will now have this form:
+      %pre
+        http://mydomain.com/pricing/56-discounts-for-volume-users
+      %p
+        IMPORTANT #1: Context urls are only generated after the website application restart.
+      %p
+        IMPORTANT #2: If you use context URL's, then you need to make sure that the URLS do not clash, eg. if your tag is called 'Site' and you enable context urls then the generated URL 'http://mydomain.com/site/56-discounts-for-volume-users' my clash with the main application
+    
+    %span.infomarker
+    = f.label :context_url
+    = f.check_box :context_url
   %fieldset
     .section.group
       .col.span_1_of_1

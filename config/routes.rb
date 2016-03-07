@@ -4,11 +4,16 @@ SemiStatic::Engine.routes.draw do
     get code, :to => "errors#show", :code => code
   end
 
+  SemiStatic::Tag.with_context_urls.collect{|t| t.name}.each do |tn|
+      # Create routes for tag that create their own URL
+      match "/#{tn.parameterize}/:id" => 'entries#show', :via => :get
+  end
+
   resources :fcols do
     resources :links
   end
 
-  resources :entries do
+  resources :entries, :no_context => true do
     collection { get :search }
     resources :click_ads, :only => [:new, :create, :update]
     resources :seos, :only => [:new, :create, :update, :destroy]

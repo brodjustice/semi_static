@@ -19,10 +19,15 @@ module SemiStatic
     }
 
     # For GET you should call this rather than entry_path so that entries
-    # acting as tags can be intercepted
+    # acting as tags and context urls can be intercepted
     def entry_link(e, options = {})
       if e.acts_as_tag_id
         SemiStatic::Engine.routes.url_helpers.feature_path(e.acts_as_tag.slug, options)
+      elsif e.tag.context_url
+        u = "/#{e.tag.name.parameterize}/#{e.to_param}"
+        if options[:host]
+          u = "http://#{options[:host]}#{u}"
+        end
       else
         SemiStatic::Engine.routes.url_helpers.entry_path(e, options)
       end
@@ -94,6 +99,8 @@ module SemiStatic
           # as it would not use the correct locale to get the 'tag_paths[l]', so we have to build the url manually:
           "http://#{host}/#{SemiStatic::Engine.config.tag_paths[l]}/#{p.slug}"
         end
+      elsif p.kind_of?(Entry)
+        entry_link(p, :host => host)
       elsif p.kind_of?(String)
         SemiStatic::Engine.config.localeDomains[l] + p
       else

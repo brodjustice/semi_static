@@ -73,10 +73,16 @@
       if @entry.enable_comments
         @comment = @entry.comments.new
       end
-  
+
       respond_to do |format|
         format.text { render :partial => 'semi_static/entries/entry' }
-        format.html { render :layout => 'semi_static_application' }
+        format.html {
+          if @entry.tag.context_url && params[:no_context]
+            redirect_to "/#{@entry.tag.name.parameterize}/#{params[:id]}"
+          else
+            render :layout => 'semi_static_application'
+          end
+        }
         format.js { render :template => template }
         format.json { render :json => @entry }
       end
@@ -205,7 +211,7 @@
 
     def cachable_content?
       # !lambda{ |controller| controller.request.format.js? } && !@entry.subscriber_content
-      !request.format.js? && !@entry.subscriber_content
+      !request.format.js? && !@entry.subscriber_content && !@entry.tag.context_url
     end
 
     def authenticate_semi_static_subscriber!

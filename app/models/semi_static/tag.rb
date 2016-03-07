@@ -8,7 +8,7 @@ module SemiStatic
     attr_accessible :predefined_class, :colour, :icon_resize, :locale, :max_entries_on_index_page
     attr_accessible :banner_id, :partial, :entry_position, :tag_line, :subscriber, :sidebar_id
     attr_accessible :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_tag_id, :layout_select
-    attr_accessible :target_tag_id, :target_name
+    attr_accessible :target_tag_id, :target_name, :context_url
     attr_accessor :icon_delete
   
     has_one :seo, :as => :seoable
@@ -45,6 +45,16 @@ module SemiStatic
     def title; name end
     def raw_title; name end
     def tag; self end
+
+    # This is just a scope, but if we define it as a scope it will break the migration since
+    # it is called from config/routes.rb before the migration is complete
+    def self.with_context_urls
+      if self.column_names.include?('context_url')
+        self.where('context_url = ?', true)
+      else
+        []
+      end
+    end
 
     def generate_slug
       self.slug = name.parameterize

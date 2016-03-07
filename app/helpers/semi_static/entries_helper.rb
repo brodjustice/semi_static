@@ -20,13 +20,13 @@ module SemiStatic
       if e.link_to_tag && (controller_name != 'tags' || @summaries)
         feature_path(e.tag.slug)
       else
-        entry_path(e)
+        entry_link(e)
       end
     end
 
     def alt_img_as_icon(e, force=false)
       if e.alt_img.present? && (force || !e.news_item)
-        "<a href='#{entry_path(e)}'><img class='alt-img' src='#{e.alt_img.url}' alt='#{e.alt_img_file_name}'/></a>".html_safe
+        "<a href='#{entry_link(e)}'><img class='alt-img' src='#{e.alt_img.url}' alt='#{e.alt_img_file_name}'/></a>".html_safe
       else
         ''
       end
@@ -40,8 +40,8 @@ module SemiStatic
       unless e.title.blank? || e.summary_length.blank?
         # Standard sort of link 
         if linked && !e.link_to_tag
-          content_tag(:h1){ content_tag(:a, e.title, :href => entry_path(e), :style => "color: #{e.header_colour}") } +
-          (e.sub_title.present? ? content_tag(:h2){ content_tag(:a, e.sub_title, :href => entry_path(e), :style => "color: #{e.header_colour}")} : '')
+          content_tag(:h1){ content_tag(:a, e.title, :href => entry_link(e), :style => "color: #{e.header_colour}") } +
+          (e.sub_title.present? ? content_tag(:h2){ content_tag(:a, e.sub_title, :href => entry_link(e), :style => "color: #{e.header_colour}")} : '')
         # Summary that is linked to a tag (TODO: Does this ever happen, seems to now be covered in the tags_controller?)
         elsif linked && @summaries && !e.link_to_tag
           content_tag(:h1){ content_tag(:a, e.title, :href => feature_path(e.tag.slug), :style => "color: #{e.header_colour}") } +
@@ -56,7 +56,7 @@ module SemiStatic
 
     def link_to_next_entry(entry, default_path = nil)
       if entry && (n = entry.next_entry)
-        "<a href='#{entry_path(n)}' class='next-entry'>#{t('Next')}</a>".html_safe
+        "<a href='#{entry_link(n)}' class='next-entry'>#{t('Next')}</a>".html_safe
       elsif default_path
         "<a href='#{default_path}' class='next-entry'>#{t('Next')}</a>".html_safe
       else
@@ -66,7 +66,7 @@ module SemiStatic
 
     def link_to_previous_entry(entry)
       return unless entry && (p = entry.previous_entry)
-      "<a href='#{entry_path(p)}' class='previous-entry'>#{t('Previous')}</a>".html_safe
+      "<a href='#{entry_link(p)}' class='previous-entry'>#{t('Previous')}</a>".html_safe
     end
 
     # Warning. If you remove the single space between <div ...> and <div ...> such that it is <div ...><div ...> you will get a
