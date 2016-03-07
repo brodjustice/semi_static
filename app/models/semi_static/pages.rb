@@ -74,6 +74,10 @@ module SemiStatic
           CACHED.each{|c|
             FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/#{c}").to_s)
           }
+          # Also delete any context URL tags
+          SemiStatic::Tag.with_context_urls.collect{|t| t.name}.each{|tn|
+            FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/#{tn}").to_s)
+          }
           # If there are no config.tag_paths don't do this, as the path will resolve to the
           # top level locales cache directory and it will be removed along with links
           # to your assets and system directories
