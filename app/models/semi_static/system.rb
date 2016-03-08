@@ -68,28 +68,42 @@ module SemiStatic
       generate_sitemap(args.last)
     end
 
-    # Need to have curl and gzip commands installed on system
+    # Need to gzip command installed on system
     def self.load_url(url=nil, locale=nil, *args)
+      s = true
+
+      uri = URI.parse(url)
+      req = Net::HTTP::Get.new(uri.to_s)
+      res = Net::HTTP.start(uri.host, uri.port) {|http|
+        http.request(req)
+      }
+
+      # Could do this with curl like this, but best to use the library
+      #
       # url without type extension is considered html by default but if curl
       # does not have an extension then the webserver may see this as a simple
       # text request. So we have to check the extension and if its blank tell
       # curl to set the 'text/html' header 
-      uri = URI.parse(url)
-      if (html = (uri.path.split('.').count == 1 || uri.path.split('.').last == 'html'))
-        res = `curl -iH "Accept:text/html" #{url} -o '/dev/null' 2>&1`
-      else
-        res = `curl #{url} -o '/dev/null' 2>&1`
-      end
-      s = $?.success?
-      if s && html && !locale.blank?
+      #
+      # if (html = (uri.path.split('.').count == 1 || uri.path.split('.').last == 'html'))
+      #   res = `curl -iH "Accept:text/html" #{url} -o '/dev/null' 2>&1`
+      # else
+      #   res = `curl #{url} -o '/dev/null' 2>&1`
+      # end
+      # s = $?.success?
+
+      if res.code == '200' && html && !locale.blank?
         path = (uri.path == '/') ? '/index' : uri.path
         file = "#{Rails.public_path}/#{locale.to_s}#{path}.html"
         if File.exist? file
-          res = `gzip -c -6 #{file} > #{file}.gz`
+          res = `gzip -c -7 #{file} > #{file}.gz`
         else
-          res = 'Server responded but could not create static gzipped html version'
+          res = 'Server responded 200 OK but could not create static gzipped html version'
           s = false
         end
+      else
+        res = "Server responded #{res.code}"
+        s = false
       end
       [s, url, res]
     end
