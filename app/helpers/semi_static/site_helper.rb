@@ -101,7 +101,7 @@ module SemiStatic
           "http://#{host}/#{SemiStatic::Engine.config.tag_paths[l]}/#{p.slug}"
         end
       elsif p.kind_of?(Entry)
-        entry_link(p, :host => host)
+        entry_link(p, :host => host, :only_path => false)
       elsif p.kind_of?(String)
         SemiStatic::Engine.config.localeDomains[l] + p
       else

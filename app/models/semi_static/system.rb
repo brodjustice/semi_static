@@ -1,3 +1,5 @@
+require 'net/http'
+
 module SemiStatic
   class System
     # This model has no DB table, and in Rails 3 we can pick and choose 
@@ -92,7 +94,7 @@ module SemiStatic
       # end
       # s = $?.success?
 
-      if res.code == '200' && html && !locale.blank?
+      if (res.code == '200') && !locale.blank?
         path = (uri.path == '/') ? '/index' : uri.path
         file = "#{Rails.public_path}/#{locale.to_s}#{path}.html"
         if File.exist? file
