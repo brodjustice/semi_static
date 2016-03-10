@@ -9,7 +9,7 @@
   <script src="//cdn.ckeditor.com/4.5.4/standard/ckeditor.js"></script>
   :javascript
     $(document).ready(function() {
-      CKEDITOR.replace('sidebar_body', {format_tags: 'p;h2;h3;h4;h5;h6;pre;address;div'});
+      CKEDITOR.replace('sidebar_body', {allowedContent: true, format_tags: 'p;h2;h3;h4;h5;h6;pre;address;div'});
       $("#sidebar_bg").on('change', semiStaticPrepareUploadFromInput);
     });
 

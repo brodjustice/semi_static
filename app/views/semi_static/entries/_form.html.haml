@@ -76,7 +76,11 @@
     }
 
     function enable_editor(){
-      CKEDITOR.replace('entry_body', {format_tags: 'p;h2;h3;h4;h5;h6;pre;address;div'});
+      if ($('#entry_raw_html').prop('checked') != true) {
+        CKEDITOR.replace('entry_body', {format_tags: 'p;h2;h3;h4;h5;h6;pre;address;div'});
+      } else {
+        CKEDITOR.replace('entry_body', {allowedContent: true, format_tags: 'p;h2;h3;h4;h5;h6;pre;address;div'});
+      }
       $('#enable_editor').hide();
       $('#convert_and_enable_editor').hide();
       $('#entry_simple_text').val('false');
@@ -84,7 +88,7 @@
     }
 
     $(document).ready(function() {
-      $( "#entry_banner_id" ).change(function() { check_tag_line(); load_banner_preview($('#entry_banner_id').val()); });
+      $('#entry_banner_id').change(function() { check_tag_line(); load_banner_preview($('#entry_banner_id').val()); });
       check_side_bar();
       check_tag_line();
       $('#entry_side_bar').change(function() { check_side_bar(); });
