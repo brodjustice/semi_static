@@ -2,7 +2,7 @@
 %html{ :xmlns => "http://www.w3.org/1999/xhtml", :lang => I18n.locale.to_s, "xml:lang" => I18n.locale.to_s, :prefix => "og: http://ogp.me/ns#"}
   %head
     %title= @title || SemiStatic::Engine.config.site_name
-    %meta{ :"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8" }/
+    %meta{:charset => "utf-8"}/
     - if seo_description
       %meta{ :name => "description", :content => seo_description}/
     %meta{ :name => "description", :content => "#{SemiStatic::Engine.config.site_name}" }/

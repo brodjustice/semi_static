@@ -60,7 +60,7 @@ module SemiStatic
       end
       pages.concat(Tag.locale(l).select{|i| i.sitemappable && !i.subscriber })
       pages.concat(Entry.unmerged.locale(l).select{|i| i.sitemappable && !i.subscriber_content })
-      pages.concat(Photo.locale(l).select{|i| i.sitemappable })
+      pages.concat(Photo.not_invisible.locale(l).select{|i| i.sitemappable })
       pages.concat(Reference.all.select{|i| i.sitemappable })
       pages
     end
