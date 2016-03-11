@@ -483,6 +483,14 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
 .entry p{
   padding-left: 6px; padding-right: 6px;
 }
+
+.entry p a, .entry li a{
+  border-bottom: 0.0625rem solid #dcdcdc; color: $prime-color;
+  text-decoration: none; transition: border-color 0.2s ease-out 0s;
+}
+.entry p a:hover, .entry p a:focus, .entry li a:hover {
+    border-bottom: 1px solid #a0a0a0;
+}
 .entry ol, .entry li{
   padding-right: 12px;
 }
