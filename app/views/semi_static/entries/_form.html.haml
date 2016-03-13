@@ -487,22 +487,30 @@
           %br/
           = f.label :twitter_share, 'Twitter'
           = f.check_box :twitter_share
+    .group
+      .col.span_1_of_1
         %h2 Style settings
-        %fieldset
-          = f.label :style_class
-          = f.select :style_class, options_for_select(SemiStatic::EntriesHelper::STYLE_CLASSES.collect{|sc| [sc, sc]}, @entry.style_class)
-        %fieldset
-          = f.label :background_colour, 'Background CSS colors: black, yellow, #5f78c0, etc'
-          %br/
-          = f.text_field :background_colour, :size => 10
-          %br/
-          = f.label :header_colour, 'Header CSS colors: black, yellow, #5f78c0, etc'
-          %br/
-          = f.text_field :header_colour, :size => 10
-          %br/
-          = f.label :colour, 'Text CSS colors: black, yellow, #5f78c0, etc'
-          %br/
-          = f.text_field :colour, :size => 10
+        .group
+          .col.span_2_of_3
+            = f.label :style, 'Custom style rules (CSS)'
+            %br/
+            = f.text_area :style, :rows => 12
+          .col.span_1_of_3
+            %fieldset
+              = f.label :style_class
+              = f.select :style_class, options_for_select(SemiStatic::EntriesHelper::STYLE_CLASSES.collect{|sc| [sc, sc]}, @entry.style_class)
+            %fieldset
+              = f.label :background_colour, 'Background CSS colors: black, yellow, #5f78c0, etc'
+              %br/
+              = f.text_field :background_colour, :size => 10
+              %br/
+              = f.label :header_colour, 'Header CSS colors: black, yellow, #5f78c0, etc'
+              %br/
+              = f.text_field :header_colour, :size => 10
+              %br/
+              = f.label :colour, 'Text CSS colors: black, yellow, #5f78c0, etc'
+              %br/
+              = f.text_field :colour, :size => 10
       
   .mid
     .actions

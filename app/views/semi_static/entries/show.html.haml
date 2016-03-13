@@ -1,3 +1,6 @@
+- if @entry.style.present?
+  - content_for :header_css do
+    = @entry.style.html_safe
 - if @entry.banner
   = render :partial => 'semi_static/shared/banner', :locals => {:banner => @entry.banner, :tag_line => @entry.effective_tag_line}
 = render :partial => 'semi_static/entries/show'
