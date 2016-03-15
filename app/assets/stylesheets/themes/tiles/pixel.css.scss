@@ -1,19 +1,10 @@
 /* High res 'retina' screens */
 @media (device-pixel-ratio: 2), (-moz-device-pixel-ratio: 2), (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-
   body{background-image: url(/assets/x2/satin.jpg); background-size: 24px 12px;}
-  #bar-menu .icon, #twitter, #facebook, .fb-share, #youtube, #xing, #menu-button, #menu-close { background-size: 28px $vert-sprites-height; background-image: url(#{$vert-x2-sprites});}
-  .link a, .more a, .feint .more a, .flat .more a, .news .more a{
-    background-image: url(#{$vert-x2-sprites});
-    background-size: 28px $vert-sprites-height;
-  }
+  .button-wrapper a[class*='-share'], .link a, .more a, .feint .more a, .flat .more a, .news .more a,
+  #top li.icon a, #googleplus, #linkedin, #twitter, #facebook, #youtube, #xing, #menu-button, #menu-close { background-size: 28px $vert-sprites-height; background-image: url(#{$vert-x2-sprites});}
   #tagline{ background-image: url(/assets/x2/#{$ticker});}
   #mini-logo{ background: transparent url(/assets/x2/#{$logo-top}) 0 0 no-repeat; background-size: $logo-top-width $logo-top-height; }
-  @if $banner-overlay == true {
-    #logo{ background: transparent url(/assets/x2/#{$logo}) 0 0 no-repeat; background-size: $logo-width $logo-height; }
-  } @else {
-    #logo{ background: transparent url(/assets/x2/#{$logo-top}) left center no-repeat; background-size: $logo-top-width $logo-top-height; }
-  }
-
+  #logo{ background: transparent url(/assets/x2/#{$logo-top}) left center no-repeat; background-size: $logo-top-width $logo-top-height; }
 }
 

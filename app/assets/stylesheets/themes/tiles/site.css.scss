@@ -8,6 +8,18 @@
   100%   { opacity: 1.0; }
 }
 
+a[class*="-share"]{
+  float: right; padding: 1px 2px 1px 32px;
+  background: transparent url(#{$vert-sprites}) 0px 0px no-repeat;
+  width: auto;
+  line-height: 30px;
+  color: #a0a0a0;
+  margin-right: 16px;
+}
+a.li-share{ background-position: 0 -96px; }
+a.xi-share{ background-position: 0 -160px; }
+a.tw-share{ background-position: 0 -64px; }
+
 .panel.feint{
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
 }
