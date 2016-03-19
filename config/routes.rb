@@ -4,9 +4,11 @@ SemiStatic::Engine.routes.draw do
     get code, :to => "errors#show", :code => code
   end
 
-  SemiStatic::Tag.with_context_urls.collect{|t| t.name}.each do |tn|
+  if ActiveRecord::Base.connection.table_exists? 'semi_static_tags'
+    SemiStatic::Tag.with_context_urls.collect{|t| t.name}.each do |tn|
       # Create routes for tag that create their own URL
       match "/#{tn.parameterize}/:id" => 'entries#show', :via => :get
+    end
   end
 
   resources :fcols do
