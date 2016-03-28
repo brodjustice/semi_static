@@ -1,5 +1,4 @@
 SemiStatic::Engine.routes.draw do
-
   %w( 404 422 500 ).each do |code|
     get code, :to => "errors#show", :code => code
   end
@@ -22,6 +21,7 @@ SemiStatic::Engine.routes.draw do
     resources :products, :except => [:index]
     resources :photos, :only => :index
     resources :comments, :except => :new
+    resources :page_attrs, :except => :index
   end
 
   resources :seo, :only => [] do
@@ -31,6 +31,8 @@ SemiStatic::Engine.routes.draw do
   resources :tags, :except => :show do
     resources :seos, :only => [:new, :create, :update, :destroy]
     resources :entries, :only => [:index]
+    resources :page_attrs, :only => [:new, :create, :destroy]
+    resources :page_attrs, :except => :index
   end
 
   match "/#{SemiStatic::Engine.config.tag_paths[I18n.locale.to_s] || 'features'}/:slug" => 'tags#show', :as => 'feature', :via => :get

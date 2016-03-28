@@ -1,0 +1,4 @@
+.button= link_to_function 'Cancel', "$('#dialog').hide();"
+%h1= ['Editing page attribute for ', @page_attrable.raw_title].join
+= render 'form'
+

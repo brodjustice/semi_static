@@ -1,0 +1,29 @@
+= form_for([@page_attrable, @page_attr]) do |f|
+  - if @page_attr.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@page_attr.errors.count, "error")} prohibited this page attribute from being saved:"
+      %ul
+        - @page_attr.errors.full_messages.each do |msg|
+          %li= msg
+
+  = hidden_field_tag :return, @return
+  .group
+    .col.span_1_of_1
+      %h2 Page Attribute
+      %fieldset
+        = f.label :attr_key, 'Key'
+        %br/
+        = f.text_field :attr_key
+        %br/
+        %br/
+      %fieldset
+        = f.label :attr_value, 'Value'
+        %br/
+        = f.text_field :attr_value
+        %br/
+        %br/
+      %fieldset
+
+  .actions
+    = f.submit 'Save'
+

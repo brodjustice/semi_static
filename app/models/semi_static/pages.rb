@@ -13,6 +13,10 @@ module SemiStatic
       self.seo && SemiStatic::Seo::CHANGE_FREQ_SYMS[self.seo.changefreq] != :unknown && SemiStatic::Seo::CHANGE_FREQ_SYMS[self.seo.changefreq].to_s.downcase
     end
 
+    def get_page_attr(k)
+      self.page_attrs.find_by_attr_key(k) && self.page_attrs.find_by_attr_key(k).attr_value
+    end
+
     # Get a link to the equivalent alternate page in the given locale. If root is set and no alternate page is found
     # then just link to the home page (root) of the alternate website
     def hreflang_link(locale, root=false)

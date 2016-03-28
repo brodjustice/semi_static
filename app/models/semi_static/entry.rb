@@ -58,6 +58,7 @@ module SemiStatic
     scope :without_image, where('img_file_name IS NULL')
   
     has_one :seo, :as => :seoable
+    has_many :page_attrs, :as => :page_attrable
     has_one :product
     has_one :click_ad
     belongs_to :sidebar

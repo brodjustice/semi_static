@@ -12,6 +12,7 @@ module SemiStatic
     attr_accessor :icon_delete
   
     has_one :seo, :as => :seoable
+    has_many :page_attrs, :as => :page_attrable
     belongs_to :newsletter
     has_many :entries, :dependent => :destroy
     belongs_to :banner

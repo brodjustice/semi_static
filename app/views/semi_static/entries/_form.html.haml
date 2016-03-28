@@ -487,6 +487,22 @@
           %br/
           = f.label :twitter_share, 'Twitter'
           = f.check_box :twitter_share
+        .button{:style => 'margin:3px'}
+          = link_to 'New attribute', new_entry_page_attr_path(@entry), :remote => true
+        %h2 Attributes
+        - if @entry.page_attrs.present?
+          %table
+            %thead
+              %tr
+                %th='Key'
+                %th='Value'
+                %th
+            %tbody
+              - @entry.page_attrs.each do |a|
+                %tr
+                  %td= link_to a.attr_key, edit_polymorphic_path([@entry, a]), :remote => :true
+                  %td= a.attr_value
+                  %td= link_to image_tag("/assets/bin.png"), entry_page_attr_path(@entry, a), :method => :delete
     .group
       .col.span_1_of_1
         %h2 Style settings
