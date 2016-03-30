@@ -27,7 +27,7 @@ module SemiStatic
     end
 
     def fullname
-      name + ' ' + surname
+      [name, surname].join(' ')
     end
   
     def send_email
