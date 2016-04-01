@@ -1,3 +1,13 @@
+-#
+-# We have the issue of having to put any customer entry style into the header in the case that we have
+-# link_to_tag entries that have custom styles. This could get really messy if we go through all the
+-# tag entries and add them to the header_css. So we have a compromise that works we for the usual case
+-# where the is only one entry and it has link_to_tag set. We check ONLY the first entry belonging to the
+-# tag and if it has link_to_tag set we copy any custom CSS into the tag header_css
+- if @tag.entries.present? && @tag.entries.first.link_to_tag && @entry.style.present?
+  - content_for :header_css do
+    = @tag.entries.first.style.html_safe
+
 - style ||= :summary
 - (entries = @tag.entries.unmerged[0..(@tag.max_entries_on_index_page - 1)]).each do |e|
   .panel.group{:class => e.style_class, :style => "background-color:#{e.background_colour}; color:#{e.colour}"}
