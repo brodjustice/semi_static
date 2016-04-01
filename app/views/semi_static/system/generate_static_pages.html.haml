@@ -48,7 +48,7 @@
       %th= 'Page'
       %th= 'Status'
     %tbody
-      - @result.collect{|p| construct_url(p, @locale)}.each do |url|
+      - @result.collect{|p| construct_url(p, params[:locale])}.each do |url|
         %tr
           %td
             = link_to url, url
