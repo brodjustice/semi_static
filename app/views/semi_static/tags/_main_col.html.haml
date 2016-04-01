@@ -4,7 +4,7 @@
 -# tag entries and add them to the header_css. So we have a compromise that works we for the usual case
 -# where the is only one entry and it has link_to_tag set. We check ONLY the first entry belonging to the
 -# tag and if it has link_to_tag set we copy any custom CSS into the tag header_css
-- if @tag.entries.present? && @tag.entries.first.link_to_tag && @entry.style.present?
+- if @tag.entries.present? && @tag.entries.first.link_to_tag && @tag.entries.first.style.present?
   - content_for :header_css do
     = @tag.entries.first.style.html_safe
 
