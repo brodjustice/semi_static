@@ -4,8 +4,9 @@
     class TagsController < ApplicationController
   
     before_filter :authenticate_for_semi_static!, :except => :show
+    before_filter :authenticate_semi_static_subscriber!,  :only => [ :show ]
 
-    caches_page :show
+    caches_page :show, :if => Proc.new { |c| !c.request.format.js? && cachable_content? }
   
     layout 'semi_static_dashboards'
 
@@ -25,10 +26,6 @@
     # GET /tags/1
     # GET /tags/1.json
     def show
-      # You might want to look for slugs of different locales, especially if these are custom
-      # pages. So first look for tag in current locale and if this fails take first matching tag
-      @tag = Tag.where(:locale => locale.to_s).find_by_slug(params[:slug]) || Tag.find_by_slug!(params[:slug])
-
       @title = @tag.name
       @seo = @tag.seo
       @banner_class = @tag.banner && 'bannered'
@@ -41,9 +38,7 @@
       @side_bar = @tag.side_bar
       !@side_bar && (@group_size = 3)
 
-      if @tag.admin_only && !semi_static_admin?
-        raise ActiveRecord::RecordNotFound
-      end
+      @tag.admin_only && authenticate_for_semi_static!
   
       respond_to do |format|
         format.html {
@@ -113,6 +108,23 @@
       respond_to do |format|
         format.html { redirect_to tags_url }
         format.json { head :no_content }
+      end
+    end
+
+    private
+
+    def cachable_content?
+      # !lambda{ |controller| controller.request.format.js? } && !@entry.subscriber_content
+      !request.format.js? && !@tag.subscriber_content && !(@tag.context_url && params[:no_context])
+    end
+
+    def authenticate_semi_static_subscriber!
+      # You might want to look for slugs of different locales, especially if these are custom
+      # pages. So first look for tag in current locale and if this fails take first matching tag
+      @tag = Tag.where(:locale => locale.to_s).find_by_slug(params[:slug]) || Tag.find_by_slug!(params[:slug])
+      if !semi_static_admin? && @tag.subscriber
+        session[:user_intended_url] = url_for(params) unless send('current_' + SemiStatic::Engine.config.subscribers_model.first[0].downcase)
+        send('authenticate_' + SemiStatic::Engine.config.subscribers_model.first[0].downcase + '!')
       end
     end
   end

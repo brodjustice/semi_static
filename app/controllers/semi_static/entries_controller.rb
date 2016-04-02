@@ -74,9 +74,7 @@
         @comment = @entry.comments.new
       end
 
-      if @entry.admin_only && !semi_static_admin?
-        raise ActiveRecord::RecordNotFound
-      end
+      @entry.admin_only && authenticate_for_semi_static!
 
       respond_to do |format|
         format.text { render :partial => 'semi_static/entries/entry' }
@@ -193,7 +191,7 @@
 
     protected
 
-    # Derives and inline stype for double density popup image based on Photo(p) and pixel ratio (pr)
+    # Derives the inline type for double density popup image based on Photo(p) and pixel ratio (pr)
     # The wierd thing is that the double density image is massively compressed, and is so not as
     # not as many Mbytes as half width (1/4 of the area) version. However, because of the extra pixel
     # density the image still renders better than the single density half width, 1/4 size, version
