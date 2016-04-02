@@ -74,6 +74,10 @@
         @comment = @entry.comments.new
       end
 
+      if @entry.admin_only && !semi_static_admin?
+        raise ActiveRecord::RecordNotFound
+      end
+
       respond_to do |format|
         format.text { render :partial => 'semi_static/entries/entry' }
         format.html {

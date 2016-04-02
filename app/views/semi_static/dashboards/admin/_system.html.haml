@@ -1,3 +1,9 @@
+- content_for :header_css do
+  :plain
+    #controls .button{float:none; width:66%; margin: 4px auto 8px;}
+    #controls .button a{display:block;}
+    #controls .button:hover{background-color:#e0e0e0;box-shadow: none;}
+
 - content_for :ujs do
   :javascript
     function init_switch(){
@@ -20,7 +26,7 @@
       $('#pixelRatio').text(window.devicePixelRatio.toString());
     });
 
-.dashboard
+#controls.dashboard
   .group
     .col.span_1_of_2
       .panel
@@ -30,19 +36,19 @@
     .col.span_1_of_2
       .panel
         %h4= 'Search Index'
+        .button= link_to 'Reindex now', system_path(:cmd => {:search_reindex => :all}), :method => :put, :remote => true
         #search_reindex_result
-        = link_to 'Reindex now', system_path(:cmd => {:search_reindex => :all}), :method => :put, :remote => true
   .group
     .col.span_1_of_2
       .panel
         %h4= 'Expire Cache'
+        .button= link_to 'Expire cache now', system_path(:cmd => {:expire_cache => :all}), :method => :put, :remote => true
         #expire_cache
-        = link_to 'Expire cache now', system_path(:cmd => {:expire_cache => :all}), :method => :put, :remote => true
     .col.span_1_of_2
       .panel
         %h4= 'Restart Passenger App Server (if used)'
+        .button= link_to 'Restart now', system_path(:cmd => {:passenger_restart => :all}), :method => :put, :remote => true
         #passenger_restart
-        = link_to 'Restart now', system_path(:cmd => {:passenger_restart => :all}), :method => :put, :remote => true
   .group
     .col.span_1_of_2
       .panel
@@ -62,9 +68,8 @@
             = 'your site map unless it has been allocated to a real tag, eg. a tag called "Photos" that uses the pre-defined tag "Gallery".'
         %h4.infomarker= 'Sitemaps'
         #generate_sitemap
-        %ul
-          - SemiStatic::Engine.config.localeDomains.each do |k, v|
-            %li= link_to "Generate for #{v}", system_path(:format => :xml, :cmd => {:generate_sitemap => :all}, :locale => k), :method => :put
+        - SemiStatic::Engine.config.localeDomains.each do |k, v|
+          .button= link_to "Generate for #{v}", system_path(:format => :xml, :cmd => {:generate_sitemap => :all}, :locale => k), :method => :put
     .col.span_1_of_2
       .panel
         .infobox#generate_static_pages
@@ -77,15 +82,20 @@
             = 'a long while to respond.'
         %h4.infomarker= 'Generate static pages'
         #generate_sitemap
-        %ul
-          - SemiStatic::Engine.config.localeDomains.each do |k, v|
-            %li= link_to "For #{v}", system_path(:cmd => {:generate_static_pages => :all}, :locale => k), :method => :put
+        - SemiStatic::Engine.config.localeDomains.each do |k, v|
+          .button= link_to "For #{v}", system_path(:cmd => {:generate_static_pages => :all}, :locale => k), :method => :put
   .group
     .col.span_1_of_2
       .panel
         %h4= 'Clean up possible errors'
+        .button= link_to 'Clean up now', system_path(:cmd => {:clean_up => :all}), :method => :put, :remote => true
         #clean_up
-        = link_to 'Clean up now', system_path(:cmd => {:clean_up => :all}), :method => :put, :remote => true
+    .col.span_1_of_2
+      -# To be implimented
+      -# .panel
+      -#   %h4= 'Google Search data'
+      -#   - SemiStatic::Engine.config.localeDomains.each do |k, v|
+      -#     .button= link_to "#{v}", system_path(:cmd => {:load_search_data => :all}, :locale => k), :method => :put
   %div{:style => 'font-size: 10px; text-align: right;'}
     = 'Device pixel ratio = '
     %span#pixelRatio{:style => 'font-size: 10px; text-align: right;'}

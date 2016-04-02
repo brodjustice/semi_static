@@ -34,6 +34,7 @@ module SemiStatic
 
     belongs_to :tag
     belongs_to :acts_as_tag, :class_name => "SemiStatic::Tag"
+    delegate :admin_only, to: :tag
   
     before_save :dup_master_id_photos
     after_save :expire_site_page_cache

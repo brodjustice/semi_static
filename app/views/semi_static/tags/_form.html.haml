@@ -70,9 +70,13 @@
         = f.label :name
         %br/
         = f.text_field :name
+        %br/
         - if SemiStatic::Engine.config.try('subscribers_model')
-          = f.label :subscriber, 'Subscriber only content'
           = f.check_box :subscriber
+          = f.label :subscriber, 'Subscriber only content'
+        %br/
+        = f.check_box :admin_only
+        = f.label :admin_only, 'Admin only content (draft content not public)'
       %fieldset
         = f.label :sidebar_title
         %br/

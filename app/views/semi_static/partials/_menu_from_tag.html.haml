@@ -1,0 +1,47 @@
+-# Makes most sense as a custom sidebar. Takes the 'sidebar_tag_id' attribute and uses this
+-# to create a standard sidebar menu
+-# In addition, if there is an attribute 'contact_form_in_sidebar' it will display a
+-# contact form in the sidebar
+
+- if (tag_id = @entry.get_page_attr(:sidebar_tag_id)).present?  && (tag = SemiStatic::Tag.find_by_id(tag_id)).present?
+  %aside
+    .panel.list
+      %nav
+        %h2= link_to tag.sidebar_title, feature_path(tag.slug), :style => "color: #{tag.colour};"
+        .section
+          - tag.entries.unmerged.each do |e|
+            = render :partial => 'semi_static/tags/side_bar_entry', :locals => {:e => e}
+
+- if @entry.get_page_attr(:contact_form_in_sidebar).present?
+  - content_for :header_css do
+    :plain
+      #contact label{font-size:10px;vertical-align:top;}
+      #contact.panel input, #contact.panel textarea { width: 100%; }
+      #contact.panel, #contact.panel input, #contact.panel textarea {
+        box-sizing: border-box; margin-top: 6px; width: 100%;
+      }
+      .pseudo-head{
+        font-size: 20px; border-bottom: 1px solid #808080; color: #111c30; text-align: center;
+      }
+  
+  
+  - @contact = SemiStatic::Contact.new
+  - sidebar = (@entry || @tag).sidebar
+  #contact.panel{:style => "background-color: #{sidebar.bg_color}; color: #{sidebar.color}", :class => sidebar.style_class}
+    .pseudo-head= t('Contact')
+    = form_for @contact do |f|
+      .section.group
+        = f.text_field :name, :size => 30
+        = f.label :name, t('Name')
+        = f.text_field :surname, :size => 30
+        = f.label :surname, t('Surname')
+      .section.group
+        = f.text_field :email, :size => 30
+        = f.label :email, t('Email')
+        = f.text_field :telephone, :size => 30
+        = f.label :telephone, t('Telephone')
+      .section.group
+        = f.text_area :message, { :placeholder => t('GetInContact'), :rows => "8", :cols => "30"}
+        = f.label :message, t('Message')
+      .actions
+        = f.submit t('Submit')

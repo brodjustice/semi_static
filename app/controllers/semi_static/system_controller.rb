@@ -4,17 +4,8 @@ module SemiStatic
   class SystemController < ApplicationController
     before_filter :authenticate_for_semi_static!
   
-    CMDS = %w(show search_daemon search_reindex expire_cache clean_up passenger_restart load_url generate_sitemap generate_static_pages partial_description)
+    CMDS = %w(show search_daemon search_reindex expire_cache clean_up passenger_restart load_url generate_sitemap generate_static_pages partial_description load_search_data)
   
-    # def show
-    #   action, @data, @partial = System.cmd(params[:cmd] || "show" )
-    #   @selected = 'dashboard'
-    #   respond_to do |format|
-    #     format.html { render :action => action }
-    #     format.js { render :action => action }
-    #   end
-    # end
-
     def update
       if params[:cmd].present? && CMDS.include?(params[:cmd].keys.first)
         action = params[:cmd].keys.first

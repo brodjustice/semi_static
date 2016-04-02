@@ -8,7 +8,7 @@ module SemiStatic
     attr_accessible :predefined_class, :colour, :icon_resize, :locale, :max_entries_on_index_page
     attr_accessible :banner_id, :partial, :entry_position, :tag_line, :subscriber, :sidebar_id
     attr_accessible :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_tag_id, :layout_select
-    attr_accessible :target_tag_id, :target_name, :context_url
+    attr_accessible :target_tag_id, :target_name, :context_url, :admin_only
     attr_accessor :icon_delete
   
     has_one :seo, :as => :seoable
@@ -31,7 +31,7 @@ module SemiStatic
     scope :predefined, lambda{|locale, pre| where("locale = ?", locale).where('predefined_class = ?', pre)}
   
     before_save :generate_slug, :add_sidebar_title
-    after_save :expire_site_page_cache
+    after_save :expire_site_page_cache, :check_admin_only
     before_destroy :expire_site_page_cache
   
     has_attached_file :icon,
@@ -59,6 +59,16 @@ module SemiStatic
 
     def generate_slug
       self.slug = name.parameterize
+    end
+
+    def check_admin_only
+      if admin_only
+        # Add SEO if there was not one
+        unless self.seo
+          self.seo = Seo.create
+        end
+        self.seo.update_attributes(:no_index => true, :include_in_sitemap => false)
+      end
     end
 
     def effective_tag_line

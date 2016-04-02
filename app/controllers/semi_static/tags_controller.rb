@@ -40,6 +40,10 @@
       @link_to_tag ? (@linked = false) : (@summaries = true)
       @side_bar = @tag.side_bar
       !@side_bar && (@group_size = 3)
+
+      if @tag.admin_only && !semi_static_admin?
+        raise ActiveRecord::RecordNotFound
+      end
   
       respond_to do |format|
         format.html {

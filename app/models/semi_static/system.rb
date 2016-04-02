@@ -40,7 +40,21 @@ module SemiStatic
       end
       c
     end
-  
+
+    GOOGLE_API_KEY = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+    SEARCH_API_URL = "https://www.googleapis.com/webmasters/v3/sites/siteURL/searchAnalytics/query?key=#{GOOGLE_API_KEY}"
+
+    # Draft code, this will not work with just API key, need OAuth
+    def self.load_search_data(*args)
+      property = URI.parse(SemiStatic::Engine.config.localeDomains[args.last] + '/')
+      uri = URI.parse(SEARCH_API_URL.sub(/siteURL/, CGI.escape(property.to_s)))
+      https = Net::HTTP.new('www.googleapis.com', 443)
+      https.use_ssl = true
+      data = "startDate=2016-01-01&endDate=2016-02-01"
+      headers = {'Content-Type' => 'application/json'}
+      resp = https.post(uri.request_uri, data, headers)
+    end
+
     def self.search_reindex(*args)
       if search_daemon_running?
         Entry.__elasticsearch__.create_index! force: true
@@ -70,7 +84,7 @@ module SemiStatic
       generate_sitemap(args.last)
     end
 
-    # Need to gzip command installed on system
+    # Need to have gzip command installed on system
     def self.load_url(url=nil, locale=nil, *args)
       s = true
 

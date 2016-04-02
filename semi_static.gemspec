@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_dependency "rails", "~> 3.2.19"
+  s.add_dependency "rails", "~> 3.2"
   s.add_dependency "jquery-rails"
   s.add_dependency "jquery-ui-rails"
   s.add_dependency "haml"
@@ -25,6 +25,8 @@ Gem::Specification.new do |s|
 
   # Later versions of paperlip require ruby 2.0+
   s.add_dependency "paperclip", "4.2.1"
+
+  # s.add_dependency 'google-api-client', '0.9'
 
   s.add_dependency "truncate_html"
 
