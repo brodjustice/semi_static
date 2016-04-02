@@ -115,14 +115,14 @@
 
     def cachable_content?
       # !lambda{ |controller| controller.request.format.js? } && !@entry.subscriber_content
-      !request.format.js? && !@tag.subscriber_content && !(@tag.context_url && params[:no_context])
+      !request.format.js? && !@tag.subscriber_content && !@tag.admin_only && !(@tag.context_url && params[:no_context])
     end
 
     def authenticate_semi_static_subscriber!
       # You might want to look for slugs of different locales, especially if these are custom
       # pages. So first look for tag in current locale and if this fails take first matching tag
       @tag = Tag.where(:locale => locale.to_s).find_by_slug(params[:slug]) || Tag.find_by_slug!(params[:slug])
-      if !semi_static_admin? && @tag.subscriber
+      if !semi_static_admin? && @tag.subscriber_content
         session[:user_intended_url] = url_for(params) unless send('current_' + SemiStatic::Engine.config.subscribers_model.first[0].downcase)
         send('authenticate_' + SemiStatic::Engine.config.subscribers_model.first[0].downcase + '!')
       end

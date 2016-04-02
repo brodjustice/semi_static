@@ -64,6 +64,10 @@ module SemiStatic
     def effective_tag_line
       tag_line || (banner.present? && banner.tag_line.present? ? banner.tag_line : nil )
     end
+
+    def subscriber_content
+      SemiStatic::Engine.config.try('subscribers_model') && self.subscriber
+    end
   
     def icon_delete=(val)
       if val == '1'
