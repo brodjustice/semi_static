@@ -81,6 +81,11 @@ module SemiStatic
       @@ids = Photo.not_invisible.reorder(:entry_id, :position, :id).collect{|p| p.id}
     end
 
+    # Currently have no support for admin_only viewable photos, so set as false
+    def admin_only
+      false
+    end
+
     @@ids = build_ordered_array
 
     def neighbour_ids
