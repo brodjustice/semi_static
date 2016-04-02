@@ -31,7 +31,7 @@ module SemiStatic
     scope :predefined, lambda{|locale, pre| where("locale = ?", locale).where('predefined_class = ?', pre)}
   
     before_save :generate_slug, :add_sidebar_title
-    after_save :expire_site_page_cache, :check_admin_only
+    after_save :expire_site_page_cache
     before_destroy :expire_site_page_cache
   
     has_attached_file :icon,
@@ -59,16 +59,6 @@ module SemiStatic
 
     def generate_slug
       self.slug = name.parameterize
-    end
-
-    def check_admin_only
-      if admin_only
-        # Add SEO if there was not one
-        unless self.seo
-          self.seo = Seo.create
-        end
-        self.seo.update_attributes(:no_index => true, :include_in_sitemap => false)
-      end
     end
 
     def effective_tag_line
