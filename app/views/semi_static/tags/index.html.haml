@@ -47,7 +47,10 @@
               = image_tag('user.png', :title => 'Subscriber only content') if tag.subscriber
           %td.number= tag.locale.to_s
           %td.number
-            = tag.position if tag.menu
+            - if tag.menu
+              = tag.position if tag.menu
+            - else
+              = ['(',tag.position.to_s,')'].join
           %td.tick
             = tag.side_bar_tag.name if !tag.side_bar_tag.nil? && !tag.side_bar_news
             = image_tag('tick.png', :title => 'Has side-bar') if tag.side_bar_news

@@ -79,7 +79,7 @@
 .custom-banner-bg{background-color: $prime-color; opacity: 0.5; position: absolute; height: 100%; width: 100%; z-index: -100;}
 .custom-text{z-index: 10; padding: 6px 12px 0px; height: 100%;}
 
-html { overflow-y: scroll; }
+html { overflow-y: scroll; overflow-x:hidden;}
 body{
   background-color: white; 
   margin: 0px;
@@ -95,7 +95,7 @@ fieldset{
 }
 h2{ font-size: 20px;}
 #search-bar{ margin-top: 0px;}
-#top .inner, #overlay-inner, #search-bar-inner, #container, #top-inner, #footer-inner{
+#top .inner, #overlay-inner, #search-bar-inner, #container, #top-inner, #footer-inner, #menu-button-wrapper{
   max-width: 1024px; margin: 0px auto;
   background-color: transparent;
 }
@@ -126,35 +126,113 @@ h2{ font-size: 20px;}
 }
 #search-wrapper{
   background-color: white; 
-  border: 1px solid white;
+  // border: 1px solid white;
   border-radius: 2px;
   padding: 0px 34px 4px 4px;
   text-align: center;
   background: transparent url(#{$vert-sprites}) right -226px no-repeat;
 }
 
+#body-inner{
+  overflow:hidden;
+}
+#menu-button .text{display:none;text-align:center;}
 #menu-button, #menu-close{
-  display: none;
-  float: right;
-  color: $secondary-color; font-weight: bold;
-  padding: 3px 2px 4px 32px;
-  margin: 2px 2px 0px 0px;
   cursor: pointer;
-  position: relative;
-  z-index: 500;
+  float: right;
+  position:relative; z-index:500;
 }
-
-#menu-button{
-  padding: 8px;
-  background: $contrast-color;
-  border: 1px solid white;
-}
+#menu-button{width:32px; padding-top:5px;}
 
 #menu-button .menu-line{
-  height: 8px; width: 80%;
-  background-color: $prime-color;
-  border-radius: 2px; margin: 2px auto;
+  height: 4px; width: 80%;
+  background-color: #cbcbcb;
+  border-radius: 1px; margin: 2px auto;
 }
+#slide-menu-wrapper .locales{
+  padding-top:8px;
+  clear:both;
+}
+
+#slide-menu-wrapper.shadow{
+  box-shadow: 0 0 80px black;
+}
+#slide-menu-wrapper{
+    background-color: $prime-color;
+    color: white;
+    max-width: 100%;
+    min-height: 100%;
+    overflow: hidden;
+    position: absolute;
+    right: -412px;
+    top: 0;
+    transition: right 0.5s linear 0s;
+    width: 400px;
+    z-index: 2000;
+    padding:6px;
+}
+#slide-menu-wrapper .wrapper .text{
+  padding:6px 6px 0px 6px;
+  border-bottom: 1px solid #dcdcdc;
+}
+#slide-menu-wrapper .wrapper{
+  margin-top:12px;
+  text-align:right;
+}
+#slide-menu-wrapper a{ color: #e0e0e0; }
+#slide-menu-wrapper a:hover{ color: white; }
+#slide-menu-wrapper .wrapper a{
+  color: #dcdcdc;
+  font-size: 18px;
+  text-transform: uppercase;
+  text-shadow: none;
+}
+#slide-menu-wrapper .sub-menu{
+  margin: 4px 0 12px;
+  display:block;
+  position:relative;
+  background-color:transparent;
+  border: none;
+  text-align:right;
+  z-index:1;
+}
+#slide-menu-wrapper .sub-menu a{
+  text-transform:none;
+  text-shadow:none;
+  display:block;
+  padding: 4px 0;
+}
+#slide-menu-wrapper .bar-menu{
+  margin-top:12px;
+  border-top: 1px solid #a0a0a0;
+}
+#close-sym{
+  font-size:46px;
+  color:#dcdcdc;
+}
+// #slide-menu-wrapper .wrapper .text{
+//   border-bottom: 1px solid #dcdcdc;
+//   margin-bottom: 6px;
+// }
+
+// Move to mobile view
+// #menu-button, #menu-close{
+//   color: $secondary-color; font-weight: bold;
+//   padding: 3px 2px 4px 32px;
+//   margin: 2px 2px 0px 0px;
+// }
+
+// #menu-button{
+//   padding: 8px;
+//   background: $contrast-color;
+//   border: 1px solid white;
+// }
+
+// #menu-button .menu-line{
+//   height: 8px; width: 80%;
+//   background-color: $prime-color;
+//   border-radius: 2px; margin: 2px auto;
+// }
 
 @-webkit-keyframes fadeIn {
   from { opacity: 0; }
@@ -327,7 +405,7 @@ h2{ font-size: 20px;}
 #footer h3{color: $prime-color;}
 #footer .inner{padding: 0 2%;}
 
-#bar-menu ul, #top ul, #footer ul{list-style: none outside none; padding-left: 0px;}
+.bar-menu ul, #top ul, #footer ul{list-style: none outside none; padding-left: 0px;}
 
 #footer .col:last-child h3, #footer .col:last-child li {
     text-align: right;
@@ -425,10 +503,10 @@ h2{ font-size: 20px;}
 #kununu{background-position: 0 -350px;}
 
 
-#bar-menu .contact a{float: right; display: block; padding: 4px 34px 0px 8px; background: transparent url(#{$vert-sprites}) right -194px no-repeat;}
-#bar-menu .search a{float: right; display: block; padding: 4px 30px 6px 8px; background: transparent url(#{$vert-sprites}) right -226px no-repeat;}
-#bar-menu .sign-in a{float: right; display: block; padding: 4px 32px 2px 8px; background: transparent url(/assets/user-icon.png) right 0px no-repeat; background-size: 28px 32px !important;}
-#twitter, #xing, #facebook, #youtube, #bar-menu .icon a{ background-size: 28px $vert-sprites-height; }
+.bar-menu .contact a{float: right; display: block; padding: 4px 34px 0px 8px; background: transparent url(#{$vert-sprites}) right -194px no-repeat;}
+.bar-menu .search a{float: right; display: block; padding: 4px 30px 6px 8px; background: transparent url(#{$vert-sprites}) right -226px no-repeat;}
+.bar-menu .sign-in a{float: right; display: block; padding: 4px 32px 2px 8px; background: transparent url(/assets/user-icon.png) right 0px no-repeat; background-size: 28px 32px !important;}
+#twitter, #xing, #facebook, #youtube, .bar-menu .icon a{ background-size: 28px $vert-sprites-height; }
 
 .icon.sprite{height: 100px; width: 100px; background: url(/system/icons/menu-sprites.png) center 0px no-repeat;}
 .icon.sprite.mini{height: 45px; width: 50px; background-size: 50px 250px;}
@@ -567,7 +645,7 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
 #top ul{
   margin: 0 12px 0 0; padding: 0;
 }
-#bar-menu li{
+.bar-menu li{
   float: right;
   font-size: 16px;
   font-weight: lighter;
@@ -581,16 +659,16 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
   padding-left: 12px;
   margin-top:9px;
 }
-#bar-menu li a, #top-inner li a{
+.bar-menu li a, #top-inner li a{
   font-weight: lighter;
   color: #494949;
   font-size: 16px;
 }
-#bar-menu li{
+.bar-menu li{
   font-size: 16px;
   margin-top: 3px;
 }
-#menu #bar-menu a{
+#menu .bar-menu a{
   text-transform: none;
 }
 .home{ padding-left: 52px !important; background: transparent url(/assets/home.png) 21px 2px no-repeat; background-size: auto !important;}
@@ -605,11 +683,9 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
 #menu a{
   color: #494949;
   font-size: 18px;
-  /* text-shadow: white -1px 1px 0px, rgba(98, 0, 105, 0.4) -2px 2px 0px; */
-  text-shadow: white 0px 1px 0px;
+  text-transform: uppercase;
   text-shadow: 0 1px 0 #ffffff;
   font-weight: normal;
-  text-transform: uppercase;
 }
 
 #menu .col{
@@ -784,24 +860,7 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
 }
 
 @media only screen and (max-width: 820px) {
-  // Change menu to hidden pop-up on click and fixed position
   #menu, #top-inner ul{display: none;}
-  #menu{
-    padding-top: 8px; padding-bottom: 12px;
-    width: 100%;
-    position: absolute; background-color: #f8f8f8; top: 32px;
-    background-image: none;
-    border-radius: 2px;
-    font-size: 16px;
-  }
-  .sub-menu{
-    position: relative;
-    display: block;
-  }
-  #menu .sub-menu a{padding: 10px;}
-  #menu .col{ width: 100%; }
-  #menu-loading-wrapper{display: block;}
-
   // Need to radically change the hover icons now menu has collapsed
   .icon .custom{
     height: 0px;
@@ -810,18 +869,24 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
     top: 16px;
     width: 30%;
   }
-  #menu .wrapper .text{height: 36px;}
-  .wrapper:not(#selected) .icon.sprite{background-image: none;}
-
-  /* No Firefox support for background-position-x, but applies only usually to mobile any */
-  #selected.wrapper .icon.sprite{background-position-x: left;}
-
   /* Adjust the tag line size and position */
   #tagline{padding-right: 84px; width: auto; font-size: 16px; font-size: 3vw;}
 
   #top{position: fixed; width: 100%; height: 85px;}
   #frame{padding-top: 84px;}
-  #menu-button{display: block;}
+  #menu-button{
+    padding:6px;
+    margin:4px;
+    background-color: #dcdcdc;
+    width:46px;
+    border:1px solid white;
+  }
+  #menu-button .text{ display:block; }
+  #menu-button .menu-line{
+    height: 6px; width: 80%;
+    background-color: $prime-color;
+    border-radius: 2px; margin: 4px auto;
+  }
 }
 
 /* Mobile portrait layout at less than 580px */

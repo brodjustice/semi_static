@@ -11,4 +11,3 @@
     - if SemiStatic::Engine.config.try('subscribers_model')
       - label = subscriber_content ? 'subscribers.Area' : 'subscribers.Sign_In'
       %li.sign-in.icon= link_to t(label), main_app.send(SemiStatic::Engine.config.subscribers_model.values[0])
-

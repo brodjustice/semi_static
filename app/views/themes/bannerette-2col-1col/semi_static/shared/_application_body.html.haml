@@ -1,9 +1,6 @@
+#slide-menu
+  = render 'semi_static/shared/slide-menu'
 #top
-  #menu-button{:onclick => 'semiStaticOpenMenu()'}
-    = t('Menu')
-    .menu-line
-    .menu-line
-    .menu-line
   #top-inner
     = render 'semi_static/shared/bar'
   = yield :pre_overlay
