@@ -1,10 +1,10 @@
 function semiStaticSlideOpenMenu(){
   var menuWrapper = document.getElementById('slide-menu-wrapper');
-  menuWrapper.style.right='0px';
-  menuWrapper.classList.add('shadow');
+  menuWrapper.classList.add('visible');
+  menuWrapper.classList.add('open');
 }
 function semiStaticSlideCloseMenu(){
   var menuWrapper = document.getElementById('slide-menu-wrapper');
-  menuWrapper.style.right='-412px';
-  menuWrapper.classList.remove('shadow');
+  menuWrapper.classList.remove('open');
+  menuWrapper.classList.remove('visible');
 }

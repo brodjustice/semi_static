@@ -79,8 +79,9 @@
 .custom-banner-bg{background-color: $prime-color; opacity: 0.5; position: absolute; height: 100%; width: 100%; z-index: -100;}
 .custom-text{z-index: 10; padding: 6px 12px 0px; height: 100%;}
 
-html { overflow-y: scroll; overflow-x:hidden;}
+html { overflow-y: scroll; overflow-x:hidden;height:100%;}
 body{
+  height:100%;
   background-color: white; 
   margin: 0px;
   font-family: 'Raleway', Arial, Verdana, Helvetica, sans-serif;
@@ -149,14 +150,14 @@ h2{ font-size: 20px;}
   background-color: #cbcbcb;
   border-radius: 1px; margin: 2px auto;
 }
+#slide-menu{height:100%;}
 #slide-menu-wrapper .locales{
   padding-top:8px;
   clear:both;
 }
 
-#slide-menu-wrapper.shadow{
-  box-shadow: 0 0 80px black;
-}
+#slide-menu-wrapper.visible{box-shadow: 0 0 80px black; display:block }
+#slide-menu-wrapper.open{right:0px;}
 #slide-menu-wrapper{
     background-color: $prime-color;
     color: white;
