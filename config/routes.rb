@@ -31,7 +31,6 @@ SemiStatic::Engine.routes.draw do
   resources :tags, :except => :show do
     resources :seos, :only => [:new, :create, :update, :destroy]
     resources :entries, :only => [:index]
-    resources :page_attrs, :only => [:new, :create, :destroy]
     resources :page_attrs, :except => :index
   end
 

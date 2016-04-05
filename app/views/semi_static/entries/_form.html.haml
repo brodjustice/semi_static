@@ -487,8 +487,9 @@
           %br/
           = f.label :twitter_share, 'Twitter'
           = f.check_box :twitter_share
-        .button{:style => 'margin:3px'}
-          = link_to 'New attribute', new_entry_page_attr_path(@entry), :remote => true
+        - unless @entry.new_record?
+          .button{:style => 'margin:3px'}
+            = link_to 'New attribute', new_entry_page_attr_path(@entry), :remote => true
         %h2 Attributes
         - if @entry.page_attrs.present?
           %table

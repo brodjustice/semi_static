@@ -155,66 +155,68 @@
             = f.text_field :colour
     
     .col.span_1_of_3
-      %h2 Side bar
-      %fieldset
-        = f.label :side_bar, 'Enable side bar'
-        = f.check_box :side_bar
-        %fieldset#side_bar_options
-          = f.label :sidebar_id, 'Sidebar'
-          %br/
-          = f.select :sidebar_id, options_for_select(SemiStatic::Sidebar.all.collect{|s| [s.title.blank? ? "##{s.id.to_s}" : s.title, s.id]}.prepend(["- None -", nil]), @tag.sidebar_id)
-          %br/
-          = f.label :side_bar_news, 'News'
-          = f.check_box :side_bar_news
-          = f.label :side_bar_social, 'Social links'
-          = f.check_box :side_bar_social
-          = f.label :side_bar_search, 'Search'
-          = f.check_box :side_bar_search
-          %br/
-          = f.label :side_bar_tag_id, 'Tag for sidebar'
-          = f.select :side_bar_tag_id, options_for_select(SemiStatic::Tag.locale(@tag.locale).collect{|t| [t.name, t.id]}.prepend(["- None -", nil]), @tag.side_bar_tag_id)
-      .button{:style => 'margin:3px'}
-        = link_to 'New attribute', new_tag_page_attr_path(@tag), :remote => true
-      %h2 Attributes
-      - if @tag.page_attrs.present?
-        %table
-          %thead
-            %tr
-              %th='Key'
-              %th='Value'
-              %th
-          %tbody
-            - @tag.page_attrs.each do |a|
+      .sidebar
+        %h2 Side bar
+        %fieldset
+          = f.label :side_bar, 'Enable side bar'
+          = f.check_box :side_bar
+          %fieldset#side_bar_options
+            = f.label :sidebar_id, 'Sidebar'
+            %br/
+            = f.select :sidebar_id, options_for_select(SemiStatic::Sidebar.all.collect{|s| [s.title.blank? ? "##{s.id.to_s}" : s.title, s.id]}.prepend(["- None -", nil]), @tag.sidebar_id)
+            %br/
+            = f.label :side_bar_news, 'News'
+            = f.check_box :side_bar_news
+            = f.label :side_bar_social, 'Social links'
+            = f.check_box :side_bar_social
+            = f.label :side_bar_search, 'Search'
+            = f.check_box :side_bar_search
+            %br/
+            = f.label :side_bar_tag_id, 'Tag for sidebar'
+            = f.select :side_bar_tag_id, options_for_select(SemiStatic::Tag.locale(@tag.locale).collect{|t| [t.name, t.id]}.prepend(["- None -", nil]), @tag.side_bar_tag_id)
+        - unless @tag.new_record?
+          .button{:style => 'margin:3px'}
+            = link_to 'New attribute', new_tag_page_attr_path(@tag), :remote => true
+        %h2 Attributes
+        - if @tag.page_attrs.present?
+          %table
+            %thead
               %tr
-                %td= link_to a.attr_key, edit_polymorphic_path([@tag, a]), :remote => :true
-                %td= a.attr_value
-                %td= link_to image_tag("/assets/bin.png"), entry_page_attr_path(@tag, a), :method => :delete
-      %h2 Advanced Settings
-      %fieldset
-        .infobox.wide#context_url_info
-          %h3 Generate context URL's
-          %p
-            Normally entries inside a tag have a url of this form
-          %pre
-            http://mydomain.com/entries/56-discounts-for-volume-users
-          %p
-            But if context_urls are set for the tag them the tag name will be used in the URL. So that if the tag is called 'pricing', then the URL will now have this form:
-          %pre
-            http://mydomain.com/pricing/56-discounts-for-volume-users
-          %p
-            IMPORTANT #1: Context urls are only generated after the website application restart.
-          %p
-            IMPORTANT #2: If you use context URL's, then you need to make sure that the URLS do not clash, eg. if your tag is called 'Site' and you enable context urls then the generated URL 'http://mydomain.com/site/56-discounts-for-volume-users' my clash with the main application
+                %th='Key'
+                %th='Value'
+                %th
+            %tbody
+              - @tag.page_attrs.each do |a|
+                %tr
+                  %td= link_to a.attr_key, edit_polymorphic_path([@tag, a]), :remote => :true
+                  %td= a.attr_value
+                  %td= link_to image_tag("/assets/bin.png"), entry_page_attr_path(@tag, a), :method => :delete
+        %h2 Advanced Settings
+        %fieldset
+          .infobox.wide#context_url_info
+            %h3 Generate context URL's
+            %p
+              Normally entries inside a tag have a url of this form
+            %pre
+              http://mydomain.com/entries/56-discounts-for-volume-users
+            %p
+              But if context_urls are set for the tag them the tag name will be used in the URL. So that if the tag is called 'pricing', then the URL will now have this form:
+            %pre
+              http://mydomain.com/pricing/56-discounts-for-volume-users
+            %p
+              IMPORTANT #1: Context urls are only generated after the website application restart.
+            %p
+              IMPORTANT #2: If you use context URL's, then you need to make sure that the URLS do not clash, eg. if your tag is called 'Site' and you enable context urls then the generated URL 'http://mydomain.com/site/56-discounts-for-volume-users' my clash with the main application
+          
+          %span.infomarker
+          = f.label :context_url
+          = f.check_box :context_url
+        %fieldset
+          .section.group
+            .col.span_1_of_1
+              = f.label :layout_select, 'Rails level layout for this page'
+              = f.select :layout_select, options_for_select(General::LAYOUTS.invert.collect{|k, v| [k, v]}, @tag.layout_select)
         
-        %span.infomarker
-        = f.label :context_url
-        = f.check_box :context_url
-      %fieldset
-        .section.group
-          .col.span_1_of_1
-            = f.label :layout_select, 'Rails level layout for this page'
-            = f.select :layout_select, options_for_select(General::LAYOUTS.invert.collect{|k, v| [k, v]}, @tag.layout_select)
-      
   .mid
     .actions
       = f.submit 'Save'
