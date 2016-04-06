@@ -21,6 +21,9 @@ module SemiStatic
     # config.logo_image = '/assets/logo.png'
     config.logo_image = nil
 
+    # If you want just text instead of a logo, put it here
+    config.logo_text = nil
+
     config.info_email = 'info@business-landing.com'
     config.telephone = nil
     
