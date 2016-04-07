@@ -156,21 +156,32 @@ h2{ font-size: 20px;}
   clear:both;
 }
 
-#slide-menu-wrapper.visible{box-shadow: 0 0 80px black; display:block }
-#slide-menu-wrapper.open{right:0px;}
+#slide-menu-window.open{
+  width:400px;
+  overflow:visible;
+}
+#slide-menu-window{
+  position:absolute;
+  top:0; right:0;
+  width:0;
+  overflow:hidden;
+}
+.open #slide-menu-wrapper{
+  right:0px;
+}
 #slide-menu-wrapper{
-    background-color: $prime-color;
-    color: white;
-    max-width: 100%;
-    min-height: 100%;
-    overflow: hidden;
-    position: absolute;
-    right: -412px;
-    top: 0;
-    transition: right 0.5s linear 0s;
-    width: 400px;
-    z-index: 2000;
-    padding:6px;
+  transition: right 0.5s linear 0s;
+  box-shadow: 0 0 80px black;
+  background-color: $prime-color;
+  color: white;
+  max-width: 100%;
+  min-height: 100%;
+  position: absolute;
+  right: -412px;
+  top: 0;
+  width: 400px;
+  z-index: 2000;
+  padding:6px;
 }
 #slide-menu-wrapper .wrapper .text{
   padding:6px 6px 0px 6px;
