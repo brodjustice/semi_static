@@ -1,0 +1,26 @@
+.mid.full
+  %h1 Page Attributes
+  
+  .infobox#page_attribute_help
+    %h3= 'Page Attribute Help'
+    %p= 'Page Attributes are values that can be set for most pages on your website (Entry or Title). The values are usually required by custom or semi-custom layouts to indicate where to collect information or what certain values should be.'
+  .infomarker= 'Page Attibutes Help'
+  %table
+    %tr
+      %th= 'Page'
+      %th= 'Entry'
+      %th= 'Tag'
+      %th= 'Key'
+      %th= 'Value'
+  
+    - SemiStatic::PageAttr.all.each do |pa|
+      %tr
+        %td= link_to construct_url(pa.page_attrable, pa.page_attrable.locale), construct_url(pa.page_attrable, pa.page_attrable.locale)
+        %td
+          - if pa.page_attrable.kind_of?(SemiStatic::Entry)
+            = link_to image_tag('/assets/tick.png', :title => 'Entry'), edit_entry_path(pa.page_attrable.id)
+        %td
+          - if pa.page_attrable.kind_of?(SemiStatic::Tag)
+            = link_to image_tag('/assets/tick.png', :title => 'Tag'), edit_tag_path(pa.page_attrable.id)
+        %td= pa.attr_key.to_s
+        %td= pa.attr_value.to_s
