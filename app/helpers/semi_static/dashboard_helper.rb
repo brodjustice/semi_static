@@ -13,7 +13,7 @@ module SemiStatic
       :visitor => [],
       :admin => ['tags', 'entries', 'comments', 'sidebars', 'products', 'banners', 'footer', 'gallery', 'references',
                   'admins', 'contacts', 'agreements', 'seos', 'newsletters',
-                  'subscribers', 'click_ads', 'system'],
+                  'subscribers', 'click_ads', 'page_attributes', 'system'],
       :user => []
     }
   
@@ -35,6 +35,10 @@ module SemiStatic
     end
 
     private
+
+    def page_attributes(role, cl_str = nil)
+      "<div class='nutshell spaced' #{cl_str}><a href=\"#{semi_static.page_attrs_path}\">Page Attrs</a></div>"
+    end
 
     def subscribers(role, cl_str = nil)
       "<div class='nutshell spaced' #{cl_str}><a href=\"#{semi_static.subscribers_path}\">Subscribers</a></div>"

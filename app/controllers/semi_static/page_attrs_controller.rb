@@ -2,11 +2,13 @@ require_dependency "semi_static/application_controller"
 
 module SemiStatic
   class PageAttrsController < ApplicationController
+
+  before_filter :authenticate_for_semi_static!,  :except => [ :show, :search ]
+
     def index
       @page_attrs = PageAttr.all
       respond_to do |format|
-        format.html # index.html.erb
-        format.json { render json: @page_attrs }
+        format.html{render :layout => 'semi_static_dashboards'}
       end
     end
   

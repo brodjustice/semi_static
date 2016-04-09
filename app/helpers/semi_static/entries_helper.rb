@@ -121,7 +121,7 @@ module SemiStatic
     def semantic_product(e)
       return unless e.product.present?
       c = '<div class="product" vocab = "http://schema.org/" typeof="IndividualProduct"><table>'; p = e.product
-      %w(name description color height depth width weight price inventory_level).each{|prop|
+      %w(name description color height depth width weight price).each{|prop|
         if prop == 'price' && p.price.present?
           c += "<tr property='offers'  typeof='Offer' class='row'><td>#{t('price')}: </td><td><span property='priceCurrency'>#{p.currency}</span><span property='price'>#{p.price}</span></td></tr>".html_safe
         elsif p.send(prop).present?

@@ -16,10 +16,11 @@
         = f.label :description
         %br/
         = f.text_area :description, :rows => 8
-      %fieldset
-        = f.label :inventory_level
-        %br/
-        = f.text_field :inventory_level
+      -# Inventory level has been removed from schema.org 
+      -# %fieldset
+      -#   = f.label :inventory_level
+      -#   %br/
+      -#   = f.text_field :inventory_level
     .col.span_1_of_2
       %fieldset
         = f.label :currency

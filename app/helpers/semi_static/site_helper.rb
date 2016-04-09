@@ -167,10 +167,11 @@ module SemiStatic
       else
         c += "<a href='#{photo_path(p)}' class='photo'> ".html_safe
       end
+      # schema used to allow meta nane, eg:
+      # "<meta property='name' content='#{p.title}'/>".html_safe
+      # but this now needs to be text
       if show_title
         c += "<h3 property='name'>#{p.title}</h3>".html_safe
-      else
-        c += "<meta property='name' content='#{p.title}'/>".html_safe
       end
       c += image_tag(p.img.url(style), :class => 'photo')
       c += '</a>'.html_safe
