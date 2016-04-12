@@ -162,14 +162,12 @@ module SemiStatic
 
     def semantic_photo(p, style, show_title = true)
       c = '<figure vocab = "http://schema.org/" typeof="ImageObject"> '.html_safe
+      c += "<meta property='name' content='#{p.title}'/>".html_safe
       if p.popup
         c += "<a class='popable photo' onclick=\'semiStaticAJAX(\"#{photo_path(p, :format => :js, :popup => true)}\")\; return false;' href='#{photo_path(p)}'> ".html_safe
       else
         c += "<a href='#{photo_path(p)}' class='photo'> ".html_safe
       end
-      # schema used to allow meta nane, eg:
-      # "<meta property='name' content='#{p.title}'/>".html_safe
-      # but this now needs to be text
       if show_title
         c += "<h3 property='name'>#{p.title}</h3>".html_safe
       end

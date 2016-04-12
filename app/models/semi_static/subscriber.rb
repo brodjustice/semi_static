@@ -16,7 +16,7 @@ module SemiStatic
     delegate :name, :to => :category, :allow_nil => true, :prefix => true
     
     def fullname
-      (name == surname) ? name : [name, surname].join(' ')
+      ((name == surname) ? name : [name, surname].join(' ')).to_s
     end
 
     def delivery_state(newsletter)
