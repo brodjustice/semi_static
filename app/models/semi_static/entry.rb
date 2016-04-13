@@ -57,6 +57,7 @@ module SemiStatic
     scope :for_documents_tag, where("show_in_documents_tag = ?", true).where('doc_file_size IS NOT NULL')
     scope :with_image, where('img_file_name IS NOT NULL')
     scope :without_image, where('img_file_name IS NULL')
+    scope :with_attr, lambda{|attr| includes(:page_attrs).where('semi_static_page_attrs.attr_key  = ?', attr)}
   
     has_one :seo, :as => :seoable
     has_many :page_attrs, :as => :page_attrable
