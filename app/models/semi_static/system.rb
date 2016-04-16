@@ -33,7 +33,9 @@ module SemiStatic
         if File.exist? path + '/' + filename
           File.open(path + '/' + filename) do |file|
             while (line = file.gets)
-              c += line.split('-#').count == 2 ? line.split('-#').last.to_s.gsub!(/\n/, "\r ") : ''
+              if (line.split('-#').count == 2) && line.split('-#').first.empty?
+                c += line.split('-#').last.to_s.gsub!(/\n/, "\r ")
+              end
             end
           end
         end

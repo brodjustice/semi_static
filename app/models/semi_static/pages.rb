@@ -1,6 +1,5 @@
 module SemiStatic
   module Pages
-
     def expire_site_page_cache
       Pages.expire_site_page_cache(self)
     end
