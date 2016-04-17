@@ -11,7 +11,7 @@
     = @newsletter.css
   #newsletter-wrapper
     %table.newsletter
-      - if (b = (SemiStatic::Banner.find_by_name(@newsletter.subtitle) || @newsletter.tag.banner ))
+      - if (b = (SemiStatic::Banner.find_by_name(@newsletter.subtitle) || @newsletter.tag.try('banner') ))
         %tr{:style => "border-bottom: 1px solid #a0a0a0;"}
           %td{:colspan => 2, :style => 'text-align: center;'}
             = image_tag(b.img(:original))
