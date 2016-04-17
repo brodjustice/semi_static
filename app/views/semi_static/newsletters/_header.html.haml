@@ -23,5 +23,9 @@
         = f.text_field :subtitle
         %br/
         %br/
+      %fieldset
+        = f.label :banner
+        = f.select :banner_id, options_for_select(SemiStatic::Banner.all.collect{|b| [b.name, b.id]}.prepend(["- None -", 'none']), @newsletter.banner_id)
+
   .actions
     = f.submit 'Save'

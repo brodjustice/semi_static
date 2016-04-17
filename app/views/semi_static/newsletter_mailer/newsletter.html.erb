@@ -269,9 +269,9 @@
                                   <td align="center" valign="middle" class="imageContent">
 				  <% @max_images = @max_images -1 %>
 				  <% if @max_images > 0 %>
-                                    <img src="<%= attachments['banner.jpg'].url %>" width="640" class="flexibleImage" style="max-width:640px;width:100%;margin-top:0px; margin-bottom:0px;display:block;" alt="<%= @newsletter.tag.banner.name %>" title="<%= @newsletter.tag.banner.name %>" />
+                                    <img src="<%= attachments['banner.jpg'].url %>" width="640" class="flexibleImage" style="max-width:640px;width:100%;margin-top:0px; margin-bottom:0px;display:block;" alt="<%= @newsletter.banner.name %>" title="<%= @newsletter.banner.name %>" />
 				  <% else %>
-                                    <img src="<%= 'http://' + @site_url + @newsletter.tag.banner.img.url %>" width="640" class="flexibleImage" style="max-width:640px;width:100%;margin-top:0px; margin-bottom:0px;display:block;" alt="<%= @newsletter.tag.banner.name %>" title="<%= @newsletter.tag.banner.name %>" />
+                                    <img src="<%= 'http://' + @site_url + @newsletter.banner.img.url %>" width="640" class="flexibleImage" style="max-width:640px;width:100%;margin-top:0px; margin-bottom:0px;display:block;" alt="<%= @newsletter.banner.name %>" title="<%= @newsletter.banner.name %>" />
 				  <% end %>
                                   </td>
                                 </tr>

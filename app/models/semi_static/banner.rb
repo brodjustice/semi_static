@@ -6,6 +6,7 @@ module SemiStatic
 
     has_many :entries
     has_many :tags
+    has_many :newsletters
 
     THEME = {
       'tiles' => {:desktop => :desktop, :mobile => :mobile},
