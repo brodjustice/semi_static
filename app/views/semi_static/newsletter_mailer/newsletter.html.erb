@@ -370,7 +370,10 @@
                                           <h3 mc:edit="header" style="color:#0060aa;line-height:125%;font-family:Helvetica,Arial,sans-serif;font-size:20px;font-weight:normal;margin-top:0;margin-bottom:3px;text-align:center;"><%= [@newsletter.name, @newsletter.subtitle].join(' ') %></h3>
                                           <% unless @newsletter.salutation_post_text.blank? %>
                                             <div mc:edit="body" style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:15px;margin-bottom:0;color:#5F5F5F;line-height:135%;">
-                                              <p><%= [@newsletter.salutation_pre_text, ' ', salutation_name(@newsletter, @subscriber), ','].join %></p>
+                                              <% if @newsletter.salutation %>
+                                                <p><%= [@newsletter.salutation_pre_text, ' ', salutation_name(@newsletter, @subscriber), ','].join %></p>
+                                              <% end %>
+
                                               <%= simple_format(@newsletter.salutation_post_text) %>
                                             </div>
                                           <% end %>
