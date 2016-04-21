@@ -3,6 +3,8 @@
   %p= @contact.name
   %h3 Surname
   %p= @contact.surname
+  %h3 Reason
+  %p= @contact.reason.to_s
   %h3 Message
   %p= simple_format(@contact.message)
   %h3 Email

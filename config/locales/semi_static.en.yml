@@ -72,6 +72,7 @@ en:
   start_date: 'Starts at'
   duration: 'Duration'
   language: 'Language'
+  Register: 'Register'
 
   devise:
     sessions:

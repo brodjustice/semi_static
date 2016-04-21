@@ -80,6 +80,8 @@ de:
   start_date: 'Beginnt um'
   duration: 'Dauer'
   language: 'Sprache'
+  price: 'Preis'
+  Register: 'Anmelden'
 
   devise:
     sessions:

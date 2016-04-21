@@ -50,10 +50,10 @@ module SemiStatic
     # POST /events.json
     def create
       @event = Event.new(params[:event])
-      @events = Event.all
   
       respond_to do |format|
         if @event.save
+          @events = Event.all
           format.html { render 'index', notice: 'Event was successfully created.' }
           format.json { render json: @event, status: :created, location: @event }
         else

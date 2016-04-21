@@ -1,0 +1,9 @@
+- content_for :header_css do
+  :plain
+    iframe{width: 100%;}
+
+= render :partial => 'semi_static/shared/custom_banner', :locals => {:banner_name => ['Contact', 'Default']}
+#registration.mid
+  %h1= t('Registration')
+  %h2= @reason
+  = render :partial => 'semi_static/contacts/form'

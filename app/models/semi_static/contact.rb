@@ -1,6 +1,6 @@
 module SemiStatic
   class Contact < ActiveRecord::Base
-    attr_accessible :surname, :message, :email, :telephone, :name, :locale, :agreement_ids
+    attr_accessible :reason, :surname, :message, :email, :telephone, :name, :locale, :agreement_ids
 
     has_and_belongs_to_many :agreements, :join_table => :semi_static_agreements_contacts
   

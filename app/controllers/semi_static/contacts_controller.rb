@@ -32,12 +32,22 @@ module SemiStatic
     # GET /contacts/new.json
     def new
       @contact = Contact.new
+      if params[:registration]
+        @registration = true
+        @reason = params[:reason]
+      else
+        @tag, @seo = Seo.contact(params[:tag_id], I18n.locale.to_s)
+      end
       @contact.agreements << Agreement.where(:display => true).locale(I18n.locale.to_s)
-      @tag, @seo = Seo.contact(params[:tag_id], I18n.locale.to_s)
   
       respond_to do |format|
-        format.html # new.html.erb
-        format.json { render :json => @contact }
+        if @registration
+          format.html { render 'registration' }
+          format.json { render :json => @contact }
+        else
+          format.html # new.html.erb
+          format.json { render :json => @contact }
+        end
       end
     end
   

@@ -26,6 +26,19 @@
             = f.label :offer_price, 'Price'
             %br/
             = f.text_field :offer_price
+      %h2 Registion options
+      %fieldset
+        = f.label :registration, 'Enable Registration'
+        = f.check_box :registration
+      #registration_fields
+        %fieldset
+          = f.label :registration_text, 'Text summary for event registration'
+          %br/
+          = f.text_field :registration_text, :size => 70 
+          %br/
+          = f.label :registration_url, 'Optional url to direct to for registration'
+          %br/
+          = f.text_field :registration_url, :size => 70
         
         
 

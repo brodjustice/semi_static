@@ -6,6 +6,8 @@
         %li= msg
 
 = form_for @contact do |f|
+  - if @reason
+    = hidden_field_tag 'contact[reason]', @reason.to_s
   .section.group
     .col.span_1_of_2
       = f.text_field :name, :size => 51

@@ -3,6 +3,7 @@
 %table
   %tr
     %th Name
+    %th Reason
     %th Message
     %th Email
     %th Phone
@@ -13,6 +14,7 @@
   - @contacts.each do |c|
     %tr
       %td= link_to c.fullname, c
+      %td= c.reason.to_s
       %td= truncate(simple_format(c.message), :length => 100)
       %td= mail_to c.email, c.email
       %td= c.telephone

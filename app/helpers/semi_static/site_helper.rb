@@ -185,11 +185,18 @@ module SemiStatic
     ISO4217 = [['€','EUR'], ['$','USD'], ['£','UKP']]
 
     # Events only belong to entries, so we take the entry as a parameter as we can alos get other data from this, like the locale
-    def semantic_event(entry, registration = true)
+    def semantic_event(entry)
       return unless (e = entry.event).present?
       c = '<div class="event" typeof="Event" vocab="http://schema.org/"><table>'.html_safe
       c += '<thead>'.html_safe
-      c += "<tr class='row'><th colspan='2'><span property='name'>#{e.name}</span></th></tr>".html_safe
+      c += "<tr class='row'><th colspan='2'><span property='name'>#{e.name}</span>".html_safe
+
+      # Is registration required
+      if e.registration
+        reg_href = (e.registration_url.blank? ? new_contact_path(:registration => true, :reason => e.registration_text) : e.registration_url)
+        c += "<a class='registration' rel='nofollow' href=\'#{reg_href}\'>#{t('Register')}</a>".html_safe
+      end
+      c += "</th></tr>".html_safe
       if e.description.present?
         c += "<tr class='row'><td colspan='2' property='description'>#{simple_format(e.description)}</td></tr>".html_safe
       end
@@ -212,7 +219,7 @@ module SemiStatic
       # Offer
       if (e.offer_price.present? && e.offer_price_currency.present?)
         c += '<tbody property="offers" typeof="Offer">'.html_safe
-        c += "<tr class='row'><td>#{t('Price')}: </td><td><meta property='price' content=\'#{sprintf('%.2f', e.offer_price)}\'/><meta property='priceCurrency' content=\'#{ISO4217.select{ |sym, code| e.offer_price_currency == sym }.flatten.last}\/'><meta property='url' content=\'#{construct_url(entry, entry.locale)}\'/>#{number_to_currency(e.offer_price, :unit => e.offer_price_currency, :precision => 2, :locale => entry.locale.to_sym)}</td></tr>".html_safe
+        c += "<tr class='row'><td>#{t('Price')}: </td><td><meta property='price' content=\'#{sprintf('%.2f', e.offer_price)}\'/><meta property='priceCurrency' content=\'#{ISO4217.select{ |sym, code| e.offer_price_currency == sym }.flatten.last}\'/><meta property='url' content=\'#{construct_url(entry.merged_main_entry, entry.locale)}\'/>#{number_to_currency(e.offer_price, :unit => e.offer_price_currency, :precision => 2, :locale => entry.locale.to_sym)}</td></tr>".html_safe
         c += '</tbody>'.html_safe
       end
 
