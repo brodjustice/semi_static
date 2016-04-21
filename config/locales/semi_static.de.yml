@@ -56,6 +56,12 @@ de:
   contact:
     pre: 'Wenn Sie mit uns Kontakt aufnehmen möchten, senden Sie uns eine kurze Notiz, wir rufen Sie gerne zurück!'
 
+  number:
+    currency:
+      format:
+        format: "%n %u"
+        separator: ','
+
   # Product Properties
   pname: 'Name'
   description: 'Beschreibung'
