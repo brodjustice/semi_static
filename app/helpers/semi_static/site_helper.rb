@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module SemiStatic
   module SiteHelper
 
@@ -179,19 +181,27 @@ module SemiStatic
       c += '</figure>'.html_safe
     end
 
+    # Array of ISO-4217 currency codes, cannot use a hash
+    ISO4217 = [['€','EUR'], ['$','USD'], ['£','UKP']]
+
     # Events only belong to entries, so we take the entry as a parameter as we can alos get other data from this, like the locale
     def semantic_event(entry, registration = true)
       return unless (e = entry.event).present?
       c = '<div class="event" typeof="Event" vocab="http://schema.org/"><table>'.html_safe
+      c += '<thead>'.html_safe
       c += "<tr class='row'><th colspan='2'><span property='name'>#{e.name}</span></th></tr>".html_safe
       if e.description.present?
         c += "<tr class='row'><td colspan='2' property='description'>#{simple_format(e.description)}</td></tr>".html_safe
       end
 
-      e.location.present? &&
-        (c += "<tr class='row' typeof='Place'><td>#{t('location')}: </td><td><span property='name'>#{e.location}</span></td></tr>".html_safe )
-      e.location_address.present? &&
-        (c += "<tr class='row' typeof='Place'><td>#{t('Address')}: </td><td><span property='address'>#{e.location_address}</span></td></tr>".html_safe )
+      c += '</thead>'.html_safe
+      if (e.location.present? && e.location_address.present?)
+        c += '<tbody property="location" typeof="Place">'.html_safe
+        c += "<tr class='row'><td>#{t('location')}: </td><td><span property='name'>#{e.location}</span></td></tr>".html_safe
+        c += "<tr class='row'><td>#{t('Address')}: </td><td><span property='address'>#{e.location_address}</span></td></tr>".html_safe
+        c += '</tbody>'.html_safe
+      end
+
       e.start_date.present? &&
         (c += "<tr class='row'><td>#{t('start_date')}: </td><td><span property='startDate' content=\'#{e.start_date.iso8601}\'>#{e.start_date.strftime('%d/%b/%y %H:%M')}</span></td></tr>".html_safe )
 
@@ -199,8 +209,13 @@ module SemiStatic
       e.duration.present? && (c += "<tr class='row'><td>#{t('duration')}: </td><td><span property='duration' content=\'#{e.duration.to_s + 'M'}\'>#{[e.duration, t('minutes')].join(' ')}</span></td></tr>".html_safe )
       e.in_language.present? && (c += "<tr class='row'><td>#{t('language')}: </td><td><span property='inLanguage'>#{e.in_language}</span></td></tr>".html_safe )
 
-      e.offer_price.present? && e.offer_price_currency.present? &&
-        (c += "<tr class='row' typeof='Offer'><td>#{t('Price')}: </td><td><span property=''>#{number_to_currency(e.offer_price, :unit => e.offer_price_currency, :locale => entry.locale.to_sym)}</span></td></tr>".html_safe )
+      # Offer
+      if (e.offer_price.present? && e.offer_price_currency.present?)
+        c += '<tbody property="offers" typeof="Offer">'.html_safe
+        c += "<tr class='row'><td>#{t('Price')}: </td><td><meta property='price' content=\'#{sprintf('%.2f', e.offer_price)}\'/><meta property='priceCurrency' content=\'#{ISO4217.select{ |sym, code| e.offer_price_currency == sym }.flatten.last}\/'><meta property='url' content=\'#{construct_url(entry, entry.locale)}\'/>#{number_to_currency(e.offer_price, :unit => e.offer_price_currency, :precision => 2, :locale => entry.locale.to_sym)}</td></tr>".html_safe
+        c += '</tbody>'.html_safe
+      end
+
       c += '</table></div>'.html_safe
     end
 
