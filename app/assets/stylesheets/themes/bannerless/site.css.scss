@@ -133,23 +133,22 @@ th{ text-align: left; }
   padding: 12px;
 }
 
-.product table{
-  display: inline-table;
-}
-.product .row a{
+.event table, .product table{display:inline-table;width:100%;border-collapse:collapse;}
+.event th{text-align:center; padding: 3px;}
+.event .row a, .product .row a{
   font-size: 12px;
   float: right;
 }
-.product table td{
+.event table td, .product table td{
   border: 1px solid white
 }
-.product .row{
+.event .row, .product .row{
   background-color: #f0f0f0;
   margin: 0px 1px;
   padding: 1px 4px;
 }
 
-.product .row:last-child{
+.event .row:last-child, .product .row:last-child{
   margin-bottom: 10px;
 }
 

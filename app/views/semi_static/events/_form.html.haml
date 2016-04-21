@@ -1,0 +1,54 @@
+= form_for @event do |f|
+  .group
+    .col.span_2_of_3
+      - if @event.errors.any?
+        #error_explanation
+          %h2= "#{pluralize(@event.errors.count, "error")} prohibited this event from being saved:"
+          %ul
+            - @event.errors.full_messages.each do |msg|
+              %li= msg
+      %h2 Main Content
+      %fieldset
+        = f.label :name
+        %br/
+        = f.text_field :name
+      %fieldset
+        = f.label :description
+        %br/
+        = f.text_area :description
+        
+
+    .col.span_1_of_3
+      .sidebar
+        %h2 Options
+        %fieldset
+          = f.label :location
+          %br/
+          = f.text_field :location
+        %fieldset
+          = f.label :door_time, 'Time that doors to event open'
+          %br/
+          = f.datetime_select :door_time, {:start_year => Time.now.year, :include_blank => true, :default => nil}
+        %fieldset
+          = f.label :start_date, 'Start date and time'
+          %br/
+          = f.datetime_select :start_date, {:start_year => Time.now.year, :include_blank => true, :default => nil}
+        %fieldset
+          = f.label :end_date, 'End date and time'
+          %br/
+          = f.datetime_select :end_date, {:start_year => Time.now.year, :include_blank => true, :default => nil}
+        %fieldset
+          = f.label :duration, 'Duration in minutes'
+          %br/
+          = f.text_field :duration
+        %fieldset
+          = f.label :in_language, 'Language (in BCP 47 format, eg. en, de, it)'
+          %br/
+          = f.text_field :in_language
+        %fieldset
+          = f.label :typical_age_range, 'Typical Age Range (eg. 18-30)'
+          %br/
+          = f.text_field :typical_age_range
+  .mid
+    .actions
+      = f.submit 'Save'

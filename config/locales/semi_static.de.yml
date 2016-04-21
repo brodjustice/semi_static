@@ -68,6 +68,12 @@ de:
   currency: 'Währung'
   inventory_level: 'Bestand'
 
+  # Event Properties
+  # decription from product properties
+  location: 'Ort'
+  start_date: 'Beginnt um'
+  duration: 'Dauer'
+  language: 'Sprache'
 
   devise:
     sessions:

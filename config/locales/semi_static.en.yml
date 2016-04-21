@@ -66,6 +66,13 @@ en:
   currency: 'Currency'
   inventory_level: 'Inventory level'
 
+  # Event Properties
+  # decription from product properties
+  location: 'Location'
+  start_date: 'Starts at'
+  duration: 'Duration'
+  language: 'Language'
+
   devise:
     sessions:
       user:

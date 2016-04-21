@@ -14,7 +14,7 @@ module SemiStatic
     attr_accessible :merge_with_previous, :raw_html, :image_popup, :alt_title, :acts_as_tag_id
     attr_accessible :facebook_share, :linkedin_share, :xing_share, :twitter_share, :show_in_documents_tag, :image_caption
     attr_accessible :tag_line, :raw_html, :show_image_titles, :doc_delete, :img_delete, :alt_img_delete
-    attr_accessible :enable_comments, :comment_strategy, :layout_select, :link_to_tag, :style
+    attr_accessible :enable_comments, :comment_strategy, :layout_select, :link_to_tag, :style, :event_id
     attr_accessor :doc_delete, :img_delete, :alt_img_delete
 
     # The news image is now also used for various alternative fuctions, icons, etc.
@@ -66,6 +66,7 @@ module SemiStatic
     belongs_to :sidebar
     belongs_to :master_entry, :class_name => SemiStatic::Entry
     belongs_to :banner
+    belongs_to :event
     has_many :photos
     has_many :comments, :dependent => :destroy
 

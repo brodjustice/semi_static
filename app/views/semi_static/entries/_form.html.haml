@@ -184,7 +184,7 @@
           = f.label :body
           %br/
           #entry_text_area
-            = f.text_area :body
+            = f.text_area :body, :rows => 32
           .infobox#unrestricted_html_check_box
             %h4= 'Unrestricted HTML'
             %p
@@ -476,17 +476,24 @@
           = f.check_box :show_image_titles
         %h2 Social share buttons
         %fieldset
-          = f.label :facebook_share, 'Facebook'
-          = f.check_box :facebook_share
-          %br/
-          = f.label :linkedin_share, 'LinkedIn'
-          = f.check_box :linkedin_share
-          %br/
-          = f.label :xing_share, 'Xing'
-          = f.check_box :xing_share
-          %br/
-          = f.label :twitter_share, 'Twitter'
-          = f.check_box :twitter_share
+          .group
+            .col.span_1_of_2
+              = f.label :facebook_share, 'Facebook'
+              = f.check_box :facebook_share
+              %br/
+              = f.label :linkedin_share, 'LinkedIn'
+              = f.check_box :linkedin_share
+            .col.span_1_of_2
+              = f.label :xing_share, 'Xing'
+              = f.check_box :xing_share
+              %br/
+              = f.label :twitter_share, 'Twitter'
+              = f.check_box :twitter_share
+        %h2 Event
+        %fieldset
+          = f.select :event_id, options_for_select(SemiStatic::Event.all.collect{|e| [e.name, e.id]}.prepend(["- None -", 'none']), @entry.event_id)
+
+          
         - unless @entry.new_record?
           .button{:style => 'margin:3px'}
             = link_to 'New attribute', new_entry_page_attr_path(@entry), :remote => true

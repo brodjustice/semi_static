@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = SemiStatic::VERSION
   s.authors     = ["Brod Justice @ Business Landing Ltd"]
   s.email       = ["brod@business-landing.com"]
-  s.homepage    = "http://business-landing.com"
+  s.homepage    = "http://quantum-websites.com"
   s.summary     = "Basic website builder with cacheing"
   s.description = "Some basic CRM is supported but the main aim is to provide a very fast cached, ie. static, website that works well for desktop and mobile"
 

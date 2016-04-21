@@ -1,0 +1,32 @@
+.mid.full
+  .button= link_to 'New Event', new_event_path
+  %h1 Events
+  %table
+    %thead
+      %tr
+        %th= 'Name'
+        %th= 'Door Time'
+        %th= 'Start'
+        %th= 'End'
+        %th= 'Duration'
+        %th= 'Language'
+        %th= 'Typical Age Range'
+        %th= image_tag('calendar.png', :title => 'Last Update')
+        %th
+
+    %tbody
+      - @events.each do |event|
+        %tr{:id => "event_id_#{event.id}"}
+          %td= link_to event.name, edit_event_path(event)
+          %td
+            = event.door_time.strftime('%d/%b/%y %H:%M') if event.door_time.present?
+          %td= event.start_date.strftime('%d/%b/%y %H:%M') if event.start_date.present?
+          %td= event.end_date.strftime('%d/%b/%y %H:%M') if event.end_date.present?
+          %td
+            - if event.duration.present?
+              = event.duration.to_s + ' minutes'
+          %td= event.in_language
+          %td= event.typical_age_range
+          %td.number{:title => event.updated_at.strftime('%H:%M')}= event.updated_at.strftime('%d/%b/%y')
+          %td= link_to image_tag('bin.png'), event, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
