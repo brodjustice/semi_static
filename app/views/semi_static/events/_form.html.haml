@@ -26,6 +26,15 @@
             = f.label :offer_price, 'Price'
             %br/
             = f.text_field :offer_price
+        .group
+          .col.span_1_of_2
+            = f.label :offer_min_price, 'Price range (min)'
+            %br/
+            = f.text_field :offer_min_price
+          .col.span_1_of_2
+            = f.label :offer_max_price, 'Price range (max)'
+            %br/
+            = f.text_field :offer_max_price
       %h2 Registion options
       %fieldset
         = f.label :registration, 'Enable Registration'

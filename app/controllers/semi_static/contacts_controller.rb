@@ -4,7 +4,7 @@ module SemiStatic
   class ContactsController < ApplicationController
 
     before_filter :authenticate_for_semi_static!, :except => [:new, :create]
-    caches_page :new
+    caches_page :new, :if => Proc.new { |c| c.request.params[:registration].blank? }
   
     # GET /contacts
     # GET /contacts.json
@@ -32,7 +32,7 @@ module SemiStatic
     # GET /contacts/new.json
     def new
       @contact = Contact.new
-      if params[:registration]
+      if params[:registration].present?
         @registration = true
         @reason = params[:reason]
       else
