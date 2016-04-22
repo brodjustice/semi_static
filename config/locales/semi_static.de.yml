@@ -82,6 +82,7 @@ de:
   language: 'Sprache'
   price: 'Preis'
   Register: 'Anmelden'
+  Registration: 'Anmeldung'
 
   devise:
     sessions:

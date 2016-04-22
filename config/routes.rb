@@ -69,11 +69,13 @@ SemiStatic::Engine.routes.draw do
   resources :click_ads, :except => [:new, :create, :update]
   resources :seos, :except => [:new, :create, :update]
   resources :agreements
+
+  match '/contacts/registration' => 'contacts#new', :as => 'new_registration', :via => :get
   resources :contacts, :except => [:edit, :update]
 
   match '/semi-static/dashboard' => 'dashboards#show', :as => 'semi_static_dashboard', :via => :get
 
-  # All system cmd use update, even though the may realy be doing a get
+  # All system cmd use update, even though they may really be doing a GET
   match '/system' => "system#update", :via => :put
 end
 

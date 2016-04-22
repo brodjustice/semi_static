@@ -70,7 +70,8 @@ module SemiStatic
   
       respond_to do |format|
         if @event.update_attributes(params[:event])
-          format.html { redirect_to @event, notice: 'Event was successfully updated.' }
+          @events = Event.all
+          format.html { render 'index', notice: 'Event was successfully updated.' }
           format.json { head :no_content }
         else
           format.html { render action: "edit" }

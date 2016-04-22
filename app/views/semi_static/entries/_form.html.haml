@@ -491,7 +491,7 @@
               = f.check_box :twitter_share
         %h2 Event
         %fieldset
-          = f.select :event_id, options_for_select(SemiStatic::Event.all.collect{|e| [e.name, e.id]}.prepend(["- None -", 'none']), @entry.event_id)
+          = f.select :event_id, options_for_select(SemiStatic::Event.all.collect{|e| [['ID ', e.id.to_s, ': ', e.name].join, e.id]}.prepend(["- None -", 'none']), @entry.event_id)
 
           
         - unless @entry.new_record?

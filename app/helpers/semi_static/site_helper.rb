@@ -193,7 +193,7 @@ module SemiStatic
 
       # Is registration required
       if e.registration
-        reg_href = (e.registration_url.blank? ? new_contact_path(:registration => true, :reason => e.registration_text) : e.registration_url)
+        reg_href = (e.registration_url.blank? ? new_registration_path(:registration => true, :reason => e.registration_text) : e.registration_url)
         c += "<a class='registration' rel='nofollow' href=\'#{reg_href}\'>#{t('Register')}</a>".html_safe
       end
       c += "</th></tr>".html_safe
