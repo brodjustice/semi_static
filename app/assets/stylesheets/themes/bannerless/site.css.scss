@@ -133,14 +133,15 @@ th{ text-align: left; }
   padding: 12px;
 }
 
-.event table, .product table{display:inline-table;width:100%;border-collapse:collapse;}
-.event th{text-align:center; padding: 3px;}
+.event table, .product table{margin-bottom:6px;display:inline-table;width:100%;border-collapse:collapse;}
+.event th{text-align:center; padding: 6px; border-top: 1px solid $prime-color;}
+.event th div{padding-top: 6px;}
 .event .row a, .product .row a{
   font-size: 12px;
   float: right;
 }
 .event table td, .product table td{
-  border: 1px solid white
+  border: 1px solid white; padding: 0px 6px;
 }
 .event .row, .product .row{
   background-color: #f0f0f0;
@@ -149,7 +150,7 @@ th{ text-align: left; }
 }
 
 .event .row:last-child, .product .row:last-child{ margin-bottom: 10px; }
-.event a.registration{font-size:14px;border-radius: 4px;border: 1px solid #a0a0a0; float:right; padding:3px 6px; color: white; background-color: $prime-color; display: block;}
+.event a.registration{font-size:14px;border-radius: 4px;border: 1px solid #a0a0a0; float:right; padding:6px; color: white; background-color: $prime-color; display: block;}
 
 .fragment td{
   border-bottom: 1px solid $prime-color;
