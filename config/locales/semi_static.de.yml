@@ -87,6 +87,7 @@ de:
 
   # Squeeze
   DownloadInstructionsFrom: 'Anweisungen zum Herunterladen von'
+  CheckYourEmail: 'Wir haben Anweisungen an die E-Mail-Adresse gesendet. Bitte überprüfen Sie Ihre E-Mail das Dokument zu herunterzuladen'
 
   devise:
     sessions:

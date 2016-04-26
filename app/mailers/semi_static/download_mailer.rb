@@ -6,7 +6,8 @@ module SemiStatic
 
       @host = SemiStatic::Engine.config.mail_host
       @contact = contact
-      mail(:from => SemiStatic::Engine.config.mailer_from, :to => email, :subject => subject)
+      @url = document_url(@contact.squeeze.id, @contact.token, :host => URI.parse(SemiStatic::Engine.config.localeDomains[@contact.locale]).host)
+      mail(:from => SemiStatic::Engine.config.info_email, :to => email, :subject => subject)
     end
   end
 end
