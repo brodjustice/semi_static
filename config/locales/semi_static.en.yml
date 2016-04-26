@@ -73,6 +73,10 @@ en:
   duration: 'Duration'
   language: 'Language'
   Register: 'Register'
+  Price_range: 'Price range'
+
+  # Squeeze
+  DownloadInstructionsFrom: 'Download from'
 
   devise:
     sessions:

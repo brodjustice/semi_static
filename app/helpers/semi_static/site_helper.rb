@@ -224,7 +224,7 @@ module SemiStatic
         c += "<tr class='row'><td>#{t('Price')}: </td><td><meta property='price' content=\'#{sprintf('%.2f', e.offer_price)}\'/><meta property='priceCurrency' content=\'#{ISO4217.select{ |sym, code| e.offer_price_currency == sym }.flatten.last}\'/><meta property='url' content=\'#{construct_url(entry.merged_main_entry, entry.locale)}\'/>#{number_to_currency(e.offer_price, :unit => e.offer_price_currency, :precision => 2, :locale => entry.locale.to_sym)}</td></tr>".html_safe
 
         if (e.offer_min_price.present? && e.offer_max_price.present?)
-          c += "<tr typeof='PriceSpecification' property='PriceSpecification' class='row'><td>#{t('price_range')}: </td><td>".html_safe
+          c += "<tr typeof='PriceSpecification' property='PriceSpecification' class='row'><td>#{t('Price_range')}: </td><td>".html_safe
           c += "<span property='minPrice' content=\'#{sprintf('%.2f', e.offer_min_price)}\'>#{number_to_currency(e.offer_min_price, :unit => e.offer_price_currency, :precision => 2, :locale => entry.locale.to_sym)} - </span>".html_safe
           c += "<span property='maxPrice' content=\'#{sprintf('%.2f', e.offer_max_price)}\'>#{number_to_currency(e.offer_max_price, :unit => e.offer_price_currency, :precision => 2, :locale => entry.locale.to_sym)}</span>".html_safe
           c += "</td></tr>".html_safe
@@ -235,6 +235,11 @@ module SemiStatic
       # Offer end
 
       c += '</table></div>'.html_safe
+    end
+
+    def squeeze(entry)
+      return unless (s = entry.squeeze).present?
+      "<a class='squeeze' rel='nofollow' onclick='semiStaticAJAX(\"#{squeeze_path(s, :format => :js, :popup => true)}\")\; return false;' href='#{squeeze_path(s)}'>#{simple_format(s.teaser)}</a>".html_safe
     end
 
     def social_shares(e)

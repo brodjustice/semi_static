@@ -15,5 +15,12 @@
         format.js
       end
     end
+
+    def show
+      squeeze = Squeeze.find(params[:squeeze_id])
+      contact = Contact.find_by_token(params[:token])
+      SemiStatic::ContactMailer.contact_notification(contact).deliver
+      send_file squeeze.doc(:url), :type => squeeze.doc_content_type, :disposition => 'inline'
+    end
   end
 end

@@ -83,6 +83,10 @@ de:
   price: 'Preis'
   Register: 'Anmelden'
   Registration: 'Anmeldung'
+  Price_range: 'Preisspanne'
+
+  # Squeeze
+  DownloadInstructionsFrom: 'Anweisungen zum Herunterladen von'
 
   devise:
     sessions:

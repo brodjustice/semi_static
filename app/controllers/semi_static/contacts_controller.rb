@@ -51,15 +51,18 @@ module SemiStatic
       end
     end
   
-    # POST /contacts
-    # POST /contacts.json
+    STRATEGY_TEMPLATES = { :message => :thanks, :registration => :thanks, :download => :check_your_email, :subscriber => :thanks }
+
     def create
+      if params[:contact][:squeeze_id].present?
+        @squeeze = Squeeze.find(params[:contact][:squeeze_id])
+      end
       @contact = Contact.new(params[:contact].merge(:locale => I18n.locale.to_s))
   
       respond_to do |format|
         if @contact.save
-          format.html { render :template => 'semi_static/contacts/thanks' }
-          format.json { render :json => @contact, :status => :created, :location => @contact }
+          format.html { render :template => "semi_static/contacts/#{STRATEGY_TEMPLATES[@contact.strategy_sym]}" }
+          format.js { render :template => "semi_static/contacts/#{STRATEGY_TEMPLATES[@contact.strategy_sym]}" }
         else
           format.html { render :template => "semi_static/contacts/new" }
           format.json { render :json => @contact.errors, :status => :unprocessable_entity }

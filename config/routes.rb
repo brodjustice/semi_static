@@ -1,6 +1,4 @@
 SemiStatic::Engine.routes.draw do
-  resources :events
-
 
   %w( 404 422 500 ).each do |code|
     get code, :to => "errors#show", :code => code
@@ -43,6 +41,7 @@ SemiStatic::Engine.routes.draw do
   match "/page-attributes/index" => 'page_attrs#index', :as => 'page_attrs', :via => :get
   match "/comments/index" => 'comments#index', :as => 'comments', :via => :get
   match "/documents/index" => 'documents#index', :as => 'documents', :via => :get
+  match "/documents/:squeeze_id/:token" => 'documents#show', :as => 'document', :via => :get
 
   get '/site/home', to: redirect('/')
   match '/site/:content' => 'site#show', :as => 'site',
@@ -60,6 +59,8 @@ SemiStatic::Engine.routes.draw do
     resources :seos, :only => [:new, :create, :update]
   end
 
+  resources :squeezes
+  resources :events, :except => :show
   resources :sidebars, :except => :show
   resources :products, :only => :index
   resources :newsletter_deliveries, :only => :update

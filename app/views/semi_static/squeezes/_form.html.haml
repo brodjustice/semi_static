@@ -1,0 +1,41 @@
+= form_for @squeeze do |f|
+  .group
+    .col.span_2_of_3
+      - if @squeeze.errors.any?
+        #error_explanation
+          %h2= "#{pluralize(@squeeze.errors.count, "error")} prohibited this event from being saved:"
+          %ul
+            - @squeeze.errors.full_messages.each do |msg|
+              %li= msg
+      %h2 Main Content
+      %fieldset
+        = f.label :name
+        %br/
+        = f.text_field :name
+        %br
+        = f.label :title
+        %br/
+        = f.text_field :title
+      %fieldset
+        = f.label :teaser
+        %br/
+        = f.text_area :teaser, :rows => 12
+        %br/
+        = f.label :agreement
+        %br/
+        = f.text_area :agreement, :rows => 12
+        %br/
+        = f.label :instructions
+        %br/
+        = f.text_area :instructions, :rows => 12
+        %br/
+        = f.label :doc, 'Doc (manditory, PDF format)'
+        = f.file_field :doc
+
+
+    .col.span_1_of_3
+      .sidebar
+        %h2 Options
+  .mid
+    .actions
+      = f.submit 'Save'

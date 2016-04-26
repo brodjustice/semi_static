@@ -12,7 +12,7 @@ module SemiStatic
     MENU = {
       :visitor => [],
       :admin => ['tags', 'entries', 'comments', 'sidebars', 'products', 'events', 'banners', 'footer', 'gallery', 'references',
-                  'admins', 'contacts', 'agreements', 'seos', 'newsletters',
+                  'admins', 'contacts', 'agreements', 'squeezes', 'seos', 'newsletters',
                   'subscribers', 'click_ads', 'page_attributes', 'system'],
       :user => []
     }
@@ -35,6 +35,10 @@ module SemiStatic
     end
 
     private
+
+    def squeezes(role, cl_str = nil)
+      "<div class='nutshell spaced' #{cl_str}><a href=\"#{semi_static.squeezes_path}\">Squeezes</a></div>"
+    end
 
     def events(role, cl_str = nil)
       "<div class='nutshell spaced' #{cl_str}><a href=\"#{semi_static.events_path}\">Events</a></div>"

@@ -1,0 +1,50 @@
+:plain
+  function addError(id){
+    var ei = document.querySelector(id)
+    if (ei.classList) ei.classList.add('field_with_errors'); else ei.className += ' field_with_errors';
+  }
+  function removeError(id){
+    var el = document.querySelector(id)
+    var className = 'field_with_errors';
+    if (el.classList)
+      el.classList.remove(className);
+    else
+      el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+  }
+  function squeezeCheck(event){
+    var re = /\S+@\S+\.\S+/;
+    var valid = true;
+    var e = document.querySelector('#contact_email').value;
+    if(!re.test(e)){ addError('#contact_email'); valid = false } else {removeError('#contact_email')};
+    var e = document.querySelector('#contact_name').value;
+    if(Boolean(e) === false){ addError('#contact_name'); valid = false} else {removeError('#contact_name')};
+    var e = document.querySelector('#contact_surname').value;
+    if(Boolean(e) === false){ addError('#contact_surname'); valid = false} else {removeError('#contact_surname')};
+    var e = document.querySelector('#accept').checked;
+    if(Boolean(e) === false){ addError('#acceptLabel'); valid = false} else {removeError('#acceptLabel')};
+
+    if (valid){
+      var formElement = document.getElementById('new_contact');
+      var request = new XMLHttpRequest();
+      request.open('POST', "#{contacts_path}", true);
+      request.setRequestHeader('Accept', 'text/javascript');
+      request.onload = function() {
+        if (request.status === 200) { eval(request.responseText); }
+        else {
+          d.innerHTML='<h2>ERROR: ' + request.status + '</h2>';
+        }
+      };
+      request.send(new FormData(formElement));
+    }
+    if (!event) event = window.event;
+    event.preventDefault();
+  }
+
+var d = document.getElementById('dialog');
+d.className = d.className += ' squeeze';
+d.setAttribute("style", "display:block;");
+!= "d.innerHTML=('#{escape_javascript(render :partial => 'semi_static/squeezes/popup')}');"
+document.getElementById('contact_name').focus();
+
+var s = document.getElementById('squeezeSubmit');
+s.addEventListener('click', squeezeCheck);

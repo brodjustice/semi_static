@@ -492,6 +492,9 @@
         %h2 Event
         %fieldset
           = f.select :event_id, options_for_select(SemiStatic::Event.all.collect{|e| [['ID ', e.id.to_s, ': ', e.name].join, e.id]}.prepend(["- None -", 'none']), @entry.event_id)
+        %h2 Squeeze
+        %fieldset
+          = f.select :squeeze_id, options_for_select(SemiStatic::Squeeze.all.collect{|s| [['ID ', s.id.to_s, ': ', s.name].join, s.id]}.prepend(["- None -", 'none']), @entry.squeeze_id)
 
           
         - unless @entry.new_record?
