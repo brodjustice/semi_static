@@ -28,6 +28,7 @@
       = f.text_field :telephone, :placeholder => t('Telephone')
       = f.label :telephone, t('Telephone')
 
+  = simple_format @squeeze.form_instructions unless @squeeze.form_instructions.blank?
   .agree
     = check_box_tag 'accept'
     = label_tag 'accept', @squeeze.agreement, :id => 'acceptLabel'
