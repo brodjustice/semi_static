@@ -1,51 +1,22 @@
-#dialog.squeeze{
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+.squeeze-form{
   box-sizing:border-box;
   background-color: #484848;
   color: white;
-  position: fixed;
   width: 80%;
   max-width: 500px;
   border: 6px solid #eee;
-  box-shadow: 0 0 4px #686868;
-  margin: 0 auto;
+  margin: 8px auto 16px;
   padding: 12px;
-  z-index: 10000;
-  max-height: 90%;
   overflow: visible;
   height: auto;
 }
 
-#dialog.squeeze input[type='email'],
-#dialog.squeeze input[type='text']{width: 100%;box-sizing:border-box;}
-#dialog.squeeze input[type='submit']{padding:12px;}
-#dialog .agree{margin:16px 0;}
-#dialog .col label{font-size:12px;}
+.squeeze-form input[type='email'],
+.squeeze-form input[type='text']{width: 100%;box-sizing:border-box;}
+.squeeze-form input[type='submit']{padding:12px;width:100%;}
+.squeeze-form .agree{margin:16px 0;}
+.squeeze-form .col label{font-size:12px;}
 
-#dialog.squeeze h2{
-  color:white;
-}
-#dialog.squeeze .button img{
-  width: 32px;
-  height: 32px;
-}
-#dialog.squeeze .button{
-  border-radius: 100%;
-  background-color: #484848;
-  float: right;
-  margin: -30px -30px 0 0;
-  height: 32px;
-  width: 32px;
-  border: 1px solid white;
-  font-size: 28px;
-  text-align: center;
-  z-index: 10100;
-  position: relative;
-}
-#dialog.squeeze p{
-  font-size: 16px;
-}
+.squeeze-form h2{ color:white; margin:0 0 6px 0;}
+.squeeze-form p{ font-size: 16px; }
 

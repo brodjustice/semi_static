@@ -1,11 +1,10 @@
-.button= link_to_function image_tag('cross.png'), "dialog.style.display = 'none';"
+.squeeze-form{:id => "squeeze-form_#{@squeeze.id.to_s}"}
+  - if @contact.errors.any?
+    #error_explanation.errors
+      %h2= "#{pluralize(@contact.errors.count, "error")} prohibited this contact from being saved:"
+      %ul
+        - @contact.errors.full_messages.each do |msg|
+          %li= msg
 
-- if @contact.errors.any?
-  #error_explanation.errors
-    %h2= "#{pluralize(@contact.errors.count, "error")} prohibited this contact from being saved:"
-    %ul
-      - @contact.errors.full_messages.each do |msg|
-        %li= msg
-
-%h2= @contact.email
-= t('CheckYourEmail')
+  %h2= @contact.email
+  = t('CheckYourEmail')

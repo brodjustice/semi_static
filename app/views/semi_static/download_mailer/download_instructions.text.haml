@@ -1,3 +1,6 @@
 = @contact.squeeze.instructions
 = "\r\n"
 = @url
+= "\r\n"
+= strip_tags(@contact.squeeze.email_footer.gsub(/&quot;/, '\"').gsub(/&nbsp;/, ' ').sub(/<tr>/, '').sub(/<p>/, '').gsub(/<tr>/, '\n').gsub(/<td>/, "\t").gsub(/<p>/,'\n\n')).gsub(/\\n/, "\r\n")
+

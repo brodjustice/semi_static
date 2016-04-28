@@ -1,4 +1,2 @@
-var d = document.getElementById('dialog');
-d.className = d.className += ' squeeze';
-d.setAttribute("style", "display:block;");
+!= "var d = document.getElementById('squeeze-tease_#{@squeeze.id.to_s}');"
 != "d.innerHTML=('#{escape_javascript(render :partial => 'semi_static/contacts/check_your_email')}');"

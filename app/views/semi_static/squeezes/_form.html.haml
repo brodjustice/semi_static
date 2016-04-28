@@ -19,19 +19,23 @@
       %fieldset
         = f.label :teaser
         %br/
-        = f.text_area :teaser, :rows => 12
+        = f.text_area :teaser, :rows => 6
         %br/
         = f.label :form_instructions
         %br/
-        = f.text_area :form_instructions, :rows => 12
+        = f.text_area :form_instructions, :rows => 6
         %br/
         = f.label :agreement
         %br/
-        = f.text_area :agreement, :rows => 12
+        = f.text_area :agreement, :rows => 6
         %br/
         = f.label :instructions
         %br/
-        = f.text_area :instructions, :rows => 12
+        = f.text_area :instructions, :rows => 6
+        %br/
+        = f.label :email_footer
+        %br/
+        = f.text_area :email_footer, :rows => 6
         %br/
         = f.label :doc, 'Doc (manditory, PDF format)'
         = f.file_field :doc
@@ -39,7 +43,14 @@
 
     .col.span_1_of_3
       .sidebar
-        %h2 Options
+        %h2 Form Fields
+        %fieldset
+          = f.check_box :company_field
+          = f.label :company_field
+          %br/
+          = f.check_box :position_field
+          = f.label :position_field
+          %br/
   .mid
     .actions
       = f.submit 'Save'

@@ -31,7 +31,7 @@
       request.onload = function() {
         if (request.status === 200) { eval(request.responseText); }
         else {
-          d.innerHTML='<h2>ERROR: ' + request.status + '</h2>';
+          d.innerHTML='<div class="squeeze-form"><h2>ERROR: ' + request.status + '</h2></div>';
         }
       };
       request.send(new FormData(formElement));
@@ -40,10 +40,8 @@
     event.preventDefault();
   }
 
-var d = document.getElementById('dialog');
-d.className = d.className += ' squeeze';
-d.setAttribute("style", "display:block;");
-!= "d.innerHTML=('#{escape_javascript(render :partial => 'semi_static/squeezes/popup')}');"
+!= "var d = document.getElementById('squeeze-tease_#{@squeeze.id.to_s}');"
+!= "d.innerHTML=('#{escape_javascript(render :partial => 'semi_static/squeezes/popin')}');"
 document.getElementById('contact_name').focus();
 
 var s = document.getElementById('squeezeSubmit');
