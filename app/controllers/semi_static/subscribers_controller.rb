@@ -15,6 +15,12 @@ module SemiStatic
       respond_to do |format|
         format.html # index.html.erb
         format.json { render json: @subscribers }
+        format.csv {
+          filename = SemiStatic::Engine.config.site_name + 'subscibers.csv'
+          headers["Content-Type"] ||= 'text/csv'
+          headers["Content-Disposition"] = "attachment; filename=\"#{filename}\""
+          render :layout => false
+        }
       end
     end
   

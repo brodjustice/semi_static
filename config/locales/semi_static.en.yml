@@ -78,6 +78,8 @@ en:
   # Squeeze
   DownloadInstructionsFrom: 'Download from'
   CheckYourEmail: 'We have sent download instructions to the email address provided. Please check your email to download the document'
+  Company: 'Company'
+  Position: 'Position'
 
   devise:
     sessions:

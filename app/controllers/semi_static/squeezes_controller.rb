@@ -19,7 +19,7 @@ module SemiStatic
     def show
       @squeeze = Squeeze.find(params[:id])
       @contact = Contact.new(:strategy => Contact::STRATEGIES[:download], :reason => @squeeze.name.to_s, :squeeze_id => @squeeze.id)
-  
+
       respond_to do |format|
         format.html # show.html.erb
         format.js

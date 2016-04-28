@@ -3,6 +3,8 @@
 .button
   = link_to 'New Subscriber', new_subscriber_path
 .button
+  = link_to 'Download as CSV', subscribers_path(:format => :csv)
+.button
   = link_to 'Upload CSV', new_subscriber_path(:cmd => :csv), :remote => true
 %h1=  "Listing #{@subscribers.count} subscribers"
 
