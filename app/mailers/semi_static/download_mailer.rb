@@ -1,7 +1,7 @@
 module SemiStatic
   class DownloadMailer < ActionMailer::Base
     def download_instructions(contact)
-      subject = [t('DownloadInstructionsFrom'), SemiStatic::Engine.config.site_name].join(' ')
+      subject = contact.squeeze.email_subject
       email = contact.email
 
       @host = SemiStatic::Engine.config.mail_host

@@ -1,4 +1,4 @@
-= @contact.squeeze.instructions
+= strip_tags(@contact.squeeze.instructions.gsub(/&quot;/, '\"').gsub(/&nbsp;/, ' ').sub(/<tr>/, '').sub(/<p>/, '').gsub(/<tr>/, '\n').gsub(/<td>/, "\t").gsub(/<p>/,'\n\n')).gsub(/\\n/, "\r\n")
 = "\r\n"
 = @url
 = "\r\n"

@@ -86,7 +86,6 @@ de:
   Price_range: 'Preisspanne'
 
   # Squeeze
-  DownloadInstructionsFrom: 'Anweisungen zum Herunterladen von'
   CheckYourEmail: 'Vielen Dank! Sie erhalten umgehend eine E-Mail mit Ihrem Download-Link. Sollten Sie die E-Mail nicht gleich finden, sehen Sie bitte in Ihrem Spam-Ordner nach oder kontaktieren Sie uns unter news@infologis.net'
   Company: 'Firma'
   Position: 'Position'
