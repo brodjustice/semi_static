@@ -212,7 +212,7 @@ module SemiStatic
       end
 
       e.start_date.present? &&
-        (c += "<tr class='row'><td>#{t('start_date')}: </td><td><span property='startDate' content=\'#{e.start_date.iso8601}\'>#{e.start_date.strftime('%d/%b/%y %H:%M')}</span></td></tr>".html_safe )
+        (c += "<tr class='row'><td>#{t('start_date')}: </td><td><span property='startDate' content=\'#{e.start_date.iso8601}\'>#{l(e.start_date, :format => "%a, %d %b %Y %H:%M")}</span></td></tr>".html_safe )
 
       # Duration in ISO 8601 minutes format: https://en.wikipedia.org/wiki/ISO_8601#Durations
       e.duration.present? && (c += "<tr class='row'><td>#{t('duration')}: </td><td><span property='duration' content=\'#{e.duration.to_s + 'M'}\'>#{[e.duration, t('minutes')].join(' ')}</span></td></tr>".html_safe )

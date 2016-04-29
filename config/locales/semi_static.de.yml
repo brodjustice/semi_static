@@ -62,6 +62,44 @@ de:
         format: "%n %u"
         separator: ','
 
+  # Months
+  date:
+    abbr_day_names:
+    - Su
+    - Mo
+    - Di
+    - Mi
+    - Do
+    - Fr
+    - Sa
+    abbr_month_names:
+    -
+    - Jan
+    - Feb
+    - März
+    - Apr
+    - Mai
+    - Juni
+    - Juli
+    - Aug
+    - Sept
+    - Okt
+    - Nov
+    - Dez
+
+  formats:
+    default: "%d-%m-%Y"
+    long: "%B %d, %Y"
+    short: "%b %d"
+
+  time:
+    am: am
+    pm: pm
+    formats:
+      default: "%a, %d %b %Y %H:%M:%S %z"
+      long: "%B %d, %Y %H:%M"
+      short: "%d %b %H:%M"
+
   # Product Properties
   pname: 'Name'
   description: 'Beschreibung'
@@ -81,6 +119,7 @@ de:
   duration: 'Dauer'
   language: 'Sprache'
   price: 'Preis'
+  minutes: 'Minuten'
   Register: 'Anmelden'
   Registration: 'Anmeldung'
   Price_range: 'Preisspanne'

@@ -135,7 +135,7 @@ th{ text-align: left; }
 
 .event table, .product table{margin-bottom:6px;display:inline-table;width:100%;border-collapse:collapse;}
 .event th{text-align:center; padding: 6px; border-top: 1px solid $prime-color;}
-.event th div{padding-top: 6px;}
+.event th div{text-align:left;padding-top: 6px;}
 .event .row a, .product .row a{
   font-size: 12px;
   float: right;
