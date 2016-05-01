@@ -1,7 +1,7 @@
--# TODO: Refactor, Move to helper
+-# TODO: Refactor, Move to helper, and what is even happening with 'linked'?
 - suppress_merged ||= (@suppress_merged || false)
 - style ||= false
-- linked = @linked
+- defined?(linked) && linked.nil? && linked = @linked
 - linked = ((defined?(linked)) && (linked || linked.nil?)) ? true : false
 - entry = e
 - last_merged_entry = e
