@@ -4,12 +4,9 @@
   when we detect an orientation change.
 */
 (function(w){
-
     var ua = navigator.userAgent;
 
-    if(!( /iPhone|iPad|iPod/i.test(navigator.userAgent)) ) {
-      return;
-    }
+    if(!( /iPhone|iPad|iPod/i.test(navigator.userAgent)) ) { return; }
 
     var doc = w.document;
 

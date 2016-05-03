@@ -157,7 +157,7 @@ h2{ font-size: 20px;}
 }
 
 #slide-menu-window.open{
-  width:400px;
+  min-width:300px;
   overflow:visible;
 }
 #slide-menu-window{
@@ -180,7 +180,7 @@ h2{ font-size: 20px;}
   position: absolute;
   right: -412px;
   top: 0;
-  width: 400px;
+  min-width: 300px;
   z-index: 2000;
   padding:6px;
 }

@@ -2,8 +2,11 @@
 // Changes to top layout from home...
 //
 
-// #frame{ margin-top: 75px;}
-// #container{padding-top: 12px;}
+#content{margin-top: -11px;}
+
+@media only screen and (max-width: 820px) {
+  #frame{ margin-top: 95px;}
+}
 
 //
 // The rest
@@ -48,7 +51,6 @@ a.fb-share{
 }
 
 .gallery.doc{
-  padding-top: 6px;
   margin-bottom: 0px;
 }
 .doc:after{
@@ -148,6 +150,11 @@ th{ text-align: left; }
   border-top: 1px solid #a8a8a8;
 }
 
+.gallery > .spacer_wrapper{
+  background-color:rgba(255,255,255,0.6);
+  padding-bottom: 6px;
+  padding-top: 6px;
+}
 .spacer_wrapper {
     margin: 0 auto;
     max-width: 100%;

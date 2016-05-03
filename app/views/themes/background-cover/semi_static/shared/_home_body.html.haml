@@ -1,11 +1,7 @@
-= render 'semi_static/shared/menu'
+#slide-menu
+  = render 'semi_static/shared/slide_menu'
 #top
   #top-wrapper
-    #menu-button{:onclick => 'semiStaticSlideOpenMenu()'}
-      = t('Menu')
-      .menu-line
-      .menu-line
-      .menu-line
     #logo-wrapper
       #logo
     = yield :pre_overlay

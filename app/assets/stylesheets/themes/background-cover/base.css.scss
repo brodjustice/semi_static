@@ -56,6 +56,80 @@ h2{ font-size: 20px; font-weight: normal;}
   position: relative;
 }
 
+#slide-menu{height:100%;}
+#slide-menu-wrapper .locales{
+  padding-top:8px;
+  clear:both;
+}
+
+#slide-menu-window.open{
+  width:400px;
+  overflow:visible;
+}
+#slide-menu-window{
+  position:absolute;
+  top:0; right:0;
+  width:0;
+  overflow:hidden;
+  height:100%;
+}
+.open #slide-menu-wrapper{
+  right:0px;
+}
+
+#slide-menu-wrapper{
+  transition: right 0.5s linear 0s;
+  box-shadow: 0 0 80px black;
+  background-color: #333;
+  color: $prime-color;
+  max-width: 100%;
+  min-height: 100%;
+  position: absolute;
+  right: -412px;
+  top: 0;
+  min-width: 300px;
+  z-index: 2000;
+  padding:0px 12px;
+}
+#slide-menu-wrapper .wrapper .text{
+  padding:6px 0;
+  border-bottom: 1px solid #dcdcdc;
+}
+#slide-menu-wrapper .wrapper{
+  margin-top:12px;
+  text-align:right;
+}
+#slide-menu-wrapper a{ color: #e0e0e0; }
+#slide-menu-wrapper a:hover{ color: white; }
+#slide-menu-wrapper .wrapper a{
+  color: #dcdcdc;
+  font-size: 18px;
+  text-transform: uppercase;
+  text-shadow: none;
+}
+#slide-menu-wrapper .sub-menu{
+  margin: 14px 0;
+  border: none;
+  text-align:right;
+  z-index:1;
+}
+#slide-menu-wrapper .sub-menu a{
+  text-transform:none;
+  text-shadow:none;
+  display:block;
+  padding: 4px 0;
+}
+#slide-menu-wrapper .bar-menu{
+  margin:0 -12px;
+  border-top: 1px solid #a0a0a0;
+  width:100%;
+}
+#close-sym{
+  margin-right:-4px;
+  font-size:46px;
+  color:#dcdcdc;
+}
+
 #menu-wrapper{
   border-top: 1ps solid $prime-color;
   background-color:#333;
@@ -120,15 +194,17 @@ h2{ font-size: 20px; font-weight: normal;}
 #menu-button, #menu-close{
   text-align:center;
   color: $prime-color; font-weight: normal;
-  padding: 4px;
-  margin: 6px 12px 0px 0px;
-  cursor: pointer; position: absolute;
-  top:0; right:0;
+  cursor: pointer; position: relative;
   z-index: 500;
   font-size: 14px;
   background-color: #333;
   border-radius: 4px;
   width:40px;
+  float:right;
+}
+#menu-button{
+  padding: 4px;
+  margin: 6px 12px 0px 0px;
 }
 #menu-button:hover{
   color:white;
@@ -163,26 +239,27 @@ h2{ font-size: 20px; font-weight: normal;}
     z-index: -1;
 }
 
-#menu .wrapper:hover a.text::before, #menu .sub-menu a:hover::before{
+#slide-menu .wrapper:hover a.text::before, #slide-menu .sub-menu a:hover::before{
   content: '» ';
 }
 
-#bar-menu{
+.bar-menu{
   position:absolute;
   z-index: 1000;
   bottom:0px;
-  width: 100%;
   margin: 0;
   padding: 0 0 12px;
   border-top: 1px solid $prime-color;
 }
 
-#bar-menu ul{margin:0;}
+.bar-menu ul{margin:0;}
 
-#bar-menu li{
-  float:right;
+.bar-menu li{
+  display:block;
+  text-align: right;
   font-size: 14px;
   list-style: outside none none;
+  padding-right:12px;
 }
 
 .locale img{
@@ -207,19 +284,14 @@ h2{ font-size: 20px; font-weight: normal;}
   background-color: transparent;
 }
 
-/*
-#top .inner, #overlay-inner, #search-bar-inner{
-  position: relative;
-}
-*/
 #top{
   position: fixed;
   width: 100%;
 }
 
 #search-wrapper{
-  padding: 4px 0px 4px 4px;
-  text-align: center;
+  padding: 8px 0;
+  text-align: right;
 }
 
 
@@ -383,11 +455,9 @@ h2 a, h3 a{color: $secondary-color;}
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) inset;
     outline: medium none;
     padding: 8px 6px 6px 8px;
-    width: 202px;
 }
 .searchform input[type='text'] {
-    font: 16px Arial,Helvetica,sans-serif;
-    width: 260px;
+    font: 14px Arial,Helvetica,sans-serif;
 }
 .searchbutton{
   vertical-align: bottom;
