@@ -219,12 +219,27 @@ module SemiStatic
       e.in_language.present? && (c += "<tr class='row'><td>#{t('language')}: </td><td><span property='inLanguage'>#{e.in_language}</span></td></tr>".html_safe )
 
       # Offer start
-      if (e.offer_price.present? && e.offer_price_currency.present?)
+      #
+      # The structure and order of the meta is awkward, espcially if no price is set, hence the weird 'currency_and_url_meta' insertion
+      #
+      if (((e.offer_min_price.present? && e.offer_max_price.present?) || e.offer_price.present?) && e.offer_price_currency.present?)
+
+        currency_meta_done = false
+        currency_and_url_meta = "<meta property='priceCurrency' content=\'#{ISO4217.select{ |sym, code| e.offer_price_currency == sym }.flatten.last}\'/><meta property='url' content=\'#{construct_url(entry.merged_main_entry, entry.locale)}\'/>"
+
         c += '<tbody property="offers" typeof="Offer">'.html_safe
-        c += "<tr class='row'><td>#{t('Price')}: </td><td><meta property='price' content=\'#{sprintf('%.2f', e.offer_price)}\'/><meta property='priceCurrency' content=\'#{ISO4217.select{ |sym, code| e.offer_price_currency == sym }.flatten.last}\'/><meta property='url' content=\'#{construct_url(entry.merged_main_entry, entry.locale)}\'/>#{number_to_currency(e.offer_price, :unit => e.offer_price_currency, :precision => 2, :locale => entry.locale.to_sym)}</td></tr>".html_safe
+
+        if e.offer_price.present?
+          c += "<tr class='row'><td>#{currency_and_url_meta}#{t('Price')}: </td><td property='price' content=\'#{sprintf('%.2f', e.offer_price)}\'>#{number_to_currency(e.offer_price, :unit => e.offer_price_currency, :precision => 2, :locale => entry.locale.to_sym)}</td></tr>".html_safe
+          currency_meta_done = true
+        end
 
         if (e.offer_min_price.present? && e.offer_max_price.present?)
-          c += "<tr typeof='PriceSpecification' property='PriceSpecification' class='row'><td>#{t('Price_range')}: </td><td>".html_safe
+          c += "<tr class='row'><td>".html_safe
+          unless currency_meta_done
+            c += currency_and_url_meta.html_safe
+          end
+          c += "#{t('Price_range')}: </td><td typeof='PriceSpecification' property='PriceSpecification'>".html_safe
           c += "<span property='minPrice' content=\'#{sprintf('%.2f', e.offer_min_price)}\'>#{number_to_currency(e.offer_min_price, :unit => e.offer_price_currency, :precision => 2, :locale => entry.locale.to_sym)} - </span>".html_safe
           c += "<span property='maxPrice' content=\'#{sprintf('%.2f', e.offer_max_price)}\'>#{number_to_currency(e.offer_max_price, :unit => e.offer_price_currency, :precision => 2, :locale => entry.locale.to_sym)}</span>".html_safe
           c += "</td></tr>".html_safe

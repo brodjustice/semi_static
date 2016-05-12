@@ -1,7 +1,7 @@
 -#
--# We have the issue of having to put any customer entry style into the header in the case that we have
+-# We have the issue of having to put any custom entry style into the header in the case that we have
 -# link_to_tag entries that have custom styles. This could get really messy if we go through all the
--# tag entries and add them to the header_css. So we have a compromise that works we for the usual case
+-# tag entries and add them to the header_css. So we have a compromise that works well for the usual case
 -# where the is only one entry and it has link_to_tag set. We check ONLY the first entry belonging to the
 -# tag and if it has link_to_tag set we copy any custom CSS into the tag header_css
 - if @tag.entries.present? && @tag.entries.first.link_to_tag && @tag.entries.first.style.present?

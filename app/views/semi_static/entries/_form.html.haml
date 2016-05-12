@@ -77,7 +77,7 @@
 
     function enable_editor(){
       if ($('#entry_raw_html').prop('checked') != true) {
-        CKEDITOR.replace('entry_body', {format_tags: 'p;h2;h3;h4;h5;h6;pre;address;div'});
+        CKEDITOR.replace('entry_body', {extraAllowedContent: 'b;i;strong (*); em (*)', format_tags: 'p;h2;h3;h4;h5;h6;pre;address;div'});
       } else {
         CKEDITOR.replace('entry_body', {allowedContent: true, format_tags: 'p;h2;h3;h4;h5;h6;pre;address;div'});
       }

@@ -104,10 +104,10 @@ module SemiStatic
       :convert_options => { :half => "-strip -quality 80", :compressed => "-strip -quality 40", :bar => "-strip -gravity Center -quality 80"}
     has_attached_file :newsletter_img, :styles => {:crop => "280x280#"}, :convert_options => { :crop => "-strip -gravity Center -quality 50"}
 
-    DIRTY_TAGS= %w(style table tr td th span br em b i u ul ol li a div p img hr h1 h2 h3 h4 h5 h6 iframe)
+    DIRTY_TAGS= %w(style table tr td th span br em strong b i u ul ol li a div p img hr h1 h2 h3 h4 h5 h6 iframe)
     DIRTY_ATTRIBUTES= %w(title href class style id align src alt height width max-width frameborder allowfullscreen)
 
-    ALLOWED_TAGS= %w(span div br em b i u ul ol li a div p img hr h1 h2 h3 h4 h5 h6)
+    ALLOWED_TAGS= %w(span div br em strong b i u ul ol li a div p img hr h1 h2 h3 h4 h5 h6)
     ALLOWED_ATTRIBUTES= %w(title href src align alt)
 
     COMMENT_STRATEGY = {:captcha_and_email_alert => 1, :open => 2}
