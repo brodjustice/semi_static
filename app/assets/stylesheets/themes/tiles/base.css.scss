@@ -72,10 +72,9 @@ h2{ font-size: 20px;}
 #menu-button, #menu-close{
   display: none;
   float: right;
-  color: #c8c8c8; font-weight: bold;
+  color: $prime-color; font-weight: bold;
   padding: 3px 2px 4px 32px;
   margin: 2px 12px 0px 0px;
-  background: transparent url(#{$vert-sprites}) left -243px no-repeat;
   cursor: pointer;
   position: relative;
   z-index: 500;
@@ -84,7 +83,25 @@ h2{ font-size: 20px;}
 #menu-button{
   // Create bigger click area
   padding-bottom: 34px;
+  background-color: #dcdcdc;
+  border: 1px solid white;
+  margin: 4px;
+  padding: 6px;
+  width: 46px;
 }
+
+#menu-button .menu-line{
+  height: 6px; width: 80%;
+  background-color: $prime-color;
+  border-radius: 4px; margin: 3px auto;
+}
+#menu-close{
+  margin: 0 0 24px;
+}
+#close-sym{
+  font-size: 50px;
+}
+
 
 #bar-menu{
   position: relative;
@@ -714,7 +731,7 @@ h2 a, h3 a{color: $secondary-color;}
 @media only screen and (max-width: 820px) {
   // Change menu to hidden pop-up on click and fixed position
 
-  #close-sym, #bar-menu, #menu{display: none;}
+  #bar-menu, #menu{display: none;}
   #menu-main{padding: 88px 0px 0px 0px;}
   #menu-wrapper{
     position: relative; top: 0px;
