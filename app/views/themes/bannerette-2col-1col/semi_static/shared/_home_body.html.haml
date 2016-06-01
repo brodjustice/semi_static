@@ -12,18 +12,21 @@
         #tagline
           = t('TagLine')
 #frame
-  #banner
-    #bannerBg
-      = image_tag('banners/banner.jpg')
-    #banner0.bg
-      = image_tag('banners/banner.jpg')
-    #banner1.bg
-      = image_tag('banners/banner.jpg')
-    #banner4.bg
-      = image_tag('banners/banner.jpg')
-    #custom-banner-overlay.bg
-      = render :partial =>  'semi_static/site/banner-overlay' rescue nil
-    #banner-loading
+  -# The banner can be disabled on this theme by providing a home tag page attribute
+  -# called 'disableBanner'
+  - unless @tag.get_page_attr('disableBanner').present?
+    #banner
+      #bannerBg
+        = image_tag('banners/banner.jpg')
+      #banner0.bg
+        = image_tag('banners/banner.jpg')
+      #banner1.bg
+        = image_tag('banners/banner.jpg')
+      #banner4.bg
+        = image_tag('banners/banner.jpg')
+      #custom-banner-overlay.bg
+        = render :partial =>  'semi_static/site/banner-overlay' rescue nil
+      #banner-loading
   #container
     #content
       =yield
