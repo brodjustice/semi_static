@@ -2,7 +2,7 @@
 @media (device-pixel-ratio: 2), (-moz-device-pixel-ratio: 2), (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   body{background-image: url(/assets/x2/satin.jpg); background-size: 24px 12px;}
   .button-wrapper a[class*='-share'], .link a, .more a, .feint .more a, .flat .more a, .news .more a,
-  #top li.icon a, #googleplus, #linkedin, #twitter, #facebook, #youtube, #xing, #menu-button, #menu-close { background-size: 28px $vert-sprites-height; background-image: url(#{$vert-x2-sprites});}
+  #top li.icon a, #googleplus, #linkedin, #twitter, #facebook, #youtube, #xing { background-size: 28px $vert-sprites-height; background-image: url(#{$vert-x2-sprites});}
   #tagline{ background-image: url(/assets/x2/#{$ticker});}
   #mini-logo{ background: transparent url(/assets/x2/#{$logo-top}) 0 0 no-repeat; background-size: $logo-top-width $logo-top-height; }
   #logo{ background: transparent url(/assets/x2/#{$logo-top}) left center no-repeat; background-size: $logo-top-width $logo-top-height; }
