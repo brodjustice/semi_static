@@ -174,6 +174,19 @@
             %br/
             = f.label :side_bar_tag_id, 'Tag for sidebar'
             = f.select :side_bar_tag_id, options_for_select(SemiStatic::Tag.locale(@tag.locale).collect{|t| [t.name, t.id]}.prepend(["- None -", nil]), @tag.side_bar_tag_id)
+        %h2 Tag Selection
+        %fieldset
+          .infobox.wide#entry_as_index_info
+            %h3 Use Entry as Tag index
+            %p
+              If you select an entry here, then that entry will displayed instead of the automatically constructed index page for this Tag.
+            %p
+              If selected, then most fields on this page, eg. 'Max entries on index page, CSS colors, etc', will have no effect. Neither will the SEO setting be taken from here, but from the Entry SEO settings.
+          %span.infomarker
+          = f.label :use_entry_as_index_id, 'Use entry as display for Tag index (optional)'
+          %br
+          = f.select :use_entry_as_index_id, options_for_select(SemiStatic::Entry.unmerged.locale(@tag.locale).collect{|e| [entry_title_or_id(e), e.id]}.prepend(['- None -', nil]), @tag.use_entry_as_index_id)
+          
         - unless @tag.new_record?
           .button{:style => 'margin:3px'}
             = link_to 'New attribute', new_tag_page_attr_path(@tag), :remote => true

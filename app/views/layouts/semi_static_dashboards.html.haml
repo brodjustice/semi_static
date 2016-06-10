@@ -8,7 +8,7 @@
     %meta{:name => 'viewport', :content => 'width=device-width, initial-scale=1.0'}/
     %meta{ :name => "ROBOTS", :content => 'NOINDEX, NOFOLLOW' }/
 
-    %title= SemiStatic::Engine.config.site_name
+    %title= 'Admin Dashboard for ' + SemiStatic::Engine.config.site_name.to_s
 
     = csrf_meta_tags
 

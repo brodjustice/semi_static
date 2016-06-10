@@ -22,17 +22,28 @@ module SemiStatic
 
     # For GET you should call this rather than entry_path so that entries
     # acting as tags and context urls can be intercepted
-    def entry_link(e, options = {})
-      if e.acts_as_tag_id
-        SemiStatic::Engine.routes.url_helpers.feature_path(e.acts_as_tag.slug, options)
-      elsif e.tag.context_url
-        u = "/#{e.tag.name.parameterize}/#{e.to_param}"
+    def entry_link(intended_entry, options = {})
+      if intended_entry.acts_as_tag_id
+        SemiStatic::Engine.routes.url_helpers.feature_path(intended_entry.acts_as_tag.slug, options)
+      elsif intended_entry.tag.context_url
+        u = "/#{intended_entry.tag.name.parameterize}/#{intended_entry.to_param}"
         if options[:host]
           u = "http://#{options[:host]}#{u}"
         end
         u
       else
-        SemiStatic::Engine.routes.url_helpers.entry_path(e, options)
+        SemiStatic::Engine.routes.url_helpers.entry_path(intended_entry, options)
+      end
+    end
+
+    # For GET you should call this rather than feature_path so that
+    # and Tags with use_entry_as_index will get mapped to the correct
+    # url
+    def tag_link(t, options = {})
+      if t.use_entry_as_index
+        entry_link(t.use_entry_as_index, options)
+      else
+        feature_path(t.slug)
       end
     end
 

@@ -2,6 +2,8 @@
   
   module SemiStatic
     class TagsController < ApplicationController
+
+    helper SemiStatic::EntriesHelper
   
     before_filter :authenticate_for_semi_static!, :except => :show
     before_filter :authenticate_semi_static_subscriber!,  :only => [ :show ]
@@ -39,11 +41,13 @@
       !@side_bar && (@group_size = 3)
 
       @tag.admin_only && authenticate_for_semi_static!
-  
+
       respond_to do |format|
         format.html {
           if @tag.predefined_class && !SiteHelper::PREDEFINED[@tag.predefined_class].nil?
             redirect_to SiteHelper::PREDEFINED[@tag.predefined_class]
+          elsif @tag.use_entry_as_index
+            redirect_to entry_path(@tag.use_entry_as_index)
           else
             render :layout => layout_select(@tag)
           end

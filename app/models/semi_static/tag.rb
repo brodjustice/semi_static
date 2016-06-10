@@ -8,10 +8,11 @@ module SemiStatic
     attr_accessible :predefined_class, :colour, :icon_resize, :locale, :max_entries_on_index_page
     attr_accessible :banner_id, :partial, :entry_position, :tag_line, :subscriber, :sidebar_id
     attr_accessible :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_tag_id, :layout_select
-    attr_accessible :target_tag_id, :target_name, :context_url, :admin_only
+    attr_accessible :target_tag_id, :target_name, :context_url, :admin_only, :use_entry_as_index_id
     attr_accessor :icon_delete
 
     has_one :seo, :as => :seoable
+    belongs_to :use_entry_as_index, :class_name => 'SemiStatic::Entry'
     has_many :page_attrs, :as => :page_attrable
     belongs_to :newsletter
     has_many :entries, :dependent => :destroy
