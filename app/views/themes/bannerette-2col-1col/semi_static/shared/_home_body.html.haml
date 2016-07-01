@@ -8,13 +8,16 @@
       = render 'semi_static/shared/menu'
       #logo-wrapper
         #logo
-      #tag-wrapper
-        #tagline
-          = t('TagLine')
+      -# The banner can be disabled on this theme by providing a home tag page attribute
+      -# called 'disableTagLine'
+      - unless @tag && @tag.get_page_attr('disableTagLine').present?
+        #tag-wrapper
+          #tagline
+            = t('TagLine')
 #frame
   -# The banner can be disabled on this theme by providing a home tag page attribute
   -# called 'disableBanner'
-  - unless @tag.get_page_attr('disableBanner').present?
+  - unless @tag && @tag.get_page_attr('disableBanner').present?
     #banner
       #bannerBg
         = image_tag('banners/banner.jpg')
@@ -27,6 +30,8 @@
       #custom-banner-overlay.bg
         = render :partial =>  'semi_static/site/banner-overlay' rescue nil
       #banner-loading
+  -# And if you want your own custom banner, use a partial to add content_for :banner here
+  = yield :banner
   #container
     #content
       =yield

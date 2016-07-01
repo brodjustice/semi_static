@@ -5,7 +5,9 @@ module SemiStatic
     end
 
     def sitemappable
-      !self.admin_only && (self.seo.nil? || (!self.seo.no_index && self.seo.include_in_sitemap))
+      !self.admin_only &&
+      (self.seo.nil? || (!self.seo.no_index && self.seo.include_in_sitemap)) &&
+      !(self.kind_of?(Tag) && self.use_entry_as_index.present?)
     end
 
     def xml_changefreq
