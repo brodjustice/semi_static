@@ -17,8 +17,6 @@
   = yield :banner
   = yield :pre_content
   #container
-    - flash.each do |key, value|
-      = content_tag :div, value, :id => "notice" unless value.blank?
     #dialog{:style => 'display: none;'}
     #content
       =yield
