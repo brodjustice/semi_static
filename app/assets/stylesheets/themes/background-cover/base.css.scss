@@ -40,8 +40,9 @@ h2{ font-size: 20px; font-weight: normal;}
 // ------------------------------------------------------------
 
 #top{
-  height: 75px;
   position: relative;
+  width: 100%;
+  height: 75px;
   z-index: 200; // for logo in banner
   width: 100%;
   top: 0px;
@@ -282,11 +283,6 @@ h2{ font-size: 20px; font-weight: normal;}
   margin: 0px auto;
   max-width: 1400px;
   background-color: transparent;
-}
-
-#top{
-  position: fixed;
-  width: 100%;
 }
 
 #search-wrapper{
