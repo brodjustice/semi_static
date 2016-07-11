@@ -26,78 +26,77 @@
       $('#pixelRatio').text(window.devicePixelRatio.toString());
     });
 
-#controls.dashboard
-  .group
-    .col.span_1_of_2
-      .panel
-        %h4= 'Search Daemon'
-        #search_daemon_switch
-          = render :partial => 'semi_static/system/search_daemon'
-    .col.span_1_of_2
-      .panel
-        %h4= 'Search Index'
-        .button= link_to 'Reindex now', system_path(:cmd => {:search_reindex => :all}), :method => :put, :remote => true
-        #search_reindex_result
-  .group
-    .col.span_1_of_2
-      .panel
-        %h4= 'Expire Cache'
-        .button= link_to 'Expire cache now', system_path(:cmd => {:expire_cache => :all}), :method => :put, :remote => true
-        #expire_cache
-    .col.span_1_of_2
-      .panel
-        %h4= 'Restart Passenger App Server (if used)'
-        .button= link_to 'Restart now', system_path(:cmd => {:passenger_restart => :all}), :method => :put, :remote => true
-        #passenger_restart
-  .group
-    .col.span_1_of_2
-      .panel
-        .infobox#sitemaps
-          %h4= 'Generate a sitemap sutable for submission to Google, Bing, etc.'
-          %p
-            = 'Some words of warning'
-          %p
-            = 'If you submit a sitemap you then face the challange of generating a new site map and submitting it every time that you make'
-            = 'a change.'
-          %p
-            = 'You should always manually check the site map before submission. Errors in the sitemap could seriously hurt your search'
-            = 'engine rankings'
-          %p
-            = 'This will NOT generate ULRs in the sitemap for predefined tags unless they have actaully been allocated to a '
-            = 'real tag. So if you are manually using something like http://mysite.com/photos, this will not be included in'
-            = 'your site map unless it has been allocated to a real tag, eg. a tag called "Photos" that uses the pre-defined tag "Gallery".'
-        %h4.infomarker= 'Sitemaps'
-        #generate_sitemap
-        - SemiStatic::Engine.config.localeDomains.each do |k, v|
-          .button= link_to "Generate for #{v}", system_path(:format => :xml, :cmd => {:generate_sitemap => :all}, :locale => k), :method => :put
-    .col.span_1_of_2
-      .panel
-        .infobox#generate_static_pages
-          %h4= 'Generate all static pages for the website'
-          %p
-            = 'By default your website static pages will be built on demand as the requests for the pages'
-            = 'are processed by the Rails application. However you can build all the static pages in advance'
-            = 'and thus have the advantage of a potentially better user experience and possibly eliminating'
-            = 'problems where search enging crawlers time-out or falsely conclude that your website takes'
-            = 'a long while to respond.'
-        %h4.infomarker= 'Generate static pages'
-        #generate_sitemap
-        - SemiStatic::Engine.config.localeDomains.each do |k, v|
-          .button= link_to "For #{v}", system_path(:cmd => {:generate_static_pages => :all}, :locale => k), :method => :put
-  .group
-    .col.span_1_of_2
-      .panel
-        %h4= 'Clean up possible errors'
-        .button= link_to 'Clean up now', system_path(:cmd => {:clean_up => :all}), :method => :put, :remote => true
-        #clean_up
-    .col.span_1_of_2
-      -# To be implimented
-      -# .panel
-      -#   %h4= 'Google Search data'
-      -#   - SemiStatic::Engine.config.localeDomains.each do |k, v|
-      -#     .button= link_to "#{v}", system_path(:cmd => {:load_search_data => :all}, :locale => k), :method => :put
-  %div{:style => 'font-size: 10px; text-align: right;'}
-    = 'Device pixel ratio = '
-    %span#pixelRatio{:style => 'font-size: 10px; text-align: right;'}
-      Unknown
+.group
+  .col.span_1_of_2
+    .panel
+      %h4= 'Search Daemon'
+      #search_daemon_switch
+        = render :partial => 'semi_static/system/search_daemon'
+  .col.span_1_of_2
+    .panel
+      %h4= 'Search Index'
+      .button= link_to 'Reindex now', system_path(:cmd => {:search_reindex => :all}), :method => :put, :remote => true
+      #search_reindex_result
+.group
+  .col.span_1_of_2
+    .panel
+      %h4= 'Expire Cache'
+      .button= link_to 'Expire cache now', system_path(:cmd => {:expire_cache => :all}), :method => :put, :remote => true
+      #expire_cache
+  .col.span_1_of_2
+    .panel
+      %h4= 'Restart Passenger App Server (if used)'
+      .button= link_to 'Restart now', system_path(:cmd => {:passenger_restart => :all}), :method => :put, :remote => true
+      #passenger_restart
+.group
+  .col.span_1_of_2
+    .panel
+      .infobox#sitemaps
+        %h4= 'Generate a sitemap sutable for submission to Google, Bing, etc.'
+        %p
+          = 'Some words of warning'
+        %p
+          = 'If you submit a sitemap you then face the challange of generating a new site map and submitting it every time that you make'
+          = 'a change.'
+        %p
+          = 'You should always manually check the site map before submission. Errors in the sitemap could seriously hurt your search'
+          = 'engine rankings'
+        %p
+          = 'This will NOT generate ULRs in the sitemap for predefined tags unless they have actaully been allocated to a '
+          = 'real tag. So if you are manually using something like http://mysite.com/photos, this will not be included in'
+          = 'your site map unless it has been allocated to a real tag, eg. a tag called "Photos" that uses the pre-defined tag "Gallery".'
+      %h4.infomarker= 'Sitemaps'
+      #generate_sitemap
+      - SemiStatic::Engine.config.localeDomains.each do |k, v|
+        .button= link_to "Generate for #{v}", system_path(:format => :xml, :cmd => {:generate_sitemap => :all}, :locale => k), :method => :put
+  .col.span_1_of_2
+    .panel
+      .infobox#generate_static_pages
+        %h4= 'Generate all static pages for the website'
+        %p
+          = 'By default your website static pages will be built on demand as the requests for the pages'
+          = 'are processed by the Rails application. However you can build all the static pages in advance'
+          = 'and thus have the advantage of a potentially better user experience and possibly eliminating'
+          = 'problems where search enging crawlers time-out or falsely conclude that your website takes'
+          = 'a long while to respond.'
+      %h4.infomarker= 'Generate static pages'
+      #generate_sitemap
+      - SemiStatic::Engine.config.localeDomains.each do |k, v|
+        .button= link_to "For #{v}", system_path(:cmd => {:generate_static_pages => :all}, :locale => k), :method => :put
+.group
+  .col.span_1_of_2
+    .panel
+      %h4= 'Clean up possible errors'
+      .button= link_to 'Clean up now', system_path(:cmd => {:clean_up => :all}), :method => :put, :remote => true
+      #clean_up
+  .col.span_1_of_2
+    -# To be implimented
+    -# .panel
+    -#   %h4= 'Google Search data'
+    -#   - SemiStatic::Engine.config.localeDomains.each do |k, v|
+    -#     .button= link_to "#{v}", system_path(:cmd => {:load_search_data => :all}, :locale => k), :method => :put
+%div{:style => 'font-size: 10px; text-align: right;'}
+  = 'Device pixel ratio = '
+  %span#pixelRatio{:style => 'font-size: 10px; text-align: right;'}
+    Unknown
 

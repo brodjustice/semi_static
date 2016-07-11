@@ -94,6 +94,7 @@
   
       respond_to do |format|
         if @tag.update_attributes(params[:tag])
+          expire_page_cache(@tag)
           format.html { redirect_to tags_path(:anchor => "tag_id_#{@tag.id}"), :notice => 'Tag was successfully updated.' }
           format.json { head :no_content }
         else
@@ -107,6 +108,7 @@
     # DELETE /tags/1.json
     def destroy
       @tag = Tag.find(params[:id])
+      expire_page_cache(@tag)
       @tag.destroy
   
       respond_to do |format|

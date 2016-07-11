@@ -2,6 +2,9 @@
   
   module SemiStatic
     class EntriesController < ApplicationController
+
+    require 'semi_static/general'
+    include General
   
     before_filter :authenticate_for_semi_static!,  :except => [ :show, :search ]
     before_filter :authenticate_semi_static_subscriber!,  :only => [ :show ]
@@ -21,8 +24,8 @@
     def index
       template = '/semi_static/entries/index'; layout = 'semi_static_dashboards';
 
-      if params[:tag_id].present?
-        @tag = Tag.find(params[:tag_id])
+      if params[:tag_id].present? || session[:workspace_tag_id]
+        @tag = Tag.find(params[:tag_id] || session[:workspace_tag_id])
         @entries = @tag.entries
       else
         @entries = Entry.unscoped.order(:locale, :tag_id, :position).exclude_newsletters
@@ -161,6 +164,7 @@
         elsif params[:convert] && (@entry.attributes = params[:entry])
           format.js { render 'convert'}
         elsif @entry.update_attributes(params[:entry])
+          expire_page_cache(@entry)
           format.html {
             if params[:redirect_to].present?
               redirect_to params[:redirect_to]
@@ -181,6 +185,7 @@
     # DELETE /entries/1.json
     def destroy
       @entry = Entry.find(params[:id])
+      expire_page_cache(@entry)
       @entry.destroy
   
       respond_to do |format|

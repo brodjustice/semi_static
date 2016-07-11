@@ -37,9 +37,7 @@ module SemiStatic
     delegate :admin_only, to: :tag
   
     before_save :dup_master_id_photos
-    after_save :expire_site_page_cache
     after_save :check_for_newsletter_entry
-    before_destroy :expire_site_page_cache
     before_save :extract_dimensions
 
     serialize :img_dimensions

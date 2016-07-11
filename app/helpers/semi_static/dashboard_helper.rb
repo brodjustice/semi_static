@@ -4,7 +4,7 @@ module SemiStatic
     # Intruments are the actual displays shown on the overview page
     INSTRUMENTS = {
       :visitor => [],
-      :admin => ['semi_static/dashboards/admin/contacts', 'semi_static/dashboards/admin/tags', 'semi_static/dashboards/admin/system'],
+      :admin => ['semi_static/dashboards/admin/contacts', 'semi_static/dashboards/admin/system', 'semi_static/dashboards/admin/tags'],
       :user => ['semi_static/dashboards/user/profile']
     }
   

@@ -1,0 +1,22 @@
+.group
+  .col.span_1_of_2
+    .panel
+      .infobox#tag_workspace
+        %h4='Set Workspace'
+        %p
+          = 'You can set your tag workspace to restrict the entries that you work with. In this case clicking on "Entries"'
+          = 'will then only display the entries from your choosen workspace tag. This speeds up the admin console and'
+          = 'possibly help you avoid accedentally editing and entry in a different tag'
+        %p
+          = 'Setting the tag workspace will also stop the page cache being deleted on every content update, so you may need'
+          = 'to do a manual \"Exprire Cache\" before your changes are fully reflected.'
+      %h4.infomarker= 'Tag Workspace'
+      %fieldset
+        = form_tag system_path(), :method => :put, :remote => true do
+          = select_tag 'session[workspace_tag_id]', options_for_select(SemiStatic::Tag.all.collect{|t| [t.name, t.id]}.prepend(["- None -", nil]), session[:workspace_tag_id])
+          %br/
+          %br/
+          = submit_tag 'Set'
+      #tag_workspace_result
+  .col.span_1_of_2
+    .panel

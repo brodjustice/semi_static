@@ -33,8 +33,6 @@ module SemiStatic
     scope :with_attr, lambda{|attr| includes(:page_attrs).where('semi_static_page_attrs.attr_key  = ?', attr)}
   
     before_save :generate_slug, :add_sidebar_title
-    after_save :expire_site_page_cache
-    before_destroy :expire_site_page_cache
   
     has_attached_file :icon,
        :styles => {

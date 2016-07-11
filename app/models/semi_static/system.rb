@@ -86,7 +86,7 @@ module SemiStatic
       generate_sitemap(args.last)
     end
 
-    # Need to have gzip command installed on system
+    # Need to have gzip command installed on webserver system
     def self.load_url(url=nil, locale=nil, *args)
       s = true
 
