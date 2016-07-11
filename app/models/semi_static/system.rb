@@ -8,6 +8,7 @@ module SemiStatic
     include ActiveModel::Serialization
     include ActiveModel::Conversion
     extend ActiveModel::Naming
+
   
     include Pages
   
@@ -137,11 +138,6 @@ module SemiStatic
       $?.success?
     end
   
-    def self.expire_cache(*args)
-      # We ignore type for now and expire everything
-      Pages.expire_site_page_cache
-    end
-
     def self.search_daemon(state, *args)
       if state == 'on'
         if search_daemon_running?

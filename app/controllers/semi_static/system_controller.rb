@@ -2,16 +2,26 @@ require_dependency "semi_static/application_controller"
 
 module SemiStatic
   class SystemController < ApplicationController
+    require 'semi_static/general'
+    include General
+
     before_filter :authenticate_for_semi_static!
   
-    CMDS = %w(show search_daemon search_reindex expire_cache clean_up passenger_restart load_url generate_sitemap generate_static_pages partial_description load_search_data)
+    CMDS = %w(show search_daemon search_reindex expire_page_cache clean_up passenger_restart load_url generate_sitemap generate_static_pages partial_description load_search_data)
     SESSION = %w(workspace_tag_id)
   
     def update
       if params[:cmd].present? && CMDS.include?(params[:cmd].keys.first)
         action = params[:cmd].keys.first
         @locale = params[:locale]
-        @result = System.send(action, params[:cmd][action], @locale)
+
+        # TODO: All these cmds to be moved from system model to semi_static/general lib. But in the meantime
+        # we have this kludge to see if the model still has the fuctionality
+        if System.respond_to?(action)
+          @result = System.send(action, params[:cmd][action], @locale)
+        else
+          send(action)
+        end
       elsif params[:session].present? && SESSION.include?(params[:session].keys.first)
         action = key = params[:session].keys.first
         params[:session][key].blank? ? session.delete(key) : session[key] = params[:session][key]

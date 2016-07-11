@@ -13,7 +13,7 @@ module General
 
   CACHED = ["index.html", "index.html.gz", "news.html", "news.html.gz", "site", "references.html", "references.html.gz", "references", "photos.html", "photos.html.gz", "photos", "features", "features.html", "features.html.gz", "entries", "entries.html", "entries.html.gz", "documents/index.html", "documents/index.html.gz", "contacts/new.html", "contacts/new.html.gz"]
 
-  def expire_page_cache(obj)
+  def expire_page_cache(obj=nil)
     # Generally the whole site controller is made up of dynamic elements
     # that really change. This means we can use the page_cache, and just
     # expire the whole lot when a update is made to certains classes.
@@ -36,6 +36,9 @@ module General
       if session[:workspace_tag_id] && obj.kind_of?(SemiStatic::Entry) && obj.tag_id == session[:workspace_tag_id].to_i
         # This was called from an Entry when the session workspace_tag_id matches the entry Tag. In this case
         # we only delete the entry from the cache, not the whole cache.
+
+        # Is this a merged entry?
+        obj.merge_with_previous && (obj = obj.merged_main_entry)
         FileUtils.rm_f((Rails.root.to_s + "/public/#{obj.locale.to_s}/#{obj.to_param}").to_s)
       else
         # If this is an object with a locale, only expire the cache for tha locale

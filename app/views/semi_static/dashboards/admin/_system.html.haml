@@ -41,7 +41,7 @@
   .col.span_1_of_2
     .panel
       %h4= 'Expire Cache'
-      .button= link_to 'Expire cache now', system_path(:cmd => {:expire_cache => :all}), :method => :put, :remote => true
+      .button= link_to 'Expire cache now', system_path(:cmd => {:expire_page_cache => :all}), :method => :put, :remote => true
       #expire_cache
   .col.span_1_of_2
     .panel
