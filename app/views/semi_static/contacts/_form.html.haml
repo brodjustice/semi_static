@@ -1,3 +1,7 @@
+- content_for :header_css do
+  :plain
+    .cff{display:none;}
+
 - if @contact.errors.any?
   #error_explanation.errors
     %h2= "#{pluralize(@contact.errors.count, "error")} prohibited this contact from being saved:"
@@ -8,6 +12,20 @@
 = form_for @contact do |f|
   - if @reason
     = hidden_field_tag 'contact[reason]', @reason.to_s
+  
+  - if SemiStatic::Engine.config.contact_form_spam_fields
+    -# We put fake fields here and then hide them with CSS. Spam bots don't look at the CSS so they
+    -# will not know that they are fake. Thus if we find that the feilds are filled in, we know
+    -# that the form was filled in by a spambot and we can reject it.
+    .cff
+      %fieldset
+        = label :message, 'Message'
+        = text_area_tag 'message[message]', nil, :size => "12x16"
+        %br/
+        %br/
+        = label :message, 'homepage'
+        = url_field :message, :homepage
+
   .section.group
     .col.span_1_of_2
       = f.text_field :name, :size => 51

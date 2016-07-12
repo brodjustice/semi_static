@@ -141,6 +141,7 @@
         elsif params[:convert]
           format.js { render 'convert'}
         elsif @entry.save
+          expire_page_cache(@entry)
           if params[:newsletter_id]
             format.html { redirect_to edit_newsletter_path(params[:newsletter_id]) }
           else

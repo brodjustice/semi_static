@@ -37,7 +37,6 @@ module SemiStatic
     config.instagramID = nil
     config.kununuID = nil
 
-
     # Themes: Current options are:
     #
     #   1. standard-2col-1col
@@ -103,6 +102,11 @@ module SemiStatic
     # Add name for partial which will provide address and contact details if required. If
     # nil, then only the contact form will be shown
     config.contact_partial = nil
+
+    # If set to true this will put a fake URL fnd message form field into the semi_static contact form
+    # but hide it with CSS. Spambots will be tempted to fill out the fields, while normal users, will
+    # not see the fields at all. In this way we can stop a lot of contact form spam.
+    config.contact_form_fake_fields = true
     
     # Add name for partial which will provide imprint/impressum, terms and conditions etc. If
     # nil, then the contact partial, if any, will be used

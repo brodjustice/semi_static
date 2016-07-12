@@ -57,10 +57,17 @@ module SemiStatic
       if params[:contact][:squeeze_id].present?
         @squeeze = Squeeze.find(params[:contact][:squeeze_id])
       end
-      @contact = Contact.new(params[:contact].merge(:locale => I18n.locale.to_s))
+
+      # Check if we are trying to stop spambots
+      if SemiStatic::Engine.config.contact_form_spam_fields && (params[:message][:message].present? || params[:message][:homepage].present?)
+        @contact = Contact.new
+        @contact.errors.add(:base, 'This appears to be SPAM. Sorry, we cannot process this request')
+      else
+        @contact = Contact.new(params[:contact].merge(:locale => I18n.locale.to_s))
+      end
   
       respond_to do |format|
-        if @contact.save
+        if !@contact.errors.present? && @contact.save
           format.html { render :template => "semi_static/contacts/#{STRATEGY_TEMPLATES[@contact.strategy_sym]}" }
           format.js { render :template => "semi_static/contacts/#{STRATEGY_TEMPLATES[@contact.strategy_sym]}" }
         else

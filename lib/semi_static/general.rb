@@ -60,5 +60,6 @@ module General
         }
       end
     end
+    true
   end
 end
