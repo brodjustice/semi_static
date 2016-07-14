@@ -2,6 +2,9 @@
   
   module SemiStatic
     class SeosController < ApplicationController
+
+    require 'semi_static/general'
+    include General
   
     before_filter :authenticate_for_semi_static!
     before_filter :set_return_path
@@ -64,6 +67,7 @@
   
       respond_to do |format|
         if @seo.save
+          expire_page_cache(@seoable)
           format.html { redirect_to params[:return] || seos_path }
           format.json { render :json => @seo, :status => :created, :location => @seo }
         else
@@ -80,6 +84,7 @@
   
       respond_to do |format|
         if @seo.update_attributes(params[:seo])
+          expire_page_cache(@seoable)
           format.html { redirect_to params[:return] || url_for(:controller => @seo.seoable.class.to_s.underscore.pluralize, :action => :index), :notice => 'SEO meta tags updated' }
           format.json { head :no_content }
         else

@@ -68,55 +68,6 @@ module SemiStatic
       end
     end
 
-    def self.generate_sitemap(*args)
-      l = args.last
-      pages = ['/site/imprint-credits']
-      # Add contact page if it's not already predefined
-      if Tag.predefined(l, 'Contact').empty?
-        pages << '/contacts/new'
-      end
-      pages.concat(Tag.locale(l).select{|i| i.sitemappable && !i.subscriber })
-      pages.concat(Entry.unmerged.locale(l).select{|i| i.sitemappable && !i.subscriber_content })
-      pages.concat(Photo.not_invisible.locale(l).select{|i| i.sitemappable })
-      pages.concat(Reference.all.select{|i| i.sitemappable })
-      pages
-    end
-
-    def self.generate_static_pages(*args)
-      # Use the sitemap generator to get all the pages for the last arg (locale)
-      generate_sitemap(args.last)
-    end
-
-    # Need to have gzip command installed on webserver system
-    def self.load_url(url=nil, locale=nil, *args)
-      s = true
-
-      uri = URI.parse(url)
-      req = Net::HTTP::Get.new(uri.to_s)
-      req["User-Agent"] = "SemiStatic"
-      if (html = (uri.path.split('.').count == 1 || uri.path.split('.').last == 'html'))
-        req["Accept"] = "text/html"
-      end
-      res = Net::HTTP.start(uri.host, uri.port) {|http|
-        http.request(req)
-      }
-
-      if (res.code == '200') && html && !locale.blank?
-        path = (uri.path == '/') ? '/index' : uri.path
-        file = "#{Rails.public_path}/#{locale.to_s}#{path}.html"
-        if File.exist? file
-          res = `gzip -c -7 #{file} > #{file}.gz`
-        else
-          res = 'Server responded 200 OK but could not create static gzipped html version'
-          s = false
-        end
-      else
-        res = "Server responded #{res.code}"
-        s = false
-      end
-      [s, url, res]
-    end
-
     # These things should never happen, but sometimes on a development system they will
     def self.clean_up(*args)
       Entry.all{|e| e.destroy if e.tag.nil?}

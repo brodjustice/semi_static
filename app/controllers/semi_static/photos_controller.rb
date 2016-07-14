@@ -3,6 +3,9 @@ require_dependency "semi_static/application_controller"
 module SemiStatic
   class PhotosController < ApplicationController
 
+    require 'semi_static/general'
+    include General
+
     before_filter :authenticate_for_semi_static!, :except => [ :show, :index ]
   
     # Caching the show page seems to cause some problems when flicking through the
@@ -24,10 +27,15 @@ module SemiStatic
         @entries = @tag && @tag.entries
       end
 
+
       if semi_static_admin?
         @photos = Photo.all
         layout = 'semi_static_dashboards'
-        template = 'semi_static/photos/admin_index'
+        if session[:workspace_tag_id]
+          template = 'semi_static/photos/admin_list_index'
+        else
+          template = 'semi_static/photos/admin_index'
+        end
       else
         layout = 'semi_static_application'
         template = 'semi_static/photos/index'
@@ -98,6 +106,7 @@ module SemiStatic
   
       respond_to do |format|
         if @photo.save
+          expire_page_cache(@photo)
           format.html { redirect_to photos_path }
           format.json { render json: @photo, status: :created, location: @photo }
         else
@@ -114,6 +123,7 @@ module SemiStatic
   
       respond_to do |format|
         if @photo.update_attributes(params[:photo])
+          expire_page_cache(@photo)
           format.html { redirect_to photos_path }
           format.json { head :no_content }
         else
@@ -127,6 +137,7 @@ module SemiStatic
     # DELETE /photos/1.json
     def destroy
       @photo = Photo.find(params[:id])
+      expire_page_cache(@photo)
       @photo.destroy
   
       respond_to do |format|

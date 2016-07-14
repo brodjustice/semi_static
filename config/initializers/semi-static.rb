@@ -106,7 +106,7 @@ module SemiStatic
     # If set to true this will put a fake URL fnd message form field into the semi_static contact form
     # but hide it with CSS. Spambots will be tempted to fill out the fields, while normal users, will
     # not see the fields at all. In this way we can stop a lot of contact form spam.
-    config.contact_form_fake_fields = true
+    config.contact_form_spam_fields = true
     
     # Add name for partial which will provide imprint/impressum, terms and conditions etc. If
     # nil, then the contact partial, if any, will be used

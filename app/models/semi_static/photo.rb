@@ -49,8 +49,8 @@ module SemiStatic
     scope :without_caption, where("description IS NULL or CAST(description as text) = ''")
     scope :locale, lambda {|locale| where("locale = ?", locale.to_s)}
 
-    after_save :expire_site_page_cache, :build_ordered_array
-    after_destroy :expire_site_page_cache, :build_ordered_array
+    after_save :build_ordered_array
+    after_destroy :build_ordered_array
     before_save :extract_dimensions
 
     serialize :img_dimensions

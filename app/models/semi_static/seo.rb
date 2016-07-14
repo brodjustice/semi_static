@@ -21,8 +21,6 @@ module SemiStatic
     scope :master, where(:master => true)
 
     before_save :set_locale
-    after_save :expire_site_page_cache
-    before_destroy :expire_site_page_cache
     before_create :set_defaults
 
     def tag; seoable.tag end
