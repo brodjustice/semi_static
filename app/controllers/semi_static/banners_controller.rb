@@ -2,6 +2,9 @@ require_dependency "semi_static/application_controller"
 
 module SemiStatic
   class BannersController < ApplicationController
+    require 'semi_static/general'
+    include General
+
     # before_filter :authenticate_user!, :class => SemiStatic::Banner
     before_filter :authenticate_for_semi_static!
 
@@ -53,6 +56,7 @@ module SemiStatic
   
       respond_to do |format|
         if @banner.save
+          expire_page_cache(@banner)
           format.html { redirect_to banners_path }
           format.json { render json: @banner, status: :created, location: @banner }
         else
@@ -69,6 +73,7 @@ module SemiStatic
   
       respond_to do |format|
         if @banner.update_attributes(params[:banner])
+          expire_page_cache(@banner)
           format.html { redirect_to banners_path }
           format.json { head :no_content }
         else

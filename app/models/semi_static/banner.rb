@@ -53,8 +53,6 @@ module SemiStatic
 
     validates_attachment_content_type :img, :content_type => ['image/jpeg', 'image/png', 'image/gif']
 
-    after_save :expire_site_page_cache
-
     def img_url_for_theme(screen)
       img.url(THEME[SemiStatic::Engine.config.theme][screen])
     end
