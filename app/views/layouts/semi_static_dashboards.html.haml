@@ -33,6 +33,19 @@
           #dialog{:style => 'display: none;'}
             #dialog-inner
           #content
-            =yield
+            .group
+              .dash.col.span_1_of_5
+                %h1 Menu
+                #dmenu
+                  - if session[:workspace_tag_id].present?
+                    .item
+                      %h5= 'Workspace'
+                      = link_to SemiStatic::Tag.find_by_id(session[:workspace_tag_id]).name, semi_static.semi_static_dashboard_path
+                  .spacer
+                  -# if CanCan is used, something like:
+                  -# = menu_for(current_user.top_role.name)
+                  = menu_for('admin')
+              .col.span_4_of_5
+                =yield
       #footer
         = render :partial => 'semi_static/shared/footer'

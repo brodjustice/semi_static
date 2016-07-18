@@ -13,6 +13,9 @@ body{
 #dashboard #frame{
   margin-top: 0px;
 }
+
+#dashboard #container, #dashboard #content{max-width: 1400px;}
+
 #dashboard table:not(.cke_dialog){
   width: 100%;
 }
@@ -44,6 +47,8 @@ h1{
 #dashboard .button a:hover{
   background: none;
 }
+
+#dashboard .dash .button{margin: 4px 4px 0;}
 
 input[type='checkbox']{ width:auto; }
 .sidebar select{max-width: 300px;}
@@ -89,33 +94,43 @@ textarea{
 .mid.full{
   max-width: 100%;
 }
+
+.dash{
+  background-color: rgba(255,255,255,0.6);
+  border: 1px solid white;
+  border-radius: 2px;
+  box-sizing: border-box;
+}
  
-#menu .nutshell{
-  width: 130px;
-}
-
-#menu.spacer_wrapper{
-  margin-top: 16px;
-}
-
 #dashboard #top{
   position: relative;
 }
 
-#dashboard #menu{
-  width: 100%;
+#dashboard #dmenu{
   font-size: 20px;
-  padding: 12px 0px 6px;
-  height: auto;
-  right: 0px;
-  margin: 0 auto;
-  position: relative;
-  top: 0px;
-  margin-bottom: 6px;
-  max-width: 1024px;
-  background-color: #515f68;
-  border-bottom: 1px solid #c8c8c8;
-  float: none;
+  margin: 1.6% auto 16px;
+  float: left;
+  width: 100%;
+}
+
+#dmenu h5{
+  padding: 6px;
+  margin: 0;
+}
+.dash h1{
+  margin: 6px;
+}
+
+#dmenu .item{
+  border-bottom: 1px solid white;
+}
+
+#dmenu .spacer{
+  height: 12px;
+  background-color: white;
+}
+#dashboard #dmenu .item a:hover{
+  background-color: #484848;
 }
 button, th{
   background: rgba(254,254,254,1);
@@ -159,25 +174,14 @@ th.short:hover{ font-size: 14px; }
   -webkit-animation: flash 2s ease-out; -webkit-animation-iteration-count: 5;
 }
 
-#dashboard #menu a{
+#dashboard #dmenu a{
+  padding: 6px;
   color: #fff;
+  background-color: #515f68;
   text-shadow: none;
+  font-size: 16px;
+  display: block;
 }
-
-.nutshell {
-    display: inline-block;
-    vertical-align: top;
-}
-#menu .nutshell{
-  width: 150px;
-  text-align:  center;
-  margin-bottom: 8px;
-}
-
-#menu.spacer_wrapper{
-  margin-top: 16px;
-}
-
 
 fieldset {
     border: medium none;

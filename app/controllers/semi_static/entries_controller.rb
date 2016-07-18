@@ -96,7 +96,7 @@
     # GET /entries/new
     # GET /entries/new.json
     def new
-      @entry = Entry.new(:simple_text => true, :body => '')
+      @entry = Entry.new(:simple_text => true, :body => '', :tag_id => session[:workspace_tag_id])
       if params[:master].present?
         master = Entry.find(params[:master])
         @entry = master.tidy_dup

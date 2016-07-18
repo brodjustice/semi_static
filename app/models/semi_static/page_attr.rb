@@ -6,6 +6,6 @@ module SemiStatic
 
     belongs_to :page_attrable, polymorphic: true
 
-    validates :attr_key, :uniqueness => {:scope => :page_attrable_id}
+    validates :attr_key, :uniqueness => {:scope => [:page_attrable_type, :page_attrable_id]}
   end
 end

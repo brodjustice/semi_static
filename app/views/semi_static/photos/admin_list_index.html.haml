@@ -1,9 +1,8 @@
-.dashboard
+.dashboard.dash
   .button
     = link_to 'New Photo', new_photo_path
   %h1 Gallery List
   %h2
-    Notice: Only showing images for the workspace tag:
     = SemiStatic::Tag.find(session[:workspace_tag_id]).name
 
   = render :partial => 'admin_list_index'

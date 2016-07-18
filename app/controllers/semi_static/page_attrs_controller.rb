@@ -48,7 +48,9 @@ module SemiStatic
           }
           format.json { render json: @page_attr, status: :created, location: @page_attr }
         else
-          format.html { render action: "new" }
+          format.html {
+            redirect_to (params[:return].present? ? params[:return] : edit_polymorphic_path(@page_attrable)), notice: ['ERROR:', @page_attr.errors.full_messages.to_s].join(' ')
+          }
           format.json { render json: @page_attr.errors, status: :unprocessable_entity }
         end
       end

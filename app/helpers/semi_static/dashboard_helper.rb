@@ -11,7 +11,7 @@ module SemiStatic
     # The menu is the list of top level intruments 
     MENU = {
       :visitor => [],
-      :admin => ['tags', 'entries', 'comments', 'sidebars', 'products', 'events', 'banners', 'footer', 'gallery', 'references',
+      :admin => ['tags', 'entries', 'banners', 'spacer', 'comments', 'sidebars', 'products', 'events', 'footer', 'gallery', 'references',
                   'admins', 'contacts', 'agreements', 'squeezes', 'seos', 'newsletters',
                   'subscribers', 'click_ads', 'page_attributes', 'system'],
       :user => []
@@ -28,7 +28,7 @@ module SemiStatic
       }.join().html_safe
       unless SemiStatic::Engine.config.dashboard_menu_additions.nil?
         SemiStatic::Engine.config.dashboard_menu_additions.each{|title, url_method|
-          html += "<div class='nutshell spaced'><a href=\"#{main_app.send(url_method)}\">#{title.humanize}</a></div>".html_safe
+          html += "<div class='item'><a href=\"#{main_app.send(url_method)}\">#{title.humanize}</a></div>".html_safe
         }
       end
       html.html_safe
@@ -36,88 +36,92 @@ module SemiStatic
 
     private
 
+    def spacer(*args)
+      '<div class="spacer"></div>'
+    end
+
     def squeezes(role, cl_str = nil)
-      "<div class='nutshell spaced' #{cl_str}><a href=\"#{semi_static.squeezes_path}\">Squeezes</a></div>"
+      "<div class='item' #{cl_str}><a href=\"#{semi_static.squeezes_path}\">Squeezes</a></div>"
     end
 
     def events(role, cl_str = nil)
-      "<div class='nutshell spaced' #{cl_str}><a href=\"#{semi_static.events_path}\">Events</a></div>"
+      "<div class='item' #{cl_str}><a href=\"#{semi_static.events_path}\">Events</a></div>"
     end
 
     def page_attributes(role, cl_str = nil)
-      "<div class='nutshell spaced' #{cl_str}><a href=\"#{semi_static.page_attrs_path}\">Page Attrs</a></div>"
+      "<div class='item' #{cl_str}><a href=\"#{semi_static.page_attrs_path}\">Page Attrs</a></div>"
     end
 
     def subscribers(role, cl_str = nil)
-      "<div class='nutshell spaced' #{cl_str}><a href=\"#{semi_static.subscribers_path}\">Subscribers</a></div>"
+      "<div class='item' #{cl_str}><a href=\"#{semi_static.subscribers_path}\">Subscribers</a></div>"
     end
 
     def newsletters(role, cl_str = nil)
-      "<div class='nutshell spaced' #{cl_str}><a href=\"#{semi_static.newsletters_path}\">Newsletters</a></div>"
+      "<div class='item' #{cl_str}><a href=\"#{semi_static.newsletters_path}\">Newsletters</a></div>"
     end
 
     def seos(role, cl_str = nil)
-      "<div class='nutshell spaced' #{cl_str}><a href=\"#{semi_static.seos_path}\">SEO</a></div>"
+      "<div class='item' #{cl_str}><a href=\"#{semi_static.seos_path}\">SEO</a></div>"
     end
 
     def references(role, cl_str = nil)
-      "<div class='nutshell spaced' #{cl_str}><a href=\"#{semi_static.references_path}\">References</a></div>"
+      "<div class='item' #{cl_str}><a href=\"#{semi_static.references_path}\">References</a></div>"
     end
 
     def gallery(role, cl_str = nil)
-      "<div class='nutshell spaced' #{cl_str}><a href=\"#{semi_static.photos_path}\">Gallery</a></div>"
+      "<div class='item' #{cl_str}><a href=\"#{semi_static.photos_path}\">Gallery</a></div>"
     end
   
     def contacts(role, cl_str = nil)
-      "<div class='nutshell spaced' #{cl_str}><a href=\"#{semi_static.contacts_path}\">Contacts</a></div>"
+      "<div class='item' #{cl_str}><a href=\"#{semi_static.contacts_path}\">Contacts</a></div>"
     end
   
     def banners(role, cl_str = nil)
-      "<div class='nutshell spaced' #{cl_str}><a href=\"#{semi_static.banners_path}\">Banners</a></div>"
+      "<div class='item' #{cl_str}><a href=\"#{semi_static.banners_path}\">Banners</a></div>"
     end
   
     def agreements(role, cl_str = nil)
-      "<div class='nutshell spaced' #{cl_str}><a href=\"#{semi_static.agreements_path}\">Agreements</a></div>"
+      "<div class='item' #{cl_str}><a href=\"#{semi_static.agreements_path}\">Agreements</a></div>"
     end
   
     def admins(role, cl_str = nil)
-      "<div class='nutshell spaced' #{cl_str}><a href=\"#{semi_static_path_for_admins}\">Admins</a></div>"
+      "<div class='item' #{cl_str}><a href=\"#{semi_static_path_for_admins}\">Admins</a></div>"
     end
   
     def entries(role, cl_str = nil)
-      "<div class='nutshell spaced' #{cl_str}><a href=\"#{semi_static.entries_path}\">Entries</a></div>"
+      "<div class='item' #{cl_str}><a href=\"#{semi_static.entries_path}\">Entries</a></div>"
     end
   
     def comments(role, cl_str = nil)
-      "<div class='nutshell spaced' #{cl_str}><a href=\"#{semi_static.comments_path}\">Comments</a></div>"
+      "<div class='item' #{cl_str}><a href=\"#{semi_static.comments_path}\">Comments</a></div>"
     end
   
     def sidebars(role, cl_str = nil)
-      "<div class='nutshell spaced' #{cl_str}><a href=\"#{semi_static.sidebars_path}\">Sidebars</a></div>"
+      "<div class='item' #{cl_str}><a href=\"#{semi_static.sidebars_path}\">Sidebars</a></div>"
     end
   
     def products(role, cl_str = nil)
-      "<div class='nutshell spaced' #{cl_str}><a href=\"#{semi_static.products_path}\">Products</a></div>"
+      "<div class='item' #{cl_str}><a href=\"#{semi_static.products_path}\">Products</a></div>"
     end
   
     def tags(role, cl_str = nil)
-      "<div class='nutshell spaced' #{cl_str}><a href=\"#{semi_static.tags_path}\">Tags</a></div>"
+      "<div class='item' #{cl_str}><a href=\"#{semi_static.tags_path}\">Tags</a></div>"
     end
   
     def click_ads(role, cl_str = nil)
-      "<div class='nutshell spaced' #{cl_str}><a href=\"#{semi_static.click_ads_path}\">Click Ads</a></div>"
+      "<div class='item' #{cl_str}><a href=\"#{semi_static.click_ads_path}\">Click Ads</a></div>"
     end
   
     def system(role, cl_str = nil)
-      "<div class='nutshell spaced' #{cl_str}><a href=\"#{semi_static.semi_static_dashboard_path}\">System</a></div>"
+      "<div class='item' #{cl_str}><a href=\"#{semi_static.semi_static_dashboard_path}\">System</a></div>"
     end
   
     def signout(role, cl_str = nil)
-      "<div class='nutshell spaced' #{cl_str}><a href=\"#{semi_static_path_for_admin_session}\" data-method='delete'>Sign Out</a></div>"
+      "<div class='item' #{cl_str}><a href=\"#{semi_static_path_for_admin_session}\" data-method='delete'>Sign Out</a></div>"
     end
   
     def footer(role, cl_str = nil)
-      "<div class='nutshell spaced' #{cl_str}><a href=\"#{semi_static.fcols_path}\">Footer</a></div>"
+      "<div class='item' #{cl_str}><a href=\"#{semi_static.fcols_path}\">Footer</a></div>"
     end
   end
 end

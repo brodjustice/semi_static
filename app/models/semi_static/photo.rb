@@ -48,6 +48,7 @@ module SemiStatic
     scope :sidebar, where('gallery_control=? OR gallery_control=?', GALLERY_SYM[:thumbs_and_sidebar], GALLERY_SYM[:sidebar_only])
     scope :without_caption, where("description IS NULL or CAST(description as text) = ''")
     scope :locale, lambda {|locale| where("locale = ?", locale.to_s)}
+    scope :for_tag_id, lambda {|tag_id| joins(:entry).where('semi_static_entries.tag_id = ?', tag_id)}
 
     after_save :build_ordered_array
     after_destroy :build_ordered_array

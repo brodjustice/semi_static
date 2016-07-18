@@ -11,7 +11,6 @@
     %th
 
   - @photos.each do |p|
-    - next unless p.entry && (p.entry.tag_id == session[:workspace_tag_id].to_i)
     %tr
       %td= link_to p.title, edit_photo_path(p)
       %td= p.description

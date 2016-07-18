@@ -13,19 +13,10 @@
         %h3= SemiStatic::Engine.config.site_name
     %h2= 'SEO data (search indexing) for your Home Page'
     %p
-      = 'The SEO meta tags for the Home page will be loaded from the locales translation of "keywords" by default.'
-      = 'However you can override them by doing the following:'
+      = 'Doing the following:'
     %ul
       %li= "Create or edit a Tag named 'Home' and with the locale required"
       %li= "Add SEO meta data to the 'Home' tag that you created" 
-    %p
-      = 'If you do not override the SEO tags then your websites default keywords for each locale are given below. If no keywords are shown then they are blank:'
-    - I18n.available_locales.each do |locale|
-      %ul
-        %li
-          %h3= locale.to_s
-          %p
-            = t('keywords', :locale => locale)
 
   .infomarker= 'SEO help and special rules for Home Page SEO'
   %table

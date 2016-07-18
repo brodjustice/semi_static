@@ -32,6 +32,7 @@ module SemiStatic
         @photos = Photo.all
         layout = 'semi_static_dashboards'
         if session[:workspace_tag_id]
+          @photos = Photo.for_tag_id(session[:workspace_tag_id].to_i)
           template = 'semi_static/photos/admin_list_index'
         else
           template = 'semi_static/photos/admin_index'
