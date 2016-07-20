@@ -41,7 +41,7 @@ module General
 
         # Is this a merged entry?
         obj.merge_with_previous && (obj = obj.merged_main_entry)
-        FileUtils.rm_f((Rails.root.to_s + "/public/#{obj.locale.to_s}/#{obj.to_param}").to_s)
+        FileUtils.rm_f((Rails.root.to_s + "/public/#{obj.locale.to_s}/entries/#{obj.to_param}.html").to_s)
       else
         # If this is an object with a locale, only expire the cache for tha locale
         locales = (obj.nil? || !obj.respond_to?('locale')) ? I18n.available_locales : [obj.locale]

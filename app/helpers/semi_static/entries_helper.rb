@@ -36,24 +36,6 @@ module SemiStatic
       (e.merge_with_previous ? '--> ' : '') + (e.get_title || "##{e.id.to_s}")
     end
 
-    def entry_title(e, linked = false, h_tag = :h1, h_sub_tag = :h2)
-      unless e.title.blank? || e.summary_length.blank?
-        # Standard sort of link 
-        if linked && !e.link_to_tag
-          content_tag(h_tag){ content_tag(:a, e.title, :href => entry_link(e), :style => "color: #{e.header_colour}") } +
-          (e.sub_title.present? ? content_tag(h_sub_tag){ content_tag(:a, e.sub_title, :href => entry_link(e), :style => "color: #{e.header_colour}")} : '')
-        # Summary that is linked to a tag (TODO: Does this ever happen, seems to now be covered in the tags_controller?)
-        elsif linked && @summaries && !e.link_to_tag
-          content_tag(h_tag){ content_tag(:a, e.title, :href => feature_path(e.tag.slug), :style => "color: #{e.header_colour}") } +
-          (e.sub_title.present? ? content_tag(h_sub_tag){ content_tag(:a, e.sub_title, :href => feature_path(e.tag.slug), :style => "color: #{e.header_colour}")} : '')
-        # No link
-        else
-          content_tag(h_tag, e.title, :style => "color: #{e.header_colour};") +
-          (e.sub_title.present? ? content_tag(h_sub_tag, e.sub_title) : '')
-        end
-      end
-    end
-
     def link_to_next_entry(entry, default_path = nil)
       if entry && (n = entry.next_entry)
         "<a href='#{entry_link(n)}' class='next-entry'>#{t('Next')}</a>".html_safe

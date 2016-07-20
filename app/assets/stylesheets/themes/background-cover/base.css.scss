@@ -79,6 +79,7 @@ h2{ font-size: 20px; font-weight: normal;}
 }
 
 #slide-menu-wrapper{
+  /* There is a bug in this transition for iPads so it is disabled in JS */
   transition: right 0.5s linear 0s;
   box-shadow: 0 0 80px black;
   background-color: #333;
