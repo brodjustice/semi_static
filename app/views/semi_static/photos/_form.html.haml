@@ -25,6 +25,7 @@
 
   .group
     .col.span_2_of_3
+      %h2 Content
       .field
         = f.label :title
         %br/
@@ -58,7 +59,7 @@
       .field.wide
         = f.label :description, 'Caption'
         %br/
-        = f.text_area :description, :rows => '3'
+        = f.text_area :description, :rows => '4'
       .field
         = f.label :entry_id, 'Use in entry (optional)'
         %br
@@ -92,8 +93,19 @@
             = f.select :gallery_control, options_for_select(SemiStatic::Photo::GALLERY_SYM.collect{|k,v| [k.to_s.humanize, v]}, @photo.gallery_control.to_i)
 
         %fieldset
+          .infobox#photo_hidden
+            %h4= 'Hidden Photos'
+            %p
+              = 'If you check this box then the photo will not be displayed in any public gallery on the website, though it will still be displayed'
+              = 'if inside a public Entry that you have set it to be used in or on the home page if that box is checked'
+          %span.infomarker
+            = f.label :hidden
+            = f.check_box :hidden
           = f.label :home_page
           = f.check_box :home_page
+        %h2 Gallery
+        %fieldset
+          = f.select :gallery_id, options_for_select(SemiStatic::Gallery.all.collect{|g| [g.title, g.id]}.prepend(['- None -', nil]), @photo.gallery_id)
         %h2 Behaviour
         %fieldset
           .infobox#popup_control
@@ -105,7 +117,7 @@
               = 'must therefore be careful to load reasonalbly sizes images, ie. no 20Mbyte 10000px wide'
               = 'images from high defination cameras, unless you scale them before loading to the system'
             %p
-              = 'If the system detects that you hage a high definition (high DPI, double density or retina)'
+              = 'If the system detects that you have a high definition (high DPI, double density or retina)'
               = 'screen, then the system will load a highly compressed image into the pop up and set it to'
               = 'display in double density. This is a very efficient and very effective way of showing high'
               = 'resolution images'

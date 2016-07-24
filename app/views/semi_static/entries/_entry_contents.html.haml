@@ -17,6 +17,7 @@
         = entry_title(e, linked)
         = entry_body(e)
         = photo_main(e, @group_size || 2)
+        = render :partial => 'semi_static/gallery/gallery', :locals => {:g => e.gallery, :e => e}
         = semantic_product(e)
 - else
   .html
@@ -29,4 +30,5 @@
     - else
       = entry_body(e)
       = photo_main(e, @group_size || 2)
+      = render :partial => 'semi_static/gallery/slider', :locals => {:g => e.gallery, :e => e}
       = semantic_product(e)

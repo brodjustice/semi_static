@@ -9,7 +9,7 @@ module SemiStatic
       'Contact' => SemiStatic::Engine.routes.url_helpers.new_contact_path,
       'Documents' => SemiStatic::Engine.routes.url_helpers.documents_path,
       'News' => nil,
-      'Gallery' => SemiStatic::Engine.routes.url_helpers.photos_path
+      'Gallery' => '/gallery'
     }
 
     # Unless set, will default to 5
@@ -19,6 +19,16 @@ module SemiStatic
       'elegant' => 10,
       'standard-2col-1col' => 10
     }
+
+    # There are q number of situations where the sidebar navigation menu is not required.
+    # They are if:
+    #   1) No Tag exists
+    #   2) It is a link_to_tag page, i.e. an entry replacing a Tag 'index of Entries' page
+    #   3) It is the pre-defined 'Gallery'
+    #
+    def side_bar_nav?
+      !(@tag.nil? || @tag.entries.first.try(:link_to_tag) || @tag.predefined_class == "Gallery")
+    end
 
     def entry_title(e, linked = false, h_tag = :h1, h_sub_tag = :h2)
       unless e.title.blank? || e.summary_length.blank?

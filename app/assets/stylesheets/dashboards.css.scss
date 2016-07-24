@@ -12,6 +12,7 @@ body{
 }
 #dashboard #frame{
   margin-top: 0px;
+  background: #a0a0a0;
 }
 
 #dashboard #container, #dashboard #content{max-width: 1400px;}
@@ -19,18 +20,21 @@ body{
 #dashboard table:not(.cke_dialog){
   width: 100%;
 }
+#dashboard table.bordered{
+  border: 1px solid #505555
+}
+
 h1{
   font-size: 24px;
   margin: 6px 0px;
 }
-.panel {
-  background-color: white;
-  border-radius: 2px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-  margin-bottom: 10px;
+#dashboard .panel {
+  background-color: #f8f8f8;
   min-height: 50px;
   padding: 2px 8px 0;
   position: relative;
+  box-shadow: none;
+  margin: 0;
 }
 
 #dashboard .button {
@@ -48,7 +52,7 @@ h1{
   background: none;
 }
 
-#dashboard .dash .button{margin: 4px 4px 0;}
+#dashboard .dash > .button{margin: 4px 4px 0;}
 
 input[type='checkbox']{ width:auto; }
 .sidebar select{max-width: 300px;}
@@ -96,10 +100,11 @@ textarea{
 }
 
 .dash{
-  background-color: rgba(255,255,255,0.6);
+  background-color: #f0f0f0;
   border: 1px solid white;
   border-radius: 2px;
   box-sizing: border-box;
+  padding: 6px;
 }
  
 #dashboard #top{
@@ -127,12 +132,12 @@ textarea{
 
 #dmenu .spacer{
   height: 12px;
-  background-color: white;
+  background-color: transparent;
 }
 #dashboard #dmenu .item a:hover{
   background-color: #484848;
 }
-button, th{
+button{
   background: rgba(254,254,254,1);
   background: -moz-linear-gradient(top, rgba(254,254,254,1) 0%, rgba(226,226,226,1) 100%);
   background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(254,254,254,1)), color-stop(100%, rgba(226,226,226,1)));
@@ -144,7 +149,10 @@ button, th{
 }
 
 #dashboard table th{
-  color: #181828;
+  background-color: #e6eeee;
+  border: 1px solid #8c8c8c;
+  font-size: 10pt;
+  padding: 4px;
 }
 table table th{
   background-color: white;
@@ -154,9 +162,8 @@ table table{ margin-bottom: 18px; }
 td.merge{ padding-left: 32px; }
 td.warn{ background-color: yellow; }
 
-th.short{font-size: 8px;}
-th.short:hover{ font-size: 14px; }
 #dashboard td a:hover{text-decoration: underline;}
+.dash tr:nth-child(2n+1) td{background-color: white;}
 
 @keyframes flash {
     0% { background-color:none;}
@@ -181,6 +188,7 @@ th.short:hover{ font-size: 14px; }
   text-shadow: none;
   font-size: 16px;
   display: block;
+  border-radius: 4px;
 }
 
 fieldset {
@@ -213,8 +221,16 @@ tr.top td{
 td.content{
   border-bottom: 1px dotted #a8a8a8;
 }
-td.tick{ text-align: center; }
+td.tick{ text-align: center; width: 22px;}
 td.name, td.number{ text-align: right; padding-right: 12px;}
+table td.link a{background: none;  padding:0;}
+table td.link a::after{content: '▸'; color: #0060aa; font-size: 20px;padding-left: 8px;line-height:12px;}
+tr.em td{border-top: 1px solid #888; border-bottom: 1px solid #888;}
+
+.dash table{position: relative; z-index: 0;}
+.dash td.photo{ padding: 0 0 1px; position: relative; width: 48px; height: 48px; }
+.dash td.photo img{ transition: 0.5s; position: absolute; top: 0; left: 0;width: 48px; height: 48px; }
+.dash tr td.photo:hover img{ width: 96px; height: 96px; z-index: 10; top: -24px; left: -24px; border: 4px solid #515f68;}
 
 th{
   border: 1px solid #c8c8c8;
@@ -281,6 +297,9 @@ th{
   background-color: #e8e8e8;
 }
 
+.switch_wrapper{
+  margin: 4px auto;
+}
 /* Flipswitch from proto.io */
     .onoffswitch {
     position: relative; width: 90px;

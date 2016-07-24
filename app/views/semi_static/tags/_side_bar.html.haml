@@ -2,7 +2,7 @@
 - @tag ||= entrytag
 %aside
   = yield :side_bar_top
-  - unless @tag.nil? || @tag.entries.first.try(:link_to_tag)
+  - if side_bar_nav?
     .panel.list
       %nav
         - if SemiStatic::Tag.use_sprites?

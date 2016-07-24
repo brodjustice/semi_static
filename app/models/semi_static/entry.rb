@@ -11,7 +11,7 @@ module SemiStatic
     attr_accessible :position, :doc, :doc_description, :summary_length, :locale, :style_class, :header_colour, :background_colour, :colour
     attr_accessible :banner_id, :partial, :entry_position, :master_entry_id, :youtube_id_str, :use_as_news_summary, :simple_text
     attr_accessible :sidebar_id, :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_gallery, :side_bar_tag_id, :unrestricted_html
-    attr_accessible :merge_with_previous, :raw_html, :image_popup, :alt_title, :acts_as_tag_id
+    attr_accessible :merge_with_previous, :raw_html, :image_popup, :alt_title, :acts_as_tag_id, :gallery_id
     attr_accessible :facebook_share, :linkedin_share, :xing_share, :twitter_share, :show_in_documents_tag, :image_caption
     attr_accessible :tag_line, :raw_html, :show_image_titles, :doc_delete, :img_delete, :alt_img_delete
     attr_accessible :enable_comments, :comment_strategy, :layout_select, :link_to_tag, :style, :event_id, :squeeze_id
@@ -64,6 +64,7 @@ module SemiStatic
     belongs_to :sidebar
     belongs_to :master_entry, :class_name => SemiStatic::Entry
     belongs_to :banner
+    belongs_to :gallery
     belongs_to :event
     belongs_to :squeeze
     has_many :photos

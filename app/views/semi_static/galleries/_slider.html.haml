@@ -1,0 +1,127 @@
+-#
+-# CSS only image slider (slideshow). 
+-#
+-# The height is controlled by the dimensions of the first Photo in the Gallery
+-#
+-# The photos are limited to 10 as more that this will not funtion well on mobiles
+-# and will slow the page to to much
+-#
+-# Attributes that can be set are:
+-#  - sliderHzPadding => Horontal padding around slide edge, deafualt is 0, eg. '24px'
+-#  - sliderMouseOverColor => background color for mouse-over, eg. rgba(0,0,0,0.3)
+-#  - sliderIconColor => color for the next and previous icons, eg. rgba(0, 105, 170, 0.6)
+-#  - sliderBgColor => color background, eg. grey. May no be visible depending on image sizes
+-#  - sliderNavDotColor => color for navigation dot, eg. rgba(0, 0, 0, 0.6)
+-#  - sliderTitle => show Tilte from Gallery title, eg. true
+-#  - sliderCaptions => show captions from photo description, eg. true
+-#  - sliderCaptionsFontSize => Font size for captions, default 14px, eg. '12px'
+-#
+-# Needs to be passed a gallery in a local called simply 'g' and an entry 'e'
+
+- return if g.nil?
+- photos = g.photos.visible.limit(10).order(:position, :id)
+- return if photos.empty?
+
+- sliderHzPadding = (e.get_page_attr('sliderHzPadding') || '0')
+- sliderMouseOverColor = (e.get_page_attr('sliderMouseOverColor') || 'rgba(255,255,255,0.3)')
+- sliderIconColor = (e.get_page_attr('sliderIconColor') || '#fff')
+- sliderBgColor = (e.get_page_attr('sliderBgColor') || '#fff')
+- sliderNavDotColor = (e.get_page_attr('sliderNavDotColor') || 'rgba(0, 0, 0, 0.6)')
+- sliderTitle = e.get_page_attr('sliderTitle') || false
+- sliderCaptions = e.get_page_attr('sliderCaptions')
+- sliderCaptionFontSize = e.get_page_attr('sliderCaptionFontSize') || '14px'
+- outerMargin = sliderCaptions.present? ? '82px' : '0'
+- basePhoto = photos.first.img.url(:big)
+
+-# This CSS is different for each gallery, and so must be loaded new each time
+- content_for :header_css do
+  :plain
+    #sliderOuter_#{g.id}{margin-bottom: #{outerMargin};padding: 0 #{sliderHzPadding};}
+    input#img-#{g.id}-0:checked ~ .nav-dots label#img-dot-#{g.id}-0,
+    input#img-#{g.id}-1:checked ~ .nav-dots label#img-dot-#{g.id}-1,
+    input#img-#{g.id}-2:checked ~ .nav-dots label#img-dot-#{g.id}-2,
+    input#img-#{g.id}-3:checked ~ .nav-dots label#img-dot-#{g.id}-3,
+    input#img-#{g.id}-4:checked ~ .nav-dots label#img-dot-#{g.id}-4,
+    input#img-#{g.id}-5:checked ~ .nav-dots label#img-dot-#{g.id}-5,
+    input#img-#{g.id}-6:checked ~ .nav-dots label#img-dot-#{g.id}-6,
+    input#img-#{g.id}-7:checked ~ .nav-dots label#img-dot-#{g.id}-7,
+    input#img-#{g.id}-8:checked ~ .nav-dots label#img-dot-#{g.id}-8,
+    input#img-#{g.id}-9:checked ~ .nav-dots label#img-dot-#{g.id}-9 {
+    	background: rgba(255, 255, 255, 0.8);
+    }
+    #sliderOuter_#{g.id}  .sliderWrapper{background-color:#{sliderBgColor};}
+    #sliderOuter_#{g.id}  .nav label{color:#{sliderIconColor};background-color:#{sliderMouseOverColor};}
+    #sliderOuter_#{g.id}  .nav-dots .nav-dot{background-color:#{sliderNavDotColor};}
+    #sliderOuter_#{g.id}  .slide-caption-inner{font-size:#{sliderCaptionFontSize};}
+
+-# This CSS required only once, so we set the instance variable to true
+-# after loding to make sure that it is not loaded multiple times
+
+- unless @semi_static_gallery_css_loaded
+  - content_for :header_css do
+    :plain
+      .sliderWrapper img{max-width: none;}
+      .slider-inner{max-width: 640px;}
+      .slider-inner > img{position:relative;visibility:hidden; width: 100%;}
+      .sliderWrapper{text-align: center; position: relative;}
+      .slide-caption{width:100%;border-bottom:1px solid #d0d0d0;position:absolute;bottom:-68px;opacity:0;height:64px;overflow-y:auto;}
+      .slide-caption-inner{width:100%;transform: translateY(-50%);position:absolute;top:50%;}
+      .slides { padding: 0; width: 100%; max-width: 640px; height: auto; display: block; margin: 0 auto; position: absolute; top: 0; left: 0; right: 0; bottom: 0; }
+      .slides * {
+          user-select: none; -ms-user-select: none; -moz-user-select: none; -khtml-user-select: none;
+          -webkit-user-select: none; -webkit-touch-callout: none;
+      }
+      .slides input{display:none;}
+      .slide-container {display: block; }
+      .slide{background-size:cover;top:0;opacity:0;width:100%;max-width:640px;height:100%;display:block;position:absolute;transform:scale(0);transition:all .7s ease-in-out;}
+      .slide img{width:100%;height:100%;} 
+      .nav label {
+        width: 100px; height: 100%;
+        display: none; position: absolute;
+        opacity: 0; z-index: 9;
+        cursor: pointer;
+        transition: opacity .2s;
+        font-size: 132px;
+        font-weight: 100;
+        text-align: center;
+        line-height: normal;
+        font-family: sans-serif;
+        color: #{sliderIconColor};
+        background-color: #{sliderMouseOverColor};
+      }
+      .slide:hover + .nav label { opacity: 0.5; }
+      .nav label:hover { opacity: 1; }
+      .nav .s-next { right: 0; }
+      input:checked + .slide-container .slide-caption,
+      input:checked + .slide-container .slide{ opacity:1;transform:scale(1);transition:opacity 1s ease-in-out;}
+      input:checked + .slide-container .nav label { display: block; }
+      .nav-dots { width: 100%; bottom: 14px; height: 16px; display: block; position: absolute; text-align: center; }
+      .nav-dots .nav-dot{top:-5px;width:16px;height:16px;margin:0 4px;position:relative;border-radius:100%;display:inline-block;background-color:#{sliderNavDotColor};border:2px solid #888;}
+      .nav-dots .nav-dot:hover { cursor: pointer; background-color: rgba(0, 0, 0, 0.8); }
+    
+- @semi_static_gallery_css_loaded = true
+
+%div{:id => "sliderOuter_#{g.id}"}
+  - if sliderTitle
+    %h2= g.title
+  .sliderWrapper
+    .slider-inner
+      = image_tag(basePhoto)
+    %ul.slides
+      - photos.each_with_index do |p, c|
+        - if c == 0
+          <input type="radio" name="radio-btn-#{g.id}" id="img-#{g.id}-#{c}" checked />
+        - else
+          <input type="radio" name="radio-btn-#{g.id}" id="img-#{g.id}-#{c}"/>
+        %li.slide-container
+          .slide{:style => "background-image: url(#{p.img.url(:big)});"}
+          .nav
+            = label_tag "img-#{g.id}-#{(c - 1).modulo photos.count}", '&#x025C2;'.html_safe, :class => 's-prev'
+            = label_tag "img-#{g.id}-#{(c + 1).modulo photos.count}", '&#x025B8;'.html_safe, :class => 's-next'
+          - if sliderCaptions
+            .slide-caption
+              .slide-caption-inner
+                = p.description
+      %li.nav-dots
+        - photos.count.times do |c|
+          <label for='img-#{g.id}-#{c}' class='nav-dot' id='img-dot-#{g.id}-#{c}'></label>

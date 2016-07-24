@@ -1,1 +1,3 @@
-!= "$(\"#entry_id_#{@entry.id}\").after('#{escape_javascript(render :partial => 'semi_static/photos/admin_entry_photos')}');"
+-# TODO: The views sometimes have entry id, sometimes obj_id - refactor
+!= "$(\"#entry_id_#{@obj.id}\").after('#{escape_javascript(render :partial => 'semi_static/photos/admin_entry_photos')}');"
+!= "$(\"#obj_id_#{@obj.id}\").after('#{escape_javascript(render :partial => 'semi_static/photos/admin_entry_photos')}');"

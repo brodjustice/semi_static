@@ -9,9 +9,10 @@ module SemiStatic
     index_name SemiStatic::Engine.config.site_name.gsub(/( )/, '_').downcase
   
     belongs_to :entry
+    belongs_to :gallery, :dependent => :destroy
     has_one :seo, :as => :seoable
   
-    attr_accessible :title, :description, :img, :home_page, :position, :entry_id, :gallery_control, :locale, :popup
+    attr_accessible :title, :description, :img, :home_page, :position, :entry_id, :gallery_id, :gallery_control, :locale, :popup, :hidden
 
     has_attached_file :img,
        :styles => {
@@ -43,11 +44,16 @@ module SemiStatic
     default_scope order(:position, :entry_id, :id)
     scope :home, where('home_page = ?', true)
     scope :thumb, where('gallery_control = ?', GALLERY_SYM[:thumbs_and_sidebar])
+
+    # This scope depricated, use the Photo hidden attribute instead
     scope :not_invisible, where('gallery_control != ?', GALLERY_SYM[:invisible])
+
+    scope :visible, joins(:gallery).where('semi_static_galleries.public = ?', true).where('hidden = ?', false)
     scope :main, where('gallery_control = ?', GALLERY_SYM[:main])
     scope :sidebar, where('gallery_control=? OR gallery_control=?', GALLERY_SYM[:thumbs_and_sidebar], GALLERY_SYM[:sidebar_only])
     scope :without_caption, where("description IS NULL or CAST(description as text) = ''")
-    scope :locale, lambda {|locale| where("locale = ?", locale.to_s)}
+    scope :without_gallery, where("gallery_id IS NULL")
+    scope :locale, lambda {|locale| where("semi_static_photos.locale = ?", locale.to_s)}
     scope :for_tag_id, lambda {|tag_id| joins(:entry).where('semi_static_entries.tag_id = ?', tag_id)}
 
     after_save :build_ordered_array

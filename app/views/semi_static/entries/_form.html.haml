@@ -459,19 +459,11 @@
               = f.label :side_bar_gallery, 'Number of gallery images to show'
               %br/
               = f.text_field :side_bar_gallery, :size => 10
-        %h2 Newsletter
-        %fieldset
-          .infobox#newsletter_img
-            %h4= 'Newsletter image (optional)'
-            - if @entry.newsletter_img.present?
-              = image_tag(@entry.newsletter_img(:crop))
-            %p
-              = 'If you add a image here it will be used inside any newletter generated with this entry'
-          %span.infomarker
-          = f.label :newsletter_img, 'Image for newsletter (optional)'
-          = f.file_field :newsletter_img
         %h2 Gallery Images
         %fieldset
+          = f.label :gallery_id, 'Gallery'
+          = f.select :gallery_id, options_for_select(SemiStatic::Gallery.locale(@entry.locale).collect{|g| [g.title, g.id]}.prepend(["- None -", nil]), @entry.gallery_id)
+          %br/
           = f.label :show_image_titles, 'Show titles on images that are inside the "main" entry'
           = f.check_box :show_image_titles
         %h2 Social share buttons
@@ -497,6 +489,17 @@
           = f.select :squeeze_id, options_for_select(SemiStatic::Squeeze.all.collect{|s| [['ID ', s.id.to_s, ': ', s.name].join, s.id]}.prepend(["- None -", 'none']), @entry.squeeze_id)
 
           
+        %h2 Newsletter
+        %fieldset
+          .infobox#newsletter_img
+            %h4= 'Newsletter image (optional)'
+            - if @entry.newsletter_img.present?
+              = image_tag(@entry.newsletter_img(:crop))
+            %p
+              = 'If you add a image here it will be used inside any newletter generated with this entry'
+          %span.infomarker
+          = f.label :newsletter_img, 'Image for newsletter (optional)'
+          = f.file_field :newsletter_img
         - unless @entry.new_record?
           .button{:style => 'margin:3px'}
             = link_to 'New attribute', new_entry_page_attr_path(@entry), :remote => true

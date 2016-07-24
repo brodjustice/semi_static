@@ -11,7 +11,7 @@ module SemiStatic
     # The menu is the list of top level intruments 
     MENU = {
       :visitor => [],
-      :admin => ['tags', 'entries', 'banners', 'spacer', 'comments', 'sidebars', 'products', 'events', 'footer', 'gallery', 'references',
+      :admin => ['tags', 'entries', 'banners', 'spacer', 'comments', 'sidebars', 'products', 'events', 'footer', 'galleries', 'references',
                   'admins', 'contacts', 'agreements', 'squeezes', 'seos', 'newsletters',
                   'subscribers', 'click_ads', 'page_attributes', 'system'],
       :user => []
@@ -68,8 +68,8 @@ module SemiStatic
       "<div class='item' #{cl_str}><a href=\"#{semi_static.references_path}\">References</a></div>"
     end
 
-    def gallery(role, cl_str = nil)
-      "<div class='item' #{cl_str}><a href=\"#{semi_static.photos_path}\">Gallery</a></div>"
+    def galleries(role, cl_str = nil)
+      "<div class='item' #{cl_str}><a href=\"#{semi_static.galleries_path}\">Galleries</a></div>"
     end
   
     def contacts(role, cl_str = nil)

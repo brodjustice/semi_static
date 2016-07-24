@@ -42,7 +42,10 @@
   %td
     = link_to image_tag('tick.png', :title => 'YouTube Video'), "http://youtu.be/#{entry.youtube_id_str}" unless entry.youtube_id_str.blank?
   %td.number
-    = link_to entry.photos.count.to_s, entry_photos_path(entry), :remote => true
+    - if entry.gallery.present?
+      %span{:title => entry.gallery.title} G
+    - else
+      = link_to entry.photos.count.to_s, entry_photos_path(entry), :remote => true
   %td.tick
     = image_tag("/assets/file-types/#{entry.doc_mime_to_img}", :title => entry.doc_file_name) if entry.doc.present?
   %td{:class => ('warn' if (entry.locale != entry.tag.locale)), :title => ('Warning: locales do not match' if (entry.locale != entry.tag.locale))}

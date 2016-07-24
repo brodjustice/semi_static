@@ -2,21 +2,21 @@
   %tr
     %th= 'Title'
     %th= 'Tag'
-    %th.short= 'Merge'
-    %th.short= 'Custom view'
-    %th.short= 'Has master?'
-    %th.short= 'Home page'
-    %th.short= 'News'
-    %th.short= 'Side Bar'
-    %th.short= 'Position'
+    %th= 'Merge'
+    %th{:title => 'Custom view'}= 'C'
+    %th{:title => 'Has master?'}= 'M'
+    %th{:title => 'Home page'}= 'H'
+    %th{:title => 'News'}= 'N'
+    %th{:title => 'Side Bar'}= 'S'
+    %th{:title => 'Position'}= 'Pos.'
     %th= 'Banner'
-    %th.short= 'Admin'
+    %th{:title => 'Admin only page'}= 'A'
     %th= 'SEO'
-    %th.short= 'No Index'
+    %th{:title => 'No Index'}= 'I'
     %th= image_tag('/assets/video.png', :title => 'YouTube Video')
-    %th= image_tag('/assets/photos.png', :title => 'Number of photos')
+    %th= image_tag('/assets/photos.png', :title => 'Gallery or number of photos')
     %th
-    %th= 'Locale'
+    %th{:title => 'Locale'}= 'L'
     %th{:title => 'Ticked if this entry has a product'}= 'P'
     %th= image_tag('/assets/calendar.png', :title => 'Last update')
     %th

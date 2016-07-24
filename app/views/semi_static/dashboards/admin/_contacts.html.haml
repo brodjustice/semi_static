@@ -1,18 +1,17 @@
-.mid
-  .panel
-    %h4= 'Latest Contacts'
-    %table
-      %thead
-        %tr
-          %td Name & Email
-          %td Message
-          %td Date
-      %tbody
-        - SemiStatic::Contact.order('updated_at DESC').limit(5).each do |c|
-          %tr
-            %td
-              = link_to c.fullname, c
-              %br/
-              = mail_to c.email, c.email
-            %td= simple_format(truncate(c.message))
-            %td= c.created_at.strftime('%d-%m-%y')
+%h1= 'Latest Contacts'
+%table
+  %thead
+    %tr
+      %th Name
+      %th Email
+      %th Message
+      %th Date
+  %tbody
+    - SemiStatic::Contact.order('updated_at DESC').limit(5).each do |c|
+      %tr
+        %td
+          = link_to c.fullname, c
+        %td
+          = mail_to c.email, c.email
+        %td= truncate(c.message)
+        %td= c.created_at.strftime('%d-%m-%y')

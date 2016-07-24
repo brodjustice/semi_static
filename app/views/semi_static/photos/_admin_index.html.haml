@@ -1,27 +1,29 @@
 %table
   %tr
+    %th #
     %th
     %th Title
     %th Description (Caption)
     %th Entry Link
     %th{:colspan => 2} Position
     %th Locale
-    %th Home Page
+    %th{:title => 'Show on home Page'} H
     %th SEO
     %th
     %th
 
   - @photos.each do |p|
     %tr
-      %td
+      %td= p.id
+      %td.photo
         - if p.img.exists?
           = link_to image_tag(p.img.url(:mini), :title => p.title), edit_photo_path(p)
-      %td= link_to p.title, edit_photo_path(p)
-      %td= p.description
+      %td= link_to truncate(p.title, :length => 20), edit_photo_path(p)
+      %td= truncate(p.description, :length => 30)
       %td
-        = link_to p.entry.explicit_title, edit_entry_path(p.entry) if p.entry
-      %td.number= p.position
-      %td= SemiStatic::Photo::GALLERY[p.gallery_control].to_s.humanize
+        = link_to truncate(p.entry.explicit_title, :length => 20), edit_entry_path(p.entry) if p.entry
+      %td= p.position
+      %td= truncate(SemiStatic::Photo::GALLERY[p.gallery_control].to_s.humanize, :length => 10)
       %td= p.locale.to_s
       %td.tick
         = image_tag('/assets/tick.png') if p.home_page

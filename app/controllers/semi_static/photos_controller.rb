@@ -16,9 +16,13 @@ module SemiStatic
     # GET /photos
     # GET /photos.json
     def index
+
       if params[:entry_id].present?
-        @entry = Entry.find(params[:entry_id])
-        @photos = @entry.photos
+        @obj = @entry = Entry.find(params[:entry_id])
+        @photos = @obj.photos
+      elsif params[:gallery_id].present?
+        @obj = @gallery = Gallery.find_by_id(params[:gallery_id])
+        @photos = @obj.photos
       else
         @photos = Photo.not_invisible.locale(I18n.locale)
         @photo = @photos.first
@@ -29,14 +33,9 @@ module SemiStatic
 
 
       if semi_static_admin?
-        @photos = Photo.all
+        @photos ||= Photo.all
         layout = 'semi_static_dashboards'
-        if session[:workspace_tag_id]
-          @photos = Photo.for_tag_id(session[:workspace_tag_id].to_i)
-          template = 'semi_static/photos/admin_list_index'
-        else
-          template = 'semi_static/photos/admin_index'
-        end
+        template = 'semi_static/photos/admin_index'
       else
         layout = 'semi_static_application'
         template = 'semi_static/photos/index'
@@ -76,7 +75,7 @@ module SemiStatic
     # GET /photos/new
     # GET /photos/new.json
     def new
-      @photo = Photo.new
+      @photo = Photo.new(params[:photo])
       @entries = Entry.unscoped.order(:locale, :tag_id, :position).exclude_newsletters
       if params[:master].present?
         master = Photo.find(params[:master])
@@ -108,7 +107,7 @@ module SemiStatic
       respond_to do |format|
         if @photo.save
           expire_page_cache(@photo)
-          format.html { redirect_to photos_path }
+          format.html { redirect_to galleries_path }
           format.json { render json: @photo, status: :created, location: @photo }
         else
           format.html { render action: "new" }
@@ -125,7 +124,7 @@ module SemiStatic
       respond_to do |format|
         if @photo.update_attributes(params[:photo])
           expire_page_cache(@photo)
-          format.html { redirect_to photos_path }
+          format.html { redirect_to galleries_path,:notice => 'Photo was successfully updated.' }
           format.json { head :no_content }
         else
           format.html { render action: "edit" }

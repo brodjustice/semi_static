@@ -1,7 +1,7 @@
 -# TODO: Major refactor required
 -# The main diff for this theme is that the h1/header span the entry
 -# even if an image is present
-- linked = linked.nil? ? true : linked
+- linked = ((defined?(linked)) && (linked || linked.nil?)) ? true : false
 - unless !e.image_disable && e.img.present?
   = alt_img_as_icon(e)
 = entry_title(e, linked)
@@ -18,6 +18,7 @@
       - else
         = entry_body(e)
         = photo_main(e, @group_size || 2)
+        = render :partial => 'semi_static/galleries/slider', :locals => {:g => e.gallery, :e => e}
         = semantic_product(e)
 - else
   .html
@@ -27,4 +28,5 @@
     - else
       = entry_body(e)
       = photo_main(e, @group_size || 2)
+      = render :partial => 'semi_static/galleries/slider', :locals => {:g => e.gallery, :e => e}
       = semantic_product(e)

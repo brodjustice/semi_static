@@ -55,8 +55,11 @@ module SemiStatic
           if max_images > 0
             if File.file?(img_file_path)
               attachments.inline["#{e.id.to_s}.jpg"] = File.read(img_file_path)
-              max_images = max_images - 1
+            else
+              # Cannot find the file
+              attachments.inline["#{e.id.to_s}.jpg"] = File.read("#{Rails.root}/app/assets/images/missing.jpg")
             end
+            max_images = max_images - 1
           end
         end
         if e.doc.present?

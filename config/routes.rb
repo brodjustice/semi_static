@@ -1,5 +1,4 @@
 SemiStatic::Engine.routes.draw do
-
   %w( 404 422 500 ).each do |code|
     get code, :to => "errors#show", :code => code
   end
@@ -55,9 +54,14 @@ SemiStatic::Engine.routes.draw do
     resources :newsletter_deliveries, :only => :index
   end
 
+  # The route /gallery is reserved to the pre-defined Gallery Tag which
+  # displays the websites public photos selected from various SemiStatic
+  # Galleries
+  resources :galleries
   resources :photos do
     resources :seos, :only => [:new, :create, :update]
   end
+  match "/gallery" => 'galleries#index', :via => :get
 
   resources :squeezes
   resources :events, :except => :show
