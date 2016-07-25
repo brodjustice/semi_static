@@ -1,35 +1,36 @@
-.button
-  = link_to 'New Category', new_subscriber_category_path, :remote => true
-.button
-  = link_to 'New Subscriber', new_subscriber_path
-.button
-  = link_to 'Download as CSV', subscribers_path(:format => :csv)
-.button
-  = link_to 'Upload CSV', new_subscriber_path(:cmd => :csv), :remote => true
-%h1=  "Listing #{@subscribers.count} subscribers"
-
-= render :partial => 'semi_static/subscribers/csv_errors' if @added_count || (@errors && !@errors.empty?)
-
-%table
-  %tr
-    %th Name
-    %th Surname
-    %th Email
-    %th Telephone
-    %th Category
-    %th Locale
-    %th
-    %th
-    %th
-
-  - @subscribers.each do |subscriber|
+.dash
+  .button
+    = link_to 'New Category', new_subscriber_category_path, :remote => true
+  .button
+    = link_to 'New Subscriber', new_subscriber_path
+  .button
+    = link_to 'Download as CSV', subscribers_path(:format => :csv)
+  .button
+    = link_to 'Upload CSV', new_subscriber_path(:cmd => :csv), :remote => true
+  %h1=  "Listing #{@subscribers.count} subscribers"
+  
+  = render :partial => 'semi_static/subscribers/csv_errors' if @added_count || (@errors && !@errors.empty?)
+  
+  %table
     %tr
-      %td= subscriber.name
-      %td= subscriber.surname
-      %td= subscriber.email
-      %td= subscriber.telephone
-      %td= subscriber.category_name
-      %td= subscriber.locale
-      %td= link_to 'Show', subscriber
-      %td= link_to 'Edit', edit_subscriber_path(subscriber)
-      %td= link_to image_tag('/assets/bin.png'), subscriber, method: :delete, data: { confirm: "Confirm deletion of #{subscriber.fullname || '<blank>'}" }
+      %th Name
+      %th Surname
+      %th Email
+      %th Telephone
+      %th Category
+      %th Locale
+      %th
+      %th
+      %th
+  
+    - @subscribers.each do |subscriber|
+      %tr
+        %td= subscriber.name
+        %td= subscriber.surname
+        %td= subscriber.email
+        %td= subscriber.telephone
+        %td= subscriber.category_name
+        %td= subscriber.locale
+        %td= link_to 'Show', subscriber
+        %td= link_to 'Edit', edit_subscriber_path(subscriber)
+        %td= link_to image_tag('/assets/bin.png'), subscriber, method: :delete, data: { confirm: "Confirm deletion of #{subscriber.fullname || '<blank>'}" }

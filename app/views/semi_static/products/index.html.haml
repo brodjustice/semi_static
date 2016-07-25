@@ -1,14 +1,15 @@
-%h1 Products
-
-%table
-  %tr
-    %th Entry
-    %th Name
-    %th
-    %th
-
-  - @products.each do |p|
+.dash
+  %h1 Products
+  
+  %table
     %tr
-      %td= link_to p.entry.title, edit_entry_path(p.entry)
-      %td= link_to (p.name.blank? ? '<No Name>' : p.name), edit_entry_product_path(p.entry, p)
-      %td= link_to image_tag('/assets/bin.png', :title => 'Delete product'), entry_product_path(p.entry, p), method: :delete, data: { confirm: 'Are you sure?' }
+      %th Entry
+      %th Name
+      %th
+      %th
+  
+    - @products.each do |p|
+      %tr
+        %td= link_to p.entry.title, edit_entry_path(p.entry)
+        %td= link_to (p.name.blank? ? '<No Name>' : p.name), edit_entry_product_path(p.entry, p)
+        %td= link_to image_tag('/assets/bin.png', :title => 'Delete product'), entry_product_path(p.entry, p), method: :delete, data: { confirm: 'Are you sure?' }

@@ -25,7 +25,6 @@
         %th= 'Banner'
         %th{:title => 'Admin only content'}= 'Admin'
         %th= 'SEO'
-        %th{:title => 'NO INDEX'}= 'I'
         %th= 'Entries'
         %th= image_tag('calendar.png', :title => 'Last Update')
         %th
@@ -68,11 +67,10 @@
           %td.tick
             - if tag.seo.nil?
               = link_to image_tag('add.png', :title => "Add SEO meta tags"), new_tag_seo_path(tag, :return => tags_path), :remote => true
+            - elsif tag.seo.no_index
+              = link_to image_tag('error.png', :title => 'Warning: NO INDEX is set'), edit_seo_path(tag.seo, :return => tags_path), :remote => true
             - else
               = link_to image_tag('application_form_edit.png', :title => "Edit SEO meta tags"), edit_seo_path(tag.seo, :return => tags_path), :remote => true
-          %td.tick
-            - if tag.seo && tag.seo.no_index
-              = image_tag('error.png', :title => 'Warning: NO INDEX is set')
           %td.number
             = link_to tag.entries.count.to_s + ' (' + tag.max_entries_on_index_page.to_s + ')', tag_entries_path(tag), :remote => true
           %td.number{:title => tag.updated_at.strftime('%H:%M')}= tag.updated_at.strftime('%d/%b/%y')

@@ -34,11 +34,10 @@
   %td.tick
     - if entry.seo.nil?
       = link_to image_tag('/assets/add.png', :title => "Add SEO meta tags"), new_entry_seo_path(entry, :return => entries_path), :remote => true
+    - elsif entry.seo.no_index
+      = link_to image_tag('error.png', :title => 'Warning: NO INDEX is set'), edit_seo_path(entry.seo, :return => entries_path), :remote => true
     - else
       = link_to image_tag('/assets/application_form_edit.png', :title => "Edit SEO meta tags"), edit_seo_path(entry.seo, :return => entries_path), :remote => true
-  %td.tick
-    - if entry.seo && entry.seo.no_index
-      = image_tag('error.png', :title => 'Warning: NO INDEX is set')
   %td
     = link_to image_tag('tick.png', :title => 'YouTube Video'), "http://youtu.be/#{entry.youtube_id_str}" unless entry.youtube_id_str.blank?
   %td.number
