@@ -25,7 +25,7 @@
     = image_tag('tick.png', :title => 'Visible in news') if entry.news_item
   %td.tick
     = image_tag('tick.png', :title => 'Show side bar') if entry.side_bar
-  %td.number= entry.position.to_s
+  %td.number= link_to entry.position.to_s, edit_entry_path(entry), :remote => true
   %td
     = entry.banner.name unless entry.banner.nil?
   %td.tick

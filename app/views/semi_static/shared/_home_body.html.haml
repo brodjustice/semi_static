@@ -16,15 +16,22 @@
       #overlay-inner
         = render 'semi_static/shared/menu'
 = yield :banner
-- if lookup_context.exists?('semi_static/shared/_home_theme_banner')
-  = render 'semi_static/shared/home_theme_banner'
-#tag
-  #tag-wrapper
-    #tagline
-      - if lookup_context.exists?('semi_static/shared/_tagline')
-        = render 'semi_static/shared/tagline'
-      - else
-        = t('TagLine')
+-# The banner can be disabled by providing a home tag page attribute
+-# called 'disableBanner'
+- unless @tag && @tag.get_page_attr('disableBanner').present?
+  - if lookup_context.exists?('semi_static/shared/_home_theme_banner')
+    = render 'semi_static/shared/home_theme_banner'
+
+-# The tagline can be disabled by providing a home tag page attribute
+-# called 'disableTagLine'
+- unless @tag && @tag.get_page_attr('disableTagLine').present?
+  #tag
+    #tag-wrapper
+      #tagline
+        - if lookup_context.exists?('semi_static/shared/_tagline')
+          = render 'semi_static/shared/tagline'
+        - else
+          = t('TagLine')
 = yield :post_tagline
 = yield :pre_content
 #frame

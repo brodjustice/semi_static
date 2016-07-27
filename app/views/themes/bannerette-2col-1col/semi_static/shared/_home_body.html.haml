@@ -8,12 +8,14 @@
       = render 'semi_static/shared/menu'
       #logo-wrapper
         #logo
-      -# The banner can be disabled on this theme by providing a home tag page attribute
+      -# The tagline can be disabled on this theme by providing a home tag page attribute
       -# called 'disableTagLine'
       - unless @tag && @tag.get_page_attr('disableTagLine').present?
         #tag-wrapper
           #tagline
             = t('TagLine')
+= yield :post_tagline
+= yield :pre_content
 #frame
   -# The banner can be disabled on this theme by providing a home tag page attribute
   -# called 'disableBanner'
