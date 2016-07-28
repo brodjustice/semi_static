@@ -78,6 +78,8 @@ module SemiStatic
        :styles => {
          :half => "50%x50%",
          :compressed => "100%x100%",
+         :mini=> "96x96#",
+         :thumb=> "180x180#",
          :bar=> "304x>",
          :tile=> "241x>",
          :small=> "290x>",
@@ -91,6 +93,7 @@ module SemiStatic
                              :tile => "-strip -gravity Center -quality 80",
                              :half => "-strip -quality 80",
                              :compressed => "-strip -quality 40",
+                             :mini => "-strip -gravity Center -quality 80",
                              :small => "-strip -gravity Center -quality 80",
                              :panel => "-strip -gravity Center -quality 80",
                              :medium => "-strip -gravity Center -quality 80",
@@ -202,6 +205,9 @@ module SemiStatic
       new_entry = self.dup
       new_entry.img = self.img
       new_entry.doc = self.doc
+      self.page_attrs.each{|pa|
+        new_entry.page_attrs << SemiStatic::PageAttr.create(:attr_key => pa.attr_key, :attr_value => pa.attr_value)
+      }
       new_entry.save
       new_entry
     end

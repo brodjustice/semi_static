@@ -2,7 +2,7 @@
 - @tag ||= entrytag
 %aside
   = yield :side_bar_top
-  - if side_bar_nav?
+  - if side_bar_nav? && !obj.get_page_attr('disableSideBarNav')
     .panel.list
       %nav
         - if SemiStatic::Tag.use_sprites?

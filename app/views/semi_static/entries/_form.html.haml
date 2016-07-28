@@ -162,6 +162,9 @@
               = 'yourself then you can provide the dimensions seperated by commas. For example a youtube video with'
               = 'id = abc123xyz, width = 400px, height = 300px, you should enter:'
               %b= ' abc123xyz,400,300'
+            %p
+              = 'Note: The dimensions given in the string can be overwritten by providing the page attributes youTubeVideoWidth and'
+              = 'youTubeVideoHeight'
     
           = f.label :youtube_id_str, 'YouTube Video ID (optional)', :class => 'infomarker'
           %br/

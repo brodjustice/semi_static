@@ -3,7 +3,44 @@
   
   .infobox#page_attribute_help
     %h3= 'Page Attribute Help'
-    %p= 'Page Attributes are values that can be set for most pages on your website (Entry or Title). The values are usually required by custom or semi-custom layouts to indicate where to collect information or what certain values should be.'
+    %p= 'Page Attributes are values that can be set for most pages on your website (Entry or Tag). The values are usually required by custom or semi-custom layouts to indicate where to collect information or what certain values should be.'
+    %p= 'There are also some Page Attributes that have a general usage, currently:'
+    %table
+      %tr
+        %th= 'Key'
+        %th= 'Value'
+        %th= 'Page Type'
+        %th= 'Effect'
+      %tr
+        %td=' disableTagLine'
+        %td= '<any value>'
+        %td= 'Predefined Tag: Home'
+        %td= 'Stops display of Tag Line on Home Page'
+      %tr
+        %td= 'disableBanner'
+        %td= '<any value>'
+        %td= 'Predefined Tag: Home'
+        %td= 'Stops display of Home Page Banner image'
+      %tr
+        %td= 'disableSideBarNav'
+        %td= '<any value>'
+        %td= 'Tag or Entry'
+        %td= 'Stops display of navigation menu in sidebar'
+      %tr
+        %td= 'youTubeVideoControls'
+        %td= '1'
+        %td= 'Entry'
+        %td= 'If set to 1 then the You Tube video will have the controls overlay'
+      %tr
+        %td= 'youTubeVideoWidth'
+        %td= 'Integer'
+        %td= 'Entry'
+        %td= 'Sets the width, in pixels, of a YouTube video used in this Entry'
+      %tr
+        %td= 'youTubeVideoHeight'
+        %td= 'Integer'
+        %td= 'Entry'
+        %td= 'Sets the height, in pixels, of a YouTube video used in this Entry'
   .infomarker= 'Page Attibutes Help'
   %table
     %tr

@@ -2,11 +2,20 @@ module SemiStatic
   module EntriesHelper
     STYLE_CLASSES = ['normal', ' feint',  'flat',  'collapse', 'flat collapse', 'hard', 'highlight', 'wobble', 'dotted', 'tile', 'extra-padding', 'custom1', 'custom2', 'custom3']
 
-    def youtube_video(id, width=640, height=360)
+    #
+    # The YouTube video id passed here can be in the form:
+    #
+    # '<youtube ID>, width, height'
+    #
+    # So if the width and height is not explicitly passed, then the id string is checked
+    # for the dimensions. If that is also not present, then default dimensions of
+    # 640 x 360 are used
+    #
+    def youtube_video(id, width=nil, height=nil, controls='0')
       link_id = id.split(',').first
-      w = id.split(',')[1] || width
-      h = id.split(',')[2] || height
-      "<div class='yt_video'> <iframe width='#{w.to_s.squish}' height='#{h.to_s.squish}' src='//www.youtube.com/embed/#{link_id}?rel=0&amp;controls=0&amp;showinfo=0' allowfullscreen></iframe></div>".html_safe
+      w = width || id.split(',')[1] || '640'
+      h = height || id.split(',')[2] || '340'
+      "<div class='yt_video'> <iframe width='#{w.to_s.squish}' height='#{h.to_s.squish}' src='//www.youtube.com/embed/#{link_id}?modestbranding=1&amp;rel=0&amp;controls=#{controls}&amp;showinfo=0' allowfullscreen></iframe></div>".html_safe
     end
 
     def human_file_size(s)
