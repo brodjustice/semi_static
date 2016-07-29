@@ -20,7 +20,7 @@ module SemiStatic
       'standard-2col-1col' => 10
     }
 
-    # There are q number of situations where the sidebar navigation menu is not required.
+    # There are quite a number of situations where the sidebar navigation menu is not required.
     # They are if:
     #   1) No Tag exists
     #   2) It is a link_to_tag page, i.e. an entry replacing a Tag 'index of Entries' page
@@ -185,7 +185,7 @@ module SemiStatic
       if max_width
         c += image_tag(e.img_url_for_theme(style, @side_bar), :style => "max-width: #{max_width.to_s + 'px'};").html_safe
       elsif !e.img_dimensions.blank?
-        w = [e.img.styles[SemiStatic::Entry::THEME[SemiStatic::Engine.config.theme][style]].geometry.split('x').first.to_i, e.img_dimensions[0]].min
+        w = [e.img.styles[SemiStatic::Entry::THEME[SemiStatic::Engine.config.theme][style] || style].geometry.split('x').first.to_i, e.img_dimensions[0]].min
         c += image_tag(e.img_url_for_theme(style, @side_bar), :style => "max-width: #{w.to_s + 'px'};").html_safe
       else
         c += image_tag(e.img_url_for_theme(style, @side_bar)).html_safe
@@ -196,6 +196,8 @@ module SemiStatic
       c.html_safe
     end
 
+    # Build nice html for a semantic (rich snippet) image. Can deal with different
+    # style etc.
     def semantic_entry_image(e, style, max_width=nil, popup=true)
       c = '<figure vocab = "http://schema.org/" typeof="ImageObject"> '.html_safe
       sc = e.raw_title.blank? ? e.image_caption : e.raw_title

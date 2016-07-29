@@ -118,16 +118,16 @@ module SemiStatic
     DISPLAY_ENTRY_SYM = DISPLAY_ENTRY.invert
 
     THEME = {
-      'tiles' => {:bar => :bar, :desktop => :panel, :mobile => :panel, :small => :small, :summary => :panel, :home => :tile, :show => :panel, :medium => :medium, :tile => :tile},
-      'menu-right' => {:bar => :bar, :desktop => :panel, :mobile => :panel, :small => :small, :summary => :panel, :home => :tile, :show => :panel, :medium => :medium},
-      'background-cover' => {:bar => :bar, :desktop => :panel, :mobile => :panel, :small => :small, :summary => :panel, :home => :tile, :show => :panel, :medium => :medium},
-      'standard-2col-1col' => {:bar => :bar, :desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel, :medium => :medium},
-      'bannerless' => {:bar => :bar, :desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel, :medium => :medium, :tile => :tile},
-      'bannerette-2col-1col' => {:bar => :bar, :desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel, :medium => :medium},
-      'plain-3col' => {:bar => :bar, :desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel, :medium => :medium},
-      'parallax' => {:bar => :bar, :desktop => :twocol, :mobile => :medium, :summary => :medium, :tile => :tile, :home => :tile, :show => :medium, :medium => :medium},
-      'elegant' => {:bar => :bar, :desktop => :twocol, :mobile => :medium, :summary => :twocol, :tile => :tile, :home => :tile, :show => :twocol, :medium => :medium},
-      'plain-big-banner-3col' => {:bar => :bar, :desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel, :medium => :medium}
+      'tiles' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :home => :tile, :show => :panel},
+      'menu-right' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :home => :tile, :show => :panel},
+      'background-cover' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :home => :tile, :show => :panel},
+      'standard-2col-1col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel},
+      'bannerless' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel},
+      'bannerette-2col-1col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel},
+      'plain-3col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel},
+      'parallax' => {:desktop => :twocol, :mobile => :medium, :summary => :medium, :home => :tile, :show => :medium},
+      'elegant' => {:desktop => :twocol, :mobile => :medium, :summary => :twocol, :home => :tile, :show => :twocol},
+      'plain-big-banner-3col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel}
     }
 
     default_scope order(:position)
@@ -163,7 +163,7 @@ module SemiStatic
       if !side_bar.nil? && !side_bar
         img.url(:medium)
       else
-        img.url(THEME[SemiStatic::Engine.config.theme][screen])
+        img.url(THEME[SemiStatic::Engine.config.theme][screen] || screen)
       end
     end
 
