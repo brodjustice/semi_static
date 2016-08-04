@@ -50,7 +50,7 @@ fieldset{
 }
 h2{ font-size: 20px;}
 #search-bar{ margin-top: 0px; margin-bottom: 10px; }
-.container, #top-wrapper, #overlay-inner, #search-bar-inner, #container, #top-inner, #footer-inner{
+#slide-menu, .container, #top-wrapper, #overlay-inner, #search-bar-inner, #container, #top-inner, #footer-inner{
   max-width: 1024px; margin: 0px auto;
   background-color: transparent;
 }
@@ -60,47 +60,106 @@ h2{ font-size: 20px;}
   position: relative;
 }
 #frame{margin-top: 12px;}
-#search-wrapper{
-  background: transparent url(/assets/white-75.png) 0 0 repeat;
-  border: 1px solid white;
-  border-radius: 2px;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+#slide-menu-wrapper #search-wrapper{
   padding: 4px 0px 4px 4px;
   text-align: center;
 }
 
-#menu-button, #menu-close{
-  display: none;
-  float: right;
-  color: $prime-color; font-weight: bold;
-  padding: 3px 2px 4px 32px;
-  margin: 2px 12px 0px 0px;
-  cursor: pointer;
-  position: relative;
-  z-index: 500;
-}
+/* Start of slider stuff */
 
-#menu-button{
-  // Create bigger click area
-  padding-bottom: 34px;
-  background-color: #dcdcdc;
-  border: 1px solid white;
-  margin: 4px;
-  padding: 6px;
-  width: 46px;
+#menu-button .text{display:none;text-align:center;}
+#menu-button, #menu-close{
+  cursor: pointer;
+  float: right;
+  position:relative; z-index:500;
 }
+#menu-button{width:32px; padding:4px 4px 4px 12px;}
 
 #menu-button .menu-line{
-  height: 6px; width: 80%;
-  background-color: $prime-color;
-  border-radius: 4px; margin: 3px auto;
+  height: 4px; width: 80%;
+  background-color: #484848;
+  border-radius: 1px; margin: 2px auto;
 }
-#menu-close{
-  margin: 0 0 24px;
+#slide-menu{height:100%;}
+#slide-menu-wrapper .locales{
+  padding-top:8px;
+  clear:both;
+}
+
+#slide-menu-window.open{
+  min-width:300px;
+  overflow:visible;
+}
+#slide-menu-window{
+  position:absolute;
+  top:0; right:0;
+  width:0;
+  overflow:hidden;
+  height:100%;
+}
+.open #slide-menu-wrapper{
+  right:0px;
+}
+#slide-menu-wrapper{
+  transition: right 0.5s linear 0s;
+  box-shadow: 0 0 80px black;
+  background-color: $prime-color;
+  color: white;
+  max-width: 100%;
+  min-height: 100%;
+  position: absolute;
+  right: -412px;
+  top: 0;
+  min-width: 300px;
+  z-index: 2000;
+  padding:6px;
+}
+#slide-menu-wrapper .wrapper .text{
+  padding:6px 6px 0px 6px;
+  border-bottom: 1px solid #dcdcdc;
+}
+
+#slide-menu-wrapper .wrapper{
+  margin-top:12px;
+  text-align:right;
+}
+#slide-menu-wrapper a{ color: #e0e0e0; }
+#slide-menu-wrapper a:hover{ color: white; }
+#slide-menu-wrapper .wrapper a{
+  color: #dcdcdc;
+  font-size: 18px;
+  text-transform: uppercase;
+  text-shadow: none;
+}
+#slide-menu-wrapper .sub-menu{
+  margin: 4px 0 12px;
+  display:block;
+  position:relative;
+  background-color:transparent;
+  border: none;
+  text-align:right;
+  z-index:1;
+}
+#slide-menu-wrapper .sub-menu a{
+  text-transform:none;
+  text-shadow:none;
+  display:block;
+  padding: 4px 0;
+}
+#slide-menu-wrapper .bar-menu{
+  margin-top:12px;
+  border-top: 1px solid #a0a0a0;
+  text-align: right;
+}
+#slide-menu-wrapper .bar-menu .icon{
+  padding-right: 12px;
 }
 #close-sym{
-  font-size: 50px;
+  font-size:46px;
+  color:#dcdcdc;
 }
+
+/* End of slider stuff */
 
 
 #bar-menu{
@@ -733,6 +792,9 @@ h2 a, h3 a{color: $secondary-color;}
 
   #bar-menu, #menu{display: none;}
   #menu-main{padding: 88px 0px 0px 0px;}
+  #menu-button{width:40px;padding:12px;position:fixed;right:0px;}
+  #menu-button .menu-line{height: 6px;border-radius: 2px;}
+  #menu-button .text{display:block;}
   #menu-wrapper{
     position: relative; top: 0px;
   }

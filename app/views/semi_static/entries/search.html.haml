@@ -1,7 +1,6 @@
 .section
   .col.span_2_of_3
-    .panel.group.list
-      .icon= image_tag('/assets/search.png')
+    .group.list
       %h1= 'Search'
       = form_tag search_entries_path, method: 'get', :class => 'searchform' do
         = text_field_tag :q, params[:q], :placeholder => t('Search'), :class => 'searchfield'

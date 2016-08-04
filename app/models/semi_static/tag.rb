@@ -31,6 +31,7 @@ module SemiStatic
     default_scope order(:position)
     scope :predefined, lambda{|locale, pre| where("locale = ?", locale).where('predefined_class = ?', pre)}
     scope :with_attr, lambda{|attr| includes(:page_attrs).where('semi_static_page_attrs.attr_key  = ?', attr)}
+    scope :slide_menu, includes(:page_attrs).where('semi_static_page_attrs.attr_key = ? OR menu = ?', 'slideMenu', true)
   
     before_save :generate_slug, :add_sidebar_title
   

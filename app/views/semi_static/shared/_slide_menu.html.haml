@@ -11,7 +11,7 @@
         #close-sym
           &otimes;
       #slide-menu-main.section.group
-        - SemiStatic::Tag.menu.locale(I18n.locale.to_s).limit(max_menu_tags).each_with_index do |mt, i|
+        - SemiStatic::Tag.slide_menu.locale(I18n.locale.to_s).each_with_index do |mt, i|
           .wrapper{:id => ('selected' if ((@tag == mt) || (@selection == mt.predefined_class)))}
             = link_to mt.name, menu_from_tag(mt), :class => 'text '
             - if lookup_context.exists?('semi_static/shared/_hover_menu')

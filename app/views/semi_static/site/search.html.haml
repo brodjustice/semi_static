@@ -1,8 +1,7 @@
 = render :partial => 'semi_static/shared/custom_banner', :locals => {:banner_name => ['Default', 'Search']}
 .section
   .col.span_2_of_3
-    .panel.group.list
-      .icon= image_tag('/assets/search.png')
+    .group.list
       %h1= @results.count.to_s + ' Search results for ' + @query
       %table
         - @results.__send__ controller.action_name == 'search' ? :each_with_hit : :each do |e, hit|
