@@ -161,7 +161,8 @@ nav li{ line-height: 20px; list-style: outside none none; }
   float: right;
   position:relative; z-index:500;
 }
-#menu-button{width:32px; padding:4px 4px 4px 12px;}
+#menu-button{width:32px;top:0;right:0; padding:4px 4px 4px 12px;}
+#menu-button-wrapper{z-index:500;top:0;width:100%;position:fixed;width:100%;max-width:1400px;}
 
 #menu-button .menu-line{
   height: 5px; width: 80%;
@@ -189,7 +190,7 @@ nav li{ line-height: 20px; list-style: outside none none; }
   right:0px;
 }
 #slide-menu-wrapper{
-  transition: right 0.5s linear 0s;
+  transition: right 0.5s ease-in 0s;
   box-shadow: 0 0 80px black;
   background-color: $prime-color;
   color: white;
