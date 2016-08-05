@@ -64,7 +64,7 @@ h2{ font-size: 20px; font-weight: normal;}
   float: right;
   border-bottom-left-radius: 2px;
   border-bottom-right-radius: 2px;
-  margin-right: 12px;
+  margin-right: 42px;
   font-size: 14px;
 }
 
@@ -150,33 +150,119 @@ h2{ font-size: 20px; font-weight: normal;}
   text-align:right;
 }
 
-#menu-button, #menu-close{
-  display: none; float: right;
-  color: $prime-color; font-weight: bold;
-  padding: 3px 2px 4px 32px;
-  margin: 2px 12px 0px 0px;
-  cursor: pointer; position: relative;
-  z-index: 500;
-}
-#menu-close{
-  padding-top: 0px;
-  margin-top: 0px;
-  font-size: 16px;
-}
-#close-sym{
-  text-align: right;
-  font-size: 21px;
-}
+nav li{ line-height: 20px; list-style: outside none none; }
 
-#menu-button{
-  padding-bottom: 34px;
+/* Start of slider stuff */
+
+
+#menu-button .text{display:none;text-align:center;}
+#menu-button, #menu-close{
+  cursor: pointer;
+  float: right;
+  position:relative; z-index:500;
 }
+#menu-button{width:32px; padding:4px 4px 4px 12px;}
 
 #menu-button .menu-line{
-  height: 8px; width: 80%;
+  height: 5px; width: 80%;
   background-color: $prime-color;
-  border-radius: 2px; margin: 2px;
+  border-radius: 2px; margin: 2px auto;
 }
+#slide-menu{height:100%;}
+#slide-menu-wrapper .locales{
+  padding-top:8px;
+  clear:both;
+}
+
+#slide-menu-window.open{
+  min-width:300px;
+  overflow:visible;
+}
+#slide-menu-window{
+  position:absolute;
+  top:0; right:0;
+  width:0;
+  overflow:hidden;
+  height:100%;
+}
+.open #slide-menu-wrapper{
+  right:0px;
+}
+#slide-menu-wrapper{
+  transition: right 0.5s linear 0s;
+  box-shadow: 0 0 80px black;
+  background-color: $prime-color;
+  color: white;
+  max-width: 100%;
+  min-height: 100%;
+  position: absolute;
+  right: -412px;
+  top: 0;
+  min-width: 300px;
+  z-index: 2000;
+  padding:6px;
+}
+#slide-menu-main{padding: 0px 6px;}
+#slide-menu-wrapper .wrapper .text{
+  border-bottom: 1px solid #dcdcdc;
+  margin-bottom: 8px;
+  font-size:18px;
+}
+#slide-menu-wrapper .searchform input{width:auto;}
+
+#slide-menu-wrapper .wrapper{
+  text-align:right;
+  margin-bottom: 8px;
+}
+
+#slide-menu-wrapper a{color: #dcdcdc;}
+#slide-menu-wrapper .wrapper a:hover{ color: white; }
+#slide-menu-wrapper .wrapper a{
+  color: #dcdcdc;
+  font-size: 16px;
+  text-shadow: none;
+  display:inline-block;
+}
+#slide-menu-wrapper .wrapper a, #slide-menu-wrapper li a{
+  line-height:28px;
+}
+#slide-menu-wrapper .sub-menu{
+  margin: 4px 0 12px;
+  display:block;
+  position:relative;
+  background-color:transparent;
+  border: none;
+  text-align:right;
+  z-index:1;
+}
+#slide-menu-wrapper .sub-menu a{
+  text-transform:none;
+  text-shadow:none;
+  display:block;
+  padding: 4px 0;
+}
+#slide-menu-wrapper .bar-menu{
+  margin-top:12px;
+  border-top: 1px solid #a0a0a0;
+  text-align: right;
+}
+#slide-menu-wrapper .bar-menu .icon{
+  padding-right: 12px;
+}
+#slide-menu .locales a{
+  text-transform: uppercase;
+  float: right;
+  margin-right: 12px;
+  font-size: 20px;
+}
+#close-sym{
+  font-size:46px;
+  color:#dcdcdc;
+  line-height: 32px;
+  padding-bottom: 32px;
+}
+
+/* End of slider stuff */
 
 #menu .wrapper .text{
   display: blocK;
@@ -218,7 +304,7 @@ h2{ font-size: 20px; font-weight: normal;}
 #search-bar{ margin-top: 0px; margin-bottom: 10px; }
 
 //#top .inner, #overlay-inner, #search-bar-inner, #container, #top-inner, #footer-inner{
-#container, #menu-wrapper, #footer-inner, #tag-wrapper{
+#slide-menu, #container, #menu-wrapper, #footer-inner, #tag-wrapper{
   margin: 0px auto;
   max-width: 1400px;
   background-color: transparent;
@@ -515,13 +601,8 @@ h2 a, h3 a{color: $secondary-color;}
 @media only screen and (max-width: 820px) {
   // Change menu to hidden pop-up on click and fixed position
   #bar-menu, #menu{display: none;}
-  #menu{
-    padding-top: 8px; padding-bottom: 12px;
-    width: 100%;
-    position: fixed; top: 0px;
-    background-image: none;
-    font-size: 26px;
-  }
+  #menu-button .text{display:block;}
+  #menu-button .menu-line{height:8px;margin:3px auto;}
   #menu-wrapper{z-index: 0;}
   #menu .col{ width: 100%; margin: 0;}
   #menu-loading-wrapper{display: block;}
@@ -534,19 +615,6 @@ h2 a, h3 a{color: $secondary-color;}
   }
   #menu .wrapper{background-color: white;}
   #menu .wrapper .text{height: auto; border-bottom: 1px solid #e0e0e0;}
-
-  #bar-menu{
-    position: fixed;
-    top: 76px;
-    margin-right: 0px;
-    width: 100%;
-    padding: 8px 0;
-    z-index: 1000;
-  }
-  #bar-inner{
-    position: relative;
-    z-index: 1000;
-  }
 
   // Need to radically change the hover icons now menu has collapsed
   .icon .custom{

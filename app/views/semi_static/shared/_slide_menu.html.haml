@@ -11,11 +11,14 @@
         #close-sym
           &otimes;
       #slide-menu-main.section.group
-        - SemiStatic::Tag.slide_menu.locale(I18n.locale.to_s).each_with_index do |mt, i|
+        - SemiStatic::Tag.slide_menu.locale(I18n.locale.to_s).reorder('position DESC').each_with_index do |mt, i|
           .wrapper{:id => ('selected' if ((@tag == mt) || (@selection == mt.predefined_class)))}
             = link_to mt.name, menu_from_tag(mt), :class => 'text '
             - if lookup_context.exists?('semi_static/shared/_hover_menu')
               = render :partial => 'semi_static/shared/hover_menu', :locals => {:mt => mt}
+            - else
+              - mt.entries.unmerged.with_attr('slideMenu').each do |e|
+                = link_to e.title, entry_link(e)
     %nav.bar-menu
       %ul
         %li
@@ -28,6 +31,9 @@
         - if SemiStatic::Engine.config.try('subscribers_model')
           - label = subscriber_content ? 'subscribers.Area' : 'subscribers.Sign_In'
           %li.sign-in.icon= link_to t(label), main_app.send(SemiStatic::Engine.config.subscribers_model.values[0])
+        -# Need to add any special menu items to the bottom of the slider menu
+        - if (htmllink = (h = SemiStatic::Tag.predefined(session[:locale], 'Home').first) && h.get_page_attr('slideMenuHtmlLink')).present?
+          %li.icon= htmllink.html_safe
       %ul.locales
         = locales(false)
     
