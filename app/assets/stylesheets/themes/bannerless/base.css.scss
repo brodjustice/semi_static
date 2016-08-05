@@ -627,7 +627,7 @@ h2 a, h3 a{color: $secondary-color;}
   #selected.wrapper .icon.sprite{background-position-x: left;}
 
   #top{position: fixed; width: 100%;}
-  #menu-button{display: block; width: 50px;}
+  #menu-button{display: block; width: 50px;position:fixed;right:0px;top:0px;}
 }
 
 /* Mobile portrait layout at less than 580px */
