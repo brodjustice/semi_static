@@ -15,7 +15,7 @@ module General
 
   CACHED = ["index.html", "index.html.gz", "news.html", "news.html.gz", "site", "references.html", "references.html.gz", "gallery.html", "gallery.html.gz", "references", "photos.html", "photos.html.gz", "photos", "features", "features.html", "features.html.gz", "entries", "entries.html", "entries.html.gz", "documents/index.html", "documents/index.html.gz", "contacts/new.html", "contacts/new.html.gz"]
 
-  def expire_page_cache(obj=nil)
+  def expire_page_cache(obj=nil, *args)
     # Generally the whole site controller is made up of dynamic elements
     # that really change. This means we can use the page_cache, and just
     # expire the whole lot when a update is made to certains classes.
@@ -88,13 +88,16 @@ module General
   def load_url(url=nil, locale=nil, *args)
     s = true
 
+    # Check for SSL/https
+    ssl = (URI.parse(url).scheme == 'https')
+
     uri = URI.parse(url)
     req = Net::HTTP::Get.new(uri.to_s)
     req["User-Agent"] = "SemiStatic"
     if (html = (uri.path.split('.').count == 1 || uri.path.split('.').last == 'html'))
       req["Accept"] = "text/html"
     end
-    res = Net::HTTP.start(uri.host, uri.port) {|http|
+    res = Net::HTTP.start(uri.host, uri.port, :use_ssl => ssl) {|http|
       http.request(req)
     }
 

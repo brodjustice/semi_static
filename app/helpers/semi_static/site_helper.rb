@@ -64,7 +64,7 @@ module SemiStatic
       elsif intended_entry.tag.context_url
         u = "/#{intended_entry.tag.name.parameterize}/#{intended_entry.to_param}"
         if options[:host]
-          u = "http://#{options[:host]}#{u}"
+          u = "#{options[:protocol] || 'http'}://#{options[:host]}#{u}"
         end
         u
       else
@@ -140,21 +140,25 @@ module SemiStatic
 
     def construct_url(p, l)
       host = URI.parse(SemiStatic::Engine.config.localeDomains[l]).host
+      scheme = URI.parse(SemiStatic::Engine.config.localeDomains[l]).scheme
+
       if p.kind_of?(Tag)
         if p.predefined_class.present? && !PREDEFINED[p.predefined_class].nil?
           SemiStatic::Engine.config.localeDomains[l] + PREDEFINED[p.predefined_class]
         else
+          #
           # Cannot use this:
-          # SemiStatic::Engine.routes.url_for(:controller => p.class.to_s.underscore.pluralize, :action => 'show', :slug => p.slug, :host => host)
+          #   SemiStatic::Engine.routes.url_for(:controller => p.class.to_s.underscore.pluralize, :action => 'show', :slug => p.slug, :host => host)
           # as it would not use the correct locale to get the 'tag_paths[l]', so we have to build the url manually:
-          "http://#{host}/#{SemiStatic::Engine.config.tag_paths[l]}/#{p.slug}"
+          #
+          "#{scheme}://#{host}/#{SemiStatic::Engine.config.tag_paths[l]}/#{p.slug}"
         end
       elsif p.kind_of?(Entry)
-        entry_link(p, :host => host, :only_path => false)
+        entry_link(p, :host => host, :only_path => false, :protocol => scheme)
       elsif p.kind_of?(String)
         SemiStatic::Engine.config.localeDomains[l] + p
       else
-        SemiStatic::Engine.routes.url_for(:controller => p.class.to_s.underscore.pluralize, :action => 'show', :id => p.to_param, :host => host)
+        SemiStatic::Engine.routes.url_for(:controller => p.class.to_s.underscore.pluralize, :action => 'show', :id => p.to_param, :host => host, :protocol => scheme)
       end
     end
 

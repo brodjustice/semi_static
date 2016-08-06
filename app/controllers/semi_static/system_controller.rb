@@ -20,7 +20,7 @@ module SemiStatic
         if System.respond_to?(action)
           @result = System.send(action, params[:cmd][action], @locale)
         else
-          @result = send(action, @locale)
+          @result = send(action, params[:cmd][action], @locale)
         end
       elsif params[:session].present? && SESSION.include?(params[:session].keys.first)
         action = key = params[:session].keys.first

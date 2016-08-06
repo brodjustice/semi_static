@@ -2,6 +2,7 @@ var menuSub = document.getElementById('menu-sub');
 function semiStaticSlideOpenMenu(){
   var menuWrapper = document.getElementById('slide-menu-window');
   if(menuWrapper != null){menuWrapper.classList.add('open')}else{false}
+  window.scrollTo(0, 0);
 }
 function semiStaticSlideCloseMenu(){
   var menuWrapper = document.getElementById('slide-menu-window');
