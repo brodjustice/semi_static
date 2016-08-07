@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   s.add_dependency "jquery-ui-rails"
   s.add_dependency "haml"
   s.add_dependency "haml-rails"
+  s.add_dependency "nokogiri"
   s.add_dependency "debugger"
 
   # Later versions of paperlip require ruby 2.0+

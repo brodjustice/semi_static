@@ -10,6 +10,11 @@ module General
     4 => 'embedded_fonts_full',
   }
 
+  # Elastic search constants
+  ES_BIN = SemiStatic::Engine.config.elasticsearch
+  ES_PID_DIR = '/tmp/pids'
+
+
   def layout_select(obj)
     'semi_static_' + LAYOUTS[obj.layout_select || 0]
   end
@@ -102,6 +107,21 @@ module General
     # Use the sitemap generator to get all the pages for the last arg (locale)
     generate_sitemap(args.last)
   end
+
+  # These things should never happen, but sometimes on a development system they will
+  def clean_up(*args)
+    SemiStatic::Entry.all{|e| e.destroy if e.tag.nil?}
+    SemiStatic::Product.all{|p| p.destroy if p.entry.nil?}
+    # Get rid of newsletter tags  where the actual newsletter has been deleted
+    SemiStatic::Tag.select{|t| t.newsletter_id.present? && t.newsletter.nil?}.each{|t| t.destroy}
+    # Check the elastic search tmp pid file
+    pid = `cat #{ES_PID_DIR}/elasticsearch.pid`
+    pid_running = `ps -p #{pid}`
+    unless $?.success?
+      FileUtils.rm_rf("#{ES_PID_DIR}/elasticsearch.pid")
+    end
+  end
+
 
   # Need to have gzip command installed on webserver system
   def load_url(url=nil, locale=nil, *args)

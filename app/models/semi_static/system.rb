@@ -68,14 +68,6 @@ module SemiStatic
       end
     end
 
-    # These things should never happen, but sometimes on a development system they will
-    def self.clean_up(*args)
-      Entry.all{|e| e.destroy if e.tag.nil?}
-      Product.all{|p| p.destroy if p.entry.nil?}
-      # Get rid of newsletter tags  where the actual newsletter has been deleted
-      Tag.select{|t| t.newsletter_id.present? && t.newsletter.nil?}.each{|t| t.destroy}
-    end
-
     # Restart passenger app server (if used)
     def self.passenger_restart(*args)
       `touch #{Rails.root.to_s}/tmp/restart.txt`
