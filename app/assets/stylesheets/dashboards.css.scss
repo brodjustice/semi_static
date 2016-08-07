@@ -72,7 +72,7 @@ input[type='checkbox']{ width:auto; }
     font-size: 24px;
 }
 
-#dialog .button{
+#dialog > .button{
   margin-top: -8px;
 }
 
@@ -295,6 +295,7 @@ th{
   margin: -12px -12px 12px -12px;
   padding: 6px;
   background-color: #e8e8e8;
+  display: block;
 }
 
 .switch_wrapper{

@@ -32,7 +32,7 @@ module SemiStatic
     end
 
     # This need improving, for example we should go through all the entries
-    # with 'home' set and find the latest up date, or wher the 'home'
+    # with 'home' set and find the latest up date, or where the 'home'
     # was unset, etc. This is not even considering predefined tags that
     # have been added in the config. Sort of complex so we just return nil for now
     def xml_update

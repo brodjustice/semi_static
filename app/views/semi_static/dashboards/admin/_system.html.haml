@@ -46,23 +46,24 @@
   .col.span_1_of_2
     .panel
       .infobox#sitemaps
-        %h4= 'Generate a sitemap sutable for submission to Google, Bing, etc.'
-        %p
-          = 'Some words of warning'
+        %h3= 'Generate a sitemap sutable for submission to Google, Bing, etc.'
+        %h4= 'Some words of warning'
         %p
           = 'If you submit a sitemap you then face the challange of generating a new site map and submitting it every time that you make'
           = 'a change.'
         %p
-          = 'You should always manually check the site map before submission. Errors in the sitemap could seriously hurt your search'
-          = 'engine rankings'
-        %p
           = 'This will NOT generate ULRs in the sitemap for predefined tags unless they have actaully been allocated to a '
           = 'real tag. So if you are manually using something like http://mysite.com/photos, this will not be included in'
           = 'your site map unless it has been allocated to a real tag, eg. a tag called "Photos" that uses the pre-defined tag "Gallery".'
-      %h4.infomarker= 'Sitemaps'
+        - if SemiStatic::Engine.config.has?('sitemap')
+          %p
+            = "Your configuration has set your sitemap locations to"
+          %ul
+            - SemiStatic::Engine.config.localeDomains.each do |k, v|
+              %li= link_to construct_url(SemiStatic::Engine.config.sitemap, k), construct_url(SemiStatic::Engine.config.sitemap, k)
+      %h4.infomarker= 'Generate sitemaps'
       #generate_sitemap
-      - SemiStatic::Engine.config.localeDomains.each do |k, v|
-        .button= link_to "Generate for #{v}", system_path(:format => :xml, :cmd => {:generate_sitemap => :all}, :locale => k), :method => :put
+      .button= link_to 'Sitemap options', system_path(:cmd => {:generate_sitemap_options => :all}, :locale => session[:locale]), :method => :put, :remote => true
   .col.span_1_of_2
     .panel
       .infobox#generate_static_pages
@@ -74,7 +75,6 @@
           = 'problems where search enging crawlers time-out or falsely conclude that your website takes'
           = 'a long while to respond.'
       %h4.infomarker= 'Generate static pages'
-      #generate_sitemap
       - SemiStatic::Engine.config.localeDomains.each do |k, v|
         .button= link_to "For #{v}", system_path(:cmd => {:generate_static_pages => :all}, :locale => k), :method => :put
 .group

@@ -1,0 +1,26 @@
+.button= link_to_function 'Cancel', "$('#dialog').hide();"
+
+-#
+-# If there is no @result then we do not have a place to store
+-# the public sitemap on the website, so just create a download
+-#
+
+%h1 Generate Sitemap
+- if @result.present?
+  %p
+    = "Your configuration has set your sitemap locations to"
+  %ul
+    - SemiStatic::Engine.config.localeDomains.each do |k, v|
+      %li= link_to construct_url(SemiStatic::Engine.config.sitemap, k), construct_url(SemiStatic::Engine.config.sitemap, k)
+  %p
+    = 'Select a sitemap to continue'
+- else
+  %p
+    = 'Select a sitemap to generate and download'
+
+- SemiStatic::Engine.config.localeDomains.each do |k, v|
+  - if @result.present?
+    .button= link_to v, system_path(:cmd => {:generate_sitemap => :all}, :locale => k), :method => :put, :remote => true
+  - else
+    .button= link_to v, system_path(:format => :xml, :cmd => {:generate_sitemap => :all}, :locale => k), :method => :put
+  

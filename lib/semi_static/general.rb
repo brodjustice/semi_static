@@ -1,4 +1,5 @@
 require 'net/http'
+require 'nokogiri'
 
 module General
   LAYOUTS = {
@@ -14,6 +15,18 @@ module General
   end
 
   CACHED = ["index.html", "index.html.gz", "news.html", "news.html.gz", "site", "references.html", "references.html.gz", "gallery.html", "gallery.html.gz", "references", "photos.html", "photos.html.gz", "photos", "features", "features.html", "features.html.gz", "entries", "entries.html", "entries.html.gz", "documents/index.html", "documents/index.html.gz", "contacts/new.html", "contacts/new.html.gz"]
+
+  def write_sitemap(locale)
+    stream = render_to_string(:formats => [:xml], :handler => :bulider, :template => "semi_static/system/generate_sitemap" )
+    sitemap_path = Rails.root.to_s + "/public/#{locale.to_s}/#{SemiStatic::Engine.config.sitemap}"
+    sitemap_url = construct_url(SemiStatic::Engine.config.sitemap, locale)
+
+    File.open(sitemap_path, 'w') { |f| f.write(stream) }
+    uri = URI.parse("http://www.google.com/webmasters/sitemaps/ping?sitemap=#{sitemap_url}")
+    @google = Nokogiri::HTML(open(uri, :ssl_verify_mode => OpenSSL::SSL::VERIFY_NONE))
+    uri = URI.parse("http://www.bing.com/ping?sitemap=#{sitemap_url}")
+    @bing = Nokogiri::HTML(open(uri, :ssl_verify_mode => OpenSSL::SSL::VERIFY_NONE))
+  end
 
   def expire_page_cache(obj=nil, *args)
     # Generally the whole site controller is made up of dynamic elements
@@ -63,6 +76,12 @@ module General
       end
     end
     true
+  end
+
+  # Not much to do here except check if a sitemap file has been defined in
+  # the SemiStatic::Engine.config
+  def generate_sitemap_options(*args)
+    SemiStatic::Engine.config.has?('sitemap')
   end
 
   def generate_sitemap(*args)

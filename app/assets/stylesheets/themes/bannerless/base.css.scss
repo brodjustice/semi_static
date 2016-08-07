@@ -162,7 +162,7 @@ nav li{ line-height: 20px; list-style: outside none none; }
   position:relative; z-index:500;
 }
 #menu-button{width:32px;top:0;right:0; padding:4px 4px 4px 12px;}
-#menu-button-wrapper{z-index:500;top:0;width:100%;position:fixed;width:100%;max-width:1400px;}
+#menu-button-wrapper{z-index:500;top:0;width:100%;position:fixed;width:100%;max-width:1400px;height:0;}
 
 #menu-button .menu-line{
   height: 5px; width: 80%;

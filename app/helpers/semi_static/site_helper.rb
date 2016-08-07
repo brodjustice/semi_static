@@ -104,9 +104,6 @@ module SemiStatic
     end
 
     def predefined_tags
-      # This does not work in ruby 1.9.3, depending on exact version:
-      #
-      # PREDEFINED.merge(SemiStatic::Engine.config.predefined.merge(SemiStatic::Engine.config.predefined){|k, v| Rails.application.routes.url_helpers.send(*v)})
       PREDEFINED.merge(Hash[SemiStatic::Engine.config.predefined.map{|k, v| [k, Rails.application.routes.url_helpers.send(*v)]}])
     end
 
@@ -156,7 +153,7 @@ module SemiStatic
       elsif p.kind_of?(Entry)
         entry_link(p, :host => host, :only_path => false, :protocol => scheme)
       elsif p.kind_of?(String)
-        SemiStatic::Engine.config.localeDomains[l] + p
+        [SemiStatic::Engine.config.localeDomains[l], p].join('/')
       else
         SemiStatic::Engine.routes.url_for(:controller => p.class.to_s.underscore.pluralize, :action => 'show', :id => p.to_param, :host => host, :protocol => scheme)
       end

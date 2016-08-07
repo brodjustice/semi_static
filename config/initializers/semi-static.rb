@@ -103,7 +103,7 @@ module SemiStatic
     # nil, then only the contact form will be shown
     config.contact_partial = nil
 
-    # If set to true this will put a fake URL fnd message form field into the semi_static contact form
+    # If set to true this will put a fake URL message form field into the semi_static contact form
     # but hide it with CSS. Spambots will be tempted to fill out the fields, while normal users, will
     # not see the fields at all. In this way we can stop a lot of contact form spam.
     config.contact_form_spam_fields = true
@@ -116,7 +116,13 @@ module SemiStatic
     # if nil, then nothing will be shown
     config.social_partial = nil
 
-    # Your own partials that can be used in Entries and Tags views should be stored in
+    # If nil any sitemap that you generate from the admin dashboard will just be send as a
+    # download. If set, then the sitemap will be added to the public directory under the
+    # filename given here. This will also cause a ping to be sent to Google in order to
+    # cause a check for a new sitemap.
+    config.sitemap = 'sitemap.xml'
+
+    # Your own custom partials that can be used in Entries and Tags views should be stored in
     # ./app/views/semi_static/partials. SemiStatic will then automatically make them available
     # to the admin dashboard when you edit a new entry or tag. If you really want
     # to add manually, then add them here

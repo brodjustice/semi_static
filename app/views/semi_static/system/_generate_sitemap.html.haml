@@ -1,0 +1,16 @@
+.button= link_to_function 'Done', "$('#dialog').hide();"
+
+%h1 Sitemaps where generated
+%h3 Google responded:
+%p
+  - @google.xpath("//script").remove
+  = @google.xpath('/html/body').text
+%h3 Bing responded:
+%p
+  - @bing.xpath("//script").remove
+  = @bing.xpath('/html/body').text
+
+%h3= "Your can see your new sitemap here:"
+%p
+  = link_to construct_url(SemiStatic::Engine.config.sitemap, @locale), construct_url(SemiStatic::Engine.config.sitemap, @locale)
+

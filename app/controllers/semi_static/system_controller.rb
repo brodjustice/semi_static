@@ -5,9 +5,11 @@ module SemiStatic
     require 'semi_static/general'
     include General
 
+    include SemiStatic::SiteHelper
+
     before_filter :authenticate_for_semi_static!
   
-    CMDS = %w(show search_daemon search_reindex expire_page_cache clean_up passenger_restart load_url generate_sitemap generate_static_pages partial_description load_search_data)
+    CMDS = %w(show search_daemon search_reindex expire_page_cache clean_up passenger_restart load_url generate_sitemap_options generate_sitemap generate_static_pages partial_description load_search_data)
     SESSION = %w(workspace_tag_id)
   
     def update
@@ -27,12 +29,17 @@ module SemiStatic
         params[:session][key].blank? ? session.delete(key) : session[key] = params[:session][key]
       end
       respond_to do |format|
-        format.html { render :template => "semi_static/system/#{action}", :layout => 'semi_static_dashboards' }
+        format.html {
+          render :template => "semi_static/system/#{action}", :layout => 'semi_static_dashboards'
+        }
         format.xml do
-          stream = render_to_string(:template => "semi_static/system/#{action}" )  
+          stream = render_to_string(:formats => [:xml], :handler => :bulider, :template => "semi_static/system/#{action}" )  
           send_data(stream, :type=>"text/xml", :filename => "sitemap.xml")
         end
-        format.js { render :template => "semi_static/system/#{action}" }
+        format.js {
+          (action == 'generate_sitemap') && SemiStatic::Engine.config.has?('sitemap').present? && write_sitemap(@locale)
+          render :template => "semi_static/system/#{action}", :formats => [:js]
+        }
       end
     end
   end
