@@ -602,7 +602,7 @@ h2 a, h3 a{color: $secondary-color;}
 @media only screen and (max-width: 820px) {
   // Change menu to hidden pop-up on click and fixed position
   #bar-menu, #menu{display: none;}
-  #menu-button .text{display:block;}
+  #slide-menu #menu-button, #menu-button .text{display:block;}
   #menu-button .menu-line{height:8px;margin:3px auto;}
   #menu-wrapper{z-index: 0;}
   #menu .col{ width: 100%; margin: 0;}

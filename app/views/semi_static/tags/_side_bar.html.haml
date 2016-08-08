@@ -1,5 +1,7 @@
 - obj = @entry || @tag
 - @tag ||= entrytag
+- obj ||= entrytag
+
 %aside
   = yield :side_bar_top
   - if side_bar_nav? && !obj.get_page_attr('disableSideBarNav')
