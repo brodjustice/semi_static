@@ -8,6 +8,5 @@ module SemiStatic
 
     default_scope :order => 'position ASC'
 
-    after_save :expire_site_page_cache
   end
 end

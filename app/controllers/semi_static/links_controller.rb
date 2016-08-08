@@ -3,6 +3,9 @@ require_dependency "semi_static/application_controller"
 module SemiStatic
   class LinksController < ApplicationController
 
+    require 'semi_static/general'
+    include General
+
     before_filter :authenticate_for_semi_static!
 
     layout 'semi_static_dashboards'
@@ -55,6 +58,7 @@ module SemiStatic
   
       respond_to do |format|
         if @link.save
+          expire_page_cache(@link)
           format.html { redirect_to fcols_path, notice: 'Footer link was successfully created.' }
           format.json { render json: @link, status: :created, location: @link }
         else
@@ -70,6 +74,7 @@ module SemiStatic
   
       respond_to do |format|
         if @link.update_attributes(params[:link])
+          expire_page_cache(@link)
           format.html { redirect_to fcols_path, notice: 'Footer link was successfully updated.' }
           format.json { head :no_content }
         else

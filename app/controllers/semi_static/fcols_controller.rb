@@ -3,6 +3,9 @@ require_dependency "semi_static/application_controller"
 module SemiStatic
   class FcolsController < ApplicationController
 
+    require 'semi_static/general'
+    include General
+
     before_filter :authenticate_for_semi_static!, :except => :show
   
     layout 'semi_static_dashboards'
@@ -41,6 +44,7 @@ module SemiStatic
   
       respond_to do |format|
         if @fcol.save
+          expire_page_cache(@fcol)
           format.html { redirect_to fcols_path, notice: 'Footer tag was successfully created.' }
           format.json { render json: @fcol, status: :created, location: @fcol }
         else
@@ -57,6 +61,7 @@ module SemiStatic
   
       respond_to do |format|
         if @fcol.update_attributes(params[:fcol])
+          expire_page_cache(@fcol)
           format.html { redirect_to fcols_path, notice: 'Footer tag was successfully updated.' }
           format.json { head :no_content }
         else
