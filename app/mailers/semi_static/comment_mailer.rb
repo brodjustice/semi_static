@@ -2,7 +2,7 @@ module SemiStatic
   class CommentMailer < ActionMailer::Base
     def comment_notification(comment)
       subject = "New comment added to blog by #{comment.email}: #{comment.name}"
-      email = SemiStatic::Engine.config.contact_email
+      email = SemiStatic::Engine.config.has?('comment_email') || SemiStatic::Engine.config.has?('contact_email')
 
       @comment = comment
       @host = SemiStatic::Engine.config.mail_host

@@ -63,6 +63,10 @@ module SemiStatic
     # This is the address to which the contact form data is sent to. Seperate with commas
     # if you have more that one delivery adddress
     config.contact_email = 'info@business-landing.com'
+
+    # This is the address to which the blog comment email alert is sent to - if a blog is used.
+    # If set to nil, the config.contact_email addresses are used instead
+    config.comment_email = nil
     
     # These are the domains for your different language versions of your site. This will
     # also be used used to generate the hreflang tags to point to the alternate language
