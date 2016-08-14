@@ -17,6 +17,11 @@ body{
 
 #dashboard #container, #dashboard #content{max-width: 1400px;}
 
+// Some custom layouts will override the grid margins and stop
+// our dashbord grid from working, so fix this with an override
+#dashboard .col{margin: 1% 0 1% 1.6%;}
+#dashboard .col:first-child, #dashboard .col:first-child { margin-left: 0; }
+
 #dashboard table:not(.cke_dialog){
   width: 100%;
 }
