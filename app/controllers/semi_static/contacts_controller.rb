@@ -59,7 +59,7 @@ module SemiStatic
       end
 
       # Check if we are trying to stop spambots
-      if SemiStatic::Engine.config.contact_form_spam_fields && (params[:message][:message].present? || params[:message][:homepage].present?)
+      if params[:message].present? && SemiStatic::Engine.config.contact_form_spam_fields && (params[:message][:message].present? || params[:message][:homepage].present?)
         @contact = Contact.new
         @contact.errors.add(:base, 'This appears to be SPAM. Sorry, we cannot process this request')
       else
