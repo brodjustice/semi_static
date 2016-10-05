@@ -36,3 +36,11 @@ function semiStaticAJAX(url){
   xhr.onload = function() { if (xhr.status === 200) { eval(xhr.responseText); } };
   xhr.send();
 }
+
+function addSemiStaticLoadEvent(func) {
+  var oldonload = window.onload;
+  if(typeof window.onload != 'function'){ window.onload = func;}else{
+    window.onload=function(){if(oldonload){oldonload();}func();
+    }
+  }
+}

@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.add_dependency "haml"
   s.add_dependency "haml-rails"
   s.add_dependency "nokogiri"
-  # s.add_dependency "debugger"
+  s.add_dependency "debugger"
 
   # Later versions of paperlip require ruby 2.0+
   s.add_dependency "paperclip", "4.2.1"
@@ -32,9 +32,9 @@ Gem::Specification.new do |s|
   s.add_dependency "truncate_html"
 
   # For search
-  s.add_dependency "elasticsearch", '1.0.18'
-  s.add_dependency "elasticsearch-model", '0.1.9'
-  s.add_dependency "elasticsearch-rails", '0.1.9'
+  s.add_dependency "elasticsearch"
+  s.add_dependency "elasticsearch-model"
+  s.add_dependency "elasticsearch-rails"
 
   s.add_development_dependency "pg"
 end

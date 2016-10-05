@@ -11,10 +11,13 @@
         };
         xhr.send(new FormData(formElement));
       }
-
-      window.onload=function(){
+      function commentsConfig(){
         semiStaticAJAX("#{entry_comments_path(@entry, :unused => true)}")
+        if (typeof semi_static_custom_js == 'function') { 
+          semi_static_custom_js(); 
+        }
       }
+      addSemiStaticLoadEvent(commentsConfig);
 
 
 - if @entry.partial_before_entries?

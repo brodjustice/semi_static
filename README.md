@@ -114,6 +114,14 @@ need to link the 'asset' and 'system' directories inside each of the public loca
     # ln -s ../assets ./assets
     # ln -s ../system ./system
 
+= Using the window.onload event in javascript
+
+Some SemiStatic pages need to use the window.onload event. If you try and use the window.onload event yourself in a page you may have unpredictable
+results. Therefore SemiStaic provides the addSemiStaticLoadEvent() function. Use this function to call any javascript that you need to execute
+when the document is loaded, eg:
+
+    addSemiStaticLoadEvent(myfunction);
+
 = Integrating to your own app
 
 A number of helper methods are  exposed by adding the following to your application_controller.rb
