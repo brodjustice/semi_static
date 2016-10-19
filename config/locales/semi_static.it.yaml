@@ -1,0 +1,139 @@
+# Sample localization file for Italian. Actually just the English file!
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+it:
+  keywords: ''
+  SearchResultsFor: 'search results for'
+  BrowserVideoNotSupported: 'Your browser does not support this video, please upgrade'
+  News: 'News'
+  NEWS: 'NEWS'
+  Share: 'Share'
+  ImprintAndCredits: 'Imprint and credits'
+  Sign_In: 'Sign In'
+  Contact: 'Contact'
+  more: '...more'
+  Search: 'Search'
+  Show: 'show'
+  Gallery: 'Gallery'
+  References: 'References'
+  Send_me_reset_password_instructions: 'Send me reset password instructions'
+  Forgot_password?: 'Forgot your password?'
+  Change_my_password: 'Change my password'
+  Send: 'Send'
+  Name: 'Name'
+  Surname: 'Surname'
+  Email: 'E-mail'
+  Email_not_displayed: 'E-mail (your e-mail address will not be displayed)'
+  Add_your_comment: 'Add your comment...'
+  Message: 'Message'
+  Telephone: 'Telephone'
+  Contact_us: 'Contact us!'
+  Comment: 'Comment'
+  n_of_comments:
+      zero: "0 comments"
+      one: "1 comment"
+      other: "%{count} comments"
+  Company_optional: 'Company (optional)'
+  PleaseTypeNumber: 'Please type number in image'
+  GetInContact: 'Get in contact...'
+  Submit: 'Send'
+
+  Thank_you: "Thanks!"
+  Thank_you_for_your_equiry: 'Thank you for your enquiry, we will respond shortly'
+  Address: 'Address'
+  Contact_form: 'Contact'
+  Menu: 'Menu'
+  Close: 'Close'
+  Next: 'Next'
+  Previous: 'Previous'
+  Top: 'Top'
+  Error_404: 'Sorry, we could not find the page that you were looking for, it has probably been removed. Please use the menu to continue navigating our website'
+  Error_422: 'Sorry, we could not understand your request. Please use the menu to continue navigating our website'
+  Error_500: 'Sorry, this is a little embarrassing but we had an uncorrectable error on our website. Please use the menu to continue navigating our website'
+  contact:
+    pre: 'Send us a message, we will phone you back!'
+
+  # Months
+  date:
+    abbr_day_names:
+    - Sun
+    - Mon
+    - Tue
+    - Wed
+    - Thu
+    - Fri
+    - Sat
+    abbr_month_names:
+    -
+    - Jan
+    - Feb
+    - Mar
+    - Apr
+    - May
+    - Jun
+    - Jul
+    - Aug
+    - Sep
+    - Oct
+    - Nov
+    - Dec
+
+  formats:
+    default: "%d-%m-%Y"
+    long: "%B %d, %Y"
+    short: "%b %d"
+
+  time:
+    am: am
+    pm: pm
+    formats:
+      default: "%a, %d %b %Y %H:%M:%S %z"
+      long: "%B %d, %Y %H:%M"
+      short: "%d %b %H:%M"
+
+
+
+  # Product Properties
+  pname: 'Name'
+  description: 'Description'
+  color: 'Colour'
+  height: 'Height'
+  depth: 'Depth'
+  width: 'Width'
+  weight: 'Weight'
+  price: 'Price'
+  currency: 'Currency'
+  inventory_level: 'Inventory level'
+
+  # Event Properties
+  # decription from product properties
+  minutes: 'minutes'
+  location: 'Location'
+  start_date: 'Starts at'
+  duration: 'Duration'
+  language: 'Language'
+  Register: 'Register'
+  Price_range: 'Price range'
+
+  # Squeeze
+  DownloadInstructionsFrom: 'Download from'
+  CheckYourEmail: 'We have sent download instructions to the email address provided. Please check your email to download the document'
+  Company: 'Company'
+  Position: 'Position'
+
+  devise:
+    sessions:
+      user:
+        signed_in: ''
+        signed_out: ''
+    failure:
+      timeout: ''
+
+
+  activerecord:
+   errors:
+     models:
+       user:
+         attributes:
+           roles:
+             blank: 'Must assign a role'

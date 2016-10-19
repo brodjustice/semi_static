@@ -1,18 +1,9 @@
 .dash
   .button
-    = link_to 'Unsubscribed', subscribers_path(:unsubscribed => true)
-  .button
-    = link_to 'New Category', new_subscriber_category_path, :remote => true
-  .button
-    = link_to 'New Subscriber', new_subscriber_path
-  .button
-    = link_to 'Download as CSV', subscribers_path(:format => :csv)
-  .button
-    = link_to 'Upload CSV', new_subscriber_path(:cmd => :csv), :remote => true
-  %h1=  "Listing #{@subscribers.count} subscribers"
+    = link_to 'Subscribers', subscribers_path
+  %h1= "Listing #{@subscribers.count} unsubscribed"
   
-  = render :partial => 'semi_static/subscribers/csv_errors' if @added_count || (@errors && !@errors.empty?)
-  
+  %h2= "This is a list of people that have asked to be unsubscribed to your emails. You should not ad these back into the subscriber list unless you have an explicit request to do so from the person themslves"
   %table
     %tr
       %th Name

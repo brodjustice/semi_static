@@ -26,6 +26,8 @@
   .field
     = f.text_field :country
     = f.label :country
+    = f.label :unsubscribe, 'Add to unsubscribers'
+    = f.check_box :unsubscribe
   .field
     = f.label :subscriber_category_id
     = f.select :subscriber_category_id, options_for_select(SemiStatic::SubscriberCategory.all.collect{|sc| [sc.name, sc.id]}, @subscriber.subscriber_category_id)

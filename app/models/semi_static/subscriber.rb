@@ -1,13 +1,13 @@
 module SemiStatic
   class Subscriber < ActiveRecord::Base
-    attr_accessible :cancel_token, :email, :name, :surname, :telephone, :locale, :company, :position, :country, :subscriber_category_id
+    attr_accessible :cancel_token, :email, :name, :surname, :telephone, :locale, :company, :position, :country, :subscriber_category_id, :unsubscribe
     attr_accessor :state
 
     belongs_to :category, :class_name => SubscriberCategory, :foreign_key => :subscriber_category_id
     has_many :newsletter_deliveries, :dependent => :destroy
 
     before_create :generate_token
-    before_destroy :send_notice
+    before_save :send_notice, :if => :unsubscribe_changed?
 
     validates_uniqueness_of :email
     validates_format_of :email, :with => Devise.email_regexp
@@ -24,7 +24,9 @@ module SemiStatic
     end
 
     def send_notice
-      SemiStatic::SubscriberMailer.subscriber_notification(self).deliver
+      if unsubscribe
+        SemiStatic::SubscriberMailer.subscriber_notification(self).deliver
+      end
     end
 
     protected

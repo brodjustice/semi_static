@@ -434,9 +434,9 @@ module SemiStatic
 
     def seo_title
       if @seo
-        @seo.title || @title || SemiStatic::Engine.config.site_name
+        sanitize((@seo.title || @title || SemiStatic::Engine.config.site_name).gsub(/'/, '&#39;'))
       else
-        @title || SemiStatic::Seo.master_title || SemiStatic::Engine.config.site_name
+        sanitize((@title || SemiStatic::Seo.master_title || SemiStatic::Engine.config.site_name).gsub(/'/, '&#39;'))
       end
     end
 

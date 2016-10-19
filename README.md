@@ -34,7 +34,7 @@ Now add semi-static
 
 Edit the Gemfile to include the semi-static gem/engine:
 
-	gem 'semi_static', :git => 'git://github.com/brodjustice/semi_static.git'
+	gem 'semi_static', :git => 'https://github.com/brodjustice/semi_static.git'
 
 Run the bundler
 

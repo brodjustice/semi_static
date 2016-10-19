@@ -35,7 +35,7 @@ module SemiStatic
         @selection = 'Gallery'
         @tag, @seo = Seo.photos(params[:tag_id], I18n.locale)
         @entries = @tag && @tag.entries
-        layout = "semi_static_#{LAYOUTS[@tag.layout_select]}"
+        layout = "semi_static_#{General::LAYOUTS[@tag.layout_select || 0]}"
         template = 'semi_static/photos/index'
       end
   

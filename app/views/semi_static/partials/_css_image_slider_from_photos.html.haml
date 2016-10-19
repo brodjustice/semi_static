@@ -1,0 +1,140 @@
+-#
+-# CSS only image slider (slideshow). 
+-#
+-# The position needs to be 'inline'
+-#
+-# This needs a few page_attrs to function correctly:
+-#   - sliderSlideCount => number of slides
+-#   - sliderPhotoId0 => Photo ID for slide 0
+-#   - ...
+-#   - sliderPhotoIdN => Photo ID for slide n (max 10)
+-#
+-# The height is controlled by the dimensions of the first Photo, e.g. sliderPhotoId0
+-#
+-# Other attributes that can be set are:
+-#  - sliderMouseOverColor => background color for mouse-over, eg. rgba(0,0,0,0.3)
+-#  - sliderIconColor => color for the next and previous icons, eg. rgba(0, 105, 170, 0.6)
+-#  - sliderNavDotColor => color for navigation dot, eg. rgba(0, 0, 0, 0.6)
+-#  - sliderCaptions => show captions from photo description, eg. true
+
+- sliderSlideCount = (e.get_page_attr('sliderSlideCount') || '0').to_i
+- sliderMouseOverColor = (e.get_page_attr('sliderMouseOverColor') || 'rgba(255,255,255,0.3)')
+- sliderIconColor = (e.get_page_attr('sliderIconColor') || '#fff')
+- sliderNavDotColor = (e.get_page_attr('sliderNavDotColor') || 'rgba(0, 0, 0, 0.6)')
+- sliderCaptions = e.get_page_attr('sliderCaptions')
+- outerMargin = sliderCaptions.present? ? '82px' : '0'
+- if (basePhoto = SemiStatic::Photo.find_by_id(e.get_page_attr('sliderPhotoId0')))
+  - basePhoto = basePhoto.img.url(:big)
+
+- content_for :header_css do
+  :plain
+    #sliderOuter{margin-bottom: #{outerMargin};}
+    #sliderWrapper img{max-width: none;}
+    .slider-inner{max-width: 640px;}
+    .slider-inner > img{position:relative;visibility:hidden; width: 100%;}
+    #sliderWrapper{background-color:#f8f8f8; text-align: center; position: relative;}
+    .slide-caption{
+      width: 100%; border-bottom: 1px solid #d0d0d0; position:absolute;
+      bottom:-68px;
+      opacity: 0;
+      height: 64px;
+      overflow-y:auto;
+    }
+    .slides {
+        padding: 0; width: 100%; max-width: 640px; height: auto;
+        display: block; margin: 0 auto; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    }
+    .slides * {
+        user-select: none; -ms-user-select: none; -moz-user-select: none; -khtml-user-select: none;
+        -webkit-user-select: none; -webkit-touch-callout: none;
+    }
+    .slides input { display: none; }
+    .slide-container { display: block; }
+    .slide {
+        top: 0; opacity: 0; width: 100%; max-width: 640px;
+        height: auto; display: block; position: absolute;
+        transform: scale(0);
+        transition: all .7s ease-in-out;
+    }
+    .slide img {
+        width: 100%; height: 100%; }
+    
+    .nav label {
+      width: 100px; height: 100%;
+      display: none; position: absolute;
+      opacity: 0; z-index: 9;
+      cursor: pointer;
+      transition: opacity .2s;
+      color: #{sliderIconColor};
+      font-size: 132px;
+      font-weight: 100;
+      text-align: center;
+      line-height: normal;
+      font-family: sans-serif;
+      background-color: #{sliderMouseOverColor};
+      // text-shadow: 0px 0px 15px rgb(119, 119, 119);
+    }
+    .slide:hover + .nav label { opacity: 0.5; }
+    .nav label:hover { opacity: 1; }
+    .nav .s-next { right: 0; }
+    input:checked + .slide-container  .slide-caption,
+    input:checked + .slide-container  .slide {
+      opacity: 1;
+      transform: scale(1);
+      transition: opacity 1s ease-in-out;
+    }
+    input:checked + .slide-container .nav label { display: block; }
+    .nav-dots {
+      width: 100%; bottom: 14px; height: 16px;
+      display: block; position: absolute; text-align: center;
+    }
+    .nav-dots .nav-dot {
+      top: -5px; width: 16px; height: 16px;
+      margin: 0 4px; position: relative;
+      border-radius: 100%;
+      display: inline-block;
+      background-color: #{sliderNavDotColor};
+      border: 2px solid #888;
+    }
+    .nav-dots .nav-dot:hover {
+      cursor: pointer; background-color: rgba(0, 0, 0, 0.8);
+    }
+    input#img-0:checked ~ .nav-dots label#img-dot-0,
+    input#img-1:checked ~ .nav-dots label#img-dot-1,
+    input#img-2:checked ~ .nav-dots label#img-dot-2,
+    input#img-3:checked ~ .nav-dots label#img-dot-3,
+    input#img-4:checked ~ .nav-dots label#img-dot-4,
+    input#img-5:checked ~ .nav-dots label#img-dot-5,
+    input#img-6:checked ~ .nav-dots label#img-dot-6,
+    input#img-7:checked ~ .nav-dots label#img-dot-7,
+    input#img-8:checked ~ .nav-dots label#img-dot-8,
+    input#img-9:checked ~ .nav-dots label#img-dot-9 {
+    	background: rgba(255, 255, 255, 0.8);
+    }
+    
+
+#sliderOuter
+  #sliderWrapper
+    .slider-inner
+      = image_tag(basePhoto)
+    %ul.slides
+      - sliderSlideCount.times do |c|
+        - p = SemiStatic::Photo.find_by_id(e.get_page_attr("sliderPhotoId#{c}"))
+        - if c == 0
+          <input type="radio" name="radio-btn" id="img-#{c}" checked />
+        - else
+          <input type="radio" name="radio-btn" id="img-#{c}"/>
+        %li.slide-container
+          .slide
+            - if p
+              = image_tag(p.img.url(:big))
+          .nav
+            = label_tag "img-#{(c - 1).modulo sliderSlideCount}", '&#x025C2;'.html_safe, :class => 's-prev'
+            = label_tag "img-#{(c + 1).modulo sliderSlideCount}", '&#x025B8;'.html_safe, :class => 's-next'
+          - if sliderCaptions
+            .slide-caption
+              - if p
+                = p.description
+      %li.nav-dots
+        - sliderSlideCount.times do |c|
+          <label for='img-#{c}' class='nav-dot' id='img-dot-#{c}'></label>

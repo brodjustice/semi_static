@@ -10,10 +10,16 @@ module SemiStatic
     # GET /subscribers
     # GET /subscribers.json
     def index
-      @subscribers = Subscriber.all
+      template = 'index'
+      if params[:unsubscribed].present?
+        @subscribers = Subscriber.where(:unsubscribe => :true)
+        template = 'unsubscribers'
+      else
+        @subscribers = Subscriber.where(:unsubscribe => :false)
+      end
   
       respond_to do |format|
-        format.html # index.html.erb
+        format.html { render :template => "semi_static/subscribers/#{template}" }
         format.json { render json: @subscribers }
         format.csv {
           filename = SemiStatic::Engine.config.site_name + 'subscibers.csv'
@@ -115,10 +121,13 @@ module SemiStatic
   
     # PUT /subscribers/1
     # PUT /subscribers/1.json
+    #
+    # TODO: Got very messy, refactor
+    #
     def update
       if params[:cancel]
         @subscriber = SemiStatic::Subscriber.find_by_cancel_token(params[:token])
-        if @subscriber && @subscriber.destroy
+        if @subscriber && !@subscriber.unsubscribe && @subscriber.unsubscribe = true && @subscriber.save
           layout = 'semi_static_application'; template = 'semi_static/subscribers/cancel_success';
           deleted = true
         else
