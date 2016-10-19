@@ -11,7 +11,7 @@ module SemiStatic
     # GET /subscribers.json
     def index
       template = 'index'
-      if params[:unsubscribed].present?
+      if params[:unsubscribed] == 'true'
         @subscribers = Subscriber.where(:unsubscribe => :true)
         template = 'unsubscribers'
       else
@@ -47,7 +47,7 @@ module SemiStatic
       if params[:cmd] == 'csv'
         # Nothing to do, this must be a js format request
       else
-        @subscriber = Subscriber.new
+        @subscriber = Subscriber.new(params[:subscriber])
       end
   
       respond_to do |format|
@@ -103,6 +103,7 @@ module SemiStatic
         end
       else
         @subscriber = Subscriber.create(params[:subscriber])
+        unsubscribed = params[:subscriber]
         notice = 'Subscriber was successfully created.'
       end
 
@@ -110,7 +111,7 @@ module SemiStatic
   
       respond_to do |format|
         if (params[:cmd] == 'csv') || @subscriber.errors.empty?
-          format.html { render action: 'index', notice: notice }
+          format.html { redirect_to subscribers_path(:unsubscribed => @subscriber.unsubscribe), notice: notice }
           format.json { render json: @subscriber, status: :created, location: @subscriber }
         else
           format.html { render action: "new" }
