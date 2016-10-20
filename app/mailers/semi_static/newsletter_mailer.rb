@@ -28,12 +28,12 @@ module SemiStatic
     private
 
     def prepare(newsletter)
-      @subject = newsletter.name
+      @subject = newsletter.subject
 
       @newsletter = newsletter
       @host = SemiStatic::Engine.config.mail_host
       @locale = newsletter.locale
-      @site_url = SemiStatic::Engine.config.hosts_for_locales.invert[@locale]
+      @site_url = @newsletter.website_url.blank? ? @newsletter.website_url : SemiStatic::Engine.config.hosts_for_locales.invert[@locale]
       @from = @newsletter.sender_address || SemiStatic::Engine.config.info_email
 
       max_images = @newsletter.max_image_attachments
@@ -42,10 +42,13 @@ module SemiStatic
         @banner = true
         attachments.inline['banner.jpg'] = File.read("#{Rails.root}/public#{b.img(:original)}")
       else
-        if SemiStatic::Engine.config.has?('newsletter_logo')
-          attachments.inline['logo.jpg'] = File.read("#{Rails.root}/app/assets/images/#{SemiStatic::Engine.config.newsletter_logo.split('/').last}")
-        else
-          attachments.inline['logo.jpg'] = File.read("#{Rails.root}/app/assets/images/#{SemiStatic::Engine.config.logo_image.split('/').last}")
+        if max_images > 0
+          if SemiStatic::Engine.config.has?('newsletter_logo')
+            attachments.inline['logo.jpg'] = File.read("#{Rails.root}/app/assets/images/#{SemiStatic::Engine.config.newsletter_logo.split('/').last}")
+          else
+            attachments.inline['logo.jpg'] = File.read("#{Rails.root}/app/assets/images/#{SemiStatic::Engine.config.logo_image.split('/').last}")
+          end
+          max_images = max_images - 1
         end
       end
 

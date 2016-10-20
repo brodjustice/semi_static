@@ -176,7 +176,7 @@
                                       <tr>
                                         <td align="left" class="textContent">
                                           <div style="font-family:Helvetica,Arial,sans-serif;font-size:13px;color:#828282;text-align:center;line-height:120%;">
-                                            <%= [@newsletter.name, @newsletter.subtitle].join(": ") %>
+                                            <%= [@newsletter.title, @newsletter.subtitle].join(": ") %>
                                           </div>
                                         </td>
                                       </tr>
@@ -213,43 +213,6 @@
 
             <table bgcolor="#FFFFFF"  border="0" cellpadding="0" cellspacing="0" width="640" id="emailBody">
 
-              <% if false %>
-              <# if you should need a big header %>
-              <tr>
-                <td align="center" valign="top">
-                  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="color:#FFFFFF;" bgcolor="#3498db">
-                    <tr>
-                      <td align="center" valign="top">
-                        <table border="0" cellpadding="0" cellspacing="0" width="640" class="flexibleContainer">
-                          <tr>
-                            <td align="center" valign="top" width="640" class="flexibleContainerCell">
-                              <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                                <tr>
-                                  <td align="center" valign="top" class="textContent">
-                                    <h1 style="color:#FFFFFF;line-height:100%;font-family:Helvetica,Arial,sans-serif;font-size:35px;font-weight:normal;margin-bottom:5px;text-align:center;"><%= @newsletter.name %></h1>
-                                    <%# Subtitle and text could go in here %>
-                                    <%#  <h2 style="text-align:center;font-weight:normal;font-family:Helvetica,Arial,sans-serif;font-size:23px;margin-bottom:10px;color:#205478;line-height:135%;">poss subtitle here</h2> %>
-                                    <%#  <div style="text-align:center;font-family:Helvetica,Arial,sans-serif;font-size:15px;margin-bottom:0;color:#FFFFFF;line-height:135%;">Poss text in here</div> %>
-                                  </td>
-                                </tr>
-                              </table>
-                              <!-- // CONTENT TABLE -->
-
-                            </td>
-                          </tr>
-                        </table>
-                        <!-- // FLEXIBLE CONTAINER -->
-                      </td>
-                    </tr>
-                  </table>
-                  <!-- // CENTERING TABLE -->
-                </td>
-              </tr>
-              <!-- // MODULE ROW -->
-              <% end %>
-
-
-
               <!-- MODULE ROW // -->
               <% unless @banner.nil? %>
               <tr>
@@ -267,12 +230,14 @@
                               <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
                                   <td align="center" valign="middle" class="imageContent">
+
 				  <% @max_images = @max_images -1 %>
 				  <% if @max_images > 0 %>
                                     <img src="<%= attachments['banner.jpg'].url %>" width="640" class="flexibleImage" style="max-width:640px;width:100%;margin-top:0px; margin-bottom:0px;display:block;" alt="<%= @newsletter.banner.name %>" title="<%= @newsletter.banner.name %>" />
 				  <% else %>
                                     <img src="<%= 'http://' + @site_url + @newsletter.banner.img.url %>" width="640" class="flexibleImage" style="max-width:640px;width:100%;margin-top:0px; margin-bottom:0px;display:block;" alt="<%= @newsletter.banner.name %>" title="<%= @newsletter.banner.name %>" />
 				  <% end %>
+
                                   </td>
                                 </tr>
                               </table>
@@ -292,6 +257,14 @@
 
 
               <% else %>
+ 
+              <tr>
+              <td>
+                  <table border="0" cellpadding="6" cellspacing="0" width="100%">
+                  <tr><td></td></tr>
+                  </table>
+              </td>
+              </tr>
 
               <!-- MODULE ROW // -->
               <tr>
@@ -301,7 +274,7 @@
                     <tr>
                       <td align="center" valign="top">
                         <!-- FLEXIBLE CONTAINER // -->
-                        <table border="0" cellpadding="30" cellspacing="0" width="640" class="flexibleContainer">
+                        <table border="0" cellpadding="0" cellspacing="0" width="640" class="flexibleContainer">
                           <tr>
                             <td valign="top" width="640" class="flexibleContainerCell">
 
@@ -313,21 +286,22 @@
                                       <tr>
                                         <td align="left" class="textContent">
                                           <a href="<%= "http://#{@site_url}" %>" target="_blank" style="text-decoration:none;">
-                                          <img src="<%= attachments['logo.jpg'].url %>" class="flexibleImage" style="max-width:100%;" alt="<%= SemiStatic::Engine.config.site_name %>" title="<%= SemiStatic::Engine.config.site_name %>" />
+
+
+				          <% @max_images = @max_images -1 %>
+				          <% if @max_images > 0 %>
+                                            <img src="<%= attachments['logo.jpg'].url %>" class="flexibleImageSmall" style="max-width:100%;" alt="<%= SemiStatic::Engine.config.site_name %>" title="<%= SemiStatic::Engine.config.site_name %>" />
+			        	  <% else %>
+                                            <img src="<%= 'http://' + @site_url + SemiStatic::Engine.config.logo_image %>" class="flexibleImageSmall" style="max-width:100%;" alt="<%= SemiStatic::Engine.config.site_name + ' logo'%>" title="<%= SemiStatic::Engine.config.site_name + 'logo'%>" />
+			        	  <% end %>
+
+
                                           </a>
                                         </td>
                                       </tr>
                                     </table>
                                   </td>
                                   <td align="right" valign="top" class="flexibleContainerBox">
-                                    <table class="flexibleContainerBoxNext" border="0" cellpadding="0" cellspacing="0" width="280" style="max-width:100%;">
-                                      <tr>
-                                        <td align="left" class="textContent">
-                                          <h3 style="color:#5F5F5F;line-height:125%;font-family:Helvetica,Arial,sans-serif;font-size:20px;font-weight:normal;margin-top:0;margin-bottom:3px;text-align:right;"><%= @newsletter.subtitle %></h3>
-                                          <%# <div style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:15px;margin-bottom:0;color:#5F5F5F;line-height:135%;">Possible paragraph text here .</div> %>
-                                        </td>
-                                      </tr>
-                                    </table>
                                   </td>
                                 </tr>
                               </table>
@@ -348,7 +322,8 @@
               <% end %>
 
 
-              <!-- MODULE ROW // -->
+              <% unless @newsletter.title.blank? %>
+              <!-- MODULE ROW HEADER // -->
               <tr>
                 <td align="center" valign="top">
                   <!-- CENTERING TABLE // -->
@@ -367,7 +342,7 @@
                                     <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                       <tr>
                                         <td valign="top" class="textContent">
-                                          <h3 mc:edit="header" style="color:#0060aa;line-height:125%;font-family:Helvetica,Arial,sans-serif;font-size:20px;font-weight:normal;margin-top:0;margin-bottom:3px;text-align:center;"><%= [@newsletter.name, @newsletter.subtitle].join(' ') %></h3>
+                                          <h3 mc:edit="header" style="color:#0060aa;line-height:125%;font-family:Helvetica,Arial,sans-serif;font-size:20px;font-weight:normal;margin-top:0;margin-bottom:3px;text-align:center;"><%= [@newsletter.title, @newsletter.subtitle].join(' ') %></h3>
                                           <% unless @newsletter.salutation_post_text.blank? %>
                                             <div mc:edit="body" style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:15px;margin-bottom:0;color:#5F5F5F;line-height:135%;">
                                               <% if @newsletter.salutation %>
@@ -398,6 +373,7 @@
               <!-- // MODULE ROW -->
 
               <!-- MODULE ROW // -->
+              <% end %>
 
 
               <%# START OF LOOP THROUGH ENTRIES %>

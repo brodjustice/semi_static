@@ -1,8 +1,8 @@
-= @newsletter.name.gsub(/./, '=')
-= @newsletter.name
+- unless @newsletter.title.blank?
+  = @newsletter.title.gsub(/./, '=')
+  = @newsletter.title
 - unless @newsletter.subtitle.blank?
   = @newsletter.subtitle
-= @newsletter.name.gsub(/./, '=')
 = "\r\n"
 - if @newsletter.salutation
   = @newsletter.salutation_pre_text

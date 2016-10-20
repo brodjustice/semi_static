@@ -15,13 +15,17 @@
         %tr{:style => "border-bottom: 1px solid #a0a0a0;"}
           %td{:colspan => 2, :style => 'text-align: center;'}
             = image_tag(b.img(:original))
-            %h3= [@newsletter.name, @newsletter.subtitle].join(' ')
+            %h1= @newsletter.title
+            %h2= @newsletter.title
       - else
-        %tr{:style => "border-bottom: 1px solid #a0a0a0;"}
+        %tr
           %td
             #newsletter-logo= image_tag(SemiStatic::Engine.config.has?('newsletter_logo') || SemiStatic::Engine.config.has?('logo_image'))
+        - if @newsletter.title.blank?
           %td
-            %h1= @newsletter.name
+        - else
+          %td
+            %h1= @newsletter.title
             %h2= @newsletter.subtitle
       - unless @newsletter.salutation_post_text.blank?
         %tr
