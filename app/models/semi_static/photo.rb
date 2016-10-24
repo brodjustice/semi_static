@@ -48,7 +48,12 @@ module SemiStatic
     # This scope depricated, use the Photo hidden attribute instead
     scope :not_invisible, where('gallery_control != ?', GALLERY_SYM[:invisible])
 
+    # Scope is to select all visible photos from all galleries that are visible
     scope :visible, joins(:gallery).where('semi_static_galleries.public = ?', true).where('hidden = ?', false)
+
+    # Scope ignores if gallery is visible and looks only at photo hidden attribute
+    scope :not_hidden, where('hidden = ?', false)
+
     scope :main, where('gallery_control = ?', GALLERY_SYM[:main])
     scope :sidebar, where('gallery_control=? OR gallery_control=?', GALLERY_SYM[:thumbs_and_sidebar], GALLERY_SYM[:sidebar_only])
     scope :without_caption, where("description IS NULL or CAST(description as text) = ''")
@@ -84,8 +89,13 @@ module SemiStatic
       Photo.build_ordered_array
     end
 
+    #
+    # Ordered array is actually a hash of ordered arrays
+    #
+    # Looks like this { gallery_id => [id, id, id, .. id ], gallery_id => [id, id, id ... id]}
+    #
     def self.build_ordered_array
-      @@ids = Photo.not_invisible.reorder(:entry_id, :position, :id).collect{|p| p.id}
+      @@ids = {}.tap{|h| SemiStatic::Gallery.visible.each{|g| h[g.id] = g.photos.not_hidden.reorder(:position, :id).collect{|p| p.id }}}
     end
 
     # Currently have no support for admin_only viewable photos, so set as false
@@ -96,8 +106,9 @@ module SemiStatic
     @@ids = build_ordered_array
 
     def neighbour_ids
-      pos = @@ids.index(self.id)
-      [ @@ids[pos - 1] || @@ids.last, @@ids[pos + 1] || @@ids.first]
+      g = @@ids[self.gallery.id]
+      pos = g.index(self.id)
+      [ g[pos - 1] || g.last, g[pos + 1] || g.first]
     end
 
     def self.search(query)

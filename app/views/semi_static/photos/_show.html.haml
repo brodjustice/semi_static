@@ -1,7 +1,7 @@
 %h2= @photo.title
 .section.rotate
-  .left
-    = link_to t('Previous'), photo_path(@previous), :class => 'cmd prev', :remote => true
+  = link_to photo_path(@previous), :class => 'left cmd prev', :remote => true do
+    .arrow= '◂'
   .center
     - unless @photo.entry.blank?
       .link
@@ -9,7 +9,7 @@
     - else
       -# Dot below fixes odd webkit behaviour of empty divs with % widths
       = '.'
-  .right
-    = link_to t('Next'), photo_path(@next), :class => 'cmd next', :remote => true
+  = link_to photo_path(@next), :class => 'right cmd next', :remote => true do
+    .arrow= '▸'
 
 = semantic_photo(@photo, :big, false)

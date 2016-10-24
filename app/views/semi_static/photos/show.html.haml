@@ -1,9 +1,8 @@
 = render :partial => 'semi_static/shared/custom_banner', :locals => {:banner_name => 'Gallery'}
 .section
-  .col.span_2_of_3
-    .panel.photo
-      #semi_static_ajax_photo
-        = render :partial => 'semi_static/photos/show'
+  .panel.photo
+    #semi_static_ajax_photo
+      = render :partial => 'semi_static/photos/show'
    
-  .col.span_1_of_3
-    = render :partial => 'index'
+.section
+  = render :partial => 'index'

@@ -6,5 +6,6 @@ module SemiStatic
     has_many :entries
 
     scope :locale, lambda {|locale| where("locale = ?", locale.to_s)}
+    scope :visible, where("public = ?", true)
   end
 end

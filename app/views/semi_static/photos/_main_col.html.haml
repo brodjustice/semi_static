@@ -1,8 +1,10 @@
 .gallery.index.group
-  %h2= t('Gallery')
-  .spacer_wrapper
-    - @photos.all.each do |p|
-      .photo.nutshell
-        .spaced
-          = link_to image_tag(p.img.url(:mini), :title => "#{p.title} - #{truncate(p.description, :length => 50)}"), photo_path(p)
+  %h1= t('Gallery')
+  - @galleries.each do |g|
+    %h2= g.title
+    .spacer_wrapper
+      - g.photos.not_hidden.reorder(:position, :id).each do |p|
+        .photo.nutshell
+          .spaced
+            = link_to image_tag(p.img.url(:mini), :title => "#{p.title} - #{truncate(p.description, :length => 50)}"), photo_path(p)
 

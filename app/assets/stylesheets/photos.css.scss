@@ -1,5 +1,32 @@
+@-webkit-keyframes fadein {0%{opacity:0.0;}100%{opacity:1.0;}}
+@keyframes fadein {0%{opacity:0.0;}100%{opacity:1.0;}}
+
+.photo img{
+  animation: fadein 1s 1 linear;
+  -webkit-animation: fadein 1s 1 linear;
+}
+
+#semi_static_ajax_photo{position:relative;}
+#semi_static_photo .panel.photo img{transition: all 20s ease;}
+#semi_static_ajax_photo h2{min-height:32px;}
+#semi_static_ajax_photo .popable::after{top:-7px;}
+.photo figure img{
+  width: auto;
+
+  -webkit-transition: opacity 4s ease-in-out;
+  -moz-transition: opacity 4s ease-in-out;
+  -o-transition: opacity 4s ease-in-out;
+  transition: opacity 4s ease-in-out;
+
+}
+.index .photo img.selected{
+  box-shadow: 0 0 4px #505050;
+  border-color: #333;
+  opacity: 0.4;
+}
 .panel.photo{
   padding-bottom: 6px;
+  height:100%;
 }
 .cmd{
   color: #808080;
@@ -8,37 +35,44 @@
   margin-top: 6px;
 }
 .rotate{
-  min-height: 36px;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  top: 0;
 }
 .next, .prev{
-  background: url(/assets/photo-sprites.png) 0 0 no-repeat;
-  background-size: 28px 56px;
-  padding-top: 2px;
-  padding-bottom: 2px;
+  font-size: 64px;
+}
+.photo:hover .left, .photo:hover .right{
+  background-color: rgba(255,255,255,0.4);
+  color:#505050; 
 }
 .left, .center, .right{
-  float: left;
+  position: absolute;
+  max-width: 122px;
+  width: 20%;
+  height: 100%;
+  z-index: 10;
+  color:transparent;
+  padding: 0 20px;
 }
-.left{text-align: left; width: 20%;}
-.right{text-align: right; width: 20%;}
+#semi_static_ajax_photo .arrow{padding-top:48px;}
+.center{
+  margin: auto;
+  max-height:32px;
+  left:0;right:0;top:0;
+  padding:0;
+  max-width: none;
+}
+.left{left:0; text-align: left; width: 20%;}
+.right{right:0; text-align: right; width: 20%;}
 .center{text-align: center; width: 60%;}
-.next{
-  background-position: right -2px;
-  padding-right: 32px;
-  margin-left: -32px;
-}
-.prev{
-  background-position: left -30px;
-  padding-left: 32px;
-  margin-right: -32px;
-}
 
 @media only screen and (max-width: 880px) {
   .cmd{color: transparent;}
-  .left, .right{width: 10%;}
+  .left, .right{
+    width: 10%;
+    font-size: 80px;
+  }
   .center{width: 80%;}
-}
-
-@media (device-pixel-ratio: 2), (-moz-device-pixel-ratio: 2), (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .next, .prev{background-image: url(/assets/x2/photo-sprites.png);}
 }

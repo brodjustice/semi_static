@@ -290,9 +290,9 @@
 
 				          <% @max_images = @max_images -1 %>
 				          <% if @max_images > 0 %>
-                                            <img src="<%= attachments['logo.jpg'].url %>" class="flexibleImageSmall" style="max-width:100%;" alt="<%= SemiStatic::Engine.config.site_name %>" title="<%= SemiStatic::Engine.config.site_name %>" />
+                                            <img src="<%= attachments['logo.jpg'].url %>" class="flexibleImageSmall" style="max-width:100%;" alt="logo" title="logo" />
 			        	  <% else %>
-                                            <img src="<%= 'http://' + @site_url + SemiStatic::Engine.config.logo_image %>" class="flexibleImageSmall" style="max-width:100%;" alt="<%= SemiStatic::Engine.config.site_name + ' logo'%>" title="<%= SemiStatic::Engine.config.site_name + 'logo'%>" />
+                                            <img src="<%= 'http://' + @site_url + SemiStatic::Engine.config.logo_image %>" class="flexibleImageSmall" style="max-width:100%;"/>
 			        	  <% end %>
 
 

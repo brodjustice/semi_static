@@ -24,7 +24,8 @@ module SemiStatic
         @obj = @gallery = Gallery.find_by_id(params[:gallery_id])
         @photos = @obj.photos
       else
-        @photos = Photo.visible.locale(I18n.locale)
+        # @photos = Photo.visible.locale(I18n.locale)
+        @galleries = Gallery.locale(I18n.locale).visible
         @photo = @photos.first
         @selection = 'Gallery'
         @tag, @seo = Seo.photos(params[:tag_id], I18n.locale) 

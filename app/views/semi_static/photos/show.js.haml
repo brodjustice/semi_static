@@ -1,1 +1,6 @@
+$('#semi_static_ajax_photo').height($('#semi_static_ajax_photo').height());
 != "$(\"#semi_static_ajax_photo\").html('#{escape_javascript(render :partial => 'semi_static/photos/show' )}');"
+$('#semi_static_ajax_photo img').load(function(){ $('#semi_static_ajax_photo').height('auto');});
+$('.gallery.index img').removeClass('selected');
+$("#photo_id_#{@photo.id}").addClass('selected');
+
