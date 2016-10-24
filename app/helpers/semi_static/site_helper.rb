@@ -9,7 +9,7 @@ module SemiStatic
       'Contact' => SemiStatic::Engine.routes.url_helpers.new_contact_path,
       'Documents' => SemiStatic::Engine.routes.url_helpers.documents_path,
       'News' => nil,
-      'Gallery' => '/gallery'
+      'Gallery' => SemiStatic::Engine.routes.url_helpers.photos_path
     }
 
     # Unless set, will default to 5

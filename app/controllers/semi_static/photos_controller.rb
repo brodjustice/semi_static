@@ -24,23 +24,14 @@ module SemiStatic
         @obj = @gallery = Gallery.find_by_id(params[:gallery_id])
         @photos = @obj.photos
       else
-        # @photos = Photo.visible.locale(I18n.locale)
         @galleries = Gallery.locale(I18n.locale).visible
-        @photo = @photos.first
         @selection = 'Gallery'
         @tag, @seo = Seo.photos(params[:tag_id], I18n.locale) 
         @entries = @tag && @tag.entries
       end
 
-
-      if semi_static_admin?
-        @photos ||= Photo.all
-        layout = 'semi_static_dashboards'
-        template = 'semi_static/photos/admin_index'
-      else
-        layout = 'semi_static_application'
-        template = 'semi_static/photos/index'
-      end
+      layout = 'semi_static_application'
+      template = 'semi_static/photos/index'
 
       respond_to do |format|
         format.html { render :template => template, :layout => layout }

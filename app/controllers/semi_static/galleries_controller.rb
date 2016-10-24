@@ -30,9 +30,7 @@ module SemiStatic
         layout = 'semi_static_dashboards'
         template = 'semi_static/galleries/index'
       else
-        # @photos = Photo.visible.locale(I18n.locale)
         @galleries = Gallery.locale(I18n.locale).visible
-        # @photo = @photos.first
         @selection = 'Gallery'
         @tag, @seo = Seo.photos(params[:tag_id], I18n.locale)
         @entries = @tag && @tag.entries

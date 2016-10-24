@@ -5,6 +5,8 @@ module SemiStatic
     has_many :photos
     has_many :entries
 
+    default_scope order(:position, :id)
+
     scope :locale, lambda {|locale| where("locale = ?", locale.to_s)}
     scope :visible, where("public = ?", true)
   end
