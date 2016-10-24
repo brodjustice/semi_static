@@ -2,13 +2,13 @@
 .section.rotate
   = link_to photo_path(@previous), :class => 'left cmd prev', :remote => true do
     .arrow= '◂'
-  .center
-    - unless @photo.entry.blank?
+  - unless @photo.entry.blank?
+    .center
       .link
         = link_to truncate(@photo.entry.raw_title, :length => 32), entry_link_path(@photo.entry)
-    - else
-      -# Dot below fixes odd webkit behaviour of empty divs with % widths
-      = '.'
+  - else
+    -# Dot below fixes odd webkit behaviour of empty divs with % widths
+    = '.'
   = link_to photo_path(@next), :class => 'right cmd next', :remote => true do
     .arrow= '▸'
 
