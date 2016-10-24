@@ -6,37 +6,22 @@ module SemiStatic
     require 'semi_static/general'
     include General
 
-    before_filter :authenticate_for_semi_static!, :except => [:show, :index]
-
-    # If called but not admin, then the index will create a public
-    # cached page (/gallery). However, if called as admin it will 
-    # show the dynamic content (/galleries) and should not be
-    # cahced.
-    caches_page :index, :if => Proc.new { |c| !semi_static_admin? }
+    before_filter :authenticate_for_semi_static!, :except => [:show]
 
     layout 'semi_static_dashboards'
 
     # If we get here as an admin then we are trying to manage the SemiStatic
     # Galleries and Photos. If not we are just trying to get a look at the
     # public photo gallery which is constructed from various Galaries and
-    # Photos, as this action is also pointed at by /gallery in config routes
+    # Photos
     #
     # GET /galleries
     # GET /galleries.json
     def index
-      if semi_static_admin?
-        @galleries = Gallery.all
-        @photos_without_gallery = Photo.without_gallery
-        layout = 'semi_static_dashboards'
-        template = 'semi_static/galleries/index'
-      else
-        @galleries = Gallery.locale(I18n.locale).visible
-        @selection = 'Gallery'
-        @tag, @seo = Seo.photos(params[:tag_id], I18n.locale)
-        @entries = @tag && @tag.entries
-        layout = "semi_static_#{General::LAYOUTS[@tag.layout_select || 0]}"
-        template = 'semi_static/photos/index'
-      end
+      @galleries = Gallery.all
+      @photos_without_gallery = Photo.without_gallery
+      layout = 'semi_static_dashboards'
+      template = 'semi_static/galleries/index'
   
       respond_to do |format|
         format.html { render :template => template, :layout => layout }
