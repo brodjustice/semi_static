@@ -38,6 +38,7 @@ SemiStatic::Engine.routes.draw do
   match "/features/:slug" => 'tags#show', :via => :get
 
   match "/page-attributes/index" => 'page_attrs#index', :as => 'page_attrs', :via => :get
+  match "/page-attribute/:id" => 'page_attrs#destroy', :as => 'page_attr', :via => :delete
   match "/comments/index" => 'comments#index', :as => 'comments', :via => :get
   match "/documents/index" => 'documents#index', :as => 'documents', :via => :get
   match "/documents/:squeeze_id/:token" => 'documents#show', :as => 'document', :via => :get

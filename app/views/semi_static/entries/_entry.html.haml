@@ -5,7 +5,7 @@
 - linked = ((defined?(linked)) && (linked || linked.nil?)) ? true : false
 - entry = e
 - last_merged_entry = e
-.entry{:style => "background-color: #{e.background_colour}"}
+.entry{:style => "background-color: #{e.background_colour}", :class => e.get_page_attr('entryClasses').to_s.split(',').join(' ')}
   - loop do
     - last_merged_entry = e
     - if e.partial_inline?

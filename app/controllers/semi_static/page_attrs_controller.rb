@@ -75,7 +75,13 @@ module SemiStatic
       @page_attrable = @page_attr.page_attrable
       @page_attr.destroy
       respond_to do |format|
-        format.html { redirect_to edit_polymorphic_path(@page_attrable) }
+        format.html {
+          if @page_attrable
+            redirect_to edit_polymorphic_path(@page_attrable)
+          else
+            redirect_to page_attrs_path
+          end
+        }
         format.json { head :no_content }
       end
     end

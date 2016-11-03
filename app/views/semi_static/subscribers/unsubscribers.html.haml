@@ -11,7 +11,7 @@
       %th Name
       %th Surname
       %th Email
-      %th Telephone
+      %th Updated
       %th Category
       %th Locale
       %th
@@ -23,7 +23,7 @@
         %td= subscriber.name
         %td= subscriber.surname
         %td= subscriber.email
-        %td= subscriber.telephone
+        %td= subscriber.updated_at.strftime('%d/%m/%y %H:%M')
         %td= subscriber.category_name
         %td= subscriber.locale
         %td= link_to 'Show', subscriber

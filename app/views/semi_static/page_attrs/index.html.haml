@@ -27,6 +27,11 @@
         %td= 'Predefined Tag: Home'
         %td= 'Inserts the given HTML into every slide menu (if theme supports), wrapped with a unsorted list (ul li) tag'
       %tr
+        %td= 'entryClasses'
+        %td= '<comma seperated string of CSS classes>'
+        %td= 'Entry'
+        %td= 'Add the CSS class(es) to the entry'
+      %tr
         %td= 'disableSideBarNav'
         %td= '<any value>'
         %td= 'Tag or Entry'
@@ -62,7 +67,11 @@
   
     - SemiStatic::PageAttr.all.each do |pa|
       %tr
-        %td= link_to construct_url(pa.page_attrable, pa.page_attrable.locale), construct_url(pa.page_attrable, pa.page_attrable.locale)
+        %td
+          -if pa.page_attrable.nil?
+            = link_to image_tag('/assets/error.png', :title => 'Error: Cannot fine page/entry association, click to delete'), pa, :method => :delete, :data => { :confirm => "Confirm delete of #{pa.attr_key.to_s}" }
+          - else
+            = link_to construct_url(pa.page_attrable, pa.page_attrable.locale), construct_url(pa.page_attrable, pa.page_attrable.locale)
         %td
           - if pa.page_attrable.kind_of?(SemiStatic::Entry)
             = link_to image_tag('/assets/tick.png', :title => 'Entry'), edit_entry_path(pa.page_attrable.id)
