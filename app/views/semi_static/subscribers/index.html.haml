@@ -8,6 +8,8 @@
   .button
     = link_to 'Download as CSV', subscribers_path(:format => :csv)
   .button
+    = link_to 'Upload bounced CSV', new_subscriber_path(:cmd => :bounced), :remote => true
+  .button
     = link_to 'Upload CSV', new_subscriber_path(:cmd => :csv), :remote => true
   %h1=  "Listing #{@subscribers.count} subscribers"
   

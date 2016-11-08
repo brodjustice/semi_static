@@ -1,7 +1,7 @@
 module SemiStatic
   class Subscriber < ActiveRecord::Base
     attr_accessible :cancel_token, :email, :name, :surname, :telephone, :locale, :company, :position, :country, :subscriber_category_id, :unsubscribe
-    attr_accessor :state
+    attr_accessor :state, :bounced
 
     belongs_to :category, :class_name => SubscriberCategory, :foreign_key => :subscriber_category_id
     has_many :newsletter_deliveries, :dependent => :destroy
@@ -24,7 +24,11 @@ module SemiStatic
     end
 
     def send_notice
-      if unsubscribe
+      #
+      # Send email to confirm unsubscribe if unsubsribe is set and this in not being put on
+      # the unsubscribe list just due to a bounce
+      #
+      if unsubscribe && !bounced
         SemiStatic::SubscriberMailer.subscriber_notification(self).deliver
       end
     end

@@ -106,9 +106,13 @@ module SemiStatic
     @@ids = build_ordered_array
 
     def neighbour_ids
-      g = @@ids[self.gallery.id]
-      pos = g.index(self.id)
-      [ g[pos - 1] || g.last, g[pos + 1] || g.first]
+      if self.gallery_id.nil? || self.gallery.nil? || !self.gallery.public
+        [ self.id, self.id ]
+      else
+        g = @@ids[self.gallery.id]
+        pos = g.index(self.id)
+        [ g[pos - 1] || g.last, g[pos + 1] || g.first]
+      end
     end
 
     def self.search(query)

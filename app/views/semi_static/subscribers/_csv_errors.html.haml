@@ -11,7 +11,10 @@
     - @errors.each do |e|
       %tr
         %td
-          %b= e[:error].full_messages.join(', ')
+          - if e[:error].kind_of?(String)
+            = e[:error]
+          - else
+            %b= e[:error].full_messages.join(', ')
         %td= e[:name]
         %td= e[:surname]
         %td= e[:email]

@@ -44,7 +44,7 @@ module SemiStatic
     # GET /subscribers/new
     # GET /subscribers/new.json
     def new
-      if params[:cmd] == 'csv'
+      if ['csv', 'bounced'].any?{|c| params[:cmd].include? c }
         # Nothing to do, this must be a js format request
       else
         @subscriber = Subscriber.new(params[:subscriber])
@@ -53,7 +53,7 @@ module SemiStatic
       respond_to do |format|
         format.html # new.html.erb
         format.json { render json: @subscriber }
-        format.js
+        format.js { render :template => "semi_static/subscribers/#{params[:cmd]}" }
       end
     end
   
@@ -96,10 +96,34 @@ module SemiStatic
           }
           notice = 'Subscribers CSV imported with ' + @errors.size.to_s + ' errors'
         rescue ArgumentError
-          @subscriber = Subscriber.new
-          @subscriber.errors[:base] << 'File is not UTF-8 codeing, please convert to UTF-8 encoding'
-          @errors << {:error => @subscriber.errors, :name => "row #{r}", :surname => 'unreadable', :email => 'unreadable', :telephone => 'unreadable'}
-          notice = 'Subscribers CSV import FAILED with ' + @errors.size.to_s + ' errors'
+          utf_encoding_error
+        end
+      elsif params[:cmd] == 'bounced'
+        @errors = []
+        r = 1
+        @added_count = 0
+        begin
+          CSV.read(params[:csv].path, :encoding => 'bom|utf-8').each{|row|
+            @subscriber = Subscriber.find_by_email(row[0])
+            if @subscriber.nil?
+              @errors << {:error => 'Email not found', :name => row[1], :surname => row[2], :email => row[0]}
+              next
+            end
+            category = SubscriberCategory.find(params[:subscriber_category_id])
+            @subscriber.category = category
+            @subscriber.unsubscribe = true
+            @subscriber.bounced = true
+            @subscriber.save
+            unless @subscriber.errors.empty?
+              @errors << {:error => @subscriber.errors, :name => row[1], :surname => row[2], :email => row[0]}
+            else
+              @added_count += 1
+            end
+            r = row
+          }
+          notice = 'Bounced Subscribers CSV imported with ' + @errors.size.to_s + ' errors'
+        rescue ArgumentError
+          utf_encoding_error
         end
       else
         @subscriber = Subscriber.create(params[:subscriber])
@@ -108,10 +132,14 @@ module SemiStatic
       end
 
       @subscribers = Subscriber.all
-  
+
+      template = 'index'
+
+      @subscriber && @subscriber.unsubscribe && template = 'unsubscribers'
+
       respond_to do |format|
-        if (params[:cmd] == 'csv') || @subscriber.errors.empty?
-          format.html { redirect_to subscribers_path(:unsubscribed => @subscriber.unsubscribe), notice: notice }
+        if ['csv', 'bounced'].any?{|c| params[:cmd].include? c } || @subscriber.errors.empty?
+          format.html { render template: "semi_static/subscribers/#{template}", notice: notice }
           format.json { render json: @subscriber, status: :created, location: @subscriber }
         else
           format.html { render action: "new" }
@@ -128,7 +156,8 @@ module SemiStatic
     def update
       if params[:cancel]
         @subscriber = SemiStatic::Subscriber.find_by_cancel_token(params[:token])
-        if @subscriber && !@subscriber.unsubscribe && @subscriber.unsubscribe = true && @subscriber.save
+        if @subscriber && !@subscriber.unsubscribe && @subscriber.unsubscribe = true
+          @subscriber.save
           layout = 'semi_static_application'; template = 'semi_static/subscribers/cancel_success';
           deleted = true
         else
@@ -165,6 +194,13 @@ module SemiStatic
     end
 
     private
+
+    def utf_encoding_error
+      @subscriber = Subscriber.new
+      @subscriber.errors[:base] << 'File is not UTF-8 codeing, please convert to UTF-8 encoding'
+      @errors << {:error => @subscriber.errors, :name => "row #{r}", :surname => 'unreadable', :email => 'unreadable', :telephone => 'unreadable'}
+      notice = 'Subscribers CSV import FAILED with ' + @errors.size.to_s + ' errors'
+    end
 
     def validate_encodeing(csv_path, errors)
       row = 0
