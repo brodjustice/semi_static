@@ -12,7 +12,7 @@
           &otimes;
       #slide-menu-main.section.group
         - SemiStatic::Tag.slide_menu.locale(I18n.locale.to_s).reorder('position DESC').each_with_index do |mt, i|
-          .wrapper{:id => ('selected' if ((@tag == mt) || (@selection == mt.predefined_class)))}
+          .wrapper{:id => ('slide-selected' if ((@tag == mt) || (@selection == mt.predefined_class)))}
             = link_to mt.name, menu_from_tag(mt), :class => 'text '
             - if lookup_context.exists?('semi_static/shared/_hover_menu')
               = render :partial => 'semi_static/shared/hover_menu', :locals => {:mt => mt}

@@ -547,6 +547,8 @@ h2 a, h3 a{color: $secondary-color;}
     opacity: 0.5 !important;
   }
 }
+#slide-selected:before{ content:'»'; font-weight:bold; }
+
 #menu:hover .wrapper .icon .custom{display: none; opacity: 0.0;}
 #menu .wrapper:hover .icon .custom{
   @if variable-exists(menu-selected-underline-color) {

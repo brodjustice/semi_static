@@ -44,10 +44,14 @@
 .next, .prev{
   font-size: 64px;
 }
+.cmd.flash.left, .cmd.flash.right,
 .photo:hover .center, .photo:hover .left, .photo:hover .right{
   background-color: rgba(255,255,255,0.4);
   color:#505050; 
   display:block;
+}
+.cmd.flash{
+  transition: all 3s;
 }
 .left, .center, .right{
   position: absolute;
@@ -70,8 +74,8 @@
   border-radius:24px;
   text-align: center; width: 50%;
 }
-.left{left:0; text-align: left; width: 20%;}
-.right{right:0; text-align: right; width: 20%;}
+.left{left:0; text-align: left; width: 20%;border-radius:0 50% 50% 0;}
+.right{right:0; text-align: right; width: 20%;border-radius:50% 0 0 50%;}
 
 @media only screen and (max-width: 880px) {
   .cmd{color: transparent;}

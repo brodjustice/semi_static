@@ -1,3 +1,11 @@
+- content_for :ujs do
+  :javascript
+    $(document).ready(function() {
+      $('.cmd').addClass('flash');
+      setTimeout(function(){$('.cmd').removeClass('flash');}, 3000);
+    });
+    
+
 %h2= @photo.title
 .section.rotate
   = link_to photo_path(@previous), :class => 'left cmd prev', :remote => true do

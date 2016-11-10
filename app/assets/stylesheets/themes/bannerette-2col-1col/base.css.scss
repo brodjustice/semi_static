@@ -771,6 +771,8 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
 #menu .wrapper a:hover{
   text-decoration: underline;
 }
+#slide-selected:before{ content:'»'; font-weight:bold; }
+#slide-selected.wrapper a{color:white;}
 #menu #selected a, #menu .wrapper a:hover{
   color: $prime-color;
 }
