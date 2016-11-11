@@ -122,6 +122,16 @@ when the document is loaded, eg:
 
     addSemiStaticLoadEvent(myfunction);
 
+= Uploaded Images
+
+SemiStatic uses the Paperclip gem to resize images. The Paperclip gem itself requires Imagemagick, if not already installed on your system install it with:
+
+    sudo apt-get install imagemagick
+
+Between SemiStatic version some image styles may change. If you are having trouble with the quality of the uploaded images, then you can reprocess them to the latest version of the SemiStatic styles with:
+
+    rake paperclip:refresh CLASS=SemiStatic::Photo
+
 = Integrating to your own app
 
 A number of helper methods are  exposed by adding the following to your application_controller.rb

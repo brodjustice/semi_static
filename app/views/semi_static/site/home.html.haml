@@ -14,5 +14,14 @@
           = render :partial => 'semi_static/site/search' unless SemiStatic::Engine.config.has?(:disable_search_in_home_page)
           = render :partial => 'semi_static/site/social' if !SemiStatic::Engine.config.has?(:social_in_footer)
           = render :partial => SemiStatic::Engine.config.social_partial if SemiStatic::Engine.config.social_partial.present?
+          - if  @tag.present? && @tag.sidebar.present?
+            - unless @tag.sidebar.partial.blank? || @tag.sidebar.partial == 'none'
+              = render :partial => SemiStatic::Engine.config.open_partials[@tag.sidebar.partial]
+            - else
+              .sidebar{:style => sidebar_style(@tag.sidebar), :class => @tag.sidebar.style_class }
+                - unless @tag.sidebar.title.blank?
+                  %h2= @tag.sidebar.title
+                = @tag.sidebar.body.html_safe
+
           = render :partial => 'semi_static/tags/news'
           = render :partial => 'semi_static/photos/side_bar'

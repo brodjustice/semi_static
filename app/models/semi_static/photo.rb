@@ -34,7 +34,7 @@ module SemiStatic
                              :bar => "-strip -quality 80",
                              :boxpanel => "-strip -quality 80 -gravity Center",
                              :thumb => "-strip -gravity Center -quality 80",
-                             :big => "-strip"  }
+                             :big => "-strip -quality 80"  }
 
     validates_attachment_content_type :img, :content_type => ['image/jpeg', 'image/png', 'image/gif']
 

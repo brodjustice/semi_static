@@ -6,7 +6,7 @@
   -webkit-animation: fadein 1s 1 linear;
 }
 
-#semi_static_ajax_photo{position:relative;}
+#semi_static_ajax_photo{position:relative;min-height: 240px;}
 #semi_static_photo .panel.photo img{transition: all 20s ease;}
 #semi_static_ajax_photo h2{min-height:32px;}
 #semi_static_ajax_photo .popable::after{top:-7px;}
