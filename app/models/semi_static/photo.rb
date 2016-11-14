@@ -9,6 +9,7 @@ module SemiStatic
     index_name SemiStatic::Engine.config.site_name.gsub(/( )/, '_').downcase
   
     belongs_to :entry
+    belongs_to :gallery, :dependent => :destroy
     has_one :seo, :as => :seoable
   
     attr_accessible :title, :description, :img, :home_page, :position, :entry_id, :gallery_id, :gallery_control, :locale, :popup, :hidden
