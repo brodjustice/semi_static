@@ -13,7 +13,7 @@
     %th
 
   - @photos.each do |p|
-    %tr
+    %tr{:id => "photo_id_#{p.id}"}
       %td= p.id
       %td.photo
         - if p.img.exists?
@@ -33,4 +33,4 @@
         - else
           = link_to image_tag('/assets/application_form_edit.png', :title => "Edit SEO meta tags"), edit_seo_path(p.seo, :return => photos_path), :remote => true
       %td= link_to image_tag('/assets/page_copy.png', :title => "Use #{[p.locale, ': ', p.title].join} as master for new photo"), new_photo_path(:master => p)
-      %td= link_to image_tag('/assets/bin.png'), photo_path(p), :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %td= link_to image_tag('/assets/bin.png'), photo_path(p), :method => :delete, :data => { :confirm => 'Are you sure?' }, :remote => true

@@ -128,7 +128,7 @@ SemiStatic uses the Paperclip gem to resize images. The Paperclip gem itself req
 
     sudo apt-get install imagemagick
 
-Between SemiStatic version some image styles may change. If you are having trouble with the quality of the uploaded images, then you can reprocess them to the latest version of the SemiStatic styles with:
+Some SemiStatic image styles may change. If you are having trouble with the quality of the uploaded images, then you can reprocess them to the latest version of the SemiStatic styles with:
 
     rake paperclip:refresh CLASS=SemiStatic::Photo
 
