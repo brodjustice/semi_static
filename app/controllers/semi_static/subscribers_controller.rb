@@ -44,7 +44,7 @@ module SemiStatic
     # GET /subscribers/new
     # GET /subscribers/new.json
     def new
-      if ['csv', 'bounced'].any?{|c| params[:cmd].include? c }
+      if ['csv', 'bounced'].any?{|c| params[:cmd] && params[:cmd].include?(c) }
         # Nothing to do, this must be a js format request
       else
         @subscriber = Subscriber.new(params[:subscriber])
@@ -138,7 +138,7 @@ module SemiStatic
       @subscriber && @subscriber.unsubscribe && template = 'unsubscribers'
 
       respond_to do |format|
-        if ['csv', 'bounced'].any?{|c| params[:cmd].include? c } || @subscriber.errors.empty?
+        if ['csv', 'bounced'].any?{|c| (params[:cmd] && params[:cmd].include?(c)) } || @subscriber.errors.empty?
           format.html { render template: "semi_static/subscribers/#{template}", notice: notice }
           format.json { render json: @subscriber, status: :created, location: @subscriber }
         else

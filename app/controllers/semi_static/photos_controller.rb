@@ -23,12 +23,16 @@ module SemiStatic
       elsif params[:gallery_id].present?
         @obj = @gallery = Gallery.find_by_id(params[:gallery_id])
         @photos = @obj.photos
-      else
-        @galleries = Gallery.locale(I18n.locale).visible
-        @selection = 'Gallery'
+      elsif params[:tag_id].present?
         @tag, @seo = Seo.photos(params[:tag_id], I18n.locale) 
-        @entries = @tag && @tag.entries
+      else
+        @tag = Tag.predefined(I18n.locale, 'Gallery').first
+        @seo = @tag.seo
       end
+
+      @galleries = Gallery.locale(I18n.locale).visible
+      @selection = 'Gallery'
+      @entries = @tag && @tag.entries
 
       layout = 'semi_static_application'
       template = 'semi_static/photos/index'

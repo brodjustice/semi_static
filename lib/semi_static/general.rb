@@ -98,7 +98,8 @@ module General
     end
     pages.concat(SemiStatic::Tag.locale(l).select{|i| i.sitemappable && !i.subscriber })
     pages.concat(SemiStatic::Entry.unmerged.locale(l).select{|i| i.sitemappable && !i.subscriber_content })
-    pages.concat(SemiStatic::Photo.not_invisible.locale(l).select{|i| i.sitemappable })
+    byebug
+    pages.concat(SemiStatic::Photo.visible.locale(l).select{|i| i.sitemappable })
     pages.concat(SemiStatic::Reference.all.select{|i| i.sitemappable })
     pages
   end
