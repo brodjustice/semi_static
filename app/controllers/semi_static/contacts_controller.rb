@@ -64,8 +64,11 @@ module SemiStatic
         @contact.errors.add(:base, 'This appears to be SPAM. Sorry, we cannot process this request')
       else
         @contact = Contact.new(params[:contact].merge(:locale => I18n.locale.to_s))
+
+        # Add any custom params
+        @contact.custom_params = params[:custom_params]
       end
-  
+
       respond_to do |format|
         if !@contact.errors.present? && @contact.save
           format.html { render :template => "semi_static/contacts/#{STRATEGY_TEMPLATES[@contact.strategy_sym]}" }

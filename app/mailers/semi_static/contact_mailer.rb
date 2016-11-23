@@ -8,6 +8,7 @@ module SemiStatic
       @host = SemiStatic::Engine.config.mail_host
       @locale = :en
       @reason = contact.reason
+      @custom_params = contact.custom_params
       mail(:from => SemiStatic::Engine.config.mailer_from, :to => email, :subject => subject)
     end
   end

@@ -15,7 +15,7 @@
   
   - if SemiStatic::Engine.config.contact_form_spam_fields
     -# We put fake fields here and then hide them with CSS. Spam bots don't look at the CSS so they
-    -# will not know that they are fake. Thus if we find that the feilds are filled in, we know
+    -# will not know that they are fake. Thus if we find that the fields are filled in, we know
     -# that the form was filled in by a spambot and we can reject it.
     .cff
       %fieldset
@@ -35,7 +35,7 @@
       = f.label :surname, t('Surname')
   .section.group
     .col.span_1_of_2
-      = f.text_field :email, :size => 51
+      = f.text_field :email, :type => :email, :pattern => '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$', :required => true, :size => 51
       = f.label :email, t('Email')
     .col.span_1_of_2
       = f.text_field :telephone, :size => 51

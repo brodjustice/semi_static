@@ -91,10 +91,10 @@ module General
 
   def generate_sitemap(*args)
     l = args.last
-    pages = ['/site/imprint-credits']
+    pages = ['site/imprint-credits']
     # Add contact page if it's not already predefined
     if SemiStatic::Tag.predefined(l, 'Contact').empty?
-      pages << '/contacts/new'
+      pages << 'contacts/new'
     end
     pages.concat(SemiStatic::Tag.locale(l).select{|i| i.sitemappable && !i.subscriber })
     pages.concat(SemiStatic::Entry.unmerged.locale(l).select{|i| i.sitemappable && !i.subscriber_content })

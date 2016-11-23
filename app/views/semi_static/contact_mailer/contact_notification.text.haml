@@ -30,4 +30,14 @@ The contact ticked the following agreements:
 
 = '-------------------------------------------'
 
+- if @custom_params.present?
 
+  The following parameters were also supplied:
+
+  - @custom_params.each do |k, v|
+
+    = ''  
+    = k.to_s + ': ' + v.to_s
+
+  = ''  
+  = '-------------------------------------------'
