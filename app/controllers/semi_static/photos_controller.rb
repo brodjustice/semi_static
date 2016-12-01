@@ -52,6 +52,8 @@ module SemiStatic
         @selection = 'Gallery'
         @title = @photo.title
         @previous, @next = @photo.neighbour_ids
+        @previous = Photo.find(@previous)
+        @next = Photo.find(@next)
       else
         @pixel_ratio = params[:pratio].to_i || 1
         @popup_style = popup_style(@photo, @pixel_ratio)
