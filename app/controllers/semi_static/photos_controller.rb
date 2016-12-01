@@ -47,7 +47,7 @@ module SemiStatic
     # GET /photos/1.json
     def show
       template = 'semi_static/photos/show'
-      @photo = Photo.find(params[:id])
+      @photo = Photo.visible.find(params[:id])
       unless params[:popup].present?
         @selection = 'Gallery'
         @title = @photo.title
@@ -145,7 +145,7 @@ module SemiStatic
 
     protected
 
-    # Derives and inline stype for double density popup image based on Photo(p) and pixel ratio (pr)
+    # Derives an inline stype for double density popup image based on Photo(p) and pixel ratio (pr)
     # The wierd thing is that the double density image is massively compressed, and is so not as
     # not as many Mbytes as half width (1/4 of the area) version. However, because of the extra pixel
     # density the image still renders better than the single density half width, 1/4 size, version
