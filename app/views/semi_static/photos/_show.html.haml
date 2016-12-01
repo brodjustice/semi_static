@@ -13,7 +13,7 @@
   - unless @photo.entry.blank?
     .center
       .link
-        = link_to truncate(@photo.entry.raw_title, :length => 32), entry_link_path(@photo.entry)
+        = link_to truncate(@photo.entry.raw_title, :length => 32), entry_link_path(@photo.entry.merged_main_entry)
   - else
     -# Dot below fixes odd webkit behaviour of empty divs with % widths
     = '.'
