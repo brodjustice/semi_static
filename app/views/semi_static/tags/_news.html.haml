@@ -22,17 +22,17 @@
             = semantic_entry_image(e, :bar)
         - else
           - if e.summary_length >= 0
-            %h3= link_to e.title, semi_static.entry_path(e)
+            %h3= link_to e.title, entry_link_path(e)
             - unless e.sub_title.blank?
-              %h4= link_to e.sub_title, semi_static.entry_path(e)
+              %h4= link_to e.sub_title, entry_link_path(e)
           - else
             %h3= e.title
             - unless e.sub_title.blank?
               %h4= e.sub_title
           - if e.news_img.present?
-            .image= link_to image_tag(e.news_img.url(:bar)), semi_static.entry_path(e)
+            .image= link_to image_tag(e.news_img.url(:bar)), entry_link_path(e)
           - elsif e.image_in_news && e.img.present?
-            .image= link_to image_tag(e.img.url(:bar)), semi_static.entry_path(e)
+            .image= link_to image_tag(e.img.url(:bar)), entry_link_path(e)
           - if e.summary_length > 0
             = entry_summary(e, e.summary_length, true)
-            .more= link_to t('more'), semi_static.entry_path(e)
+            .more= link_to t('more'), entry_link_path(e)
