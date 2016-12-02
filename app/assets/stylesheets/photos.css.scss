@@ -53,7 +53,7 @@
 .cmd.flash{
   transition: all 3s;
 }
-.left, .center, .right{
+.photo .left, .photo .center, .photo .right{
   position: absolute;
   max-width: 122px;
   width: 20%;
@@ -65,7 +65,7 @@
 }
 #semi_static_ajax_photo .arrow{padding-top:48px;}
 #semi_static_ajax_photo .link{padding:12px;}
-.center{
+.photo .center{
   margin: auto;
   max-height:32px;
   left:0;right:0;top:0;
@@ -75,8 +75,8 @@
   border-radius:24px;
   text-align: center; width: 50%;
 }
-.left{left:0; text-align: left; width: 20%;border-radius:0 50% 50% 0;}
-.right{right:0; text-align: right; width: 20%;border-radius:50% 0 0 50%;}
+.photo .left{left:0; text-align: left; width: 20%;border-radius:0 50% 50% 0;}
+.photo .right{right:0; text-align: right; width: 20%;border-radius:50% 0 0 50%;}
 
 @media only screen and (max-width: 880px) {
   .cmd{color: transparent;}
