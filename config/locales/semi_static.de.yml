@@ -45,6 +45,7 @@ de:
   Thank_you_for_your_equiry: 'Vielen Dank für Ihre Anfrage. Wir setzen uns in Kürze mit Ihnen in Verbindung.'
   Address: 'Anschrift'
   Contact_form: 'Anfrageformular'
+  contact_form: 'Anfrageformular'
   Menu: 'Menu'
   Close: 'Schließen'
   Next: 'Vor'
@@ -54,7 +55,8 @@ de:
   Error_422: 'Sorry, we could not understand your request. Please use the menu to continue navigating our website'
   Error_500: 'Sorry, this is a little embarrassing but we had an uncorrectable error on our website. Please use the menu to continue navigating our website'
   contact:
-    pre: 'Wenn Sie mit uns Kontakt aufnehmen möchten, senden Sie uns eine kurze Notiz, wir rufen Sie gerne zurück!'
+    pre: 'Füllen Sie einfach das Formular unten aus und wir melden uns dann in Kürze bei Ihnen.'
+    pre2: 'Wenn Sie mit uns Kontakt aufnehmen möchten, senden Sie uns eine kurze Notiz, wir rufen Sie gerne zurück!'
 
   number:
     currency:

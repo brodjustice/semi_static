@@ -534,6 +534,7 @@ label{
   width: auto;
 }
 
+.form-wrapper input[type=email], 
 input[type=submit], .mid input, .mid textarea, .form-wrapper input[type=text], .form-wrapper textarea{
   -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
   -moz-box-sizing: border-box;    /* Firefox, other Gecko */
@@ -553,6 +554,7 @@ input[type=submit], .mid input, .mid textarea, .form-wrapper input[type=text], .
   padding: 10px 60px;
 }
 
+.new_contact input[type=email],
 .new_contact input[type=text], .new_contact textarea, .form-wrapper input[type=text], .form-wrapper textarea{
   background: none repeat scroll 0 0 #FAFAFA;
   border: 1px solid #CCCCCC;

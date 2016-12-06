@@ -88,6 +88,8 @@ th{ text-align: left; }
 .mid.wide{max-width: 820px;}
 .mid.full{max-width: 1012px; width: 97.5%;}
 
+.mid input[type='password'],
+.mid input[type='email'],
 .mid input[type='text'], .mid textarea{
   max-width: 100%;
   -ms-box-sizing: border-box; /* ie8 */
