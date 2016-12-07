@@ -38,6 +38,94 @@ a { text-decoration: none; color: #282828; }
   display: none;
 }
 
+#slide-menu {
+    height: 100%;
+}
+#slide-menu-window {
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+  right: 0; top: 0; width: 0;
+}
+
+#slide-menu-window.open {
+  min-width: 300px;
+  overflow: visible;
+}
+
+#slide-menu-wrapper {
+    background-color: #111c30;
+    box-shadow: 0 0 80px black;
+    color: white;
+    max-width: 100%;
+    min-height: 100%;
+    min-width: 300px;
+    padding: 6px;
+    position: absolute;
+    right: -412px;
+    top: 0;
+    transition: right 0.5s ease-in 0s;
+    z-index: 2000;
+}
+
+.open #slide-menu-wrapper {
+    right: 0;
+}
+
+
+body {
+    background-color: #004c6b;
+    color: white;
+}
+body {
+    font-size: 14px;
+    line-height: normal;
+}
+body {
+    color: #363636;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: normal;
+    letter-spacing: 0;
+    margin: 0;
+}
+html {
+    font-size: 16px;
+}
+html {
+    font-family: "Open Sans Condensed",Helvetica,Arial,"Liberation Sans",FreeSans,sans-serif;
+}
+#slide-menu-wrapper .wrapper .text {
+    border-bottom: 1px solid #dcdcdc;
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+#slide-menu-wrapper .wrapper a, #slide-menu-wrapper li a {
+    line-height: 28px;
+}
+#slide-menu-wrapper .wrapper a {
+    color: #dcdcdc;
+    display: inline-block;
+    font-size: 16px;
+    text-shadow: none;
+}
+
+#slide-menu-wrapper .wrapper {
+    margin-bottom: 8px;
+    text-align: right;
+}
+
+#slide-menu-wrapper .bar-menu {
+  border-top: 1px solid #a0a0a0;
+  margin-top: 12px;
+  text-align: right;
+  padding-top:12px;
+}
+nav li {
+  line-height: 20px;
+  list-style: outside none none;
+}
+
 #menu-button .menu-line {
   background-color: $secondary-color;
   border-radius: 2px;
@@ -98,15 +186,15 @@ a { text-decoration: none; color: #282828; }
   color: #484848;
   cursor: pointer;
   position: relative;
-  z-index: 5000;
+  z-index: 1001;
   overflow: hidden;
   line-height: 1.5;
   font-size: 20px;
-  min-width: 50px;
 }
 
 #menu-button{
   // Create bigger click area
+  min-width: 50px;
   padding: 0px;
   margin: 0px 12px 0px 0px;
   text-align: center;
@@ -695,7 +783,7 @@ input[type=submit], .mid input, .mid textarea, .form-wrapper input[type=text], .
     font-size: 26px;
     padding:0;
   }
-  #close-sym{color:$prime-color;font-size: 50px; font-weight:100;padding-right:24px;}
+  #close-sym{color:white;font-size: 40px; font-weight:100;}
   // #menu .col{ width: 100%; padding-right: 0px;}
   // #menu .col .wrapper{padding-right: 0px;}
   #menu-loading-wrapper{display: block;}
