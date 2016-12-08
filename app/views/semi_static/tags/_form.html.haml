@@ -181,7 +181,7 @@
             %p
               If you select an entry here, then that entry will displayed instead of the automatically constructed index page for this Tag.
             %p
-              If selected, then most fields on this page, eg. 'Max entries on index page, CSS colors, etc', will have no effect. Neither will the SEO setting be taken from here, but from the Entry SEO settings.
+              If selected then it will cause a redirect to that Entry page. Due to the redirect then most fields on this page, eg. 'Max entries on index page, CSS colors, etc', will have no effect. The SEO setting will also not be taken from here, but from the Entry SEO settings. Often a better way to achieve a similar effect but without the redirect will be to have only one Entry for this Tag and set the 'link_to_tag' attribute, this will then mean that there will be no redirect and SEO settings will be taken from the this Tag.
           %span.infomarker
           = f.label :use_entry_as_index_id, 'Use entry as display for Tag index (optional)'
           %br

@@ -60,6 +60,12 @@ module SemiStatic
       "<a href='#{entry_link(p)}' class='previous-entry'>#{t('Previous')}</a>".html_safe
     end
 
+    # Call this to include the Entry specific style. Can for example be called from
+    # the Tag show if @link_to_tag is true
+    def style_for_link_to_tag(entry)
+      entry.style.present? && content_for(:header_css, entry.style)
+    end
+
     # Warning. If you remove the single space between <div ...> and <div ...> such that it is <div ...><div ...> you will get a
     # different layout. This is true for FF and Chrome. Maybe my basic HTML knowledge is poor, but I have no idea why this
     # space should make any difference
