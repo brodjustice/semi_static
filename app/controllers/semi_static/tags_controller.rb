@@ -33,7 +33,7 @@
       @banner_class = @tag.banner && 'bannered'
 
       # If only one entry and it has link_to_tag set then that is the full content to this page
-      @tag.entries.size == 1 && @tag.entries.first.link_to_tag && ((@entry = @tag.entries.first) && (@link_to_tag = true))
+      @tag.entries.unmerged.size <= 1 && @tag.entries.first.try('link_to_tag') && ((@entry = @tag.entries.first) && (@link_to_tag = true))
 
       # The entries are not linked if we have link to tag set
       @link_to_tag ? (@linked = false) : (@summaries = true)

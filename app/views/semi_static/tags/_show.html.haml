@@ -1,7 +1,7 @@
 - if @tag.partial_before_entries?
   = render :partial => @tag.partial_path
 
-= @link_to_tag && style_for_link_to_tag(@entry)
+- @link_to_tag && style_for_link_to_tag(@entry)
 
 - if @tag.show_entries?
   .section
