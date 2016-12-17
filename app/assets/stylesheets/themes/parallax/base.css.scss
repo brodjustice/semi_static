@@ -763,6 +763,7 @@ input[type=submit], .mid input, .mid textarea, .form-wrapper input[type=text], .
   // #top-wrapper{background-color: white;}
   #menu-filler{display:none;}
   #menu-button, #menu-close{display: block;}
+  #menu-button{position: fixed;right:0;}
   
   #menu a{color: white;text-shadow:none;}
   #top-wrapper{height:auto;}
