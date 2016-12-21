@@ -53,8 +53,8 @@ module SemiStatic
       self.find_special(tag_id, locale, 'Gallery')
     end
 
-    def self.root(tag_id, locale)
-      self.find_special(tag_id, locale, 'Home')
+    def self.root(tag_id, locale, name='Home')
+      self.find_special(tag_id, locale, name)
     end
 
     def self.contact(tag_id, locale)

@@ -19,7 +19,7 @@ module General
     'semi_static_' + LAYOUTS[obj.layout_select || 0]
   end
 
-  CACHED = ["index.html", "index.html.gz", "news.html", "news.html.gz", "site", "references.html", "references.html.gz", "gallery.html", "gallery.html.gz", "references", "photos.html", "photos.html.gz", "photos", "features", "features.html", "features.html.gz", "entries", "entries.html", "entries.html.gz", "documents/index.html", "documents/index.html.gz", "contacts/new.html", "contacts/new.html.gz"]
+  CACHED = ["index.html", "index.html.gz", "news.html", "news.html.gz", "site", "references.html", "references.html.gz", "gallery.html", "gallery.html.gz", "references", "photos.html", "photos.html.gz", "photos", "features", "features.html", "features.html.gz", "entries", "entries.html", "entries.html.gz", "site/imprint-credits.html", "site/imprint-credits.html.gz", "documents/index.html", "documents/index.html.gz", "contacts/new.html", "contacts/new.html.gz"]
 
   def write_sitemap(locale)
     stream = render_to_string(:formats => [:xml], :handler => :bulider, :template => "semi_static/system/generate_sitemap" )
@@ -91,7 +91,11 @@ module General
 
   def generate_sitemap(*args)
     l = args.last
-    pages = ['site/imprint-credits']
+    pages = []
+    # Add imprint page if it's not already predefined
+    if SemiStatic::Tag.predefined(l, 'Imprint-credits').empty?
+      pages << 'site/imprint-credits'
+    end
     # Add contact page if it's not already predefined
     if SemiStatic::Tag.predefined(l, 'Contact').empty?
       pages << 'contacts/new'

@@ -4,8 +4,6 @@ module SemiStatic
 
   class SiteController < ApplicationController
 
-    # include Rails::ApplicationHelper
-
     caches_page :show
 
     VIEWS = {
@@ -16,11 +14,19 @@ module SemiStatic
 
     def show
       @selection = 'Home'
-      @tag, @seo = Seo.root(params[:tag_id], I18n.locale)
+      content = VIEWS.keys.include?(params[:content]) && params[:content]
+      @tag, @seo = Seo.root(params[:tag_id], I18n.locale, content.humanize)
       @summaries = true
+
+      # Some themes have a contact box on the home page
       @contact = Contact.new
+
       respond_to do |format|
-        format.html { render params[:content], :layout => VIEWS[params[:content]] }
+        if content
+          format.html { render content, :layout => VIEWS[params[:content]] }
+        else
+          raise ActiveRecord::RecordNotFound
+        end
       end
     end
   end
