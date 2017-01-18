@@ -83,7 +83,14 @@
         format.text { render :partial => 'semi_static/entries/entry' }
         format.html {
           if @entry.tag.context_url && params[:no_context]
+            # Redirect if the tag has a context_url
             redirect_to "/#{@entry.tag.name.parameterize}/#{params[:id]}"
+          elsif @entry.merge_with_previous
+            # Redirect merged entries to the main entry
+            redirect_to entry_path(@entry.merged_main_entry)
+          elsif @entry.link_to_tag
+            # Redirect link_to_tag entries to their tag
+            redirect_to feature_path(@entry.tag.slug)
           else
             render :layout => 'semi_static_application'
           end

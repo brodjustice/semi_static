@@ -1,5 +1,9 @@
+-#
 -# This partial is paired with the col_span_1_of_2_wrapper partial and should come before that as a merged entry. It
--# will them act as a side-box like div which will transition to full with on slim screens (like mobiles).
+-# will then act as a side-box like div which will transition to full with on slim screens (like mobiles).
+-#
+-# This custom, the floater comes first and then the custom wrapper
+-#
 
 - content_for :header_css do
   :plain
@@ -11,7 +15,7 @@
   %h2{:style => "color: #{e.header_colour};"}= e.title
   %h3{:style => "color: #{e.header_colour};"}= e.sub_title
   - if !e.image_disable && e.img.present?
-    = render :partial => 'semi_static/entries/image', :locals => {:e => e, :style => style}
+    .img
+      = semantic_entry_image(e, style || :summary)
   = entry_body(e)
   = photo_main(e, (@group_size || 2) - 1)
-
