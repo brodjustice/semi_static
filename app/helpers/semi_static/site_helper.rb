@@ -164,15 +164,15 @@ module SemiStatic
       e.simple_text ? simple_format(e.body) : e.body.html_safe
     end
 
-    def entry_summary(e, l = 300, news = false)
+    def entry_summary(e, l = 300, news = false, read_more = nil)
       if e.summary.blank? || (!news && e.use_as_news_summary)
         if e.simple_text
-          simple_format(e.body[0..l] + '...')
+          simple_format(e.body[0..l] + read_more.to_s)
         else
-          truncate_html(e.body, :length => l) unless (l.nil? || (l < 1))
+          truncate_html(e.body, :length => l, :omission => read_more || '...') unless (l.nil? || (l < 1))
         end
       else
-        simple_format(e.summary)
+        simple_format(e.summary + read_more.to_s)
       end
     end
 
