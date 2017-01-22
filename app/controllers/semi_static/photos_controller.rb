@@ -47,14 +47,20 @@ module SemiStatic
     # GET /photos/1.json
     def show
       template = 'semi_static/photos/show'
-      @photo = Photo.visible.find(params[:id])
       unless params[:popup].present?
+        @photo = Photo.visible.find(params[:id])
         @selection = 'Gallery'
         @title = @photo.title
         @previous, @next = @photo.neighbour_ids
         @previous = Photo.find(@previous)
         @next = Photo.find(@next)
       else
+        #
+        # Popups can be in none 'public' or 'hidden' galleries, even though such
+        # photos are not protected by authetication and the webserver if you haver
+        # will display them if you have the specific URL
+        #
+        @photo = Photo.find(params[:id])
         @pixel_ratio = params[:pratio].to_i || 1
         @popup_style = popup_style(@photo, @pixel_ratio)
         @caption = @photo.description
