@@ -18,7 +18,7 @@
               = render :partial => 'semi_static/shared/hover_menu', :locals => {:mt => mt}
             - else
               - mt.entries.unmerged.with_attr('slideMenu').each do |e|
-                = link_to e.title, entry_link(e)
+                = link_to (e.get_page_attr('slideMenu').blank? ? e.title : e.get_page_attr('slideMenu')), entry_link(e), :class => 'subLink'
     %nav.bar-menu
       %ul
         %li
