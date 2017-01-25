@@ -120,7 +120,7 @@ module SemiStatic
           elsif params[:insert_newsletter_img].present?
             @entry = Entry.find_by_id(params[:entry_id])
           elsif params[:prepare].present?
-            @subscribers = Subscriber.where('locale = ?', @newsletter.locale)
+            @subscribers = Subscriber.subscribed.where('locale = ?', @newsletter.locale)
             format.html { render action: "prepare" }
           elsif params[:email_draft].present?
             NewsletterMailer.draft(semi_static_admin?, @newsletter).deliver && @newsletter.draft_sent
