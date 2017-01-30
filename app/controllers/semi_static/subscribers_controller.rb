@@ -78,6 +78,9 @@ module SemiStatic
   
     # POST /subscribers
     # POST /subscribers.json
+    #
+    # TODO: Refactor to model
+    #
     def create
       if params[:cmd] == 'csv'
         @errors = []
@@ -107,6 +110,10 @@ module SemiStatic
             @subscriber = Subscriber.find_by_email(row[0])
             if @subscriber.nil?
               @errors << {:error => 'Email not found', :name => row[1], :surname => row[2], :email => row[0]}
+              next
+            end
+            if @subscriber.unsubscribe
+              @errors << {:error => 'Email was already unsubscribed', :name => row[1], :surname => row[2], :email => row[0]}
               next
             end
             category = SubscriberCategory.find(params[:subscriber_category_id])
