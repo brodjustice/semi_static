@@ -60,7 +60,7 @@ module SemiStatic
     # GET /subscribers/1/edit
     def edit
       if params[:token]
-        if (@subscriber = SemiStatic::Subscriber.find_by_cancel_token(params[:token])).blank?
+        if (@subscriber = SemiStatic::Subscriber.subscribed.find_by_cancel_token(params[:token])).blank?
           layout = 'semi_static_application'; template = 'semi_static/subscribers/token_not_found';
         else
           layout = 'semi_static_application'; template = 'semi_static/subscribers/cancel';
