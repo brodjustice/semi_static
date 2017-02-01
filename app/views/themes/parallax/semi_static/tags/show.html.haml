@@ -34,8 +34,8 @@
         -# .banner.bg.mobile{:style => "display: none; background-image: url(#{e.banner.img_url_for_theme(:mobile)})"}
         -#   .hsContainer
         -#     .hsContent
-    .group.panel{:class => e.style_class, :style => "background-color:#{e.background_colour}; color: #{e.colour}"}
-      = render :partial => 'semi_static/entries/entry', :locals => {:e => e, :style => :summary}
+      .group.panel{:class => e.style_class, :style => "background-color:#{e.background_colour}; color: #{e.colour}"}
+        = render :partial => 'semi_static/entries/entry', :locals => {:e => e, :style => :summary}
   
   .tiles
     - @tag.entries.has_style('tile').in_groups_of(3) do |g|
