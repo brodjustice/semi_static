@@ -1,0 +1,7 @@
+.button= link_to_function 'Cancel', "$('#dialog').hide();"
+%h1= ['Deliveries for', @subscriber.email].join(' ')
+- @deliveries.each do |nd|
+  = SemiStatic::NewsletterDelivery::STATE_CODES[nd.state].to_s.humanize
+  = ' on '
+  = nd.updated_at.strftime('%d/%m/%y %H:%M')
+  %br

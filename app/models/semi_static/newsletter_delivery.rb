@@ -4,6 +4,12 @@ module SemiStatic
     belongs_to :newsletter
     belongs_to :subscriber
 
+    #
+    # We could have only one delivery per subsciber per newletter using this:
+    #   validates_uniqueness_of :subscriber_id, :scope => :newsletter_id
+    # But this would no longer leave an audit trail if we resend the newsletter
+    #
+
     STATES = {
       :not_set => 0,
       :pending => 0x1,
@@ -14,6 +20,7 @@ module SemiStatic
 
     STATE_CODES = STATES.invert
 
+    default_scope order('updated_at DESC')
     scope :pending, where(:state => NewsletterDelivery::STATES[:pending])
     scope :delivered, where(:state => NewsletterDelivery::STATES[:sent])
 

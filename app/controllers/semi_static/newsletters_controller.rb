@@ -119,6 +119,10 @@ module SemiStatic
             format.html { render action: "edit" }
           elsif params[:insert_newsletter_img].present?
             @entry = Entry.find_by_id(params[:entry_id])
+          elsif params[:remove_pending].present?
+            @newsletter.remove_pending
+            @subscribers = Subscriber.subscribed.where('locale = ?', @newsletter.locale)
+            format.html { render action: "prepare" }
           elsif params[:prepare].present?
             @subscribers = Subscriber.subscribed.where('locale = ?', @newsletter.locale)
             format.html { render action: "prepare" }

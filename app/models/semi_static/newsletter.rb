@@ -165,6 +165,10 @@ module SemiStatic
       self.save
     end
 
+    def remove_pending
+      self.newsletter_deliveries.pending.destroy_all
+    end
+
     def draft_sent
       self.state = STATES[:draft_sent]
       self.save
@@ -194,10 +198,18 @@ module SemiStatic
       s_ids.each{|id|
         # Find the subscriber from the id
         unless (s = Subscriber.find_by_id(id)).blank?
-          # Is the already a delievery that us marked as pending?
-          unless (nd = self.newsletter_deliveries.find_by_subscriber_id(id)) && (nd.state == NewsletterDelivery::STATES[:pending])
-            # Create a delivery and mark it as pending
-            self.newsletter_deliveries  << s.newsletter_deliveries.create(:state => NewsletterDelivery::STATES[:pending])
+          if ((nd = self.newsletter_deliveries.find_by_subscriber_id(id)).present? && (nd.state == NewsletterDelivery::STATES[:pending]))
+            #
+            # We already have a pending delivery for this subscriber
+            # so just update it again so the the timestamp is correct
+            #
+            nd.state = NewsletterDelivery::STATES[:pending]
+            nd.save
+          else
+            nd = NewsletterDelivery.create(:state => NewsletterDelivery::STATES[:pending])
+            nd.subscriber = s
+            nd.newsletter = self
+            nd.save
           end
         end
       }

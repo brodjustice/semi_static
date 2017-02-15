@@ -1,6 +1,7 @@
 - content_for :header_css do
   :plain
     .category{float:right; margin:6px 6px 6px 24px;}
+    h4{clear:right; background-color:white; padding:6px;}
 - content_for :ujs do
   :javascript
     function count_selected(){
@@ -49,6 +50,12 @@
         = c.name
         = check_box_tag c.name, nil, true
   %h4 Uncheck subscribers to remove them from the newsletter distribution
+  .button
+    = link_to 'Remove all pending deliveries', newsletter_path(@newsletter, :remove_pending => true), :method => :put
+  %p
+    = @newsletter.newsletter_deliveries.pending.size
+    deliveries are already pending
+  
   = form_for @newsletter do |f|
     %table
       %thead
@@ -70,7 +77,8 @@
             %td.name= s.email
             %td.name= s.created_at.strftime('%d-%b-%y')
             %td.name= s.category_name
-            %td.name= SemiStatic::NewsletterDelivery::STATE_CODES[s.delivery_state(@newsletter)].to_s.humanize
+            %td.name
+              = link_to SemiStatic::NewsletterDelivery::STATE_CODES[s.delivery_state(@newsletter)].to_s.humanize, subscriber_newsletter_deliveries_path(s.id, :newsletter_id => @newsletter.id), :remote => true
     .mid
       .actions
         = f.submit 'Publish', :name => 'publish'

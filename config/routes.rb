@@ -69,7 +69,9 @@ SemiStatic::Engine.routes.draw do
   resources :sidebars, :except => :show
   resources :products, :only => :index
   resources :newsletter_deliveries, :only => :update
-  resources :subscribers
+  resources :subscribers do
+    resources :newsletter_deliveries, :only => :index
+  end
   resources :subscriber_categories, :only => [:new, :create, :destroy]
   resources :banners, :references
   resources :click_ads, :except => [:new, :create, :update]
