@@ -63,6 +63,7 @@ module SemiStatic
     # For GET you should call this rather than entry_path so that entries
     # acting as tags and context urls can be intercepted
     def entry_link(intended_entry, options = {})
+      intended_entry.kind_of?(Fixnum) && (intended_entry = Entry.find(intended_entry))
       if intended_entry.acts_as_tag_id
         SemiStatic::Engine.routes.url_helpers.feature_path(intended_entry.acts_as_tag.slug, options)
       elsif intended_entry.tag.context_url

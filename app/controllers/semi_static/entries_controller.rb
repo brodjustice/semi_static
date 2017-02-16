@@ -79,6 +79,10 @@
 
       @entry.admin_only && authenticate_for_semi_static!
 
+      # Work out the Tag to use for the sidebar menu
+      @sidebar_menu_tag = (@entry.get_page_attr('sideBarMenuTagId') ? Tag.find(@entry.get_page_attr('sideBarMenuTagId')) : @entry.tag)
+
+
       respond_to do |format|
         format.text { render :partial => 'semi_static/entries/entry' }
         format.html {

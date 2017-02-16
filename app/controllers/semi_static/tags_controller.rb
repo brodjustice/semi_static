@@ -42,6 +42,9 @@
 
       @tag.admin_only && authenticate_for_semi_static!
 
+      # Work out the Tag to use for the sidebar menu
+      @sidebar_menu_tag = (@tag.get_page_attr('sideBarMenuTagId') ? Tag.find(@tag.get_page_attr('sideBarMenuTagId')) : @tag)
+
       respond_to do |format|
         format.html {
           if @tag.predefined_class && !SiteHelper::PREDEFINED[@tag.predefined_class].nil?
