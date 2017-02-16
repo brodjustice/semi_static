@@ -6,7 +6,7 @@
         - score_displayed = false
         -# Do not show entries that have NO_INDEX set
         - next unless e.sitemappable && e.tag.sitemappable
-        - @sidebar_tag ||= e.tag
+        - @sidebar_menu_tag ||= e.tag
         %tr.head
           %td
             .icon= image_tag(e.tag.icon.url(:standard)) if e.tag.icon.present?
