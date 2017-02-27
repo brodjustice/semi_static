@@ -23,7 +23,8 @@ Gem::Specification.new do |s|
   s.add_dependency "haml-rails"
   s.add_dependency "nokogiri"
 
-  # uglifier 3.1.0 breaks the jquery compilation
+  # uglifier 3.1.0 breaks the jquery compilation, see this bug:
+  # - https://github.com/lautis/uglifier/issues/110
   s.add_dependency "uglifier", "3.0.4"
 
   # Later versions of paperlip require ruby 2.0+

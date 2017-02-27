@@ -45,7 +45,7 @@ h1{
   margin: 0;
 }
 
-#dashboard .button {
+#dashboard .button, #dialog #dashboard .button {
   width:auto;
   background: none repeat scroll 0 0 white;
   border: 1px solid #a8a8a8;
@@ -264,6 +264,7 @@ th{
 }
 
 #dashboard #dialog{
+  color:black;
   left: 0; right: 0;
   position: fixed;
   width: 96%;
