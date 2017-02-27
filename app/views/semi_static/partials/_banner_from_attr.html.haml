@@ -1,0 +1,54 @@
+-# 
+-# This custom partial adds banners to the bannerless theme (yeah, I know). The
+-# banner is given by the entry or tags standard banner option in the form.
+-#
+-# If there is a tag_line text then that is displayed like this:
+-#
+-# <div id='custom-banner'>
+-#  <div class='inner'>
+-#     <div class='cTagLine'>
+-#       <-- Custom Tag Line text here -->
+-#     </div>
+-#     <-- If the page attr 'bannerSubTagLine' is found then: -->
+-#     <div class='cSubTagLine'>
+-#       <-- bannerSubTagLine -->
+-#     </div>
+-#   </div>
+-# </div>
+-#     
+-# You can add some custom style to your entry/tag to move the tag line around either by
+-# using the entries custom style, or by adding a small bit of CSS from the page attr
+-# called cssSnippet
+-#
+
+- obj = params[:controller].include?('entries') ? @entry : @tag
+- subtagline = obj.get_page_attr('bannerSubTagLine')
+- cssSnippet = obj.get_page_attr('cssSnippet') || ''
+
+- content_for :header_css do
+  :plain
+    #{cssSnippet}
+    #custom-banner{margin: 44px auto 0; max-width: 1400px; height: 350px; background: white url("#{obj.banner.img(:desktopBig)}") center center no-repeat; position: relative;}
+    #tag-wrapper{top: 10px;}
+    #frame{margin-top: 25px;}
+    #custom-banner .inner{
+      position: relative; top: 50%; left: 10%;
+      border: 0 none; color: #464847; font-size: 44px;
+      font-weight: bold; max-width: 80%;
+    }
+    #custom-banner .inner .cSubTagLine{
+      font-size: 28px;
+    }
+    @media only screen and (max-width: 580px) {
+      #custom-banner .inner{top: 10%; left: 5%; font-size: 34px;} #custom-banner{background: white url("#{obj.banner.img(:mobileBig)}") left center no-repeat; }
+      #custom-banner .cSubTagLine{font-size: 20px;}
+      #semi-static-home-page #custom-banner .inner{top:20%;}
+    }
+
+- content_for :banner do
+  #custom-banner
+    .inner
+      - if obj.tag_line.present?
+        .cTagLine= obj.tag_line
+      - if subtagline.present?
+        .cSubTagLine= subtagline

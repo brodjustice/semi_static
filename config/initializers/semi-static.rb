@@ -28,7 +28,8 @@ module SemiStatic
     config.telephone = nil
     
     # Various social media links. Set to blank if don't have accounts on these media
-    config.youtubeChannel = 'channel/UCgm36i95RcaPTJzqEKt4zhw'
+    # config.youtubeChannel = 'channel/UCgm36i95RcaPTJzqEKt4zhw'
+    config.youtubeChannel = nil
     config.twitterID = nil
     config.facebookID = nil
     config.xingID = nil
@@ -108,9 +109,16 @@ module SemiStatic
     config.contact_partial = nil
 
     # If set to true this will put a fake URL message form field into the semi_static contact form
-    # but hide it with CSS. Spambots will be tempted to fill out the fields, while normal users, will
+    # but hide it with CSS. Spambots will be tempted to fill out the fields, while normal users will
     # not see the fields at all. In this way we can stop a lot of contact form spam.
     config.contact_form_spam_fields = true
+
+    # If you provide a comma seperated list of character strings, then these will be checked against
+    # the email address on your contact for spam sources. For example, if you want to stop emails
+    # from all yahoo email addresses and from 'spammer@gmail.com' you would use:
+    #   config.contact_form_spam_email = 'yahoo, spammer@gmail.com'
+    #
+    config.contact_form_spam_email = false
     
     # Add name for partial which will provide imprint/impressum, terms and conditions etc. If
     # nil, then the contact partial, if any, will be used
