@@ -94,6 +94,18 @@ module SemiStatic
       end
     end
 
+    #
+    # If page_attr set get the specific entries for the sidebar navigation
+    # else just get the default of all unmerged entries
+    #
+    def entries_for_navigation
+      if (nav_entry_ids = self.get_page_attr('sideBarNavEntries')).present?
+        nav_entry_ids.split(',').collect{|e| SemiStatic::Entry.find_by_id(e)}.reject(&:blank?)
+      else
+        self.entries.unmerged
+      end
+    end
+
     def check_for_sprites_file
       if position == 0
         # Get extention and remove any query string if it exists, then add own

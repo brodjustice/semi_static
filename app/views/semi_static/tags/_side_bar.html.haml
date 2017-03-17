@@ -13,7 +13,7 @@
           .icon= image_tag(@tag.icon.url(:big)) if @tag.icon.present?
         %h2= link_to @sidebar_menu_tag.sidebar_title, tag_link(@sidebar_menu_tag), :style => "color: #{@tag.colour};"
         .section
-          - @sidebar_menu_tag.entries.unmerged.each do |e|
+          - @sidebar_menu_tag.entries_for_navigation.each do |e|
             = render :partial => 'semi_static/tags/side_bar_entry', :locals => {:e => e}
   -# Exact same code used in site/home, refactor
   - if  obj.present? && obj.sidebar.present?

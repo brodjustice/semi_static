@@ -33,6 +33,7 @@
       - @tags.each do |tag|
         %tr{:id => "tag_id_#{tag.id}"}
           %td
+            = tag.id
             - if SemiStatic::Tag.use_sprites? && (tag.position < 6)
               .icon.sprite{:id => "sprite_#{tag.position}"}
             - elsif tag.icon.present?
