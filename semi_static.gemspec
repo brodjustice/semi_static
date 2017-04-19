@@ -25,7 +25,8 @@ Gem::Specification.new do |s|
 
   # uglifier 3.1.0 breaks the jquery compilation, see this bug:
   # - https://github.com/lautis/uglifier/issues/110
-  s.add_dependency "uglifier", "3.0.4"
+  # s.add_dependency "uglifier", "3.0.4"
+  # But now fixed in uglifier 3.2
 
   # Later versions of paperlip require ruby 2.0+
   s.add_dependency "paperclip", "4.2.1"
