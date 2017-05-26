@@ -15,7 +15,7 @@ module SemiStatic
       link_id = id.split(',').first
       w = width || id.split(',')[1] || '640'
       h = height || id.split(',')[2] || '340'
-      "<div class='yt_video'> <iframe width='#{w.to_s.squish}' height='#{h.to_s.squish}' src='//www.youtube.com/embed/#{link_id}?modestbranding=1&amp;rel=0&amp;controls=#{controls}&amp;showinfo=0' allowfullscreen></iframe></div>".html_safe
+      "<div class='yt_video'> <iframe width='#{w.to_s.squish}' height='#{h.to_s.squish}' src='https://www.youtube.com/embed/#{link_id}?modestbranding=1&amp;rel=0&amp;controls=#{controls}&amp;showinfo=0' allowfullscreen></iframe></div>".html_safe
     end
 
     def human_file_size(s)
@@ -25,6 +25,9 @@ module SemiStatic
       s.sub(/\.?0*$/, units[e])
     end
 
+    #
+    # Note: Why is this duplicated in site_helper?
+    #
     def entry_link_path(e)
       if e.link_to_tag && (controller_name != 'tags' || @summaries)
         feature_path(e.tag.slug)

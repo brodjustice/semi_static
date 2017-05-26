@@ -74,6 +74,9 @@ module SemiStatic
 
     has_attached_file :doc
 
+    # has_attached_file :doc,
+    #   :url => "/system/docs/:id/original/:basename.:extension\?doc_id=:id"
+
     has_attached_file :img,
        :styles => {
          :half => "50%x50%",
@@ -165,6 +168,14 @@ module SemiStatic
       else
         img.url(THEME[SemiStatic::Engine.config.theme][screen] || screen)
       end
+    end
+
+    #
+    # The document url but with the documents actual name in the parameters
+    # to help with download tracking in GA.
+    #
+    def doc_url
+      "#{self.doc.url}?docname=#{self.doc.original_filename.parameterize}"
     end
 
     def self.search(query, locale='en')
