@@ -170,14 +170,6 @@ module SemiStatic
       end
     end
 
-    #
-    # The document url but with the documents actual name in the parameters
-    # to help with download tracking in GA.
-    #
-    def doc_url
-      "#{self.doc.url}?docname=#{self.doc.original_filename.parameterize}"
-    end
-
     def self.search(query, locale='en')
       __elasticsearch__.search(
         {

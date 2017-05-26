@@ -5,4 +5,4 @@
       = e.doc_description
     .col.span_1_of_3
       .button
-        = link_to "Download (#{human_file_size(e.doc_file_size)})", e.doc_url
+        = link_to_doc_download("Download (#{human_file_size(e.doc_file_size)})", e)

@@ -26,6 +26,15 @@ module SemiStatic
     end
 
     #
+    # Document download ulr that triggers Google Analytics to record download event
+    # If GA is not loaded that the _gap.push will fail, but this is no problem as
+    # it will proceed directly to the download.
+    #
+    def link_to_doc_download(text, entry)
+      "<a onclick='var that=this;_gaq.push([\"_trackEvent\", \"Download\", \"#{entry.doc.original_filename.parameterize}\", this.href]);setTimeout(function(){location.href=that.href;},400);return false;' href='#{entry.doc.url}'>#{text}</a>".html_safe
+    end
+
+    #
     # Note: Why is this duplicated in site_helper?
     #
     def entry_link_path(e)
