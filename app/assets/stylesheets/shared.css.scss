@@ -33,6 +33,15 @@
 // Squeeze
 a.squeeze{display:block; background-color:#dcdcdc; border: 1px solid #bbb; padding: 0 8px; text-align:center; border-radius: 8px; margin: 8px 10%;}
 
+.entryIcon{float:left; width:64px;
+  height:64px;background-repeat: no-repeat; background-position: left top;
+  background-size: 64px 64px; padding-right: 18px;
+  border-right: 1px solid #a0a0a0;
+  margin: 0 12px 12px 0;
+}
+a.entryIconLink + h1{padding-bottom: 7px;}
+
+
 .extra-padding{padding: 6px;}
 .sidebar{margin-bottom: 8px;}
 .entry p a, .entry li a {
