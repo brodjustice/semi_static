@@ -40,8 +40,8 @@
   
     # GET /articles/search
     def search
-      if params[:q].present?
-        @entries = Entry.search(params[:q], session[:locale]).records
+      if params[:q].present? || params[:query].present?
+        @entries = Entry.search(params[:q] || params[:query], session[:locale]).records
         @hit_count = @entries.select{|e| e.sitemappable && e.tag.sitemappable }.count
         @query = params[:q]
         template = 'semi_static/entries/results'

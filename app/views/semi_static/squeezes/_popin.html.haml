@@ -10,6 +10,8 @@
   = form_for @contact do |f|
     - if @reason
       = hidden_field_tag 'contact[reason]', @reason.to_s
+    - elsif @contact.reason
+      = hidden_field_tag 'contact[reason]', @contact.reason.to_s
     = hidden_field_tag 'contact[squeeze_id]', @contact.squeeze_id
     = hidden_field_tag 'contact[strategy]', @contact.strategy
     .section.group
@@ -37,7 +39,7 @@
   
     = simple_format @squeeze.form_instructions unless @squeeze.form_instructions.blank?
     .agree
-      = check_box_tag 'accept'
+      = check_box_tag 'accept', nil, {:checked => "checked"}
       = label_tag 'accept', @squeeze.agreement, :id => 'acceptLabel'
     
     - @contact.agreements.each do |agreement|

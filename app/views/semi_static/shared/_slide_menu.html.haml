@@ -22,11 +22,9 @@
     %nav.bar-menu
       %ul
         %li
-          #search-bar
-            #search-bar-inner
-              #search-wrapper.search.icon
-                = form_tag semi_static.search_entries_path, method: 'get', :class => 'searchform' do
-                  = text_field_tag :q, params[:q], :placeholder => t('Search'), :class => 'searchfield'
+          .search.icon
+            = form_tag semi_static.search_entries_path, method: 'get', :class => 'searchform' do
+              = text_field_tag :query, params[:query], :placeholder => t('Search'), :class => 'searchfield'
         %li.contact.icon= link_to t('Contact'), semi_static.new_contact_path
         - if SemiStatic::Engine.config.try('subscribers_model')
           - label = subscriber_content ? 'subscribers.Area' : 'subscribers.Sign_In'

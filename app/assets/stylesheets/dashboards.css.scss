@@ -84,6 +84,8 @@ input[type='checkbox']{ width:auto; }
   margin-top: -8px;
 }
 
+#dialog .button + .button{margin-top: 12px;}
+
 #dashboard .button a{
   background-color: white;
   line-height: normal;
