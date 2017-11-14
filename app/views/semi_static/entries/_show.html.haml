@@ -26,9 +26,12 @@
   .section
     .col{:class => ('span_2_of_3 main-col' if @entry.side_bar)}
       %article.panel.group{:class => @entry.style_class, :style => "background-color:#{@entry.background_colour}; color:#{@entry.colour}"}
-        = render :partial => 'semi_static/entries/entry', :locals => {:e => @entry, :style => (@entry.side_bar ? :show : :medium)}
-        = photo_thumbs(@entry)
-        #semi_static_async
+        - if @entry.subscriber_content && current_user.nil?
+          = render :partial => 'semi_static/entries/subscriber_entry', :locals => {:e => @entry, :style => :summary}
+        - else
+          = render :partial => 'semi_static/entries/entry', :locals => {:e => @entry, :style => (@entry.side_bar ? :show : :medium)}
+          = photo_thumbs(@entry)
+          #semi_static_async
     - if @entry.side_bar
       .col.span_1_of_3.side-bar
         - if SemiStatic::Tag.predefined(I18n.locale.to_s, 'Documents').first == @tag

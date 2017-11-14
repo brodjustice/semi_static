@@ -1,0 +1,23 @@
+- content_for :header_css do
+  :plain
+    .subscriber_block{
+      position: relative;
+      margin-top: -128px;
+      padding: 32px 32px 64px 32px;
+      background-color:rgba(255,255,255,0.7);
+      z-index:1;
+    }
+    .subscriber_notice{
+      width: 80%; margin: 32px auto; text-align:center;
+      border: 1px solid #0060aa;
+      background-color:white;
+    }
+    .subscriber_content %h3
+.entry{:style => "background-color: #{@entry.background_colour}", :class => @entry.get_page_attr('entryClasses').to_s.split(',').join(' ')}
+  = render :partial => 'semi_static/entries/entry_contents', :locals => {:style => :summary, :e => @entry }
+  .subscriber_block
+    .subscriber_notice
+      %h3= t('MembersOnlyContent')
+      %p
+        = t('ClickHereToReadFullArticle')
+

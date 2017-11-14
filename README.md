@@ -132,6 +132,33 @@ Some SemiStatic image styles may change. If you are having trouble with the qual
 
     rake paperclip:refresh CLASS=SemiStatic::Photo
 
+= ElasticSearch
+
+The elasticsearch configuration is builtin. Check `/initilaizers/semi_static.rb` for configuration. On debian you can install elasticsearch with:
+
+```
+# sudo apt-get update && sudo apt-get install elasticsearch
+```
+
+Configure elasticsearch and start it with:
+
+```
+# sudo /etc/init.d/elasticsearch start
+```
+
+Assuming the ElasticSearch engin is running locally, you can check your search indexes with:
+
+```
+# curl 'localhost:9200/_cat/indices?v'
+```
+
+```
+You can delete an index with:
+
+```
+curl -XDELETE 'localhost:9200/customer?myindexname'
+```
+
 = Integrating to your own app
 
 A number of helper methods are  exposed by adding the following to your application_controller.rb

@@ -36,9 +36,9 @@ Gem::Specification.new do |s|
   s.add_dependency "truncate_html"
 
   # For search
-  s.add_dependency "elasticsearch", '5.0.3'
-  s.add_dependency "elasticsearch-model", '0.1.9'
-  s.add_dependency "elasticsearch-rails", '0.1.9'
+  s.add_dependency "elasticsearch"
+  s.add_dependency "elasticsearch-model"
+  s.add_dependency "elasticsearch-rails"
 
   s.add_development_dependency "pg"
 end
