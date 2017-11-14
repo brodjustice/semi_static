@@ -58,9 +58,6 @@ module SemiStatic
     # over/hover sub menu. Set this if you want this enabled
     # config.hover_menu = true
 
-    # The path for your elasticsearch binary
-    config.elasticsearch = '/home/bl/elasticsearch/elasticsearch-1.7.2/bin/elasticsearch'
-    
     # This is the address to which the contact form data is sent to. Seperate with commas
     # if you have more that one delivery adddress
     config.contact_email = 'info@business-landing.com'

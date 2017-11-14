@@ -1,6 +1,0 @@
-- if @result == false
-  = "Couldn't start search deamon, the admin needs to run: "
-  %br/
-  = "#{SemiStatic::System::ES_BIN} -d -p #{SemiStatic::System::ES_PID_DIR}/elasticsearch.pid"
-.switch_wrapper
-  = switch_box_tag('search_daemon', nil, SemiStatic::System.search_daemon_running?)

@@ -1,6 +1,13 @@
 .col.span_2_of_3
   .panel.group.list
     %h1= [@hit_count.to_s, t('SearchResultsFor'), @query].join(' ')
+    #search-bar
+      #search-bar-inner
+        #search-wrapper
+          = form_tag search_entries_path, method: 'get', :class => 'searchform' do
+            = text_field_tag :q, params[:q], :placeholder => t('Search'), :class => 'searchfield'
+            = image_submit_tag 'search-small.png', :class => 'searchbutton', :alt => t('Search')
+
     %table.results
       - @entries.__send__ controller.action_name == 'search' ? :each_with_hit : :each do |e, hit|
         - score_displayed = false

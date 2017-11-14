@@ -74,9 +74,6 @@ module SemiStatic
 
     has_attached_file :doc
 
-    # has_attached_file :doc,
-    #   :url => "/system/docs/:id/original/:basename.:extension\?doc_id=:id"
-
     has_attached_file :img,
        :styles => {
          :half => "50%x50%",
@@ -170,6 +167,12 @@ module SemiStatic
       end
     end
 
+    #
+    # We used to he able to add a filter to the DSL here to ensure that you
+    # only got results in the locale that you were working in. But it's no
+    # longer possible to add a filter. Is this good or bad? Maybe it's a good
+    # thing to search all language sites?
+    #
     def self.search(query, locale='en')
       __elasticsearch__.search(
         {
@@ -179,9 +182,6 @@ module SemiStatic
               fuzziness: 1,
               fields: ['raw_title^5', 'body', 'effective_tag_line^2', 'locale']
             }
-          },
-          filter: {
-            term: { locale: locale }
           },
           highlight: {
             pre_tags: ['<em class="label label-highlight">'],

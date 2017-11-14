@@ -134,10 +134,11 @@ Some SemiStatic image styles may change. If you are having trouble with the qual
 
 = ElasticSearch
 
-The elasticsearch configuration is builtin. Check `/initilaizers/semi_static.rb` for configuration. On debian you can install elasticsearch with:
+The elasticsearch but you will need access to an elasticsearch server. We have tested against elasticsearch 5.6.4. On debian you can install this elasticsearch version with:
 
 ```
-# sudo apt-get update && sudo apt-get install elasticsearch
+# wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.6.4.deb
+# sudo dpkg -i elasticsearch-5.6.4.deb
 ```
 
 Configure elasticsearch and start it with:
@@ -146,13 +147,12 @@ Configure elasticsearch and start it with:
 # sudo /etc/init.d/elasticsearch start
 ```
 
-Assuming the ElasticSearch engin is running locally, you can check your search indexes with:
+Assuming the ElasticSearch engine is running locally, you can check your search indexes with:
 
 ```
 # curl 'localhost:9200/_cat/indices?v'
 ```
 
-```
 You can delete an index with:
 
 ```
