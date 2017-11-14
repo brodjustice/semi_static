@@ -41,8 +41,9 @@
     # GET /articles/search
     def search
       if params[:q].present? || params[:query].present?
-        @entries = Entry.search(params[:q] || params[:query], session[:locale]).records
-        @hit_count = @entries.select{|e| e.indexable }.count
+        @entries_with_hit = Entry.search(params[:q] || params[:query], session[:locale]).records
+        @entries = @entries_with_hit.select{|e| e.indexable}.collect{|e| e.merged_main_entry}
+        @hit_count = @entries.count
         @query = params[:q]
         template = 'semi_static/entries/results'
       else

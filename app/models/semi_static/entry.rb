@@ -145,8 +145,7 @@ module SemiStatic
     #
     def indexable
       !self.admin_only &&
-      !(self.seo && self.seo.no_index) &&
-      !self.merge_with_previous
+      !(self.seo && self.seo.no_index)
     end
 
     def get_title
@@ -189,7 +188,7 @@ module SemiStatic
             multi_match: {
               query: query,
               fuzziness: 1,
-              fields: ['raw_title^5', 'body', 'effective_tag_line^2', 'locale']
+              fields: ['raw_title^5', 'body', 'effective_tag_line^2']
             }
           },
           highlight: {
