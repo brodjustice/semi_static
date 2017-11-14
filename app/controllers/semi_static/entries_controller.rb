@@ -42,7 +42,7 @@
     def search
       if params[:q].present? || params[:query].present?
         @entries = Entry.search(params[:q] || params[:query], session[:locale]).records
-        @hit_count = @entries.select{|e| e.sitemappable && e.tag.sitemappable }.count
+        @hit_count = @entries.select{|e| e.indexable }.count
         @query = params[:q]
         template = 'semi_static/entries/results'
       else

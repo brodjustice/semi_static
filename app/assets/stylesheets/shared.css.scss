@@ -30,6 +30,11 @@
     .popable::after{line-height:20px;}
 }
 
+// Search results
+#results td{background-color: white;}
+#results tr.last td{border-bottom: 1px solid #888;}
+#results td.score{background-color: #f0f4f8; border-bottom: 1px solid #888;}
+
 // Squeeze
 a.squeeze{display:block; background-color:#dcdcdc; border: 1px solid #bbb; padding: 0 8px; text-align:center; border-radius: 8px; margin: 8px 10%;}
 

@@ -140,6 +140,15 @@ module SemiStatic
       )
     end
 
+    #
+    # Can this be displayed by the search?
+    #
+    def indexable
+      !self.admin_only &&
+      !(self.seo && self.seo.no_index) &&
+      !self.merge_with_previous
+    end
+
     def get_title
       return title unless title.blank?
       return sub_title unless sub_title.blank?
