@@ -96,6 +96,11 @@
           elsif @entry.link_to_tag
             # Redirect link_to_tag entries to their tag
             redirect_to feature_path(@entry.tag.slug)
+          # End of redirects, only option left is to go to the view template
+          byebug
+          elsif  @entry.subscriber_content && current_user.nil?
+            @summaries = true
+            render :template => 'semi_static/entries/subscriber_entry', :layout => 'semi_static_application'
           else
             render :layout => 'semi_static_application'
           end
@@ -237,9 +242,13 @@
     def authenticate_semi_static_subscriber!
       @entry = Entry.find(params[:id])
       @tag = @entry.tag
+
       if !semi_static_admin? && @entry.subscriber_content
         session[:user_intended_url] = url_for(params) unless send('current_' + SemiStatic::Engine.config.subscribers_model.first[0].downcase)
-        send('authenticate_' + SemiStatic::Engine.config.subscribers_model.first[0].downcase + '!')
+        # If you want to totally protect your subscriber content, rather than showing a teaser summary then
+        # you will need to redirect to the signin page like this:
+        #
+        #     send('authenticate_' + SemiStatic::Engine.config.subscribers_model.first[0].downcase + '!')
       end
     end
 
