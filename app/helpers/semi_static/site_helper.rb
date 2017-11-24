@@ -100,7 +100,7 @@ module SemiStatic
       if t.use_entry_as_index
         entry_link(t.use_entry_as_index, options)
       else
-        feature_path(t.slug)
+        semi_static.feature_path(t.slug)
       end
     end
 

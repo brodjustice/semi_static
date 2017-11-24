@@ -13,7 +13,7 @@ module SemiStatic
     #   raise CanCan::AccessDenied.new("Not authorized!", :show, Dashboard)
     # as there is no Dashboard class
     #
-    # If you use CanCan, then you'll need somethin like this:
+    # If you use CanCan, then you'll need something like this:
     #
     # if params[:role]
     #   @role = Role.find_by_name(params[:role])
