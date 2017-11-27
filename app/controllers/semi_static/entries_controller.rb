@@ -78,6 +78,9 @@
         @comment = @entry.comments.new
       end
 
+      # Check if this should only be seen by the admin. Careful to not here that other
+      # security, eg for subscriber only content is done in the views. This is hardly
+      # ideal but give the cache strategy it is the most efficient manner.
       @entry.admin_only && authenticate_for_semi_static!
 
       # Work out the Tag to use for the sidebar menu
@@ -85,7 +88,6 @@
 
 
       respond_to do |format|
-        format.text { render :partial => 'semi_static/entries/entry' }
         format.html {
           if @entry.tag.context_url && params[:no_context]
             # Redirect if the tag has a context_url
@@ -97,16 +99,16 @@
             # Redirect link_to_tag entries to their tag
             redirect_to feature_path(@entry.tag.slug)
           # End of redirects, only option left is to go to the view template
-          byebug
           elsif  @entry.subscriber_content && current_user.nil?
+            # This is subscriber content so just show a teaser
             @summaries = true
             render :template => 'semi_static/entries/subscriber_entry', :layout => 'semi_static_application'
           else
+            # Everthing ok and no restrictions, show the content
             render :layout => 'semi_static_application'
           end
         }
         format.js { render :template => template }
-        format.json { render :json => @entry }
       end
     end
   

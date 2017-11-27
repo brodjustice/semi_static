@@ -17,7 +17,7 @@ module SemiStatic
     MAX_MENU_TAGS = {
       'bannerless' => 10,
       'menu-right' => 10,
-      'bannerette' => 10,
+      'bannerette-2col-1col' => 10,
       'tiles' => 10,
       'parallax' => 10,
       'elegant' => 10,

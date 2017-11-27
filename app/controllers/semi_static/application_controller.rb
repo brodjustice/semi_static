@@ -8,7 +8,7 @@ module SemiStatic
     before_filter :set_locale
 
     layout 'semi_static_application'
-  
+
     def semi_static_admin?
       ((defined? current_admin) && current_admin) || ((defined? current_user) && current_user.respond_to?('admin?') && current_user.admin?)
     end
