@@ -27,7 +27,7 @@
   top: 42px;right:12px;
 }
 @-moz-document url-prefix() {
-    .popable::after{line-height:20px;}
+  .popable::after{line-height:20px;}
 }
 
 // Search results
@@ -137,6 +137,18 @@ h4{ font-weight: normal; color: black; margin-top: 6px; margin-bottom: 12px;}
   height: 20px;
 }
 #slide-menu-wrapper .wrapper a.subLink{ text-transform:none; display:block; margin: 12px 0; }
+
+.button{
+  text-align: center;
+  margin: 8px auto;
+}
+.button a{
+  background-color: $prime-color;
+  border-radius: 4px;
+  padding: 12px;
+  display: inline-block;
+  color: white;
+}
 
 .yt_video iframe{
   width: 100% !important; border: 0;

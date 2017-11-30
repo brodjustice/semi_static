@@ -37,6 +37,7 @@ en:
   PleaseTypeNumber: 'Please type number in image'
   GetInContact: 'Get in contact...'
   Submit: 'Send'
+  LookingFor: 'Looking for'
 
   Thank_you: "Thanks!"
   Thank_you_for_your_equiry: 'Thank you for your enquiry, we will respond shortly'

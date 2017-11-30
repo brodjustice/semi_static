@@ -5,6 +5,9 @@
       %p= @url unless @url.nil?
       %p
         = t('Error_' + @status_code.to_s)
+      - @tags.each do |tag|
+        %p.button
+          = link_to "#{t(:LookingFor)} #{tag.title}?", feature_path(tag.slug)
   .col.span_1_of_3
     = render :partial => 'semi_static/site/search'
     = render :partial => 'semi_static/site/social'
