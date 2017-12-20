@@ -21,13 +21,18 @@ module SemiStatic
         @obj = @entry = Entry.find(params[:entry_id])
         @photos = @obj.photos
       elsif params[:gallery_id].present?
-        @obj = @gallery = Gallery.find_by_id(params[:gallery_id])
+        if semi_static_admin?
+          @obj = @gallery = Gallery.find_by_id(params[:gallery_id])
+        else
+          @obj = @gallery = Gallery.visible.find_by_id(params[:gallery_id])
+        end
         @photos = @obj.photos
       elsif params[:tag_id].present?
         @tag, @seo = Seo.photos(params[:tag_id], I18n.locale) 
       else
+        # Nothing else left but to try the predefined Gallery Tag
         @tag = Tag.predefined(I18n.locale, 'Gallery').first
-        @seo = @tag.seo
+        @tag ? (@seo = @tag.seo) : (raise ActiveRecord::RecordNotFound)
       end
 
       @galleries = Gallery.locale(I18n.locale).visible
