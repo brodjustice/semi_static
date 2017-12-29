@@ -7,17 +7,10 @@
 }
 
 #semi_static_ajax_photo{position:relative;min-height: 240px;}
-#semi_static_photo .panel.photo img{transition: all 20s ease;}
 #semi_static_ajax_photo h2{min-height:32px;}
 #semi_static_ajax_photo .popable::after{top:-7px;}
 .photo figure img{
   width: auto;
-
-  -webkit-transition: opacity 4s ease-in-out;
-  -moz-transition: opacity 4s ease-in-out;
-  -o-transition: opacity 4s ease-in-out;
-  transition: opacity 4s ease-in-out;
-
 }
 .index .photo img.selected{
   box-shadow: 0 0 4px #505050;
