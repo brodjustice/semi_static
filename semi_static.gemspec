@@ -29,7 +29,7 @@ Gem::Specification.new do |s|
   # But now fixed in uglifier 3.2
 
   # Later versions of paperlip require ruby 2.0+
-  s.add_dependency "paperclip", "4.2.1"
+  s.add_dependency "paperclip", "4.2.2"
 
   # s.add_dependency 'google-api-client', '0.9'
 
