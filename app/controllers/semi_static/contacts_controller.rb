@@ -4,7 +4,9 @@ module SemiStatic
   class ContactsController < ApplicationController
 
     before_filter :authenticate_for_semi_static!, :except => [:new, :create]
-    caches_page :new, :if => Proc.new { |c| c.request.params[:registration].blank? }
+
+    # Don't cache the registration page as this is dynamic
+    caches_page :new, :if => Proc.new { |c| c.request.url.include?('registration') }
   
     # GET /contacts
     # GET /contacts.json
