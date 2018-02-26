@@ -71,7 +71,10 @@
         - @subscribers.each do |s|
           %tr{:class => "#{s.category_name && s.category_name.parameterize}"}
             %td.tick{:id => "subscriber_id_#{s.id}"}
-              = check_box_tag "subscriber[#{s.id}]", 1, s.delivery_state(@newsletter) != SemiStatic::NewsletterDelivery::STATES[:sent], :class => 'subscribe_state'
+              - if s.unsubscribe == false
+                = check_box_tag "subscriber[#{s.id}]", 1, s.delivery_state(@newsletter) != SemiStatic::NewsletterDelivery::STATES[:sent], :class => 'subscribe_state'
+              - else
+                %div{:title=> "Is not longer a subscriber"} ✗
             %td.name= s.name
             %td.name= s.surname
             %td.name= s.email
