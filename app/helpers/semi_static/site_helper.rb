@@ -343,6 +343,9 @@ module SemiStatic
       if e.twitter_share
         c+= link_to t('Share'),  "https://twitter.com/intent/tweet?url=#{request.url}&hashtags=#{SemiStatic::Engine.config.site_name.parameterize}", :title => "Share on Twitter", :class => 'tw-share'
       end
+      if e.email_share
+        c+= mail_to nil, t('Share'), {:subject => e.merged_main_entry.title, :body => request.url, :title => "Send email", :class => 'em-share'}
+      end
       c += '</div>'.html_safe
     end
 

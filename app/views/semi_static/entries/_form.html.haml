@@ -484,6 +484,9 @@
               %br/
               = f.label :twitter_share, 'Twitter'
               = f.check_box :twitter_share
+              %br/
+              = f.label :email_share, 'Email'
+              = f.check_box :email_share
         %h2 Event
         %fieldset
           = f.select :event_id, options_for_select(SemiStatic::Event.all.collect{|e| [['ID ', e.id.to_s, ': ', e.name].join, e.id]}.prepend(["- None -", 'none']), @entry.event_id)
