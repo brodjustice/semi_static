@@ -12,7 +12,7 @@
         %aside
           = yield :side_bar_top
           = render :partial => 'semi_static/site/search' unless SemiStatic::Engine.config.has?(:disable_search_in_home_page)
-          = render :partial => 'semi_static/site/social' if !SemiStatic::Engine.config.has?(:social_in_footer)
+          = render :partial => 'semi_static/site/social' unless @tag.get_page_attr('disableSideBarSocial')
           = render :partial => SemiStatic::Engine.config.social_partial if SemiStatic::Engine.config.social_partial.present?
           - if  @tag.present? && @tag.sidebar.present?
             - unless @tag.sidebar.partial.blank? || @tag.sidebar.partial == 'none'
