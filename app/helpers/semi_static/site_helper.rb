@@ -328,23 +328,27 @@ module SemiStatic
       "<div id=\'squeeze-tease_#{entry.squeeze.id.to_s}\'><a class='squeeze' rel='nofollow' onclick='semiStaticAJAX(\"#{squeeze_path(s, :format => :js, :popup => false)}\")\; return false;' href='#{squeeze_path(s)}'>#{simple_format(s.teaser)}</a></div>".html_safe
     end
 
+
+    #
+    # Need to hand craft the share button links and add a Google GA Event trigger
+    #
     def social_shares(e)
       return unless (e.facebook_share || e.linkedin_share || e.xing_share || e.twitter_share)
       c = '<div class="social button-wrapper"> '.html_safe
       if e.facebook_share
-        c+= link_to t('Share'),  "https://www.facebook.com/sharer/sharer.php?u=#{request.url}", :title => "Share on Facebook", :class => 'fb-share'
+        c+= "<a class='fb-share' title='Share on Facebook' onclick='var that=this;ga(\"send\", \"event\", \"SocialShare\", \"Facebook\");setTimeout(function(){location.href=that.href;},400);return false;' href='https://www.facebook.com/sharer/sharer.php?u=#{request.url}'>#{t('Share')}</a>".html_safe
       end
       if e.xing_share
-        c+= link_to t('Share'),  "https://www.xing-share.com/app/user?op=share;sc_p=xing-share;url=#{request.url}", :title => "Share on Xing", :class => 'xi-share'
+        c+= "<a class='xi-share' title='Share on Xing' onclick='var that=this;ga(\"send\", \"event\", \"SocialShare\", \"Xing\");setTimeout(function(){location.href=that.href;},400);return false;' href='https://www.xing-share.com/app/user?op=share;sc_p=xing-share;url=#{request.url}'>#{t('Share')}</a>".html_safe
       end
       if e.linkedin_share
-        c+= link_to t('Share'),  "https://www.linkedin.com/cws/share?url=#{request.url}", :title => "Share on LinkedIn", :class => 'li-share'
+        c+= "<a class='li-share' title='Share on LinkedIn' onclick='var that=this;ga(\"send\", \"event\", \"SocialShare\", \"LinkedIn\");setTimeout(function(){location.href=that.href;},400);return false;' href='https://www.linkedin.com/cws/share?url=#{request.url}'>#{t('Share')}</a>".html_safe
       end
       if e.twitter_share
-        c+= link_to t('Share'),  "https://twitter.com/intent/tweet?url=#{request.url}&hashtags=#{SemiStatic::Engine.config.site_name.parameterize}", :title => "Share on Twitter", :class => 'tw-share'
+        c+= "<a class='tw-share' title='Share on Twitter' onclick='var that=this;ga(\"send\", \"event\", \"SocialShare\", \"Twitter\");setTimeout(function(){location.href=that.href;},400);return false;' href='https://twitter.com/intent/tweet?url=#{request.url}&hashtags=#{SemiStatic::Engine.config.site_name.parameterize}'>#{t('Share')}</a>".html_safe
       end
       if e.email_share
-        c+= mail_to nil, t('Share'), {:subject => e.merged_main_entry.title, :body => request.url, :title => "Send email", :class => 'em-share'}
+        c+= mail_to nil, t('Share'), {:subject => e.merged_main_entry.title, :body => request.url, :title => "Send email", :class => 'em-share', :onclick => 'var that=this;ga(\'send\', \'event\', \'SocialShare\', \'Email\');setTimeout(function(){location.href=that.href;},400);return false;'}
       end
       c += '</div>'.html_safe
     end
@@ -433,26 +437,26 @@ module SemiStatic
     end
 
     def semi_static_path_for_sign_in
-      if defined?(CanCan)
-        main_app.new_user_session_path
-      else
+      if defined?(Admin)
         main_app.new_admin_session_path
+      else
+        main_app.new_user_session_path
       end
     end
 
     def semi_static_path_for_admins
-      if defined?(CanCan)
-        main_app.users_path
-      else
+      if defined?(Admin)
         main_app.admins_path
+      else
+        main_app.users_path
       end
     end
 
     def semi_static_path_for_admin_session
-      if defined?(CanCan)
-        main_app.user_session_path
-      else
+      if defined?(Admin)
         main_app.admin_session_path
+      else
+        main_app.user_session_path
       end
     end
 
@@ -567,10 +571,10 @@ module SemiStatic
       if SemiStatic::Engine.config.app_dashboard
         link_to 'Done', main_app.send(*SemiStatic::Engine.config.app_dashboard)
       else
-        if defined?(CanCan)
-          link_to 'Done', main_app.destroy_users_session_path, :method => :delete
-        else
+        if defined?(Admin)
           link_to 'Done', main_app.destroy_admin_session_path, :method => :delete
+        else
+          link_to 'Done', main_app.destroy_users_session_path, :method => :delete
         end
       end
     end

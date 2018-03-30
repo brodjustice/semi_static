@@ -108,6 +108,7 @@ h2{ font-size: 20px; font-weight: normal;}
     max-width: 1400px;
 }
 
+#bar-menu .sign-in a{float: right; display: block; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0px -290px no-repeat;}
 #bar-menu .contact a{float: right; display: block; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0px -194px no-repeat;}
 #bar-menu .search a{float: right; display: block; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0px -226px no-repeat;}
 #bar-menu .icon a{ background-size: 28px $vert-sprites-height; }
