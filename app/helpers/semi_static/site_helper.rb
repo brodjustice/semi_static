@@ -494,7 +494,7 @@ module SemiStatic
       request.protocol + request.host + (@entry && @entry.img.present? ? @entry.img_url_for_theme : (SemiStatic::Engine.config.logo_image || ''))
     end
 
-      # Create a video tag with fallback options as shown below.
+    # Create a video tag with fallback options as shown below.
     #
     # Notes:
     #   You should have a mp4 format video as first video in your array as this 
@@ -584,6 +584,21 @@ module SemiStatic
     #
     def banner_skrollr_offset(banner)
       (banner.img_height(SemiStatic::Engine.config.theme, :desktop)/4 - 50).to_s
+    end
+
+    #
+    # If set in page_attr 'csrfMetaTagViaSsi' then the meta tags will be
+    # done via webserver SSI. This is useful in the case of having a static page
+    # that needs valid csrf tags, like page with a PUT action. Only do this if in
+    # production mode.
+    #
+    def semi_static_csrf_meta_tags(page=nil)
+      page ||= @tag || @entry
+      if page && page.get_page_attr('csrfMetaViaSsi') && Rails.env.production?
+        '<!--#include file="site/csrf_meta_tags" -->'.html_safe
+      else
+        csrf_meta_tags
+      end
     end
 
     private

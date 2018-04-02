@@ -10,7 +10,7 @@
 
     %title= 'Admin Dashboard for ' + SemiStatic::Engine.config.site_name.to_s
 
-    = csrf_meta_tags
+    = semi_static_csrf_meta_tags
 
     = javascript_include_tag 'semi_static_dashboard'
     = stylesheet_link_tag 'semi_static_full', :media => 'all'

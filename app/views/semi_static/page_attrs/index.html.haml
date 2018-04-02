@@ -72,6 +72,11 @@
         %td= 'Tag or Entry'
         %td= 'Force display of link to this Tag or Entry in "slide menu" - if theme supports slide menu. If used with an Entry then the Tag to which the Entry belongs must be sent to displayed in the menu. Entry title will be used if no text string is given'
       %tr
+        %td= 'csrfMetaViaSsi'
+        %td= 'true'
+        %td= 'Tag or Entry'
+        %td= 'Causes the CSRF Meta Tags to be updated by a webserver via SSI. This is useful for cached pages that have a PUT action and thus need the CSRF tag to match the session, eg. login forms on a static page. The webserver must have SSI enabled (for nGinix this is \'ssi: on;\').'
+      %tr
         %td= 'entryIconGalleryId'
         %td= 'Photo ID'
         %td= 'Entry'

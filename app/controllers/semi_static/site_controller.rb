@@ -29,5 +29,17 @@ module SemiStatic
         end
       end
     end
+
+    #
+    # Special route for webserver SSI. In nGinix this must be enabled
+    # with 'ssi on;'. This non-REST route then allows
+    # nGinx to pick up the csrf meta tags for cached pages via SSI
+    #
+    def csrf_meta_tags
+      respond_to do |format|
+        format.html { render :layout => false }
+      end
+    end
+
   end
 end

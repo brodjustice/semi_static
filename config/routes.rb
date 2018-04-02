@@ -85,6 +85,10 @@ SemiStatic::Engine.routes.draw do
 
   # All system cmd use update, even though they may really be doing a GET
   match '/system' => "system#update", :via => :put
+
+  # Special route, normally used by the webserver to get CSRF tags
+  match '/site/csrf_meta_tags' => 'site#csrf_meta_tags'
+
 end
 
 
