@@ -43,6 +43,9 @@ SemiStatic::Engine.routes.draw do
   match "/documents/index" => 'documents#index', :as => 'documents', :via => :get
   match "/documents/:squeeze_id/:token" => 'documents#show', :as => 'document', :via => :get
 
+  # Special route, normally only used by the webserver to get CSRF tags
+  match '/site/csrf_meta_tags' => 'site#csrf_meta_tags'
+
   get '/site/home', to: redirect('/')
   match '/site/:content' => 'site#show', :as => 'site',
     :via => :get, :defaults => {:content => 'home'}
@@ -85,10 +88,6 @@ SemiStatic::Engine.routes.draw do
 
   # All system cmd use update, even though they may really be doing a GET
   match '/system' => "system#update", :via => :put
-
-  # Special route, normally used by the webserver to get CSRF tags
-  match '/site/csrf_meta_tags' => 'site#csrf_meta_tags'
-
 end
 
 
