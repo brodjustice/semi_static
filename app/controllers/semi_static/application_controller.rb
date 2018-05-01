@@ -22,7 +22,7 @@ module SemiStatic
     end
 
     def authenticate_for_semi_static!
-      if current_user && defined?(CanCan)
+      if defined?(User) && current_user && defined?(CanCan)
         #
         # Not worth checking the CanCan abilities, but if you did it would be like:
         #
