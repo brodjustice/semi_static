@@ -53,7 +53,7 @@ module SemiStatic
     def show
       template = 'semi_static/photos/show'
       unless params[:popup].present?
-        @photo = Photo.visible.find(params[:id])
+        @photo = Photo.not_hidden.find(params[:id])
         @selection = 'Gallery'
         @title = @photo.title
         @previous, @next = @photo.neighbour_ids

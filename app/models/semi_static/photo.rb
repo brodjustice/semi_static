@@ -106,10 +106,18 @@ module SemiStatic
     @@ids = build_ordered_array
 
     def neighbour_ids
-      if self.gallery_id.nil? || self.gallery.nil? || !self.gallery.public
+      #
+      # We used to ingnore the neighbour IDs if the gallery was not
+      # public, like this:
+      #   if self.gallery_id.nil? || self.gallery.nil? || !self.gallery.public
+      # but the real meaning of Gallery.public is that the Gallery is not shown
+      # on the Website Gallery page. If you want a photo to be hidden completely
+      # then one should use the Photo.hidden attribute.
+      #
+      if self.gallery_id.nil? || self.gallery.nil?
         [ self.id, self.id ]
       else
-        g = @@ids[self.gallery.id]
+        g = @@ids[self.gallery.id] || self.gallery.photos.not_hidden.collect{|g| g.id}
         pos = g.index(self.id)
         [ g[pos - 1] || g.last, g[pos + 1] || g.first]
       end

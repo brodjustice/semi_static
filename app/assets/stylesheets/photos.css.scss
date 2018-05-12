@@ -1,11 +1,6 @@
 @-webkit-keyframes fadein {0%{opacity:0.0;}100%{opacity:1.0;}}
 @keyframes fadein {0%{opacity:0.0;}100%{opacity:1.0;}}
 
-.photo img{
-  animation: fadein 1s 1 linear;
-  -webkit-animation: fadein 1s 1 linear;
-}
-
 #semi_static_ajax_photo{position:relative;min-height: 240px;}
 #semi_static_ajax_photo h2{min-height:32px;}
 #semi_static_ajax_photo .popable::after{top:-7px;}
@@ -20,6 +15,8 @@
 .panel.photo{
   padding-bottom: 6px;
   height:100%;
+  background-color: transparent;
+  box-shadow: none;
 }
 .cmd{
   color: #808080;
@@ -28,8 +25,6 @@
   margin-top: 6px;
 }
 .rotate{
-  margin-top:10%;
-  height: 90%;
   position: absolute;
   width: 100%;
   top: 0;
@@ -42,6 +37,9 @@
   background-color: rgba(255,255,255,0.4);
   color:#505050; 
   display:block;
+}
+.photo:hover .arrow{
+  text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
 }
 .cmd.flash{
   transition: all 3s;
@@ -56,8 +54,10 @@
   padding: 0 20px;
   top:0;
 }
-#semi_static_ajax_photo .arrow{padding-top:48px;}
-#semi_static_ajax_photo .link{padding:12px;}
+#semi_static_ajax_photo .arrow{
+  padding-top:48px;
+}
+#semi_static_ajax_photo .link{position:relative; z-index: 10; top: 43px; padding: 6px; background-color: rgba(255,255,255,0.8);}
 .photo .center{
   margin: auto;
   max-height:32px;
@@ -65,8 +65,7 @@
   padding:8px 0 16px;
   max-width: none;
   display:none;
-  border-radius:24px;
-  text-align: center; width: 50%;
+  text-align: center;
 }
 .photo .left{left:0; text-align: left; width: 20%;border-radius:0 50% 50% 0;}
 .photo .right{right:0; text-align: right; width: 20%;border-radius:50% 0 0 50%;}
