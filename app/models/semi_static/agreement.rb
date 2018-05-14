@@ -11,8 +11,16 @@ module SemiStatic
     before_destroy :readonly
 
     def readonly
-      unless self.contacts.empty?
-        self.errors.add(:base, 'Cannot delete or edoit thus agreement, you must remove contacts first or unset the display attribute')
+      #
+      # Can only change the ticked_by_default or display attributes
+      #
+      unless self.contacts.empty? ||
+        self.changed.size == 0 ||
+        (self.changed.size == 1 && self.changed.include?('ticked_by_default')) ||
+        (self.changed.size == 1 && self.changed.include?('display')) ||
+        (self.changed.size == 2 && self.changed.include?('display') && self.changed.include?('ticked_by_default'))
+ 
+        self.errors.add(:base, 'Cannot delete or edit this agreement in the way you have attempted, you must remove contacts first or unset only the display or ticked attributes')
         false
       end
     end
