@@ -39,7 +39,7 @@
   
     = simple_format @squeeze.form_instructions unless @squeeze.form_instructions.blank?
     .agree
-      = check_box_tag 'accept', nil, {:checked => "checked"}
+      = check_box_tag 'accept', nil
       = label_tag 'accept', @squeeze.agreement, :id => 'acceptLabel'
     
     - @contact.agreements.each do |agreement|
