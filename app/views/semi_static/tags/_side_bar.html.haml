@@ -7,14 +7,26 @@
   - if side_bar_nav? && !obj.get_page_attr('disableSideBarNav')
     .panel.list
       %nav
-        - if SemiStatic::Tag.use_sprites?
-          .icon.sprite{:id => "sprite_#{@tag.position.to_s}"}
+        - if (menuHashAttr = obj.get_page_attr('sideBarMenuHash'))
+          - menuHash = eval(menuHashAttr)
+          %h2= menuHash.keys.first.to_s
+          .section
+            - menuHash.values.first.keys.each do |st|
+              .semiStaticSubMenuItem= st
+              - menuHash.values.first[st].each do |e_id|
+                - entry_from_hash = SemiStatic::Entry.find_by_id(e_id)
+                - next unless entry_from_hash
+                %h3
+                  = link_to entry_from_hash.title, entry_link(entry_from_hash)
         - else
-          .icon= image_tag(@tag.icon.url(:big)) if @tag.icon.present?
-        %h2= link_to @sidebar_menu_tag.sidebar_title, tag_link(@sidebar_menu_tag), :style => "color: #{@tag.colour};"
-        .section
-          - @sidebar_menu_tag.entries_for_navigation.each do |e|
-            = render :partial => 'semi_static/tags/side_bar_entry', :locals => {:e => e}
+          - if SemiStatic::Tag.use_sprites?
+            .icon.sprite{:id => "sprite_#{@tag.position.to_s}"}
+          - else
+            .icon= image_tag(@tag.icon.url(:big)) if @tag.icon.present?
+          %h2= link_to @sidebar_menu_tag.sidebar_title, tag_link(@sidebar_menu_tag), :style => "color: #{@tag.colour};"
+          .section
+            - @sidebar_menu_tag.entries_for_navigation.each do |e|
+              = render :partial => 'semi_static/tags/side_bar_entry', :locals => {:e => e}
   -# Exact same code used in site/home, refactor
   - if  obj.present? && obj.sidebar.present?
     - unless obj.sidebar.partial.blank? || obj.sidebar.partial == 'none'

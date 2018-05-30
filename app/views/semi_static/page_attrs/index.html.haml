@@ -17,6 +17,12 @@
         %td= 'Tag'
         %td= 'Uses the Tag ID entries for the sidebar navigation menu'
       %tr
+        %td=' sideBarMenuHash'
+        %td= 'Hash of title, subtitles amd Entry IDs'
+        %td= 'Tag or Entry'
+        %td= 'Constructs a custom sidebar navigation menu with sub-section headers, each sub-section header is wrapped in a div with class semiStaticSubMenuHeader so that you can add styling. Example of hash format: {"This is the title" => {"Sub Menu 1" => [304, 332], "Sub 2" => [16, 17, 98]}}'
+
+      %tr
         %td=' sideBarNavEntries'
         %td= 'Comma seperated string of Entry IDs'
         %td= 'Tag'
