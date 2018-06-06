@@ -90,9 +90,9 @@ th{ text-align: left; }
 .mid.wide{max-width: 820px;}
 .mid.full{max-width: 1012px; width: 97.5%;}
 
-.mid input[type='password'],
-.mid input[type='email'],
-.mid input[type='text'], .mid textarea{
+.mid input[password],
+.mid input[email],
+.mid input[text], .mid textarea{
   max-width: 100%;
   -ms-box-sizing: border-box; /* ie8 */
   -khtml-box-sizing: border-box; /* konqueror */
@@ -119,18 +119,18 @@ th{ text-align: left; }
   display: inline;
 }
 
-.field_with_errors input[type='text']{
+.field_with_errors input[text]{
   border-color: red;
 }
 
-#dialog input[type=submit], .mid input[type=submit], .mid input[type=button]{
+#dialog input[submit], .mid input[submit], .mid input[button]{
   font-size: 20px; width: 100%; margin: 0; text-align: center; box-sizing: border-box;
 }
-#dialog input[type=submit]:last-child, .mid input[type=submit]:last-child, .mid input[type=button]:last-child{
+#dialog input[submit]:last-child, .mid input[submit]:last-child, .mid input[button]:last-child{
   margin-bottom: 6px;
 }
 
-.mid input[type=radio], .mid input[type=checkbox]{width: auto;}
+.mid input[radio], .mid input[checkbox]{width: auto;}
 
 .list{
   text-align: center;
