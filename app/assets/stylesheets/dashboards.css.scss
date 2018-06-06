@@ -3,7 +3,7 @@ body{
   line-height: normal;
 }
 .code{
-  font-family: "Courier New", Courier, monospace;
+  font-family: 'Courier New', Courier, monospace;
   white-space: pre;
 }
 
@@ -93,10 +93,10 @@ input[type='checkbox']{ width:auto; }
   border: none;
 }
 
-input[type="submit"], .button a {
+input[type='submit'], .button a {
   font-size: 14px;
 }
-input[type="submit"], .button{
+input[type='submit'], .button{
   margin: 0px;
 }
 
@@ -335,12 +335,12 @@ th{
     -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
     }
     .onoffswitch-inner:before {
-    content: "ON";
+    content: 'ON';
     padding-left: 13px;
     background-color: #0053A6; color: #FFFFFF;
     }
     .onoffswitch-inner:after {
-    content: "OFF";
+    content: 'OFF';
     padding-right: 13px;
     background-color: #EEEEEE; color: #999999;
     text-align: right;
