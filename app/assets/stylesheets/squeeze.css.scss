@@ -11,9 +11,9 @@
   height: auto;
 }
 
-.squeeze-form input[type='email'],
-.squeeze-form input[type='text']{width: 100%;box-sizing:border-box;}
-.squeeze-form input[type='submit']{padding:12px;width:100%;}
+.squeeze-form input[email],
+.squeeze-form input[text]{width: 100%;box-sizing:border-box;}
+.squeeze-form input[submit]{padding:12px;width:100%;}
 .squeeze-form .agree{margin:16px 0;}
 .squeeze-form .col label{font-size:12px;}
 

@@ -62,13 +62,13 @@ h1{
 
 #dashboard .dash > .button{margin: 4px 4px 0;}
 
-input[type='checkbox']{ width:auto; }
+input[checkbox]{ width:auto; }
 .sidebar select{max-width: 300px;}
 
 .sidebar{
   background-color: #f4f4f4; padding: 0 6px;
 }
-.sidebar input[type='text']{
+.sidebar input[text]{
   max-width: 80%;
 }
 
@@ -93,10 +93,10 @@ input[type='checkbox']{ width:auto; }
   border: none;
 }
 
-input[type='submit'], .button a {
+input[submit], .button a {
   font-size: 14px;
 }
-input[type='submit'], .button{
+input[submit], .button{
   margin: 0px;
 }
 
@@ -288,11 +288,11 @@ th{
   max-width: 500px;
 }
 
-#dialog input[type='text']{
+#dialog input[text]{
   max-width: 88%;
   margin: 0 auto;
 }
-#dialog.wide input[type='text']{
+#dialog.wide input[text]{
   width: 97%;
 }
 
