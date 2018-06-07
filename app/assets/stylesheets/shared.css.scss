@@ -1,5 +1,5 @@
 // Next is just for admin sign in
-#new_admin input[type='email'], #new_admin input[type='password']{
+#new_admin input[email], #new_admin input[password]{
   width: 100%;
   box-sizing: border-box;
 }
@@ -19,15 +19,6 @@
   border-top: 1px solid #a8a8a8; margin-top: 4px;
   padding: 12px;}
 .image_wrapper{position:relative;}
-.popable::after{
-  content:'↔'; font-size: 20px;position: absolute; top:3px; right:3px;
-  color: #e0e0e0; padding: 4px; background-color: rgba(0,0,0,0.7);
-  border: 1px solid #d8d8d8; border-radius:50%;
-  height: 24px;
-  width: 24px;
-  line-height: 22px;
-  transform: rotate(135deg);
-}
 .side_bar .popable::after{
   top: 42px;right:12px;
 }

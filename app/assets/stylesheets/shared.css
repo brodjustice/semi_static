@@ -1,0 +1,16 @@
+/*
+ * Bug in SASS caused this workaround of placing this section of code outside
+ * the SASS pipeline: The SASS compiler converts the
+ * quotes around the 'content:' declaration into '&quote' which totally
+ * screws up the CSS
+ */
+
+.popable::after{
+  content:'↔'; font-size: 20px;position: absolute; top:3px; right:3px;
+  color: #e0e0e0; padding: 4px; background-color: rgba(0,0,0,0.7);
+  border: 1px solid #d8d8d8; border-radius:50%;
+  height: 24px;
+  width: 24px;
+  line-height: 22px;
+  transform: rotate(135deg);
+}
