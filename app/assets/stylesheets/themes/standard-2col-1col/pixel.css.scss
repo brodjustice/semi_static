@@ -1,5 +1,5 @@
 /* High res 'retina' screens */
-@media (device-pixel-ratio: 2), (-moz-device-pixel-ratio: 2), (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+@media (min-resolution: 1.5dppx), (min-device-pixel-ratio: 2), (min--moz-device-pixel-ratio: 2), (-webkit-min-device-pixel-ratio: 2) {
   .button-wrapper a[class*='-share'], .news .more a, .more a, .social-inner a div, #top .icon a{ background-size: 28px $vert-sprites-height; background-image: url(#{$vert-x2-sprites});}
   .link a, .more a, .feint .more a, .flat .more a, .news .more a{
     background-image: url(#{$vert-x2-sprites});
