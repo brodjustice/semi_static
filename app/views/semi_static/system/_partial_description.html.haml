@@ -1,6 +1,7 @@
 - if @result.present?
   .code= @result
-- elsif partial_description && partial_description.partial.present?
+- elsif partial_description && partial_description.partial.present? && defined? partial_description.respond_to.partial_description
+  -# TODO: What is that condition above about?
   %h3= 'The Description for this custom partial'
   .code= partial_description.partial_description
 - else
