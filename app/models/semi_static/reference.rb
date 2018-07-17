@@ -22,6 +22,9 @@ module SemiStatic
     default_scope order(:position)
     scope :side_bar, where('show_in_side_bar = ?', true)
     scope :locale, lambda {|locale| where("locale = ?", locale.to_s)}
-  
+
+    def admin_only
+      false
+    end
   end
 end
