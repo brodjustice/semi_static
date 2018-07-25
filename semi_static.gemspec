@@ -16,22 +16,21 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_dependency "rails", "~> 3.2"
+  s.add_dependency "rails", "~> 4.2"
+  s.add_dependency "actionpack-page_caching"
+  s.add_dependency "protected_attributes"
   s.add_dependency "jquery-rails"
   s.add_dependency "jquery-ui-rails"
   s.add_dependency "haml"
+  s.add_dependency "sass-rails"
   s.add_dependency "haml-rails"
+  s.add_dependency "paperclip"
   s.add_dependency "nokogiri"
 
-  # uglifier 3.1.0 breaks the jquery compilation, see this bug:
+  # note: uglifier 3.1.0 breaks the jquery compilation, see this bug:
   # - https://github.com/lautis/uglifier/issues/110
   # s.add_dependency "uglifier", "3.0.4"
   # But now fixed in uglifier 3.2
-
-  # Later versions of paperlip require ruby 2.0+
-  s.add_dependency "paperclip", "4.2.2"
-
-  # s.add_dependency 'google-api-client', '0.9'
 
   s.add_dependency "truncate_html"
 

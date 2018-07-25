@@ -25,14 +25,32 @@ module SemiStatic
 
     validates :name, :uniqueness => {:scope => :locale}
 
-    scope :menu, where('menu = ?', true)
-    scope :for_subscribers, where('subscriber = ?', true)
-    scope :locale, lambda {|locale| where("locale = ?", locale.to_s)}
-    default_scope order(:position)
-    scope :predefined, lambda{|locale, pre| where("locale = ?", locale).where('predefined_class = ?', pre)}
-    scope :with_attr, lambda{|attr| includes(:page_attrs).where('semi_static_page_attrs.attr_key  = ?', attr)}
-    scope :slide_menu, includes(:page_attrs).where('semi_static_page_attrs.attr_key = ? OR menu = ?', 'slideMenu', true)
-    scope :public, where("subscriber = ?", false).where("admin_only = ?", false)
+    # scope :menu, where('menu = ?', true)
+    scope :menu, -> {where('menu = ?', true)}
+
+    # scope :for_subscribers, where('subscriber = ?', true)
+    scope :for_subscribers, -> {where('subscriber = ?', true)}
+
+    # scope :locale, lambda {|locale| where("locale = ?", locale.to_s)}
+    scope :locale, -> (locale) {where("locale = ?", locale.to_s)}
+
+    # default_scope order(:position)
+    default_scope { order(:position) }
+
+    # scope :predefined, lambda{|locale, pre| where("locale = ?", locale).where('predefined_class = ?', pre)}
+    scope :predefined, -> (locale, pre) { where("locale = ?", locale).where('predefined_class = ?', pre) }
+
+    # scope :with_attr, lambda{|attr| includes(:page_attrs).where('semi_static_page_attrs.attr_key  = ?', attr)}
+    scope :with_attr, -> (attr){includes(:page_attrs).where('semi_static_page_attrs.attr_key  = ?', attr)}
+
+    # scope :slide_menu, includes(:page_attrs).where('semi_static_page_attrs.attr_key = ? OR menu = ?', 'slideMenu', true)
+    scope :slide_menu, -> {includes(:page_attrs).where('semi_static_page_attrs.attr_key = ? OR menu = ?', 'slideMenu', true)}
+
+    # scope :public, where("subscriber = ?", false).where("admin_only = ?", false)
+    #
+    # public becomes a reserved method in Rails 4
+    #
+    scope :is_public, -> {where("subscriber = ?", false).where("admin_only = ?", false)}
   
     before_save :generate_slug, :add_sidebar_title
   

@@ -7,7 +7,7 @@ class SemiStaticInstallGenerator < Rails::Generators::Base
   MOUNT_ROUTE = 'mount SemiStatic::Engine, :at => "/"'
   DEVISE_SECRET_KEY = 'config.secret_key'
   PRECOMPILE_ASSETS = 'semi_static_application.css semi_static_full.css semi_static_application.js semi_static_dashboard.js home_theme.js theme.js'
-  CONFIG_ASSETS_PRECOMPILE = "config.assets.precompile += %w( #{PRECOMPILE_ASSETS} )"
+  CONFIG_ASSETS_PRECOMPILE = "Rails.application.config.assets.precompile += %w( #{PRECOMPILE_ASSETS} )"
   ASSET_IMAGE_DIRECTORIES = %w(banners x2 flags)
   DEVISE_FOR_GEMFILE = "gem 'devise'\n"
   SITE_HELPER = 'helper SemiStatic::SiteHelper'
@@ -84,7 +84,7 @@ class SemiStaticInstallGenerator < Rails::Generators::Base
       say '  SemiStatic  mountable routes already added, skiping this bit'
     else
       say '  SemiStatic  routes will be mounted, adding to config/routes'
-      inject_into_file "./config/routes.rb", "\n  " + MOUNT_ROUTE, :after => "Application.routes.draw do"
+      inject_into_file "./config/routes.rb", "\n  " + MOUNT_ROUTE, :after => "Rails.application.routes.draw do"
     end
   end
 
@@ -120,11 +120,11 @@ class SemiStaticInstallGenerator < Rails::Generators::Base
   # precompile list from within engine.rb. However, this fails to work in Rails 3, so
   # leave for now and change with Rails 4
   def config_assets_precompile
-    precompile_found = run("grep -w \'#{PRECOMPILE_ASSETS}\' config/environments/production.rb >/dev/null")
+    precompile_found = run("grep -w \'#{PRECOMPILE_ASSETS}\' config/initializers/assets.rb >/dev/null")
     if precompile_found == true
-      say '  SemiStatic  NOTICE: Assets to precompile seem to already be listed in ./config/environments/production.rb'
+      say '  SemiStatic  NOTICE: Assets to precompile seem to already be listed in ./config/initializers/assets.rb'
     else
-      inject_into_file "./config/environments/production.rb", "\n  " + CONFIG_ASSETS_PRECOMPILE, :after => /^*.config.assets.precompile.*$/
+      inject_into_file "./config/initializers/assets.rb", "\n" + CONFIG_ASSETS_PRECOMPILE, :after => /^*.config.assets.precompile.*$/
     end
   end
 
@@ -186,7 +186,7 @@ class SemiStaticInstallGenerator < Rails::Generators::Base
   end
 
   def add_auth
-    inject_into_file "./Gemfile", "\n" + DEVISE_FOR_GEMFILE, :before => "group :assets do\n"
+    inject_into_file "./Gemfile", "\n" + DEVISE_FOR_GEMFILE, :before => "group :development, :test do\n"
 
     # Have to install the bundle before we can do the devise generation
     run  "bundle install"

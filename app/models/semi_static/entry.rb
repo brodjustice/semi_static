@@ -42,20 +42,51 @@ module SemiStatic
 
     serialize :img_dimensions
   
-    scope :home, where('home_page = ?', true)
-    scope :news, where('news_item = ?', true)
-    scope :locale, lambda {|locale| where("locale = ?", locale.to_s)}
-    scope :not, lambda {|entry| where("id != ?", (entry ? entry.id : 0))}
-    scope :has_style, lambda {|style| where("style_class = ?", style)}
-    scope :not_style, lambda {|style| where("style_class != ?", style)}
-    scope :unmerged, where('merge_with_previous = ?', false)
-    scope :not_linked_to_tag, where('link_to_tag = ?', false)
-    scope :exclude_newsletters, joins(:tag).where(:semi_static_tags => {:newsletter_id => nil})
-    scope :for_newsletters, includes(:tag).where('semi_static_tags.newsletter_id IS NOT NULL')
-    scope :for_documents_tag, where("show_in_documents_tag = ?", true).where('doc_file_size IS NOT NULL')
-    scope :with_image, where('img_file_name IS NOT NULL')
-    scope :without_image, where('img_file_name IS NULL')
-    scope :with_attr, lambda{|attr| includes(:page_attrs).where('semi_static_page_attrs.attr_key  = ?', attr)}
+    #
+    # Scopes with old Rails 3 version for comparision
+    #
+
+    # scope :home, where('home_page = ?', true)
+    scope :home, -> {where('home_page = ?', true)}
+
+    # scope :news, where('news_item = ?', true)
+    scope :news, -> {where('news_item = ?', true)}
+
+    # scope :locale, lambda {|locale| where("locale = ?", locale.to_s)}
+    scope :locale, -> (locale) {where("locale = ?", locale.to_s)}
+
+    # scope :not, lambda {|entry| where("id != ?", (entry ? entry.id : 0))}
+    scope :not, -> (entry) {where("id != ?", (entry ? entry.id : 0))}
+
+    # scope :has_style, lambda {|style| where("style_class = ?", style)}
+    scope :has_style, -> (style){ where("style_class = ?", style)}
+
+    # scope :not_style, lambda {|style| where("style_class != ?", style)}
+    scope :not_style, -> (style) { where("style_class != ?", style)}
+
+    # scope :unmerged, where('merge_with_previous = ?', false)
+    scope :unmerged, -> {where('merge_with_previous = ?', false)}
+
+    # scope :not_linked_to_tag, where('link_to_tag = ?', false)
+    scope :not_linked_to_tag, -> {where('link_to_tag = ?', false)}
+
+    # scope :exclude_newsletters, joins(:tag).where(:semi_static_tags => {:newsletter_id => nil})
+    scope :exclude_newsletters, -> {joins(:tag).where(:semi_static_tags => {:newsletter_id => nil})}
+
+    # scope :for_newsletters, includes(:tag).where('semi_static_tags.newsletter_id IS NOT NULL')
+    scope :for_newsletters, -> {includes(:tag).where('semi_static_tags.newsletter_id IS NOT NULL')}
+
+    # scope :for_documents_tag, where("show_in_documents_tag = ?", true).where('doc_file_size IS NOT NULL')
+    scope :for_documents_tag, -> {where("show_in_documents_tag = ?", true).where('doc_file_size IS NOT NULL')}
+
+    # scope :with_image, where('img_file_name IS NOT NULL')
+    scope :with_image, -> {where('img_file_name IS NOT NULL')}
+
+    # scope :without_image, where('img_file_name IS NULL')
+    scope :without_image, -> {where('img_file_name IS NULL')}
+
+    # scope :with_attr, lambda{|attr| includes(:page_attrs).where('semi_static_page_attrs.attr_key  = ?', attr)}
+    scope :with_attr, -> {includes(:page_attrs).where('semi_static_page_attrs.attr_key  = ?', attr)}
   
     has_one :seo, :as => :seoable
     has_many :page_attrs, :as => :page_attrable
@@ -130,8 +161,8 @@ module SemiStatic
       'plain-big-banner-3col' => {:desktop => :panel, :mobile => :panel, :summary => :panel, :show => :panel}
     }
 
-    default_scope order(:position)
-    scope :additional_entries, lambda {|e| where('tag_id = ?', e.tag_id).where('id != ?', e.id)}
+    default_scope {order(:position)}
+    scope :additional_entries, -> (e){where('tag_id = ?', e.tag_id).where('id != ?', e.id)}
 
     def as_indexed_json(options={})
       as_json(

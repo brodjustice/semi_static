@@ -9,9 +9,11 @@ module SemiStatic
   
     has_many :links, :dependent => :destroy
   
-    default_scope :order => 'position ASC'
+    # default_scope :order => 'position ASC'
+    default_scope { order(:position) }
   
-    scope :locale, lambda {|locale| where("locale = ?", locale.to_s)}
+    # scope :locale, lambda {|locale| where("locale = ?", locale.to_s)}
+    scope :locale, -> (locale) { where("locale = ?", locale.to_s)}
   
     #
     # There is always discussion about if the HTML should be stripped and cleaned before or after saving to the DB. Most

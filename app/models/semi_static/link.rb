@@ -6,7 +6,7 @@ module SemiStatic
 
     belongs_to :fcol
 
-    default_scope :order => 'position ASC'
+    default_scope {:order('position ASC')}
 
   end
 end

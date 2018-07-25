@@ -11,6 +11,7 @@
         #close-sym
           &otimes;
       #slide-menu-main.section.group
+        - byebug
         - SemiStatic::Tag.slide_menu.locale(I18n.locale.to_s).reorder('position DESC').each_with_index do |mt, i|
           .wrapper{:id => ('slide-selected' if ((@tag == mt) || (@selection == mt.predefined_class)))}
             = link_to mt.name, menu_from_tag(mt), :class => 'text '

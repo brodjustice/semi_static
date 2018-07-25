@@ -32,9 +32,11 @@ module SemiStatic
       paths = paths.insert(paths.index(semi_static_root + '/app/views'), semi_static_root + '/app/views/themes/' + SemiStatic::Engine.config.theme)
       ActionController::Base.view_paths = paths
 
-      # The SASS load path for the theme in the config is added here. The path for the views is loaded elsewhere
-      Rails.application.config.sass.load_paths << "#{Rails.application.root}/app/assets/stylesheets/semi_static/themes/#{SemiStatic::Engine.config.theme}"
-      Rails.application.config.sass.load_paths << "#{SemiStatic::Engine.root}/app/assets/stylesheets/themes/#{SemiStatic::Engine.config.theme}"
+      # The SASS load path for the theme in the config can be added here for Rails 3. But for Rails 4 it's in the assets path (see engine.rb)
+      # The path for the views is loaded elsewhere
+      # Rails.application.config.sass.load_paths << "#{Rails.application.root}/app/assets/stylesheets/semi_static/themes/#{SemiStatic::Engine.config.theme}"
+      # Rails.application.config.sass.load_paths << "#{SemiStatic::Engine.root}/app/assets/stylesheets/themes/#{SemiStatic::Engine.config.theme}"
+
 
       # There is no load path for coffescript like there is for SASS so we can only use the sprokets load path
       # So we would normally do this here:

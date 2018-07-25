@@ -41,25 +41,43 @@ module SemiStatic
     GALLERY_SYM = { :thumbs_and_sidebar => 1, :main => 2, :sidebar_only => 3, :invisible => 4 }
     GALLERY = GALLERY_SYM.invert
   
-    default_scope order(:position, :entry_id, :id)
-    scope :home, where('home_page = ?', true)
-    scope :thumb, where('gallery_control = ?', GALLERY_SYM[:thumbs_and_sidebar])
+    # default_scope order(:position, :entry_id, :id)
+    default_scope {order(:position, :entry_id, :id)}
+
+    # scope :home, where('home_page = ?', true)
+    scope :home, -> {where('home_page = ?', true)}
+
+    # scope :thumb, where('gallery_control = ?', GALLERY_SYM[:thumbs_and_sidebar])
+    scope :thumb, -> {where('gallery_control = ?', GALLERY_SYM[:thumbs_and_sidebar])}
 
     # This scope depricated, use the Photo hidden attribute instead
-    scope :not_invisible, where('gallery_control != ?', GALLERY_SYM[:invisible])
+    # scope :not_invisible, where('gallery_control != ?', GALLERY_SYM[:invisible])
+    scope :not_invisible, ~> {where('gallery_control != ?', GALLERY_SYM[:invisible])}
 
     # Scope is to select all visible photos from all galleries that are visible
-    scope :visible, joins(:gallery).where('semi_static_galleries.public = ?', true).where('hidden = ?', false)
+    # scope :visible, joins(:gallery).where('semi_static_galleries.public = ?', true).where('hidden = ?', false)
+    scope :visible, ~> {joins(:gallery).where('semi_static_galleries.public = ?', true).where('hidden = ?', false)}
 
     # Scope ignores if gallery is visible and looks only at photo hidden attribute
-    scope :not_hidden, where('hidden = ?', false)
+    scope :not_hidden, ~> {where('hidden = ?', false)}
 
-    scope :main, where('gallery_control = ?', GALLERY_SYM[:main])
-    scope :sidebar, where('gallery_control=? OR gallery_control=?', GALLERY_SYM[:thumbs_and_sidebar], GALLERY_SYM[:sidebar_only])
-    scope :without_caption, where("description IS NULL or CAST(description as text) = ''")
-    scope :without_gallery, where("gallery_id IS NULL")
-    scope :locale, lambda {|locale| where("semi_static_photos.locale = ?", locale.to_s)}
-    scope :for_tag_id, lambda {|tag_id| joins(:entry).where('semi_static_entries.tag_id = ?', tag_id)}
+    # scope :main, where('gallery_control = ?', GALLERY_SYM[:main])
+    scope :main, -> {where('gallery_control = ?', GALLERY_SYM[:main])}
+
+    # scope :sidebar, where('gallery_control=? OR gallery_control=?', GALLERY_SYM[:thumbs_and_sidebar], GALLERY_SYM[:sidebar_only])
+    scope :sidebar, -> {where('gallery_control=? OR gallery_control=?', GALLERY_SYM[:thumbs_and_sidebar], GALLERY_SYM[:sidebar_only])}
+
+    # scope :without_caption, where("description IS NULL or CAST(description as text) = ''")
+    scope :without_caption, -> {where("description IS NULL or CAST(description as text) = ''")}
+
+    # scope :locale, lambda {|locale| where("semi_static_photos.locale = ?", locale.to_s)}
+    scope :locale, -> (locale) {where("semi_static_photos.locale = ?", locale.to_s)}
+
+    # scope :without_gallery, where("gallery_id IS NULL")
+    scope :without_gallery, ~> {where("gallery_id IS NULL")}
+
+    # scope :for_tag_id, lambda {|tag_id| joins(:entry).where('semi_static_entries.tag_id = ?', tag_id)}
+    scope :for_tag_id, ~> (tag_id) {joins(:entry).where('semi_static_entries.tag_id = ?', tag_id)}
 
     after_save :build_ordered_array
     after_destroy :build_ordered_array

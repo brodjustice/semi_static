@@ -6,6 +6,9 @@ module SemiStatic
   class Engine < ::Rails::Engine
     require 'haml'
     require 'jquery-ui-rails'
+    require 'actionpack/page_caching'
+    require 'protected_attributes'
+
 
     SOCIAL_LINKS = {
       'youtubeChannel' => {:name => 'YouTube', :domain => 'https://www.youtube.com/'},
@@ -34,7 +37,12 @@ module SemiStatic
     initializer "semi_static.assets.precompile" do |app|
       # There is no load path for coffescript like there is for SASS so we can only use the sprokets load path
       # Need to do this here rather than in config.after_initialize' as sprokets will by then have frozen the environment
-      Rails.application.assets.append_path "#{SemiStatic::Engine.root}/app/assets/javascripts/themes/#{SemiStatic::Engine.config.theme}"
+      #
+      # Note: In Rails 3 this was  Rails.application.assets.append_path ...
+      #
+      Rails.application.config.assets.paths << "#{SemiStatic::Engine.root}/app/assets/javascripts/themes/#{SemiStatic::Engine.config.theme}"
+      Rails.application.config.assets.paths << "#{Rails.application.root}/app/assets/stylesheets/semi_static/themes/#{SemiStatic::Engine.config.theme}"
+      Rails.application.config.assets.paths << "#{SemiStatic::Engine.root}/app/assets/stylesheets/themes/#{SemiStatic::Engine.config.theme}"
     end
 
     # Extend config class as 'try?' will not work on it

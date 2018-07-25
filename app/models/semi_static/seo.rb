@@ -16,9 +16,9 @@ module SemiStatic
     }
     CHANGE_FREQ_SYMS = CHANGE_FREQ.invert
 
-    default_scope order('created_at DESC')
+    default_scope { order('created_at DESC') }
 
-    scope :master, where(:master => true)
+    scope :master, -> { where(:master => true) }
 
     before_save :set_locale
     before_create :set_defaults

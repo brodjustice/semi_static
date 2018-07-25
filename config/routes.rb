@@ -44,7 +44,7 @@ SemiStatic::Engine.routes.draw do
   match "/documents/:squeeze_id/:token" => 'documents#show', :as => 'document', :via => :get
 
   # Special route, normally only used by the webserver to get CSRF tags
-  match '/site/csrf_meta_tags' => 'site#csrf_meta_tags'
+  match '/site/csrf_meta_tags' => 'site#csrf_meta_tags', :via => :get
 
   get '/site/home', to: redirect('/')
   match '/site/:content' => 'site#show', :as => 'site',
