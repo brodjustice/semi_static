@@ -31,7 +31,7 @@
 
     = yield :ujs
 
-    %link{:rel => 'shortcut icon', :href => '/assets/favicon.ico'}
+    = favicon_link_tag 'favicon.ico'
   %body{:id => "semi_static_#{controller_name.classify.downcase}"}
     #dialog{:style => 'display: none;'}
       #dialog-inner

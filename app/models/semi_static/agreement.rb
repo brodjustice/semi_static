@@ -4,8 +4,8 @@ module SemiStatic
 
     has_and_belongs_to_many :contacts, :join_table => :semi_static_agreements_contacts
 
-    scope :locale, ~> (locale){where("locale = ?", locale.to_s)}
-    scope :subscriber, ~> {where(:add_to_subscribers => true)}
+    scope :locale, -> (locale){where("locale = ?", locale.to_s)}
+    scope :subscriber, -> {where(:add_to_subscribers => true)}
 
     before_update :readonly
     before_destroy :readonly

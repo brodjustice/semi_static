@@ -43,7 +43,7 @@
     -# In the case of google analytics the async code must be in the head section in order that it
     -# can be validated for google webmaster tools
     = render :partial => SemiStatic::Engine.config.analytics_partial unless SemiStatic::Engine.config.analytics_partial.nil?
-    %link{:rel => 'shortcut icon', :href => '/assets/favicon.ico'}
+    = favicon_link_tag 'favicon.ico'
   %body#semi-static-home-page
     #body-inner
       = render :partial => 'semi_static/shared/home_body'

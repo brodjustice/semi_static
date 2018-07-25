@@ -19,7 +19,7 @@
 
     = yield :ujs
 
-    %link{:rel => 'shortcut icon', :href => '/assets/favicon.ico'}
+    = favicon_link_tag 'favicon.ico'
   %body#dashboard
     = render :partial => 'semi_static/shared/dashboard_top'
     #frame

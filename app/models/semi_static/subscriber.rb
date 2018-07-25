@@ -13,7 +13,7 @@ module SemiStatic
     validates_format_of :email, :with => Devise.email_regexp
     validates_presence_of :email
 
-    scope :subscribed, ~> {where('unsubscribe = ?', false)}
+    scope :subscribed, -> {where('unsubscribe = ?', false)}
 
     delegate :name, :to => :category, :allow_nil => true, :prefix => true
     

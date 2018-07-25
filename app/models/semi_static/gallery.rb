@@ -7,7 +7,7 @@ module SemiStatic
 
     default_scope {order(:position, :id)}
 
-    scope :locale, ~> (locale) {where("locale = ?", locale.to_s)}
-    scope :visible, ~> {where("public = ?", true)}
+    scope :locale, -> (locale) {where("locale = ?", locale.to_s)}
+    scope :visible, -> {where("public = ?", true)}
   end
 end

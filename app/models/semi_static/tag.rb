@@ -43,9 +43,6 @@ module SemiStatic
     # scope :with_attr, lambda{|attr| includes(:page_attrs).where('semi_static_page_attrs.attr_key  = ?', attr)}
     scope :with_attr, -> (attr){includes(:page_attrs).where('semi_static_page_attrs.attr_key  = ?', attr)}
 
-    # scope :slide_menu, includes(:page_attrs).where('semi_static_page_attrs.attr_key = ? OR menu = ?', 'slideMenu', true)
-    scope :slide_menu, -> {includes(:page_attrs).where('semi_static_page_attrs.attr_key = ? OR menu = ?', 'slideMenu', true)}
-
     # scope :public, where("subscriber = ?", false).where("admin_only = ?", false)
     #
     # public becomes a reserved method in Rails 4
@@ -62,6 +59,22 @@ module SemiStatic
        :convert_options => { :standard => "-strip -gravity Center",
                              :big => "-strip -gravity Center"  }
     after_commit :check_for_sprites_file
+
+    # 
+    # This used to be a scope as Rails 3 allowed the following:
+    #   scope :slide_menu, includes(:page_attrs).where('semi_static_page_attrs.attr_key = ? OR menu = ?', 'slideMenu', true)
+    # so we expect we can use something like:
+    #   scope :slide_menu, -> {includes(:page_attrs).where('semi_static_page_attrs.attr_key = ? OR menu = ?', 'slideMenu', true)}
+    # But this does not work in Rails 4. We can't use this:
+    #  scope :slide_menu, -> {find_by_sql("SELECT \"semi_static_tags\".* FROM \"semi_static_tags\"  WHERE (semi_static_page_attrs.attr_key = 'slideMenu' OR menu = 't') ORDER BY position")}
+    # because it returns and array.
+    #
+    # Rails 5 may offer a solution, but until then we use a method
+    #
+
+    def self.slide_menu
+      self.where(:menu => true).merge(self.includes(:page_attrs).where(:semi_static_page_attrs => {:attr_key => 'slideMenu'}))
+    end
 
     def title; name end
     def raw_title; name end

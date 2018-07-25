@@ -52,14 +52,14 @@ module SemiStatic
 
     # This scope depricated, use the Photo hidden attribute instead
     # scope :not_invisible, where('gallery_control != ?', GALLERY_SYM[:invisible])
-    scope :not_invisible, ~> {where('gallery_control != ?', GALLERY_SYM[:invisible])}
+    scope :not_invisible, -> {where('gallery_control != ?', GALLERY_SYM[:invisible])}
 
     # Scope is to select all visible photos from all galleries that are visible
     # scope :visible, joins(:gallery).where('semi_static_galleries.public = ?', true).where('hidden = ?', false)
-    scope :visible, ~> {joins(:gallery).where('semi_static_galleries.public = ?', true).where('hidden = ?', false)}
+    scope :visible, -> {joins(:gallery).where('semi_static_galleries.public = ?', true).where('hidden = ?', false)}
 
     # Scope ignores if gallery is visible and looks only at photo hidden attribute
-    scope :not_hidden, ~> {where('hidden = ?', false)}
+    scope :not_hidden, -> {where('hidden = ?', false)}
 
     # scope :main, where('gallery_control = ?', GALLERY_SYM[:main])
     scope :main, -> {where('gallery_control = ?', GALLERY_SYM[:main])}
@@ -74,10 +74,10 @@ module SemiStatic
     scope :locale, -> (locale) {where("semi_static_photos.locale = ?", locale.to_s)}
 
     # scope :without_gallery, where("gallery_id IS NULL")
-    scope :without_gallery, ~> {where("gallery_id IS NULL")}
+    scope :without_gallery, -> {where("gallery_id IS NULL")}
 
     # scope :for_tag_id, lambda {|tag_id| joins(:entry).where('semi_static_entries.tag_id = ?', tag_id)}
-    scope :for_tag_id, ~> (tag_id) {joins(:entry).where('semi_static_entries.tag_id = ?', tag_id)}
+    scope :for_tag_id, -> (tag_id) {joins(:entry).where('semi_static_entries.tag_id = ?', tag_id)}
 
     after_save :build_ordered_array
     after_destroy :build_ordered_array
