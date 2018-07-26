@@ -20,9 +20,10 @@ module SemiStatic
 
     STATE_CODES = STATES.invert
 
-    default_scope order('updated_at DESC')
-    scope :pending, where(:state => NewsletterDelivery::STATES[:pending])
-    scope :delivered, where(:state => NewsletterDelivery::STATES[:sent])
+    default_scope { order(:updated_at => :desc)}
+
+    scope :pending, -> {where(:state => NewsletterDelivery::STATES[:pending])}
+    scope :delivered, -> {where(:state => NewsletterDelivery::STATES[:sent])}
 
     delegate :fullname, :to => :subscriber, :allow_nil => true
     delegate :email, :to => :subscriber, :allow_nil => true
