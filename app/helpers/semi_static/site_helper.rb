@@ -601,6 +601,50 @@ module SemiStatic
       end
     end
 
+    #
+    # In sprockets 2.x the the 'find_asset' method was just what we needed, we could find and asset
+    # very easily like this:
+    #   ObjectSpace.each_object(Sprockets::Environment).first.find_asset('home_theme.js')
+    #
+    # or with the standard API call like this:
+    #   Rails.application.assets.find_asset('home_theme.js')
+    #
+    # We could even get the contents of that asset very easily like this:
+    #   ObjectSpace.each_object(Sprockets::Environment).first.find_asset('home.css').source.html_safe
+    #
+    # With sprockets 3.x this still works in development more but not in production! The replacememnt
+    # method is supposed to be:
+    #   Rails.application.assets.find_asset('home_theme.js')
+    # but this only works if you set:
+    #   Rails.application.config.assets.compile = true
+    # but we don't want to do this, it's not recomended and we anyway want to precompile all assets.
+    #
+    # This is quite a drawback and rather strange that development and production have different API's
+    # 
+    # The solution is via our own methods find_asset and asset_source. Carefull to only use
+    # asset_source on .js, .css files etc, not images
+    # 
+    def find_asset(filename)
+      if Rails.application.assets
+        Rails.application.assets.find_asset(filename).pathname
+      else
+        name = Rails.application.assets_manifest.assets[filename]
+        File.join(Rails.public_path, 'assets', name)
+      end
+    end
+
+    def asset_source(filename)
+      if Rails.application.assets
+        Rails.application.assets.find_asset(filename) && Rails.application.assets.find_asset(filename).source.html_safe
+      else
+        if path = find_asset(filename)
+          File.read(path).html_safe
+        else
+          nil
+        end
+      end
+    end
+
     private
 
     def column(fc, colclass)

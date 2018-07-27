@@ -32,7 +32,7 @@
     -#      = render :partial => 'semi_static/shared/font'
     = render :partial => 'semi_static/shared/font'
 
-    = javascript_include_tag 'theme' unless ObjectSpace.each_object(Sprockets::Environment).first.find_asset('theme.js').source.empty?
+    = asset_source('theme.js')
     = stylesheet_link_tag 'semi_static_application', :media => 'all'
     %style{:type => "text/css"}
       - if lookup_context.exists?('semi_static/shared/_css_for_theme')
@@ -40,7 +40,7 @@
       = yield :header_css
 
     %script
-      = ObjectSpace.each_object(Sprockets::Environment).first.find_asset('semi-static.js').source.html_safe
+      = asset_source('semi-static.js')
     
     = yield :ujs
 

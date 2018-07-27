@@ -26,17 +26,16 @@
     = render :partial => 'semi_static/shared/font'
 
     %style{:type => "text/css"}
-      = ObjectSpace.each_object(Sprockets::Environment).first.find_asset('home.css').source.html_safe
+      -# = ObjectSpace.each_object(Sprockets::Environment).first.find_asset('home.css').source.html_safe
+      = asset_source('home.css')
       - if lookup_context.exists?('semi_static/shared/_css_for_theme')
         = render 'semi_static/shared/css_for_theme'
       = yield :header_css
 
     %script
-      = ObjectSpace.each_object(Sprockets::Environment).first.find_asset('semi-static.js').source.html_safe
-      - if (theme_js = ObjectSpace.each_object(Sprockets::Environment).first.find_asset('theme.js'))
-        = theme_js.source.html_safe
-      - if (home_theme_js = ObjectSpace.each_object(Sprockets::Environment).first.find_asset('home_theme.js'))
-        = home_theme_js.source.html_safe
+      = asset_source('semi-static.js')
+      = asset_source('theme.js')
+      = asset_source('home_theme.js')
 
     = yield :ujs
 
