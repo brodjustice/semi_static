@@ -27,6 +27,17 @@ module SemiStatic
       @@social_links
     end
 
+    #
+    # Rails 4/5 sprockets no longer automatically compiles images from the standard Engine asset directories. In 
+    # other words the documentation is incorrect when it says "Assets within an engine work in an identical way
+    # to a full application..."
+    #
+    # The issue and the workaround that we use is discussed here:
+    #   https://github.com/rails/sprockets/issues/542
+    # So we add a 'manifest' file to the asset pipeline (engine_assets.css) which contains link_tree commands
+    # to the image and font resources.
+    config.assets.precompile << 'engine_assets.css'
+
     initializer :load_environment_config do |app|
       # We need the files in the applications semi-static locales to override the engine if present, so make sure
       # that they are added at the end

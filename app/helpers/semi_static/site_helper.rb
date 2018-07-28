@@ -625,11 +625,16 @@ module SemiStatic
     # asset_source on .js, .css files etc, not images
     # 
     def find_asset(filename)
+      path = ""
       if Rails.application.assets
         Rails.application.assets.find_asset(filename).pathname
       else
-        name = Rails.application.assets_manifest.assets[filename]
-        File.join(Rails.public_path, 'assets', name)
+        Rails.application.assets_manifest.assets.each do |f,p|
+          if File.basename(f) == filename
+            path = p
+          end
+        end
+        path.blank? ? nil : File.join(Rails.public_path, 'assets', path)
       end
     end
 
@@ -642,6 +647,7 @@ module SemiStatic
         else
           nil
         end
+        c
       end
     end
 
