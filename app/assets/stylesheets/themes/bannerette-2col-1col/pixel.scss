@@ -2,9 +2,9 @@
 @media (min-resolution: 1.5dppx), (min-device-pixel-ratio: 2), (min--moz-device-pixel-ratio: 2), (-webkit-min-device-pixel-ratio: 2) {
   .button-wrapper a[class*='-share'], #top .icon a, .social-inner a div,
   .link a, .more a, .feint .more a, .flat .more a, .news .more a, #search-wrapper{
-    background-image: url(#{$vert-x2-sprites});
+    background-image: image-url('#{$vert-x2-sprites}');
     background-size: 28px $vert-sprites-height;
   }
-  #logo{ background: transparent url(/assets/x2/#{$logo-top}) 0 0 no-repeat; background-size: $logo-top-width $logo-top-height; }
-  #bar-menu .sign-in a{background-image: url(/assets/x2/user-icon.png);}
+  #logo{ background: transparent image-url('x2/#{$logo-top}') 0 0 no-repeat; background-size: $logo-top-width $logo-top-height; }
+  #bar-menu .sign-in a{background-image: image-url('x2/user-icon.png');}
 }

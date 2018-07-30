@@ -18,7 +18,7 @@ module SemiStatic
     config.site_name = 'Business Landing Ltd'
 
     # Correct logo path is important for the Open Graph meta tags
-    # config.logo_image = '/assets/logo.png'
+    # config.logo_image = 'logo.png'
     config.logo_image = nil
 
     # If you want just text instead of a logo, put it here
@@ -172,6 +172,6 @@ module SemiStatic
     # If a newsletter logo is given, this will be used instead of the normal website or meta tags logo,
     # this helps if you wnat to have a very compressed lightweight logo for you newsletters or just
     # perhaps a different background
-    # config.newsletter_logo = '/assets/logo.jpg'
+    # config.newsletter_logo = 'newsletter-logo.jpg'
   end
 end

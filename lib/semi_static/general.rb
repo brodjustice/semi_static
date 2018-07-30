@@ -15,7 +15,17 @@ module General
     'semi_static_' + LAYOUTS[obj.layout_select || 0]
   end
 
+  #
+  # The list below is of the cached files that are not stored in the "tags" or "entries" (or in fact the context
+  # URL) directories. As such they are the exceptions that we need to keep control of, ie. delete when the cache is
+  # expired.
+  #
   CACHED = ["index.html", "index.html.gz", "news.html", "news.html.gz", "site", "references.html", "references.html.gz", "gallery.html", "gallery.html.gz", "references", "photos.html", "photos.html.gz", "photos", "features", "features.html", "features.html.gz", "entries", "entries.html", "entries.html.gz", "site/imprint-credits.html", "site/imprint-credits.html.gz", "documents/index.html", "documents/index.html.gz", "contacts/new.html", "contacts/new.html.gz"]
+
+  # We overwrite the standard page_cache_directoty method to make it depend on the locale
+  def self.page_cache_directory
+    Rails.root.join("public", I18n.locale.to_s)
+  end
 
   def write_sitemap(locale)
     stream = render_to_string(:formats => [:xml], :handler => :bulider, :template => "semi_static/system/generate_sitemap" )

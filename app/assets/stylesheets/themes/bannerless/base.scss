@@ -81,7 +81,7 @@ h2{ font-size: 20px; font-weight: normal;}
 
 #bar-menu li a{
   color: #d8d8d8;
-  background: image-url('/assets/vert-sprites-light.png') no-repeat scroll 0 0 transparent;
+  background: image-url('vert-sprites-light.png') no-repeat scroll 0 0 transparent;
   display: block;
   padding: 5px 8px 0 14px;
 }
@@ -127,7 +127,7 @@ h2{ font-size: 20px; font-weight: normal;}
 
 #logo{
   width: $logo-width; height: $logo-height;
-  background: white image-url('/assets/#{$logo}') 0 0 no-repeat;
+  background: white image-url('#{$logo}') 0 0 no-repeat;
   color:transparent;
 }
 
@@ -428,8 +428,8 @@ nav li{ line-height: 20px; list-style: outside none none; }
 
 // Sprites
 
-#ddock{float: right;width: 97px; margin-top: 0px; margin-right: 8px; height: 32px; background:transparent image-url('/assets/hoz-sprites.pngi') 0 center no-repeat;}
-#html5{float: right;margin: -4px 5px 0 0px; width: 25px; height: 33px; background:transparent image-url('/assets/hoz-sprites.png') -97px center no-repeat;}
+#ddock{float: right;width: 97px; margin-top: 0px; margin-right: 8px; height: 32px; background:transparent image-url('hoz-sprites.png') 0 center no-repeat;}
+#html5{float: right;margin: -4px 5px 0 0px; width: 25px; height: 33px; background:transparent image-url('hoz-sprites.png') -97px center no-repeat;}
 
 #facebook{float: right; padding: 4px 8px 4px 32px; background: transparent image-url('#{$vert-sprites}') 0 1px no-repeat;}
 #youtube{float: right; padding: 4px 8px 4px 32px; background: transparent image-url('#{$vert-sprites}') 0 -31px no-repeat;}
