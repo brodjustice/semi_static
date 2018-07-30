@@ -131,7 +131,7 @@ h2{ font-size: 20px;}
   border-radius: 2px;
   padding: 0px 34px 4px 4px;
   text-align: center;
-  background: transparent url(#{$vert-sprites}) right -226px no-repeat;
+  background: transparent image-url('#{$vert-sprites}') right -226px no-repeat;
 }
 
 #body-inner{
@@ -296,7 +296,7 @@ h2{ font-size: 20px;}
 }
 
 #banner0{
-  background:transparent url(/assets/banners/#{$banner-b}) center 0px no-repeat; z-index: -10;
+  background:transparent image-url('/assets/banners/#{$banner-b}') center 0px no-repeat; z-index: -10;
   animation: fader 30s linear infinite; animation-delay: 0s;
   animation-timing-function: linear;
   -webkit-animation-duration: 30s;
@@ -308,7 +308,7 @@ h2{ font-size: 20px;}
 }
 
 #banner1{
-  background:transparent url(/assets/banners/#{$banner-c}) center 0px no-repeat; z-index: -20;
+  background:transparent image-url('/assets/banners/#{$banner-c}') center 0px no-repeat; z-index: -20;
   animation: fader 30s linear infinite; animation-delay: 10s;
   animation-timing-function: linear;
   -webkit-animation-duration: 30s;
@@ -320,7 +320,7 @@ h2{ font-size: 20px;}
 }
 
 #banner4{
-  background:transparent url(/assets/banners/#{$banner-a}) center 0px no-repeat; z-index: -50;
+  background:transparent image-url('/assets/banners/#{$banner-a}') center 0px no-repeat; z-index: -50;
   animation: fader 30s linear infinite; animation-delay: 20s;
   animation-timing-function: linear;
   -webkit-animation-duration: 30s;
@@ -337,7 +337,7 @@ h2{ font-size: 20px;}
   background-size: contain;
 }
 #bannerBg{
-  background-image: url(/assets/banners/#{$banner-a});
+  background-image: image-url('/assets/banners/#{$banner-a}');
   position: relative;
   z-index: -50;
   min-height: 250px;
@@ -476,12 +476,12 @@ h2{ font-size: 20px;}
 .list h1{ color: $prime-color; border-bottom: 1px solid $prime-color; }
 
 .social a{color: transparent;}
-.social-inner a div{height:32px;width:38px;float:right;padding: 0px;overflow:hidden;background: transparent url(#{$vert-sprites}) 0 0 no-repeat;}
+.social-inner a div{height:32px;width:38px;float:right;padding: 0px;overflow:hidden;background: transparent image-url('#{$vert-sprites}') 0 0 no-repeat;}
 
 // Sprites
 
-#ddock{float: right;width: 97px; margin: 0px 16px 0px; height: 32px; background:transparent url(/assets/hoz-sprites.png) 0 center no-repeat;}
-#html5{float: right;margin: -4px 5px 0 0px; width: 25px; height: 33px; background:transparent url(/assets/hoz-sprites.png) -97px center no-repeat;}
+#ddock{float: right;width: 97px; margin: 0px 16px 0px; height: 32px; background:transparent image-url('/assets/hoz-sprites.png') 0 center no-repeat;}
+#html5{float: right;margin: -4px 5px 0 0px; width: 25px; height: 33px; background:transparent image-url('/assets/hoz-sprites.png') -97px center no-repeat;}
 
 #twitter{background-position: 0px -62px;}
 #xing{background-position: 0px -158px;}
@@ -493,12 +493,12 @@ h2{ font-size: 20px;}
 #kununu{background-position: 0 -350px;}
 
 
-.bar-menu .contact a{float: right; display: block; padding: 4px 34px 0px 8px; background: transparent url(#{$vert-sprites}) right -194px no-repeat;}
-.bar-menu .search a{float: right; display: block; padding: 4px 30px 6px 8px; background: transparent url(#{$vert-sprites}) right -226px no-repeat;}
-.bar-menu .sign-in a{float: right; display: block; padding: 4px 32px 2px 8px; background: transparent url(/assets/user-icon.png) right 0px no-repeat; background-size: 28px 32px !important;}
+.bar-menu .contact a{float: right; display: block; padding: 4px 34px 0px 8px; background: transparent image-url('#{$vert-sprites}') right -194px no-repeat;}
+.bar-menu .search a{float: right; display: block; padding: 4px 30px 6px 8px; background: transparent image-url('#{$vert-sprites}') right -226px no-repeat;}
+.bar-menu .sign-in a{float: right; display: block; padding: 4px 32px 2px 8px; background: transparent image-url('/assets/user-icon.png') right 0px no-repeat; background-size: 28px 32px !important;}
 #twitter, #xing, #facebook, #youtube, .bar-menu .icon a{ background-size: 28px $vert-sprites-height; }
 
-.icon.sprite{height: 100px; width: 100px; background: url(/system/icons/menu-sprites.png) center 0px no-repeat;}
+.icon.sprite{height: 100px; width: 100px; background: image-url('/system/icons/menu-sprites.png') center 0px no-repeat;}
 .icon.sprite.mini{height: 45px; width: 50px; background-size: 50px 250px;}
 #sprite_1{background-position: center 0px;}
 #sprite_2{background-position: center -100px;}
@@ -608,13 +608,13 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
 }
 
 #logo{
-  background: transparent url(/assets/#{$logo-top}) left center no-repeat;
+  background: transparent image-url('/assets/#{$logo-top}') left center no-repeat;
   height: $logo-top-height;
 }
 
 #mini-logo{
   width: $logo-top-width; height: $logo-top-height;
-  background: transparent url(/assets/#{$logo-top}) 0 0 no-repeat;
+  background: transparent image-url('/assets/#{$logo-top}') 0 0 no-repeat;
   position: absolute;
   top: 3px;
   left: 0px;
@@ -666,7 +666,7 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
 #menu .bar-menu a{
   text-transform: none;
 }
-.home{ padding-left: 52px !important; background: transparent url(/assets/home.png) 21px 2px no-repeat; background-size: auto !important;}
+.home{ padding-left: 52px !important; background: transparent image-url('/assets/home.png') 21px 2px no-repeat; background-size: auto !important;}
 
 #menu{
   z-index: 500;
@@ -731,13 +731,13 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
 }
 .link{text-align: center;}
 .link a, .more a{
-  background: transparent url(#{$vert-sprites}) right -259px no-repeat;
+  background: transparent image-url('#{$vert-sprites}') right -259px no-repeat;
   background-size: 28px $vert-sprites-height;
   padding: 4px 36px 1px 12px;
   margin: 2px 0px 6px;
 }
 .feint .more a, .flat .more a, .news .more a{
-  background: transparent url(#{$vert-sprites}) right -291px no-repeat;
+  background: transparent image-url('#{$vert-sprites}') right -291px no-repeat;
   color: #d8d8d8;
 }
 
@@ -850,7 +850,7 @@ h1 a:hover, h2 a:hover, h3 a:hover{ text-decoration: underline;}
   #footer ul{line-height: 26px;}
   #banner4, #banner3, #banner2, #banner1, #banner0 {animation: none; opacity: 1.0; background-image: none; display: none;}
   #bannerBg {
-    background-image: url(/assets/banners/#{$banner-mobile});
+    background-image: image-url('/assets/banners/#{$banner-mobile}');
     background-size: cover;
   }
   #banner-loading{display: none;}

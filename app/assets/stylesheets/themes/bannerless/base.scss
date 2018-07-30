@@ -81,7 +81,7 @@ h2{ font-size: 20px; font-weight: normal;}
 
 #bar-menu li a{
   color: #d8d8d8;
-  background: url(/assets/vert-sprites-light.png) no-repeat scroll 0 0 transparent;
+  background: image-url('/assets/vert-sprites-light.png') no-repeat scroll 0 0 transparent;
   display: block;
   padding: 5px 8px 0 14px;
 }
@@ -108,9 +108,9 @@ h2{ font-size: 20px; font-weight: normal;}
     max-width: 1400px;
 }
 
-#bar-menu .sign-in a{float: right; display: block; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0px -290px no-repeat;}
-#bar-menu .contact a{float: right; display: block; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0px -194px no-repeat;}
-#bar-menu .search a{float: right; display: block; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0px -226px no-repeat;}
+#bar-menu .sign-in a{float: right; display: block; padding: 4px 8px 4px 32px; background: transparent image-url('#{$vert-sprites}') 0px -290px no-repeat;}
+#bar-menu .contact a{float: right; display: block; padding: 4px 8px 4px 32px; background: transparent image-url('#{$vert-sprites}') 0px -194px no-repeat;}
+#bar-menu .search a{float: right; display: block; padding: 4px 8px 4px 32px; background: transparent image-url('#{$vert-sprites}') 0px -226px no-repeat;}
 #bar-menu .icon a{ background-size: 28px $vert-sprites-height; }
 
 #tag-wrapper{
@@ -127,7 +127,7 @@ h2{ font-size: 20px; font-weight: normal;}
 
 #logo{
   width: $logo-width; height: $logo-height;
-  background: white url(/assets/#{$logo}) 0 0 no-repeat;
+  background: white image-url('/assets/#{$logo}') 0 0 no-repeat;
   color:transparent;
 }
 
@@ -428,16 +428,16 @@ nav li{ line-height: 20px; list-style: outside none none; }
 
 // Sprites
 
-#ddock{float: right;width: 97px; margin-top: 0px; margin-right: 8px; height: 32px; background:transparent url(/assets/hoz-sprites.png) 0 center no-repeat;}
-#html5{float: right;margin: -4px 5px 0 0px; width: 25px; height: 33px; background:transparent url(/assets/hoz-sprites.png) -97px center no-repeat;}
+#ddock{float: right;width: 97px; margin-top: 0px; margin-right: 8px; height: 32px; background:transparent image-url('/assets/hoz-sprites.pngi') 0 center no-repeat;}
+#html5{float: right;margin: -4px 5px 0 0px; width: 25px; height: 33px; background:transparent image-url('/assets/hoz-sprites.png') -97px center no-repeat;}
 
-#facebook{float: right; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0 1px no-repeat;}
-#youtube{float: right; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0 -31px no-repeat;}
-#twitter{float: right; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0 -63px no-repeat;}
-#linkedin{float: right; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0 -95px no-repeat;}
-#googleplus{float: right; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0 -127px no-repeat;}
-#xing{float: right; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0 -159px no-repeat;}
-#instagram{float: right; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0 -318px no-repeat;}
+#facebook{float: right; padding: 4px 8px 4px 32px; background: transparent image-url('#{$vert-sprites}') 0 1px no-repeat;}
+#youtube{float: right; padding: 4px 8px 4px 32px; background: transparent image-url('#{$vert-sprites}') 0 -31px no-repeat;}
+#twitter{float: right; padding: 4px 8px 4px 32px; background: transparent image-url('#{$vert-sprites}') 0 -63px no-repeat;}
+#linkedin{float: right; padding: 4px 8px 4px 32px; background: transparent image-url('#{$vert-sprites}') 0 -95px no-repeat;}
+#googleplus{float: right; padding: 4px 8px 4px 32px; background: transparent image-url('#{$vert-sprites}') 0 -127px no-repeat;}
+#xing{float: right; padding: 4px 8px 4px 32px; background: transparent image-url('#{$vert-sprites}') 0 -159px no-repeat;}
+#instagram{float: right; padding: 4px 8px 4px 32px; background: transparent image-url('#{$vert-sprites}') 0 -318px no-repeat;}
 
 .social:after, .panel:after{ content: ''; display: table; clear: both; }
 
@@ -501,13 +501,13 @@ h2 a, h3 a{color: $secondary-color;}
 }
 .link{text-align: center;}
 .link a, .more a{
-  background: transparent url(#{$vert-sprites}) right -290px no-repeat;
+  background: transparent image-url('#{$vert-sprites}') right -290px no-repeat;
   background-size: 28px $vert-sprites-height;
   padding: 4px 32px 4px 8px;
   margin: 2px 0px 6px;
 }
 .feint .more a, .flat .more a, .news .more a{
-  background: transparent url(#{$vert-sprites}) right -290px no-repeat;
+  background: transparent image-url('#{$vert-sprites}') right -290px no-repeat;
   color: #d8d8d8;
 }
 

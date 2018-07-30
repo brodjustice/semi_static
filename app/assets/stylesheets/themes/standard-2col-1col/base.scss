@@ -144,7 +144,7 @@ h2{ font-size: 20px;}
 
 
 #banner0{
-  background:transparent url(/assets/banners/#{$banner-b}) center 0px no-repeat; z-index: -10;
+  background:transparent image-url('/assets/banners/#{$banner-b}') center 0px no-repeat; z-index: -10;
   animation: fader 50s linear infinite; animation-delay: 0s;
   -webkit-animation-duration: 50s;
   -webkit-animation-name: fader;
@@ -154,7 +154,7 @@ h2{ font-size: 20px;}
 }
 
 #banner1{
-  background:transparent url(/assets/banners/#{$banner-c}) center 0px no-repeat; z-index: -20;
+  background:transparent image-url('/assets/banners/#{$banner-c}') center 0px no-repeat; z-index: -20;
   animation: fader 50s linear infinite; animation-delay: 10s;
   -webkit-animation-duration: 50s;
   -webkit-animation-name: fader;
@@ -164,7 +164,7 @@ h2{ font-size: 20px;}
 }
 
 #banner2{
-  background:transparent url(/assets/banners/#{$banner-d}) center 0px no-repeat; z-index: -30;
+  background:transparent image-url('/assets/banners/#{$banner-d}') center 0px no-repeat; z-index: -30;
   animation: fader 50s linear infinite; animation-delay: 20s;
   -webkit-animation-duration: 50s;
   -webkit-animation-name: fader;
@@ -174,7 +174,7 @@ h2{ font-size: 20px;}
 }
 
 #banner3{
-  background:transparent url(/assets/banners/#{$banner-e}) center 0px no-repeat; z-index: -40;
+  background:transparent image-url('/assets/banners/#{$banner-e}') center 0px no-repeat; z-index: -40;
   animation: fader 50s linear infinite; animation-delay: 30s;
   -webkit-animation-duration: 50s;
   -webkit-animation-name: fader;
@@ -184,7 +184,7 @@ h2{ font-size: 20px;}
 }
 
 #banner4{
-  background:transparent url(/assets/banners/#{$banner-a}) center 0px no-repeat; z-index: -50;
+  background:transparent image-url('/assets/banners/#{$banner-a}') center 0px no-repeat; z-index: -50;
   animation: fader 50s linear infinite; animation-delay: 40s;
   -webkit-animation-duration: 50s;
   -webkit-animation-name: fader;
@@ -194,7 +194,7 @@ h2{ font-size: 20px;}
 }
 
 #bannerBg{
-  background:transparent url(/assets/banners/#{$banner-a}) center 0px no-repeat;
+  background:transparent image-url('/assets/banners/#{$banner-a}') center 0px no-repeat;
   z-index: -50;
 }
 
@@ -319,10 +319,10 @@ h2{ font-size: 20px;}
 
 // Sprites
 
-#ddock{float: right;width: 97px; margin-top: 0px; margin-right: 8px; height: 32px; background:transparent url(/assets/hoz-sprites.png) 0 center no-repeat;}
-#html5{float: right;margin: -4px 5px 0 0px; width: 25px; height: 33px; background:transparent url(/assets/hoz-sprites.png) -97px center no-repeat;}
+#ddock{float: right;width: 97px; margin-top: 0px; margin-right: 8px; height: 32px; background:transparent image-url('/assets/hoz-sprites.png') 0 center no-repeat;}
+#html5{float: right;margin: -4px 5px 0 0px; width: 25px; height: 33px; background:transparent image-url('/assets/hoz-sprites.png') -97px center no-repeat;}
 
-.social a div{float: right; padding: 4px 8px 4px 32px; background-image: url(#{$vert-sprites});background-repeat:no-repeat;}
+.social a div{float: right; padding: 4px 8px 4px 32px; background-image: image-url('#{$vert-sprites}');background-repeat:no-repeat;}
 #facebook{background-position: 0 1px;}
 #youtube{background-position: 0 -31px;}
 #twitter{background-position: 0 -63px;}
@@ -331,14 +331,14 @@ h2{ font-size: 20px;}
 #xing{background-position: 0 -160px;}
 #instagram{background-position: 0 -319px;}
 
-#bar-menu .sign-in a{float: right; display: block; padding: 4px 12px 4px 32px; background: transparent url(/assets/user-icon-black.png) 4px 2px no-repeat;background-size: 24px 27px !important;}
-#bar-menu .contact a{float: right; display: block; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0px -193px no-repeat;}
-#bar-menu .search a{float: right; display: block; padding: 4px 8px 4px 32px; background: transparent url(#{$vert-sprites}) 0px -225px no-repeat;}
+#bar-menu .sign-in a{float: right; display: block; padding: 4px 12px 4px 32px; background: transparent image-url('/assets/user-icon-black.png') 4px 2px no-repeat;background-size: 24px 27px !important;}
+#bar-menu .contact a{float: right; display: block; padding: 4px 8px 4px 32px; background: transparent image-url('#{$vert-sprites}') 0px -193px no-repeat;}
+#bar-menu .search a{float: right; display: block; padding: 4px 8px 4px 32px; background: transparent image-url('#{$vert-sprites}') 0px -225px no-repeat;}
 #bar-menu .icon a{ background-size: 28px $vert-sprites-height; }
 
 #twitter, #xing, #facebook, #youtube, #bar-menu .icon a{ background-size: 28px $vert-sprites-height; }
 
-.icon.sprite{height: 100px; width: 100px; background: url(/system/icons/menu-sprites.png) center 0px no-repeat;}
+.icon.sprite{height: 100px; width: 100px; background: image-url('/system/icons/menu-sprites.png') center 0px no-repeat;}
 .icon.sprite.mini{height: 45px; width: 50px; background-size: 50px 250px;}
 #sprite_1{background-position: center 0px;}
 #sprite_2{background-position: center -100px;}
@@ -546,13 +546,13 @@ nav li { list-style: outside none none; }
 
 #logo{
   color: transparent;
-  background: transparent url(/assets/#{$logo-top}) left center no-repeat;
+  background: transparent image-url('/assets/#{$logo-top}') left center no-repeat;
   height: $logo-top-height;
 }
 
 #mini-logo{
   width: $logo-top-width; height: $logo-top-height;
-  background: transparent url(/assets/#{$logo-top}) 0 0 no-repeat;
+  background: transparent image-url('/assets/#{$logo-top}') 0 0 no-repeat;
   position: absolute;
   top: 5px;
   left: 0px;
@@ -579,13 +579,13 @@ nav li { list-style: outside none none; }
   text-transform: none;
 }
 
-.home{ padding-left: 52px !important; background: transparent url(/assets/home.png) 21px 2px no-repeat; background-size: auto !important;}
+.home{ padding-left: 52px !important; background: transparent image-url('/assets/home.png') 21px 2px no-repeat; background-size: auto !important;}
 
 #menu{
   z-index: 500;
   width: 98%;
   margin: 0 auto;
-  background: transparent url(/assets/white-75.png) 0 0 repeat;
+  background: transparent image-url('/assets/white-75.png') 0 0 repeat;
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
   border-radius: 2px;
   border: 1px solid white;
@@ -640,13 +640,13 @@ nav li { list-style: outside none none; }
 }
 .link{text-align: center;}
 .link a, .more a{
-  background: transparent url(#{$vert-sprites}) right -259px no-repeat;
+  background: transparent image-url('#{$vert-sprites}') right -259px no-repeat;
   background-size: 28px $vert-sprites-height;
   padding: 4px 36px 1px 12px;
   margin: 2px 0px 6px;
 }
 .feint .more a, .flat .more a, .news .more a{
-  background: transparent url(#{$vert-sprites}) right -291px no-repeat;
+  background: transparent image-url('#{$vert-sprites}') right -291px no-repeat;
   color: #d8d8d8;
 }
 
@@ -773,7 +773,7 @@ nav li { list-style: outside none none; }
   // .mobile{display: block !important;}
   // .desktop{display: none !important;}
   #banner4, #banner3, #banner2, #banner1, #banner0 {animation: none; opacity: 1.0; background-image: none; display: none;}
-  #bannerBg {background-image: url(/assets/banners/#{$banner-mobile});}
+  #bannerBg {background-image: image-url('/assets/banners/#{$banner-mobile}');}
 }
 
 @media only screen and (max-width: 820px) {

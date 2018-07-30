@@ -647,7 +647,6 @@ module SemiStatic
         else
           nil
         end
-        c
       end
     end
 
