@@ -22,11 +22,6 @@ module General
   #
   CACHED = ["index.html", "index.html.gz", "news.html", "news.html.gz", "site", "references.html", "references.html.gz", "gallery.html", "gallery.html.gz", "references", "photos.html", "photos.html.gz", "photos", "features", "features.html", "features.html.gz", "entries", "entries.html", "entries.html.gz", "site/imprint-credits.html", "site/imprint-credits.html.gz", "documents/index.html", "documents/index.html.gz", "contacts/new.html", "contacts/new.html.gz"]
 
-  # We overwrite the standard page_cache_directoty method to make it depend on the locale
-  def self.page_cache_directory
-    Rails.root.join("public", I18n.locale.to_s)
-  end
-
   def write_sitemap(locale)
     stream = render_to_string(:formats => [:xml], :handler => :bulider, :template => "semi_static/system/generate_sitemap" )
     sitemap_path = Rails.root.to_s + "/public/#{locale.to_s}/#{SemiStatic::Engine.config.sitemap}"

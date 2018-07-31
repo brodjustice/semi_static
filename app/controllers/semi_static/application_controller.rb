@@ -77,5 +77,9 @@ module SemiStatic
         Rails.application.reload_routes!
       end
     end
+
+    def self.page_cache_directory
+      Rails.root.join("public", I18n.locale.to_s)
+    end
   end
 end

@@ -38,6 +38,12 @@ module SemiStatic
     # to the image and font resources.
     config.assets.precompile << 'engine_assets.css'
 
+    #
+    # Now add the semi-static assets to be compiled. Adding here avoids us having to 
+    # polute the applications /config/initilaizers/assets.rb
+    #
+    config.assets.precompile += %w( favicon.ico home.css semi_static_application.css semi_static_full.css user_dashboard.css semi-static.js semi_static_application.js semi_static_dashboard.js home_theme.js theme.js user_dashboard.js )
+
     initializer :load_environment_config do |app|
       # We need the files in the applications semi-static locales to override the engine if present, so make sure
       # that they are added at the end
@@ -46,6 +52,7 @@ module SemiStatic
 
     isolate_namespace SemiStatic
     initializer "semi_static.assets.precompile" do |app|
+      #
       # There is no load path for coffescript like there is for SASS so we can only use the sprokets load path
       # Need to do this here rather than in config.after_initialize' as sprokets will by then have frozen the environment
       #
