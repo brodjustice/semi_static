@@ -74,7 +74,7 @@ module SemiStatic
     scope :exclude_newsletters, -> {joins(:tag).where(:semi_static_tags => {:newsletter_id => nil})}
 
     # scope :for_newsletters, includes(:tag).where('semi_static_tags.newsletter_id IS NOT NULL')
-    scope :for_newsletters, -> {includes(:tag).where('semi_static_tags.newsletter_id IS NOT NULL')}
+    scope :for_newsletters, -> {includes(:tag).where.not(:semi_static_tags => {:newsletter_id => nil})}
 
     # scope :for_documents_tag, where("show_in_documents_tag = ?", true).where('doc_file_size IS NOT NULL')
     scope :for_documents_tag, -> {where("show_in_documents_tag = ?", true).where('doc_file_size IS NOT NULL')}
