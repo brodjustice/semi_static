@@ -171,7 +171,7 @@
           .field
             = f.text_field :youtube_id_str
             %span#validateYoutubeButton{:style => 'display: none'}
-              = button_to_function 'Click here to validate YouTube ID', 'validate_youtube_id();'
+              = button_to 'Click here to validate YouTube ID', '#', onclick: 'validate_youtube_id(); return false'
       %fieldset
         .infobox.wide#partial_description
           = render :partial => 'semi_static/system/partial_description', :object => @entry
@@ -209,9 +209,9 @@
             .button
               = link_to 'HTML mode', edit_entry_path(@entry, :mode => :html), :remote => true
           #convert_and_enable_editor.button
-            = link_to_function 'Convert to editor', 'convert_to_editor();'
+            = link_to 'Convert to editor', '#', onclick: 'convert_to_editor(); return false'
           #enable_editor.button
-            = link_to_function 'Editor', 'enable_editor();'
+            = link_to 'Editor', '#', onclick: 'enable_editor(); return false'
       %fieldset
         = f.label :summary
         %br/
@@ -550,5 +550,5 @@
       
   .mid
     .actions
-      = button_to_function 'Preview', 'entry_preview();'
+      = button_to 'Preview', '#', onclick: 'entry_preview(); return false'
       = f.submit 'Save'

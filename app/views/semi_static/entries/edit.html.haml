@@ -13,7 +13,7 @@
   - else
     .button= link_to 'Edit click ad', edit_click_ad_path(@entry.click_ad, :return => edit_entry_path(@entry)), :remote => true
   .button
-    = link_to_function 'Preview', 'entry_preview();'
+    = link_to "Preview", '#', onclick: "entry_preview(); return false"
   
   %h1
     = 'Editing'
