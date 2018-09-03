@@ -133,7 +133,7 @@ module SemiStatic
           utf_encoding_error
         end
       else
-        @subscriber = Subscriber.create(params[:subscriber])
+        @subscriber = Subscriber.create(subscriber_params)
         unsubscribed = params[:subscriber]
         notice = 'Subscriber was successfully created.'
       end
@@ -178,7 +178,7 @@ module SemiStatic
       respond_to do |format|
         if deleted
           format.html { render :template => template, :layout => layout }
-        elsif @subscriber.update_attributes(params[:subscriber])
+        elsif @subscriber.update_attributes(subscriber_params)
           format.html { render :template => template, :layout => layout }
           format.json { head :no_content }
         else
@@ -201,6 +201,12 @@ module SemiStatic
     end
 
     private
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def subscriber_params
+      params.fetch(:subscriber, {}).permit(:cancel_token, :email, :name, :surname, :telephone,
+        :locale, :company, :position, :country, :subscriber_category_id, :unsubscribe)
+    end
 
     def utf_encoding_error
       @subscriber = Subscriber.new

@@ -16,7 +16,7 @@ module SemiStatic
     end
   
     def create
-      @subscriber = SubscriberCategory.create(params[:subscriber_category])
+      @subscriber = SubscriberCategory.create(subscriber_category_params)
       notice = 'Subscriber Category was successfully created.'
 
       respond_to do |format|
@@ -33,5 +33,11 @@ module SemiStatic
         format.json { head :no_content }
       end
     end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def subscriber_category_params
+      params.fetch(:subscriber_category, {}).permit(:name)
+    end
+
   end
 end

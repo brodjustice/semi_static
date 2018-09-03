@@ -1,6 +1,6 @@
 module SemiStatic
   class NewsletterDelivery < ActiveRecord::Base
-    attr_accessible :state
+
     belongs_to :newsletter
     belongs_to :subscriber
 

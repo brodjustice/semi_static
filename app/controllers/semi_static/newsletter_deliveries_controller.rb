@@ -39,5 +39,13 @@ module SemiStatic
           format.js { render :template => template }
       end
     end
+
+    private
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def newsletter_delivery_params
+      params.fetch(:newsletter_delivery, {}).permit(:state)
+    end
+
   end
 end

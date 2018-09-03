@@ -1,6 +1,6 @@
 module SemiStatic
   class Subscriber < ActiveRecord::Base
-    attr_accessible :cancel_token, :email, :name, :surname, :telephone, :locale, :company, :position, :country, :subscriber_category_id, :unsubscribe
+
     attr_accessor :state, :bounced
 
     belongs_to :category, :class_name => SubscriberCategory, :foreign_key => :subscriber_category_id
