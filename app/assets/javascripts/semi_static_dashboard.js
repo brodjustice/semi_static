@@ -14,4 +14,3 @@
 //= require jquery_ujs
 //= require semi-static.js
 //= require semi_static_admin.js
-//= require jquery-ui

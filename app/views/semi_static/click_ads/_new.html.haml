@@ -1,4 +1,4 @@
-.button= link_to_function 'Cancel', "$('#dialog').hide();"
+.button= link_to 'Cancel', '#', :onclick => "$('#dialog').hide(); return false;"
 %h1= ['New click ad for ', @click_ad.entry.raw_title, ' (', @click_ad.entry.class.to_s.split('::').last, ')'].join
 = render 'form'
 

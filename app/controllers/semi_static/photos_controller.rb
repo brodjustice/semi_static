@@ -6,7 +6,7 @@ module SemiStatic
     require 'semi_static/general'
     include General
 
-    before_filter :authenticate_for_semi_static!, :except => [ :show, :index ]
+    before_action :authenticate_for_semi_static!, :except => [ :show, :index ]
   
     # Caching the show page seems to cause some problems when flicking through the
     # gallery with js. Since the js/ajax is so light anyway we have stopped caching
@@ -84,7 +84,7 @@ module SemiStatic
     # GET /photos/new
     # GET /photos/new.json
     def new
-      @photo = Photo.new(params[:photo])
+      @photo = Photo.new(photo_params)
       @entries = Entry.unscoped.order(:locale, :tag_id, :position).exclude_newsletters
       if params[:master].present?
         master = Photo.find(params[:master])
@@ -111,11 +111,14 @@ module SemiStatic
     # POST /photos
     # POST /photos.json
     def create
-      @photo = Photo.new(params[:photo])
+      @photo = Photo.new(photo_params)
   
       respond_to do |format|
         if @photo.save
           expire_page_cache(@photo)
+          unless @photo.notice.blank?
+            flash[:notice] = @photo.notice
+          end
           format.html { redirect_to galleries_path }
           format.json { render json: @photo, status: :created, location: @photo }
         else
@@ -131,8 +134,11 @@ module SemiStatic
       @photo = Photo.find(params[:id])
   
       respond_to do |format|
-        if @photo.update_attributes(params[:photo])
+        if @photo.update_attributes(photo_params)
           expire_page_cache(@photo)
+          unless @photo.notice.blank?
+            flash[:notice] = @photo.notice
+          end
           format.html { redirect_to galleries_path,:notice => 'Photo was successfully updated.' }
           format.json { head :no_content }
         else
@@ -154,6 +160,14 @@ module SemiStatic
         format.json { head :no_content }
         format.js
       end
+    end
+
+    private
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def photo_params
+      params.fetch(:photo, {}).permit(:title, :description, :img, :home_page, :position,
+        :entry_id, :gallery_id, :gallery_control, :locale, :popup, :hidden)
     end
 
     protected

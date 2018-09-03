@@ -2,7 +2,7 @@ require_dependency "semi_static/application_controller"
 
 module SemiStatic
   class AgreementsController < ApplicationController
-    before_filter :authenticate_for_semi_static!
+    before_action :authenticate_for_semi_static!
 
     def index
       @agreements = Agreement.all
@@ -43,7 +43,7 @@ module SemiStatic
       @agreement = Agreement.find(params[:id])
 
       respond_to do |format|
-        if @agreement.update_attributes(params[:agreement])
+        if @agreement.update_attributes(agreement_params)
           format.html { redirect_to agreements_path }
           format.json { render :json => @agreement, :status => :created, :location => @agreement }
         else
@@ -54,7 +54,7 @@ module SemiStatic
     end
 
     def create
-      @agreement = Agreement.new(params[:agreement])
+      @agreement = Agreement.new(agreemnet_params)
 
       respond_to do |format|
         if @agreement.save
@@ -80,5 +80,13 @@ module SemiStatic
         end
       end
     end
+
+    private
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def agreement_params
+      params.fetch(:tag, {}).permit(:body, :display, :locale, :ticked_by_default, :add_to_subscribers)
+    end
+
   end
 end

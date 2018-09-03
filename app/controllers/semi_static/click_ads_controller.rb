@@ -3,8 +3,8 @@ require_dependency "semi_static/application_controller"
 module SemiStatic
   class ClickAdsController < ApplicationController
 
-    before_filter :authenticate_for_semi_static!
-    before_filter :set_return_path
+    before_action :authenticate_for_semi_static!
+    before_action :set_return_path
 
     caches_page :show
 
@@ -59,7 +59,7 @@ module SemiStatic
     # POST /click_ads
     # POST /click_ads.json
     def create
-      @click_ad = ClickAd.new(params[:click_ad])
+      @click_ad = ClickAd.new(click_ad_params)
       @click_ad.entry = Entry.find(params[:entry_id])
   
       respond_to do |format|
@@ -76,7 +76,7 @@ module SemiStatic
     # PUT /click_ads/1
     # PUT /click_ads/1.json
     def update
-      @click_ad = ClickAd.find(params[:id])
+      @click_ad = ClickAd.find(click_ad_params)
   
       respond_to do |format|
         if @click_ad.update_attributes(params[:click_ad])
@@ -102,6 +102,13 @@ module SemiStatic
     end
 
     private
+
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+
+    def click_ad_params
+      params.fetch(:click_ad, {}).permit(:client, :url)
+    end
 
     def set_return_path
       @return = params[:return]

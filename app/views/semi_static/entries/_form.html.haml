@@ -171,7 +171,7 @@
           .field
             = f.text_field :youtube_id_str
             %span#validateYoutubeButton{:style => 'display: none'}
-              = button_to 'Click here to validate YouTube ID', '#', onclick: 'validate_youtube_id(); return false'
+              = link_to 'Click here to validate YouTube ID', '#', onclick: 'validate_youtube_id(); return false'
       %fieldset
         .infobox.wide#partial_description
           = render :partial => 'semi_static/system/partial_description', :object => @entry
@@ -243,7 +243,7 @@
       %h2= 'Image (optional)'
       %fieldset.entry.semi_static_entry_main_content#semi_static_entry_image
         - if @entry.img.present?
-          = image_tag(@entry.img.url(:panel), :title => @entry.title, :class => 'ri', :id => 'semi_static_image_for_upload')
+          = image_tag(@entry.img.url(:panel), :title => @entry.title, :alt => 'Entry Image', :class => 'ri', :id => 'semi_static_image_for_upload')
         - else
           = image_tag('/assets/no-image-loaded.jpg', :title => 'Placeholder', :class => 'ri', :id => 'semi_static_image_for_upload')
         #semi_static_entry_image_control
@@ -284,18 +284,18 @@
               - unless @entry.img_dimensions.blank?
                 %li= @entry.img_dimensions[0].to_s + 'px x ' + @entry.img_dimensions[1].to_s + 'px'
               %li= link_to @entry.img.url, @entry.img.url
-              %li= 'Other versions:'
-              %ul
-                - Paperclip::AttachmentRegistry.definitions_for(SemiStatic::Entry)[:img][:styles].keys.each do |s|
-                  %li= link_to @entry.img.url(s), @entry.img.url(s)
+            %h4= 'Other versions:'
+            %ul
+              - Paperclip::AttachmentRegistry.definitions_for(SemiStatic::Entry)[:img][:styles].keys.each do |s|
+                %li= link_to @entry.img.url(s), @entry.img.url(s)
             = f.label :img_delete, 'Tick to delete this image on save'
             = f.check_box :img_delete
           - else
-            No image is currently loaded
+            %h4 No image is currently loaded
         %span.infomarker
           = f.file_field :img
         %br/
-        = f.label :image_captiom, 'Image caption (optional)'
+        = f.label :image_caption, 'Image caption (optional)'
         %br/
         = f.text_area :image_caption, :rows => 3
       %h2= 'Document (optional)'
@@ -350,7 +350,7 @@
             = f.select :tag_id, options_for_select(SemiStatic::Tag.all.collect{|t| [[t.locale, ': ', t.name].join, t.id]}, @entry.tag_id)
           %br/
           %br/
-          .infobox#link_to_tag
+          .infobox#link_to_tag_info
             %h4= 'Link to Tag'
             %p
               = 'If you have checked this box then this entry will possibly be used as the content for'
@@ -385,7 +385,7 @@
           - if @entry.banner.present?
             = render :partial => 'semi_static/banners/show', :locals => {:banner => @entry.banner}
         %fieldset
-          = f.label :banner
+          = f.label :banner_id
           %br/
           = f.select :banner_id, options_for_select(SemiStatic::Banner.all.collect{|b| [b.name, b.id]}.prepend(["- None -", 'none']), @entry.banner_id)
           #tag_line_override{:style => 'display: none'}
@@ -409,17 +409,17 @@
               = 'By default this image will be used for a news column summary instead of the main entry'
               = 'image. It may also be used in other ways, like as an image for a Newsletter or as an'
               = 'icon for a custom entry'
-              %h3 Currently loaded image
-              - if @entry.news_img.present?
-                The currently loaded mage is:
-                %ul
-                  %li= @entry.news_img_file_name
-                  %li= 'Type: ' + (@entry.news_img_content_type || '<unknown>')
-                  %li= link_to @entry.news_img.url, @entry.news_img.url
-                = f.label :alt_img_delete, 'Tick to delete this image on save'
-                = f.check_box :alt_img_delete
-              - else
-                No image is currently loaded
+            %h3 Currently loaded image
+            - if @entry.news_img.present?
+              The currently loaded mage is:
+              %ul
+                %li= @entry.news_img_file_name
+                %li= 'Type: ' + (@entry.news_img_content_type || '<unknown>')
+                %li= link_to @entry.news_img.url, @entry.news_img.url
+              = f.label :alt_img_delete, 'Tick to delete this image on save'
+              = f.check_box :alt_img_delete
+            - else
+              No image is currently loaded
           %fieldset.infomarker
             %span
               = f.label :news_img, 'Alternative image'
@@ -550,5 +550,5 @@
       
   .mid
     .actions
-      = button_to 'Preview', '#', onclick: 'entry_preview(); return false'
+      = link_to 'Preview', '#', onclick: 'entry_preview(); return false'
       = f.submit 'Save'

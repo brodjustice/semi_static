@@ -3,8 +3,8 @@ require_dependency "semi_static/application_controller"
 module SemiStatic
   class ProductsController < ApplicationController
 
-    before_filter :authenticate_for_semi_static!
-    before_filter :set_return_path
+    before_action :authenticate_for_semi_static!
+    before_action :set_return_path
 
     layout 'semi_static_dashboards'
 
@@ -58,7 +58,7 @@ module SemiStatic
     # POST /products.json
     def create
       @entry = Entry.find(params[:entry_id])
-      @product = @entry.build_product(params[:product])
+      @product = @entry.build_product(product_params)
   
       respond_to do |format|
         if @product.save
@@ -77,7 +77,7 @@ module SemiStatic
       @product = Product.find(params[:id])
   
       respond_to do |format|
-        if @product.update_attributes(params[:product])
+        if @product.update_attributes(product_params)
           format.html { redirect_to params[:return] || entry_product_path(@product.entry, @product), notice: 'Product was successfully updated.' }
           format.json { head :no_content }
         else
@@ -100,6 +100,12 @@ module SemiStatic
     end
 
     private
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def product_params
+      params.fetch(:product, {}).permit(:name, :description, :color, :height, :depth, :width,
+        :weight, :price, :currency, :inventory_level, :entry_id)
+    end
 
     def set_return_path
       @return = params[:return]

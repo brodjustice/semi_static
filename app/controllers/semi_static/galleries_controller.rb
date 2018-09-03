@@ -6,7 +6,7 @@ module SemiStatic
     require 'semi_static/general'
     include General
 
-    before_filter :authenticate_for_semi_static!, :except => [:show]
+    before_action :authenticate_for_semi_static!, :except => [:show]
 
     layout 'semi_static_dashboards'
 
@@ -59,7 +59,7 @@ module SemiStatic
     # POST /galleries
     # POST /galleries.json
     def create
-      @gallery = Gallery.new(params[:gallery])
+      @gallery = Gallery.new(gallery_params)
   
       respond_to do |format|
         if @gallery.save
@@ -78,7 +78,7 @@ module SemiStatic
       @gallery = Gallery.find(params[:id])
   
       respond_to do |format|
-        if @gallery.update_attributes(params[:gallery])
+        if @gallery.update_attributes(gallery_params)
           format.html { redirect_to galleries_path, notice: 'Gallery was successfully updated.' }
           format.json { head :no_content }
         else
@@ -98,6 +98,13 @@ module SemiStatic
         format.html { redirect_to galleries_url }
         format.json { head :no_content }
       end
+    end
+
+    private
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def gallery_params
+      params.fetch(:gallery, {}).permit(:title, :sub_title, :description, :public, :locale, :position)
     end
   end
 end

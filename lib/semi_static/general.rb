@@ -121,6 +121,27 @@ module General
     SemiStatic::Tag.select{|t| t.newsletter_id.present? && t.newsletter.nil?}.each{|t| t.destroy}
   end
 
+  #
+  # Read the first set of contiguous comments from the top of the partial as by convention
+  # this contains the description of what the partial does
+  #
+  def partial_description(*args)
+    c = " "
+      if SemiStatic::Engine.config.open_partials[args.first]
+      path = File.dirname Rails.root.join('app', 'views') + SemiStatic::Engine.config.open_partials[args.first]
+      filename = "_#{SemiStatic::Engine.config.open_partials[args.first].split('/').last}.html.haml"
+      if File.exist? path + '/' + filename
+        File.open(path + '/' + filename) do |file|
+          while (line = file.gets)
+            if (line.split('-#').count == 2) && line.split('-#').first.empty?
+              c += line.split('-#').last.to_s.gsub!(/\n/, "\r ")
+            end
+          end
+        end
+      end
+    end
+    c
+  end
 
   # Need to have gzip command installed on webserver system
   def load_url(url=nil, locale=nil, *args)

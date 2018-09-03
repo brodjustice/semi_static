@@ -2,7 +2,9 @@ module SemiStatic
   class Link < ActiveRecord::Base
     include Pages
 
-    attr_accessible :name, :position, :url, :new_window
+    # For reference
+    #
+    # attr_accessible :name, :position, :url, :new_window
 
     belongs_to :fcol
 

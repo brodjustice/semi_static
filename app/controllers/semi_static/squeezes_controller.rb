@@ -3,7 +3,7 @@ require_dependency "semi_static/application_controller"
 module SemiStatic
   class SqueezesController < ApplicationController
  
-    before_filter :authenticate_for_semi_static!, :except => :show
+    before_action :authenticate_for_semi_static!, :except => :show
 
     layout 'semi_static_dashboards'
 
@@ -40,7 +40,7 @@ module SemiStatic
     end
   
     def create
-      @squeeze = Squeeze.new(params[:squeeze])
+      @squeeze = Squeeze.new(squeeze_params)
   
       respond_to do |format|
         if @squeeze.save
@@ -58,7 +58,7 @@ module SemiStatic
       @squeeze = Squeeze.find(params[:id])
   
       respond_to do |format|
-        if @squeeze.update_attributes(params[:squeeze])
+        if @squeeze.update_attributes(squeeze_params)
           @squeezes = Squeeze.all
           format.html { redirect_to squeezes_path, notice: 'Squeeze was successfully updated.' }
           format.json { head :no_content }
@@ -77,6 +77,14 @@ module SemiStatic
         format.html { redirect_to squeezes_url }
         format.json { head :no_content }
       end
+    end
+
+    private
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def squeeze_params
+      params.fetch(:squeeze, {}).permit(:name, :teaser, :title, :agreement, :form_instructions, :instructions,
+        :doc, :company_field, :position_field, :email_footer, :email_subject)
     end
   end
 end

@@ -6,8 +6,8 @@
     require 'semi_static/general'
     include General
   
-    before_filter :authenticate_for_semi_static!,  :except => [ :show, :search ]
-    before_filter :authenticate_semi_static_subscriber!,  :only => [ :show ]
+    before_action :authenticate_for_semi_static!,  :except => [ :show, :search ]
+    before_action :authenticate_semi_static_subscriber!,  :only => [ :show ]
   
     # We would like to do something like this:
     #   caches_page :show, :if => :not_subscriber_content?
@@ -183,7 +183,10 @@
           format.js { render 'preview'}
         elsif params[:convert] && (@entry.attributes = params[:entry])
           format.js { render 'convert'}
-        elsif @entry.update_attributes(params[:entry])
+        elsif @entry.update_attributes(entry_params)
+          unless @entry.notice.blank?
+            flash[:notice] = @entry.notice
+          end
           expire_page_cache(@entry)
           format.html {
             if params[:redirect_to].present?
@@ -235,6 +238,20 @@
     end
 
     private
+
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def entry_params
+      params.fetch(:entry, {}).permit(:title, :sub_title, :body, :tag_id, :home_page, :summary, :img, :news_item, :image_in_news, :image_disable, :news_img, :newsletter_img,
+      :position, :doc, :doc_description, :summary_length, :locale, :style_class, :header_colour, :background_colour, :colour,
+      :banner_id, :partial, :entry_position, :master_entry_id, :youtube_id_str, :use_as_news_summary, :simple_text,
+      :sidebar_id, :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_gallery, :side_bar_tag_id, :unrestricted_html,
+      :merge_with_previous, :raw_html, :image_popup, :alt_title, :acts_as_tag_id, :gallery_id,
+      :facebook_share, :linkedin_share, :xing_share, :twitter_share, :email_share, :show_in_documents_tag, :image_caption,
+      :tag_line, :raw_html, :show_image_titles, :doc_delete, :img_delete, :alt_img_delete,
+      :enable_comments, :comment_strategy, :layout_select, :link_to_tag, :style, :event_id, :squeeze_id)
+    end
+
 
     def cachable_content?
       # !lambda{ |controller| controller.request.format.js? } && !@entry.subscriber_content

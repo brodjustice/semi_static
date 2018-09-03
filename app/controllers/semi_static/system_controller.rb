@@ -7,9 +7,9 @@ module SemiStatic
 
     include SemiStatic::SiteHelper
 
-    before_filter :authenticate_for_semi_static!
+    before_action :authenticate_for_semi_static!
   
-    CMDS = %w(show search_reindex expire_page_cache clean_up passenger_restart load_url generate_sitemap_options generate_sitemap generate_static_pages partial_description load_search_data)
+    CMDS = %w(show search_reindex expire_page_cache clean_up passenger_restart load_url generate_sitemap_options generate_sitemap generate_static_pages partial_description)
     SESSION = %w(workspace_tag_id)
   
     def update

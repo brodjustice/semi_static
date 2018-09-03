@@ -3,7 +3,7 @@ require_dependency "semi_static/application_controller"
 module SemiStatic
   class HreflangsController < ApplicationController
 
-    before_filter :authenticate_for_semi_static!
+    before_action :authenticate_for_semi_static!
 
     # GET /hreflangs
     # GET /hreflangs.json
@@ -43,7 +43,7 @@ module SemiStatic
     # POST /hreflangs.json
     def create
       @seo = Seo.find(params[:seo_id])
-      @hreflang = @seo.hreflangs.new(params[:hreflang])
+      @hreflang = @seo.hreflangs.new(hreflang_params)
   
       respond_to do |format|
         if @hreflang.save
@@ -62,7 +62,7 @@ module SemiStatic
       @hreflang = Hreflang.find(params[:id])
   
       respond_to do |format|
-        if @hreflang.update_attributes(params[:hreflang])
+        if @hreflang.update_attributes(hreflang_params)
           format.html { redirect_to seos_path(), notice: 'Hreflang was successfully updated.' }
           format.json { head :no_content }
         else
@@ -83,6 +83,12 @@ module SemiStatic
         format.html { redirect_to seos_path(), notice: 'Hreflang was deleted.' }
         format.json { head :no_content }
       end
+    end
+
+    private
+
+    def hreflang_params
+      params.fetch(:hreflang, {}).permit(:href, :locale, :seo_id)
     end
   end
 end

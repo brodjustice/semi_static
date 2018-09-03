@@ -4,24 +4,29 @@ module SemiStatic
     include Pages
     include PartialControl
   
-    attr_accessible :name, :menu, :position, :icon, :icon_in_menu, :icon_delete, :sidebar_title
-    attr_accessible :predefined_class, :colour, :icon_resize, :locale, :max_entries_on_index_page
-    attr_accessible :banner_id, :partial, :entry_position, :tag_line, :subscriber, :sidebar_id
-    attr_accessible :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_tag_id, :layout_select
-    attr_accessible :target_tag_id, :target_name, :context_url, :admin_only, :use_entry_as_index_id
+    #
+    # For reference, these are the attributes. They are now controlled by strong attributes in
+    # the controller
+    #
+    # attr_accessible :name, :menu, :position, :icon, :icon_in_menu, :icon_delete, :sidebar_title
+    # attr_accessible :predefined_class, :colour, :icon_resize, :locale, :max_entries_on_index_page
+    # attr_accessible :banner_id, :partial, :entry_position, :tag_line, :subscriber, :sidebar_id
+    # attr_accessible :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_tag_id, :layout_select
+    # attr_accessible :target_tag_id, :target_name, :context_url, :admin_only, :use_entry_as_index_id
+
     attr_accessor :icon_delete
 
     has_one :seo, :as => :seoable
-    belongs_to :use_entry_as_index, :class_name => 'SemiStatic::Entry'
+    belongs_to :use_entry_as_index, :class_name => 'SemiStatic::Entry', :optional => true
     has_many :page_attrs, :as => :page_attrable
-    belongs_to :newsletter
+    belongs_to :newsletter, :optional => true
     has_many :entries, :dependent => :destroy
-    belongs_to :banner
-    belongs_to :target_tag, :class_name => 'SemiStatic::Tag'
+    belongs_to :banner, :optional => true
+    belongs_to :target_tag, :class_name => 'SemiStatic::Tag', :optional => true
 
-    belongs_to :sidebar
+    belongs_to :sidebar, :optional => true
     has_many :displays_as_side_bar, :foreign_key => :side_bar_tag_id, :class_name => 'SemiStatic::Tag'
-    belongs_to :side_bar_tag, :foreign_key => :side_bar_tag_id, :class_name => 'SemiStatic::Tag'
+    belongs_to :side_bar_tag, :foreign_key => :side_bar_tag_id, :class_name => 'SemiStatic::Tag', :optional => true
 
     validates :name, :uniqueness => {:scope => :locale}
 
@@ -67,7 +72,7 @@ module SemiStatic
     #   scope :slide_menu, -> {includes(:page_attrs).where('semi_static_page_attrs.attr_key = ? OR menu = ?', 'slideMenu', true)}
     # But this does not work in Rails 4. We can't use this:
     #  scope :slide_menu, -> {find_by_sql("SELECT \"semi_static_tags\".* FROM \"semi_static_tags\"  WHERE (semi_static_page_attrs.attr_key = 'slideMenu' OR menu = 't') ORDER BY position")}
-    # because it returns and array.
+    # because it returns an array.
     #
     # Rails 5 may offer a solution, but until then we use a method
     #

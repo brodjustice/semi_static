@@ -4,7 +4,7 @@ module SemiStatic
   class NewsletterDeliveriesController < ApplicationController
     layout 'semi_static_dashboards'
 
-    before_filter :authenticate_for_semi_static!
+    before_action :authenticate_for_semi_static!
 
     #
     # Can also be an index of the subscribers newsletter

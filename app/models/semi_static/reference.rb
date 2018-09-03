@@ -3,7 +3,6 @@ module SemiStatic
 
     include Pages
 
-    attr_accessible :title, :body, :quote, :show_in_side_bar, :position, :logo, :locale
     has_one :seo, :as => :seoable
   
     has_attached_file :logo,

@@ -4,7 +4,7 @@ module SemiStatic
   class NewslettersController < ApplicationController
     layout 'semi_static_dashboards'
 
-    before_filter :authenticate_for_semi_static!
+    before_action :authenticate_for_semi_static!
 
     # GET /newsletters
     # GET /newsletters.json
@@ -85,7 +85,7 @@ module SemiStatic
     # POST /newsletters
     # POST /newsletters.json
     def create
-      @newsletter = Newsletter.new(params[:newsletter])
+      @newsletter = Newsletter.new(newsletter_params)
       unless params[:tag].blank?
         Tag.find(params[:tag]).entries.unmerged.collect{|e| @newsletter.draft_entry_ids[e.id] = {}} 
       end
@@ -108,7 +108,7 @@ module SemiStatic
       @newsletter.add_entry(params[:entry]) unless params[:set_layout].present?
 
       respond_to do |format|
-        if @newsletter.update_attributes(params[:newsletter])
+        if @newsletter.update_attributes(newsletter_params)
           if params[:publish].present?
             @newsletter.publish(params[:subscriber].keys)
             @newsletter.published
@@ -151,6 +151,14 @@ module SemiStatic
         format.html { redirect_to newsletters_url }
         format.json { head :no_content }
       end
+    end
+
+    private
+
+    def newsletter_params
+      params.fetch(:newslatter, {}).permit(:name, :state, :locale, :subtitle, :salutation, :salutation_type,
+        :salutation_pre_text, :salutation_post_text, :css,
+        :sender_address, :max_image_attachments, :banner_id, :title, :subject, :website_url)
     end
   end
 end

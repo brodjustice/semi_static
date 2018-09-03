@@ -3,7 +3,7 @@ require_dependency "semi_static/application_controller"
 module SemiStatic
   class PageAttrsController < ApplicationController
 
-  before_filter :authenticate_for_semi_static!,  :except => [ :show, :search ]
+  before_action :authenticate_for_semi_static!,  :except => [ :show, :search ]
 
     def index
       @page_attrs = PageAttr.all
@@ -40,7 +40,7 @@ module SemiStatic
   
     def create
       @page_attrable = find_page_attrable
-      @page_attr = @page_attrable.page_attrs.new(params[:page_attr])
+      @page_attr = @page_attrable.page_attrs.new(page_attr_params)
       respond_to do |format|
         if @page_attr.save
           format.html {
@@ -60,7 +60,7 @@ module SemiStatic
       @page_attrable = find_page_attrable
       @page_attr = @page_attrable.page_attrs.find(params[:id])
       respond_to do |format|
-        if @page_attr.update_attributes(params[:page_attr])
+        if @page_attr.update_attributes(page_attr_params)
           format.html { redirect_to (params[:return].present? ? params[:return] : edit_polymorphic_path(@page_attrable)), notice: 'Page Attribute was successfully updated.' }
           format.json { head :no_content }
         else
@@ -87,6 +87,13 @@ module SemiStatic
     end
 
     private
+
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def page_attr_params
+      params.fetch(:page_attr, {}).permit(:attr_key, :attr_value)
+    end
+
 
     def find_page_attrable
       parents = []

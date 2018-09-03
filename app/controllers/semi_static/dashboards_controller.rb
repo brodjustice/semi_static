@@ -5,7 +5,7 @@ module SemiStatic
 
     layout 'semi_static_dashboards'
 
-    before_filter :authenticate_for_semi_static!
+    before_action :authenticate_for_semi_static!
     # Note: cannot seem to use CanCan if there is no model/class, thus the following fails
     #   load_and_authorize_resource
     # so we do a manual authorization in the show action. However, even then we cannot

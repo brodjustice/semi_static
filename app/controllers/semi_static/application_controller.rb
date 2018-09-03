@@ -5,7 +5,7 @@ module SemiStatic
     # require 'semi_static/can_can_rescue'
     # include CanCanRescue
 
-    before_filter :set_locale
+    before_action :set_locale
 
     layout 'semi_static_application'
 

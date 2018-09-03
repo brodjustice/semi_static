@@ -1,6 +1,9 @@
 module SemiStatic
   class Agreement < ActiveRecord::Base
-    attr_accessible :body, :display, :locale, :ticked_by_default, :add_to_subscribers
+    
+    # For reference
+    #
+    # attr_accessible :body, :display, :locale, :ticked_by_default, :add_to_subscribers
 
     has_and_belongs_to_many :contacts, :join_table => :semi_static_agreements_contacts
 

@@ -7,15 +7,7 @@ module SemiStatic
   
     index_name SemiStatic::Engine.config.site_name.gsub(/( )/, '_').downcase
   
-    attr_accessible :title, :sub_title, :body, :tag_id, :home_page, :summary, :img, :news_item, :image_in_news, :image_disable, :news_img, :newsletter_img
-    attr_accessible :position, :doc, :doc_description, :summary_length, :locale, :style_class, :header_colour, :background_colour, :colour
-    attr_accessible :banner_id, :partial, :entry_position, :master_entry_id, :youtube_id_str, :use_as_news_summary, :simple_text
-    attr_accessible :sidebar_id, :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_gallery, :side_bar_tag_id, :unrestricted_html
-    attr_accessible :merge_with_previous, :raw_html, :image_popup, :alt_title, :acts_as_tag_id, :gallery_id
-    attr_accessible :facebook_share, :linkedin_share, :xing_share, :twitter_share, :email_share, :show_in_documents_tag, :image_caption
-    attr_accessible :tag_line, :raw_html, :show_image_titles, :doc_delete, :img_delete, :alt_img_delete
-    attr_accessible :enable_comments, :comment_strategy, :layout_select, :link_to_tag, :style, :event_id, :squeeze_id
-    attr_accessor :doc_delete, :img_delete, :alt_img_delete
+    attr_accessor :doc_delete, :img_delete, :alt_img_delete, :notice
 
     # The news image is now also used for various alternative fuctions, icons, etc.
     alias_attribute :alt_img, :news_img
@@ -32,8 +24,8 @@ module SemiStatic
       end
     end
 
-    belongs_to :tag
-    belongs_to :acts_as_tag, :class_name => "SemiStatic::Tag"
+    belongs_to :tag, :optional => true
+    belongs_to :acts_as_tag, :class_name => "SemiStatic::Tag", :optional => true
     delegate :admin_only, to: :tag
   
     before_save :dup_master_id_photos
@@ -92,16 +84,16 @@ module SemiStatic
     has_many :page_attrs, :as => :page_attrable
     has_one :product
     has_one :click_ad
-    belongs_to :sidebar
-    belongs_to :master_entry, :class_name => SemiStatic::Entry
-    belongs_to :banner
-    belongs_to :gallery
-    belongs_to :event
-    belongs_to :squeeze
+    belongs_to :sidebar, :optional => true
+    belongs_to :master_entry, :class_name => 'SemiStatic::Entry', :optional => true
+    belongs_to :banner, :optional => true
+    belongs_to :gallery, :optional => true
+    belongs_to :event, :optional => true
+    belongs_to :squeeze, :optional => true
     has_many :photos
     has_many :comments, :dependent => :destroy
 
-    belongs_to :side_bar_tag, :foreign_key => :side_bar_tag_id, :class_name => 'SemiStatic::Tag'
+    belongs_to :side_bar_tag, :foreign_key => :side_bar_tag_id, :class_name => 'SemiStatic::Tag', :optional => true
 
     has_attached_file :doc
 
@@ -233,6 +225,27 @@ module SemiStatic
           }
         }
       )
+    end
+
+    #
+    # We need to catch certain errors that are caused when the electic search
+    # gem cannot update the elasticsearch index, especially when in development
+    # environment. So we wrap the method here.
+    #
+    def save
+      begin
+        super
+      rescue Faraday::ConnectionFailed => e
+        self.notice = "WARNING: Elastic Search indexing responded: #{e}"
+      end
+    end
+
+    def update_attributes(attrs)
+      begin
+        super
+      rescue Faraday::ConnectionFailed => e
+        self.notice = "WARNING: Elastic Search indexing responded: #{e}"
+      end
     end
   
     def effective_tag_line

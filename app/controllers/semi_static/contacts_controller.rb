@@ -3,7 +3,7 @@ require_dependency "semi_static/application_controller"
 module SemiStatic
   class ContactsController < ApplicationController
 
-    before_filter :authenticate_for_semi_static!, :except => [:new, :create]
+    before_action :authenticate_for_semi_static!, :except => [:new, :create]
 
     # Don't cache the registration page as this is dynamic
     caches_page :new, :unless => Proc.new { |c| c.request.url.include?('registration') }
@@ -62,7 +62,7 @@ module SemiStatic
 
       # Check if we are trying to stop spambots
       unless spam_check(params)
-        @contact = Contact.new(params[:contact].merge(:locale => I18n.locale.to_s))
+        @contact = Contact.new(contact_params.merge(:locale => I18n.locale.to_s))
 
         # Add any custom params
         @contact.custom_params = params[:custom_params]
@@ -92,6 +92,13 @@ module SemiStatic
     end
 
     private
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def contact_params
+      params.fetch(:contact, {}).permit(:reason, :surname, :message, :email, :telephone, :name, :locale, :agreement_ids,
+        :strategy, :squeeze_id, :title, :company, :address, :position, :country, :employee_count, :branch)
+    end
+
 
     def spam_check(params)
       spam_detected = false

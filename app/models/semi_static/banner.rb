@@ -2,7 +2,11 @@ module SemiStatic
   class Banner < ActiveRecord::Base
     include Pages
 
-    attr_accessible :name, :tag_line, :img
+    # 
+    # For reference:
+    #
+    # attr_accessible :name, :tag_line, :img
+    #
 
     has_many :entries
     has_many :tags

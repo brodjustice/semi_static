@@ -2,7 +2,7 @@ require_dependency "semi_static/application_controller"
 
 module SemiStatic
   class ReferencesController < ApplicationController
-    before_filter :authenticate_for_semi_static!, :only => [ :create, :update, :destroy ]
+    before_action :authenticate_for_semi_static!, :only => [ :create, :update, :destroy ]
   
     caches_page :show
 
@@ -63,7 +63,7 @@ module SemiStatic
     # POST /references
     # POST /references.json
     def create
-      @reference = Reference.new(params[:reference])
+      @reference = Reference.new(reference_params)
   
       respond_to do |format|
         if @reference.save
@@ -81,7 +81,7 @@ module SemiStatic
       @reference = Reference.find(params[:id])
   
       respond_to do |format|
-        if @reference.update_attributes(params[:reference])
+        if @reference.update_attributes(reference_params)
           format.html { redirect_to references_path }
           format.json { head :no_content }
         else
@@ -101,6 +101,12 @@ module SemiStatic
         format.html { redirect_to references_url }
         format.json { head :no_content }
       end
+    end
+
+    private
+
+    def reference_params
+      params.fetch(:reference, {}).permit(:title, :body, :quote, :show_in_side_bar, :position, :logo, :locale)
     end
   end
 end

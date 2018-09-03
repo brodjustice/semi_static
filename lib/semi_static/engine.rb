@@ -5,9 +5,9 @@ require 'elasticsearch/rails'
 module SemiStatic
   class Engine < ::Rails::Engine
     require 'haml'
+    require 'jquery-rails'
     require 'jquery-ui-rails'
     require 'actionpack/page_caching'
-    require 'protected_attributes'
 
 
     SOCIAL_LINKS = {

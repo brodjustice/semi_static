@@ -5,7 +5,9 @@ module SemiStatic
     ALLOWED_TAGS= %w(span br em b ul ol li a div p img hr)
     ALLOWED_ATTRIBUTES= %w(href style id align src alt)
   
-    attr_accessible :name, :position, :content, :locale
+    # For reference:
+    #
+    # attr_accessible :name, :position, :content, :locale
   
     has_many :links, :dependent => :destroy
   

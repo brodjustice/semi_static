@@ -1,6 +1,9 @@
 module SemiStatic
   class Gallery < ActiveRecord::Base
-    attr_accessible :title, :sub_title, :description, :public, :locale, :position
+
+    # For reference
+    #
+    # attr_accessible :title, :sub_title, :description, :public, :locale, :position
 
     has_many :photos
     has_many :entries

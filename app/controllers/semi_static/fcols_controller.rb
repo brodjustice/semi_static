@@ -6,7 +6,7 @@ module SemiStatic
     require 'semi_static/general'
     include General
 
-    before_filter :authenticate_for_semi_static!, :except => :show
+    before_action :authenticate_for_semi_static!, :except => :show
   
     layout 'semi_static_dashboards'
   
@@ -40,7 +40,7 @@ module SemiStatic
     # POST /fcols
     # POST /fcols.json
     def create
-      @fcol = Fcol.new(params[:fcol])
+      @fcol = Fcol.new(fcol_params)
   
       respond_to do |format|
         if @fcol.save
@@ -60,7 +60,7 @@ module SemiStatic
       @fcol = Fcol.find(params[:id])
   
       respond_to do |format|
-        if @fcol.update_attributes(params[:fcol])
+        if @fcol.update_attributes(fcol_params)
           expire_page_cache(@fcol)
           format.html { redirect_to fcols_path, notice: 'Footer tag was successfully updated.' }
           format.json { head :no_content }
@@ -81,6 +81,14 @@ module SemiStatic
         format.html { redirect_to fcols_url }
         format.json { head :no_content }
       end
+    end
+
+    private
+
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def fcol_params
+      params.fetch(:tag, {}).permit(:name, :position, :content, :locale)
     end
   end
 end

@@ -3,8 +3,8 @@ require_dependency "semi_static/application_controller"
 module SemiStatic
   class EventsController < ApplicationController
 
-    before_filter :authenticate_for_semi_static!
-    before_filter :en_locale_only
+    before_action :authenticate_for_semi_static!
+    before_action :en_locale_only
 
     layout 'semi_static_dashboards'
 
@@ -49,7 +49,7 @@ module SemiStatic
     # POST /events
     # POST /events.json
     def create
-      @event = Event.new(params[:event])
+      @event = Event.new(event_params)
   
       respond_to do |format|
         if @event.save
@@ -69,7 +69,7 @@ module SemiStatic
       @event = Event.find(params[:id])
   
       respond_to do |format|
-        if @event.update_attributes(params[:event])
+        if @event.update_attributes(event_params)
           @events = Event.all
           format.html { render 'index', notice: 'Event was successfully updated.' }
           format.json { head :no_content }
@@ -93,6 +93,15 @@ module SemiStatic
     end
 
     private
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def event_params
+      params.fetch(:event, {}).permit( :name, :description, :location, :location_address, :tz, :door_time, :start_date, :end_date, :duration,
+        :in_language, :typical_age_range,
+        :offer_price, :offer_price_currency, :offer_max_price, :offer_min_price,
+        :registration, :registration_url, :registration_text)
+    end
+
 
     # Some helpers require various locale files to be set, so to
     # reduce complexity, only the en locale will be set

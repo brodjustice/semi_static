@@ -5,8 +5,8 @@
 
     helper SemiStatic::EntriesHelper
   
-    before_filter :authenticate_for_semi_static!, :except => :show
-    before_filter :authenticate_semi_static_subscriber!,  :only => [ :show ]
+    before_action :authenticate_for_semi_static!, :except => :show
+    before_action :authenticate_semi_static_subscriber!,  :only => [ :show ]
 
     caches_page :show, :if => Proc.new { |c| !c.request.format.js? && cachable_content? }
   
@@ -77,7 +77,7 @@
     # POST /tags
     # POST /tags.json
     def create
-      @tag = Tag.new(params[:tag])
+      @tag = Tag.new(tag_params)
   
       respond_to do |format|
         if @tag.save
@@ -96,7 +96,7 @@
       @tag = Tag.find(params[:id])
   
       respond_to do |format|
-        if @tag.update_attributes(params[:tag])
+        if @tag.update_attributes(tag_params)
           expire_page_cache(@tag)
           format.html { redirect_to tags_path(:anchor => "tag_id_#{@tag.id}"), :notice => 'Tag was successfully updated.' }
           format.json { head :no_content }
@@ -121,6 +121,15 @@
     end
 
     private
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def tag_params
+      params.fetch(:tag, {}).permit(:name, :menu, :position, :icon, :icon_in_menu, :icon_delete, :sidebar_title,
+        :predefined_class, :colour, :icon_resize, :locale, :max_entries_on_index_page,
+        :banner_id, :partial, :entry_position, :tag_line, :subscriber, :sidebar_id,
+        :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_tag_id, :layout_select,
+        :target_tag_id, :target_name, :context_url, :admin_only, :use_entry_as_index_id)
+    end
 
     def cachable_content?
       # !lambda{ |controller| controller.request.format.js? } && !@entry.subscriber_content

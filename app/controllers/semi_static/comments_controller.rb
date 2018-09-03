@@ -3,7 +3,7 @@ require_dependency "semi_static/application_controller"
 module SemiStatic
   class CommentsController < ApplicationController
 
-    before_filter :authenticate_for_semi_static!,  :only => [ :show, :update, :delete ]
+    before_action :authenticate_for_semi_static!,  :only => [ :show, :update, :delete ]
 
     # GET /comments.json
     def index
@@ -52,7 +52,7 @@ module SemiStatic
     # POST /comments.json
     def create
       @entry = Entry.find(params[:entry_id])
-      @comment = @entry.comments.new(params[:comment])
+      @comment = @entry.comments.new(comment_params)
 
       respond_to do |format|
         if @comment.save
@@ -71,7 +71,7 @@ module SemiStatic
     # PUT /comments/1
     # PUT /comments/1.json
     def update
-      @comment = Comment.find(params[:id])
+      @comment = Comment.find(comment_params)
   
       respond_to do |format|
         if @comment.update_attributes(params[:comment])
@@ -94,6 +94,12 @@ module SemiStatic
         format.html { redirect_to comments_url }
         format.json { head :no_content }
       end
+    end
+
+    private
+
+    def comment_params
+     params.fetch(:comment, {}).permit(:body, :name, :email, :entry_id, :status, :company, :agreed, :captcha, :captcha_code)
     end
   end
 end

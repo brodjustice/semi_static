@@ -6,7 +6,7 @@ module SemiStatic
     include General
 
     # before_filter :authenticate_user!, :class => SemiStatic::Banner
-    before_filter :authenticate_for_semi_static!
+    before_action :authenticate_for_semi_static!
 
     layout 'semi_static_dashboards'
 
@@ -52,7 +52,7 @@ module SemiStatic
     # POST /banners
     # POST /banners.json
     def create
-      @banner = Banner.new(params[:banner])
+      @banner = Banner.new(banner_params)
   
       respond_to do |format|
         if @banner.save
@@ -72,7 +72,7 @@ module SemiStatic
       @banner = Banner.find(params[:id])
   
       respond_to do |format|
-        if @banner.update_attributes(params[:banner])
+        if @banner.update_attributes(banner_params)
           expire_page_cache(@banner)
           format.html { redirect_to banners_path }
           format.json { head :no_content }
@@ -94,5 +94,14 @@ module SemiStatic
         format.json { head :no_content }
       end
     end
+
+    private
+
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def banner_params
+      params.fetch(:banner, {}).permit(:name, :tag_line, :img)
+    end
+
   end
 end

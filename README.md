@@ -134,7 +134,7 @@ Some SemiStatic image styles may change. If you are having trouble with the qual
 
 = ElasticSearch
 
-The elasticsearch but you will need access to an elasticsearch server. We have tested against elasticsearch 5.6.4. On debian you can install this elasticsearch version with:
+The elasticsearch gem is automatically installed, but you will need access to an elasticsearch server. We have tested against elasticsearch 5.6.4. On debian you can install this elasticsearch version locally with:
 
 ```
 # wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.6.4.deb

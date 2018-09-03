@@ -3,7 +3,7 @@ require_dependency "semi_static/application_controller"
 module SemiStatic
   class SubscriberCategoriesController < ApplicationController
 
-    before_filter :authenticate_for_semi_static!
+    before_action :authenticate_for_semi_static!
     layout 'semi_static_dashboards'
 
     def new

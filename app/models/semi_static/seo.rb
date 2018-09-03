@@ -2,8 +2,13 @@ module SemiStatic
   class Seo < ActiveRecord::Base
     include Pages
 
-    attr_accessible :keywords, :title, :description, :no_index
-    attr_accessible :include_in_sitemap, :changefreq, :priority
+    # 
+    # For reference the attributes are as below. Now done with
+    # stronge parameters in controller.
+    #
+    # attr_accessible :keywords, :title, :description, :no_index
+    # attr_accessible :include_in_sitemap, :changefreq, :priority
+
     belongs_to :seoable, polymorphic: true
     has_many :hreflangs
 

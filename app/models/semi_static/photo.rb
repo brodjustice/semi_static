@@ -6,13 +6,17 @@ module SemiStatic
     include Elasticsearch::Model
     include Elasticsearch::Model::Callbacks
   
+    attr_accessor :notice
+ 
     index_name SemiStatic::Engine.config.site_name.gsub(/( )/, '_').downcase
   
-    belongs_to :entry
-    belongs_to :gallery
+    belongs_to :entry, :optional => true
+    belongs_to :gallery, :optional => true
     has_one :seo, :as => :seoable
   
-    attr_accessible :title, :description, :img, :home_page, :position, :entry_id, :gallery_id, :gallery_control, :locale, :popup, :hidden
+    # For reference
+    #
+    # attr_accessible :title, :description, :img, :home_page, :position, :entry_id, :gallery_id, :gallery_control, :locale, :popup, :hidden
 
     has_attached_file :img,
        :styles => {
@@ -84,7 +88,31 @@ module SemiStatic
     before_save :extract_dimensions
 
     serialize :img_dimensions
-  
+
+    #
+    # We need to catch certain errors that are caused when the electic search
+    # gem cannot update the elasticsearch index, especially when in development
+    # environment. So we wrap the method here.
+    #
+    def save
+      begin
+        super
+      rescue Faraday::ConnectionFailed => e
+        self.notice = "WARNING: Elastic Search indexing responded: #{e}"
+      end
+    end
+
+    def update_attributes(attrs)
+      begin
+        super
+      rescue Faraday::ConnectionFailed => e
+        self.notice = "WARNING: Elastic Search indexing responded: #{e}"
+      end
+    end
+
+    #
+    # TODO: The comment below refers to Rails 3, but it's probably obsolete now in Rails 5. Update it.
+    #
     # Really need the .or method for our scopes here, but it's not available so we would need to wrap this in a method,
     # but it turns out that Rails scopes don't deal correctly with ordering nil's. So we were doing
     # as below:

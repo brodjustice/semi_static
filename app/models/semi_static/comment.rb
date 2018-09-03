@@ -1,6 +1,5 @@
 module SemiStatic
   class Comment < ActiveRecord::Base
-    attr_accessible :body, :name, :email, :entry_id, :status, :company, :agreed, :captcha, :captcha_code
     attr_accessor :captcha, :captcha_code
 
     belongs_to :entry

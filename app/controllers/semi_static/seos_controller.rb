@@ -6,8 +6,8 @@
     require 'semi_static/general'
     include General
   
-    before_filter :authenticate_for_semi_static!
-    before_filter :set_return_path
+    before_action :authenticate_for_semi_static!
+    before_action :set_return_path
   
     layout 'semi_static_dashboards'
   
@@ -63,7 +63,7 @@
     # POST /seos.json
     def create
       @seoable = find_seoable
-      @seo = @seoable.seo = Seo.new(params[:seo])
+      @seo = @seoable.seo = Seo.new(seo_params)
   
       respond_to do |format|
         if @seo.save
@@ -83,7 +83,7 @@
       @seo = Seo.find(params[:id])
   
       respond_to do |format|
-        if @seo.update_attributes(params[:seo])
+        if @seo.update_attributes(seo_params)
           expire_page_cache(@seoable)
           format.html { redirect_to params[:return] || url_for(:controller => @seo.seoable.class.to_s.underscore.pluralize, :action => :index), :notice => 'SEO meta tags updated' }
           format.json { head :no_content }
@@ -108,6 +108,12 @@
     end
 
     private
+
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def seo_params
+      params.fetch(:seo, {}).permit(:keywords, :title, :description, :no_index, :include_in_sitemap, :changefreq, :priority)
+    end
 
     def set_return_path
       @return = params[:return]

@@ -4,7 +4,7 @@ require_dependency "semi_static/application_controller"
 module SemiStatic
   class SubscribersController < ApplicationController
 
-    before_filter :authenticate_for_semi_static!, :except => [:edit, :update]
+    before_action :authenticate_for_semi_static!, :except => [:edit, :update]
     layout 'semi_static_dashboards'
 
     # GET /subscribers

@@ -6,7 +6,7 @@ module SemiStatic
     require 'semi_static/general'
     include General
 
-    before_filter :authenticate_for_semi_static!
+    before_action :authenticate_for_semi_static!
 
     layout 'semi_static_dashboards'
   
@@ -94,6 +94,13 @@ module SemiStatic
         format.html { redirect_to fcols_url }
         format.json { head :no_content }
       end
+    end
+
+    private
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def link_params
+      params.fetch(:tag, {}).permit(:name, :position, :url, :new_window)
     end
   end
 end
