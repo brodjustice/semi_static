@@ -3,7 +3,7 @@ module SemiStatic
 
     attr_accessor :state, :bounced
 
-    belongs_to :category, :class_name => SubscriberCategory, :foreign_key => :subscriber_category_id
+    belongs_to :category, :class_name => 'SubscriberCategory', :foreign_key => :subscriber_category_id
     has_many :newsletter_deliveries, :dependent => :destroy
 
     before_create :generate_token
