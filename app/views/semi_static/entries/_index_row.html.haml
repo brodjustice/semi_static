@@ -34,18 +34,18 @@
       = image_tag('tick.png', :title => 'Admin only draft content')
   %td.tick
     - if entry.seo.nil?
-      = link_to image_tag('/assets/add.png', :title => "Add SEO meta tags"), new_entry_seo_path(entry, :return => entries_path), :remote => true
+      = link_to image_tag('add.png', :title => "Add SEO meta tags"), new_entry_seo_path(entry, :return => entries_path), :remote => true
     - elsif entry.seo.no_index
       = link_to image_tag('error.png', :title => 'Warning: NO INDEX is set'), edit_seo_path(entry.seo, :return => entries_path), :remote => true
     - else
-      = link_to image_tag('/assets/application_form_edit.png', :title => "Edit SEO meta tags"), edit_seo_path(entry.seo, :return => entries_path), :remote => true
+      = link_to image_tag('application_form_edit.png', :title => "Edit SEO meta tags"), edit_seo_path(entry.seo, :return => entries_path), :remote => true
   %td.tick
-    = image_tag("/assets/file-types/#{entry.doc_mime_to_img}", :title => entry.doc_file_name) if entry.doc.present?
+    = image_tag("file-types/#{entry.doc_mime_to_img}", :title => entry.doc_file_name) if entry.doc.present?
   %td{:class => ('warn' if (entry.locale != entry.tag.locale)), :title => ('Warning: locales do not match' if (entry.locale != entry.tag.locale))}
     = entry.locale.to_s
   %td.tick
     - if entry.product.present?
       = link_to image_tag('tick.png', :title => 'Click to edit product'), edit_entry_product_path(entry, entry.product, :return => entries_path), :remote => true
   %td{:title => entry.updated_at.strftime('%H:%M')}= entry.updated_at.strftime('%d/%b/%y')
-  %td= link_to image_tag('/assets/page_copy.png', :title => "Use #{[entry.locale, ': ', entry.title].join} as master for new entry"), new_entry_path(:master => entry)
-  %td{:title => "Click to delete #{entry.get_title || 'entry'}"}= link_to image_tag('/assets/bin.png'), entry, :method => :delete, :data => { :confirm => 'Are you sure?' }
+  %td= link_to image_tag('page_copy.png', :title => "Use #{[entry.locale, ': ', entry.title].join} as master for new entry"), new_entry_path(:master => entry)
+  %td{:title => "Click to delete #{entry.get_title || 'entry'}"}= link_to image_tag('bin.png'), entry, :method => :delete, :data => { :confirm => 'Are you sure?' }

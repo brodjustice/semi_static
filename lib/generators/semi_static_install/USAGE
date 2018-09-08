@@ -1,9 +1,0 @@
-Description:
-    Copies the SemiStatic database migrations, seed data and other useful files to your application ready to run rake db:setup. You need authetication in your application for Semi-Static to function correctly so you will be given an option to add and configure the Devise gem if authentication is no found in your application.
-
-Example:
-    rails generate semi_static_install
-
-    This will create:
-        db/migrations/*
-        app/assets/stylesheets/*

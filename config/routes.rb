@@ -14,7 +14,7 @@ SemiStatic::Engine.routes.draw do
     resources :links
   end
 
-  resources :entries, :no_context => true do
+  resources :entries do
     collection { get :search }
     resources :click_ads, :only => [:new, :create, :update]
     resources :seos, :only => [:new, :create, :update, :destroy]

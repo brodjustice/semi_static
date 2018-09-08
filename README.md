@@ -1,8 +1,8 @@
 = SemiStatic
 
-A Rails 3 Engine to get you quickly started with a fast, cached, static website. Can however dynamically add content
-hence the name 'semi-static'. The HTML site should load very quickly on mobile and desktop devices, and should get
-a 100% rating on Google pagespeed.
+A Rails 5 Engine to get you quickly started with a fast, cached, static website. There is a small CRM so
+you can dynamically add content hence the name 'semi-static'. The HTML site should load very quickly on
+mobile and desktop devices, and should get a 100% rating on Google pagespeed.
 
 Some tricks that are used to get the fast performance:
 
@@ -14,6 +14,9 @@ Some tricks that are used to get the fast performance:
 6. Full page cacheing whenever possible, with full multi-locale support
 7. Option to pre-build gzipped static pages
 
+The current version runs only on POstgreSQL, but you should be able to modify it to run with other databases
+without to much effort.
+
 = To install
 
 Assuming you want to start with a clean applicaion, then first create your rails application:
@@ -22,35 +25,33 @@ Create your new rails application, for example using the postgres DB:
 
 	# rails new myapp -d postgresql
 
-With rails 3 your app will probably need a js runtime for the development environment, so uncomment that line in 'Gemfile':
+With rails 5 your app will need a js runtime for the development environment, so change your working directory to your Rails app and make sure this line is uncommented in your 'Gemfile':
 
-	gem 'therubyracer', :platforms => :ruby
+	gem 'mini_racer', platforms: :ruby
 
-Create the database
+Create the database if you have not already with:
 
-	# rake db:setup
+	# rake db:create
 
-Now add semi-static
+Now add semi-static. Edit the Gemfile to include the semi-static gem/engine:
 
-Edit the Gemfile to include the semi-static gem/engine:
+        gem 'semi_static', :git => 'https://github.com/brodjustice/semi_static.git', :branch => 'rails_v5'
 
-	gem 'semi_static', :git => 'https://github.com/brodjustice/semi_static.git'
-
-Run the bundler
+Run the bundler to install the semi-static Rails Engine:
 
 	# bundle install
 
-Run the semi-static install generator. SemiStatic needs some authentication and has so far only been tested with Devise. If this generator finds Devise or even a database table called 'users', then it will not try to set up autherntication. If it does not find authentication it will ask you if you want to set it up, and then take you through the process of setting up Devise with a single administrator account.
+Run the semi-static install generator. Semi-static needs some authentication and has so far only been tested with the Devise gem. If this generator finds Devise or even a database table called 'users', then it will not try to set up authentication. If it does not find authentication it will ask you if you want to set it up, and then take you through the process of setting up Devise with a single administrator account.
 
 	# rails g semi_static_install
 
-Start your app
+You are all done, start your app
 
 	# rails s
 
 = Browser support
 
-All modern browsers and IE >= 9 should be supported.
+All modern browsers and IE >= 10 should be supported.
 
 = Configuration
 
@@ -61,7 +62,7 @@ you want.
 = Content
 
 The initial admin sign in email and password can by found in db/seeds.rb. Use this to sign in and start adding your content.
-Note: seeds.rb is created by the generator, so you must have run this first as decribed above.
+Note: seeds.rb is created by the generator, so you must have run this first as decribed above. Also, beware of then checking the seed.rb into a repository without deleting the password as this will expose your Admin account.
 
 = Production environment webserver, assets and page cacheing
 

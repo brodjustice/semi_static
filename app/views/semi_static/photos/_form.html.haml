@@ -36,7 +36,7 @@
           - if @photo.img.present?
             = image_tag(@photo.img.url(:bar), :title => @photo.title, :size => '210x', :class => 'ri', :id => 'semi_static_image_for_upload')
           - else
-            = image_tag('/assets/no-image-loaded.jpg', :title => 'No image', :class => 'ri', :id => 'semi_static_image_for_upload')
+            = image_tag('no-image-loaded.jpg', :title => 'No image', :class => 'ri', :id => 'semi_static_image_for_upload')
 
 
         .infobox#loaded_image

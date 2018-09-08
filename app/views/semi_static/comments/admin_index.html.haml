@@ -20,4 +20,4 @@
         %td= link_to c.company, entry_comment_path(c.company, c)
         %td= c.created_at.strftime('%d-%m-%y')
         %td= c.body.truncate(20)
-        %td= link_to image_tag('/assets/bin.png'), entry_comment_path(c.entry, c), :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %td= link_to image_tag('bin.png'), entry_comment_path(c.entry, c), :method => :delete, :data => { :confirm => 'Are you sure?' }

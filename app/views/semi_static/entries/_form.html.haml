@@ -245,7 +245,7 @@
         - if @entry.img.present?
           = image_tag(@entry.img.url(:panel), :title => @entry.title, :alt => 'Entry Image', :class => 'ri', :id => 'semi_static_image_for_upload')
         - else
-          = image_tag('/assets/no-image-loaded.jpg', :title => 'Placeholder', :class => 'ri', :id => 'semi_static_image_for_upload')
+          = image_tag('no-image-loaded.jpg', :title => 'Placeholder', :class => 'ri', :id => 'semi_static_image_for_upload')
         #semi_static_entry_image_control
           = f.label :image_disable, 'Disable display of image and caption in entry'
           = f.check_box :image_disable
@@ -522,7 +522,7 @@
                 %tr
                   %td= link_to a.attr_key, edit_polymorphic_path([@entry, a]), :remote => :true
                   %td= a.attr_value
-                  %td= link_to image_tag("/assets/bin.png"), entry_page_attr_path(@entry, a), :method => :delete
+                  %td= link_to image_tag("bin.png"), entry_page_attr_path(@entry, a), :method => :delete
     .group
       .col.span_1_of_1
         %h2 Style settings

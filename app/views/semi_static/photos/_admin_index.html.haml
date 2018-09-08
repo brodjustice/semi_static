@@ -25,13 +25,13 @@
       %td= p.position
       %td= p.locale.to_s
       %td.tick
-        = image_tag('/assets/tick.png') if p.home_page
+        = image_tag('tick.png') if p.home_page
       %td.tick
         - if p.seo.nil?
-          = link_to image_tag('/assets/add.png', :title => "Add SEO meta tags"), new_photo_seo_path(p, :return => galleries_path), :remote => true
+          = link_to image_tag('add.png', :title => "Add SEO meta tags"), new_photo_seo_path(p, :return => galleries_path), :remote => true
         - elsif p.seo.no_index
           = link_to image_tag('error.png', :title => 'Warning: NO INDEX is set'), new_photo_seo_path(p, :return => galleries_path), :remote => true
         - else
-          = link_to image_tag('/assets/application_form_edit.png', :title => "Edit SEO meta tags"), edit_seo_path(p.seo, :return => galleries_path), :remote => true
-      %td= link_to image_tag('/assets/page_copy.png', :title => "Use #{[p.locale, ': ', p.title].join} as master for new photo"), new_photo_path(:master => p)
-      %td= link_to image_tag('/assets/bin.png'), photo_path(p), :method => :delete, :data => { :confirm => 'Are you sure?' }, :remote => true
+          = link_to image_tag('application_form_edit.png', :title => "Edit SEO meta tags"), edit_seo_path(p.seo, :return => galleries_path), :remote => true
+      %td= link_to image_tag('page_copy.png', :title => "Use #{[p.locale, ': ', p.title].join} as master for new photo"), new_photo_path(:master => p)
+      %td= link_to image_tag('bin.png'), photo_path(p), :method => :delete, :data => { :confirm => 'Are you sure?' }, :remote => true

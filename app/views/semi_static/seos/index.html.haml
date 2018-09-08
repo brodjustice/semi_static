@@ -13,7 +13,7 @@
         %h3= SemiStatic::Engine.config.site_name
     %h2= 'SEO data (search indexing) for your Home Page'
     %p
-      = 'Doing the following:'
+      = 'Do the following:'
     %ul
       %li= "Create or edit a Tag named 'Home' and with the locale required"
       %li= "Add SEO meta data to the 'Home' tag that you created" 
@@ -29,27 +29,27 @@
       %th{:title => 'Master'}= 'M'
       %th= 'No Index'
       %th{:title => 'Hreflang'}= image_tag("/assets/flags/#{session[:locale].to_s}.png", :title => 'Hreflang')
-      %th= image_tag('/assets/calendar.png', :title => 'Last updated')
+      %th= image_tag('calendar.png', :title => 'Last updated')
       %th
       %th
   
     - SemiStatic::Seo.all.each do |seo|
       %tr
         %td= seo.locale.to_s
-        %td= link_to (seo.description || image_tag('/assets/error.png', :title => 'Description is empty')), edit_seo_path(seo), :remote => true
-        %td= link_to (seo.title || image_tag('/assets/error.png', :title => 'Title is empty')), edit_seo_path(seo), :remote => true
+        %td= link_to (seo.description || image_tag('error.png', :title => 'Description is empty')), edit_seo_path(seo), :remote => true
+        %td= link_to (seo.title || image_tag('error.png', :title => 'Title is empty')), edit_seo_path(seo), :remote => true
         %td= link_to (seo.keywords || ' '), edit_seo_path(seo), :remote => true
         %td
           - unless seo.seoable.nil?
             = link_to [seo.seoable.raw_title, ' (', seo.seoable.class.to_s.split('::').last, ')'].join, url_for(:controller => seo.seoable.class.to_s.underscore.pluralize, :action => :edit, :id => seo.seoable.id)
         %td.tick
           - if seo.master
-            = image_tag('/assets/tick.png', :title => 'These are the master SEO tags')
+            = image_tag('tick.png', :title => 'These are the master SEO tags')
           - else
-            = link_to image_tag('/assets/add.png', :title => 'Make this SEO meta set the master set'), edit_seo_path(seo, :master => true)
+            = link_to image_tag('add.png', :title => 'Make this SEO meta set the master set'), edit_seo_path(seo, :master => true)
         %td.tick
-          = image_tag('/assets/tick.png', :title => 'No indexing request to search engines') if seo.no_index
+          = image_tag('tick.png', :title => 'No indexing request to search engines') if seo.no_index
         %td.number= seo.hreflangs.size
         %td= seo.updated_at.strftime('%d-%b-%y %H:%M')
-        %td.tick= link_to image_tag('/assets/application_form_edit.png', :title => "Edit SEO meta tag"), edit_seo_path(seo, :return => seos_path), :remote => true
-        %td.tick= link_to image_tag('/assets/bin.png'), seo, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %td.tick= link_to image_tag('application_form_edit.png', :title => "Edit SEO meta tag"), edit_seo_path(seo, :return => seos_path), :remote => true
+        %td.tick= link_to image_tag('bin.png'), seo, :method => :delete, :data => { :confirm => 'Are you sure?' }
