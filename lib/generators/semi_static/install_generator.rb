@@ -18,21 +18,9 @@ module SemiStatic
       SITE_HELPER = 'helper SemiStatic::SiteHelper'
       AFTER_SIGN_IN_MODULE = "require 'semi_static/sign_in'\n  include SignIn"
     
-      # Belts and braces: Always run check to see if Device is included and registarable is set, since
-      # that will leave you wide open to anybody registering as admin
-      def device_auth_check
-        registerable_found = run 'grep registerable app/models/*.rb'
-        if registerable_found
-          say '    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-          say "    IMPORTANT WARNING: Found the string 'registerable' in one of your models (see results above)."
-          say "    This could well be a MAJOR security problem in device that you really must correct." 
-          unless yes?("    We do not advise that you ignore this, but if you really know what you are doing, type Y to ignore (Y/N): ")
-            exit
-          end
-        end
-      end
     
       def copy_database_migrations
+        say '  SemiStatic  Copying semi_static database migrations to local app'
         #
         # Would like to do this:
         #   rake semi_static:install:migrations
@@ -42,33 +30,18 @@ module SemiStatic
       end
 
       def copy_stylesheets
-        # Because of a wierd sass-rails namespacing problem which is noted here, and elsewhere:
-        #   https://github.com/rails/sass-rails/issues/165
-        # our engine will not be able to get the correct load paths for our assets in the application
-        # unless we take the sass-rails gem out of the assests group in the application Gemfile. So
-        # we need to do some fancy editing here:
-        #
-        # Update for Rails 5: This is no longer needed?
-        #
-        # gemfile_id_found = run("grep -w \'#{GEMFILE_UNIQUE_ID}\' Gemfile >/dev/null")
-        # if gemfile_id_found == false
-        #   sassrails = `grep -w \'sass-rails\' Gemfile`
-        #   gsub_file 'Gemfile', /gem \'sass-rails\'.*$/, "# Commented out by SemiStatic generator\n  # #{GEMFILE_UNIQUE_ID} - Please don't remove\n  # #{sassrails}"
-        #   inject_into_file "Gemfile", "\n# Added by SemiStatic for asset namespacing\n" + sassrails + "\n", :before => "group :assets do\n"
-        # end
-    
         themes = ""
 
         # Get the names of all the themes
-        inside(source_paths.first + 'app/assets/stylesheets/themes') do
+        inside(source_paths.first + '/app/assets/stylesheets/themes') do
           themes = `ls`
         end
-    
+
         themes.split.each{|theme|
           empty_directory(destination_root + "/app/assets/stylesheets/semi_static/themes/#{theme}")
 
           # Now copy just the variable.css.scss file for each theme to the application
-          copy_file("/app/assets/stylesheets/themes/#{theme}/variables.scss",
+          copy_file("./app/assets/stylesheets/themes/#{theme}/variables.scss",
             destination_root + "/app/assets/stylesheets/semi_static/themes/#{theme}/variables.scss")
         }
         copy_file('./app/assets/stylesheets/custom.scss', destination_root + '/app/assets/stylesheets/semi_static/custom.scss')
@@ -116,7 +89,7 @@ module SemiStatic
         end
     
         # In case there is none, add a after_sign_in path
-        after_sign_in_path_found = run("grep -w \'after_sig_in_path\' app/controllers/application_controller.rb >/dev/null")
+        after_sign_in_path_found = run("grep -w \'after_sign_in_path\' app/controllers/application_controller.rb >/dev/null")
         after_sign_in_module_found = run("grep -w \'SignIn\' app/controllers/application_controller.rb >/dev/null")
         if after_sign_in_path_found == true
           say '  SemiStatic  after_sign_in_path already found in application_controller, skiping this bit'
@@ -149,6 +122,20 @@ module SemiStatic
           say '  SemiStatic  WARNING: You seem to already have have authentication in your app. You will need to provide a way for the administrator to navigate to the semi_static_dashboard_path'
         end
       end
+
+      # Belts and braces: Always run check to see if Device is included and registarable is set, since
+      # that will leave you wide open to anybody registering as admin
+      def device_auth_check
+        registerable_found = run 'grep registerable app/models/*.rb'
+        if registerable_found
+          say '    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+          say "    IMPORTANT WARNING: Found the string 'registerable' in one of your models (see results above)."
+          say "    This could well be a MAJOR security problem in device that you really must correct." 
+          unless yes?("    We do not advise that you ignore this, but if you really know what you are doing, type Y to ignore (Y/N): ")
+            exit
+          end
+        end
+      end
     
       def execute_migrations
         if yes?("  SemiStatic  Would you like to run the database setup? (Y/N):")
@@ -159,14 +146,19 @@ module SemiStatic
     
       def copy_devise_views
         # Always remove the standard Devise _form as it does not have email fields
-        remove_file './app/views/admins/_form.html.erb'
+        remove_file 'app/views/admins/_form.html.erb'
         if yes?("  SemiStatic  Would you like to copy the devise views to your application? (Y/N):")
-          # Copy view into app as we nearly always customise them
+          # Copy view into app as the devloper nearly always customises them
           @admin_model_name ||= 'admin'
           run("rails generate devise:views " + @admin_model_name)
+
           # Copy the admin form with email fields
-          copy_file '/app/views/semi_static/admins/_form.html.haml', "./app/views/#{@admin_model_name.pluralize}/_form.html.haml"
+          copy_file './app/views/semi_static/admins/_form.html.haml', "./app/views/#{@admin_model_name.pluralize}/_form.html.haml"
         end
+      end
+
+      def installation_complete
+        say "  SemiStatic  Installation complete."
       end
     
       private
@@ -194,33 +186,38 @@ module SemiStatic
         gem "devise"
         generate "devise:install"
     
-        if yes?("  Would you like a simple Devise admin model? (Y/N):")
-          @admin_model_name = ask("  SemiStatic  What would you like the simple devise admin model to be called? [admin]:")
-          @admin_model_name = "admin" if @admin_model_name.blank?
-          generate(:scaffold, @admin_model_name + " name:string surname:string")
+        @admin_model_name = ask("  SemiStatic  What would you like the simple devise admin model to be called? [admin]:")
+        @admin_model_name = "admin" if @admin_model_name.blank?
+        generate(:scaffold, @admin_model_name + " name:string surname:string")
     
-          before_action_instruction = "\n  before_action :authenticate_" + @admin_model_name +'!'
-          inject_into_file "app/controllers/#{@admin_model_name.pluralize}_controller.rb", before_atcion_instruction,
-            :after => "ApplicationController"
-          generate("devise", @admin_model_name)
+        before_action_instruction = "\n  before_action :authenticate_" + @admin_model_name +'!'
+        inject_into_file "app/controllers/#{@admin_model_name.pluralize}_controller.rb", before_action_instruction,
+          :after => "ApplicationController"
+        generate("devise", @admin_model_name)
     
-          # Need to change the admin model to load the correct devise modules:
-          #   devise :database_authenticatable, :trackable, :timeoutable, :lockable
-          # This is pretty error prone as we don't know what devise will put in by default, but it's important to
-          # get rid of the registerable, else you will not be able to add admins and anybody can register
-          gsub_file "app/models/#{@admin_model_name}.rb", /^  devise.*$/, "  devise :database_authenticatable, :trackable, :timeoutable, :lockable"
-          gsub_file "app/models/#{@admin_model_name}.rb", /:recoverable.*$/, ""
-          gsub_file "app/models/#{@admin_model_name}.rb", /:rememberable.*$/, ""
-          gsub_file "app/models/#{@admin_model_name}.rb", /:registerable.*$/, ""
+        # Need to change the admin model to load the correct devise modules:
+        #   devise :database_authenticatable, :trackable, :timeoutable, :lockable
+        # This is pretty error prone as we don't know what devise will put in by default, but it's important to
+        # get rid of the registerable, else you will not be able to add admins and anybody can register
+        gsub_file "app/models/#{@admin_model_name}.rb", /^  devise.*$/, "  devise :database_authenticatable"
+        gsub_file "app/models/#{@admin_model_name}.rb", /^    .*:recoverable.*$/, ""
+        gsub_file "app/models/#{@admin_model_name}.rb", /^    .*:rememberable.*$/, ""
+        gsub_file "app/models/#{@admin_model_name}.rb", /^    .*:registerable.*$/, ""
+        gsub_file "app/models/#{@admin_model_name}.rb", /^    .*:trackable.*$/, ""
+        gsub_file "app/models/#{@admin_model_name}.rb", /^    .*:timeoutable.*$/, ""
+        gsub_file "app/models/#{@admin_model_name}.rb", /^    .*:lockable.*$/, ""
     
-          say "  SemiStatic  Have added a default route for devise, you may want to edit config/routes later"
-          say "  For the devise admin model (#{@admin_model_name}) you will typically want:"
-          say "    Autenticable + Trackable"
-          if yes?("  Would you like to edit the devise migration for the admin model? [#{@admin_model_name}] (Y/N):")
-            run "vim db/migrate/*add_devise_to_#{@admin_model_name}*"
-          end
-          seed_admin
+        say "  SemiStatic  Have added a default route for devise, you may want to edit config/routes later"
+        say "              For the devise admin model (#{@admin_model_name}) you will typically want:"
+        say "                Autenticable + Trackable + Lockable"
+        say "              This generator will only include Authenticable, so if you want to add other methods then you"
+        say "              will need to edit the migration and the model in the next steps, adding the methods you want."
+        if yes?("  Would you like to edit both the devise migration and the model? [#{@admin_model_name}] (Y/N):")
+          run "vim db/migrate/*add_devise_to_#{@admin_model_name}*"
+          run "vim app/models/#{@admin_model_name}.rb"
         end
+        seed_admin
+
         devise_success = true
       end
     end

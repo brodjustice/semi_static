@@ -56,8 +56,6 @@ module SemiStatic
       # There is no load path for coffescript like there is for SASS so we can only use the sprokets load path
       # Need to do this here rather than in config.after_initialize' as sprokets will by then have frozen the environment
       #
-      # Note: In Rails 3 this was  Rails.application.assets.append_path ...
-      #
       Rails.application.config.assets.paths << "#{SemiStatic::Engine.root}/app/assets/javascripts/themes/#{SemiStatic::Engine.config.theme}"
       Rails.application.config.assets.paths << "#{Rails.application.root}/app/assets/stylesheets/semi_static/themes/#{SemiStatic::Engine.config.theme}"
       Rails.application.config.assets.paths << "#{SemiStatic::Engine.root}/app/assets/stylesheets/themes/#{SemiStatic::Engine.config.theme}"

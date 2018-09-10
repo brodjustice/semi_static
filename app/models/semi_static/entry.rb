@@ -24,7 +24,7 @@ module SemiStatic
       end
     end
 
-    belongs_to :tag, :optional => true
+    belongs_to :tag
     belongs_to :acts_as_tag, :class_name => "SemiStatic::Tag", :optional => true
     delegate :admin_only, to: :tag
   
@@ -349,13 +349,12 @@ module SemiStatic
     #
     def unrestricted_html=(val); 
       unless raw_html == true
-        HTML::WhiteListSanitizer.allowed_protocols << 'data'
         if val == ('1' || 'true' || true)
           self.body = ActionController::Base.helpers.sanitize(self.body, :tags => DIRTY_TAGS, :attributes => DIRTY_ATTRIBUTES)
         else
           self.body = ActionController::Base.helpers.sanitize(self.body, :tags => ALLOWED_TAGS, :attributes => ALLOWED_ATTRIBUTES)
         end
-      super
+        super
       end
     end
 

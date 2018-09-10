@@ -17,7 +17,7 @@ Some tricks that are used to get the fast performance:
 The current version runs only on POstgreSQL, but you should be able to modify it to run with other databases
 without to much effort.
 
-= To install
+= Install for development
 
 Assuming you want to start with a clean applicaion, then first create your rails application:
 
@@ -25,11 +25,7 @@ Create your new rails application, for example using the postgres DB:
 
 	# rails new myapp -d postgresql
 
-With rails 5 your app will need a js runtime for the development environment, so change your working directory to your Rails app and make sure this line is uncommented in your 'Gemfile':
-
-	gem 'mini_racer', platforms: :ruby
-
-Create the database if you have not already with:
+Change your working directory to your Rails app and create the database with:
 
 	# rake db:create
 
@@ -43,11 +39,17 @@ Run the bundler to install the semi-static Rails Engine:
 
 Run the semi-static install generator. Semi-static needs some authentication and has so far only been tested with the Devise gem. If this generator finds Devise or even a database table called 'users', then it will not try to set up authentication. If it does not find authentication it will ask you if you want to set it up, and then take you through the process of setting up Devise with a single administrator account.
 
-	# rails g semi_static_install
+	# rails g semi_static:install
 
-You are all done, start your app
+You are finished, start your app:
 
 	# rails s
+
+= Install for production
+
+With rails 5 your app will need a js runtime for the development environment. So for example, make sure this line is uncommented in your 'Gemfile':
+
+	gem 'mini_racer', platforms: :ruby
 
 = Browser support
 

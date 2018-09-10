@@ -149,10 +149,10 @@
     def create
       if params[:newsletter_id]
         nl = SemiStatic::Newsletter.find(params[:newsletter_id])
-        @entry = nl.tag.entries.create(params[:entry])
+        @entry = nl.tag.entries.create(entry_params)
         nl.add_entry(@entry, true)
       else
-        @entry = Entry.new(params[:entry])
+        @entry = Entry.new(entry_params)
       end
       respond_to do |format|
         if params[:preview]
