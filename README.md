@@ -27,7 +27,7 @@ Create your new rails application, for example using the postgres DB:
 
 Change your working directory to your Rails app and create the database with:
 
-	# rake db:create
+	# rails db:create
 
 Now add semi-static. Edit the Gemfile to include the semi-static gem/engine:
 
@@ -60,6 +60,10 @@ All modern browsers and IE >= 10 should be supported.
 The minimal configuration will require you to edit the 'config/initializers/semi_static.rb' file. Edit that file to
 suit your configuration. Thereafter you can customize the css files and overwrite the views to customize as much as
 you want.
+
+= Testing
+
+	# rails test
 
 = Content
 

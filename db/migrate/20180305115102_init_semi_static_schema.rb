@@ -2,6 +2,7 @@ class InitSemiStaticSchema < ActiveRecord::Migration[5.0]
   def up
     # These are extensions that must be enabled in order to support this database
     enable_extension "plpgsql"
+
     create_table "semi_static_agreements", force: :cascade do |t|
       t.text     "body"
       t.boolean  "display",            default: true
@@ -274,10 +275,15 @@ class InitSemiStaticSchema < ActiveRecord::Migration[5.0]
       t.datetime "created_at"
       t.datetime "updated_at"
     end
-    create_table "semi_static_role_users", id: false, force: :cascade do |t|
-      t.integer "role_id"
-      t.integer "user_id"
-    end
+    # create_table "semi_static_role_users", id: false, force: :cascade do |t|
+    #   t.integer "role_id"
+    #   t.integer "user_id"
+    # end
+    # create_table :semi_static_users do |t|
+    #  t.string :name
+    #  t.string :surname
+    #  t.timestamps
+    # end
     create_table "semi_static_seos", force: :cascade do |t|
       t.string   "keywords"
       t.string   "title"

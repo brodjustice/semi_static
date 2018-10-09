@@ -1,4 +1,3 @@
 Rails.application.routes.draw do
-
-  mount SemiStatic::Engine => "/semi-static"
+  mount SemiStatic::Engine => "/semi_static"
 end

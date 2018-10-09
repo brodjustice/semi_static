@@ -184,6 +184,7 @@ module SemiStatic
     
       def add_auth
         gem "devise"
+        run "bundle install"
         generate "devise:install"
     
         @admin_model_name = ask("  SemiStatic  What would you like the simple devise admin model to be called? [admin]:")

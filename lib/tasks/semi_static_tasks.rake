@@ -13,3 +13,18 @@
 #     end
 #  end
 # end
+
+namespace :'semi_static' do
+  desc 'Run SemiStatic engine tests'
+  task :test do
+    semi_static_engine_root = `bundle show semi_static`
+    puts "To run SemiStatic tests run \'rails test\' from the SemiStatic engine home directory: #{semi_static_engine_root}"
+  end
+
+  namespace :migration do
+    desc 'Run migration to add User table to test database'
+    task :'user_table' do
+      # Add code to create Devise user model migration
+    end
+  end
+end

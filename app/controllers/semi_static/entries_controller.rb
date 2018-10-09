@@ -184,6 +184,7 @@
         elsif params[:convert] && (@entry.attributes = params[:entry])
           format.js { render 'convert'}
         elsif @entry.update_attributes(entry_params)
+          logger.info "-------------------------> In main Entry update section"
           unless @entry.notice.blank?
             flash[:notice] = @entry.notice
           end

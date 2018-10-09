@@ -49,14 +49,14 @@ module SemiStatic
       end
       @status_code = 404
       @exception = e
-      @url = url_for(params)
+      @url = url_for(params.permit!)
       render :layout => 'semi_static_application', :template => 'semi_static/errors/show', :status => @status_code
     end
 
-    rescue_from Elasticsearch::Transport::Transport::Errors::NotFound do |e|
+    rescue_from Elasticsearch::Transport::Transport::Errors::NotFound, Elasticsearch::Transport::Transport::Errors::BadRequest do |e|
       @status_code = 404
       @exception = e
-      @url = url_for(params)
+      @url = url_for(params.permit!)
       render :layout => 'semi_static_application', :template => 'semi_static/errors/no_index', :status => @status_code
     end
 

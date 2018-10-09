@@ -50,10 +50,10 @@ module SemiStatic
         end
       }
 
-      # We don't have autoload on the additional paths given to SASS above, so the compromise is to clear the cache on startup, else
-      # the changes in the above directories may never be picked up.
+      # We don't have autoload on the additional paths given to SASS above, so the compromise is to
+      # clear the cache on startup, else the changes in the above directories may never be picked up.
       Rails.cache.clear
-      system `rake tmp:clear`
+      system `rake tmp:clear` unless Rails.env.test?
 
     end
   end
