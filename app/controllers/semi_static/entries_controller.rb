@@ -264,7 +264,7 @@
       @tag = @entry.tag
 
       if !semi_static_admin? && @entry.subscriber_content
-        session[:user_intended_url] = url_for(params) unless send('current_' + SemiStatic::Engine.config.subscribers_model.first[0].downcase)
+        session[:user_intended_url] = url_for(params.permit) unless send('current_' + SemiStatic::Engine.config.subscribers_model.first[0].downcase)
         # If you want to totally protect your subscriber content, rather than showing a teaser summary then
         # you will need to redirect to the signin page like this:
         #
