@@ -141,7 +141,7 @@
       # pages. So first look for tag in current locale and if this fails take first matching tag
       @tag = Tag.where(:locale => locale.to_s).find_by_slug(params[:slug]) || Tag.find_by_slug!(params[:slug])
       if !semi_static_admin? && @tag.subscriber_content
-        session[:user_intended_url] = url_for(params) unless send('current_' + SemiStatic::Engine.config.subscribers_model.first[0].downcase)
+        session[:user_intended_url] = url_for(params.permit) unless send('current_' + SemiStatic::Engine.config.subscribers_model.first[0].downcase)
         # If you want to totally protect your subscriber content, rather than showing a teaser summary then
         # you will need to redirect to the signin page like this:
         #
