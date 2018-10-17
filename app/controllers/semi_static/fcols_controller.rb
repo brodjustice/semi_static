@@ -88,7 +88,7 @@ module SemiStatic
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def fcol_params
-      params.fetch(:tag, {}).permit(:name, :position, :content, :locale)
+      params.fetch(:fcol, {}).permit(:name, :position, :content, :locale)
     end
   end
 end

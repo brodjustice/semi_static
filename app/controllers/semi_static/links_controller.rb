@@ -54,7 +54,7 @@ module SemiStatic
     # POST /links.json
     def create
       @fcol = Fcol.find(params[:fcol_id])
-      @link = @fcol.links.new(params[:link])
+      @link = @fcol.links.new(link_params)
   
       respond_to do |format|
         if @link.save
@@ -73,7 +73,7 @@ module SemiStatic
       @link = Link.find(params[:id])
   
       respond_to do |format|
-        if @link.update_attributes(params[:link])
+        if @link.update_attributes(link_params)
           expire_page_cache(@link)
           format.html { redirect_to fcols_path, notice: 'Footer link was successfully updated.' }
           format.json { head :no_content }
@@ -100,7 +100,7 @@ module SemiStatic
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def link_params
-      params.fetch(:tag, {}).permit(:name, :position, :url, :new_window)
+      params.fetch(:link, {}).permit(:name, :position, :url, :new_window)
     end
   end
 end
