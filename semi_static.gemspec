@@ -36,10 +36,10 @@ Gem::Specification.new do |s|
 
   s.add_dependency "truncate_html"
 
-  # For search
-  s.add_dependency "elasticsearch"
-  s.add_dependency "elasticsearch-model"
-  s.add_dependency "elasticsearch-rails"
+  # For search, make sure that the version 6 of elasticsearch server is available.
+  s.add_dependency "elasticsearch", "~> 6.0"
+  s.add_dependency "elasticsearch-model", "~> 6.0"
+  s.add_dependency "elasticsearch-rails", "~> 6.0"
 
   s.add_development_dependency "pg"
 end

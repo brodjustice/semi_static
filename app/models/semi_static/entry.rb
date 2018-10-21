@@ -1,3 +1,5 @@
+require 'elasticsearch/model'
+
 module SemiStatic
   class Entry < ActiveRecord::Base
     include Pages
@@ -17,7 +19,7 @@ module SemiStatic
 
     settings analysis: { analyzer: { semi_static: { tokenizer: 'standard', char_filter: 'html_strip' } } } do
       mappings dynamic: 'false' do
-        indexes :body, type: 'string', analyzer: 'semi_static'
+        indexes :body, type: 'text', analyzer: 'semi_static'
         indexes :raw_title
         indexes :locale
         indexes :effective_tag_line

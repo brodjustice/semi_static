@@ -144,8 +144,8 @@ Some SemiStatic image styles may change. If you are having trouble with the qual
 The elasticsearch gem is automatically installed, but you will need access to an elasticsearch server. We have tested against elasticsearch 5.6.4. On debian you can install this elasticsearch version locally with:
 
 ```
-# wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.6.4.deb
-# sudo dpkg -i elasticsearch-5.6.4.deb
+# wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.2.deb
+# sudo dpkg -i elasticsearch-6.4.2.deb
 ```
 
 Configure elasticsearch and start it with:
@@ -163,7 +163,7 @@ Assuming the ElasticSearch engine is running locally, you can check your search 
 You can delete an index with:
 
 ```
-curl -XDELETE 'localhost:9200/customer?myindexname'
+# curl -X DELETE "localhost:9200/my_index_name"
 ```
 
 = Integrating to your own app

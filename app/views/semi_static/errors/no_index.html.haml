@@ -4,7 +4,9 @@
       %h1= ['Error', @status_code.to_s].join(' ')
       %p= @url unless @url.nil?
       %p
-        = 'The search index was not found, please infom the system adminsitrator'
+        = "Error: #{@exception}" 
+      %p
+        = 'The search index was not found, please infom the system administrator'
   .col.span_1_of_3
     = render :partial => 'semi_static/site/social'
     = render :partial => 'semi_static/tags/news'
