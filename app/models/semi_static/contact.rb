@@ -1,16 +1,10 @@
 module SemiStatic
   class Contact < ActiveRecord::Base
 
-    #
-    # For the record these are the attributes
-    #
-    # attr_accessible :reason, :surname, :message, :email, :telephone, :name, :locale, :agreement_ids, :strategy, :squeeze_id
-    # attr_accessible :title, :company, :address, :position, :country, :employee_count, :branch
-
     attr_accessor :custom_params
 
     has_and_belongs_to_many :agreements, :join_table => :semi_static_agreements_contacts
-    belongs_to :squeeze
+    belongs_to :squeeze, :optional => true
   
     # TODO: The load order of the locales files stops us adding the correct message for this, its
     # needs to say 'Please provide either an email or telephone number'
