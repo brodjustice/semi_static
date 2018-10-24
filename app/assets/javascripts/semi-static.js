@@ -27,11 +27,17 @@ function semiStaticCloseMenu(){
   }
 }
 function semiStaticGetPR(){ var pr; try {pr=window.devicePixelRatio} catch(err){pr=1} return(pr); }
+
 function semiStaticAJAX(url){
   var xhr = new XMLHttpRequest();
+  var token = document.querySelector('meta[name="csrf-token"]').content
   // Note: Params assume that an additional, "?" already exists
   url=url + '&pratio=' + parseInt(semiStaticGetPR());
   xhr.open('GET', encodeURI(url));
+
+  // Contruct headers that will be accepted by Rails 5 strict CSRF policy
+  xhr.setRequestHeader('X-CSRF-Token', token)
+  xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
   xhr.setRequestHeader("Accept", "text/javascript");
   xhr.onload = function() { if (xhr.status === 200) { eval(xhr.responseText); } };
   xhr.send();
