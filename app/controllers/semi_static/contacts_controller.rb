@@ -5,8 +5,14 @@ module SemiStatic
 
     before_action :authenticate_for_semi_static!, :except => [:new, :create]
 
-    # Don't cache the registration page as this is dynamic
-    caches_page :new, :unless => Proc.new { |c| c.request.url.include?('registration') }
+    # Caching the contact form is not straight forword in later versions for Rails (4+)
+    # as the CSFR policies mean that the AUTH_CODE will quickly become invalid causing
+    # an ActionController::InvalidAuthenticityToken exception. We never cached the
+    # contact for if it was a registration anyway, eg:
+    #   Don't cache the registration page as this is dynamic
+    #     caches_page :new, :unless => Proc.new { |c| c.request.url.include?('registration') }
+    # But right now we will just not cache anymore and look at other strategies in future,
+    # for example fragment caching in the view my be sufficient.
   
     # GET /contacts
     # GET /contacts.json

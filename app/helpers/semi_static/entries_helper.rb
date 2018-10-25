@@ -100,7 +100,7 @@ module SemiStatic
 
     def captcha
       code = CAPTCHA_CODES.sample
-      image_tag("/assets/captchas/#{code}.jpg", 'data-code' => code, :class => 'captcha') + hidden_field_tag('comment[captcha_code]', code)
+      image_tag("captchas/#{code}.jpg", 'data-code' => code, :class => 'captcha') + hidden_field_tag('comment[captcha_code]', code)
     end
 
     def photo_main(e, group_size = 2)
