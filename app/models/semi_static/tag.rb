@@ -46,7 +46,7 @@ module SemiStatic
     scope :predefined, -> (locale, pre) { where("locale = ?", locale).where('predefined_class = ?', pre) }
 
     # scope :with_attr, lambda{|attr| includes(:page_attrs).where('semi_static_page_attrs.attr_key  = ?', attr)}
-    scope :with_attr, -> (attr){includes(:page_attrs).where('semi_static_page_attrs.attr_key  = ?', attr)}
+    scope :with_attr, -> (attr){includes(:page_attrs).where(:page_attrs => {:attr_key => attr})}
 
     # scope :public, where("subscriber = ?", false).where("admin_only = ?", false)
     #
@@ -69,17 +69,25 @@ module SemiStatic
     # This used to be a scope as Rails 3 allowed the following:
     #   scope :slide_menu, includes(:page_attrs).where('semi_static_page_attrs.attr_key = ? OR menu = ?', 'slideMenu', true)
     # so we expect we can use something like:
-    #   scope :slide_menu, -> {includes(:page_attrs).where('semi_static_page_attrs.attr_key = ? OR menu = ?', 'slideMenu', true)}
+    #   scope :slide_menu, -> {includes(:page_attrs).where('semi_static_page_attrs.attr_key' = ? OR menu = ?', 'slideMenu', true)}
     # But this does not work in Rails 4. We can't use this:
-    #  scope :slide_menu, -> {find_by_sql("SELECT \"semi_static_tags\".* FROM \"semi_static_tags\"  WHERE (semi_static_page_attrs.attr_key = 'slideMenu' OR menu = 't') ORDER BY position")}
+    #  scope :slide_menu, -> {find_by_sql("SELECT \"semi_static_tags\".* FROM \"semi_static_tags\" 
+    #    WHERE (semi_static_page_attrs.attr_key = 'slideMenu' OR menu = 't') ORDER BY position")}
     # because it returns an array.
     #
-    # Rails 5 may offer a solution, but until then we use a method
+    # So in Rails 4 we could to use a method, but note that the 'merge' is a 'AND' operation not a UNION:
+    #   def self.slide_menu
+    #     self.where(:menu => true).merge(self.includes(:page_attrs).where(:semi_static_page_attrs => {:attr_key => 'slideMenu'}))
+    #   end
+    # So for Rails 4 there is no elegant solution at available.
     #
+    # In Rails 5 we get the 'or' method for our scope, so we might think we can do:
+    #   scope :slide_menu, -> {where(:menu => true).or(includes(:page_attrs).where(:semi_static_page_attrs => {:attr_key => 'slideMenu'}))}
+    # but this will not work because we get the error:
+    #   "Relation passed to #or must be structurally compatible. Incompatible values: [:includes]"
+    # This is thankfully fixed by simply having the 'include' in both sub-queries:
 
-    def self.slide_menu
-      self.where(:menu => true).merge(self.includes(:page_attrs).where(:semi_static_page_attrs => {:attr_key => 'slideMenu'}))
-    end
+    scope :slide_menu, -> {includes(:page_attrs).where(:menu => true).or(includes(:page_attrs).where(:semi_static_page_attrs => {:attr_key => 'slideMenu'}))}
 
     def title; name end
     def raw_title; name end

@@ -1,4 +1,4 @@
-.button= link_to_function 'Cancel', "$('#dialog').hide();"
+.button= link_to 'Cancel', :onclick => "$('#dialog').hide(); return(false);"
 %h1= ['New page attribute for ', @page_attrable.raw_title].join
 = render 'form'
 

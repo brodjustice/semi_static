@@ -80,8 +80,8 @@ module SemiStatic
     scope :without_image, -> {where('img_file_name IS NULL')}
 
     # scope :with_attr, lambda{|attr| includes(:page_attrs).where('semi_static_page_attrs.attr_key  = ?', attr)}
-    scope :with_attr, -> {includes(:page_attrs).where('semi_static_page_attrs.attr_key  = ?', attr)}
-  
+    scope :with_attr, -> (attr){includes(:page_attrs).where(:semi_static_page_attrs => {:attr_key => attr})}
+
     has_one :seo, :as => :seoable
     has_many :page_attrs, :as => :page_attrable
     has_one :product
