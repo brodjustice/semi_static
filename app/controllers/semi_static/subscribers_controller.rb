@@ -12,12 +12,12 @@ module SemiStatic
     def index
       template = 'index'
       if params[:unsubscribed] == 'true'
-        @subscribers = Subscriber.where(:unsubscribe => :true)
+        @subscribers = Subscriber.where(:unsubscribe => true)
         template = 'unsubscribers'
       else
-        @subscribers = Subscriber.where(:unsubscribe => :false)
+        @subscribers = Subscriber.where(:unsubscribe => false)
       end
-  
+
       respond_to do |format|
         format.html { render :template => "semi_static/subscribers/#{template}" }
         format.json { render json: @subscribers }

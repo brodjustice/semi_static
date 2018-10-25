@@ -102,7 +102,7 @@ module SemiStatic
     # Never trust parameters from the scary internet, only allow the white list through.
     def contact_params
       params.fetch(:contact, {}).permit(:reason, :surname, :message, :email, :telephone, :name, :locale, :agreement_ids,
-        :strategy, :squeeze_id, :title, :company, :address, :position, :country, :employee_count, :branch)
+        :strategy, :squeeze_id, :title, :company, :address, :position, :country, :employee_count, :branch, :agreement_ids => [])
     end
 
 
