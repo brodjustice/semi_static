@@ -21,10 +21,26 @@ namespace :'semi_static' do
     puts "To run SemiStatic tests run \'rails test\' from the SemiStatic engine home directory: #{semi_static_engine_root}"
   end
 
-  namespace :migration do
-    desc 'Run migration to add User table to test database'
-    task :'user_table' do
-      # Add code to create Devise user model migration
+  desc 'Create non digested assets in public without fingerprints'
+  task :non_digested_assets do
+
+    pre_compiled_assets = Dir.glob(File.join(Rails.root, 'public/assets/**/*'))
+
+    # In development mode we don't have usually have precompiled digested assets
+    if Rails.env.development?
+      puts 'WARNING: Non digested assets are normally not required in development mode'
+    end
+    if pre_compiled_assets.blank?
+      puts 'WARNING: No assets found, have you forgot to precompile them?'
+    end
+    
+    regex = /(-{1}[a-z0-9]{32}*\.{1}){1}/
+    pre_compiled_assets.each do |file|
+      next if File.directory?(file) || file !~ regex
+      source = file.split('/')
+      source.push(source.pop.gsub(regex, '.'))
+      non_digested = File.join(source)
+      FileUtils.symlink(file, non_digested, :force => true)
     end
   end
 end

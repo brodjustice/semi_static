@@ -178,6 +178,21 @@ In your controllers you can then for example use authenticate_admin!
 
     before_filter :authenticate_admin!, :except => [ :new, :create ]
 
+= Rake task for non digested assets
+
+The goal of this engine is to privide a basis fo a CMS, and furthermore a CMS where pure HTML will often be used. Since Rails 4 the asset
+s no longer have a non-digested version. This means that, for example, if you are writing pure HTML like the following, it will fail:
+
+        # <img src='assets/my-image.jpg'>
+
+This HTML to find the image because Rails will only provide assets with a fingerprint/digest, i.e.
+
+        # assets/my-image-14d1be2ff7ec4cd54bce852edaa6d9b03fff5a773f9f4b1550393f9228e9e41e.jpg
+
+You HTML will have no way of knowing what the fingerprint is. To fix this SemiStatic provides a task that will provide a path to your assets without the fingerprint:
+
+        # rails semi_static:non_digested_assets
+
 = Examples
 
 http://quantum-websites.com/info/portfolio
