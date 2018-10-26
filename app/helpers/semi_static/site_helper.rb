@@ -325,7 +325,7 @@ module SemiStatic
 
     def squeeze(entry)
       return unless (s = entry.squeeze).present?
-      "<div id=\'squeeze-tease_#{entry.squeeze.id.to_s}\'><a class='squeeze' rel='nofollow' onclick='semiStaticAJAX(\"#{squeeze_path(s, :format => :js, :popup => false)}\")\; return false;' href='#{squeeze_path(s)}'>#{simple_format(s.teaser)}</a></div>".html_safe
+      "<div id=\'squeeze-tease_#{entry.squeeze.id.to_s}\'><a class='squeeze' rel='nofollow' onclick='semiStaticAJAX(\"#{squeeze_path(s, :popup => false)}\")\; return false;' href='#{squeeze_path(s)}'>#{simple_format(s.teaser)}</a></div>".html_safe
     end
 
 
