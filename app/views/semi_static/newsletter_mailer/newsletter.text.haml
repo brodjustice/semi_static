@@ -21,7 +21,7 @@
 
   = "\r\n"
   - unless SemiStatic::Newsletter::ENTRY_LAYOUT_CODES[@newsletter.draft_entry_ids[e.id][:layout]].to_s.include?('no_link')
-    = entry_path(e, :only_path => false)
+    = entry_url(e, :only_path => false)
 
   - if e.alt_title.present? && e.alt_title.start_with?("http")
     = e.alt_title
@@ -33,5 +33,5 @@
 = "\r\n"
 - if @subscriber
   To unsubscribe to this newsletter please click on the following url or copy it into your browser:
-  = edit_subscriber_path(@subscriber, :token => @subscriber.respond_to?('cancel_token') ? @subscriber.cancel_token : '', :only_path => false)
+  = edit_subscriber_url(@subscriber, :token => @subscriber.respond_to?('cancel_token') ? @subscriber.cancel_token : '', :only_path => false)
 
