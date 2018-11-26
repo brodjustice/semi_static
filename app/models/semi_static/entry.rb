@@ -82,7 +82,7 @@ module SemiStatic
     # scope :with_attr, lambda{|attr| includes(:page_attrs).where('semi_static_page_attrs.attr_key  = ?', attr)}
     scope :with_attr, -> (attr){includes(:page_attrs).where(:semi_static_page_attrs => {:attr_key => attr})}
 
-    has_one :seo, :as => :seoable
+    has_one :seo, :as => :seoable, :dependent => :destroy
     has_many :page_attrs, :as => :page_attrable
     has_one :product
     has_one :click_ad
@@ -91,6 +91,7 @@ module SemiStatic
     belongs_to :banner, :optional => true
     belongs_to :gallery, :optional => true
     belongs_to :event, :optional => true
+    belongs_to :job_posting, :optional => true
     belongs_to :squeeze, :optional => true
     has_many :photos
     has_many :comments, :dependent => :destroy

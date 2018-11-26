@@ -1,5 +1,8 @@
 .button= link_to 'Cancel', '#', :onclick => "$('#dialog').hide(); return false"
-%h1= ['Editing SEO meta tags for', @seo.seoable.raw_title].join(' ')
-.button= link_to 'Delete', polymorphic_path([@seo.seoable, @seo]), :method => :delete
-%h3= ['locale:', @seo.seoable.locale.to_s].join(' ')
-= render 'form'
+- if @seo.seoable
+  %h1= ['Editing SEO meta tags for', @seo.seoable.raw_title].join(' ')
+  .button= link_to 'Delete', polymorphic_path([@seo.seoable, @seo]), :method => :delete
+  %h3= ['locale:', @seo.seoable.locale.to_s].join(' ')
+  = render 'form'
+- else
+  %h1= "ERROR: No Entry or Tag found for associated SEO"

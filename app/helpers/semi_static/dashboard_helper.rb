@@ -12,7 +12,7 @@ module SemiStatic
     MENU = {
       :visitor => [],
       :admin => ['tags', 'entries', 'banners', 'spacer', 'comments', 'sidebars', 'products', 'events', 'footer', 'galleries', 'references',
-                  'admins', 'contacts', 'agreements', 'squeezes', 'seos', 'newsletters',
+                  'admins', 'contacts', 'agreements', 'squeezes', 'jobs', 'seos', 'newsletters',
                   'subscribers', 'click_ads', 'page_attributes', 'system'],
       :user => []
     }
@@ -41,6 +41,10 @@ module SemiStatic
     end
 
     # TODO: Refactor these menu helpers to one method:
+
+    def jobs(role, cl_str = nil)
+      "<div class='item #{cl_str}'><a href=\"#{semi_static.job_postings_path}\">Jobs</a></div>"
+    end
 
     def squeezes(role, cl_str = nil)
       "<div class='item #{cl_str}'><a href=\"#{semi_static.squeezes_path}\">Squeezes</a></div>"

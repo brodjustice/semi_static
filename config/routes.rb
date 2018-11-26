@@ -67,6 +67,7 @@ SemiStatic::Engine.routes.draw do
   match "/gallery" => 'galleries#index', :via => :get
 
   resources :squeezes
+  resources :job_postings
   resources :events, :except => :show
   resources :sidebars, :except => :show
   resources :products, :only => :index

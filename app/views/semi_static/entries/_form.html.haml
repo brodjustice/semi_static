@@ -493,6 +493,9 @@
         %h2 Squeeze
         %fieldset
           = f.select :squeeze_id, options_for_select(SemiStatic::Squeeze.all.collect{|s| [['ID ', s.id.to_s, ': ', s.name].join, s.id]}.prepend(["- None -", 'none']), @entry.squeeze_id)
+        %h2 Job Posting
+        %fieldset
+          = f.select :job_posting_id, options_for_select(SemiStatic::JobPosting.all.collect{|s| [['ID ', s.id.to_s, ': ', s.title].join, s.id]}.prepend(["- None -", 'none']), @entry.job_posting_id)
 
           
         %h2 Newsletter

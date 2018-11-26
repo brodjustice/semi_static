@@ -1,0 +1,26 @@
+.mid.full
+  .button= link_to 'New Job Posting', new_job_posting_path
+  %h1 Job Postings
+  %table
+    %thead
+      %tr
+        %th= 'ID'
+        %th= 'Title'
+        %th= 'Date Posted'
+        %th= 'Organisation'
+        %th= 'Location'
+        %th= image_tag('calendar.png', :title => 'Last Update')
+        %th
+
+    %tbody
+      - @job_postings.each do |jp|
+        %tr{:id => "jp_id_#{jp.id}"}
+          %td= jp.id.to_s
+          %td= link_to jp.title, edit_job_posting_path(jp)
+          %td
+            = jp.date_posted.strftime('%d/%b/%y %H:%M') unless jp.date_posted.blank?
+          %td= jp.organisation_name
+          %td= jp.location
+          %td.number{:title => jp.updated_at.strftime('%H:%M')}= jp.updated_at.strftime('%d/%b/%y')
+          %td= link_to image_tag('bin.png'), jp, :method => :delete, :data => { :confirm => 'Are you sure?' }
+

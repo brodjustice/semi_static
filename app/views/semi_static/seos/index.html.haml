@@ -40,7 +40,9 @@
         %td= link_to (seo.title || image_tag('error.png', :title => 'Title is empty')), edit_seo_path(seo), :remote => true
         %td= link_to (seo.keywords || ' '), edit_seo_path(seo), :remote => true
         %td
-          - unless seo.seoable.nil?
+          - if seo.seoable.nil?
+            = image_tag('error.png', :title => 'No Entry or Tag found')
+          - else
             = link_to [seo.seoable.raw_title, ' (', seo.seoable.class.to_s.split('::').last, ')'].join, url_for(:controller => seo.seoable.class.to_s.underscore.pluralize, :action => :edit, :id => seo.seoable.id)
         %td.tick
           - if seo.master

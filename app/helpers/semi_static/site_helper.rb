@@ -157,6 +157,10 @@ module SemiStatic
     end
 
     def construct_url(p, l)
+      unless SemiStatic::Engine.config.localeDomains[l]
+        return "Cannot find domain for Tag/Page id: #{p.id} and locale: #{l}"
+      end
+
       host = URI.parse(SemiStatic::Engine.config.localeDomains[l]).host
       scheme = URI.parse(SemiStatic::Engine.config.localeDomains[l]).scheme
 
@@ -252,10 +256,45 @@ module SemiStatic
       c += '</figure>'.html_safe
     end
 
+    def semantic_job_posting(entry)
+      return unless (e = entry.job_posting).present?
+      jp = entry.job_posting
+      c = '<div class="job-posting" typeof="JobPosting" vocab="http://schema.org/"><table>'.html_safe
+      c += "<thead><tr><td colspan=2><h2 property='title'>#{jp.title}</h2></td></tr></thead><tbody>".html_safe
+      c += "<tr><td colspan=2><div property='description'>#{simple_format(jp.description)}</div></td></tr>".html_safe
+
+      c += '<tbody>'.html_safe
+      [:employmentType, :location, :responsibilities, :estimated_salary, :industry, :qualifications, :skills].each{|attr|
+        unless jp.send(attr.to_s.underscore.downcase).blank?
+          c += "<tr><td>#{t(attr)}</td>".html_safe
+          c += "<td property='#{attr}'>#{jp.send(attr.to_s.underscore.downcase)}</td></tr>".html_safe
+        end
+      }
+      c += '</tbody>'.html_safe
+      c += '<tbody class="organisation" typeof="Organization">'.html_safe
+
+      c += "<tr><td colspan=2><h3 property='name'>#{jp.organisation_name}</h3></td></tr>".html_safe
+      c += "<tr><td colspan=2>".html_safe
+
+      if jp.organisation_logo.present?
+        c += "<img class='floater' src=#{jp.organisation_logo.url} alt='logo' property='Logo'/>".html_safe
+      end
+
+      c += "<div property='description'>#{simple_format(jp.organisation_description)}</div>".html_safe
+      c += "</td></tr>".html_safe
+
+      c += "<tr><td>Location</td><td property='location'>#{jp.organisation_location}</td></tr>".html_safe
+      c += "<tr><td>Department</td><td property='department'>#{jp.organisation_department}</td></tr>".html_safe
+      c += "<tr><td>Address</td><td property='address'>#{jp.organisation_address}</td></tr>".html_safe
+
+      c += '</tbody>'.html_safe
+      c += '</table></div>'.html_safe
+    end
+
     # Array of ISO-4217 currency codes, cannot use a hash
     ISO4217 = [['€','EUR'], ['$','USD'], ['£','UKP']]
 
-    # Events only belong to entries, so we take the entry as a parameter as we can alos get other data from this, like the locale
+    # Events only belong to entries, so we take the entry as a parameter as we can also get other data from this, like the locale
     def semantic_event(entry)
       return unless (e = entry.event).present?
       c = '<div class="event" typeof="Event" vocab="http://schema.org/"><table>'.html_safe

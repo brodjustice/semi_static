@@ -1,0 +1,94 @@
+= form_for @job_posting do |f|
+  .group
+    .col.span_2_of_3
+      - if @job_posting.errors.any?
+        #error_explanation
+          %h2= "#{pluralize(@job_posting.errors.count, "error")} prohibited this job posting from being saved:"
+          %ul
+            - @job_posting.errors.full_messages.each do |msg|
+              %li= msg
+      %h2 Main Content
+      %fieldset
+        = f.label :title
+        %br/
+        = f.text_field :title
+      %fieldset
+        = f.label :description
+        %br/
+        = f.text_area :description, :rows => 12
+      %fieldset
+        .group
+          .col.span_1_of_2
+            = f.label :organisation_name
+            %br/
+            = f.text_field :organisation_name
+          .col.span_1_of_2
+            = f.label :location
+            %br/
+            = f.text_field :location
+        .group
+          .col.span_1_of_2
+            = f.label :estimated_salary
+            %br/
+            = f.text_field :estimated_salary
+          .col.span_1_of_2
+            = f.label :industry
+            %br/
+            = f.text_field :industry
+        .group
+          .col.span_1_of_2
+            = f.label :employment_type
+            %br/
+            = f.text_field :employment_type
+          .col.span_1_of_2
+            = f.label :qualifications
+            %br/
+            = f.text_field :qualifications
+        .group
+          .col.span_1_of_2
+            = f.label :responsibilities
+            %br/
+            = f.text_area :responsibilities, :rows => 4
+          .col.span_1_of_2
+            = f.label :skills
+            %br/
+            = f.text_area :skills, :rows => 4
+        .group
+          .col.span_1_of_1
+            %fieldset
+              = f.label :date_posted
+              %br/
+              = f.datetime_select :date_posted, {:start_year => Time.now.year, :include_blank => true, :default => nil}
+            %fieldset
+              = f.label :url
+              %br/
+              = f.text_field :url
+
+    .col.span_1_of_3
+      .sidebar
+        %h2 Organisation
+        %fieldset
+          = f.label :organisaton_location
+          %br/
+          = f.text_field :organisation_location
+        %fieldset
+          = f.label :organisation_address
+          %br/
+          = f.text_field :organisation_address
+        %fieldset
+          = f.label :organisation_description
+          %br/
+          = f.text_area :organisation_description, :rows => 4
+        %fieldset
+          - if @job_posting.organisation_logo.present?
+            = image_tag(@job_posting.organisation_logo.url(:mobile),  :class => 'ri')
+            %br/
+          = f.label :organisation_logo, 'logo'
+          %br/
+          = f.file_field :organisation_logo
+
+
+  .mid
+    .actions
+      = f.submit 'Save'
+

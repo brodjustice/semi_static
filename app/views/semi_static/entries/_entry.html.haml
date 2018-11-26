@@ -12,6 +12,7 @@
       = render :partial => e.partial_path, :locals => {:style => style, :e => e }
     - else
       = render :partial => 'semi_static/entries/entry_contents', :locals => {:style => style, :e => e, :linked => linked }
+    = semantic_job_posting(e)
     = semantic_event(e)
     = squeeze(e)
     = render :partial => 'semi_static/entries/document', :locals => {:e => e}  unless e.doc_file_size.nil? || (@summaries && (e.body.size > (e.summary_length || 0)))

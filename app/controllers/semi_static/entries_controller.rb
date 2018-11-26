@@ -249,7 +249,7 @@
       :merge_with_previous, :raw_html, :image_popup, :alt_title, :acts_as_tag_id, :gallery_id,
       :facebook_share, :linkedin_share, :xing_share, :twitter_share, :email_share, :show_in_documents_tag, :image_caption,
       :tag_line, :raw_html, :show_image_titles, :doc_delete, :img_delete, :alt_img_delete,
-      :enable_comments, :comment_strategy, :layout_select, :link_to_tag, :style, :event_id, :squeeze_id)
+      :enable_comments, :comment_strategy, :layout_select, :link_to_tag, :style, :event_id, :squeeze_id, :job_posting_id)
     end
 
 
