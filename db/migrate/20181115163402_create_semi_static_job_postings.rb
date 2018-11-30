@@ -5,9 +5,11 @@ class CreateSemiStaticJobPostings < ActiveRecord::Migration[5.2]
       t.string		:title
       t.text            :description
       t.string		:employment_type
-      t.string		:location
-      t.text		:responsibilites
+      t.string		:job_location
+      t.text		:responsibilities
       t.text		:estimated_salary
+      t.text		:salary_currency
+      t.text		:base_salary
       t.string		:industry
       t.string		:qualifications
       t.text		:skills

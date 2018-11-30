@@ -256,22 +256,39 @@ module SemiStatic
       c += '</figure>'.html_safe
     end
 
+
+    # Array of ISO-4217 currency codes, cannot use a hash
+    ISO4217 = [['€','EUR'], ['$','USD'], ['£','UKP']]
+
     def semantic_job_posting(entry)
       return unless (e = entry.job_posting).present?
       jp = entry.job_posting
       c = '<div class="job-posting" typeof="JobPosting" vocab="http://schema.org/"><table>'.html_safe
       c += "<thead><tr><td colspan=2><h2 property='title'>#{jp.title}</h2></td></tr></thead><tbody>".html_safe
-      c += "<tr><td colspan=2><div property='description'>#{simple_format(jp.description)}</div></td></tr>".html_safe
+      c += "<tr><td colspan=2><h3>Job Description</h3></td></tr>".html_safe
+      c += "<tr><td property='description' colspan=2>#{simple_format(jp.description)}</td></tr>".html_safe
 
-      c += '<tbody>'.html_safe
-      [:employmentType, :location, :responsibilities, :estimated_salary, :industry, :qualifications, :skills].each{|attr|
+      if jp.job_location.present?
+        c += "<tr property='jobLocation' typeof='Place'><td>Job Location</td><td property='address'>#{jp.job_location}</td></tr>".html_safe
+      end
+
+      [:employmentType, :responsibilities, :industry, :qualifications, :skills].each{|attr|
         unless jp.send(attr.to_s.underscore.downcase).blank?
           c += "<tr><td>#{t(attr)}</td>".html_safe
           c += "<td property='#{attr}'>#{jp.send(attr.to_s.underscore.downcase)}</td></tr>".html_safe
         end
       }
+
+      if jp.base_salary.present?
+        # Does the ISO code match one of symbols?
+        cur_sym = ((currency = ISO4217.select{|sym, iso| jp.salary_currency == iso}) && currency.flatten.first) || jp.salary_currency
+
+        c += "<tr><td>Base Salary</td><td><span property='salaryCurrency' content='#{jp.salary_currency}'>#{cur_sym} </span>".html_safe
+        c += "<span property='baseSalary'>#{jp.base_salary}</span></td></tr>".html_safe
+      end
+
       c += '</tbody>'.html_safe
-      c += '<tbody class="organisation" typeof="Organization">'.html_safe
+      c += '<tbody class="organisation" property="hiringOrganization" typeof="Organization">'.html_safe
 
       c += "<tr><td colspan=2><h3 property='name'>#{jp.organisation_name}</h3></td></tr>".html_safe
       c += "<tr><td colspan=2>".html_safe
@@ -283,16 +300,28 @@ module SemiStatic
       c += "<div property='description'>#{simple_format(jp.organisation_description)}</div>".html_safe
       c += "</td></tr>".html_safe
 
-      c += "<tr><td>Location</td><td property='location'>#{jp.organisation_location}</td></tr>".html_safe
-      c += "<tr><td>Department</td><td property='department'>#{jp.organisation_department}</td></tr>".html_safe
-      c += "<tr><td>Address</td><td property='address'>#{jp.organisation_address}</td></tr>".html_safe
+      # The Google rich snippets checker currently (Nov 2018) signals an error if the property 'location' is used, eg:
+      #   c += "<tr><td>Location</td><td property='location'>#{jp.organisation_location}</td></tr>".html_safe
+      if jp.organisation_location.present?
+        c += "<tr><td>Location</td><td>#{jp.organisation_location}</td></tr>".html_safe
+      end
+
+      if jp.organisation_department.present?
+        c += "<tr><td>Department</td><td property='department'>#{jp.organisation_department}</td></tr>".html_safe
+      end
+
+      if jp.organisation_address.present?
+        c += "<tr><td>Address</td><td property='address'>#{jp.organisation_address}</td></tr>".html_safe
+      end
 
       c += '</tbody>'.html_safe
+      if jp.date_posted.present?
+        c += '<tbody>'.html_safe
+        c += "<tr><td>Date Posted</td><td property='datePosted'>#{jp.date_posted.strftime("%Y-%m-%d")}</td></tr>".html_safe
+        c += '</tbody>'.html_safe
+      end
       c += '</table></div>'.html_safe
     end
-
-    # Array of ISO-4217 currency codes, cannot use a hash
-    ISO4217 = [['€','EUR'], ['$','USD'], ['£','UKP']]
 
     # Events only belong to entries, so we take the entry as a parameter as we can also get other data from this, like the locale
     def semantic_event(entry)

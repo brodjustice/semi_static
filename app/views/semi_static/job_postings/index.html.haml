@@ -20,7 +20,7 @@
           %td
             = jp.date_posted.strftime('%d/%b/%y %H:%M') unless jp.date_posted.blank?
           %td= jp.organisation_name
-          %td= jp.location
+          %td= jp.job_location
           %td.number{:title => jp.updated_at.strftime('%H:%M')}= jp.updated_at.strftime('%d/%b/%y')
           %td= link_to image_tag('bin.png'), jp, :method => :delete, :data => { :confirm => 'Are you sure?' }
 

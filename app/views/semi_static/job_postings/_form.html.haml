@@ -23,18 +23,18 @@
             %br/
             = f.text_field :organisation_name
           .col.span_1_of_2
-            = f.label :location
+            = f.label :job_location
             %br/
-            = f.text_field :location
+            = f.text_field :job_location
         .group
           .col.span_1_of_2
-            = f.label :estimated_salary
+            = f.label :salary_currency, "Salary Currency Eg. EUR, USD"
             %br/
-            = f.text_field :estimated_salary
+            = f.text_field :salary_currency
           .col.span_1_of_2
-            = f.label :industry
+            = f.label :base_salary, "Base Salary Per Year"
             %br/
-            = f.text_field :industry
+            = f.text_field :base_salary
         .group
           .col.span_1_of_2
             = f.label :employment_type
@@ -44,6 +44,12 @@
             = f.label :qualifications
             %br/
             = f.text_field :qualifications
+        .group
+          .col.span_1_of_2
+            = f.label :industry
+            %br/
+            = f.text_field :industry
+          .col.span_1_of_2
         .group
           .col.span_1_of_2
             = f.label :responsibilities
@@ -58,7 +64,7 @@
             %fieldset
               = f.label :date_posted
               %br/
-              = f.datetime_select :date_posted, {:start_year => Time.now.year, :include_blank => true, :default => nil}
+              = f.datetime_select :date_posted, {:start_year => (Time.now.year - 1), :include_blank => true, :default => nil}
             %fieldset
               = f.label :url
               %br/
