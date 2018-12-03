@@ -284,6 +284,9 @@ module SemiStatic
         cur_sym = ((currency = ISO4217.select{|sym, iso| jp.salary_currency == iso}) && currency.flatten.first) || jp.salary_currency
 
         c += "<tr><td>Base Salary</td><td><span property='salaryCurrency' content='#{jp.salary_currency}'>#{cur_sym} </span>".html_safe
+
+        # The Google SDTT will complain about the salary being text, but it seems it ok, see:
+        #   https://github.com/schemaorg/schemaorg/issues/1897#issuecomment-386454642
         c += "<span property='baseSalary'>#{jp.base_salary}</span></td></tr>".html_safe
       end
 
@@ -294,7 +297,7 @@ module SemiStatic
       c += "<tr><td colspan=2>".html_safe
 
       if jp.organisation_logo.present?
-        c += "<img class='floater' src=#{jp.organisation_logo.url} alt='logo' property='Logo'/>".html_safe
+        c += "<img class='floater' src=#{jp.organisation_logo.url} alt='organisation logo' property='Logo'/>".html_safe
       end
 
       c += "<div property='description'>#{simple_format(jp.organisation_description)}</div>".html_safe
@@ -304,6 +307,14 @@ module SemiStatic
       #   c += "<tr><td>Location</td><td property='location'>#{jp.organisation_location}</td></tr>".html_safe
       if jp.organisation_location.present?
         c += "<tr><td>Location</td><td>#{jp.organisation_location}</td></tr>".html_safe
+      end
+
+      if jp.organisation_email.present?
+        c += "<tr><td>Contact Email</td><td property='email'><a href='mailto:#{jp.organisation_email}'>#{jp.organisation_email}</a></td></tr>".html_safe
+      end
+
+      if jp.organisation_telephone.present?
+        c += "<tr><td>Contact Telephone</td><td property='telephone'><a href='tel:#{jp.organisation_telephone.delete(' ')}'>#{jp.organisation_telephone}</a></td></tr>".html_safe
       end
 
       if jp.organisation_department.present?

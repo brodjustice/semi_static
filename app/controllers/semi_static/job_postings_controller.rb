@@ -62,6 +62,7 @@ module SemiStatic
         params.fetch(:job_posting, {}).permit(:title, :description, :responsibilities, :base_salary, :estimated_salary,
           :date_posted, :employment_type, :industry, :qualifications, :salary_currency, :job_location, 
           :skills, :url, :organisation_name, :organisation_address, :organisation_department,
+          :organisation_email, :organisation_telephone,
           :organisation_legal_name, :organisation_location, :organisation_logo, :organisation_description)
       end
   end
