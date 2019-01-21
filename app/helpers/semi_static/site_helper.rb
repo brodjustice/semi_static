@@ -104,6 +104,12 @@ module SemiStatic
       end
     end
 
+    def analytics
+      if SemiStatic::Engine.config.analytics_partial && Rails.env.production?
+        render :partial => SemiStatic::Engine.config.analytics_partial
+      end
+    end
+
     def copyright_year
       ("&copy;" + (SemiStatic::Engine.config.has?('copyright_year') || Date.today.year.to_s)).html_safe
     end
@@ -259,6 +265,10 @@ module SemiStatic
 
     # Array of ISO-4217 currency codes, cannot use a hash
     ISO4217 = [['€','EUR'], ['$','USD'], ['£','UKP']]
+
+    def default_currency_sym
+      ISO4217.select{|sym, iso| SemiStatic::Engine.config.default_currency == iso}.flatten.first || SemiStatic::Engine.config.default_currency
+    end
 
     def semantic_job_posting(entry)
       return unless (e = entry.job_posting).present?

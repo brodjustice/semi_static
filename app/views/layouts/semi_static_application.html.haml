@@ -44,9 +44,10 @@
     
     = yield :ujs
 
-    = render :partial => SemiStatic::Engine.config.analytics_partial unless SemiStatic::Engine.config.analytics_partial.nil?
+    = analytics
     = favicon_link_tag 'favicon.ico'
   %body{:id => "semi_static_#{controller_name.classify.downcase}", :class => @banner_class }
+
     #body-inner
       = render :partial => 'semi_static/shared/application_body'
       = render :partial => 'semi_static/shared/footer'

@@ -78,6 +78,11 @@
         %td= 'Tag or Entry'
         %td= 'Force display of link to this Tag or Entry in "slide menu" - if theme supports slide menu. If used with an Entry then the Tag to which the Entry belongs must be sent to displayed in the menu. Entry title will be used if no text string is given'
       %tr
+        %td= 'pageHasProducts'
+        %td= 'true'
+        %td= 'Entry'
+        %td= 'A shopping cart will be automatically loaded by SemiStatic if the main Entry has an associated Product (and \'config.shopping_cart\' is set true in the SemiStatic initializer). However, setting this PageAttr will force the cart to be loaded even if no product is associated with the main Entry and that any element of the form <div id=\'SemiStaticCartId_x\' class=\'semiStaticCartButton\'>... will be replaced with a cart button to order Product with ID x'
+      %tr
         %td= 'csrfMetaViaSsi'
         %td= 'true'
         %td= 'Tag or Entry'

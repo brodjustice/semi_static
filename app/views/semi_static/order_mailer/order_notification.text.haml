@@ -1,0 +1,17 @@
+= 'Product order for ' + SemiStatic::Engine.config.site_name
+
+= h 'Name: ' + @contact.name.to_s
+
+= h 'Surname: ' + @contact.surname.to_s
+
+= h 'Email: ' +  @contact.email.to_s
+
+= h 'Telephone: ' + @contact.phone.to_s
+
+= '-------------------- Order -------------------'
+
+= "Order ID: #{@order.id}"
+
+= @url
+
+= '------------------ Order end -----------------'

@@ -3,7 +3,7 @@ require_dependency "semi_static/application_controller"
 module SemiStatic
   class ProductsController < ApplicationController
 
-    before_action :authenticate_for_semi_static!
+    before_action :authenticate_for_semi_static!, :except => :show
     before_action :set_return_path
 
     layout 'semi_static_dashboards'
@@ -12,29 +12,42 @@ module SemiStatic
     # GET /products.json
     def index
       @products = Product.all
-  
+      
+      # This only needed if we have a public view of the products, but this
+      # index is for the dasboard only
+      # @order_item = current_order.order_items.new
+
       respond_to do |format|
         format.html # index.html.erb
         format.json { render json: @products }
       end
     end
   
-    # GET /products/1
-    # GET /products/1.json
+    #
+    # The show AJAX updates the page to add the cart buttons
+    #
     def show
-      @product = Product.find(params[:id])
+      # The AJAX call may not include a valid product id, the id is
+      # part of the HTML in the page
+      @product = Product.find_by_id(params[:id])
+
+      # order_item is only needed for the AJAX call for an add-to-cart button
+      @order_item = current_order.order_items.build
   
       respond_to do |format|
-        format.html # show.html.erb
-        format.json { render json: @product }
+        format.html # show.html.haml
+        format.js # show.js.haml provides only an add-to-cart button
       end
     end
   
-    # GET /products/new
-    # GET /products/new.json
     def new
-      @entry = Entry.find(params[:entry_id])
-      @product = @entry.build_product(:name => @entry.title, :description => @entry.image_caption)
+      if params[:entry_id]
+        @entry = Entry.find(params[:entry_id])
+        @product = @entry.build_product(:name => @entry.title,
+          :description => @entry.image_caption, :currency => SemiStatic::Engine.config.default_currency)
+      else
+        @product = Product.new(:currency => SemiStatic::Engine.config.default_currency)
+      end
   
       respond_to do |format|
         format.html # new.html.erb
@@ -45,7 +58,6 @@ module SemiStatic
   
     # GET /products/1/edit
     def edit
-      @entry = Entry.find(params[:entry_id])
       @product = Product.find(params[:id])
 
       respond_to do |format|
@@ -57,12 +69,16 @@ module SemiStatic
     # POST /products
     # POST /products.json
     def create
-      @entry = Entry.find(params[:entry_id])
-      @product = @entry.build_product(product_params)
+      if params[:entry_id]
+        @entry = Entry.find(params[:entry_id])
+        @product = @entry.build_product(product_params)
+      else
+        @product = Product.new(product_params)
+      end
   
       respond_to do |format|
         if @product.save
-          format.html { redirect_to params[:return] || entry_product_path(@entry, @product), notice: 'Product was successfully created.' }
+          format.html { redirect_to params[:return] || products_path, notice: 'Product was successfully created.' }
           format.json { render json: @product, status: :created, location: @product }
         else
           format.html { render action: "new" }
@@ -78,7 +94,7 @@ module SemiStatic
   
       respond_to do |format|
         if @product.update_attributes(product_params)
-          format.html { redirect_to params[:return] || entry_product_path(@product.entry, @product), notice: 'Product was successfully updated.' }
+          format.html { redirect_to params[:return] || products_path, notice: 'Product was successfully updated.' }
           format.json { head :no_content }
         else
           format.html { render action: "edit" }
@@ -104,7 +120,7 @@ module SemiStatic
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
       params.fetch(:product, {}).permit(:name, :description, :color, :height, :depth, :width,
-        :weight, :price, :currency, :inventory_level, :entry_id)
+        :weight, :price, :currency, :inventory_level, :entry_id, :active, :orderable)
     end
 
     def set_return_path

@@ -81,7 +81,7 @@ module SemiStatic
     serialize :img_dimensions
 
     #
-    # We need to catch certain errors that are caused when the electic search
+    # We need to catch certain errors that are caused when the elastic search
     # gem cannot update the elasticsearch index, especially when in development
     # environment. So we wrap the method here.
     #
@@ -144,7 +144,7 @@ module SemiStatic
 
     def neighbour_ids
       #
-      # We used to ingnore the neighbour IDs if the gallery was not
+      # We used to ignore the neighbour IDs if the gallery was not
       # public, like this:
       #   if self.gallery_id.nil? || self.gallery.nil? || !self.gallery.public
       # but the real meaning of Gallery.public is that the Gallery is not shown

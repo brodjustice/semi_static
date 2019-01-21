@@ -1,0 +1,22 @@
+.mid.full
+  %h1 Carts and Orders
+  %table
+    %thead
+      %tr
+        %th= 'ID'
+        %th= 'Items'
+        %th= 'Total'
+        %th= 'Status'
+        %th= image_tag('calendar.png', :title => 'Last Update')
+        -# %th
+
+    %tbody
+      - @orders.each do |o|
+        %tr{:id => "o_id_#{o.id}"}
+          %td= o.id.to_s
+          %td.number= o.total_items
+          %td.number= number_to_currency o.subtotal, :unit => default_currency_sym
+          %td.number= o.order_status.to_s.humanize
+          %td.number{:title => o.updated_at.strftime('%H:%M')}= o.updated_at.strftime('%d/%b/%y')
+          -# %td= link_to image_tag('bin.png'), o, :method => :delete, :data => { :confirm => 'Are you sure?' }
+

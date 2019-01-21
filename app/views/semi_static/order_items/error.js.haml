@@ -1,0 +1,4 @@
+- if @order_item.errors.any?
+  alert("#{escape_javascript('ERROR: ' + @order_item.errors.full_messages.first)}")
+- else
+  alert("#{escape_javascript('ERROR: ' + @order.errors.full_messages.first)}")

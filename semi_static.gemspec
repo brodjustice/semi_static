@@ -24,10 +24,17 @@ Gem::Specification.new do |s|
   s.add_dependency "jquery-rails"
   s.add_dependency "jquery-ui-rails"
   s.add_dependency "haml"
-  s.add_dependency "sass-rails", "~> 5.0"
+  s.add_dependency "sassc-rails"
   s.add_dependency "haml-rails"
   s.add_dependency "paperclip"
   s.add_dependency "nokogiri"
+
+  # For the shopping cart, aasm is the state machine
+  s.add_dependency "aasm"
+  s.add_dependency "money-rails"
+
+  # stripe.com is the only currently supported payment provider
+  s.add_dependency "stripe"
 
   # note: uglifier 3.1.0 breaks the jquery compilation, see this bug:
   # - https://github.com/lautis/uglifier/issues/110

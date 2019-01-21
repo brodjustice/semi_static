@@ -1,0 +1,16 @@
+-#
+-# This is a template that needs javascript post-processing to insert the 
+-# correct value attribute for the product_id field, the template value
+-# being initially set to "semiStaticProductId".
+-#
+-# Also this partial may be called mutliple times in a page it will set the 
+-# form inputs to all have the same id ('new_order_item'), which is invalid
+-# HTML. So the javascript replaces each with a unique id
+-#
+
+= form_for(@order_item, :url => order_items_path, :html => {:onsubmit => "semiStaticCartPostAJAX(event, \'#{order_items_path}\');return false;"}) do |f|
+  = f.hidden_field :quantity, value: 1
+  = f.hidden_field :product_id, value: "semiStaticProductId"
+  .semiStaticCart
+    = f.submit "Add to Cart", :type => :image, :src => asset_path('shopping-cart.png'), :title => "Add to cart"
+    .semiStaticCartContent= '+'

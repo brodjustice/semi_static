@@ -1,0 +1,37 @@
+-#
+-# The controller will load a SemiStatic layout that includes the Rails javascript
+-# such that we can use the "remote: true" AJAX
+-#
+
+- order_item ||= @order_item
+- product ||= (@order_item && @order_item.product)
+
+- if product.nil?
+  %h2= 'Error: No product was found for this Order Item'
+- elsif order_item.nil?
+  %h2= 'Error: No Order Item was found'
+- else
+  %div
+    .group
+      .col.span_1_of_3
+        - if product.entry
+          %h2= link_to product.name, entry_path(product.entry, :anchor => "product_id_#{product.id}")
+        - else
+          %h2= product.name
+        %h4
+          Unit Price:
+          %span{style: "color: green"}= number_to_currency order_item.unit_price, :unit => default_currency_sym
+      .col.span_1_of_3
+        = form_for order_item, authenticity_token: true, remote: true do |f|
+          = f.hidden_field :product_id, value: product.id
+          .semiStaticCart.update
+            = f.submit "Update Quantity", :type => :image, :src => asset_path('shopping-cart.png'), :title => "Update Cart" 
+          = f.number_field :quantity, value: order_item.quantity.to_i, min: 1, :class => 'semiStaticCartQuantities'
+      .col.span_1_of_3
+        .semiStaticCart.remove
+          = link_to image_tag('shopping-cart.png'), order_item, { data: { confirm: "Are you sure you wish to remove the product '#{order_item.product.name}' from your cart?" }, method: :delete, remote: true, :title => "Remove product from Cart" }
+          .semiStaticCartContent= '&otimes;'.html_safe
+        %h4.text-right
+          Sub-total Price:
+          %span{style: "color: green"}= number_to_currency order_item.total_price, :unit => default_currency_sym
+%hr

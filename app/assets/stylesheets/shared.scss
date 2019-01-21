@@ -1,9 +1,125 @@
 // Next is just for admin sign in
-#new_admin input[email], #new_admin input[password]{
-  width: 100%;
-  box-sizing: border-box;
+.devise #content {
+  max-width: 300px;
+  margin: 0 auto;
 }
 
+// The shopping cart
+.semiStaticCart{
+  float:right;
+  position: relative;
+  background-color: $prime-color;
+  border-radius: 2px;
+  height: 32px;
+  margin: 6px;
+}
+.semiStatic
+.semiStaticCart.update{
+  background-color: green;
+}
+.semiStaticCart.remove{
+  background-color: red;
+}
+.semiStaticCart input,
+.semiStaticCart img{
+  position: relative;
+  padding: 0 6px;
+  margin: 0px;
+  height: 32px;
+  z-index: 1;
+}
+.semiStaticCartContent{
+  position: absolute;
+  font-size: 32px;
+  top: -8px;
+  right: 15px;
+  color: white;
+}
+.remove .semiStaticCartContent{
+  top: -3px;
+  right: 13px;
+  font-size: 20px;
+}
+#dialog.semiStaticCartDialog{
+  padding: 12px;
+  background-color: $prime-color;
+  border-radius: 2px;
+  position: fixed; bottom: 12px; right: 12px;
+  z-index: 1000; border: 2px solid white;
+  color: white;
+}
+#semiStaticShoppingCartStatus h2{
+  margin-top: 0px;
+  padding-bottom: 8px;
+  border-bottom: 1px white solid;
+  color: white;
+}
+#semiStaticShoppingCartStatus > img{
+  margin-top: -6px;
+  float: right;
+  height: 32px;
+}
+#semiStaticShoppingCartStatus p{
+  text-align: right;
+}
+.side-bar #semiStaticShoppingCartStatus .section{
+  border-top: 0;
+  background-color: transparent;
+}
+.side-bar #semiStaticShoppingCartStatus h2{
+  margin-top: 0;
+  color: white;
+}
+.side-bar #semiStaticShoppingCartStatus{
+  padding: 12px;
+  margin: 9px 6px 12px;
+}
+.side-bar #semiStaticShoppingCartStatus,
+#semiStaticShoppingCartStatus{
+  background-color: $prime-color;
+  color: white;
+  border-radius: 2px;
+}
+#semiStaticShoppingCartStatus input[type='submit'],
+#semiStaticShoppingCartStatus a{
+  display: block;
+  background-color: white;
+  color: $prime-color;
+  text-align: center;
+  padding: 12px;
+  margin: 12px 0 0 0;
+  border-radius: 2px;
+  border: 0;
+}
+.semiStaticOrderSummary div a{
+  color: white;
+}
+.semiStaticCheckout h2 a{
+  text-decoration: underline;
+}
+.semiStaticCheckout{
+  border-radius: 2px;
+  padding: 12px;
+  background-color: white;
+}
+.semiStaticCheckout hr{
+  border: 0;
+  border-top: 1px solid #d0d0d0;
+}
+.semiStaticCheckout input[type='number']{
+  max-width: 46px;
+}
+.semiStaticRemoveFromCart{
+  background-color: red;
+  border-radius: 4px;
+  float: right;
+  margin:6px;
+}
+.semiStaticCartQuantities{
+  float: right;
+  margin-top: 8px;
+}
+  
 // Stop .mobile content display
 .mobile{
   display: none;

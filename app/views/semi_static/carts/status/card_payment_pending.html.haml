@@ -1,0 +1,67 @@
+- content_for :header_css do
+  :plain
+    #shopping-cart h1{text-align: center;}
+    #shopping-cart .agree{margin-bottom: 24px;}
+    #semiStaticShoppingCartStatus .wrapper{min-height: 140px;}
+
+#shopping-cart.section
+  %h1 Please check your order then click proceed to payment
+  %div
+    .group
+      .col.span_2_of_3
+        .group
+          %h2= t('CustomerDetails')
+          %table
+            %tbody
+              %tr
+                %td Name
+                %td= @customer.name
+              %tr
+                %td Surname
+                %td= @customer.surname
+              %tr
+                %td Email
+                %td= @customer.email
+              - if @customer.phone.present?
+                %tr
+                  %td Telephone
+                  %td= @customer.phone
+              - if @customer.company.present?
+                %tr
+                  %td Company
+                  %td= @customer.company
+              - if @customer.position.present?
+                %tr
+                  %td Positon
+                  %td= @customer.position
+          %h2= t('OrderDetails')
+          %table
+            %thead
+              %tr
+                %th Product
+                %th Quantity
+                %th TotalPrice
+            %tbody
+              - @order.order_items.each do |oi|
+                %tr
+                  %td= oi.product.name
+                  %td= oi.quantity
+                  %td= number_to_currency oi.total_price, :unit => @order.currency
+
+      .col.span_1_of_3.side-bar
+        %aside
+          .panel.list
+            #semiStaticShoppingCartStatus
+              = image_tag "shopping-cart.png"
+              %h2 Your Cart
+              .wrapper
+                %p
+                  = "#{current_order.total_items} Items in Cart"
+                %p
+                  = "#{number_to_currency current_order.subtotal, :unit => default_currency_sym}"
+              = form_tag '/cart', :method => :patch do
+                %script.stripe-button{:src => "https://checkout.stripe.com/checkout.js",
+                  "data-amount" => @order.subtotal_in_cents, "data-currency" => "eur", "data-description" => "Example charge",
+                  "data-image" => image_path(SemiStatic::Engine.config.logo_image),
+                  "data-email" => @order.customer.email,
+                  "data-key" => "pk_test_rwt3D7y1p6ZcQ8TM8E82Witn", "data-locale" => "auto", "data-name" => SemiStatic::Engine.config.copyright_owner }

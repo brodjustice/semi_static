@@ -284,15 +284,15 @@ th{
   overflow-x: hidden;
 }
 
-#dialog.wide{
+#dashboard #dialog.wide{
   max-width: 500px;
 }
 
-#dialog input[text]{
+#dialog input[type='text']{
   max-width: 88%;
   margin: 0 auto;
 }
-#dialog.wide input[text]{
+#dialog.wide input[type='text']{
   width: 97%;
 }
 

@@ -18,7 +18,7 @@ SemiStatic::Engine.routes.draw do
     collection { get :search }
     resources :click_ads, :only => [:new, :create, :update]
     resources :seos, :only => [:new, :create, :update, :destroy]
-    resources :products, :except => [:index]
+    resources :products, :except => [:index, :show]
     resources :photos, :only => :index
     resources :comments, :except => :new
     resources :page_attrs, :except => :index
@@ -34,6 +34,19 @@ SemiStatic::Engine.routes.draw do
     resources :page_attrs, :except => :index
   end
 
+  # For the orders and shopping carts, the carts index is actually
+  # the orders but serviced by the orders controller. The cart is
+  # actually the current_order, there is no ID for it, it's in the 
+  # session cookie, so the URL does not have and :id
+  resource :cart, only: [:show, :edit, :update]
+  resources :carts, only: [:index]
+  resources :order_items, only: [:create, :update, :destroy]
+  match "/order/:id" => "carts#show", :as => 'order', :via => :get
+
+  # For the payment processor (stripe.com)
+  resources :charges, :only => [:new, :create]
+
+  # For pretty URLs, see config/initializers/semi_static.rb
   match "/#{SemiStatic::Engine.config.tag_paths[I18n.locale.to_s] || 'features'}/:slug" => 'tags#show', :as => 'feature', :via => :get
 
   match "/page-attributes/index" => 'page_attrs#index', :as => 'page_attrs', :via => :get
@@ -70,7 +83,7 @@ SemiStatic::Engine.routes.draw do
   resources :job_postings
   resources :events, :except => :show
   resources :sidebars, :except => :show
-  resources :products, :only => :index
+  resources :products
   resources :newsletter_deliveries, :only => :update
   resources :subscribers do
     resources :newsletter_deliveries, :only => :index

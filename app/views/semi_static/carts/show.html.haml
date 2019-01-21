@@ -1,0 +1,29 @@
+- content_for :ujs do
+  :javascript
+    function semiStaticCartPatchAJAX(e){
+      var el = e.target || e.srcElement;
+      var formElement = el.form;
+      var xhr = new XMLHttpRequest();
+      xhr.open('PATCH', encodeURI(formElement.getAttribute('action')));
+      xhr.setRequestHeader("Accept", "text/javascript");
+      xhr.onload = function() {
+        if (xhr.status === 200) { eval(xhr.responseText); }
+        else{(alert("Sorry, error: " + xhr.status));}
+      };
+      xhr.send(new FormData(formElement));
+    }
+    function semiStaticClickConfig(){
+      document.querySelectorAll('.semiStaticCartQuantities').forEach(function(el, i){
+        el.addEventListener('click', semiStaticCartPatchAJAX);
+      })
+    }
+    addSemiStaticLoadEvent(semiStaticClickConfig);
+    
+#shopping-cart.section
+  .col.span_2_of_3.main-col
+    = render "shopping_cart"
+  .col.span_1_of_3.side-bar
+    %aside
+      .panel.list
+        #semiStaticShoppingCartStatus
+          = render 'semi_static/carts/cart_side_bar'

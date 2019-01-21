@@ -276,9 +276,9 @@ module SemiStatic
           photo = p.tidy_dup
           photo.locale = self.locale
           self.photos << photo
-          self.master_entry_id = nil
           photo.save
         }
+        self.master_entry_id = nil
       end
     end
 

@@ -1,0 +1,61 @@
+- content_for :header_css do
+  :plain
+    #shopping-cart h1{text-align: center;}
+    #shopping-cart .agree{margin-bottom: 24px;}
+    #semiStaticShoppingCartStatus .wrapper{min-height: 140px;}
+
+#shopping-cart.section
+  %h1 Please provide your contact details to proceed with your order
+  = form_for @order, :url => cart_path, :html => {:method => :patch} do |f|
+    .group
+      .col.span_2_of_3
+        .group
+          - if @order.errors.any?
+            #error_explanation
+              %h2= "#{pluralize(@order.errors.count, "error")} prohibited this order from being placed:"
+              %ul
+                - @order.errors.full_messages.each do |msg|
+                  %li= msg
+      
+          = f.fields_for :customer do |f|
+            .section.group
+              .col.span_1_of_2
+                = f.text_field :name, :placeholder => t('Name')
+                = f.label :name, t('Name')
+              .col.span_1_of_2
+                = f.text_field :surname, :placeholder => t('Surname')
+                = f.label :surname, t('Surname')
+            .section.group
+              .col.span_1_of_2
+                = f.email_field :email, :placeholder => t('Email')
+                = f.label :email, t('Email')
+              .col.span_1_of_2
+                = f.text_field :phone, :placeholder => t('Telephone')
+                = f.label :phone, t('Telephone')
+            .section.group
+              .col.span_1_of_2
+                = f.text_field :company, :placeholder => t('Company')
+                = f.label :company, t('Company')
+              .col.span_1_of_2
+                = f.text_field :position, :placeholder => t('Position')
+                = f.label :position, t('Position')
+      
+          .agree
+            = check_box_tag 'accept', nil
+            = label_tag 'accept', t('CustomerTermsAndConditions'), :id => 'acceptLabel'
+
+          .actions
+            = f.submit t('ProceedToPayment'), :id => 'customerSubmit'
+      
+      .col.span_1_of_3.side-bar
+        %aside
+          .panel.list
+            #semiStaticShoppingCartStatus
+              = image_tag "shopping-cart.png"
+              %h2 Your Cart
+              .wrapper
+                %p
+                  = "#{current_order.total_items} Items in Cart"
+                %p
+                  = "#{number_to_currency current_order.subtotal, :unit => default_currency_sym}"
+              = f.submit t('ProceedToPayment'), :id => 'customerSubmit'

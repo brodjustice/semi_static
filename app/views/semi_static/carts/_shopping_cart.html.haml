@@ -1,0 +1,14 @@
+.semiStaticCheckout
+  %h1 Shopping Cart Contents
+  - if !@order_item.nil? && @order_item.errors.any?
+    .alert.alert-danger
+      %ul
+        - @order_item.errors.full_messages.each do |msg|
+          %li= msg
+  - if @order_items.size == 0
+    %p.text-center
+      There are no items in your cart
+  - else
+    - @order_items.each do |order_item|
+      %div{:id => "order_item_id_#{order_item.id}"}
+        = render 'semi_static/carts/cart_row', product: order_item.product, order_item: order_item, show_total: true

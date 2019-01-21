@@ -622,7 +622,7 @@ h2 a, h3 a{color: $secondary-color;}
     padding: 8px 6px 6px 8px;
     width: 202px;
 }
-.searchform input[type='text'] {
+.searchform input[text] {
     font: 16px Arial,Helvetica,sans-serif;
     width: 260px;
 }
@@ -746,7 +746,7 @@ h2 a, h3 a{color: $secondary-color;}
 
 /* Search input overflows already at less than 1020px */
 @media only screen and (max-width: 1020px) {
-.searchform input[type='text'] { width: 74%;}
+.searchform input[text] { width: 74%;}
 }
 
 // REMARK A: In multicolumn this provides an extra 1.6% that was left margin in .wrapping (left col) and puts it into the
@@ -767,7 +767,7 @@ h2 a, h3 a{color: $secondary-color;}
   .wrapping{ margin-left: 1.6%; }
   .floater{ margin-left: 0 !important; }
 
-  .searchform input[type='text'] { width: 66%;}
+  .searchform input[text] { width: 66%;}
 }
 
 @if $search-bar-in-banner == true {

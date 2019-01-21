@@ -1,5 +1,6 @@
 module SemiStatic
   class ApplicationController < ActionController::Base
+    helper_method :current_order
 
     # Uncomment the following if using CanCan
     # require 'semi_static/can_can_rescue'
@@ -88,5 +89,15 @@ module SemiStatic
     def self.page_cache_directory
       Rails.root.join("public", I18n.locale.to_s)
     end
+
+    # Get the cart, and :paid cart cookies will be cleared 
+    def current_order
+      if !session[:order_id].nil?
+        Order.find(session[:order_id])
+      else
+        Order.new
+      end
+    end
+
   end
 end

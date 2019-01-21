@@ -1,0 +1,6 @@
+:plain
+  var dlog= document.querySelectorAll("#dialog")[0];
+  
+  dlog.innerHTML = "#{escape_javascript(render 'semi_static/carts/cart_status')}";
+  dlog.style.display = 'block';
+  dlog.classList.add('semiStaticCartDialog');

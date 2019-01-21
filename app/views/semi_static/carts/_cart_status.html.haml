@@ -1,0 +1,11 @@
+#semiStaticShoppingCartStatus
+  = image_tag "shopping-cart.png"
+  %h2= t('YourCart')
+  .section
+    %p
+      = "#{current_order.total_items} Items in Cart"
+    %p
+      = "#{number_to_currency current_order.subtotal, :unit => default_currency_sym}"
+    - unless (current_order.total_items <= 0)
+      = link_to t('Checkout'), cart_path
+      = link_to t('RemoveItems'), cart_path

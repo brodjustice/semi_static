@@ -115,10 +115,15 @@ module General
 
   # These things should never happen, but sometimes on a development system they will
   def clean_up(*args)
+    # Remove all orphan Entries and Products
     SemiStatic::Entry.all{|e| e.destroy if e.tag.nil?}
     SemiStatic::Product.all{|p| p.destroy if p.entry.nil?}
+
     # Get rid of newsletter tags  where the actual newsletter has been deleted
     SemiStatic::Tag.select{|t| t.newsletter_id.present? && t.newsletter.nil?}.each{|t| t.destroy}
+
+    # There was a bug where some Entry.master_entry_id were not reset to nil, fix these
+    SemiStatic::Entry.where.not(:master_entry_id => nil).each{|e| e.master_entry_id = nil; e.save;}
   end
 
   #

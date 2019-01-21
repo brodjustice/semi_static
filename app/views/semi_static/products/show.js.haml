@@ -1,0 +1,28 @@
+-#
+-# Because our pages are static and the "add to cart" action is a POST action
+-# the autenticity token will always be out of date. We could just ingore the
+-# authenticity token but we would rather not lower security for the 
+-# shopping cart, so instead will fill in the cart buttons dynamically
+-# with AJAX so that we will have new valid authenticity tokens.
+-#
+-# There is another advantage in that because we add in the cart buttons
+-# dynamically we are sure that the rails app is responding and ready.
+-#
+:plain
+  var semiStaticHTML = '#{escape_javascript(render :partial => 'semi_static/products/product_cart_button_template')}';
+  document.querySelectorAll('.semiStaticCartButton').forEach(function(productDiv, i){
+    productDiv.innerHTML = semiStaticHTML;
+
+    var semiStaticEleId = productDiv.id.split("_").slice(-1)[0];
+
+    productDiv.querySelectorAll('[value="semiStaticProductId"]')[0].setAttribute('value', semiStaticEleId);
+
+    document.getElementById('new_order_item').id = 'semi_static_product_form_' + semiStaticEleId;
+  });
+
+  var dlog= document.querySelectorAll("#dialog")[0];
+
+  dlog.innerHTML = "#{escape_javascript(render 'semi_static/carts/cart_status')}";
+  dlog.style.display = 'block';
+  dlog.classList.add('semiStaticCartDialog');
+

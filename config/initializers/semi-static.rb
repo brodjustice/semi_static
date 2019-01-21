@@ -131,6 +131,25 @@ module SemiStatic
     # cause a check for a new sitemap.
     config.sitemap = 'sitemap.xml'
 
+    # Set the shopping cart to true so that the visitor can add products to their cart
+    # and use a checkout. 
+    config.shopping_cart = false
+
+    # Set the default currency for your products. If you have enable the shopping cart
+    # then you must provide a default currency. Currencies are in the ISO4217 format,
+    # eg EUR, USD, GBP, etc.
+    config.default_currency = 'EUR'
+
+    # The only payment strategies are currently :email and :stripe. The :email strategy is the
+    # default and simply sends an email of the shopping cart to the website info address so that
+    # a manual invoice can be sent out. The :stripe strategy uses stripe.com online payment system,
+    # so you need to have a stripe account and to have set up your environment to pass your
+    # stripe API keys as described on the strip developers section on their website.
+    #
+    # config.payment_strategy = :email 
+    # config.payment_strategy = :stripe
+    config.payment_strategy = :email 
+
     # Your own custom partials that can be used in Entries and Tags views should be stored in
     # ./app/views/semi_static/partials. SemiStatic will then automatically make them available
     # to the admin dashboard when you edit a new entry or tag. If you really want

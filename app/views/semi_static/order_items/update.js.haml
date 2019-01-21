@@ -1,0 +1,7 @@
+:plain
+  var semiStaticOrderItem = document.getElementById("order_item_id_#{@order_item.id}");
+  var semiStaticCart = document.getElementById('semiStaticShoppingCartStatus');
+
+  semiStaticOrderItem.innerHTML = "#{escape_javascript(render 'semi_static/carts/cart_row')}";
+  semiStaticCart.innerHTML = "#{escape_javascript(render 'semi_static/carts/cart_side_bar')}";
+  semiStaticClickConfig()

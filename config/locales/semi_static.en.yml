@@ -53,6 +53,15 @@ en:
   Error_500: 'Sorry, this is a little embarrassing but we had an uncorrectable error on our website. Please use the menu to continue navigating our website'
   contact:
     pre: 'Send us a message, we will phone you back!'
+  ProceedToPayment: 'Proceed to payment'
+  CustomerTermsAndConditions: 'You accept the registration Terms and Conditions'
+  Proceed: 'Proceed'
+  YourCart: 'Your Cart'
+  Checkout: 'Checkout'
+  RemoveItems: 'Remove Items'
+  CustomerDetails: 'Customer details'
+  PostOrderRegistrationInsruction: 'Thank you for your order, we will be in touch shortly with payment and delivery details'
+
 
   # Months
   date:

@@ -1,15 +1,22 @@
 .dash
+  .button= link_to 'New Product', new_product_path(:return => products_path(@entry)), :remote => true
   %h1 Products
   
   %table
     %tr
+      %th{:title => 'Product ID'}
       %th Entry
       %th Name
-      %th
+      %th{:title => "Orderable"} O
       %th
   
     - @products.each do |p|
       %tr
-        %td= link_to p.entry.title, edit_entry_path(p.entry)
-        %td= link_to (p.name.blank? ? '<No Name>' : p.name), edit_entry_product_path(p.entry, p)
-        %td= link_to image_tag('/assets/bin.png', :title => 'Delete product'), entry_product_path(p.entry, p), method: :delete, data: { confirm: 'Are you sure?' }
+        %td= p.id
+        %td
+          - if p.entry
+            = link_to p.entry.title, edit_entry_path(p.entry)
+        %td= link_to (p.name.blank? ? '<No Name>' : p.name), edit_product_path(p)
+        %td
+          = '✓' if p.orderable
+        %td= link_to image_tag('/assets/bin.png', :title => 'Delete product'), product_path(p), method: :delete, data: { confirm: 'Are you sure?' }

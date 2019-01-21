@@ -19,6 +19,24 @@
       }
       addSemiStaticLoadEvent(commentsConfig);
 
+- if SemiStatic::Engine.config.shopping_cart && (@entry.product && @entry.product.orderable) || @entry.get_page_attr('pageHasProducts')
+  - content_for :ujs do
+    :javascript
+      function semiStaticCartPostAJAX(e, url){
+        var formElement = e.target
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', encodeURI(url));
+        xhr.setRequestHeader("Accept", "text/javascript");
+        xhr.onload = function() {
+          if (xhr.status === 200) { eval(xhr.responseText); }
+        };
+        xhr.send(new FormData(formElement));
+      }
+      function semiStaticLoadCartButton(){
+        semiStaticAJAX("#{product_path(@entry.product || 1, :unused => true)}")
+      }
+      addSemiStaticLoadEvent(semiStaticLoadCartButton);
+
 
 - if @entry.partial_before_entries?
   = render :partial => @entry.partial_path
