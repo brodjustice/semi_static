@@ -258,8 +258,13 @@
       !request.format.js? && !@entry.subscriber_content && !@entry.admin_only && !(@entry.tag.context_url && params[:no_context])
     end
 
+    #
+    # The Entry itself is retrieved here. We restrict the Entry to those with the correct locale. In the past
+    # we did not check the locale this but it can cause problems were search engines look up an Entry with a locale that does
+    # not match the website and then index it.
+    #
     def authenticate_semi_static_subscriber!
-      @entry = Entry.find(params[:id])
+      @entry = Entry.where(:locale => locale.to_s).find(params[:id])
       @tag = @entry.tag
 
       if !semi_static_admin? && @entry.subscriber_content
