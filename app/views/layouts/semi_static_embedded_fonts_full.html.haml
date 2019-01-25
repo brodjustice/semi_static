@@ -22,7 +22,8 @@
 
     = javascript_include_tag 'semi_static_application'
 
-    = render :partial => 'semi_static/shared/font'
+    %style{:type => "text/css"}
+      = asset_source('font.css')
 
     = stylesheet_link_tag 'semi_static_application', :media => 'all'
     %style{:type => "text/css"}

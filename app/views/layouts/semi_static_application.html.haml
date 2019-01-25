@@ -29,8 +29,8 @@
     -#      = render :partial => 'semi_static/shared/hosted_fonts'
     -# However, for speed purposes and for google page speed results it best to load them from your server,
     -# so you need the following:
-    -#      = render :partial => 'semi_static/shared/font'
-    = render :partial => 'semi_static/shared/font'
+    %style{:type => "text/css"}
+      = asset_source('font.css')
 
     = asset_source('theme.js')
     = stylesheet_link_tag 'semi_static_application', :media => 'all'

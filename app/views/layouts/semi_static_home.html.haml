@@ -23,10 +23,10 @@
 
     = hreflang_tags(true)
 
-    = render :partial => 'semi_static/shared/font'
+    %style{:type => "text/css"}
+      = asset_source('font.css')
 
     %style{:type => "text/css"}
-      -# = ObjectSpace.each_object(Sprockets::Environment).first.find_asset('home.css').source.html_safe
       = asset_source('home.css')
       - if lookup_context.exists?('semi_static/shared/_css_for_theme')
         = render 'semi_static/shared/css_for_theme'

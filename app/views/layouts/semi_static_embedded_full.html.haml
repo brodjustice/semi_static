@@ -22,16 +22,11 @@
 
     = semi_static_csrf_meta_tags
 
-    -# If you need extra fonts loaded, and you think it's better to load them from an external domain like
-    -# google fonts, then you can enable the next line:
-    -#      = render :partial => 'semi_static/shared/hosted_fonts'
-    -# However, foer speed puposes and for google page speed results it best to load them from your server,
-    -# so you need the following:
-    -#      = render :partial => 'semi_static/shared/font'
-    = render :partial => 'semi_static/shared/font'
+    %style{:type => "text/css"}
+      = asset_source('font.css')
 
     %style{:type => "text/css"}
-      = asset_sourc('semi_static_application.css.scss')
+      = asset_source('semi_static_application.css')
       - if lookup_context.exists?('semi_static/shared/_css_for_theme')
         = render 'semi_static/shared/css_for_theme'
       = yield :header_css
