@@ -121,6 +121,10 @@ need to link the 'asset' and 'system' directories inside each of the public loca
     # ln -s ../assets ./assets
     # ln -s ../system ./system
 
+To ensure that precompiled assests are minified ensure that you precompile them in the production environment:
+
+    # rails assets:precompile RAILS_ENV=production
+
 = Using the window.onload event in javascript
 
 Some SemiStatic pages need to use the window.onload event. If you try and use the window.onload event yourself in a page you may have unpredictable

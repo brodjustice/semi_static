@@ -25,8 +25,6 @@
 
     %style{:type => "text/css"}
       = asset_source('font.css')
-
-    %style{:type => "text/css"}
       = asset_source('home.css')
       - if lookup_context.exists?('semi_static/shared/_css_for_theme')
         = render 'semi_static/shared/css_for_theme'

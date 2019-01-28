@@ -1,4 +1,4 @@
-.button= link_to_function 'Done', "$('#dialog').hide();"
+.button= link_to 'Done', '#', :onclick => "$('#dialog').hide(); return false;"
 
 %h1 Sitemaps where generated
 %h3 Google responded:

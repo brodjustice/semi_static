@@ -1,4 +1,4 @@
-.button= link_to_function 'Cancel', "$('#dialog').hide();"
+.button= link_to 'Cancel', '#', :onclick =>  "$('#dialog').hide(); return false;"
 
 -#
 -# If there is no @result then we do not have a place to store
