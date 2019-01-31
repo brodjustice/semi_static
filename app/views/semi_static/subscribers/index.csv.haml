@@ -2,6 +2,6 @@
 - headers = ['Name', 'Surname', 'Email', 'Telephone', 'Company', 'Position', 'Country', 'Locale', 'Category']
 = CSV.generate_line headers
 - @subscribers.each do |s|
- - row = [s.name, s.surname, s.email, s.telephone, s.company.to_s, s.position.to_s, s.country.to_s, s.locale.to_s, s.category.name]
- = CSV.generate_line row
+ - row = [s.name, s.surname, s.email, s.telephone, s.company.to_s, s.position.to_s, s.country.to_s, s.locale.to_s, s.category_name]
+ = CSV.generate_line(row).strip.html_safe
 
