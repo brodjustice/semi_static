@@ -79,7 +79,13 @@ module SemiStatic
     # For GET you should call this rather than entry_path so that entries
     # acting as tags and context urls can be intercepted
     def entry_link(intended_entry, options = {})
+
       intended_entry.kind_of?(Fixnum) && (intended_entry = Entry.find(intended_entry))
+
+      # Since the default in Rails 5 url_helper is moving to *_url not *_path we have
+      # to set the option[:only_path] to true by default
+      options[:only_path].nil? && options[:only_path] = true
+
       if intended_entry.acts_as_tag_id
         SemiStatic::Engine.routes.url_helpers.feature_path(intended_entry.acts_as_tag.slug, options)
       elsif intended_entry.tag.context_url
@@ -89,7 +95,7 @@ module SemiStatic
         end
         u
       else
-        SemiStatic::Engine.routes.url_helpers.entry_path(intended_entry, options)
+        SemiStatic::Engine.routes.url_helpers.entry_url(intended_entry, options)
       end
     end
 
