@@ -1,8 +1,12 @@
-$('#semi_static_ajax_photo').height($('#semi_static_ajax_photo').height());
-!= "$(\"#semi_static_ajax_photo\").html('#{escape_javascript(render :partial => 'semi_static/photos/show' )}');"
-$('#semi_static_ajax_photo img').load(function(){ $('#semi_static_ajax_photo').height('auto');});
-$('.gallery.index img').removeClass('selected');
-$("#photo_id_#{@photo.id}").addClass('selected');
-$('.cmd').trigger('mouseover');
-setInterval(function(){$('.cmd').trigger('mouseout');}, 1000);
+:plain
+  var photoDiv = document.getElementById("semi_static_ajax_photo");
+  var selectedImages = document.querySelectorAll('.gallery.index img');
 
+  photoDiv.style.height = photoDiv.offsetHeight + 'px';
+  photoDiv.innerHTML = "#{escape_javascript(render :partial => 'semi_static/photos/show' )}"
+  photoDiv.style.height = 'auto';
+
+  Array.prototype.forEach.call(selectedImages, function(el, i){
+    el.classList.remove('selected')
+  });
+  document.getElementById("photo_id_#{@photo.id}").classList.add('selected');

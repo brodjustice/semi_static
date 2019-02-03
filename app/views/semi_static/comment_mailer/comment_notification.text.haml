@@ -11,12 +11,12 @@
 = '------------------ Comment end -----------------'
 = ' '
 To view this comment please click on the link below:
-= entry_url(@comment.entry, :anchor => "comment_id_#{@comment.id}")
+= entry_url(@comment.entry, :anchor => "comment_id_#{@comment.id}", :host => @host)
 
 = ' '
 To delete this comment please click on the link below:
 
-=entry_comment_url(@comment.entry, @comment)
+=entry_comment_url(@comment.entry, @comment, :host => @host)
 = ' '
 
 = '-------------------------------------------'
