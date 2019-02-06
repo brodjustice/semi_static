@@ -156,7 +156,7 @@ module SemiStatic
     private
 
     def newsletter_params
-      params.fetch(:newslatter, {}).permit(:name, :state, :locale, :subtitle, :salutation, :salutation_type,
+      params.fetch(:newsletter, {}).permit(:name, :state, :locale, :subtitle, :salutation, :salutation_type,
         :salutation_pre_text, :salutation_post_text, :css,
         :sender_address, :max_image_attachments, :banner_id, :title, :subject, :website_url)
     end
