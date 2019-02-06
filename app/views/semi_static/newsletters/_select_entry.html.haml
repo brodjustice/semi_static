@@ -1,4 +1,4 @@
-.button= link_to_function 'Cancel', "$('#dialog').hide();"
+.button= link_to 'Cancel', '#', :onclick => "$('#dialog').hide(); return false;"
 %h1= 'Please select an entry to insert into the newsletter'
 = form_for @newsletter, :insert_entry => true do |f|
   = hidden_field_tag 'entry[id]', @entry.id

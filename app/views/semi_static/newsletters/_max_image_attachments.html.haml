@@ -1,4 +1,4 @@
-.button= link_to_function 'Cancel', "$('#dialog').hide();"
+.button= link_to 'Cancel', '#', :onclick =>  "$('#dialog').hide(); return false;"
 %h1= 'Set the maximum numner of inline image attachments to use in this newsletter ' + @newsletter.name
 
 = form_for(@newsletter, :remote => true) do |f|

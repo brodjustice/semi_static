@@ -1,4 +1,4 @@
-.button= link_to_function 'Cancel', "$('#dialog').hide();"
+.button= link_to 'Cancel', '#', :onclick => "$('#dialog').hide(); return false;"
 %h1= 'Editing salutation for ' + @newsletter.name
 
 = form_for(@newsletter) do |f|
