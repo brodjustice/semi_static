@@ -16,14 +16,18 @@
       submit_to_send();
     });
 
-.dashboard
-  .mid
-    .button
-      = link_to 'Cancel', newsletters_path, :id => 'cancel_button'
+.app-title
+  %h1
+    %i.fa.fa-layout.invert
+    = 'Sending newsletter ' + @newsletter.name
+  = link_to newsletters_path, :id => 'cancel_button', :class => 'btn btn-danger' do
+    %span.app-menu__icon.fa.fa-layout
+    %span Cancel
  
-    %h1= 'Sending newsletter ' + @newsletter.name
   
-    %h4
+.title
+  .tile-body
+    %h5
       = @newsletter.newsletter_deliveries.pending.count.to_s + ' subscribers: sent '
       %span#progress= '0'
 

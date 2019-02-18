@@ -23,13 +23,10 @@ module SemiStatic
     # else
     #   @role = main_app.current_user.top_role
     # end
-    #
-    # @instruments = DashboardHelper::INSTRUMENTS[@role.name.to_sym]
   
     def show
       # Dashboard only done in English
       @selected = 'home'
-      @instruments = DashboardHelper::INSTRUMENTS[:admin]
       
       respond_to do |format|
         format.html # show.html.erb

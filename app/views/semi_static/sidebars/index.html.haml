@@ -2,27 +2,38 @@
   :javascript
     $(document).ready(function() {
       $('#' + window.location.hash.substring(1)).children().addClass('flash');
+      $(".sortable").tablesorter();
     });
 
-.mid.full
-  .button= link_to 'New Sidebar', new_sidebar_path
-  %h1 Sidebars
+.app-title
+  %h1
+    %i.fa.fa-sidebar.invert
+    %span Sidebars
+  = link_to new_sidebar_path, :class => 'btn btn-primary' do
+    %span.app-menu__icon.fa.fa-sidebar
+    %span New Sidebar
 
-  %table
-    %thead
-      %tr
-        %th= 'Title'
-        %th= 'ID'
-        %th= 'Entries'
-        %th= image_tag('calendar.png', :title => 'Last Update')
-        %th= image_tag('bin.png', :title => 'Delete')
-
-    %tbody
-      - @sidebars.each do |s|
-        %tr{:id => "sidebar_id_#{s.id}"}
-          %td= link_to (s.title.blank? ? "##{s.id.to_s}" : s.title), edit_sidebar_path(s)
-          %td.number= link_to s.id.to_s, edit_sidebar_path(s)
-          %td.number= s.entries.count.to_s
-          %td.number{:title => s.updated_at.strftime('%H:%M')}= s.updated_at.strftime('%d/%b/%y')
-          %td.image= link_to image_tag('bin.png'), s, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
+.tile
+  .tile-body
+    .table-responsive
+      %table.table.sortable.table-bordered.table-hover
+        %thead
+          %tr
+            %th{:title => 'ID'}= '#'
+            %th= 'Title'
+            %th{:title => 'Entries'}
+              %i.app-menu__icon.fa.fa-website
+            %th{:title => 'Last Update'}
+              %i.app-menu__icon.fa.fa-date
+            %th{:title => 'Delete'}
+              %i.app-menu__icon.fa.fa-delete
+    
+        %tbody
+          - @sidebars.each do |s|
+            %tr{:id => "sidebar_id_#{s.id}"}
+              %td.number= link_to s.id.to_s, edit_sidebar_path(s)
+              %td= link_to (s.title.blank? ? "##{s.id.to_s}" : s.title), edit_sidebar_path(s)
+              %td.number= link_to s.entries.count.to_s, sidebar_path(s), :remote => true
+              %td.number{:title => s.updated_at.strftime('%H:%M')}= s.updated_at.strftime('%d/%b/%y')
+              %td
+                %i.app-menu__icon.fa.fa-delete

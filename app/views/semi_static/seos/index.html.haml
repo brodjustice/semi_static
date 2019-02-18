@@ -1,57 +1,70 @@
-.mid.full
-  %h1 SEO Meta tag sets
+.app-title
+  %h1
+    %i.fa.fa-graph.invert
+    %span SEO Meta tag sets
   
-  .infobox#seo_for_home_page
-    %h2= 'Search Engine Optimization help'
-    %p= 'In order that your website pages are correctly indexed and ranked by Google, Bing, Yahoo, etc. the most important item that you can change here are the "Title" and "Description". Keywords are not as important, and if you are unsure about your keywords it will be better that they are left blank.'
-    %h3= 'Title'
-    %p= 'If you do not provide a "Title" for your page, then one will be gererated automatically by the system. The automatically generated "Title" will usually be same as the title given for the Tag or the title for the Entry or the title for the Photo, etc.'
-    %h3= 'Description'
-    %p= 'If you do not provide a description for your page, then a default description will be used for every page, the default is:'
-    %ul
-      %li
-        %h3= SemiStatic::Engine.config.site_name
-    %h2= 'SEO data (search indexing) for your Home Page'
-    %p
-      = 'Do the following:'
-    %ul
-      %li= "Create or edit a Tag named 'Home' and with the locale required"
-      %li= "Add SEO meta data to the 'Home' tag that you created" 
+.tile
+  .tile-body
+    .infobox#seo_for_home_page
+      %h5= 'Search Engine Optimization help'
+      %p= 'In order that your website pages are correctly indexed and ranked by Google, Bing, Yahoo, etc. the most important item that you can change here are the "Title" and "Description". Keywords are not as important, and if you are unsure about your keywords it will be better that they are left blank.'
+      %h5= 'Title'
+      %p= 'If you do not provide a "Title" for your page, then one will be gererated automatically by the system. The automatically generated "Title" will usually be same as the title given for the Tag or the title for the Entry or the title for the Photo, etc.'
+      %h5= 'Description'
+      %p= 'You do not provide a description for your page, else search engines like Google and Bing will make a guess'
+      %h5= 'SEO data (search indexing) for your Home Page'
+      %p
+        = 'Do the following:'
+      %ul
+        %li= "Create or edit a Tag named 'Home' and with the locale required"
+        %li= "Add SEO meta data to the 'Home' tag that you created" 
 
-  .infomarker= 'SEO help and special rules for Home Page SEO'
-  %table
-    %tr
-      %th= 'Locale'
-      %th= 'Description'
-      %th= 'Title'
-      %th= 'Keywords'
-      %th= 'Page'
-      %th{:title => 'Master'}= 'M'
-      %th= 'No Index'
-      %th{:title => 'Hreflang'}= image_tag("/assets/flags/#{session[:locale].to_s}.png", :title => 'Hreflang')
-      %th= image_tag('calendar.png', :title => 'Last updated')
-      %th
-      %th
-  
-    - SemiStatic::Seo.all.each do |seo|
-      %tr
-        %td= seo.locale.to_s
-        %td= link_to (seo.description || image_tag('error.png', :title => 'Description is empty')), edit_seo_path(seo), :remote => true
-        %td= link_to (seo.title || image_tag('error.png', :title => 'Title is empty')), edit_seo_path(seo), :remote => true
-        %td= link_to (seo.keywords || ' '), edit_seo_path(seo), :remote => true
-        %td
-          - if seo.seoable.nil?
-            = image_tag('error.png', :title => 'No Entry or Tag found')
-          - else
-            = link_to [seo.seoable.raw_title, ' (', seo.seoable.class.to_s.split('::').last, ')'].join, url_for(:controller => seo.seoable.class.to_s.underscore.pluralize, :action => :edit, :id => seo.seoable.id)
-        %td.tick
-          - if seo.master
-            = image_tag('tick.png', :title => 'These are the master SEO tags')
-          - else
-            = link_to image_tag('add.png', :title => 'Make this SEO meta set the master set'), edit_seo_path(seo, :master => true)
-        %td.tick
-          = image_tag('tick.png', :title => 'No indexing request to search engines') if seo.no_index
-        %td.number= seo.hreflangs.size
-        %td= seo.updated_at.strftime('%d-%b-%y %H:%M')
-        %td.tick= link_to image_tag('application_form_edit.png', :title => "Edit SEO meta tag"), edit_seo_path(seo, :return => seos_path), :remote => true
-        %td.tick= link_to image_tag('bin.png'), seo, :method => :delete, :data => { :confirm => 'Are you sure?' }
+    .infomarker= 'SEO help and special rules for Home Page SEO'
+    .table-responsive
+      %table.table.sortable.table-bordered.table-hover
+        %thead
+          %tr
+            %th{:title => 'Locale'}
+              %i.app-menu__icon.fa.fa-lang
+            %th= 'Description'
+            %th= 'Title'
+            %th= 'Keywords'
+            %th= 'Page'
+            %th{:title => 'Master'}= 'M'
+            %th= 'No Index'
+            %th{:title => 'Hreflang'}= image_tag("/assets/flags/#{session[:locale].to_s}.png", :title => 'Hreflang')
+            %th{:title => 'Last updated'}
+              %i.app-menu__icon.fa.fa-date
+            %th{:title => 'Edit'}
+              %i.app-menu__icon.fa.fa-edit
+            %th
+              %i.app-menu__icon.fa.fa-delete
+        
+        %tbody
+          - SemiStatic::Seo.all.each do |seo|
+            %tr
+              %td= seo.locale.to_s
+              %td= link_to (seo.description || image_tag('error.png', :title => 'Description is empty')), edit_seo_path(seo), :remote => true
+              %td= link_to (seo.title || image_tag('error.png', :title => 'Title is empty')), edit_seo_path(seo), :remote => true
+              %td= link_to (seo.keywords || ' '), edit_seo_path(seo), :remote => true
+              %td
+                - if seo.seoable.nil?
+                  = image_tag('error.png', :title => 'No Entry or Tag found')
+                - else
+                  = link_to [seo.seoable.raw_title, ' (', seo.seoable.class.to_s.split('::').last, ')'].join, url_for(:controller => seo.seoable.class.to_s.underscore.pluralize, :action => :edit, :id => seo.seoable.id)
+              %td.tick
+                - if seo.master
+                  = image_tag('tick.png', :title => 'These are the master SEO tags')
+                - else
+                  = link_to image_tag('add.png', :title => 'Make this SEO meta set the master set'), edit_seo_path(seo, :master => true)
+              %td.tick
+                = image_tag('tick.png', :title => 'No indexing request to search engines') if seo.no_index
+              %td.number= seo.hreflangs.size
+              %td= seo.updated_at.strftime('%d-%b-%y %H:%M')
+              %td.tick
+                = link_to edit_seo_path(seo, :return => seos_path), :remote => true do
+                  %i.app-menu__icon.fa.fa-edit
+              %td.tick
+                = link_to seo, :method => :delete, :data => { :confirm => 'Are you sure?' } do
+                  %i.app-menu__icon.fa.fa-delete
+

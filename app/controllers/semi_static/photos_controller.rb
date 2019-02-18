@@ -17,6 +17,9 @@ module SemiStatic
     # GET /photos.json
     def index
 
+      layout = 'semi_static_application'
+      template = 'semi_static/photos/index'
+
       if params[:entry_id].present?
         @obj = @entry = Entry.find(params[:entry_id])
         @photos = @obj.photos
@@ -30,17 +33,20 @@ module SemiStatic
       elsif params[:tag_id].present?
         @tag, @seo = Seo.photos(params[:tag_id], I18n.locale) 
       else
-        # Nothing else left but to try the predefined Gallery Tag
-        @tag = Tag.predefined(I18n.locale, 'Gallery').first
-        @tag ? (@seo = @tag.seo) : (raise ActiveRecord::RecordNotFound)
+        if semi_static_admin?
+          @photos = Photo.all
+          layout = 'semi_static_dashboards'
+          template = 'semi_static/photos/admin_list_index'
+        else
+          # Nothing else left but to try the predefined Gallery Tag
+          @tag = Tag.predefined(I18n.locale, 'Gallery').first
+          @tag ? (@seo = @tag.seo) : (raise ActiveRecord::RecordNotFound)
+        end
       end
 
       @galleries = Gallery.locale(I18n.locale).visible
       @selection = 'Gallery'
       @entries = @tag && @tag.entries
-
-      layout = 'semi_static_application'
-      template = 'semi_static/photos/index'
 
       respond_to do |format|
         format.html { render :template => template, :layout => layout }

@@ -1,4 +1,10 @@
-.mid
-  %h1= "Editing Link " + @link.name
+.app-title
+  %h1
+    %i.fa.fa-footer.invert
+    = "Editing Link " + @link.name
+  = link_to fcols_path, :class => 'btn btn-danger' do
+    %span.app-menu__icon.fa.fa-cancel
+    %span Cancel
 
-  = render 'form'
+= render 'form'
+

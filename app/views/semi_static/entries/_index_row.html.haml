@@ -5,7 +5,7 @@
       %span{:title => strip_tags(truncate_html(entry.body, :length => 75))}= link_to "--> ##{entry.id.to_s}", edit_entry_path(entry)
     - else
       = link_to entry.get_title, edit_entry_path(entry)
-  %td
+  %td.tag
     - if entry.tag
       = link_to entry.tag.name, edit_tag_path(entry.tag)
     - else
@@ -19,16 +19,15 @@
     - unless entry.partial == 'none'
       = link_to image_tag('tick.png', :title => "#{entry.partial}"), system_path(:cmd => {:partial_description => entry.partial}), :method => :put, :remote => true
   %td.tick
-    = image_tag('tick.png', :title => "Entry master is #{entry.master_entry.locale + ': ' + entry.master_entry.title}") unless entry.master_entry.nil?
-  %td.tick
     = image_tag('tick.png', :title => 'Visible in home page') if entry.home_page
   %td.tick
     = image_tag('tick.png', :title => 'Visible in news') if entry.news_item
+  %td.number= entry.position.to_s
   %td.tick
-    = image_tag('tick.png', :title => 'Show side bar') if entry.side_bar
-  %td.number= link_to entry.position.to_s, edit_entry_path(entry), :remote => true
+    = image_tag('tick.png', :title => 'Side bar enabled') if entry.side_bar
   %td
-    = entry.banner.name unless entry.banner.nil?
+    - unless entry.banner.nil?
+      = image_tag('tick.png', :title => "#{entry.banner.name}")
   %td.tick
     - if entry.admin_only
       = image_tag('tick.png', :title => 'Admin only draft content')
@@ -47,5 +46,10 @@
     - if entry.product.present?
       = link_to image_tag('tick.png', :title => 'Click to edit product'), edit_entry_product_path(entry, entry.product, :return => entries_path), :remote => true
   %td{:title => entry.updated_at.strftime('%H:%M')}= entry.updated_at.strftime('%d/%b/%y')
-  %td= link_to image_tag('page_copy.png', :title => "Use #{[entry.locale, ': ', entry.title].join} as master for new entry"), new_entry_path(:master => entry)
-  %td{:title => "Click to delete #{entry.get_title || 'entry'}"}= link_to image_tag('bin.png'), entry, :method => :delete, :data => { :confirm => 'Are you sure?' }
+  %td.tick
+    = link_to new_entry_path(:master => entry), :title => "Use #{[entry.locale, ': ', entry.title].join} as master for new entry" do
+      %i.app-menu__icon.fa.fa-clone
+  %td.tick{:title => "Click to delete #{entry.get_title || 'entry'}"}
+    = link_to entry, :method => :delete, :data => { :confirm => 'Are you sure?' } do
+      %i.app-menu__icon.fa.fa-delete
+

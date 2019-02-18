@@ -1,24 +1,32 @@
--# TODO refector logic to scope in controller if this is used extensively
+.tile
+  .tile-body
+    .table-responsive
+      %table.table.sortable.table-bordered.table-hover.table-dense
+        %thead
+          %tr
+            %th Title
+            %th Description (Caption)
+            %th Entry Link
+            %th{:title => 'Position', :colspan => 2}
+              %i.app-menu__icon.fa.fa-vertical
+            %th Home Page
+            %th
+            %th
+              %i.app-menu__icon.fa.fa-delete
 
-%table
-  %tr
-    %th Title
-    %th Description (Caption)
-    %th Entry Link
-    %th{:colspan => 2} Position
-    %th Home Page
-    %th
-    %th
-
-  - @photos.each do |p|
-    %tr
-      %td= link_to p.title, edit_photo_path(p)
-      %td= p.description
-      %td
-        = link_to p.entry.explicit_title, edit_entry_path(p.entry) if p.entry
-      %td.number= p.position
-      %td= SemiStatic::Photo::GALLERY[p.gallery_control].to_s.humanize
-      %td.tick
-        = image_tag('tick.png') if p.home_page
-      %td= link_to image_tag('page_copy.png', :title => "Use #{[p.locale, ': ', p.title].join} as master for new photo"), new_photo_path(:master => p)
-      %td= link_to image_tag('bin.png'), photo_path(p), :method => :delete, :data => { :confirm => 'Are you sure?' }
+      
+        %thead
+          - @photos.each do |p|
+            %tr
+              %td= link_to p.title, edit_photo_path(p)
+              %td= p.description
+              %td
+                = link_to p.entry.explicit_title, edit_entry_path(p.entry) if p.entry
+              %td.number= p.position
+              %td= SemiStatic::Photo::GALLERY[p.gallery_control].to_s.humanize
+              %td.tick
+                = image_tag('tick.png') if p.home_page
+              %td= link_to image_tag('page_copy.png', :title => "Use #{[p.locale, ': ', p.title].join} as master for new photo"), new_photo_path(:master => p)
+              %td.tick
+                = link_to photo_path(p), :method => :delete, :data => { :confirm => 'Are you sure?' } do
+                  %i.app-menu__icon.fa.fa-delete

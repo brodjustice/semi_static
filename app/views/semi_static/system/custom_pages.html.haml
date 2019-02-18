@@ -1,0 +1,24 @@
+.app-title
+  %h1
+    %i.fa.fa-code.invert
+    %span #{@result.size} Custom Pages
+
+.tile
+  .tile-body
+    .table-responsive
+      %table.table.sortable.table-bordered.table-hover
+        %thead
+          %tr
+            %th{:title => 'Custom page (partial) name'}
+              %i.app-menu__icon.fa.fa-code
+            %th{:title => 'Entries that use the custom page'}
+              %i.app-menu__icon.fa.fa-website
+
+        %tbody
+          - @result.keys.each do |k|
+            %tr
+              %td= k
+              %td
+                - @result[k].each do |e|
+                  = link_to e.explicit_title, edit_entry_path(e.id)
+                  %br

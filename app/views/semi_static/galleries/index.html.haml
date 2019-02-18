@@ -1,43 +1,63 @@
-.dashboard.dash
-  .button
-    = link_to 'New Photo', new_photo_path
-  .button
-    = link_to 'New Gallery', new_gallery_path
-  %h1 Galleries
+.app-title
+  %h1
+    %i.fa.fa-photo.invert
+    %span Galleries
+  .text-right
+    = link_to photos_path, :class => 'btn btn-primary btn-space' do
+      %span.app-menu__icon.fa.fa-photo
+      %span All Photos
+    = link_to new_photo_path, :class => 'btn btn-primary btn-space' do
+      %span.app-menu__icon.fa.fa-photo
+      %span New Photo
+    = link_to new_gallery_path, :class => 'btn btn-primary' do
+      %span.app-menu__icon.fa.fa-photo
+      %span New Gallery
 
-  %table.bordered
-    %tr
-      %th #
-      %th Title
-      %th{:colspan => 2} Subtitle
-      %th.tick{:title => 'Public'} P
-      %th Photos
-      %th Entries
-      %th Position
-      %th Locale
-      %th
-      %th
-  
-    - @galleries.each do |g|
-      %tr{:id => "obj_id_#{g.id}"}
-        %td= g.id.to_s
-        %td= link_to g.title, edit_gallery_path(g)
-        %td{:title => g.sub_title, :colspan => 2}= link_to g.sub_title, edit_gallery_path(g)
-        %td.tick
-          = image_tag('/assets/tick.png') if g.public
-        %td.number.link= link_to g.photos.size, photos_path(:gallery_id => g.id), :remote => true
-        %td.number= g.entries.size
-        %td.number= g.position
-        %td= g.locale.to_s
-        %td.tick= link_to image_tag('/assets/add.png', :title => "Add new photo to #{g.title} gallery"), new_photo_path(:photo => {:gallery_id => g.id})
-        %td.tick= link_to image_tag('/assets/bin.png', :title => "Delete gallery #{g.title}"), gallery_path(g), :method => :delete, :data => { :confirm => "This will also delete #{g.photos.size} photos in this gallery! Are you sure?" }
-    %tr.em
-      %td
-      %td{:colspan => 3}= "Photos not assigned to a gallery"
-      %td.tick
-      %td.number.link= link_to @photos_without_gallery.size, photos_path(:gallery_id => nil)
-      %td
-      %td
-      %td
-      %td.tick= link_to image_tag('/assets/add.png', :title => "New photo"), new_photo_path
-      %td
+.tile
+  .tile-body
+    .table-responsive
+      %table.table.sortable.table-bordered.table-hover.table-dense
+        %thead
+          %tr
+            %th #
+            %th Title
+            %th{:colspan => 2} Subtitle
+            %th.tick{:title => 'Public'} P
+            %th{:title => 'Click to see all photos'}
+              %i.app-menu__icon.fa.fa-photo
+            %th{:title => 'Entries'}
+              %i.app-menu__icon.fa.fa-website
+            %th{:title => 'Position'}
+              %i.app-menu__icon.fa.fa-vertical
+            %th{:title => 'Locale'}
+              %i.app-menu__icon.fa.fa-lang
+            %th
+            %th
+              %i.app-menu__icon.fa.fa-delete
+        
+        %tbody
+          - @galleries.each do |g|
+            %tr{:id => "obj_id_#{g.id}"}
+              %td= g.id.to_s
+              %td= link_to g.title, edit_gallery_path(g)
+              %td{:title => g.sub_title, :colspan => 2}= link_to g.sub_title, edit_gallery_path(g)
+              %td.tick
+                = image_tag('/assets/tick.png') if g.public
+              %td.number.link= link_to g.photos.size, photos_path(:gallery_id => g.id), :remote => true
+              %td.number= g.entries.size
+              %td.number= g.position
+              %td= g.locale.to_s
+              %td.tick= link_to image_tag('/assets/add.png', :title => "Add new photo to #{g.title} gallery"), new_photo_path(:photo => {:gallery_id => g.id})
+              %td.tick
+                = link_to gallery_path(g), :title => "Delete gallery #{g.title}", :method => :delete, :data => { :confirm => "This will also delete #{g.photos.size} photos in this gallery! Are you sure?" } do
+                  %i.app-menu__icon.fa.fa-delete
+          %tr.em
+            %td
+            %td{:colspan => 3}= "Photos not assigned to a gallery"
+            %td.tick
+            %td.number.link= link_to @photos_without_gallery.size, photos_path(:gallery_id => nil)
+            %td
+            %td
+            %td
+            %td.tick= link_to image_tag('/assets/add.png', :title => "New photo"), new_photo_path
+            %td

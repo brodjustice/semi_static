@@ -2,49 +2,36 @@
 %html{ :xmlns => "http://www.w3.org/1999/xhtml", :lang => "en", "xml:lang" => "en"}
   %head
     %meta{:charset => "utf-8"}/
-    %meta{ :name => "description", :content => "#{SemiStatic::Engine.config.site_name}" }/
-    %meta{ :name => "keywords", :content => "" }/
-    %meta{ :name => "rating", :content => "General" }/
+    %meta{:name => "description", :content => "#{SemiStatic::Engine.config.site_name}" }/
+    %meta{:name => "keywords", :content => "" }/
+    %meta{:name => "rating", :content => "General" }/
     %meta{:name => 'viewport', :content => 'width=device-width, initial-scale=1.0'}/
-    %meta{ :name => "ROBOTS", :content => 'NOINDEX, NOFOLLOW' }/
+    %meta{:name => "ROBOTS", :content => 'NOINDEX, NOFOLLOW' }/
 
     %title= 'Admin Dashboard for ' + SemiStatic::Engine.config.site_name.to_s
 
     = semi_static_csrf_meta_tags
 
-    = javascript_include_tag 'semi_static_dashboard'
-    = stylesheet_link_tag 'semi_static_full', :media => 'all'
+    = stylesheet_link_tag 'semi_static_dashboard', :media => 'all'
     %style{:type => "text/css"}
       = yield :header_css
 
-    = yield :ujs
-
     = favicon_link_tag 'favicon.ico'
-  %body#dashboard
-    = render :partial => 'semi_static/shared/dashboard_top'
-    #frame
-      #container
-        #container-inner
-          - flash.each do |key, value|
-            = content_tag :div, value, :id => "#{key}" unless value.blank?
-          #header
-            #header-inner
-              = render :partial => 'semi_static/shared/dashboard_header'
-          #dialog{:style => 'display: none;'}
-            #dialog-inner
-          #content
-            .group
-              .dash.col.span_1_of_5
-                %h1 Menu
-                #dmenu
-                  - if session[:workspace_tag_id].present?
-                    .item
-                      %h5= 'Workspace'
-                      = link_to SemiStatic::Tag.find_by_id(session[:workspace_tag_id]).name, semi_static.semi_static_dashboard_path
-                  .spacer
-                  -# if CanCan is used, something like:
-                  -# = menu_for(current_user.top_role.name)
-                  = menu_for('admin')
-              .col.span_4_of_5
-                =yield
-      = render :partial => 'semi_static/shared/footer'
+
+  %body.app.sidebar-mini{:id => "semi_static_#{controller_name.classify.downcase}"}
+    - flash.each do |key, value|
+      = content_tag :div, value, :id => "#{key}" unless value.blank?
+
+    #body-inner.wrapper
+      = render :partial => "semi_static/dashboards/admin/menu"
+      %main.app-content
+        #generalModal.modal.fade{:tabindex => "-1", :role => "dialog", 'aria-labelledby' => "exampleModalLabel",  'aria-hidden' => 'true'}
+          .modal-dialog{:role => "document"}
+            .modal-content
+              .modal-header
+              .modal-body
+              .modal-footer
+        = yield
+    #footer.main-footer
+      = javascript_include_tag 'semi_static_dashboard'
+      = yield :ujs

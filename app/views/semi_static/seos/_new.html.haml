@@ -1,4 +1,6 @@
-.button= link_to 'Cancel', '#', :onclick => "$('#dialog').hide(); return false;"
-%h1= ['New SEO meta tags for ', @seo.seoable.raw_title, ' (', @seo.seoable.class.to_s.split('::').last, ')'].join
-%h3= ['locale:', @seo.seoable.locale.to_s].join(' ')
-= render 'form'
+.modal-header
+  %h5= ['New SEO meta tags for ', @seo.seoable.raw_title, ' (', @seo.seoable.class.to_s.split('::').last, ')'].join
+  = modal_close
+.modal-body
+  %h5= ['locale:', @seo.seoable.locale.to_s].join(' ')
+  = render 'form'

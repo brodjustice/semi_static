@@ -1,37 +1,54 @@
-.mid
-  .button= link_to 'New Footer Column', new_fcol_path
-  %h1 Footer
+.app-title
+  %h1
+    %i.fa.fa-footer.invert
+    %span Footer
+  .text-right
+    = link_to new_fcol_path, :class => 'btn btn-primary' do
+      %span.app-menu__icon.fa.fa-footer
+      %span New Footer Column
   
-  %table
-    %tr
-      %th
-      %th{:colspan => 2}= 'Pos.'
-      %th{:colspan => 2}= 'Name'
-      %th
-      %th
-      %th
-  
-    - @fcols.each do |fcol|
-      %tr.top
-        %td.fcol= fcol.locale.to_s
-        %td.fcol= fcol.position
-        %td.fcol= '-'
-        %td.fcol{:colspan => 2}= link_to (fcol.name.blank? ? '<no name>' : fcol.name), edit_fcol_path(fcol)
-        %td.fcol= link_to image_tag('/assets/bin.png'), fcol, :method => :delete, :data => { :confirm => 'Are you sure?' }
-        %td.fcol
-          .button= link_to 'Add link', new_fcol_link_path(fcol)
-      - unless fcol.content.blank?
-        %tr
-          %td.blank{:colspan => 2}
-          %td.content{:colspan => 6}
-            = fcol.content.html_safe
-      - fcol.links.each do |l|
-        %tr
-          %td
-          %td
-          %td= l.position
-          %td= link_to l.name, edit_fcol_link_path(fcol, l)
-          %td= l.url
-          %td= link_to image_tag('/assets/bin.png'), fcol_link_path(fcol, l), :method => :delete, :data => { :confirm => 'Are you sure?' }
-            
-  
+.tile
+  .tile-body
+    .table-responsive
+      %table.table.sortable.table-bordered.table-hover
+        %thead
+          %tr
+            %th
+              %i.app-menu__icon.fa.fa-lang
+            %th{:colspan => 2, :title => 'Position'}
+              %i.app-menu__icon.fa.fa-vertical
+            %th= 'Name'
+            %th
+              %i.app-menu__icon.fa.fa-layout
+            %th
+              %i.app-menu__icon.fa.fa-delete
+            %th
+        
+        %tbody
+          - @fcols.each do |fcol|
+            %tr.top
+              %td.fcol= fcol.locale.to_s
+              %td.fcol= fcol.position
+              %td.fcol= '-'
+              %td.fcol{:colspan => 2}= link_to (fcol.name.blank? ? '<no name>' : fcol.name), edit_fcol_path(fcol)
+              %td.fcol
+                = link_to fcol, :method => :delete, :data => { :confirm => 'Are you sure?' } do
+                  %i.app-menu__icon.fa.fa-delete
+              %td.fcol
+                = link_to new_fcol_link_path(fcol), :class => 'btn btn-primary' do
+                  %span Add link
+            - unless fcol.content.blank?
+              %tr
+                %td.blank{:colspan => 2}
+                %td.content{:colspan => 6}
+                  = fcol.content.html_safe
+            - fcol.links.each do |l|
+              %tr
+                %td
+                %td
+                %td= l.position
+                %td= link_to l.name, edit_fcol_link_path(fcol, l)
+                %td= l.url
+                %td{:colspan => 2}
+                  = link_to fcol_link_path(fcol, l), :method => :delete, :data => { :confirm => 'Are you sure?' } do
+                    %i.app-menu__icon.fa.fa-delete

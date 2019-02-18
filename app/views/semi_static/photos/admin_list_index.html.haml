@@ -1,8 +1,12 @@
-.dashboard.dash
-  .button
-    = link_to 'New Photo', new_photo_path
-  %h1 Gallery List
-  %h2
-    = SemiStatic::Tag.find(session[:workspace_tag_id]).name
-
-  = render :partial => 'admin_list_index'
+.app-title
+  %h1 
+    %i.fa.fa-photo.invert
+    %span #{@photos.size} Photos
+  .text-right
+    = link_to galleries_path, :class => 'btn btn-primary btn-space' do
+      %span.app-menu__icon.fa.fa-photo
+      %span Galleries
+    = link_to new_photo_path, :class => 'btn btn-primary' do
+      %span.app-menu__icon.fa.fa-photo
+      %span New Photo
+= render :partial => 'admin_list_index'

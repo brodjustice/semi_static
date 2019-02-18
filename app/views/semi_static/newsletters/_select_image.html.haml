@@ -1,3 +1,5 @@
-.button= link_to 'Done', '#', :onclick => "$('#dialog').hide(); return false;"
-%h1= 'Opps. There is no alternate image for this entry'
-%h2= 'We suggest that you edit the entry and add an alternate image for news'
+.modal-header
+  %h5= 'Opps. There is no alternate image for this entry'
+  = modal_close
+.modal-body
+  %h5= 'We suggest that you edit the entry and add an alternate image for news'

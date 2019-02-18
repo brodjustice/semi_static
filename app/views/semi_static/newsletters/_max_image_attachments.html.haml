@@ -1,21 +1,17 @@
-.button= link_to 'Cancel', '#', :onclick =>  "$('#dialog').hide(); return false;"
-%h1= 'Set the maximum numner of inline image attachments to use in this newsletter ' + @newsletter.name
-
-= form_for(@newsletter, :remote => true) do |f|
-  - if @newsletter.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@newsletter.errors.count, "error")} prohibited this Newsletter Salutation from being saved:"
-      %ul
-        - @newsletter.errors.full_messages.each do |msg|
-          %li= msg
-
-  .group
-    .col.span_1_of_1
-      %fieldset
-        = f.label :max_image_attachments
-        %br/
-        = f.text_field :max_image_attachments
-        %br/
-        %br/
-  .actions
-    = f.submit 'Save'
+.modal-header
+  %h5= 'Set the maximum numner of inline image attachments to use in this newsletter ' + @newsletter.name
+  = modal_close
+.modal-body
+  = form_for(@newsletter, :remote => true) do |f|
+    - if @newsletter.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@newsletter.errors.count, "error")} prohibited this Newsletter Salutation from being saved:"
+        %ul
+          - @newsletter.errors.full_messages.each do |msg|
+            %li= msg
+  
+    .form-group
+      = f.label :max_image_attachments
+      = f.text_field :max_image_attachments, :class => 'form-control'
+    .actions
+      = f.submit 'Save', :class => 'btn btn-danger btn-block'

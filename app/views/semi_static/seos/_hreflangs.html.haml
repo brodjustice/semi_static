@@ -1,0 +1,22 @@
+.modal-header
+  %h5= 'Hreflang META Tags'
+  = link_to new_seo_hreflang_path(@seo), :remote => true, :class => 'btn btn-primary' do
+    Add hreflang
+%table
+  - @seo.hreflangs.each do |href|
+    %tr
+      %td= href.locale.to_s
+      %td= link_to href.href, href.href
+      %td.tick= link_to image_tag('/assets/application_form_edit.png', :title => "Edit hreflang tag"), edit_seo_hreflang_path(@seo, href, :return => seos_path), :remote => true
+      %td.tick= link_to image_tag('/assets/bin.png'), seo_hreflang_path(@seo, href), :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+
+- unless @photos_without_caption.blank?
+  %h1= 'Photos SEO'
+  %p
+    = "This Entry has #{@photos_without_caption.count.to_s} photo(s) without a caption. You can improve your SEO by adding captions."
+    = "The first #{[@photos_without_caption.count, 5].min.to_s} photos:"
+  - @photos_without_caption.limit(5).each  do |p|
+    %ul
+      %li= link_to p.title, edit_photo_path(p)
+

@@ -1,1 +1,3 @@
-!= "$(\"#dialog\").html('#{escape_javascript(render :partial => 'semi_static/seos/edit' )}').addClass('wide').show();"
+!= "$(\".modal\").modal('hide');"
+!= "$(\"#generalModal .modal-content\").html('#{escape_javascript(render :partial => 'semi_static/seos/edit')}');"
+!= "$(\"#generalModal\").modal();"

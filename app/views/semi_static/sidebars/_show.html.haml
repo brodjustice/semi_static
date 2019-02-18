@@ -1,0 +1,22 @@
+.modal-header
+  %h5
+    %i.fa.fa-sidebar.invert
+    = @sidebar.title
+  = modal_close
+.modal-body
+  %h5= "Used in #{@sidebar.entries.size} Entries"
+  .table-responsive
+    %table.table.sortable.table-bordered.table-hover.table-dense
+      %thead
+        %tr
+          %th{:title => 'Entry ID'}= '#'
+          %th{:title => 'Entry title'}
+            %i.app-menu__icon.fa.fa-website
+
+      %tbody
+        - @sidebar.entries.each do |e|
+          %tr
+            %th= link_to e.id, edit_entry_path(e)
+            %th= link_to e.title, edit_entry_path(e)
+      
+    

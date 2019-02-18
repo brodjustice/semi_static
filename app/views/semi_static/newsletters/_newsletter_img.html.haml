@@ -1,9 +1,10 @@
-.button= link_to 'Cancel', '#', :onclick => "$('#dialog').hide(); return false;"
-%h1= 'Upload a new image for this newsletter entry'
-= form_for(@entry) do |f|
-  = hidden_field_tag :redirect_to, edit_newsletter_path(@newsletter, :newsletter_img_updated => @entry.id.to_s, :anchor => "entry_id_#{@entry.id}")
-  = f.label :newsletter_img, 'Image for newsletter (optional)'
-  = f.file_field :newsletter_img
-  %br/
-  %br/
-  = f.submit 'Upload'
+.modal-header
+  %h5= 'Upload a new image for this newsletter entry'
+  = modal_close
+.modal-body
+  = form_for(@entry) do |f|
+    = hidden_field_tag :redirect_to, edit_newsletter_path(@newsletter, :newsletter_img_updated => @entry.id.to_s, :anchor => "entry_id_#{@entry.id}")
+    .form-group
+      = f.label :newsletter_img, 'Image for newsletter (optional)'
+      = f.file_field :newsletter_img, :class => 'form-control'
+    = f.submit 'Upload', :class => 'btn btn-danger btn-block'

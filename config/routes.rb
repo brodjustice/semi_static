@@ -11,7 +11,7 @@ SemiStatic::Engine.routes.draw do
   end
 
   resources :fcols do
-    resources :links
+    resources :links, :except => :show
   end
 
   resources :entries do
@@ -82,10 +82,10 @@ SemiStatic::Engine.routes.draw do
   resources :squeezes
   resources :job_postings
   resources :events, :except => :show
-  resources :sidebars, :except => :show
+  resources :sidebars
   resources :products
   resources :newsletter_deliveries, :only => :update
-  resources :subscribers do
+  resources :subscribers, :except => :show do
     resources :newsletter_deliveries, :only => :index
   end
   resources :subscriber_categories, :only => [:new, :create, :destroy]
@@ -99,8 +99,9 @@ SemiStatic::Engine.routes.draw do
 
   match '/semi-static/dashboard' => 'dashboards#show', :as => 'semi_static_dashboard', :via => :get
 
-  # All system cmd use update, even though they may really be doing a GET
+  # Most system cmd use update, even though they may really be doing a GET
   match '/system' => "system#update", :via => :put
+  match '/system/show' => "system#show", :via => :get
 end
 
 

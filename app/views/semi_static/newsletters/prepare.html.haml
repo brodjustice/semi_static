@@ -2,6 +2,7 @@
   :plain
     .category{float:right; margin:6px 6px 6px 24px;}
     h4{clear:right; background-color:white; padding:6px;}
+
 - content_for :ujs do
   :javascript
     function count_selected(){
@@ -11,16 +12,6 @@
       $('.subscribe_state').change(function() {
         count_selected();
         return true;
-      });
-      $('#all_subscribers').change(function() {
-        if ($(this).prop('checked')) {
-          $('#categories input').prop('checked', true);
-          $('.subscribe_state').prop('checked', true);
-        } else {
-          $('#categories input').prop('checked', false);
-          $('.subscribe_state').prop('checked', false);
-        }
-        count_selected();
       });
       count_selected();
       $('#categories input').each(function() {
@@ -33,55 +24,81 @@
           count_selected();
         });
       });
+      $(".sortable").tablesorter({headers:{0:{sorter:false}}});
+
+      // This must be done after tablesorter is called as table sorter changes the header
+      $('#all_subscribers').change(function() {
+        if ($(this).prop('checked')) {
+          $('#categories input').prop('checked', true);
+          $('.subscribe_state').prop('checked', true);
+        } else {
+          $('#categories input').prop('checked', false);
+          $('.subscribe_state').prop('checked', false);
+        }
+        count_selected();
+      });
     });
 
-.dashboard
-  .button
-    = link_to 'New Subscriber', new_subscriber_path
+.app-title
+  %div
+    %h1
+      %i.fa.fa-layout.invert
+      %span= @newsletter.name
+    %p= "Subscriber list (locale: #{@newsletter.locale.to_s})"
+  = link_to new_subscriber_path, :class => 'btn btn-primary' do
+    %span.app-menu__icon.fa.fa-layout
+    %span New Subscriber
 
-  %h1= "Subscriber list (locale: #{@newsletter.locale.to_s})"
-  %h3
-    = "#{@subscribers.size.to_s} entries /"
-    %span#selected= '<unknown>'
-    = "selected"
-  #categories
-    - SemiStatic::SubscriberCategory.all.each do |c|
-      .category
-        = c.name
-        = check_box_tag c.name, nil, true
-  %h4 Uncheck subscribers to remove them from the newsletter distribution
-  .button
-    = link_to 'Remove all pending deliveries', newsletter_path(@newsletter, :remove_pending => true), :method => :put
-  %p
-    = @newsletter.newsletter_deliveries.pending.size
-    deliveries are already pending
-  
+.tile
+  .tile-title
+    %h5
+      = "#{@subscribers.size.to_s} entries /"
+      %span#selected= '<unknown>'
+      = "selected"
+  .tile-body
+    %p Uncheck subscribers to remove them from the newsletter distribution
+    #categories
+      - SemiStatic::SubscriberCategory.all.each do |c|
+        .category
+          = c.name
+          = check_box_tag c.name, nil, true
+  .clearfix
+  .tile-title-w-btn
+    %h5
+      = @newsletter.newsletter_deliveries.pending.size
+      deliveries are already pending
+    = link_to newsletter_path(@newsletter, :remove_pending => true), :method => :put, :class => 'btn btn-danger loading' do
+      %span.app-menu__icon.fa.fa-layout
+      %span Remove all pending deliveries
+    
   = form_for @newsletter do |f|
-    %table
-      %thead
-        %tr
-          %th= check_box_tag "all_subscribers", true, :checked => true
-          %th Name
-          %th Surname
-          %th Email
-          %th Since
-          %th Category
-          %th State
-      %tbody
-        - @subscribers.each do |s|
-          %tr{:class => "#{s.category_name && s.category_name.parameterize}"}
-            %td.tick{:id => "subscriber_id_#{s.id}"}
-              - if s.unsubscribe == false
-                = check_box_tag "subscriber[#{s.id}]", 1, s.delivery_state(@newsletter) != SemiStatic::NewsletterDelivery::STATES[:sent], :class => 'subscribe_state'
-              - else
-                %div{:title=> "Is not longer a subscriber"} ✗
-            %td.name= s.name
-            %td.name= s.surname
-            %td.name= s.email
-            %td.name= s.created_at.strftime('%d-%b-%y')
-            %td.name= s.category_name
-            %td.name
-              = link_to SemiStatic::NewsletterDelivery::STATE_CODES[s.delivery_state(@newsletter)].to_s.humanize, subscriber_newsletter_deliveries_path(s.id, :newsletter_id => @newsletter.id), :remote => true
-    .mid
-      .actions
-        = f.submit 'Publish', :name => 'publish'
+    .tile-body
+      .table-responsive
+        %table.table.sortable.table-bordered.table-hover
+          %thead
+            %tr
+              %th= check_box_tag "all_subscribers", true, :checked => true
+              %th Name
+              %th Surname
+              %th Email
+              %th Since
+              %th Category
+              %th State
+          %tbody
+            - @subscribers.each do |s|
+              %tr{:class => "#{s.category_name && s.category_name.parameterize}"}
+                %td.tick{:id => "subscriber_id_#{s.id}"}
+                  - if s.unsubscribe == false
+                    = check_box_tag "subscriber[#{s.id}]", 1, s.delivery_state(@newsletter) != SemiStatic::NewsletterDelivery::STATES[:sent], :class => 'subscribe_state'
+                  - else
+                    %div{:title=> "Is not longer a subscriber"} ✗
+                %td.name= s.name
+                %td.name= s.surname
+                %td.name= s.email
+                %td.name= s.created_at.strftime('%d-%b-%y')
+                %td.name= s.category_name
+                %td.name
+                  = link_to SemiStatic::NewsletterDelivery::STATE_CODES[s.delivery_state(@newsletter)].to_s.humanize, subscriber_newsletter_deliveries_path(s.id, :newsletter_id => @newsletter.id), :remote => true
+    .tile-footer
+      .text-center
+        = f.submit 'Publish', :name => 'publish', :class => 'btn btn-danger btn-block loading'

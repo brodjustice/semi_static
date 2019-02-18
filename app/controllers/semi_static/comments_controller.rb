@@ -7,16 +7,18 @@ module SemiStatic
 
     # Our comments are loaded by an AJAX javascript request to the index action which
     # the Rails 5 strict Cross Domain Forgery Request policy will decline even if the
-    # request is GET and the AUTH TOKEN is sent. Could get around this by skipping
+    # request is GET when there is no AUTH TOKEN is sent. Could get around this by skipping
     # the token verification thus:
     #   skip_before_action :verify_authenticity_token, :only => :index
     # We don't do this as it could open up future security holes so we instead
-    # construct our AJAX call with the headers expected by Rails 5, see the 
-    # semiStaticAJAX(url) function.
+    # construct our AJAX call with the headers expected by Rails 5, and even though the
+    # AUTH TOKEN is usually false (because its a static page) Rails will not complain,
+    # see the semiStaticAJAX(url) function.
 
 
     # GET /comments.json
     def index
+
       if params[:entry_id].present?
         @entry = Entry.find(params[:entry_id])
         @comments = @entry.comments.all

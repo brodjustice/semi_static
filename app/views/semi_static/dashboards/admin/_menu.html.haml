@@ -1,0 +1,90 @@
+- content_for :ujs do
+  :javascript
+    $(document).ready(function(){
+      $('.loading').parent().on('click', function() {
+        waitingDialog.show('Loading...', {dialogSize: 'sm', progressType: 'striped progress-bar-animated'});
+      });
+    });
+
+%header.app-header
+  = link_to semi_static_dashboard_path, :class => 'app-header__logo' do
+    .logo-mini
+    .logo-lg
+      = image_tag('x2/bl-logo-white.png')
+  %a.app-sidebar__toggle{:data => {:toggle => 'sidebar'}}
+    .menu-line
+    .menu-line
+    .menu-line
+  #notices
+    - if notice.present?
+      %p.notice= notice
+    - if alert.present?
+      %p.notice= alert
+
+  %ul.app-nav
+    #alarmNotificationArea
+    -#  = render :partial => 'users/dashboard/alarms'
+
+    #companiesArea
+    -#  = render :partial => 'users/dashboard/companies'
+          
+    %li.dropdown
+      = link_to '#', :class => 'app-nav__item', :data => {:toggle => 'dropdown'} do
+        %i.fa.fa-user.fa-lg
+      %ul.dropdown-menu.settings-menu.dropdown-menu-right
+        <li><a class="dropdown-item" href="#{semi_static_dashboard_path}"><i class="fa fa-user fa-lg"></i> Profile</a></li>
+        %li
+          = link_to semi_static_path_for_admin_sign_out, :method => :delete, :class => 'dropdown-item' do
+            %i.fa.fa-sign-out.fa-lg
+            Logout
+
+%aside.app-sidebar
+  .app-sidebar__user
+    = image_tag(SemiStatic::Engine.config.logo_image, :class => 'app-sidebar__logo')
+
+  %ul.app-menu
+    %li.header Pages
+    = nav_icon_link('Tags', 'tags', tags_path, 'fa-hierarchy')
+    = nav_icon_link('Entries', 'entries', entries_path, 'fa-website')
+
+    -# %li.treeview
+    -#   = link_to '#', :class => 'app-menu__item', :data => {:toggle => 'treeview'} do
+    -#     %i.app-menu__icon.fa.fa-clone
+    -#     %span.app-menu__label Backup
+    -#     %i.treeview-indicator.fa.fa-angle-right
+    -#   %ul.treeview-menu
+    -#     %li
+    -#       = link_to app_clones_path, :class=> 'treeview-item' do
+    -#         %i.icon.fa.fa-circle-o
+    -#         App Clones
+    -#     %li
+    -#       = link_to user_path(current_user), :class=> 'treeview-item' do
+    -#         %i.icon.fa.fa-circle-o
+    -#         Semi-automatic
+
+    %li.header Layout
+    = nav_icon_link('Banners', 'banners', banners_path, 'fa-banner')
+    = nav_icon_link('Sidebars', 'sidebars', sidebars_path, 'fa-sidebar')
+    = nav_icon_link('Footer', 'footer', fcols_path, 'fa-footer')
+    = nav_icon_link('Page Attributes', 'page_attributes', page_attrs_path, 'fa-attrs')
+    = nav_icon_link('Custom Pages', 'system', system_show_path(:cmd => :custom_pages), 'fa-code')
+    %li.header Elements
+    = nav_icon_link('SEO', 'seos', seos_path, 'fa-graph')
+    = nav_icon_link('Products', 'products', products_path, 'fa-product')
+    = nav_icon_link('Carts', 'carts', carts_path, 'fa-cart')
+    = nav_icon_link('Events', 'events', events_path, 'fa-event')
+    = nav_icon_link('Galleries', 'photos', galleries_path, 'fa-photo')
+    = nav_icon_link('Agreements', 'agreements', agreements_path, 'fa-system')
+    = nav_icon_link('Squeezes', 'squeezes', squeezes_path, 'fa-squeeze')
+    = nav_icon_link('Jobs', 'jobs', job_postings_path, 'fa-job')
+    = nav_icon_link('Click Ads', 'click_ads', click_ads_path, 'fa-click_ads')
+    = nav_icon_link('Newsletters', 'newsletters', newsletters_path, 'fa-layout')
+    = nav_icon_link('References', 'references', references_path, 'fa-test')
+    = nav_icon_link('System', 'system', semi_static_dashboard_path, 'fa-settings')
+    %li.header Data
+    = nav_icon_link('Comments', 'comments', comments_path, 'fa-comments')
+    = nav_icon_link('Subscribers', 'subscribers', subscribers_path, 'fa-subscriber')
+    = nav_icon_link('Contacts', 'contacts', contacts_path, 'fa-user')
+    %li.header Access
+    = nav_icon_link('Admins', 'contacts', semi_static_path_for_admins, 'fa-admin')
+

@@ -1,31 +1,47 @@
-.dash
-  .button= link_to 'New newsletter', new_newsletter_path
-  %h1 Newsletters
+- content_for :ujs do
+  :javascript
+    $(document).ready(function(){
+      $(".sortable").tablesorter({headers:{7:{sorter:false}}});
+    });
 
-  %table
-    %tr
-      %th Name
-      %th Tag
-      %th State
-      %th Entries
-      %th Locale
-      %th{:title => 'Subscribers(Deliveries)'}= 'S'
-      %th
+.app-title
+  %h1
+    %i.fa.fa-layout.invert
+    %span Newsletters
+  .text-right
+  = link_to new_newsletter_path, :class => 'btn btn-primary' do
+    %span.app-menu__icon.fa.fa-layout
+    %span New Newsletter
 
-    - @newsletters.each do |n|
-      %tr
-        %td
-          -# = link_to n.name, edit_newsletter_path(n), :target => 'semi_static_newsletter'
-          = link_to n.name, edit_newsletter_path(n)
-        %td
-          - unless n.tag.nil?
-            = link_to n.tag.name, edit_tag_path(n.tag)
-        %td= SemiStatic::Newsletter::STATE_CODES[n.state].to_s.humanize
-        %td
-          %ul
-            - n.draft_entry_objects.each_with_index do |e, i|
-              %li= link_to (i.to_s + ' ' + e.title), edit_entry_path(e)
-        %td.number= n.locale.to_s
-        %td.number= link_to "#{n.subscribers.count.to_s}(#{n.newsletter_deliveries.delivered.count.to_s})", newsletter_newsletter_deliveries_path(n)
-        %td= link_to image_tag('/assets/bin.png'), n, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
+.tile
+  .tile-body
+    .table-responsive
+      %table.table.sortable.table-bordered.table-hover
+        %thead
+          %tr
+            %th Name
+            %th Tag
+            %th State
+            %th Entries
+            %th Locale
+            %th{:title => 'Subscribers(Deliveries)'}= 'S'
+            %th
+      
+        %tbody
+          - @newsletters.each do |n|
+            %tr
+              %td
+                -# = link_to n.name, edit_newsletter_path(n), :target => 'semi_static_newsletter'
+                = link_to n.name, edit_newsletter_path(n)
+              %td
+                - unless n.tag.nil?
+                  = link_to n.tag.name, edit_tag_path(n.tag)
+              %td= SemiStatic::Newsletter::STATE_CODES[n.state].to_s.humanize
+              %td
+                %ul
+                  - n.draft_entry_objects.each_with_index do |e, i|
+                    %li= link_to (i.to_s + ' ' + e.title), edit_entry_path(e)
+              %td.number= n.locale.to_s
+              %td.number= link_to "#{n.subscribers.count.to_s}(#{n.newsletter_deliveries.delivered.count.to_s})", newsletter_newsletter_deliveries_path(n)
+              %td= link_to image_tag('/assets/bin.png'), n, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      

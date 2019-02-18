@@ -9,11 +9,26 @@ module SemiStatic
 
     before_action :authenticate_for_semi_static!
   
-    CMDS = %w(show search_reindex expire_page_cache clean_up passenger_restart load_url generate_sitemap_options generate_sitemap generate_static_pages partial_description)
+    UPDATE_CMDS = %w(show search_reindex expire_page_cache clean_up passenger_restart load_url generate_sitemap_options generate_sitemap generate_static_pages partial_description)
+    SHOW_CMDS = %w(custom_pages)
     SESSION = %w(workspace_tag_id)
+
+    def show
+      if params[:cmd].present? && SHOW_CMDS.include?(params[:cmd])
+        @result = send(params[:cmd])
+        template = params[:cmd]
+      else
+        template = 'unknown_cmd'
+      end
+      respond_to do |format|
+        format.html {
+          render :template => "semi_static/system/#{template}", :layout => 'semi_static_dashboards'
+        }
+      end
+    end
   
     def update
-      if params[:cmd].present? && CMDS.include?(params[:cmd].keys.first)
+      if params[:cmd].present? && UPDATE_CMDS.include?(params[:cmd].keys.first)
         action = params[:cmd].keys.first
         @locale = params[:locale]
 

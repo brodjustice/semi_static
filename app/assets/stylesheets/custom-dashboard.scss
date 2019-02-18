@@ -1,0 +1,442 @@
+// Adjust padding so icons are in center when sidenav is toggled
+.sidenav-toggled .app-menu__item{
+  padding-left: 10px;
+}
+
+// BL color background
+.app-header__logo{
+  background-color: #1e3055;
+}
+.app-header{
+  background-color: #2e4065;
+}
+
+// Padding to enable display of header menu icons
+.app-nav .fa{
+  padding: 6px 16px;
+}
+// Height to fit top menu height
+.app-header .app-nav__item{
+  padding: 20px 10px 16px;
+}
+
+// Our pop-up modal should have less rounded corners to match our style
+.modal-content{
+  border-radius: 4px;
+}
+
+// No idea why labels have bottom margin rather than top margin
+label{
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+
+// Status widgets
+.status{
+  height: 28px;
+  background-color: #f0f0f0;
+  position: relative;
+  border-radius: 3px;
+  overflow: hidden;
+  display: inline-block;  
+}
+td .status{
+  margin: -6px -2px -10px -2px;
+}
+.slice{
+  float: right;
+  width: 10px;
+  height: 28px;
+  background-color: #009688;
+  position: relative;
+  z-index: 1;
+  border-right: solid white 2px;
+  bottom: 0;
+}
+.status .slice:first-child{
+  width: 8px;
+  border-right: 0;
+}
+
+// Reduce padding to get more in left menu
+.app-menu__item{
+  padding: 6px 15px;
+}
+.app-menu__label{
+  padding-left: 6px;
+}
+.fa{
+  background-size: 24px 24px;
+  background-color: transparent;
+  height: 24px;
+  background-position: left center;
+  background-repeat: no-repeat;
+}
+// Icons are black by default so invert color to white for black sidebar. Plus invert the
+// search icon colour when input has :focus
+.app-search__input:focus + button i.fa-search,
+table .fa,
+.dropdown-menu.settings-menu .fa,
+.invert{
+  -webkit-filter: invert(100%);
+  filter: invert(100%);
+}
+.fa.option{
+  -webkit-filter: invert(33%);
+  filter: invert(33%);
+}
+.coloured-icon .fa{
+  height: 64px;
+  width: 64px;
+  min-width: 0;
+}
+
+// Search icon needs nudging down a bit
+.app-search__button{
+  margin-top: 4px;
+  right:-8px;
+}
+
+// btn next to input (usually used to remove input) needs less padding
+.input-group .btn{
+  padding: 0.275rem 0.5rem;
+  margin-left: 6px;
+}
+
+// :focus-within is CCS level 4 but supported on most none MS browsers
+.app-search form:focus-within .fa-search{
+  -webkit-filter: none;
+  filter: none;
+}
+
+// Display .title h1 icons
+h1 .fa{ padding: 0 0 0 38px; background-size: 100%; height: 36px; margin-bottom: -10px; }
+h4 .app-menu__icon.fa{ padding: 0 0 0 28px; background-size: 86%; height: 26px; margin-bottom: -7px; }
+h5 .fa{ padding: 0 0 0 24px; background-size: 100%; height: 24px; margin-bottom: -5px; }
+
+// Icons from sprites
+//
+// .fa-alarm, .fa-datastore, .fa-device, .fa-power, .fa-settings, .fa-tickets, .fa-units, .fa-operation, .fa-search, .fa-user
+
+.app-header .fa,
+.app-search__button .fa-search,
+.app-menu__icon.fa{
+  background-size: 24px auto;
+}
+
+// A bit of space (margin) to right of buttons
+.btn-space{
+  margin-right: 6px;
+}
+// Cancel out padding around buttons in tables
+table .btn{
+  margin-top: -8px; margin-bottom: -8px;
+}
+
+.fa{
+  display: inline-block; background: image-url('icon-sprites.png') no-repeat;
+  overflow: hidden; text-indent: -9999px; text-align: left;
+}
+
+.fa.fade-out{
+  filter: invert(20%);
+}
+
+// For tree items indent a bit
+.treeview-menu li .fa{margin-left: 24px;}
+ 
+.fa-alarm { background-position: -0px -0px; }
+.fa-banner { background-position: -0px -24px;} 
+.fa-datastore { background-position: -0px -48px;} 
+.fa-operation { background-position: -0px -96px; }
+.fa-sign-out { background-position: -0px -120px; }
+.fa-device { background-position: -0px -72px; }
+.fa-search { background-position: -0px -144px;} 
+.fa-settings { background-position: -0px -168px;} 
+.fa-tickets { background-position: -0px -192px;} 
+.fa-user, .fa-unlocked { background-position: -0px -240px;}
+.fa-delete { background-position: -0px -264px;}
+.fa-cancel { background-position: -0px -288px;}
+.fa-edit { background-position: -0px -312px;}
+.fa-units { background-position: -0px -216px; }
+.fa-reset { background-position: -0px -336px;}
+.fa-lock, .fa-locked { background-position: -0px -360px;}
+.fa-map { background-position: -0px -384px;}
+.fa-system { background-position: -0px -408px;}
+.fa-hierarchy { background-position: -0px -432px;}
+.fa-page { background-position: -0px -456px;}
+.fa-tools { background-position: -0px -480px;}
+.fa-compound { background-position: -0px -504px;}
+.fa-result { background-position: -0px -528px;}
+.fa-database { background-position: -0px -554px;}
+.fa-purge { background-position: -0px -576px;}
+.fa-phone { background-position: -0px -600px;}
+.fa-website { background-position: -0px -626px;}
+.fa-test { background-position: -0px -648px;}
+.fa-graph { background-position: -0px -672px;}
+.fa-clone { background-position: -0px -696px;}
+.fa-repo { background-position: -0px -720px;}
+.fa-comments { background-position: -0px -744px;}
+.fa-cart { background-position: -0px -768px;}
+.fa-product { background-position: -0px -790px;}
+.fa-layout { background-position: -0px -816px;}
+.fa-sidebar { background-position: -0px -840px;}
+.fa-footer { background-position: -0px -864px;}
+.fa-photo { background-position: -0px -888px;}
+.fa-event { background-position: -0px -912px;}
+.fa-attrs { background-position: -0px -936px;}
+.fa-date { background-position: -0px -960px;}
+.fa-lang { background-position: -0px -984px;}
+.fa-job { background-position: -0px -1008px;}
+.fa-squeeze { background-position: -0px -1032px;}
+.fa-admin { background-position: -0px -1056px;}
+.fa-vertical { background-position: -0px -1080px;}
+.fa-subscriber { background-position: -0px -1104px;}
+.fa-code { background-position: -0px -1128px;}
+
+.fa-circle-o::before{
+  content: '○';
+  height: 24px;
+  display:block;
+  line-height: 24px;
+  color: white;
+  text-indent: 0;
+  font-style: normal;
+}
+
+h1 .fa-banner{ background-position: -0px -40px;} 
+h1 .fa-search { background-position: -0px -228px;} 
+h1 .fa-tickets { background-position: -0px -304px;} 
+h1 .fa-device { background-position: -0px -114px;} 
+h1 .fa-operation { background-position: -0px -154px;} 
+h1 .fa-settings { background-position: -0px -267px;} 
+h1 .fa-user { background-position: -0px -382px;} 
+h1 .fa-datastore { background-position: -0px -76px;} 
+h1 .fa-map { background-position: -0px -610px;} 
+h1 .fa-cancel { background-position: -0px -493px;} 
+h1 .fa-edit { background-position: -0px -493px;} 
+h1 .fa-unit { background-position: -0px -344px;} 
+h1 .fa-system { background-position: -0px -647px;} 
+h1 .fa-hierarchy { background-position: -0px -686px;} 
+h1 .fa-tools { background-position: -0px -760px;} 
+h1 .fa-result { background-position: -0px -838px;} 
+h1 .fa-database { background-position: -0px -875px;} 
+h1 .fa-purge { background-position: -0px -875px;} 
+h1 .fa-website { background-position: -0px -990px;} 
+h1 .fa-test { background-position: -0px -1026px;} 
+h1 .fa-graph { background-position: -0px -1066px;} 
+h1 .fa-clone { background-position: -0px -1103px;} 
+h1 .fa-repo { background-position: -0px -1141px;} 
+h1 .fa-layout { background-position: -0px -1292px;} 
+h1 .fa-sidebar { background-position: -0px -1332px;} 
+h1 .fa-footer { background-position: -0px -1369px;} 
+h1 .fa-photo { background-position: -0px -1408px;} 
+h1 .fa-attrs { background-position: -0px -1482px;} 
+h1 .fa-code { background-position: -0px -1786px;} 
+
+// Tile add and remove button tweeks
+.btn.add, .btn.remove{
+  font-size: 24px; line-height:24px;
+} 
+
+// Alarm icon inside tile title
+.tile-title-w-btn .aicon, .tile-title .aicon{
+   font-size: 20px;
+   line-height: 32px;
+   height: 32px; width: 32px;
+   border-color: black;
+}
+
+// Change color to red in dropdown
+li.dropdown.danger{background-color: #dc3545;}
+
+// Rest not icons, but other bootstrap compatible extentions
+.input-box{
+  background-color: #f0f0f0; padding: 8px;
+}
+
+// Fix the size of the user avatar and logo so it does not mess up the layout
+img.app-sidebar__user-avatar{
+  max-width: 48px;
+}
+img.app-sidebar__logo{
+  max-width: 128px;
+  margin: 0 auto;
+}
+
+// Menu header
+.app-menu li.header{
+  color: #808080;
+  text-align: center;
+  margin-top: 12px;
+}
+
+// Create check box inputs in similar style, there may be a better way of doing
+// this without this hack
+.input-border-wrapper legend.input-group-text,
+.input-border-wrapper{
+  border: 2px solid #ced4da;
+  border-radius: 4px;
+}
+.input-border-wrapper .input-group-text{
+  border-top: 0;
+  border-bottom: 0;
+  border-left: 0;
+}
+fieldset.input-border-wrapper{
+  padding: inherit; margin: inherit;
+  padding-bottom: 4px;
+}
+
+// More checkbox styling
+
+.checkbox-wrapper{
+  cursor: pointer;
+  margin :auto;
+}
+
+.checkbox-wrapper input[checkbox]{
+  width: 60px;
+  height: 30px;
+  cursor: pointer;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background: #dc3545;
+  border-radius: 2px;
+  position: relative;
+  outline: 0;
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  background-size: 32px 32px;
+  background-image: image-url('bs-cross.png');
+  background-repeat: no-repeat;
+  background-position: right center;
+}
+
+.checkbox-wrapper input[checkbox]:after{
+  position: absolute;
+  content: '';
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  background: #dfeaec;
+  z-index: 2;
+  border-radius: 2px;
+  -webkit-transition: all .35s;
+  transition: all .35s;
+}
+
+/* Checked State */
+.checkbox-wrapper input[checkbox]:checked{
+  background: #007065;
+  background-image: image-url('bs-tick.png');
+  background-size: 32px 32px;
+  background-repeat: no-repeat;
+  background-position: left center;
+}
+.checkbox-wrapper input[checkbox]:disabled{
+  background-color: #808080;
+}
+
+.checkbox-wrapper input[checkbox]:checked:after{
+  left: calc(100% - 24px);
+}
+
+// Pagination
+ul.pagination{display:inline-flex;}
+.pagination .page-link{
+  color: #14486f;
+}
+.page-item.active .page-link{
+  background-color: #34688f;
+  border-color: #14486f;
+}
+
+
+// Better that the standard Bootstrap, that does not display the file name(s)
+.custom-file .custom-file-input{
+  opacity: 1; line-height: 31px;
+}
+
+.progress{
+  height: 2rem;
+}
+
+// Possibly much can be removed in .profile class
+.user .profile{margin: -20px;}
+.user .profile .info{width:100%; background-color: #14486f;}
+.user .profile .info h4{font-size: inherit;}
+
+// Dense table content
+table.table-dense td{
+  padding: 0.30rem;
+}
+// General stuff
+table .app-menu__icon.fa{
+  margin-top: -4px;
+  margin-bottom: -5px;
+}
+td.warning{
+  color: white;
+  background-color: red;
+}
+
+// Logo 
+.logo-lg img{
+  height: 35px;
+  width: 98px;
+}
+
+// Info boxes - require JS
+.infomarker{
+  background: transparent image-url('info.png') 0 4px no-repeat;
+  padding: 0px 6px 6px 20px;
+  cursor: help;
+}
+.input-group .infomarker{margin-top: 14px;}
+.infobox{
+  margin: 8px;
+  border: 1px solid #ccc;
+  background: #f0f0f0;
+  border-radius: 2px;
+  z-index: 100;
+  padding: 6px;
+  display: none;
+}
+.infobox.wide{
+  width: auto;
+  padding-bottom: 6px;
+  margin-bottom: 6px;
+}
+
+// And this is standard rails stuff
+#notices{
+  margin: 18px 0 0;
+  left: 128px;
+}
+#notices p{
+  margin:0;
+  padding: 4px 8px;
+  background-color: rgba(255,255,255, 0.9);
+  border-radius: 2px;
+  z-index: 1000;
+}
+
+#notices p{color: black;}
+.error #error_explanation{width:auto;color:black;}
+
+// Dashboard tables improvements
+td.tick{ text-align: center; }
+td.name, td.number{ text-align: right; }
+td.tag{ min-width: 10%; }
+table td.merge{ padding-left: 2.0rem; }
+
+// Expand photo in table on hover
+td.photo{ padding: 0 0 1px; position: relative; width: 48px; height: 48px; }
+td.photo img{ transition: 0.5s; position: absolute; top: 0; left: 0;width: 48px; height: 48px; }
+tr td.photo:hover img{ width: 96px; height: 96px; z-index: 10; top: -24px; left: -24px; border: 4px solid white;}
+
+// Banner thumbnail in forms
+.banner-thumb img{max-width: 100%;}

@@ -1,8 +1,10 @@
-.button= link_to 'Cancel', '#', :onclick => "$('#dialog').hide(); return false"
+.modal-header
+  - if @seo.seoable
+    %h5.modal-title= ['SEO for', @seo.seoable.raw_title, "(#{@seo.seoable.locale.to_s})"].join(' ')
+  - else
+    %h5.modal-title= "ERROR: No Entry or Tag found for associated SEO"
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
 - if @seo.seoable
-  %h1= ['Editing SEO meta tags for', @seo.seoable.raw_title].join(' ')
-  .button= link_to 'Delete', polymorphic_path([@seo.seoable, @seo]), :method => :delete
-  %h3= ['locale:', @seo.seoable.locale.to_s].join(' ')
-  = render 'form'
-- else
-  %h1= "ERROR: No Entry or Tag found for associated SEO"
+  .modal-body
+    = render 'form'
+  = render 'hreflangs'

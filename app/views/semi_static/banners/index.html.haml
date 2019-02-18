@@ -1,10 +1,51 @@
-.mid.wide
-  .button= link_to 'New Banner', new_banner_path
-  %h1 Banners
+- content_for :ujs do
+  :javascript
+    $(document).ready(function(){
+      $(".sortable").tablesorter();
+    });
 
-  - @banners.each do |banner|
-    %h4= banner.name
-    - if banner.img.present?
-      = image_tag(banner.img_url_for_theme(:desktop), :title => banner.name, :class => 'ri')
-    = link_to 'Edit', edit_banner_path(banner)
-    = link_to image_tag('bin.png', :title => "Delete banner #{banner.name}"), banner, method: :delete, data: { confirm: "Are you sure you want to delete #{banner.name}?" }
+- content_for :header_css do
+  :plain
+    .banner-thumb{max-width: 256px;}
+
+.app-title
+  %h1
+    %i.fa.fa-banner.invert
+    %span Banners
+  = link_to new_banner_path, :class => 'btn btn-primary' do
+    %span.app-menu__icon.fa.fa-banner
+    %span New Banner
+
+.tile
+  .tile-body
+    .table-responsive
+      %table.table.sortable.table-bordered.table-hover
+        %thead
+          %th= '#'
+          %th Name
+          %th Entries
+          %th Tags
+          %th Thumbnail
+          %th
+            %i.app-menu__icon.fa.fa-delete
+
+        %tbody
+          - @banners.each do |banner|
+            %tr
+              %td= banner.id
+              %td= link_to banner.name, edit_banner_path(banner)
+              %td
+                - banner.entries.each do |entry|
+                  = link_to entry.explicit_title, edit_entry_path(entry)
+                  %br
+              %td
+                - banner.tags.each do |tag|
+                  = link_to tag.name, edit_tag_path(tag)
+                  %br
+              %td
+                - if banner.img.present?
+                  = image_tag(banner.img.url, :title => banner.name, :class => 'banner-thumb')
+              %td
+                = link_to banner, method: :delete, data: { confirm: "Are you sure you want to delete #{banner.name}?" } do
+                  %i.app-menu__icon.fa.fa-delete
+

@@ -3,21 +3,30 @@
     %th= '#'
     %th= 'Title'
     %th= 'Tag'
-    %th= 'Merge'
+    %th{:title => 'Merge'} M
     %th{:title => 'Custom view'}= 'C'
-    %th{:title => 'Has master?'}= 'M'
     %th{:title => 'Home page'}= 'H'
     %th{:title => 'News'}= 'N'
-    %th{:title => 'Side Bar'}= 'S'
-    %th{:title => 'Position'}= 'Pos.'
-    %th= 'Banner'
-    %th{:title => 'Admin only page'}= 'A'
-    %th= 'SEO'
-    -# %th= image_tag('video.png', :title => 'YouTube Video')
-    -# %th= image_tag('photos.png', :title => 'Gallery or number of photos')
+    %th{:title => 'Position'}
+      %i.app-menu__icon.fa.fa-vertical
+    %th{:title => 'Side Bar'}
+      %i.app-menu__icon.fa.fa-sidebar
+    %th{:title => 'Banner'}
+      %i.app-menu__icon.fa.fa-banner
+    %th{:title => 'Admin only page'}
+      %i.app-menu__icon.fa.fa-admin
+    %th{:title => 'SEO'}
+      %i.app-menu__icon.fa.fa-graph
+    %th{:title => 'Document loaded'}
+      %i.app-menu__icon.fa.fa-page
+    %th{:title => 'Locale'}
+      %i.app-menu__icon.fa.fa-lang
+    %th{:title => 'Ticked if this entry has a product'}
+      %i.app-menu__icon.fa.fa-product
+    %th{:title => 'Last update'}
+      %i.app-menu__icon.fa.fa-date
     %th
-    %th{:title => 'Locale'}= 'L'
-    %th{:title => 'Ticked if this entry has a product'}= 'P'
-    %th= image_tag('calendar.png', :title => 'Last update')
+      %i.app-menu__icon.fa.fa-clone
     %th
-    %th
+      %i.app-menu__icon.fa.fa-delete
+

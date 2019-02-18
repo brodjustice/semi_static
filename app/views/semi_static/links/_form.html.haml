@@ -1,22 +1,25 @@
-= form_for [@fcol, @link] do |f|
-  - if @link.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@link.errors.count, "error")} prohibited this link from being saved:"
-      %ul
-        - @link.errors.full_messages.each do |msg|
-          %li= msg
+.tile
+  .tile-body
 
-  %fieldset
-    = f.label :name
-    = f.text_field :name
-  %fieldset
-    = f.label :url
-    = f.text_field :url
-    %br/
-    = f.check_box :new_window
-    = f.label :new_window, 'Cause link to open in new window'
-  %fieldset
-    = f.label :position
-    = f.text_field :position
-  .actions
-    = f.submit 'Save'
+    = form_for [@fcol, @link] do |f|
+      - if @link.errors.any?
+        #error_explanation
+          %h2= "#{pluralize(@link.errors.count, "error")} prohibited this link from being saved:"
+          %ul
+            - @link.errors.full_messages.each do |msg|
+              %li= msg
+    
+      .form-group
+        = f.label :name
+        = f.text_field :name, :class => 'form-control'
+      .form-group
+        = f.label :url
+        = f.text_field :url, :class => 'form-control'
+      .form-group
+        = f.label :new_window, 'Cause link to open in new window'
+        = f.check_box :new_window, :class => 'form-control'
+      .form-group
+        = f.label :position
+        = f.text_field :position, :class => 'form-control'
+      .actions
+        = f.submit 'Save', :class => 'btn btn-danger btn-block'

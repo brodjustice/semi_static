@@ -11,11 +11,16 @@ module SemiStatic
     # GET /subscribers.json
     def index
       template = 'index'
+      @total_subscribers = @subscribers = Subscriber.where(:unsubscribe => false)
       if params[:unsubscribed] == 'true'
         @subscribers = Subscriber.where(:unsubscribe => true)
         template = 'unsubscribers'
       else
-        @subscribers = Subscriber.where(:unsubscribe => false)
+        if params[:nopaginate]
+          @nopaginate = true
+        else
+          @subscribers = Subscriber.where(:unsubscribe => false).page(params[:page])
+        end
       end
 
       respond_to do |format|
@@ -27,17 +32,6 @@ module SemiStatic
           headers["Content-Disposition"] = "attachment; filename=\"#{filename}\""
           render :layout => false
         }
-      end
-    end
-  
-    # GET /subscribers/1
-    # GET /subscribers/1.json
-    def show
-      @subscriber = Subscriber.find(params[:id])
-  
-      respond_to do |format|
-        format.html # show.html.erb
-        format.json { render json: @subscriber }
       end
     end
   

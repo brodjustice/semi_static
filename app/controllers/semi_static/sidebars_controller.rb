@@ -17,6 +17,10 @@ module SemiStatic
         format.json { render json: @sidebars }
       end
     end
+
+    def show
+      @sidebar = Sidebar.find(params[:id])
+    end
   
     # GET /sidebars/new
     # GET /sidebars/new.json
@@ -84,7 +88,5 @@ module SemiStatic
     def sidebar_params
       params.fetch(:sidebar, {}).permit(:title, :body, :bg, :color, :bg_color, :style_class, :partial)
     end
-
-
   end
 end

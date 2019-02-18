@@ -1,23 +1,25 @@
-.button= link_to_function 'Cancel', "$('#dialog').hide();"
-%h2= 'Upload CSV file of subscribers that bounced and should thus be moved to the unsubscribe list'
-%p
-  The format must be:
-  %ul
-    %li= 'Column 1: Email address'
-    %li= 'Column 2: (Optional) First Name'
-    %li= 'Column 3: (Optional) Surname'
-    %li= 'Column 4: (Optional) Telephone number'
-    %li= 'Column 5: (Optional) Position'
-    %li= 'Column 6: (Optional) Company'
-    %li= 'Column 7: (Optional) Country'
-  The fields must be seperated with commas.
-= form_tag(subscribers_path(:cmd => :bounced), multipart: true, method: :post) do
-  .field
-    = label_tag :subscriber_category_id
-    = select_tag :subscriber_category_id, options_for_select(SemiStatic::SubscriberCategory.all.collect{|sc| [sc.name, sc.id]})
-  .field
-    = label_tag :locale
-    = select_tag :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, SemiStatic::Engine.config.default_locale)
-  .field
-    = file_field_tag :csv
-  = submit_tag 'Upload'
+.modal-header
+  %h5= 'Upload CSV file of subscribers that bounced and should thus be moved to the unsubscribe list'
+  = modal_close
+.modal-body
+  %p
+    The format must be:
+    %ul
+      %li= 'Column 1: Email address'
+      %li= 'Column 2: (Optional) First Name'
+      %li= 'Column 3: (Optional) Surname'
+      %li= 'Column 4: (Optional) Telephone number'
+      %li= 'Column 5: (Optional) Position'
+      %li= 'Column 6: (Optional) Company'
+      %li= 'Column 7: (Optional) Country'
+    The fields must be seperated with commas.
+  = form_tag(subscribers_path(:cmd => :bounced), multipart: true, method: :post) do
+    .field
+      = label_tag :subscriber_category_id
+      = select_tag :subscriber_category_id, options_for_select(SemiStatic::SubscriberCategory.all.collect{|sc| [sc.name, sc.id]})
+    .field
+      = label_tag :locale
+      = select_tag :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, SemiStatic::Engine.config.default_locale)
+    .field
+      = file_field_tag :csv
+    = submit_tag 'Upload', :class => 'btn btn-danger btn-block'

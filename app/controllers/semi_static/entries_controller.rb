@@ -27,9 +27,11 @@
       if params[:tag_id].present? || session[:workspace_tag_id]
         @tag = Tag.find(params[:tag_id] || session[:workspace_tag_id])
         @entries = @tag.entries
-      else
+      elsif params[:nopaginate]
         @entries = Entry.unscoped.order(:locale, :tag_id, :position).exclude_newsletters
-        @newsletter_entries = Entry.unscoped.for_newsletters
+        @nopaginate = true
+      else
+        @entries = Entry.unscoped.order(:locale, :tag_id, :position).exclude_newsletters.page(params[:page])
       end
       respond_to do |format|
         format.html { render :template => template, :layout => layout }

@@ -1,53 +1,64 @@
-- content_for :header_css do
-  :plain
-    #controls .button{float:none; width:66%; margin: 4px auto 8px;}
-    #controls .button a{display:block;}
-    #controls .button:hover{background-color:#e0e0e0;box-shadow: none;}
-
 - content_for :ujs do
   :javascript
-    function init_switch(){
-      $('#search_daemon').change(function() {
-        var state = 'off';
-        if ($(this).is(":checked")){
-          state = 'on'
-        };
-        $.ajax({
-          url: "#{system_path}",
-          data: 'cmd[search_daemon]=' + state,
-          dataType: 'script',
-          type: 'PUT'
-        });
-      });
-    };
-
     $(document).ready(function() {
-      init_switch();
       $('#pixelRatio').text(window.devicePixelRatio.toString());
     });
 
-.group
-  .col.span_1_of_3
-    .panel
-      %h4= 'Search Index'
-      .button= link_to 'Reindex now', system_path(:cmd => {:search_reindex => :all}), :method => :put, :remote => true
+
+.row
+  .col-md-6
+    .tile
+      .tile-title-w-btn{:title => 'Reindex the website.'}
+        %h5
+          %span.app-menu__icon.fa.fa-search.invert
+          = 'Search'
+        %p
+          = link_to system_path(:cmd => {:search_reindex => :all}), :method => :put, :class => 'btn btn-primary btn-show-loading', :remote => true do
+            %span.app-menu__icon.fa.fa-search
+            %span Reindex
       #search_reindex_result
-  .col.span_1_of_3
-    .panel
-      %h4= 'Expire Cache'
-      .button= link_to 'Expire cache now', system_path(:cmd => {:expire_page_cache => :all}), :method => :put, :remote => true
+  .col-md-6
+    .tile
+      .tile-title-w-btn{:title => 'Delete Cache (Remove static pages)'}
+        %h5
+          %span.app-menu__icon.fa.fa-website.invert
+          = 'Page cache'
+        %p
+          = link_to system_path(:cmd => {:expire_page_cache => :all}), :method => :put, :class => 'btn btn-primary btn-show-loading', :remote => true do
+            %span.app-menu__icon.fa.fa-website
+            %span Delete
       #expire_cache
-  .col.span_1_of_3
-    .panel
-      %h4= 'Restart Passenger App Server (if used)'
-      .button= link_to 'Restart now', system_path(:cmd => {:passenger_restart => :all}), :method => :put, :remote => true
+
+.row
+  .col-md-6
+    .tile
+      .tile-title-w-btn{:title => 'Restart Passenger App Server (if used)'}
+        %h5
+          %span.app-menu__icon.fa.fa-settings.invert
+          = 'Passenger'
+        %p
+          = link_to system_path(:cmd => {:passenger_restart => :all}), :method => :put, :class => 'btn btn-primary btn-show-loading', :remote => true do
+            %span.app-menu__icon.fa.fa-settings
+            %span Restart
       #passenger_restart
-.group
-  .col.span_1_of_2
-    .panel
+  .col-md-6
+    .tile
+      .tile-title-w-btn{:title => 'Check and clean up possible errors'}
+        %h5
+          %span.app-menu__icon.fa.fa-database.invert
+          = 'Check and clean'
+        %p
+          = link_to system_path(:cmd => {:clean_up => :all}), :method => :put, :class => 'btn btn-primary btn-show-loading', :remote => true do
+            %span.app-menu__icon.fa.fa-database
+            %span Start
+      #clean_up
+
+.row
+  .col-md-6
+    .tile
       .infobox#sitemaps
-        %h3= 'Generate a sitemap sutable for submission to Google, Bing, etc.'
-        %h4= 'Some words of warning'
+        %h4= 'Generate a sitemap sutable for submission to Google, Bing, etc.'
+        %h5= 'Some words of warning'
         %p
           = 'If you submit a sitemap you then face the challange of generating a new site map and submitting it every time that you make'
           = 'a change.'
@@ -61,11 +72,18 @@
           %ul
             - SemiStatic::Engine.config.localeDomains.each do |k, v|
               %li= link_to construct_url(SemiStatic::Engine.config.sitemap, k), construct_url(SemiStatic::Engine.config.sitemap, k)
-      %h4.infomarker= 'Generate sitemaps'
+      .tile-title-w-btn.infomarker{:title => 'Generate sitemaps for Search Engines eg. Google and Bing'}
+        %h5
+          %span.app-menu__icon.fa.fa-settings.invert
+          = 'Generate sitemaps'
+        %p
+          = link_to system_path(:cmd => {:generate_sitemap_options => :all}, :locale => session[:locale]), :method => :put, :class => 'btn btn-primary btn-show-loading', :remote => true do
+            %span.app-menu__icon.fa.fa-settings
+            %span Sitemap Options
       #generate_sitemap
-      .button= link_to 'Sitemap options', system_path(:cmd => {:generate_sitemap_options => :all}, :locale => session[:locale]), :method => :put, :remote => true
-  .col.span_1_of_2
-    .panel
+
+  .col-md-6
+    .tile
       .infobox#generate_static_pages
         %h4= 'Generate all static pages for the website'
         %p
@@ -74,19 +92,12 @@
           = 'and thus have the advantage of a potentially better user experience and possibly eliminating'
           = 'problems where search enging crawlers time-out or falsely conclude that your website takes'
           = 'a long while to respond.'
-      %h4.infomarker= 'Generate static pages'
-      - SemiStatic::Engine.config.localeDomains.each do |k, v|
-        .button= link_to "For #{v}", system_path(:cmd => {:generate_static_pages => :all}, :locale => k), :method => :put
-.group
-  .col.span_1_of_2
-    .panel
-      %h4= 'Clean up possible errors'
-      .button= link_to 'Clean up now', system_path(:cmd => {:clean_up => :all}), :method => :put, :remote => true
-      #clean_up
-  .col.span_1_of_2
-    .panel
-%div{:style => 'font-size: 10px; text-align: right;'}
-  = 'Device pixel ratio = '
-  %span#pixelRatio{:style => 'font-size: 10px; text-align: right;'}
-    Unknown
-
+      .tile-title-w-btn.infomarker{:title => 'Generate sitemaps for Search Engines eg. Google and Bing'}
+        %h5
+          %span.app-menu__icon.fa.fa-settings.invert
+          = 'Generate static pages'
+        - SemiStatic::Engine.config.localeDomains.each do |k, v|
+          %p
+            = link_to system_path(:cmd => {:generate_static_pages => :all}, :locale => k), :class => 'btn btn-primary btn-show-loading', :method => :put do
+              %span.app-menu__icon.fa.fa-settings
+              %span= v

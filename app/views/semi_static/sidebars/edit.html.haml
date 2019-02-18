@@ -1,4 +1,6 @@
-.dash
-  %h1= 'Editing Sidebar: ' + @sidebar.title
+.app-title
+  %h1
+    %i.fa.fa-sidebar.invert
+    = 'Editing Sidebar: ' + @sidebar.title
   
-  = render 'form'
+= render 'form'

@@ -1,7 +1,3 @@
-- content_for :header_css do
-  :plain
-    #entry_sidebar_id{max-width: 286px;}
-
 - content_for :ujs do
   <script src="//cdn.ckeditor.com/4.5.4/standard/ckeditor.js"></script>
   :javascript
@@ -62,18 +58,6 @@
       });
       return false; // prevents normal behaviour
     }
-    function entry_preview(){
-      var valuesToSubmit = $('form').serialize();
-      $.ajax({
-        type: "POST",
-        url: $('form').attr('action') + '?preview=true',
-        data: valuesToSubmit,
-        dataType: "script"
-      }).success(function(json){
-        // ??
-      });
-      return false; // prevents normal behaviour
-    }
 
     function enable_editor(){
       if ($('#entry_raw_html').prop('checked') != true) {
@@ -99,6 +83,7 @@
       $('#entry_entry_position').change(function() { check_entry_partial(); });
       $("#entry_img").on('change', semiStaticPrepareUploadFromInput);
       check_image_controls();
+      if($('#entry_banner_id').val() != 'none'){load_banner_preview($('#entry_banner_id').val());}
       if(($('#entry_simple_text').val() == 'false') && ($('#entry_raw_html').prop('checked') != true)){
         enable_editor();
       };
@@ -109,291 +94,313 @@
 
 = form_for @entry do |f|
   - if @entry.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@entry.errors.count, "error")} prohibited this entry from being saved:"
-      %ul
-        - @entry.errors.full_messages.each do |msg|
-          %li= msg
+    .row
+      .col-md-12
+        .tile
+          #error_explanation
+            %h2= "#{pluralize(@entry.errors.count, "error")} prohibited this entry from being saved:"
+            %ul
+              - @entry.errors.full_messages.each do |msg|
+                %li= msg
 
   = hidden_field_tag 'newsletter_id', @newsletter.id if @newsletter
   = hidden_field_tag 'entry[simple_text]', @entry.simple_text
 
-  .group
-    .col.span_2_of_3
-      %h2 Main Content
-      %fieldset
-        .infobox#word_break_entry_title
-          %h4= 'Long words in titles'
-          %p
-            = 'If your title contains long words, then you should specify the word break point so that it does'
-            = 'not overflow on mobile devices and generally behaves well when the screen (viewport) is resized. You'
-            = 'can suggest word break points by including the'
-            %b= '<wbr/>'
-            = 'tag.'
-          %p
-            = 'For example you could set the break point for \'Nottinghamshire\' to \'Notting-ham-shire\'by entering the following into'
-            = 'the title field:'
-          %p
-            = 'Notting<wbr/>ham<wbr/>shire'
-          %p
-            = 'You can also use the'
-            %b= '&shy;'
-            = ' entity to allow word break but hyphenate, eg:'
-          %p
-            = 'Notting&shy;ham&shy;shire'
-        = f.label :title, :class => 'infomarker'
-        %br/
-        = f.text_field :title
-        %br/
-        = f.label :sub_title
-        %br/
-        = f.text_field :sub_title
-      - unless @newsletter
-        %fieldset.semi_static_youtube_id_str
-          .infobox#youtube_id_str_text_box
-            %h4= 'YouTube ID'
-            %p
-              = 'If a YouTube video ID is given, then the video will be presented before the entry text and image'
-            %p
-              = 'If you are not sure what the YouTube ID is, then click on "share" underneath the YouTube video, and then copy the'
-              = 'URL link to the field below. Then click "Preview" at the bottom of this form to see if you have the correct ID'
-            %p
-              = 'By default your video will be shown in 640px (wide) x 360px (high). If you want to set the width and height'
-              = 'yourself then you can provide the dimensions seperated by commas. For example a youtube video with'
-              = 'id = abc123xyz, width = 400px, height = 300px, you should enter:'
-              %b= ' abc123xyz,400,300'
-            %p
-              = 'Note: The dimensions given in the string can be overwritten by providing the page attributes youTubeVideoWidth and'
-              = 'youTubeVideoHeight'
-    
-          = f.label :youtube_id_str, 'YouTube Video ID (optional)', :class => 'infomarker'
-          %br/
-          .field
-            = f.text_field :youtube_id_str
-            %span#validateYoutubeButton{:style => 'display: none'}
-              = link_to 'Click here to validate YouTube ID', '#', onclick: 'validate_youtube_id(); return false'
-      %fieldset
-        .infobox.wide#partial_description
-          = render :partial => 'semi_static/system/partial_description', :object => @entry
-        %span.infomarker 
-        = f.label :partial, 'Custom view'
-        = f.select :partial, options_for_select(SemiStatic::Engine.config.open_partials.collect{|k, v| [k, k]}.prepend(["- None -", 'none']), @entry.partial)
-        %span#entry_position_select
-          = f.label :entry_position
-          = f.select :entry_position, options_for_select(SemiStatic::Entry::DISPLAY_ENTRY_SYM, @entry.entry_position)
+  .row
+    .col-md-8
+      .tile
+        .tile-title
+          %h5
+            %span.app-menu__icon.fa.fa-website.invert
+            %span Main Content
 
-      #semi-static-entry-body
-        %fieldset.semi_static_entry_main_content
-          = f.label :body
-          %br/
-          #entry_text_area
-            = f.text_area :body, :rows => 32
-          .infobox#unrestricted_html_check_box
-            %h4= 'Unrestricted HTML'
+        .tile-body
+          .infobox#word_break_entry_title
+            %h5= 'Long words in titles'
             %p
-              = 'This best left un-checked if you are not sure what you are doing. If you check this'
-              = 'box then certain HTML will be allowed and you will have more flexibilty e.g. you will be allowed to embbed YouTube videos'
-          %span.infomarker
-          = f.check_box :unrestricted_html
-          = f.label :unrestricted_html
-          - if @entry.raw_html
-            .infobox#raw_html_check_box
-              %h4= 'Raw HTML'
+              = 'If your title contains long words, then you should specify the word break point so that it does'
+              = 'not overflow on mobile devices and generally behaves well when the screen (viewport) is resized. You'
+              = 'can suggest word break points by including the'
+              %b= '<wbr/>'
+              = 'tag.'
+            %p
+              = 'For example you could set the break point for \'Nottinghamshire\' to \'Notting-ham-shire\'by entering the following into'
+              = 'the title field:'
+            %p
+              = 'Notting<wbr/>ham<wbr/>shire'
+            %p
+              = 'You can also use the'
+              %b= '&shy;'
+              = ' entity to allow word break but hyphenate, eg:'
+            %p
+              = 'Notting&shy;ham&shy;shire'
+          .input-group
+            .infomarker{:data => {:marker => 'word_break_entry_title'}}
+            .input-group-prepend
+              = f.label :title, :class => 'input-group-text'
+            = f.text_field :title, :class => 'form-control mt-2'
+          .input-group
+            .input-group-prepend
+              = f.label :sub_title, :class => 'input-group-text'
+            = f.text_field :sub_title, :class => 'form-control mt-2'
+          - unless @newsletter
+            .semi_static_youtube_id_str
+              .infobox#youtube_id_str_text_box
+                %h5= 'YouTube ID'
+                %p
+                  = 'If a YouTube video ID is given, then the video will be presented before the entry text and image'
+                %p
+                  = 'If you are not sure what the YouTube ID is, then click on "share" underneath the YouTube video, and then copy the'
+                  = 'URL link to the field below. Then click "Preview" at the bottom of this form to see if you have the correct ID'
+                %p
+                  = 'By default your video will be shown in 640px (wide) x 360px (high). If you want to set the width and height'
+                  = 'yourself then you can provide the dimensions seperated by commas. For example a youtube video with'
+                  = 'id = abc123xyz, width = 400px, height = 300px, you should enter:'
+                  %b= ' abc123xyz,400,300'
+                %p
+                  = 'Note: The dimensions given in the string can be overwritten by providing the page attributes youTubeVideoWidth and'
+                  = 'youTubeVideoHeight'
+        
+              .input-group
+                .infomarker{:data => {:marker => 'youtube_id_str'}}
+                .input-group-prepend
+                  = f.label :youtube_id_str, 'YouTube Video ID (optional)', :class => 'input-group-text'
+                = f.text_field :youtube_id_str, :class => 'form-control mt-2'
+                %span#validateYoutubeButton{:style => 'display: none'}
+                  = link_to 'Click here to validate YouTube ID', '#', onclick: 'validate_youtube_id(); return false'
+
+          .row.mt-2
+            .infobox#partial_description
+              = render :partial => 'semi_static/system/partial_description', :object => @entry
+            .input-group.col-md-8
+              .input-group-prepend
+                %span.infomarker{:data => {:marker => :partial_description}}
+                %span.input-group-text Custom view
+              = f.select :partial, options_for_select(SemiStatic::Engine.config.open_partials.collect{|k, v| [k, k]}.prepend(["- None -", 'none']), @entry.partial), {}, {:class => 'form-control'}
+            .input-group.col-md-4#entry_position_select
+              .input-group-prepend
+                %span.input-group-text{:title => 'Position of Entry in custom view'} Entry position
+              = f.select :entry_position, options_for_select(SemiStatic::Entry::DISPLAY_ENTRY_SYM, @entry.entry_position), {}, { :class => 'form-control'}
+  
+          #semi-static-entry-body
+            .semi_static_entry_main_content
+              .form-group
+                = f.label :body
+                #entry_text_area
+                  = f.text_area :body, :rows => 40, :class => 'form-control'
+              .infobox#unrestricted_html_check_box
+                %h4= 'Unrestricted HTML'
+                %p
+                  = 'This best left un-checked if you are not sure what you are doing. If you check this'
+                  = 'box then certain HTML will be allowed and you will have more flexibilty e.g. you will be allowed to embbed YouTube videos'
+              %span.infomarker
+              = f.check_box :unrestricted_html
+              = f.label :unrestricted_html
+              - if @entry.raw_html
+                .infobox#raw_html_check_box
+                  %h4= 'Raw HTML'
+                  %p
+                    = 'Indicates that this entry has been previously saved in raw mode. If you untick this box then there is a risk that'
+                    = 'certain HTML tags and attributes will be removed and your entry will not display as before.'
+                %span.infomarker
+                = f.check_box :raw_html
+                = f.label :raw_html
+              - unless @entry.new_record?
+                = link_to edit_entry_path(@entry, :mode => :html), :title => 'Edits will be lost', :remote => true, :class => 'btn btn-primary' do
+                  %span.app-menu__icon.fa.fa-website
+                  %span HTML Mode
+              #convert_and_enable_editor.button
+                = link_to 'Convert to editor', '#', onclick: 'convert_to_editor(); return false'
+              #enable_editor.button
+                = link_to 'Editor', '#', onclick: 'enable_editor(); return false'
+          .form-group
+            = f.label :summary
+            = f.text_area :summary, :rows => '8', :class => 'form-control'
+            = f.label :use_as_news_summary
+            = f.check_box :use_as_news_summary
+          %fieldset
+            .infobox#summary_box
+              %h4= 'Summary length'
               %p
-                = 'Indicates that this entry has been previously saved in raw mode. If you untick this box then there is a risk that'
-                = 'certain HTML tags and attributes will be removed and your entry will not display as before.'
-            %span.infomarker
-            = f.check_box :raw_html
-            = f.label :raw_html
-          - unless @entry.new_record?
-            .button
-              = link_to 'HTML mode', edit_entry_path(@entry, :mode => :html), :remote => true
-          #convert_and_enable_editor.button
-            = link_to 'Convert to editor', '#', onclick: 'convert_to_editor(); return false'
-          #enable_editor.button
-            = link_to 'Editor', '#', onclick: 'enable_editor(); return false'
-      %fieldset
-        = f.label :summary
-        %br/
-        = f.text_area :summary, :rows => '8'
-        %br/
-        = f.label :use_as_news_summary
-        = f.check_box :use_as_news_summary
-      %fieldset
-        .infobox#summary_box
-          %h4= 'Summary length'
-          %p
-            Set length to the number of characters you want the maximum size of the summary to be. If you do not
-            provide text in the
-            %em= 'Summary box'
-            then the main body will be truncated as best as possible and th actual number of characters may be
-            less than the value given in the
-            %em= 'summary length.'
-          %p
-            The
-            %em= 'summary length.'
-            has some special values. The value of 0 means that no summary at all will be displayed, only the header and optionally the image.
-            A negative value has the same effect as a 0 value, but there header will not even have a link to the actual entry. This is
-            useful for displaying Twitter-like message in the news columns. Leaving the summary size blank means that even actual header
-            text will not be displayed.
-        = f.label :summary_length, 'Optimal summary length', :class => 'infomarker'
-        %br/
-        = f.text_field :summary_length, :size => 10
+                Set length to the number of characters you want the maximum size of the summary to be. If you do not
+                provide text in the
+                %em= 'Summary box'
+                then the main body will be truncated as best as possible and th actual number of characters may be
+                less than the value given in the
+                %em= 'summary length.'
+              %p
+                The
+                %em= 'summary length.'
+                has some special values. The value of 0 means that no summary at all will be displayed, only the header and optionally the image.
+                A negative value has the same effect as a 0 value, but there header will not even have a link to the actual entry. This is
+                useful for displaying Twitter-like message in the news columns. Leaving the summary size blank means that even actual header
+                text will not be displayed.
+            = f.label :summary_length, 'Optimal summary length', :class => 'infomarker'
+            %br/
+            = f.text_field :summary_length, :size => 10
+        
+          %h2= 'Image (optional)'
+          %fieldset.entry.semi_static_entry_main_content#semi_static_entry_image
+            - if @entry.img.present?
+              = image_tag(@entry.img.url(:panel), :title => @entry.title, :alt => 'Entry Image', :class => 'ri', :id => 'semi_static_image_for_upload')
+            - else
+              = image_tag('no-image-loaded.jpg', :title => 'Placeholder', :class => 'ri', :id => 'semi_static_image_for_upload')
+            #semi_static_entry_image_control
+              = f.label :image_disable, 'Disable display of image and caption in entry'
+              = f.check_box :image_disable
+              %br/
+              .infobox#popup_control
+                %h4= 'Popup'
+                %p
+                  = 'You can often click on the entry image to get to the final entry view. If this is'
+                  = 'checked then the final entry will be clickable and the following will happen:'
+                %p
+                  = 'The system will do a high speed AJAX request to load a high definition'
+                  = 'copy of the image into a popup window. The size of this window will potentially be up to'
+                  = '50% of the width and height (25% of the area) of the origional image that you loaded. You'
+                  = 'must therefore be careful to load reasonalbly sizes images, ie. no 20Mbyte 10000px wide'
+                  = 'images from high defination cameras, unless you scale them before loading to the system'
+                %p
+                  = 'If the system detects that you hage a high definition (high DPI, double density or retina)'
+                  = 'screen, then the system will load a highly compressed image into the pop up and set it to'
+                  = 'display in double density. This is a very efficient and very effective way of showing high'
+                  = 'resolution images'
     
-      %h2= 'Image (optional)'
-      %fieldset.entry.semi_static_entry_main_content#semi_static_entry_image
-        - if @entry.img.present?
-          = image_tag(@entry.img.url(:panel), :title => @entry.title, :alt => 'Entry Image', :class => 'ri', :id => 'semi_static_image_for_upload')
-        - else
-          = image_tag('no-image-loaded.jpg', :title => 'Placeholder', :class => 'ri', :id => 'semi_static_image_for_upload')
-        #semi_static_entry_image_control
-          = f.label :image_disable, 'Disable display of image and caption in entry'
-          = f.check_box :image_disable
-          %br/
-          .infobox#popup_control
-            %h4= 'Popup'
-            %p
-              = 'You can often click on the entry image to get to the final entry view. If this is'
-              = 'checked then the final entry will be clickable and the following will happen:'
-            %p
-              = 'The system will do a high speed AJAX request to load a high definition'
-              = 'copy of the image into a popup window. The size of this window will potentially be up to'
-              = '50% of the width and height (25% of the area) of the origional image that you loaded. You'
-              = 'must therefore be careful to load reasonalbly sizes images, ie. no 20Mbyte 10000px wide'
-              = 'images from high defination cameras, unless you scale them before loading to the system'
-            %p
-              = 'If the system detects that you hage a high definition (high DPI, double density or retina)'
-              = 'screen, then the system will load a highly compressed image into the pop up and set it to'
-              = 'display in double density. This is a very efficient and very effective way of showing high'
-              = 'resolution images'
+              %span.infomarker
+              = f.label :image_popup, 'Allow possible image pop up in the final entry'
+              = f.check_box :image_popup
+              %br/
+            %br/
+            = f.label :img, 'Image (optional, will be resized)'
+            %br/
+            .infobox#loaded_image
+              %h4 Currently loaded image
+              - if @entry.img.present?
+                The currently loaded mage is:
+                %ul
+                  %li= @entry.img_file_name
+                  %li= 'Type: ' + (@entry.img_content_type || '<unknown>')
+                  - unless @entry.img_dimensions.blank?
+                    %li= @entry.img_dimensions[0].to_s + 'px x ' + @entry.img_dimensions[1].to_s + 'px'
+                  %li= link_to @entry.img.url, @entry.img.url
+                %h4= 'Other versions:'
+                %ul
+                  - Paperclip::AttachmentRegistry.definitions_for(SemiStatic::Entry)[:img][:styles].keys.each do |s|
+                    %li= link_to @entry.img.url(s), @entry.img.url(s)
+                = f.label :img_delete, 'Tick to delete this image on save'
+                = f.check_box :img_delete
+              - else
+                %h4 No image is currently loaded
+            %span.infomarker
+              = f.file_field :img
+            %br/
+            = f.label :image_caption, 'Image caption (optional)'
+            %br/
+            = f.text_area :image_caption, :rows => 3
+          %h2= 'Document (optional)'
+          %fieldset.semi_static_entry_main_content
+            .infobox#loaded_document
+              %h4 Currently loaded document
+              - if @entry.doc.present?
+                The currently loaded document is:
+                %ul
+                  %li= @entry.doc_file_name
+                  %li= @entry.doc_content_type
+                = f.label :doc_delete, 'Tick to delete this document on save'
+                = f.check_box :doc_delete
+              - else
+                No document is currently loaded
+            %span.infomarker
+              = f.file_field :doc
+            %br/
+            = f.label :doc_description, 'Document description (optional)'
+            %br/
+            = f.text_area :doc_description, :rows => 3
+            %br/
+            %br/
+            .infobox#show_in_documents_tag
+              %h4= 'Show in documents tag'
+              %p
+                If you have a tag the uses the predefined 
+                %em= 'Documents'
+                tag then if this box is checked then the document will be listed for downlown in the
+                %em= 'Documents'
+                tag.
+            %span.infomarker
+              = f.check_box :show_in_documents_tag
+              = f.label :show_in_documents_tag, 'Show in documents tag (optional)'
+    
+    .col-md-4
+      .tile
+        %h5 Position
+        .input-group
+          .input-group-prepend
+            %span.input-group-text Position
+          = f.text_field :position, :class => 'form-control'
+        .input-group
+          = f.label :merge_with_previous, :class => 'input-group-text'
+          .checkbox-wrapper
+            = f.check_box :merge_with_previous, :class => 'form-control'
 
-          %span.infomarker
-          = f.label :image_popup, 'Allow possible image pop up in the final entry'
-          = f.check_box :image_popup
-          %br/
-        %br/
-        = f.label :img, 'Image (optional, will be resized)'
-        %br/
-        .infobox#loaded_image
-          %h4 Currently loaded image
-          - if @entry.img.present?
-            The currently loaded mage is:
-            %ul
-              %li= @entry.img_file_name
-              %li= 'Type: ' + (@entry.img_content_type || '<unknown>')
-              - unless @entry.img_dimensions.blank?
-                %li= @entry.img_dimensions[0].to_s + 'px x ' + @entry.img_dimensions[1].to_s + 'px'
-              %li= link_to @entry.img.url, @entry.img.url
-            %h4= 'Other versions:'
-            %ul
-              - Paperclip::AttachmentRegistry.definitions_for(SemiStatic::Entry)[:img][:styles].keys.each do |s|
-                %li= link_to @entry.img.url(s), @entry.img.url(s)
-            = f.label :img_delete, 'Tick to delete this image on save'
-            = f.check_box :img_delete
-          - else
-            %h4 No image is currently loaded
-        %span.infomarker
-          = f.file_field :img
-        %br/
-        = f.label :image_caption, 'Image caption (optional)'
-        %br/
-        = f.text_area :image_caption, :rows => 3
-      %h2= 'Document (optional)'
-      %fieldset.semi_static_entry_main_content
-        .infobox#loaded_document
-          %h4 Currently loaded document
-          - if @entry.doc.present?
-            The currently loaded document is:
-            %ul
-              %li= @entry.doc_file_name
-              %li= @entry.doc_content_type
-            = f.label :doc_delete, 'Tick to delete this document on save'
-            = f.check_box :doc_delete
-          - else
-            No document is currently loaded
-        %span.infomarker
-          = f.file_field :doc
-        %br/
-        = f.label :doc_description, 'Document description (optional)'
-        %br/
-        = f.text_area :doc_description, :rows => 3
-        %br/
-        %br/
-        .infobox#show_in_documents_tag
-          %h4= 'Show in documents tag'
-          %p
-            If you have a tag the uses the predefined 
-            %em= 'Documents'
-            tag then if this box is checked then the document will be listed for downlown in the
-            %em= 'Documents'
-            tag.
-        %span.infomarker
-          = f.check_box :show_in_documents_tag
-          = f.label :show_in_documents_tag, 'Show in documents tag (optional)'
-    .col.span_1_of_3
-      .sidebar
-        %h2 Position
-        %fieldset
-          = f.label :position
-          %br/
-          = f.text_field :position, :size => 10
-          %br/
-          = f.label :merge_with_previous
-          = f.check_box :merge_with_previous
-        %h2 Menu &amp; Tag selection
-        %fieldset
-          = f.label :tag_id
-          %br/
+      .tile
+        %h5 Menu &amp; Tag selection
+        .input-group
+          .input-group-prepend
+            .input-group-text Tag
           - if @newsletter
-            = f.select :tag_id, options_for_select(SemiStatic::Tag.unscoped.collect{|t| [[t.locale, ': ', t.name].join, t.id]}, @entry.tag_id)
+            = f.select :tag_id, options_for_select(SemiStatic::Tag.unscoped.collect{|t| [[t.locale, ': ', t.name].join, t.id]}, @entry.tag_id), :class => 'form-control'
           - else
-            = f.select :tag_id, options_for_select(SemiStatic::Tag.all.collect{|t| [[t.locale, ': ', t.name].join, t.id]}, @entry.tag_id)
-          %br/
-          %br/
+            = f.select :tag_id, options_for_select(SemiStatic::Tag.all.collect{|t| [[t.locale, ': ', t.name].join, t.id]}, @entry.tag_id), {}, {:class => 'form-control'}
+        .input-group.mb-2
           .infobox#link_to_tag_info
-            %h4= 'Link to Tag'
+            %h5= 'Link to Tag'
             %p
               = 'If you have checked this box then this entry will possibly be used as the content for'
               = 'its Tag rather than the standard Tag index. This may not work as you expect if you'
               = 'have more than one Entry in the same Tag with link_to_tag set.'
-          %span.infomarker
-            = f.label :link_to_tag
-            = f.check_box :link_to_tag
-          %br/
-          %br/
+          %span.infomarker{:data => {:marker => 'link_to_tag_info'}}
+          = f.label :link_to_tag, :class => 'input-group-text'
+          .checkbox-wrapper
+            = f.check_box :link_to_tag, :class => 'form-control'
+        .input-group
           .infobox#alt_title
             %h4= 'Alternative title'
             %p
               = 'This can be used as an alternative title for the entry. For example, if you want the'
               = 'menu description for this entry to be different to the actual entry title then put'
               = 'the desired menu description text in here.'
-          %span.infomarker
-            = f.label :alt_title, 'Alternative title'
-            = f.text_field :alt_title
-        %fieldset
+        .input-group
+          %span.infomarker{:data => {:marker => 'alt_title'}}
+          .input-group-prepend
+            %span.input-group-text Alternative title
+          = f.text_field :alt_title, :class => 'form-control'
+        .input-group
           .infobox#acts_as_tag_info
-            %h4= 'Acts as Tag'
+            %h5= 'Acts as Tag'
             %p
               = 'If set, then none of the other fields in this form have and effect as this entry will simply'
               = 'redirect to the tag specified. This can be useful for building menus with many'
               = 'levels of hierarchy'
-          %span.infomarker
-            = f.label :acts_as_tag_id
-          = f.select :acts_as_tag_id, options_for_select(SemiStatic::Tag.unscoped.collect{|t| [[t.locale, ': ', t.name].join, t.id]}.prepend(["- None -", nil]), @entry.acts_as_tag_id)
-        %h2 Banner
-        #selected_banner
+          %span.infomarker{:data => {:marker => 'acts_as_tag_info'}}
+          .input-group-prepend
+            = f.label :acts_as_tag_id, :class => 'input-group-text'
+          = f.select :acts_as_tag_id, options_for_select(SemiStatic::Tag.unscoped.collect{|t| [[t.locale, ': ', t.name].join, t.id]}.prepend(["- None -", nil]), @entry.acts_as_tag_id), {}, {:class => 'form-control mt-2'}
+      .tile
+        %h5 Banner
+        #selected_banner.banner-thumb
           - if @entry.banner.present?
             = render :partial => 'semi_static/banners/show', :locals => {:banner => @entry.banner}
-        %fieldset
-          = f.label :banner_id
-          %br/
-          = f.select :banner_id, options_for_select(SemiStatic::Banner.all.collect{|b| [b.name, b.id]}.prepend(["- None -", 'none']), @entry.banner_id)
-          #tag_line_override{:style => 'display: none'}
-            = f.label :tag_line, 'Tag line override (optional)'
-            %br/
-            = f.text_field :tag_line
-        - unless @newsletter
-          %h2 Home page and News sidebar
+        .input-group
+          .input-group-prepend
+            = f.label :banner_id, :class => 'input-group-text'
+          = f.select :banner_id, options_for_select(SemiStatic::Banner.all.collect{|b| [b.name, b.id]}.prepend(["- None -", 'none']), @entry.banner_id), {}, {:class => 'form-control mt-2'}
+        .input-group#tag_line_override{:style => 'display: none'}
+          .input-group-prepend
+            = f.label :tag_line, 'Tag line override', :class => 'input-group-text'
+          = f.text_field :tag_line, :class => 'form-control mt-2'
+      - unless @newsletter
+        .tile
+          %h5 Home page and News sidebar
           %fieldset
             = f.label :home_page
             = f.check_box :home_page
@@ -424,7 +431,8 @@
             %span
               = f.label :news_img, 'Alternative image'
               = f.file_field :news_img
-        %h2 Blog functions
+      .tile
+        %h5 Blog functions
         %fieldset
           = f.label :enable_comments, 'Enable comments'
           = f.check_box :enable_comments
@@ -432,7 +440,8 @@
             %br/
             = f.label :comment_strategy, 'Comment procedure'
             = f.select :comment_strategy, options_for_select(SemiStatic::Entry::COMMENT_STRATEGY.collect{|k,v| [k.to_s.humanize, v]}, @entry.comment_strategy)
-        %h2 Language
+      .tile
+        %h5 Language
         %fieldset
           = f.label :locale
           = f.select :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @entry.locale)
@@ -462,14 +471,16 @@
               = f.label :side_bar_gallery, 'Number of gallery images to show'
               %br/
               = f.text_field :side_bar_gallery, :size => 10
-        %h2 Gallery Images
+      .tile
+        %h5 Gallery Images
         %fieldset
           = f.label :gallery_id, 'Gallery'
           = f.select :gallery_id, options_for_select(SemiStatic::Gallery.locale(@entry.locale).collect{|g| [g.title, g.id]}.prepend(["- None -", nil]), @entry.gallery_id)
           %br/
           = f.label :show_image_titles, 'Show titles on images that are inside the "main" entry'
           = f.check_box :show_image_titles
-        %h2 Social share buttons
+      .tile
+        %h5 Social share buttons
         %fieldset
           .group
             .col.span_1_of_2
@@ -487,18 +498,22 @@
               %br/
               = f.label :email_share, 'Email'
               = f.check_box :email_share
-        %h2 Event
+      .tile
+        %h5 Event
         %fieldset
           = f.select :event_id, options_for_select(SemiStatic::Event.all.collect{|e| [['ID ', e.id.to_s, ': ', e.name].join, e.id]}.prepend(["- None -", 'none']), @entry.event_id)
-        %h2 Squeeze
+      .tile
+        %h5 Squeeze
         %fieldset
           = f.select :squeeze_id, options_for_select(SemiStatic::Squeeze.all.collect{|s| [['ID ', s.id.to_s, ': ', s.name].join, s.id]}.prepend(["- None -", 'none']), @entry.squeeze_id)
-        %h2 Job Posting
+      .tile
+        %h5 Job Posting
         %fieldset
           = f.select :job_posting_id, options_for_select(SemiStatic::JobPosting.all.collect{|s| [['ID ', s.id.to_s, ': ', s.title].join, s.id]}.prepend(["- None -", 'none']), @entry.job_posting_id)
 
           
-        %h2 Newsletter
+      .tile
+        %h5 Newsletter
         %fieldset
           .infobox#newsletter_img
             %h4= 'Newsletter image (optional)'
@@ -509,49 +524,54 @@
           %span.infomarker
           = f.label :newsletter_img, 'Image for newsletter (optional)'
           = f.file_field :newsletter_img
-        - unless @entry.new_record?
+      - unless @entry.new_record?
+        .tile
           .button{:style => 'margin:3px'}
             = link_to 'New attribute', new_entry_page_attr_path(@entry), :remote => true
-        %h2 Attributes
-        - if @entry.page_attrs.present?
-          %table
-            %thead
-              %tr
-                %th='Key'
-                %th='Value'
-                %th
-            %tbody
-              - @entry.page_attrs.each do |a|
+          %h5 Attributes
+          - if @entry.page_attrs.present?
+            %table
+              %thead
                 %tr
-                  %td= link_to a.attr_key, edit_polymorphic_path([@entry, a]), :remote => :true
-                  %td= a.attr_value
-                  %td= link_to image_tag("bin.png"), entry_page_attr_path(@entry, a), :method => :delete
-    .group
-      .col.span_1_of_1
-        %h2 Style settings
-        .group
-          .col.span_2_of_3
-            = f.label :style, 'Custom style rules (CSS)'
-            %br/
-            = f.text_area :style, :rows => 12
-          .col.span_1_of_3
-            %fieldset
-              = f.label :style_class
-              = f.select :style_class, options_for_select(SemiStatic::EntriesHelper::STYLE_CLASSES.collect{|sc| [sc, sc]}, @entry.style_class)
-            %fieldset
-              = f.label :background_colour, 'Background CSS colors: black, yellow, #5f78c0, etc'
-              %br/
-              = f.text_field :background_colour, :size => 10
-              %br/
-              = f.label :header_colour, 'Header CSS colors: black, yellow, #5f78c0, etc'
-              %br/
-              = f.text_field :header_colour, :size => 10
-              %br/
-              = f.label :colour, 'Text CSS colors: black, yellow, #5f78c0, etc'
-              %br/
-              = f.text_field :colour, :size => 10
+                  %th='Key'
+                  %th='Value'
+                  %th
+              %tbody
+                - @entry.page_attrs.each do |a|
+                  %tr
+                    %td= link_to a.attr_key, edit_polymorphic_path([@entry, a]), :remote => :true
+                    %td= a.attr_value
+                    %td= link_to image_tag("bin.png"), entry_page_attr_path(@entry, a), :method => :delete
+  .row
+    .col-md-12
+      .tile
+        .tile-title
+          %h5 Style settings
+        .tile-body
+          .row
+            .col-md-8
+              .form-group
+                = f.label :style, 'Custom style rules (CSS)'
+                = f.text_area :style, :rows => 12, :class => 'form-control'
+            .col-md-4
+              %fieldset
+                = f.label :style_class
+                = f.select :style_class, options_for_select(SemiStatic::EntriesHelper::STYLE_CLASSES.collect{|sc| [sc, sc]}, @entry.style_class)
+              %fieldset
+                = f.label :background_colour, 'Background CSS colors: black, yellow, #5f78c0, etc'
+                %br/
+                = f.text_field :background_colour, :size => 10
+                %br/
+                = f.label :header_colour, 'Header CSS colors: black, yellow, #5f78c0, etc'
+                %br/
+                = f.text_field :header_colour, :size => 10
+                %br/
+                = f.label :colour, 'Text CSS colors: black, yellow, #5f78c0, etc'
+                %br/
+                = f.text_field :colour, :size => 10
       
-  .mid
-    .actions
-      = link_to 'Preview', '#', onclick: 'entry_preview(); return false'
-      = f.submit 'Save'
+  .row
+    .col-md-12
+      .tile
+        .tile-body
+          = f.submit 'Save', :class => 'btn btn-danger btn-block'

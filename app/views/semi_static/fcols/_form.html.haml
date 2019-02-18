@@ -5,30 +5,33 @@
     });
 
 
-= form_for @fcol do |f|
-  - if @fcol.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@fcol.errors.count, "error")} prohibited this fcol from being saved:"
-      %ul
-        - @fcol.errors.full_messages.each do |msg|
-          %li= msg
-
-  %fieldset
-    = f.label :name
-    = f.text_field :name
-
-  %fieldset
-    = f.label :content, 'Content for column (optional)'
-    = f.text_area :content
-
-  %fieldset
-    = f.label :position
-    = f.text_field :position
-
-  %fieldset
-    = f.label :locale
-    = f.select :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @fcol.locale)
-
-
-  = f.submit 'Save'
-
+.tile
+  .tile-body
+    = form_for @fcol do |f|
+      - if @fcol.errors.any?
+        #error_explanation
+          %h2= "#{pluralize(@fcol.errors.count, "error")} prohibited this fcol from being saved:"
+          %ul
+            - @fcol.errors.full_messages.each do |msg|
+              %li= msg
+    
+      .form-group
+        = f.label :name
+        = f.text_field :name, :class => 'form-control'
+    
+      .form-group
+        = f.label :content, 'Content for column (optional)'
+        = f.text_area :content, :rows => 4, :class => 'form-control'
+    
+      .row
+        .col-md-6
+          .form-group
+            = f.label :position
+            = f.text_field :position, :class => 'form-control'
+    
+        .col-md-6
+          .form-group
+            = f.label :locale
+            = f.select :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @fcol.locale), :class => 'form-control'
+    
+      = f.submit 'Save', :class => 'btn btn-danger btn-block'

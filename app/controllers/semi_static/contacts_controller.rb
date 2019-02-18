@@ -17,7 +17,12 @@ module SemiStatic
     # GET /contacts
     # GET /contacts.json
     def index
-      @contacts = Contact.all
+      if params[:nopaginate]
+        @contacts = Contact.all
+        @nopaginate = true
+      else
+        @contacts = Contact.page(params[:page])
+      end
   
       respond_to do |format|
         format.html { render :layout => 'semi_static_dashboards' }

@@ -24,8 +24,19 @@ function semiStaticPrepareSingleUpload(files){
 }
 
 $(document).ready(function() {
+  //
+  // Open .infobox when corresponding .infomarker is clicked. Recomended method
+  // is to give the infomarker a data-marker attribute with the id name of the
+  // the infobox to show. However, if this is not present we try and find the
+  // the infobox in the parent element
+  // 
   $('.infomarker').click(function() {
-    $(this).prev('.infobox').show();
+    var markerName = $(this).attr('data-marker');
+    if(markerName){
+      $('#' + markerName).show();
+    } else {
+      $(this).parent().find('.infobox').show();
+    }
   });
 });
 

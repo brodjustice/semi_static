@@ -1,5 +1,24 @@
-#dashboard.section.group.dash
-  #controls.dashboard
-    - @instruments.each do |i|
-      = render :partial => i
+.app-title
+  %h1
+    %i.fa.fa-website.invert
+    %span #{SemiStatic::Engine.config.site_name} Website Admin Console
+  .text-right
+    = link_to semi_static.site_path('home'), :class => 'btn btn-primary btn' do
+      %span.app-menu__icon.fa.fa-website
+      %span Website
 
+.row
+  .col-md-12
+    .tile
+      = render :partial => 'semi_static/dashboards/admin/contacts'
+.row
+  .col-md-12
+    .tile
+      = render :partial => 'semi_static/dashboards/admin/tags'
+
+= render :partial => 'semi_static/dashboards/admin/system'
+
+%div{:style => 'font-size: 10px; text-align: right;'}
+  = 'Device pixel ratio = '
+  %span#pixelRatio{:style => 'font-size: 10px; text-align: right;'}
+    Unknown

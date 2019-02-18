@@ -1,118 +1,128 @@
-.dash
-  %h1 Page Attributes
+.app-title
+  %h1
+    %i.fa.fa-attrs.invert
+    %span Page Attributes
   
-  .infobox#page_attribute_help
-    %h3= 'Page Attribute Help'
-    %p= 'Page Attributes are values that can be set for most pages on your website (Entry or Tag). The values are usually required by custom or semi-custom layouts to indicate where to collect information or what certain values should be.'
-    %p= 'There are also some Page Attributes that have a general usage, currently:'
-    %table
-      %tr
-        %th= 'Key'
-        %th= 'Value'
-        %th= 'Page Type'
-        %th= 'Effect'
-      %tr
-        %td=' sideBarMenuTagId'
-        %td= 'Tag ID'
-        %td= 'Tag'
-        %td= 'Uses the Tag ID entries for the sidebar navigation menu'
-      %tr
-        %td=' sideBarMenuHash'
-        %td= 'Hash of title, subtitles amd Entry IDs'
-        %td= 'Tag or Entry'
-        %td= 'Constructs a custom sidebar navigation menu with sub-section headers, each sub-section header is wrapped in a div with class semiStaticSubMenuHeader so that you can add styling. Example of hash format: {"This is the title" => {"Sub Menu 1" => [304, 332], "Sub 2" => [16, 17, 98]}}'
-
-      %tr
-        %td=' sideBarNavEntries'
-        %td= 'Comma seperated string of Entry IDs'
-        %td= 'Tag'
-        %td= 'The Tag and all Entries in this Tag will use the IDs to construct the sidebar sub-navigation'
-      %tr
-        %td=' disableTagLine'
-        %td= '<any value>'
-        %td= 'Predefined Tag: Home'
-        %td= 'Stops display of Tag Line on Home Page'
-      %tr
-        %td=' disableSideBarSocial'
-        %td= '<any value>'
-        %td= 'Predefined Tag: Home'
-        %td= 'Stops display of social links in sidebar of Home Page'
-      %tr
-        %td= 'disableBanner'
-        %td= '<any value>'
-        %td= 'Predefined Tag: Home'
-        %td= 'Stops display of Home Page Banner image'
-      %tr
-        %td= 'slideMenuHtmlLink'
-        %td= '<HTML>'
-        %td= 'Predefined Tag: Home'
-        %td= 'Inserts the given HTML into every slide menu (if theme supports), wrapped with a unsorted list (ul li) tag'
-      %tr
-        %td= 'entryClasses'
-        %td= '<comma seperated string of CSS classes>'
-        %td= 'Entry'
-        %td= 'Add the CSS class(es) to the entry'
-      %tr
-        %td= 'disableSideBarNav'
-        %td= '<any value>'
-        %td= 'Tag or Entry'
-        %td= 'Stops display of navigation menu in sidebar'
-      %tr
-        %td= 'youTubeVideoControls'
-        %td= '1'
-        %td= 'Entry'
-        %td= 'If set to 1 then the You Tube video will have the controls overlay'
-      %tr
-        %td= 'youTubeVideoWidth'
-        %td= 'Integer'
-        %td= 'Entry'
-        %td= 'Sets the width, in pixels, of a YouTube video used in this Entry'
-      %tr
-        %td= 'youTubeVideoHeight'
-        %td= 'Integer'
-        %td= 'Entry'
-        %td= 'Sets the height, in pixels, of a YouTube video used in this Entry'
-      %tr
-        %td= 'slideMenu'
-        %td= '<text string> or blank'
-        %td= 'Tag or Entry'
-        %td= 'Force display of link to this Tag or Entry in "slide menu" - if theme supports slide menu. If used with an Entry then the Tag to which the Entry belongs must be sent to displayed in the menu. Entry title will be used if no text string is given'
-      %tr
-        %td= 'pageHasProducts'
-        %td= 'true'
-        %td= 'Entry'
-        %td= 'A shopping cart will be automatically loaded by SemiStatic if the main Entry has an associated Product (and \'config.shopping_cart\' is set true in the SemiStatic initializer). However, setting this PageAttr will force the cart to be loaded even if no product is associated with the main Entry and that any element of the form <div id=\'SemiStaticCartId_x\' class=\'semiStaticCartButton\'>... will be replaced with a cart button to order Product with ID x'
-      %tr
-        %td= 'csrfMetaViaSsi'
-        %td= 'true'
-        %td= 'Tag or Entry'
-        %td= 'Causes the CSRF Meta Tags to be updated by a webserver via SSI. This is useful for cached pages that have a PUT action and thus need the CSRF tag to match the session, eg. login forms on a static page. The webserver must have SSI enabled (for nGinix this is \'ssi: on;\').'
-      %tr
-        %td= 'entryIconGalleryId'
-        %td= 'Photo ID'
-        %td= 'Entry'
-        %td= 'Display an icon before, or to the left, of the entry Title. You can determin the icon size yourself by loading different image sizes and adjusting the CSS. However, the default is 64px by 64px.'
-  .infomarker= 'Page Attibutes Help'
-  %table
-    %tr
-      %th= 'Page'
-      %th= 'Entry'
-      %th= 'Tag'
-      %th= 'Key'
-      %th= 'Value'
-  
-    - SemiStatic::PageAttr.all.each do |pa|
-      %tr
-        %td
-          -if pa.page_attrable.nil?
-            = link_to image_tag('/assets/error.png', :title => 'Error: Cannot fine page/entry association, click to delete'), pa, :method => :delete, :data => { :confirm => "Confirm delete of #{pa.attr_key.to_s}" }
-          - else
-            = link_to construct_url(pa.page_attrable, pa.page_attrable.locale), construct_url(pa.page_attrable, pa.page_attrable.locale)
-        %td
-          - if pa.page_attrable.kind_of?(SemiStatic::Entry)
-            = link_to image_tag('/assets/tick.png', :title => 'Entry'), edit_entry_path(pa.page_attrable.id)
-        %td
-          - if pa.page_attrable.kind_of?(SemiStatic::Tag)
-            = link_to image_tag('/assets/tick.png', :title => 'Tag'), edit_tag_path(pa.page_attrable.id)
-        %td= pa.attr_key.to_s
-        %td= pa.attr_value.to_s
+.tile
+  .tile-body
+    .infobox#page_attribute_help
+      %h5= 'Page Attribute Help'
+      %p= 'Page Attributes are values that can be set for most pages on your website (Entry or Tag). The values are usually required by custom or semi-custom layouts to indicate where to collect information or what certain values should be.'
+      %p= 'There are also some Page Attributes that have a general usage, currently:'
+      .table-responsive
+        %table.table.sortable.table-bordered.table-hover
+          %thead
+            %tr
+              %th= 'Key'
+              %th= 'Value'
+              %th= 'Page Type'
+              %th= 'Effect'
+          %tbody
+            %tr
+              %td=' sideBarMenuTagId'
+              %td= 'Tag ID'
+              %td= 'Tag'
+              %td= 'Uses the Tag ID entries for the sidebar navigation menu'
+            %tr
+              %td=' sideBarMenuHash'
+              %td= 'Hash of title, subtitles amd Entry IDs'
+              %td= 'Tag or Entry'
+              %td= 'Constructs a custom sidebar navigation menu with sub-section headers, each sub-section header is wrapped in a div with class semiStaticSubMenuHeader so that you can add styling. Example of hash format: {"This is the title" => {"Sub Menu 1" => [304, 332], "Sub 2" => [16, 17, 98]}}'
+      
+            %tr
+              %td=' sideBarNavEntries'
+              %td= 'Comma seperated string of Entry IDs'
+              %td= 'Tag'
+              %td= 'The Tag and all Entries in this Tag will use the IDs to construct the sidebar sub-navigation'
+            %tr
+              %td=' disableTagLine'
+              %td= '<any value>'
+              %td= 'Predefined Tag: Home'
+              %td= 'Stops display of Tag Line on Home Page'
+            %tr
+              %td=' disableSideBarSocial'
+              %td= '<any value>'
+              %td= 'Predefined Tag: Home'
+              %td= 'Stops display of social links in sidebar of Home Page'
+            %tr
+              %td= 'disableBanner'
+              %td= '<any value>'
+              %td= 'Predefined Tag: Home'
+              %td= 'Stops display of Home Page Banner image'
+            %tr
+              %td= 'slideMenuHtmlLink'
+              %td= '<HTML>'
+              %td= 'Predefined Tag: Home'
+              %td= 'Inserts the given HTML into every slide menu (if theme supports), wrapped with a unsorted list (ul li) tag'
+            %tr
+              %td= 'entryClasses'
+              %td= '<comma seperated string of CSS classes>'
+              %td= 'Entry'
+              %td= 'Add the CSS class(es) to the entry'
+            %tr
+              %td= 'disableSideBarNav'
+              %td= '<any value>'
+              %td= 'Tag or Entry'
+              %td= 'Stops display of navigation menu in sidebar'
+            %tr
+              %td= 'youTubeVideoControls'
+              %td= '1'
+              %td= 'Entry'
+              %td= 'If set to 1 then the You Tube video will have the controls overlay'
+            %tr
+              %td= 'youTubeVideoWidth'
+              %td= 'Integer'
+              %td= 'Entry'
+              %td= 'Sets the width, in pixels, of a YouTube video used in this Entry'
+            %tr
+              %td= 'youTubeVideoHeight'
+              %td= 'Integer'
+              %td= 'Entry'
+              %td= 'Sets the height, in pixels, of a YouTube video used in this Entry'
+            %tr
+              %td= 'slideMenu'
+              %td= '<text string> or blank'
+              %td= 'Tag or Entry'
+              %td= 'Force display of link to this Tag or Entry in "slide menu" - if theme supports slide menu. If used with an Entry then the Tag to which the Entry belongs must be sent to displayed in the menu. Entry title will be used if no text string is given'
+            %tr
+              %td= 'pageHasProducts'
+              %td= 'true'
+              %td= 'Entry'
+              %td= 'A shopping cart will be automatically loaded by SemiStatic if the main Entry has an associated Product (and \'config.shopping_cart\' is set true in the SemiStatic initializer). However, setting this PageAttr will force the cart to be loaded even if no product is associated with the main Entry and that any element of the form <div id=\'SemiStaticCartId_x\' class=\'semiStaticCartButton\'>... will be replaced with a cart button to order Product with ID x'
+            %tr
+              %td= 'csrfMetaViaSsi'
+              %td= 'true'
+              %td= 'Tag or Entry'
+              %td= 'Causes the CSRF Meta Tags to be updated by a webserver via SSI. This is useful for cached pages that have a PUT action and thus need the CSRF tag to match the session, eg. login forms on a static page. The webserver must have SSI enabled (for nGinix this is \'ssi: on;\').'
+            %tr
+              %td= 'entryIconGalleryId'
+              %td= 'Photo ID'
+              %td= 'Entry'
+              %td= 'Display an icon before, or to the left, of the entry Title. You can determin the icon size yourself by loading different image sizes and adjusting the CSS. However, the default is 64px by 64px.'
+    .infomarker= 'Page Attibutes Help'
+    .table-responsive.table.sortable.table-bordered.table-hover
+      %table
+        %thead
+          %tr
+            %th= 'Page'
+            %th= 'Entry'
+            %th= 'Tag'
+            %th= 'Key'
+            %th= 'Value'
+        
+        %tbody
+          - SemiStatic::PageAttr.all.each do |pa|
+            %tr
+              %td
+                -if pa.page_attrable.nil?
+                  = link_to image_tag('/assets/error.png', :title => 'Error: Cannot find page/entry association, click to delete'), pa, :method => :delete, :data => { :confirm => "Confirm delete of #{pa.attr_key.to_s}" }
+                - else
+                  = link_to construct_url(pa.page_attrable, pa.page_attrable.locale), construct_url(pa.page_attrable, pa.page_attrable.locale)
+              %td
+                - if pa.page_attrable.kind_of?(SemiStatic::Entry)
+                  = link_to image_tag('/assets/tick.png', :title => 'Entry'), edit_entry_path(pa.page_attrable.id)
+              %td
+                - if pa.page_attrable.kind_of?(SemiStatic::Tag)
+                  = link_to image_tag('/assets/tick.png', :title => 'Tag'), edit_tag_path(pa.page_attrable.id)
+              %td= pa.attr_key.to_s
+              %td= pa.attr_value.to_s

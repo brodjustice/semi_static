@@ -1,17 +1,14 @@
-.mid.wide
-  .button
-    = link_to 'New Entry', new_entry_path(:newsletter => @newsletter)
-  .button
-    = link_to 'Edit header', edit_newsletter_path(@newsletter, :header => true), :remote => true
-  .button
-    = link_to 'Salutation', edit_newsletter_path(@newsletter, :salutation => true), :remote => true
-  .button
-    = link_to 'Image limit', edit_newsletter_path(@newsletter, :max_image_attachments => :true), :remote => true
-  .button
-    = link_to 'Order to position', edit_newsletter_path(@newsletter, :position => :entries_to_position)
-  -# .button
-  -#   = link_to 'Add CSS', edit_newsletter_path(@newsletter, :css => :true), :remote => true
-  .button
-    = link_to 'Sender address', edit_newsletter_path(@newsletter, :sender_address => :true), :remote => true
-  %h3= "Status: #{SemiStatic::Newsletter::STATE_CODES[@newsletter.state].to_s.humanize}"
-= render 'form'
+.app-title
+  %h1
+    %i.fa.fa-user.invert
+    = "Status: #{SemiStatic::Newsletter::STATE_CODES[@newsletter.state].to_s.humanize}"
+  .text-right
+    = link_to 'New Entry', new_entry_path(:newsletter => @newsletter), :class => 'btn btn-primary'
+    = link_to 'Edit header', edit_newsletter_path(@newsletter, :header => true), :remote => true, :class => 'btn btn-primary'
+    = link_to 'Salutation', edit_newsletter_path(@newsletter, :salutation => true), :remote => true, :class => 'btn btn-primary'
+    = link_to 'Image limit', edit_newsletter_path(@newsletter, :max_image_attachments => :true), :remote => true, :class => 'btn btn-primary'
+    = link_to 'Order to position', edit_newsletter_path(@newsletter, :position => :entries_to_position), :class => 'btn btn-primary'
+    = link_to 'Sender address', edit_newsletter_path(@newsletter, :sender_address => :true), :remote => true, :class => 'btn btn-primary'
+
+.tile
+  = render 'form'

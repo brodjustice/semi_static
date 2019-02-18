@@ -12,5 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap
+//= require bootstrap-dashboard
+//= require jquerytablesorter.min.js
 //= require semi-static.js
 //= require semi_static_admin.js

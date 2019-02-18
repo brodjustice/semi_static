@@ -29,6 +29,9 @@ Gem::Specification.new do |s|
   s.add_dependency "paperclip"
   s.add_dependency "nokogiri"
 
+  # Pagination
+  s.add_dependency "kaminari"
+
   # For the shopping cart, aasm is the state machine
   s.add_dependency "aasm"
   s.add_dependency "money-rails"

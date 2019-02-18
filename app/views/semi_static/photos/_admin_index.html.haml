@@ -1,16 +1,21 @@
-%table
+%table.table
   %tr
     %th #
     %th
+      %i.app-menu__icon.fa.fa-photo
     %th Title
     %th Description (Caption)
     %th Entry Link
-    %th{:colspan => 2} Position
-    %th Locale
+    %th{:title => 'Position'}
+      %i.app-menu__icon.fa.fa-vertical
+    %th{:title => 'Locale'}
+      %i.app-menu__icon.fa.fa-lang
     %th{:title => 'Show on home Page'} H
-    %th SEO
+    %th{:title => 'SEO'}
+      %i.app-menu__icon.fa.fa-graph
     %th
     %th
+      %i.app-menu__icon.fa.fa-delete
 
   - @photos.each do |p|
     %tr{:id => "photo_id_#{p.id}"}
@@ -34,4 +39,6 @@
         - else
           = link_to image_tag('application_form_edit.png', :title => "Edit SEO meta tags"), edit_seo_path(p.seo, :return => galleries_path), :remote => true
       %td= link_to image_tag('page_copy.png', :title => "Use #{[p.locale, ': ', p.title].join} as master for new photo"), new_photo_path(:master => p)
-      %td= link_to image_tag('bin.png'), photo_path(p), :method => :delete, :data => { :confirm => 'Are you sure?' }, :remote => true
+      %td
+        = link_to photo_path(p), :method => :delete, :data => { :confirm => 'Are you sure?' }, :remote => true do
+          %i.app-menu__icon.fa.fa-delete

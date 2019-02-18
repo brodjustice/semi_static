@@ -1,47 +1,32 @@
-.button= link_to 'Cancel', '#', :onlick => "$('#dialog').hide(); return false;"
-%h1= 'Editing header for ' + @newsletter.name
-
-= form_for(@newsletter) do |f|
-  - if @newsletter.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@newsletter.errors.count, "error")} prohibited this Newsletter Salutation from being saved:"
-      %ul
-        - @newsletter.errors.full_messages.each do |msg|
-          %li= msg
-
-  .group
-    .col.span_1_of_1
-      %fieldset
-        = f.label :name
-        %br/
-        = f.text_field :name
-        %br/
-        %br/
-      %fieldset
-        = f.label :subject, :title => 'This is the subject of the actual email'
-        %br/
-        = f.text_field :subject
-        %br/
-        %br/
-      %fieldset
-        = f.label :website_url
-        %br/
-        = f.text_field :website_url
-        %br/
-        %br/
-      %fieldset
-        = f.label :title
-        %br/
-        = f.text_field :title
-        %br/
-        = f.label :subtitle
-        %br/
-        = f.text_field :subtitle
-        %br/
-        %br/
-      %fieldset
-        = f.label :banner
-        = f.select :banner_id, options_for_select(SemiStatic::Banner.all.collect{|b| [b.name, b.id]}.prepend(["- None -", 'none']), @newsletter.banner_id)
-
-  .actions
-    = f.submit 'Save'
+.modal-header
+  %h5= 'Editing header for ' + @newsletter.name
+  = modal_close
+.modal-body
+  = form_for(@newsletter) do |f|
+    - if @newsletter.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@newsletter.errors.count, "error")} prohibited this Newsletter Salutation from being saved:"
+        %ul
+          - @newsletter.errors.full_messages.each do |msg|
+            %li= msg
+  
+    .form-group
+      = f.label :name
+      = f.text_field :name, :class => 'form-control'
+    .form-group
+      = f.label :subject, :title => 'This is the subject of the actual email'
+      = f.text_field :subject, :class => 'form-control'
+    .form-group
+      = f.label :website_url
+      = f.text_field :website_url, :class => 'form-control'
+    .form-group
+      = f.label :title
+      = f.text_field :title, :class => 'form-control'
+    .form-group
+      = f.label :subtitle
+      = f.text_field :subtitle, :class => 'form-control'
+    .form-group
+      = f.label :banner
+      = f.select :banner_id, options_for_select(SemiStatic::Banner.all.collect{|b| [b.name, b.id]}.prepend(["- None -", 'none']), @newsletter.banner_id), :class => 'form-control'
+    .text-center
+      = f.submit 'Save', :class => 'btn btn-danger btn-block'

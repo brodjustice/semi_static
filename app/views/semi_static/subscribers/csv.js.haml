@@ -1,1 +1,4 @@
-!= "$(\"#dialog\").html('#{escape_javascript(render :partial => 'semi_static/subscribers/new' )}').show();"
+!= "$(\".modal\").modal('hide');"
+!= "$(\"#generalModal .modal-content\").html('#{escape_javascript(render :partial => 'semi_static/subscribers/new')}');"
+!= "$(\"#generalModal\").modal();"
+

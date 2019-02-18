@@ -1,17 +1,27 @@
-%h1= 'Latest Contacts'
-%table
-  %thead
-    %tr
-      %th Name
-      %th Email
-      %th Message
-      %th Date
-  %tbody
-    - SemiStatic::Contact.order('updated_at DESC').limit(5).each do |c|
-      %tr
-        %td
-          = link_to c.fullname, c
-        %td
-          = mail_to c.email, c.email
-        %td= truncate(c.message)
-        %td= c.created_at.strftime('%d-%m-%y')
+.tile-title-w-btn{:title => 'These are the latest people to have filed in your website contact form.'}
+  %h5
+    %span.app-menu__icon.fa.fa-user.invert
+    = 'Latest Contacts'
+  %p
+    = link_to contacts_path, :title => 'All Contacts', :class => 'btn btn-primary btn-show-loading' do
+      %span.app-menu__icon.fa.fa-user
+      %span Contacts
+
+.tile-body
+  .table-responsive
+    %table#results.table.sortable.table-bordered.table-hover
+      %thead
+        %tr
+          %th Name
+          %th Email
+          %th Message
+          %th Date
+      %tbody
+        - SemiStatic::Contact.order('updated_at DESC').limit(5).each do |c|
+          %tr
+            %td
+              = link_to c.fullname, c
+            %td
+              = mail_to c.email, c.email
+            %td= truncate(c.message)
+            %td= c.created_at.strftime('%d-%m-%y')

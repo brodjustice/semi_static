@@ -148,6 +148,14 @@ module General
     c
   end
 
+  def custom_pages
+    entries = SemiStatic::Entry.where.not(:partial => 'none')
+    SemiStatic::Engine.config.open_partials.inject({}) do |hash, element|
+      hash[element.first] = entries.select{|e| e.partial == element.first}
+      hash
+    end
+  end
+
   # Need to have gzip command installed on webserver system
   def load_url(url=nil, locale=nil, *args)
     s = true

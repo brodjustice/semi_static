@@ -7,64 +7,45 @@
           %li= msg
 
   = hidden_field_tag :return, @return
-  .group
-    .col.span_1_of_2
-      %h2 Meta tags
-      %fieldset
-        = f.label :title
-        %br/
-        = f.text_field :title
-        %br/
-        %br/
-      %fieldset
-        = f.label :keywords, '5-10 keywords seperated by commas. If you are unsure about your keywords, it will be best to leave this blank'
-        %br/
-        = f.text_field :keywords
-        %br/
-        %br/
-      %fieldset
-        = f.label :description, 'Description (max 140 characters)'
-        %br/
-        = f.text_area :description, :rows => 5
-        %br/
-        %br/
-      %fieldset
-        = f.label :no_index, 'Request that search engines do not index this page'
-        %br/
-        = f.check_box :no_index
-    .col.span_1_of_2
-      %h2 Sitemap
-      %fieldset
-        = f.label :changefreq, 'Change Frequency'
-        = f.select :changefreq, options_for_select(SemiStatic::Seo::CHANGE_FREQ.each{|k, v| [k.to_s.humanize, v]}, @seo.changefreq)
-        %br/
-        %br/
-      %fieldset
-        = f.label :priority, 'Crawler Priority (0 to 10)'
-        = f.text_field :priority
-        %br/
-        %br/
-      %fieldset
-        = f.label :include_in_sitemap
-        = f.check_box :include_in_sitemap
-      %p
-        = 'Last update (calculated)'
-        %br/
+
+  .form-group
+    = f.label :title, :class => 'col-form-label'
+    = f.text_field :title, :class => 'form-control'
+  .form-group
+    = f.label :keywords, '5-10 keywords seperated by commas. If you are unsure about your keywords, it will be best to leave this blank', :class => 'col-form-label'
+    = f.text_field :keywords, :class => 'form-control'
+  .form-group
+    = f.label :description, 'Description (max 140 characters)', :class => 'col-form-label'
+    = f.text_area :description, :rows => 3, :class => 'form-control'
+  .form-group
+    = f.label :no_index, 'Request that search engines do not index this page', :class => 'col-form-label'
+    = f.check_box :no_index, :class => 'form-control'
+  %h5 Sitemap
+  .row
+    .col-md-6
+      .form-group
+        = f.label :changefreq, 'Change frequency', :class => 'col-form-label'
+        %br
+        = f.select :changefreq, options_for_select(SemiStatic::Seo::CHANGE_FREQ.each{|k, v| [k.to_s.humanize, v]}, @seo.changefreq), :class => 'form-control'
+    .col-md-6
+      .form-group
+        = f.label :priority, 'Crawler Priority (0 to 10)', :class => 'col-form-label'
+        = f.text_field :priority, :class => 'form-control'
+  .row
+    .col-md-6
+      .form-group
+        = f.label :include_in_sitemap, :class => 'col-form-label'
+        = f.check_box :include_in_sitemap, :class => 'form-control'
+    .col-md-6
+      .form-group
+        = 'Last update (calculated): '
+        %br
         = @seo.seoable.xml_update ? @seo.seoable.xml_update.strftime('%d/%b/%y %H:%M') : 'Unset'
   
-  .actions
-    = f.submit 'Save'
-
-%br/
-.button= link_to 'Add hreflang', new_seo_hreflang_path(@seo), :remote => true
-%h1= 'Hreflang META Tags'
-%table
-  - @seo.hreflangs.each do |href|
-    %tr
-      %td= href.locale.to_s
-      %td= link_to href.href, href.href
-      %td.tick= link_to image_tag('/assets/application_form_edit.png', :title => "Edit hreflang tag"), edit_seo_hreflang_path(@seo, href, :return => seos_path), :remote => true
-      %td.tick= link_to image_tag('/assets/bin.png'), seo_hreflang_path(@seo, href), :method => :delete, :data => { :confirm => 'Are you sure?' }
+  .text-right
+    = f.submit 'Save', :class => 'btn btn-primary'
+    = link_to polymorphic_path([@seo.seoable, @seo]), :method => :delete, :class => 'btn btn-danger' do
+      Delete
 
 
 - unless @photos_without_caption.blank?
