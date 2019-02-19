@@ -130,7 +130,7 @@ module SemiStatic
         if registerable_found
           say '    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
           say "    IMPORTANT WARNING: Found the string 'registerable' in one of your models (see results above)."
-          say "    This could well be a MAJOR security problem in device that you really must correct." 
+          say "    This could well be a MAJOR security problem in devise that you really must correct." 
           unless yes?("    We do not advise that you ignore this, but if you really know what you are doing, type Y to ignore (Y/N): ")
             exit
           end
@@ -185,6 +185,12 @@ module SemiStatic
       def add_auth
         gem "devise"
         run "bundle install"
+
+        #
+        # As is so often the case the Spring Gem can totally screw things up, it's hateful. So
+        # we first make sure it has been stopped before we run the generator
+        #
+        run "spring stop"        
         generate "devise:install"
     
         @admin_model_name = ask("  SemiStatic  What would you like the simple devise admin model to be called? [admin]:")

@@ -37,6 +37,10 @@ Run the bundler to install the semi-static Rails Engine:
 
 	# bundle install
 
+WARNING: At the time of writing (Feb 2019) the Spring gem (version 2.0.2) is part of the most recent Rails (5.2.2) and once again will sometimes cause havoc with Rails generators. So it is recommended that you manually stop Spring before progressing. Use the following command:
+
+	# spring stop
+
 Run the semi-static install generator. Semi-static needs some authentication and has so far only been tested with the Devise gem. If this generator finds Devise or even a database table called 'users', then it will not try to set up authentication. If it does not find authentication it will ask you if you want to set it up, and then take you through the process of setting up Devise with a single administrator account.
 
 	# rails g semi_static:install
