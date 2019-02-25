@@ -29,5 +29,22 @@ module SemiStatic
         end
       end
     end
+
+    #
+    # Form elements with bootstrap styling
+    #
+ 
+    #
+    # Creates a bootstrap styled checkbox from a form boolean. The label is contructed from the attribute
+    # name unless a "text" is provided. An optional infomarker can also be provided inside the .input-group
+    # class that will open up an associated .infobox (uses javascript).
+    #
+    def labeled_checkbox(f, box, text=nil, infomarker=false)
+      text ||= box.to_s.humanize
+      klass = f.object.class.name.split('::').last.downcase
+      infomarker_html = infomarker ? "<span class='infomarker' data-marker='#{infomarker.to_s}'></span>" : ''
+      "<div class='input-group'>#{infomarker_html}<div class='input-group-prepend'> <label class='input-group-text' for='#{['semi_static', klass, box.to_s].join('_')}'>#{text}</label> </div> <div class='form-control mt-2'> <div class='checkbox-wrapper'> <input name='#{klass}[#{box.to_s}]' type='hidden' value='0'><input type='checkbox' value='1' name='#{klass}[#{box.to_s}]' id='#{['semi_static', klass, box.to_s].join('_')}'> </div> </div> </div>".html_safe
+    end
+
   end
 end

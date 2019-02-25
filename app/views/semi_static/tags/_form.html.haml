@@ -54,6 +54,7 @@
           $('#entry_position_select').show();
         }
       });
+      $('#tag_partial').trigger('change');
     });
 
 = form_for @tag do |f|
@@ -75,27 +76,29 @@
             %span.app-menu__icon.fa.fa-hierarchy.invert
             %span Configuration
         .tile-body
-          %fieldset
-            = f.label :name
-            %br/
-            = f.text_field :name
-            %br/
+          .input-group
+            .input-group-prepend
+              = f.label :name, :class => 'input-group-text'
+            = f.text_field :name, :class => 'form-control mt-2'
+          .input-group
             - if SemiStatic::Engine.config.try('subscribers_model')
               = f.check_box :subscriber
               = f.label :subscriber, 'Subscriber only content'
               %br/
             = f.check_box :admin_only
             = f.label :admin_only, 'Admin only content (draft content not public)'
-          %fieldset
-            = f.label :sidebar_title
-            %br/
-            = f.text_field :sidebar_title
-          %fieldset
+          .input-group.mb-6
+            .input-group-prepend
+              = f.label :sidebar_title, :class => 'input-group-text'
+            = f.text_field :sidebar_title, :class => 'form-control mt-2'
+          .input-group
             #selected_banner
               - if @tag.banner.present?
                 = render :partial => 'semi_static/banners/show', :locals => {:banner => @tag.banner}
-            = f.label :banner
-            = f.select :banner_id, options_for_select(SemiStatic::Banner.all.collect{|b| [b.name, b.id]}.prepend(["- None -", 'none']), @tag.banner_id)
+            .input-group-prepend
+              = f.label :banner, :class => 'input-group-text'
+            = f.select :banner_id, options_for_select(SemiStatic::Banner.all.collect{|b| [b.name, b.id]}.prepend(["- None -", 'none']), @tag.banner_id), {}, {:class => 'form-control mt-2'}
+          .input-group
             #tag_line_override{:style => 'display: none'}
               = f.label :tag_line, 'Tag line override (optional)'
               %br/

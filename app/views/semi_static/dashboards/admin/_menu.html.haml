@@ -22,17 +22,14 @@
       %p.notice= alert
 
   %ul.app-nav
-    #alarmNotificationArea
-    -#  = render :partial => 'users/dashboard/alarms'
-
-    #companiesArea
-    -#  = render :partial => 'users/dashboard/companies'
-          
     %li.dropdown
       = link_to '#', :class => 'app-nav__item', :data => {:toggle => 'dropdown'} do
         %i.fa.fa-user.fa-lg
       %ul.dropdown-menu.settings-menu.dropdown-menu-right
-        <li><a class="dropdown-item" href="#{semi_static_dashboard_path}"><i class="fa fa-user fa-lg"></i> Profile</a></li>
+        %li
+          = link_to semi_static_path_for_admins, :title => current_admin.email, :class => 'dropdown-item' do
+            %i.fa.fa-user.fa-lg
+            Admins
         %li
           = link_to semi_static_path_for_admin_sign_out, :method => :delete, :class => 'dropdown-item' do
             %i.fa.fa-sign-out.fa-lg
@@ -40,7 +37,10 @@
 
 %aside.app-sidebar
   .app-sidebar__user
-    = image_tag(SemiStatic::Engine.config.logo_image, :class => 'app-sidebar__logo')
+    - if SemiStatic::Engine.config.logo_image
+      = image_tag(SemiStatic::Engine.config.logo_image, :class => 'app-sidebar__logo')
+    - else
+      = 'WARNING: No logo_image set in config/initializers/semi_static.com'
 
   %ul.app-menu
     %li.header Pages
@@ -71,7 +71,6 @@
     %li.header Elements
     = nav_icon_link('SEO', 'seos', seos_path, 'fa-graph')
     = nav_icon_link('Products', 'products', products_path, 'fa-product')
-    = nav_icon_link('Carts', 'carts', carts_path, 'fa-cart')
     = nav_icon_link('Events', 'events', events_path, 'fa-event')
     = nav_icon_link('Galleries', 'photos', galleries_path, 'fa-photo')
     = nav_icon_link('Agreements', 'agreements', agreements_path, 'fa-system')
@@ -85,6 +84,7 @@
     = nav_icon_link('Comments', 'comments', comments_path, 'fa-comments')
     = nav_icon_link('Subscribers', 'subscribers', subscribers_path, 'fa-subscriber')
     = nav_icon_link('Contacts', 'contacts', contacts_path, 'fa-user')
+    = nav_icon_link('Carts', 'carts', carts_path, 'fa-cart')
     %li.header Access
     = nav_icon_link('Admins', 'contacts', semi_static_path_for_admins, 'fa-admin')
 

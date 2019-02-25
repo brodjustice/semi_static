@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require popper.min.js
 //= require bootstrap
 //= require bootstrap-dashboard
 //= require jquerytablesorter.min.js

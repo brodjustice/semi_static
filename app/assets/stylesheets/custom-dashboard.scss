@@ -291,8 +291,12 @@ fieldset.input-border-wrapper{
 // More checkbox styling
 
 .checkbox-wrapper{
-  cursor: pointer;
   margin :auto;
+  text-align: center;
+}
+
+.checkbox-wrapper input[type='checkbox']{
+  vertical-align: middle;
 }
 
 .checkbox-wrapper input[checkbox]{
@@ -391,11 +395,12 @@ td.warning{
 
 // Info boxes - require JS
 .infomarker{
-  background: transparent image-url('info.png') 0 4px no-repeat;
-  padding: 0px 6px 6px 20px;
+  background: transparent image-url('info.png') 0 center no-repeat;
+  padding: 0px 6px 6px 14px;
   cursor: help;
+  background-size: 12px 12px;
+  vertical-align: top;
 }
-.input-group .infomarker{margin-top: 14px;}
 .infobox{
   margin: 8px;
   border: 1px solid #ccc;
@@ -405,11 +410,15 @@ td.warning{
   padding: 6px;
   display: none;
 }
-.infobox.wide{
-  width: auto;
-  padding-bottom: 6px;
-  margin-bottom: 6px;
+.input-group .infomarker + .input-group-prepend .input-group-text,
+.input-group .infomarker + .input-group-prepend label{
+  border-top-left-radius: 4px !important;
+  border-bottom-left-radius: 4px !important;
 }
+
+// Stacked inputs, there may be a class for this in bootsrap but cannot find it
+.stacked-input-group .input-group-text{border-radius: 4px 4px 0 0; border-bottom: 0;}
+.stacked-input-group .form-control{border-radius: 0 0 4px 4px;}
 
 // And this is standard rails stuff
 #notices{
@@ -438,5 +447,6 @@ td.photo{ padding: 0 0 1px; position: relative; width: 48px; height: 48px; }
 td.photo img{ transition: 0.5s; position: absolute; top: 0; left: 0;width: 48px; height: 48px; }
 tr td.photo:hover img{ width: 96px; height: 96px; z-index: 10; top: -24px; left: -24px; border: 4px solid white;}
 
-// Banner thumbnail in forms
-.banner-thumb img{max-width: 100%;}
+// Form and Banner thumbnails
+form #semi_static_entry_image img,
+#selected_banner img, .banner-thumb img{max-width: 100%;}

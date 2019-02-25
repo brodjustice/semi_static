@@ -1,5 +1,1 @@
-if($('#partial_description').length == 0)
-!= "$(\"#dialog\").addClass('wide').html('#{escape_javascript(render :partial => 'partial_description_dialog')}').show();"
-else
 != "$(\"#partial_description\").html('#{escape_javascript(render :partial => 'partial_description')}');"
-

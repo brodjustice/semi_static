@@ -80,7 +80,7 @@ Semi-static saves cached versions of your sites pages in the public directory, b
 of the content. Exactly which locales match which domains is set in 'config/initializers/semi-static.rb'. So for example your
 will find the english version of your home page at:
 
-    public/en/home.html
+    public/en/index.html
 
 Your webserver needs to be configured to take advantage of this. For ngnix the configuration will look something like this:
 

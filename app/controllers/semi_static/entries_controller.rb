@@ -181,9 +181,7 @@
     def update
       @entry = Entry.find(params[:id])
       respond_to do |format|
-        if params[:preview] && (@entry.attributes = params[:entry])
-          format.js { render 'preview'}
-        elsif params[:convert] && (@entry.attributes = params[:entry])
+        if params[:convert] && (@entry.attributes = entry_params)
           format.js { render 'convert'}
         elsif @entry.update_attributes(entry_params)
           unless @entry.notice.blank?
