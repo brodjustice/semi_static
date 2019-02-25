@@ -664,12 +664,12 @@ module SemiStatic
 
     def semi_static_path_for_admin_sign_out
       if SemiStatic::Engine.config.app_dashboard
-        link_to 'Done', main_app.send(*SemiStatic::Engine.config.app_dashboard)
+        main_app.send(*SemiStatic::Engine.config.app_dashboard).html_safe
       else
         if defined?(Admin)
-          link_to 'Done', main_app.destroy_admin_session_path, :method => :delete
+          main_app.destroy_admin_session_path
         else
-          link_to 'Done', main_app.destroy_users_session_path, :method => :delete
+          main_app.destroy_users_session_path
         end
       end
     end
