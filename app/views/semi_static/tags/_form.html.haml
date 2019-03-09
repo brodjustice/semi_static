@@ -7,8 +7,15 @@
         });
 
     };
+    function check_icon_in_menu(){
+      if($('#semi_static_tag_icon_in_menu').prop('checked')) {
+        $('#icon_in_menu_options').show();
+      } else {
+        $('#icon_in_menu_options').hide();
+      }
+    }
     function check_menu(){
-      if($('#tag_menu').prop('checked')) {
+      if($('#semi_static_tag_menu').prop('checked')) {
         $('#target_options').show();
       } else {
         $('#target_options').hide();
@@ -36,8 +43,11 @@
         load_banner_preview($('#tag_banner_id').val());
       });
 
+      check_icon_in_menu();
+      $("#semi_static_tag_icon_in_menu").change(function() { check_icon_in_menu(); });
+
       check_menu();
-      $("#tag_menu" ).change(function() {
+      $("#semi_static_tag_menu" ).change(function() {
         check_menu();
       });
 
@@ -105,66 +115,54 @@
               = f.text_field :tag_line
         
         
-          %fieldset
-            .infobox.wide#partial_description
-              = render :partial => 'semi_static/system/partial_description', :object => @tag
-            %span.infomarker
-            = f.label :partial, 'Custom view'
-            = f.select :partial, options_for_select(SemiStatic::Engine.config.open_partials.collect{|k, v| [k, k]}.prepend(["- None -", 'none']), @tag.partial)
-            %span#entry_position_select
-              = f.label :entry_position
-              = f.select :entry_position, options_for_select(SemiStatic::Entry::DISPLAY_ENTRY_SYM, @tag.entry_position)
+          .row
+            .col-md-8
+              .infobox.wide#partial_description
+                = render :partial => 'semi_static/system/partial_description', :object => @tag
+              = labeled_selectbox f, :partial, options_for_select(SemiStatic::Engine.config.open_partials.collect{|k, v| [k, k]}.prepend(["- None -", 'none']), @tag.partial), 'Custom view', :partial_description
+            .col-md-4#entry_position_select
+              = labeled_selectbox f, :entry_position, options_for_select(SemiStatic::Entry::DISPLAY_ENTRY_SYM, @tag.entry_position)
         
-          %fieldset.section.group
-            .col.span_1_of_2
+          .row
+            .col-md-8
+              = labeled_checkbox f, :menu, 'Show in menu'
+              #target_options
+                = labeled_selectbox f, :target_tag_id, options_for_select(SemiStatic::Tag.all.collect{|t| [t.name, t.id]}.prepend(['- None -', nil]), @tag.target_tag_id)
+                .input-group
+                  .input-group-prepend
+                    = f.label :target_name, 'Target name (optional)', :class => 'input-group-text'
+                  = f.text_field :target_name, :class => 'form-control mt-2'
               - if @tag.icon.present?
                 .img_field
                   = image_tag(@tag.icon.url(:big))
-              = f.label :icon
-              = f.file_field :icon
-              %br/
-              %br/
-              = f.label :locale
-              %br/
-              = f.select :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @tag.locale)
-            .col.span_1_of_2
-              %fieldset
-              = f.label :predefined_class, 'Predefined Tag'
-              = f.select :predefined_class, options_for_select(predefined_tags.keys.collect{|k| [k, k]}.prepend(["- None -", nil]), @tag.predefined_class)
-              %fieldset
-                = f.label :menu
-                = f.check_box :menu
-                %br/
-                = f.label :icon_in_menu
-                = f.check_box :icon_in_menu
-                %br/
-                = f.label :icon_delete, 'Delete icon'
-                = f.check_box :icon_delete
-                %br/
-                = f.label :icon_resize, 'Resize icon'
-                = f.check_box :icon_resize
-          %fieldset#target_options
-            = f.label :target_tag_id, 'Target tag (optional)'
-            %br
-            = f.select :target_tag_id, options_for_select(SemiStatic::Tag.all.collect{|t| [t.name, t.id]}.prepend(['- None -', nil]), @tag.target_tag_id)
-            %br/
-            = f.label :target_name, 'Target name (optional)'
-            %br/
-            = f.text_field :target_name
-          %fieldset
-            .section.group
-              .col.span_1_of_2
-                - if @tag.position == 0
-                  = f.label :position, 'Position 0: Icon sprite file must be 100px x 500px png with 5 icons'
-                - else
-                  = f.label :position, 'Position: Set to 0 to enable the sprites option'
-                = f.text_field :position
-                %br/
-                = f.label :max_entries_on_index_page
-                = f.text_field :max_entries_on_index_page
-              .col.span_1_of_2
-                = f.label :colour, 'CSS colors: black, yellow, #5f78c0, etc'
-                = f.text_field :colour
+              = labeled_selectbox f, :predefined_class, options_for_select(predefined_tags.keys.collect{|k| [k, k]}.prepend(["- None -", nil]), @tag.predefined_class), 'Predefined Tag'
+              = labeled_selectbox f, :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @tag.locale)
+            .col-md-4
+              = labeled_checkbox f, :icon_in_menu
+              #icon_in_menu_options
+                .stacked-input-group
+                  = f.label :icon, :class => 'input-group-text'
+                  = f.file_field :icon, :class => 'form-control'
+                = labeled_checkbox f, :icon_resize, 'Resize icon'
+                = labeled_checkbox f, :icon_delet, 'Delete icon'
+          .row.mt-2
+            .col-md-8
+              .input-group
+                .input-group-prepend
+                  - if @tag.position == 0
+                    = f.label :position, 'Position 0: Icon sprite file must be 100px x 500px png with 5 icons', :class => 'input-group-text'
+                  - else
+                    = f.label :position, 'Position: Set to 0 to enable the sprites option', :class => 'input-group-text'
+                = f.text_field :position, :class => 'form-control mt-2'
+              .input-group
+                .input-group-prepend
+                  = f.label :max_entries_on_index_page, :class => 'input-group-text'
+                = f.text_field :max_entries_on_index_page, :class => 'form-control mt-2'
+            .col-md-4
+              .input-group{:title => 'CSS colors: black, yellow, #5f78c0, etc'}
+                .input-group-prepend
+                  = f.label :colour, :class => 'input-group-text'
+                = f.text_field :colour, :class => 'form-control mt-2'
         
     .col-md-4
       .tile
@@ -177,9 +175,7 @@
             = f.label :side_bar, 'Enable side bar'
             = f.check_box :side_bar
             %fieldset#side_bar_options
-              = f.label :sidebar_id, 'Sidebar'
-              %br/
-              = f.select :sidebar_id, options_for_select(SemiStatic::Sidebar.all.collect{|s| [s.title.blank? ? "##{s.id.to_s}" : s.title, s.id]}.prepend(["- None -", nil]), @tag.sidebar_id)
+              = labeled_selectbox f, :sidebar_id, options_for_select(SemiStatic::Sidebar.all.collect{|s| [s.title.blank? ? "##{s.id.to_s}" : s.title, s.id]}.prepend(["- None -", nil]), @tag.sidebar_id)
               %br/
               = f.label :side_bar_news, 'News'
               = f.check_box :side_bar_news
@@ -187,9 +183,8 @@
               = f.check_box :side_bar_social
               = f.label :side_bar_search, 'Search'
               = f.check_box :side_bar_search
-              %br/
-              = f.label :side_bar_tag_id, 'Tag for sidebar'
-              = f.select :side_bar_tag_id, options_for_select(SemiStatic::Tag.locale(@tag.locale).collect{|t| [t.name, t.id]}.prepend(["- None -", nil]), @tag.side_bar_tag_id)
+            = labeled_selectbox f, :side_bar_tag_id, options_for_select(SemiStatic::Tag.locale(@tag.locale).collect{|t| [t.name, t.id]}.prepend(["- None -", nil]), @tag.side_bar_tag_id), 'Tag for sidebar'
+
   
       .tile
         .tile-body
@@ -204,15 +199,8 @@
                 If you select an entry here, then that entry will displayed instead of the automatically constructed index page for this Tag.
               %p
                 If selected then it will cause a redirect to that Entry page. Due to the redirect then most fields on this page, eg. 'Max entries on index page, CSS colors, etc', will have no effect. The SEO setting will also not be taken from here, but from the Entry SEO settings. Often a better way to achieve a similar effect but without the redirect will be to have only one Entry for this Tag and set the 'link_to_tag' attribute, this will then mean that there will be no redirect and SEO settings will be taken from the this Tag.
-            %span.infomarker
-            = f.label :use_entry_as_index_id, 'Use entry as display for Tag index (optional)'
-            %br
-            = f.select :use_entry_as_index_id, options_for_select(SemiStatic::Entry.unmerged.locale(@tag.locale).collect{|e| [entry_title_or_id(e), e.id]}.prepend(['- None -', nil]), @tag.use_entry_as_index_id)
+            = labeled_selectbox f, :use_entry_as_index_id, options_for_select(SemiStatic::Entry.unmerged.locale(@tag.locale).collect{|e| [entry_title_or_id(e), e.id]}.prepend(['- None -', nil]), @tag.use_entry_as_index_id), 'Entry as Tag index', :entry_as_index_info
           
-
-
-
-
       .tile
         .tile-body
           .tile-title-w-btn

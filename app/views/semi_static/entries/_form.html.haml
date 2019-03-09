@@ -339,25 +339,47 @@
         .tile-body
           .row
             .col-md-8
-              .form-group
-                = f.label :style, 'Custom style rules (CSS)'
+              .stacked-input-group
+                = f.label :style, 'Custom style rules (CSS)', :class => 'input-group-text'
                 = f.text_area :style, :rows => 12, :class => 'form-control'
             .col-md-4
-              %fieldset
-                = f.label :style_class
-                = f.select :style_class, options_for_select(SemiStatic::EntriesHelper::STYLE_CLASSES.collect{|sc| [sc, sc]}, @entry.style_class)
-              %fieldset
-                = f.label :background_colour, 'Background CSS colors: black, yellow, #5f78c0, etc'
-                %br/
-                = f.text_field :background_colour, :size => 10
-                %br/
-                = f.label :header_colour, 'Header CSS colors: black, yellow, #5f78c0, etc'
-                %br/
-                = f.text_field :header_colour, :size => 10
-                %br/
-                = f.label :colour, 'Text CSS colors: black, yellow, #5f78c0, etc'
-                %br/
-                = f.text_field :colour, :size => 10
+              = labeled_selectbox(f, :style_class, options_for_select(SemiStatic::EntriesHelper::STYLE_CLASSES.collect{|sc| [sc, sc]}, @entry.style_class))
+              .stacked-input-group{:title => 'Background CSS colors: black, yellow, #5f78c0, etc'}
+                = f.label :background_colour, 'Background color', :class => 'input-group-text'
+                = f.text_field :background_colour, :size => 10, :class => 'form-control'
+              .stacked-input-group{:title => 'Header CSS colors: black, yellow, #5f78c0, etc'}
+                = f.label :header_colour, 'Header color', :class => 'input-group-text'
+                = f.text_field :header_colour, :size => 10, :class => 'form-control'
+              .stacked-input-group{:title => 'Text CSS colors: black, yellow, #5f78c0, etc'}
+                = f.label :colour, 'Text color', :class => 'input-group-text'
+                = f.text_field :colour, :size => 1, :class => 'form-control'
+
+      - unless @entry.new_record?
+        .tile
+          .tile-body
+            .tile-title-w-btn
+              %h5
+                %span.app-menu__icon.fa.fa-attrs.invert
+                Attributes
+              = link_to new_entry_page_attr_path(@entry), :class => 'btn btn-sm btn-primary', :remote => true do
+                %span New attribute
+          - if @entry.page_attrs.present?
+            %table.table.sortable.table-bordered.table-hover
+              %thead
+                %tr
+                  %th='Key'
+                  %th='Value'
+                  %th
+                    %i.app-menu__icon.fa.fa-delete
+              %tbody
+                - @entry.page_attrs.each do |a|
+                  %tr
+                    %td= link_to a.attr_key, edit_polymorphic_path([@entry, a]), :remote => :true
+                    %td= a.attr_value
+                    %td
+                      = link_to entry_page_attr_path(@entry, a), :method => :delete do
+                        %i.app-menu__icon.fa.fa-delete
+
 
     .col-md-4
       .tile
@@ -404,10 +426,7 @@
               = 'If set, then none of the other fields in this form have and effect as this entry will simply'
               = 'redirect to the tag specified. This can be useful for building menus with many'
               = 'levels of hierarchy'
-          %span.infomarker{:data => {:marker => 'acts_as_tag_info'}}
-          .input-group-prepend
-            = f.label :acts_as_tag_id, :class => 'input-group-text'
-          = f.select :acts_as_tag_id, options_for_select(SemiStatic::Tag.unscoped.collect{|t| [[t.locale, ': ', t.name].join, t.id]}.prepend(["- None -", nil]), @entry.acts_as_tag_id), {}, {:class => 'form-control mt-2'}
+          = labeled_selectbox(f, :acts_as_tag_id, options_for_select(SemiStatic::Tag.unscoped.collect{|t| [[t.locale, ': ', t.name].join, t.id]}.prepend(["- None -", nil]), @entry.acts_as_tag_id), nil, :acts_as_tag_info)
       .tile
         %h5 Banner
         #selected_banner.banner-thumb
@@ -452,14 +471,10 @@
         %h5 Blog functions
         = labeled_checkbox(f, :enable_comments)
         #comment_strategy
-          = f.label :comment_strategy, 'Comment procedure'
-          = f.select :comment_strategy, options_for_select(SemiStatic::Entry::COMMENT_STRATEGY.collect{|k,v| [k.to_s.humanize, v]}, @entry.comment_strategy)
+          = labeled_selectbox(f, :comment_strategy, options_for_select(SemiStatic::Entry::COMMENT_STRATEGY.collect{|k,v| [k.to_s.humanize, v]}, @entry.comment_strategy), 'Comment procedure')
       .tile
         %h5 Language
-        .input-group
-          .input-group-prepend
-            = f.label :locale, :class => 'input-group-text'
-          = f.select :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @entry.locale), {}, {:class => 'form-control mt-2'}
+        = labeled_selectbox(f, :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @entry.locale))
       - unless @newsletter
         .tile
           %h5 Sidebar configuration
@@ -484,82 +499,47 @@
       .tile
         %h5
           Gallery Images
-        .input-group
-          .input-group-prepend
-            = f.label :gallery_id, 'Gallery', :class => 'input-group-text'
-          = f.select :gallery_id, options_for_select(SemiStatic::Gallery.locale(@entry.locale).collect{|g| [g.title, g.id]}.prepend(["- None -", nil]), @entry.gallery_id), {}, {:class => 'form-control mt-2'}
-        .input-group
-          .input-group-prepend{:title => 'Show titles on images that are inside the "main" entry'}
-            = f.label :show_image_titles, 'Main Entry titles', :class => 'input-group-text'
-          .form-control.mt-2
-            .checkbox-wrapper
-              = f.check_box :show_image_titles
+        = labeled_selectbox(f, :gallery_id, options_for_select(SemiStatic::Gallery.locale(@entry.locale).collect{|g| [g.title, g.id]}.prepend(["- None -", nil]), @entry.gallery_id), 'Gallery')
+        .infobox#main_entry_titles
+          %h5 Main Entry titles
+          %p
+            = 'Show the titles along with photos that are displayed in the Entry'
+        = labeled_checkbox(f, :show_image_titles, 'Main Entry titles', :main_entry_titles)
       .tile
         %h5 Social share buttons
-        .input-group
-          = f.check_box :facebook_share
-          = f.label :facebook_share, 'Facebook'
-        .input-group
-          = f.check_box :linkedin_share
-          = f.label :linkedin_share, 'LinkedIn'
-        .input-group
-          = f.check_box :xing_share
-          = f.label :xing_share, 'Xing'
-        .input-group
-          = f.check_box :twitter_share
-          = f.label :twitter_share, 'Twitter'
-        .input-group
-          = f.check_box :email_share
-          = f.label :email_share, 'Email'
+        .row
+          .col-md-6
+            = labeled_checkbox(f, :facebook_share, 'Facebook')
+            = labeled_checkbox(f, :linkedin_share, 'LinkedIn')
+            = labeled_checkbox(f, :xing_share, 'Xing')
+          .col-md-6
+            = labeled_checkbox(f, :twitter_share, 'Twitter')
+            = labeled_checkbox(f, :email_share, 'Email')
       .tile
         %h5 Event
-        %fieldset
-          = f.select :event_id, options_for_select(SemiStatic::Event.all.collect{|e| [['ID ', e.id.to_s, ': ', e.name].join, e.id]}.prepend(["- None -", 'none']), @entry.event_id)
+        = labeled_selectbox(f, :event_id, options_for_select(SemiStatic::Event.all.collect{|e| [['ID ', e.id.to_s, ': ', e.name].join, e.id]}.prepend(["- None -", 'none']), @entry.event_id), 'Event')
+
       .tile
         %h5 Squeeze
-        %fieldset
-          = f.select :squeeze_id, options_for_select(SemiStatic::Squeeze.all.collect{|s| [['ID ', s.id.to_s, ': ', s.name].join, s.id]}.prepend(["- None -", 'none']), @entry.squeeze_id)
+        = labeled_selectbox(f, :squeeze_id, options_for_select(SemiStatic::Squeeze.all.collect{|s| [['ID ', s.id.to_s, ': ', s.name].join, s.id]}.prepend(["- None -", 'none']), @entry.squeeze_id), 'Squeeze')
       .tile
         %h5 Job Posting
-        %fieldset
-          = f.select :job_posting_id, options_for_select(SemiStatic::JobPosting.all.collect{|s| [['ID ', s.id.to_s, ': ', s.title].join, s.id]}.prepend(["- None -", 'none']), @entry.job_posting_id)
+        = labeled_selectbox(f, :job_posting_id, options_for_select(SemiStatic::JobPosting.all.collect{|s| [['ID ', s.id.to_s, ': ', s.title].join, s.id]}.prepend(["- None -", 'none']), @entry.job_posting_id))
 
           
       .tile
         %h5 Newsletter
-        %fieldset
-          .infobox#newsletter_img
-            %h4= 'Newsletter image (optional)'
-            - if @entry.newsletter_img.present?
-              = image_tag(@entry.newsletter_img(:crop))
-            %p
-              = 'If you add a image here it will be used inside any newletter generated with this entry'
-          %span.infomarker
-          = f.label :newsletter_img, 'Image for newsletter (optional)'
-          = f.file_field :newsletter_img
-      - unless @entry.new_record?
-        .tile
-          .tile-body
-            .tile-title-w-btn
-              %h5
-                %span.app-menu__icon.fa.fa-attrs.invert
-                Attributes
-              = link_to new_entry_page_attr_path(@entry), :class => 'btn btn-primary', :remote => true do
-                %span.app-menu__icon.fa.fa-attrs
-                %span New aattribute
-          - if @entry.page_attrs.present?
-            %table.table.sortable.table-bordered.table-hover
-              %thead
-                %tr
-                  %th='Key'
-                  %th='Value'
-                  %th
-              %tbody
-                - @entry.page_attrs.each do |a|
-                  %tr
-                    %td= link_to a.attr_key, edit_polymorphic_path([@entry, a]), :remote => :true
-                    %td= a.attr_value
-                    %td= link_to image_tag("bin.png"), entry_page_attr_path(@entry, a), :method => :delete
+        .infobox#newsletter_img
+          %h4= 'Newsletter image (optional)'
+          - if @entry.newsletter_img.present?
+            = image_tag(@entry.newsletter_img(:crop))
+          %p
+            = 'If you add a image here it will be used inside any newletter generated with this entry'
+        .stacked-input-group
+          %span.infomarker{:data => {:marker => :newsletter_img}}
+          = f.label :newsletter_img, 'Image for newsletter', :class => 'input-group-text'
+          = f.file_field :newsletter_img, :class => 'form-control'
+
   .row
     .col-md-12
       .tile

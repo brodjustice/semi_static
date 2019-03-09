@@ -7,23 +7,15 @@
           %li= msg
 
   = hidden_field_tag :return, @return
-  .group
-    .col.span_1_of_1
-      %h2 Page Attribute
-      %fieldset
-        = f.label :attr_key, 'Key'
-        %br/
-        = f.text_field :attr_key
-        %br/
-        %br/
-      %fieldset
-        = f.label :attr_value, 'Value'
-        %br/
-        = f.text_field :attr_value
-        %br/
-        %br/
-      %fieldset
+  %h5 Page Attribute
+  .stacked-input-group
+    = f.label :attr_key, 'Key', :class => 'input-group-text'
+    = f.text_field :attr_key, :class => 'form-control'
+  .stacked-input-group
+    = f.label :attr_value, 'Value', :class => 'input-group-text'
+    = f.text_field :attr_value, :class => 'form-control'
 
-  .actions
-    = f.submit 'Save'
+  .row
+    .col-md-12.mt-3
+      = f.submit 'Save', :class => 'btn btn-danger btn-block'
 

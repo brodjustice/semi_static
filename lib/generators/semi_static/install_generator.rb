@@ -195,7 +195,7 @@ module SemiStatic
     
         @admin_model_name = ask("  SemiStatic  What would you like the simple devise admin model to be called? [admin]:")
         @admin_model_name = "admin" if @admin_model_name.blank?
-        generate(:scaffold, @admin_model_name + " name:string surname:string")
+        generate(:scaffold, @admin_model_name + " name:string surname:string password:string password_confirmation:string")
     
         before_action_instruction = "\n  before_action :authenticate_" + @admin_model_name +'!'
         inject_into_file "app/controllers/#{@admin_model_name.pluralize}_controller.rb", before_action_instruction,

@@ -46,5 +46,14 @@ module SemiStatic
       "<div class='input-group'>#{infomarker_html}<div class='input-group-prepend'> <label class='input-group-text' for='#{['semi_static', klass, box.to_s].join('_')}'>#{text}</label> </div> <div class='form-control mt-2'> <div class='checkbox-wrapper'> <input name='#{klass}[#{box.to_s}]' type='hidden' value='0'><input type='checkbox' value='1' name='#{klass}[#{box.to_s}]' id='#{['semi_static', klass, box.to_s].join('_')}'> </div> </div> </div>".html_safe
     end
 
+    def labeled_selectbox(f, attr, select_options, text=nil, infomarker=false)
+      text ||= attr.to_s.humanize
+      klass = f.object.class.name.split('::').last.downcase
+      infomarker_html = infomarker ? "<span class='infomarker' data-marker='#{infomarker.to_s}'></span>" : ''
+      select_html = f.select(attr, select_options, {}, {:class => 'form-control mt-2'})
+
+      "<div class='input-group'>#{infomarker_html}<div class='input-group-prepend'> <label class='input-group-text' for='#{klass}_#{attr}'>#{text}</label></div>#{select_html}</div>".html_safe
+    end
+
   end
 end
