@@ -256,8 +256,8 @@ li.dropdown.danger{background-color: #dc3545;}
 }
 
 // Fix the size of the user avatar and logo so it does not mess up the layout
-img.app-sidebar__user-avatar{
-  max-width: 48px;
+.app-sidebar__user{
+  background-color: white;
 }
 img.app-sidebar__logo{
   max-width: 128px;

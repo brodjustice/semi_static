@@ -8,44 +8,47 @@
 
   = hidden_field_tag :return, @return
 
-  .form-group
-    = f.label :title, :class => 'col-form-label'
-    = f.text_field :title, :class => 'form-control'
-  .form-group
-    = f.label :keywords, '5-10 keywords seperated by commas. If you are unsure about your keywords, it will be best to leave this blank', :class => 'col-form-label'
-    = f.text_field :keywords, :class => 'form-control'
-  .form-group
-    = f.label :description, 'Description (max 140 characters)', :class => 'col-form-label'
-    = f.text_area :description, :rows => 3, :class => 'form-control'
-  .form-group
-    = f.label :no_index, 'Request that search engines do not index this page', :class => 'col-form-label'
-    = f.check_box :no_index, :class => 'form-control'
-  %h5 Sitemap
+  = labeled_textfield(f, :title)
+  
+  .input-group{:title => '5-10 keywords seperated by commas. If you are unsure about your keywords, it will be best to leave this blank'}
+    .input-group-prepend
+      = f.label :keywords, :class => 'input-group-text'
+    = f.text_field :keywords, :class => 'form-control mt-2'
+
+  .input-group{:title => 'Description should be maximum 140 characters'}
+    .input-group-prepend
+      = f.label :description, 'Description', :class => 'input-group-text'
+    = f.text_area :description, :rows => 3, :class => 'form-control mt-2'
+
+  .input-group{:title => 'Request that search engines do not index this page'}
+    .input-group-prepend
+      = f.label :no_index, :class => 'input-group-text'
+    .form-control.mt-2
+      .checkbox-wrapper
+        = f.check_box :no_index, :class => 'form-control'
+
   .row
-    .col-md-6
-      .form-group
-        = f.label :changefreq, 'Change frequency', :class => 'col-form-label'
-        %br
-        = f.select :changefreq, options_for_select(SemiStatic::Seo::CHANGE_FREQ.each{|k, v| [k.to_s.humanize, v]}, @seo.changefreq), :class => 'form-control'
-    .col-md-6
-      .form-group
-        = f.label :priority, 'Crawler Priority (0 to 10)', :class => 'col-form-label'
-        = f.text_field :priority, :class => 'form-control'
-  .row
-    .col-md-6
-      .form-group
-        = f.label :include_in_sitemap, :class => 'col-form-label'
-        = f.check_box :include_in_sitemap, :class => 'form-control'
-    .col-md-6
-      .form-group
-        = 'Last update (calculated): '
+    .col-md-12.mt-4
+      %h5 Sitemap
+    .col-md-8
+      = labeled_checkbox(f, :include_in_sitemap)
+      = labeled_selectbox(f, :changefreq, options_for_select(SemiStatic::Seo::CHANGE_FREQ.each{|k, v| [k.to_s.humanize, v]}, @seo.changefreq), 'Change frequency')
+    .col-md-4
+      .input-group{:title => 'Priority: Max 10, min 0'}
+        .input-group-prepend
+          = f.label :priority, :class => 'input-group-text'
+        = f.text_field :priority, :class => 'form-control mt-2'
+      .input-group.mt-1
+        = 'Last update: '
         %br
         = @seo.seoable.xml_update ? @seo.seoable.xml_update.strftime('%d/%b/%y %H:%M') : 'Unset'
   
-  .text-right
-    = f.submit 'Save', :class => 'btn btn-primary'
-    = link_to polymorphic_path([@seo.seoable, @seo]), :method => :delete, :class => 'btn btn-danger' do
-      Delete
+  .row
+    .col-md-12.mt-3
+      .text-right
+        = f.submit 'Save', :class => 'btn btn-primary'
+        = link_to polymorphic_path([@seo.seoable, @seo]), :method => :delete, :class => 'btn btn-danger' do
+          Delete
 
 
 - unless @photos_without_caption.blank?
