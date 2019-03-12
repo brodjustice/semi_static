@@ -1,16 +1,17 @@
-.button= link_to 'Done', '#', :onclick => "$('#dialog').hide(); return false;"
-
-%h1 Sitemaps where generated
-%h3 Google responded:
-%p
-  - @google.xpath("//script").remove
-  = @google.xpath('/html/body').text
-%h3 Bing responded:
-%p
-  - @bing.xpath("//script").remove
-  = @bing.xpath('/html/body').text
-
-%h3= "Your can see your new sitemap here:"
-%p
-  = link_to construct_url(SemiStatic::Engine.config.sitemap, @locale), construct_url(SemiStatic::Engine.config.sitemap, @locale)
-
+.modal-header
+  %h5= 'Generate Sitemap'
+  = modal_close
+.modal-body
+  %h5 Sitemaps were generated
+  %h5 Google responded:
+  %p
+    - @google.xpath("//script").remove
+    = @google.xpath('/html/body').text
+  %h5 Bing responded:
+  %p
+    - @bing.xpath("//script").remove
+    = @bing.xpath('/html/body').text
+  
+  %h5= "Your can view your new sitemap here:"
+  %p
+    = link_to construct_url(SemiStatic::Engine.config.sitemap, @locale), construct_url(SemiStatic::Engine.config.sitemap, @locale)

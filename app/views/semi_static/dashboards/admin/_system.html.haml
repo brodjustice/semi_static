@@ -98,6 +98,6 @@
           = 'Generate static pages'
         - SemiStatic::Engine.config.localeDomains.each do |k, v|
           %p
-            = link_to system_path(:cmd => {:generate_static_pages => :all}, :locale => k), :class => 'btn btn-primary btn-show-loading', :method => :put do
+            = link_to system_path(:cmd => {:generate_static_pages => :all}, :locale => k), :class => 'btn btn-primary btn-space btn-show-loading', :method => :put do
               %span.app-menu__icon.fa.fa-settings
               %span= v
