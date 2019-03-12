@@ -7,85 +7,68 @@
           %ul
             - @event.errors.full_messages.each do |msg|
               %li= msg
-      %h2 Main Content
-      %fieldset
-        = f.label :name
-        %br/
-        = f.text_field :name
-      %fieldset
-        = f.label :description
-        %br/
-        = f.text_area :description, :rows => 12
-      %fieldset
-        .group
-          .col.span_1_of_2
-            = f.label :offer_price_currency, 'Currency Symbol'
-            %br/
-            = f.text_field :offer_price_currency
-          .col.span_1_of_2
-            = f.label :offer_price, 'Price'
-            %br/
-            = f.text_field :offer_price
-        .group
-          .col.span_1_of_2
-            = f.label :offer_min_price, 'Price range (min)'
-            %br/
-            = f.text_field :offer_min_price
-          .col.span_1_of_2
-            = f.label :offer_max_price, 'Price range (max)'
-            %br/
-            = f.text_field :offer_max_price
-      %h2 Registion options
-      %fieldset
-        = f.label :registration, 'Enable Registration'
-        = f.check_box :registration
-      #registration_fields
-        %fieldset
-          = f.label :registration_text, 'Text summary for event registration'
-          %br/
-          = f.text_field :registration_text, :size => 70 
-          %br/
-          = f.label :registration_url, 'Optional url to direct to for registration'
-          %br/
-          = f.text_field :registration_url, :size => 70
-        
-        
-
-    .col.span_1_of_3
-      .sidebar
-        %h2 Options
-        %fieldset
-          = f.label :location, 'Location name'
-          %br/
-          = f.text_field :location
-        %fieldset
-          = f.label :location_address, 'Address'
-          %br/
-          = f.text_field :location_address
-        %fieldset
-          = f.label :door_time, 'Time that doors to event open'
-          %br/
-          = f.datetime_select :door_time, {:start_year => Time.now.year, :include_blank => true, :default => nil}
-        %fieldset
-          = f.label :start_date, 'Start date and time'
-          %br/
-          = f.datetime_select :start_date, {:start_year => Time.now.year, :include_blank => true, :default => nil}
-        %fieldset
-          = f.label :end_date, 'End date and time'
-          %br/
-          = f.datetime_select :end_date, {:start_year => Time.now.year, :include_blank => true, :default => nil}
-        %fieldset
-          = f.label :duration, 'Duration in minutes'
-          %br/
-          = f.text_field :duration
-        %fieldset
-          = f.label :in_language, 'Language (in BCP 47 format, eg. en, de, it)'
-          %br/
-          = f.text_field :in_language
-        %fieldset
-          = f.label :typical_age_range, 'Typical Age Range (eg. 18-30)'
-          %br/
-          = f.text_field :typical_age_range
-  .mid
-    .actions
-      = f.submit 'Save'
+  .row
+    .col-md-8
+      .tile
+        .tile-title
+          %h5
+            %span.app-menu__icon.fa.fa-event.invert
+            %span Main Content
+          = labeled_textfield(f, :name)
+          .input-group
+            .input-group-prepend
+              = f.label :description, :class => 'input-group-text'
+            = f.text_area :description, :rows => 6, :class => 'form-control mt-2'
+          .row
+            .col-md-6
+              = labeled_textfield(f, :offer_price_currency, 'Currency Symbol')
+            .col-md-6
+              = labeled_textfield(f, :offer_price, 'Price')
+          .row
+            .col-md-6
+              = labeled_textfield(f, :offer_min_price, 'Price range (min)')
+            .col-md-6
+              = labeled_textfield(f, :offer_max_price, 'Price range (max)')
+          .mt-4
+            %h5 Registion options
+            = labeled_checkbox(f, :registration, 'Enable Registration')
+            #registration_fields
+              = labeled_textfield(f, :registration_text, 'Text summary for event registration')
+              = labeled_textfield(f, :registration_url, 'Optional url to direct to for registration')
+    
+    .col-md-4
+      .tile
+        .tile-title
+          .sidebar
+            %h5 Options
+            = labeled_textfield(f, :location, 'Location name')
+            = labeled_textfield(f, :location_address, 'Address')
+            .input-group{:title => 'Time that doors to event open'}
+              .input-group-prepend
+                = f.label :door_time, :class => 'input-group-text'
+              .form-control.mt-2
+                = f.datetime_select :door_time, {:start_year => Time.now.year, :include_blank => true, :default => nil}
+            .input-group{:title => 'Start date and time'}
+              .input-group-prepend
+                = f.label :start_date, 'Start time', :class => 'input-group-text'
+              .form-control.mt-2
+                = f.datetime_select :start_date, {:start_year => Time.now.year, :include_blank => true, :default => nil}
+            .input-group{:title => 'End date and time'}
+              .input-group-prepend
+                = f.label :end_date, :class => 'input-group-text'
+              .form-control.mt-2
+                = f.datetime_select :end_date, {:start_year => Time.now.year, :include_blank => true, :default => nil}
+            = labeled_textfield(f, :duration, 'Duration in minutes')
+            .input-group{:title => 'Language in BCP 47 format, eg. en, de, it ...'}
+              .input-group-prepend
+                = f.label :in_language, 'language', :class => 'input-group-text'
+              = f.text_field :in_language, :class => 'form-control mt-2'
+            .input-group{:title => 'Typical Age Range (eg. 18-30)'}
+              .input-group-prepend
+                = f.label :typical_age_range, :class => 'input-group-text'
+              = f.text_field :typical_age_range, :class => 'form-control mt-2'
+  .row
+    .col-md-12
+      .tile
+        .tile-body
+          = f.submit 'Save', :class => 'btn btn-danger btn-block'

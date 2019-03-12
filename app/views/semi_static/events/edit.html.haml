@@ -1,6 +1,6 @@
 .app-title
   %h1
     %i.fa.fa-event.invert
-    New event
+    %span= 'Editing event: ' + @event.name
 
 = render 'form'
