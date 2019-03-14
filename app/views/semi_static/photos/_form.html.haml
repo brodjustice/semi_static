@@ -23,56 +23,51 @@
         - @photo.errors.full_messages.each do |msg|
           %li= msg
 
-  .group
-    .col.span_2_of_3
-      %h2 Content
-      .field
-        = f.label :title
-        %br/
-        = f.text_field :title
-
-      .field
-        .photo.entry
-          - if @photo.img.present?
-            = image_tag(@photo.img.url(:bar), :title => @photo.title, :size => '210x', :class => 'ri', :id => 'semi_static_image_for_upload')
-          - else
-            = image_tag('no-image-loaded.jpg', :title => 'No image', :class => 'ri', :id => 'semi_static_image_for_upload')
-
-
-        .infobox#loaded_image
-          %h4 Currently loaded image
-          - if @photo.img.present?
-            The currently loaded mage is:
-            %ul
-              %li= @photo.img_file_name
-              %li= 'Type: ' + @photo.img_content_type
-              %li= link_to @photo.img.url, @photo.img.url
-              %li= 'Other versions:'
+  .row
+    .col-md-8
+      .tile
+        .tile-body
+          = labeled_textfield(f, :title)
+          .infobox#loaded_image
+            %h4 Currently loaded image
+            - if @photo.img.present?
+              The currently loaded mage is:
               %ul
-                - Paperclip::AttachmentRegistry.definitions_for(SemiStatic::Photo)[:img][:styles].keys.each do |s|
-                  %li= link_to @photo.img.url(s), @photo.img.url(s)
-          - else
-            No image is currently loaded
-        %span.infomarker
-          = f.file_field :img
-
-      .field.wide
-        = f.label :description, 'Caption'
-        %br/
-        = f.text_area :description, :rows => '4'
-      .field
-        = f.label :entry_id, 'Use in entry (optional)'
-        %br
-        = f.select :entry_id, options_for_select(@entries.collect{|e| [entry_title_or_id(e), e.id]}.prepend(['- None -', nil]), @photo.entry_id)
-    .col.span_1_of_3
-      .sidebar
-        %h2 Position
-        %fieldset
-          = f.label :position
-          %br/
-          = f.text_field :position, :size => 10
+                %li= @photo.img_file_name
+                %li= 'Type: ' + @photo.img_content_type
+                %li= link_to @photo.img.url, @photo.img.url
+                %li= 'Other versions:'
+                %ul
+                  - Paperclip::AttachmentRegistry.definitions_for(SemiStatic::Photo)[:img][:styles].keys.each do |s|
+                    %li= link_to @photo.img.url(s), @photo.img.url(s)
+            - else
+              No image is currently loaded
+          .row
+            .col-md-6.mt-3
+              - if @photo.img.present?
+                = image_tag(@photo.img.url(:bar), :title => @photo.title, :size => '210x', :class => 'img-fluid', :id => 'semi_static_image_for_upload')
+              - else
+                = image_tag('no-image-loaded.jpg', :title => 'No image', :class => 'img-fluid', :id => 'semi_static_image_for_upload')
+    
+    
+            .col-md-6.mt-3
+              .stacked-input-group
+                %span.infomarker{:data => {:marker => :loaded_image}}
+                = f.label :img, 'Image', :class => 'input-group-text'
+                = f.file_field :img, :class => 'form-control'
+    
+          .row
+            .col-md-12
+              = labeled_textfield(f, :description, 'Caption')
+              = labeled_selectbox(f, :entry_id, options_for_select(@entries.collect{|e| [entry_title_or_id(e), e.id]}.prepend(['- None -', nil]), @photo.entry_id), 'Use in Entry')
+              = labeled_selectbox(f, :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @photo.locale))
+    .col-md-4
+      .tile
+        .tile-title
+          %h5 Position
+        .tile-body
+          = labeled_textfield(f, :position)
           #entry_gallery_position{:style => 'display: none;'}
-            %br/
             .infobox#gallery_control_settings
               %h4= 'Gallery Control settings'
               %p
@@ -87,27 +82,26 @@
                 = 'of your photo is'
                 %b= 'main,'
                 = 'then the photo WILL be displayed if it is attached to a merged entry'
-         
-            = f.label :gallery_control, 'Entry Gallery position', :class => 'infomarker'
-            %br/
-            = f.select :gallery_control, options_for_select(SemiStatic::Photo::GALLERY_SYM.collect{|k,v| [k.to_s.humanize, v]}, @photo.gallery_control.to_i)
-
-        %fieldset
-          .infobox#photo_hidden
-            %h4= 'Hidden Photos'
-            %p
-              = 'If you check this box then the photo will not be displayed in any public gallery on the website, though it will still be displayed'
-              = 'if inside a public Entry that you have set it to be used in or on the home page if that box is checked'
-          %span.infomarker
-            = f.label :hidden
-            = f.check_box :hidden
-          = f.label :home_page
-          = f.check_box :home_page
-        %h2 Gallery
-        %fieldset
-          = f.select :gallery_id, options_for_select(SemiStatic::Gallery.all.collect{|g| [g.title, g.id]}.prepend(['- None -', nil]), @photo.gallery_id)
-        %h2 Behaviour
-        %fieldset
+          
+            = labeled_selectbox(f, :gallery_control, options_for_select(SemiStatic::Photo::GALLERY_SYM.collect{|k,v| [k.to_s.humanize, v]}, @photo.gallery_control.to_i), 'Entry position', :gallery_control_settings)
+  
+          %fieldset
+            .infobox#photo_hidden
+              %h4= 'Hidden Photos'
+              %p
+                = 'If you check this box then the photo will not be displayed in any public gallery on the website, though it will still be displayed'
+                = 'if inside a public Entry that you have set it to be used in or on the home page if that box is checked'
+            = labeled_checkbox(f, :hidden, nil, :photo_hidden)
+            = labeled_checkbox(f, :home_page)
+      .tile
+        .tile-title
+          %h5 Gallery
+        .tile-body
+          = labeled_selectbox(f, :gallery_id, options_for_select(SemiStatic::Gallery.all.collect{|g| [g.title, g.id]}.prepend(['- None -', nil]), @photo.gallery_id))
+      .tile
+        .tile-title
+          %h5 Behaviour
+        .tile-body
           .infobox#popup_control
             %h4= 'Popup'
             %p
@@ -121,15 +115,9 @@
               = 'screen, then the system will load a highly compressed image into the pop up and set it to'
               = 'display in double density. This is a very efficient and very effective way of showing high'
               = 'resolution images'
-          %span.infomarker
-          = f.label :popup, 'Pop-up of larger image on click'
-          = f.check_box :popup
-        %h2 Language
-        %fieldset
-          = f.label :locale
-          = f.select :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @photo.locale)
-
-
-  .mid
-    .actions
-      = f.submit 'Save'
+          = labeled_checkbox(f, :popup, 'Pop-up of larger image', :popup_control)
+  .row
+    .col-md-12
+      .tile
+        .tile-body
+          = f.submit 'Save', :class => 'btn btn-danger btn-block'

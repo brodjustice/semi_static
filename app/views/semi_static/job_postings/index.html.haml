@@ -1,26 +1,39 @@
-.mid.full
-  .button= link_to 'New Job Posting', new_job_posting_path
-  %h1 Job Postings
-  %table
-    %thead
-      %tr
-        %th= 'ID'
-        %th= 'Title'
-        %th= 'Date Posted'
-        %th= 'Organisation'
-        %th= 'Location'
-        %th= image_tag('calendar.png', :title => 'Last Update')
-        %th
+.app-title
+  %h1
+    %i.fa.fa-job.invert
+    %span Job Postings
+  = link_to new_job_posting_path, :title => 'Create a new Job Posting', :class => 'btn btn-primary btn-space' do
+    %span.app-menu__icon.fa.fa-job
+    %span New Job Posting
 
-    %tbody
-      - @job_postings.each do |jp|
-        %tr{:id => "jp_id_#{jp.id}"}
-          %td= jp.id.to_s
-          %td= link_to jp.title, edit_job_posting_path(jp)
-          %td
-            = jp.date_posted.strftime('%d/%b/%y %H:%M') unless jp.date_posted.blank?
-          %td= jp.organisation_name
-          %td= jp.job_location
-          %td.number{:title => jp.updated_at.strftime('%H:%M')}= jp.updated_at.strftime('%d/%b/%y')
-          %td= link_to image_tag('bin.png'), jp, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
+.tile
+  .tile-body
+    .table-responsive
+      %table.table.sortable.table-bordered.table-hover.table-dense
+        %thead
+          %tr
+            %th= 'ID'
+            %th= 'Title'
+            %th= 'Date Posted'
+            %th= 'Organisation'
+            %th{:title => 'Location'}
+              %i.app-menu__icon.fa.fa-map
+            %th= image_tag('calendar.png', :title => 'Last Update')
+            %th
+              %i.app-menu__icon.fa.fa-delete
+    
+        %tbody
+          - @job_postings.each do |jp|
+            %tr{:id => "jp_id_#{jp.id}"}
+              %td= jp.id.to_s
+              %td= link_to jp.title, edit_job_posting_path(jp)
+              %td
+                = jp.date_posted.strftime('%d/%b/%y %H:%M') unless jp.date_posted.blank?
+              %td= jp.organisation_name
+              %td= jp.job_location
+              %td.number{:title => jp.updated_at.strftime('%H:%M')}= jp.updated_at.strftime('%d/%b/%y')
+              %td
+                = link_to jp, :method => :delete, :data => { :confirm => 'Are you sure?' } do
+                  %i.app-menu__icon.fa.fa-delete
+    

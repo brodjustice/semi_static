@@ -1,108 +1,83 @@
 = form_for @job_posting do |f|
-  .group
-    .col.span_2_of_3
-      - if @job_posting.errors.any?
-        #error_explanation
-          %h2= "#{pluralize(@job_posting.errors.count, "error")} prohibited this job posting from being saved:"
-          %ul
-            - @job_posting.errors.full_messages.each do |msg|
-              %li= msg
-      %h2 Main Content
-      %fieldset
-        = f.label :title
-        %br/
-        = f.text_field :title
-      %fieldset
-        = f.label :description
-        %br/
-        = f.text_area :description, :rows => 12
-      %fieldset
-        .group
-          .col.span_1_of_2
-            = f.label :organisation_name
-            %br/
-            = f.text_field :organisation_name
-          .col.span_1_of_2
-            = f.label :job_location
-            %br/
-            = f.text_field :job_location
-        .group
-          .col.span_1_of_2
-            = f.label :salary_currency, "Salary Currency Eg. EUR, USD"
-            %br/
-            = f.text_field :salary_currency
-          .col.span_1_of_2
-            = f.label :base_salary, "Base Salary Per Year"
-            %br/
-            = f.text_field :base_salary
-        .group
-          .col.span_1_of_2
-            = f.label :employment_type
-            %br/
-            = f.text_field :employment_type
-          .col.span_1_of_2
-            = f.label :qualifications
-            %br/
-            = f.text_field :qualifications
-        .group
-          .col.span_1_of_2
-            = f.label :industry
-            %br/
-            = f.text_field :industry
-          .col.span_1_of_2
-        .group
-          .col.span_1_of_2
-            = f.label :responsibilities
-            %br/
-            = f.text_area :responsibilities, :rows => 4
-          .col.span_1_of_2
-            = f.label :skills
-            %br/
-            = f.text_area :skills, :rows => 4
-        .group
-          .col.span_1_of_1
-            %fieldset
-              = f.label :date_posted
-              %br/
-              = f.datetime_select :date_posted, {:start_year => (Time.now.year - 1), :include_blank => true, :default => nil}
-            %fieldset
-              = f.label :url
-              %br/
-              = f.text_field :url
-
-    .col.span_1_of_3
-      .sidebar
-        %h2 Organisation
-        %fieldset
-          = f.label :organisaton_location
-          %br/
-          = f.text_field :organisation_location
-        %fieldset
-          = f.label :organisation_address
-          %br/
-          = f.text_field :organisation_address
-        %fieldset
-          = f.label :organisation_email
-          %br/
-          = f.text_field :organisation_email
-        %fieldset
-          = f.label :organisation_telephone
-          %br/
-          = f.text_field :organisation_telephone
-        %fieldset
-          = f.label :organisation_description
-          %br/
-          = f.text_area :organisation_description, :rows => 4
-        %fieldset
-          - if @job_posting.organisation_logo.present?
-            = image_tag(@job_posting.organisation_logo.url(:mobile),  :class => 'ri')
-            %br/
-          = f.label :organisation_logo, 'logo'
-          %br/
-          = f.file_field :organisation_logo
-
-
-  .mid
-    .actions
-      = f.submit 'Save'
-
+  - if @job_posting.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@job_posting.errors.count, "error")} prohibited this job posting from being saved:"
+      %ul
+        - @job_posting.errors.full_messages.each do |msg|
+          %li= msg
+  .row
+    .col-md-8
+      .tile
+        .tile-title
+          %h5
+            %span.app-menu__icon.fa.fa-job.invert
+            Main Content
+        .tile-body
+          = labeled_textfield f, :title
+          .input-group
+            .input-group-prepend
+              = f.label :description, :class => 'input-group-text'
+            = f.text_area :description, :rows => 12, :class => 'form-control mt-2'
+          .row
+            .col-md-12
+              = labeled_textfield f, :organisation_name
+              = labeled_textfield f, :job_location
+          .row
+            .col-md-6
+              .input-group{:title => "Salary Currency Eg. EUR, USD"}
+                .input-group-prepend
+                  = f.label :salary_currency, :class => 'input-group-text'
+                = f.text_field :salary_currency, :class => 'form-control mt-2'
+            .col-md-6
+              .input-group{:title => "Base Salary Per Year"}
+                .input-group-prepend
+                  = f.label :base_salary, :class => 'input-group-text'
+                = f.text_field :base_salary, :class => 'form-control mt-2'
+          .row
+            .col-md-12
+              = labeled_textfield f, :employment_type
+              = labeled_textfield f, :qualifications
+              = labeled_textfield f, :industry
+              .input-group
+                .input-group-prepend
+                  = f.label :responsibilities, :class => 'input-group-text'
+                = f.text_area :responsibilities, :rows => 4, :class => 'form-control mt-2'
+              .input-group
+                .input-group-prepend
+                  = f.label :skills, :class => 'input-group-text'
+                = f.text_area :skills, :rows => 4, :class => 'form-control mt-2'
+              .input-group
+                .input-group-prepend
+                  = f.label :date_posted, :class => 'input-group-text'
+                .form-control.mt-2
+                  = f.datetime_select :date_posted, {:start_year => (Time.now.year - 1), :include_blank => true, :default => nil}
+              = labeled_textfield f, :url
+    
+    .col-md-4
+      .tile
+        .tile-title
+          %h5 Organisation
+        .tile-body
+          .stacked-input-group
+            = f.label :organisation_location, 'Location', :class => 'input-group-text'
+            = f.text_field :organisation_location, :class => 'form-control'
+          = labeled_textfield f, :organisation_address, 'Address'
+          = labeled_textfield f, :organisation_email, 'Email'
+          = labeled_textfield f, :organisation_telephone, 'Phone'
+          .stacked-input-group
+            = f.label :organisation_description, 'Description', :class => 'input-group-text'
+            = f.text_area :organisation_description, :rows => 6, :class => 'form-control'
+          .row
+            .col-md-12.mt-2
+              - if @job_posting.organisation_logo.present?
+                = image_tag(@job_posting.organisation_logo.url(:mobile),  :class => 'img-fluid')
+              .input-group
+                .input-group-prepend
+                  = f.label :organisation_logo, 'logo', :class => 'input-group-text'
+                = f.file_field :organisation_logoa, :class => 'form-control mt-2'
+    
+  .row
+    .col-md-12
+      .tile
+        .tile-body
+          = f.submit 'Save', :class => 'btn btn-danger btn-block'

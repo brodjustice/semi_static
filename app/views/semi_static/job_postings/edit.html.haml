@@ -1,4 +1,6 @@
-.dash
-  %h1= 'Editing Job Posting ' + @job_posting.title
+.app-title
+  %h1
+    %i.fa.fa-job.invert
+    = 'Editing Job Posting ' + @job_posting.title
 
-  = render 'form', job_posting: @job_posting
+= render 'form', job_posting: @job_posting

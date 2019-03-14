@@ -23,7 +23,8 @@
             %th ID
             %th= 'Name'
             %th= 'Menu'
-            %th= 'Custom'
+            %th{:title => 'Custom'}
+              %i.app-menu__icon.fa.fa-code
             - if SemiStatic::Engine.config.try('subscribers_model')
               %th.tick{:title => 'Subscriber only content'}
                 %i.app-menu__icon.fa.fa-user

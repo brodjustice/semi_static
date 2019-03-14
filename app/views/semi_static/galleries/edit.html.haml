@@ -1,3 +1,5 @@
-.dash
-  %h1= "Editing gallery #{@gallery.title}"
-  = render 'form'
+.app-title
+  %h1
+    %i.fa.fa-photo.invert
+    = "Editing gallery #{@gallery.title}"
+= render 'form'

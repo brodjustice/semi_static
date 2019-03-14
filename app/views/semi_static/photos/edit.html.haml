@@ -1,3 +1,5 @@
-.dash
-  %h1= 'Editing photo ' + @photo.title
-  = render 'form'
+.app-title
+  %h1
+    %i.fa.fa-photo.invert
+    %span= 'Editing photo ' + @photo.title
+= render 'form'

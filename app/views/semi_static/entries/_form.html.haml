@@ -245,9 +245,9 @@
           #semi_static_entry_image
             %h5= 'Image'
             - if @entry.img.present?
-              = image_tag(@entry.img.url(:panel), :title => @entry.title, :alt => 'Entry Image', :class => 'ri', :id => 'semi_static_image_for_upload')
+              = image_tag(@entry.img.url(:panel), :title => @entry.title, :alt => 'Entry Image', :class => 'img-fluid', :id => 'semi_static_image_for_upload')
             - else
-              = image_tag('no-image-loaded.jpg', :title => 'Placeholder', :class => 'ri', :id => 'semi_static_image_for_upload')
+              = image_tag('no-image-loaded.jpg', :title => 'Placeholder', :class => 'img-fluid', :id => 'semi_static_image_for_upload')
             #semi_static_entry_image_control
               = f.check_box :image_disable
               = f.label :image_disable, 'Disable display of image and caption in entry'
