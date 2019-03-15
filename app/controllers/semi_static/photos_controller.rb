@@ -25,11 +25,19 @@ module SemiStatic
         @photos = @obj.photos
       elsif params[:gallery_id].present?
         if semi_static_admin?
-          @obj = @gallery = Gallery.find_by_id(params[:gallery_id])
+          if params[:gallery_id] == 'nil'
+            # Admin wants a list of the photos with no Gallery assigned
+            @photos = Photo.without_gallery
+            layout = 'semi_static_dashboards'
+            template = 'semi_static/photos/admin_list_index'
+          else
+            # Admin wants a list of photos from a specific Gallery
+            @obj = @gallery = Gallery.find_by_id(params[:gallery_id])
+          end
         else
           @obj = @gallery = Gallery.visible.find_by_id(params[:gallery_id])
         end
-        @photos = @obj.photos
+        @photos ||= @obj.photos
       elsif params[:tag_id].present?
         @tag, @seo = Seo.photos(params[:tag_id], I18n.locale) 
       else

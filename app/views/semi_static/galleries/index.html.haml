@@ -49,13 +49,13 @@
               %td= g.locale.to_s
               %td.tick= link_to image_tag('/assets/add.png', :title => "Add new photo to #{g.title} gallery"), new_photo_path(:photo => {:gallery_id => g.id})
               %td.tick
-                = link_to gallery_path(g), :title => "Delete gallery #{g.title}", :method => :delete, :data => { :confirm => "This will also delete #{g.photos.size} photos in this gallery! Are you sure?" } do
+                = link_to gallery_path(g), :title => "Delete gallery #{g.title}", :method => :delete, :data => { :confirm => "There are #{g.photos.size} photos in this gallery, they will be without a Gallery if you delete. Are you sure you want to do this?" } do
                   %i.app-menu__icon.fa.fa-delete
           %tr.em
             %td
             %td{:colspan => 3}= "Photos not assigned to a gallery"
             %td.tick
-            %td.number.link= link_to @photos_without_gallery.size, photos_path(:gallery_id => nil)
+            %td.number.link= link_to @photos_without_gallery.size, photos_path(:gallery_id => :nil)
             %td
             %td
             %td

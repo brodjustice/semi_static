@@ -5,7 +5,7 @@ module SemiStatic
     #
     # attr_accessible :title, :sub_title, :description, :public, :locale, :position
 
-    has_many :photos
+    has_many :photos, :dependent => :nullify
     has_many :entries
 
     default_scope {order(:position, :id)}
