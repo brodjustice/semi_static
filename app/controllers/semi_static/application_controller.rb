@@ -39,7 +39,7 @@ module SemiStatic
     end
 
     # Not found ids and slugs are really 404 not 500
-    rescue_from ActiveRecord::RecordNotFound do |e|
+    rescue_from ActiveRecord::RecordNotFound, ActionController::RoutingError do |e|
       #
       # We will try and find out what the person was looking for by checking the request URL. We grab the
       # base of the URL path and check to see ith this matches any of our public tags.
@@ -51,7 +51,8 @@ module SemiStatic
       @status_code = 404
       @exception = e
       @url = url_for(params.permit!)
-      render :layout => 'semi_static_application', :template => 'semi_static/errors/show', :status => @status_code
+
+      render :layout => 'semi_static_application', :template => 'semi_static/errors/show', :formats => [:html], :status => @status_code
     end
 
     rescue_from Faraday::ConnectionFailed, Elasticsearch::Transport::Transport::Errors::NotFound, Elasticsearch::Transport::Transport::Errors::BadRequest do |e|
