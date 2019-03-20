@@ -7,7 +7,7 @@
     });
 
 %header.app-header
-  = link_to semi_static_dashboard_path, :class => 'app-header__logo' do
+  = link_to semi_static.semi_static_dashboard_path, :class => 'app-header__logo' do
     .logo-mini
     .logo-lg
       = image_tag('x2/bl-logo-white.png')
@@ -44,8 +44,8 @@
 
   %ul.app-menu
     %li.header Pages
-    = nav_icon_link('Tags', 'tags', tags_path, 'fa-hierarchy')
-    = nav_icon_link('Entries', 'entries', entries_path, 'fa-website')
+    = nav_icon_link('Tags', 'tags', semi_static.tags_path, 'fa-hierarchy')
+    = nav_icon_link('Entries', 'entries', semi_static.entries_path, 'fa-website')
 
     -# %li.treeview
     -#   = link_to '#', :class => 'app-menu__item', :data => {:toggle => 'treeview'} do
@@ -63,28 +63,31 @@
     -#         Semi-automatic
 
     %li.header Layout
-    = nav_icon_link('Banners', 'banners', banners_path, 'fa-banner')
-    = nav_icon_link('Sidebars', 'sidebars', sidebars_path, 'fa-sidebar')
-    = nav_icon_link('Footer', 'footer', fcols_path, 'fa-footer')
-    = nav_icon_link('Page Attributes', 'page_attributes', page_attrs_path, 'fa-attrs')
-    = nav_icon_link('Custom Pages', 'system', system_show_path(:cmd => :custom_pages), 'fa-code')
+    = nav_icon_link('Banners', 'banners', semi_static.banners_path, 'fa-banner')
+    = nav_icon_link('Sidebars', 'sidebars', semi_static.sidebars_path, 'fa-sidebar')
+    = nav_icon_link('Footer', 'footer', semi_static.fcols_path, 'fa-footer')
+    = nav_icon_link('Page Attributes', 'page_attributes', semi_static.page_attrs_path, 'fa-attrs')
+    = nav_icon_link('Custom Pages', 'system', semi_static.system_show_path(:cmd => :custom_pages), 'fa-code')
     %li.header Elements
-    = nav_icon_link('SEO', 'seos', seos_path, 'fa-graph')
-    = nav_icon_link('Products', 'products', products_path, 'fa-product')
-    = nav_icon_link('Events', 'events', events_path, 'fa-event')
-    = nav_icon_link('Galleries', 'photos', galleries_path, 'fa-photo')
-    = nav_icon_link('Agreements', 'agreements', agreements_path, 'fa-system')
-    = nav_icon_link('Squeezes', 'squeezes', squeezes_path, 'fa-squeeze')
-    = nav_icon_link('Jobs', 'jobs', job_postings_path, 'fa-job')
-    = nav_icon_link('Click Ads', 'click_ads', click_ads_path, 'fa-click_ads')
-    = nav_icon_link('Newsletters', 'newsletters', newsletters_path, 'fa-layout')
-    = nav_icon_link('References', 'references', references_path, 'fa-test')
-    = nav_icon_link('System', 'system', semi_static_dashboard_path, 'fa-settings')
+    = nav_icon_link('SEO', 'seos', semi_static.seos_path, 'fa-graph')
+    = nav_icon_link('Products', 'products', semi_static.products_path, 'fa-product')
+    = nav_icon_link('Events', 'events', semi_static.events_path, 'fa-event')
+    = nav_icon_link('Galleries', 'photos', semi_static.galleries_path, 'fa-photo')
+    = nav_icon_link('Agreements', 'agreements', semi_static.agreements_path, 'fa-system')
+    = nav_icon_link('Squeezes', 'squeezes', semi_static.squeezes_path, 'fa-squeeze')
+    = nav_icon_link('Jobs', 'jobs', semi_static.job_postings_path, 'fa-job')
+    = nav_icon_link('Click Ads', 'click_ads', semi_static.click_ads_path, 'fa-click_ads')
+    = nav_icon_link('Newsletters', 'newsletters', semi_static.newsletters_path, 'fa-layout')
+    = nav_icon_link('References', 'references', semi_static.references_path, 'fa-test')
+    = nav_icon_link('System', 'system', semi_static.semi_static_dashboard_path, 'fa-settings')
     %li.header Data
-    = nav_icon_link('Comments', 'comments', comments_path, 'fa-comments')
-    = nav_icon_link('Subscribers', 'subscribers', subscribers_path, 'fa-subscriber')
-    = nav_icon_link('Contacts', 'contacts', contacts_path, 'fa-user')
-    = nav_icon_link('Carts', 'carts', carts_path, 'fa-cart')
+    = nav_icon_link('Comments', 'comments', semi_static.comments_path, 'fa-comments')
+    = nav_icon_link('Subscribers', 'subscribers', semi_static.subscribers_path, 'fa-subscriber')
+    = nav_icon_link('Contacts', 'contacts', semi_static.contacts_path, 'fa-user')
+    = nav_icon_link('Carts', 'carts', semi_static.carts_path, 'fa-cart')
     %li.header Access
     = nav_icon_link('Admins', 'contacts', semi_static_path_for_admins, 'fa-admin')
-
+    - unless SemiStatic::Engine.config.dashboard_menu_additions.nil?
+      %li.header Custom
+      - SemiStatic::Engine.config.dashboard_menu_additions.each do |title, url_method|
+        = nav_icon_link(title.humanize, title.humanize, main_app.send(url_method), 'fa-settings')

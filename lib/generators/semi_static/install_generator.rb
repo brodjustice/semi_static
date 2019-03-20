@@ -12,7 +12,7 @@ module SemiStatic
       #
       source_root File.expand_path('../../../..', __FILE__)
     
-      MOUNT_ROUTE = 'mount SemiStatic::Engine, :at => "/"'
+      MOUNT_ROUTE = 'mount SemiStatic::Engine, :at => "/", :as => "semi_static"'
       DEVISE_SECRET_KEY = 'config.secret_key'
       ASSET_IMAGE_DIRECTORIES = %w(banners x2 flags)
       SITE_HELPER = 'helper SemiStatic::SiteHelper'
