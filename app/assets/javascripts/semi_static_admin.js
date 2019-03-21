@@ -24,6 +24,11 @@ function semiStaticPrepareSingleUpload(files){
 }
 
 $(document).ready(function() {
+  // Show the loading modal if the bootstrap btn also has loading class
+  $('.loading').parent().on('click', function() {
+    waitingDialog.show('Loading...', {dialogSize: 'sm', progressType: 'striped progress-bar-animated'});
+  });
+
   //
   // Open .infobox when corresponding .infomarker is clicked. Recomended method
   // is to give the infomarker a data-marker attribute with the id name of the

@@ -1,11 +1,3 @@
-- content_for :ujs do
-  :javascript
-    $(document).ready(function(){
-      $('.loading').parent().on('click', function() {
-        waitingDialog.show('Loading...', {dialogSize: 'sm', progressType: 'striped progress-bar-animated'});
-      });
-    });
-
 %header.app-header
   = link_to semi_static.semi_static_dashboard_path, :class => 'app-header__logo' do
     .logo-mini
