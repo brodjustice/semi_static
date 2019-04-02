@@ -59,7 +59,7 @@ namespace :'semi_static' do
     non_digested_assets.each do |file|
       next if File.directory?(file)
 
-      FileUtils.symlink(file, File.join(Rails.root, "public/assets/", file),  :force => true)
+      FileUtils.symlink(File.join(Rails.root, "app/assets/#{assets_type_by_directory_name}/#{file}"), File.join(Rails.root, "public/assets/", file),  :force => true)
     end
   end
 end
