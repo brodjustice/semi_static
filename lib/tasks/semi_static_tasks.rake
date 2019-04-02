@@ -21,26 +21,45 @@ namespace :'semi_static' do
     puts "To run SemiStatic tests run \'rails test\' from the SemiStatic engine home directory: #{semi_static_engine_root}"
   end
 
-  desc 'Create non digested assets in public without fingerprints'
-  task :non_digested_assets do
+  desc 'Create public non digested assets without fingerprints, eg: rails semi_static:non_digested[images]'
+  task 'non_digested', ['asset_type'] do |task, args|
 
-    pre_compiled_assets = Dir.glob(File.join(Rails.root, 'public/assets/**/*'))
+    if args['asset_type'].present?
+      link_assets(args['asset_type'])
+    else
+      puts 'ERROR: no asset type given. Typical assets types are passed thus: rails semi_static:non_digested[images]'
+    end
+  end
 
+
+  def link_assets(assets_type_by_directory_name)
     # In development mode we don't have usually have precompiled digested assets
     if Rails.env.development?
       puts 'WARNING: Non digested assets are normally not required in development mode'
     end
-    if pre_compiled_assets.blank?
-      puts 'WARNING: No assets found, have you forgot to precompile them?'
+
+    unless File.directory?(File.join(Rails.root, "public/assets"))
+      puts 'ERROR: cannot find precompiled assets directory, have you precompiled your assets?'
+      return
+    end
+
+    if Dir.glob(File.join(Rails.root, "app/assets/#{assets_type_by_directory_name}")).first
+      Dir.chdir(Dir.glob(File.join(Rails.root, "app/assets/#{assets_type_by_directory_name}")).first)
+    else
+      puts "ERROR: cannot find assets directory for #{assets_type_by_directory_name}"
+      return
+    end
+
+    non_digested_assets = Dir.glob("**/*")
+
+    if non_digested_assets.blank?
+      puts 'WARNING: No assets found'
     end
     
-    regex = /(-{1}[a-z0-9]{32}*\.{1}){1}/
-    pre_compiled_assets.each do |file|
-      next if File.directory?(file) || file !~ regex
-      source = file.split('/')
-      source.push(source.pop.gsub(regex, '.'))
-      non_digested = File.join(source)
-      FileUtils.symlink(file, non_digested, :force => true)
+    non_digested_assets.each do |file|
+      next if File.directory?(file)
+
+      FileUtils.symlink(file, File.join(Rails.root, "public/assets/", file),  :force => true)
     end
   end
 end

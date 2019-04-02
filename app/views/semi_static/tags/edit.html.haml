@@ -11,6 +11,9 @@
       = link_to edit_seo_path(@tag, :return => edit_tag_path(@tag)), :remote => true, :class => 'btn btn-primary btn-space' do
         %span.app-menu__icon.fa.fa-graph
         Edit SEO
+    = link_to entries_path(:tag_id => @tag.id), :class => 'btn btn-primary btn-space' do
+      %span.app-menu__icon.fa.fa-website
+      %span Show Tag Entries
     = link_to feature_path(@tag.slug), :class => 'btn btn-primary' do
       %span.app-menu__icon.fa.fa-hierarchy
       %span Show

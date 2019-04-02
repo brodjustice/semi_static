@@ -29,11 +29,11 @@ Change your working directory to your Rails app and create the database with:
 
 	# rails db:create
 
-Now add semi-static. Edit the Gemfile to include the semi-static gem/engine:
+Now add SemiStatic. Edit the Gemfile to include the SemiStatic gem/engine:
 
         gem 'semi_static', :git => 'https://github.com/brodjustice/semi_static.git', :branch => 'rails_v5'
 
-Run the bundler to install the semi-static Rails Engine:
+Run the bundler to install the SemiStatic Rails Engine:
 
 	# bundle install
 
@@ -76,7 +76,7 @@ Note: seeds.rb is created by the generator, so you must have run this first as d
 
 = Production environment webserver, assets and page cacheing
 
-Semi-static saves cached versions of your sites pages in the public directory, but inside directories according to the locale
+SemiStatic saves cached versions of your sites pages in the public directory, but inside directories according to the locale
 of the content. Exactly which locales match which domains is set in 'config/initializers/semi-static.rb'. So for example your
 will find the english version of your home page at:
 
@@ -188,7 +188,7 @@ In your controllers you can then for example use authenticate_admin!
 
 = Rake task for non digested assets
 
-The goal of this engine is to privide a basis fo a CMS, and furthermore a CMS where pure HTML will often be used. Since Rails 4 the assets
+The goal of this engine is to privide a basis fo a CMS, and furthermore a CMS where pure HTML will can be used. Since Rails 4 the assets
 no longer have a non-digested version. This means that, for example, if you are writing pure HTML like the following, it will fail:
 
         <img src='assets/my-image.jpg'>
@@ -197,9 +197,9 @@ This HTML will not find the image because Rails will only provide assets with a 
 
         assets/my-image-14d1be2ff7ec4cd54bce852edaa6d9b03fff5a773f9f4b1550393f9228e9e41e.jpg
 
-The HTML will have no way of knowing what the fingerprint is. To fix this SemiStatic provides a task that will provide a path to your assets without the fingerprint:
+The HTML will have no way of knowing what the fingerprint is. To fix this SemiStatic provides a task that will provide a path to your image assets without the fingerprint:
 
-        # rails semi_static:non_digested_assets
+        # rails semi_static:non_digested[images]
 
 = Examples
 

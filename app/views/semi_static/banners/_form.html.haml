@@ -15,34 +15,33 @@
           %li= msg
 
 
-  %fieldset
-    .infobox#infor_box_for_banner_name
-      %h4= 'Banner name'
-      %p
-        = "Some names are reserved and can be used for predefined pages, e.g 'Contact', 'Gallery', 'References'."
-      %p
-        = "For example, having a banner"
-        = "named 'Contact' will cause it to be automatically displayed on the Contact page."
-      %p
-        = "If you name your banner 'Default' then it will be used for all predefined pages"
+  .tile
+    .tile-body
+      .infobox#info_for_banner_name
+        %h4= 'Banner name'
+        %p
+          = "Some names are reserved and can be used for predefined pages, e.g 'Contact', 'Gallery', 'References'."
+        %p
+          = "For example, having a banner"
+          = "named 'Contact' will cause it to be automatically displayed on the Contact page."
+        %p
+          = "If you name your banner 'Default' then it will be used for all predefined pages"
+  
+      = labeled_textfield f, :name, nil, 'info_for_banner_name'
+      = labeled_textfield f, :tag_line
 
-    = f.label :name, :class => 'infomarker'
-    %br/
-    = f.text_field :name
-  %fieldset
-    = f.label :tag_line
-    %br
-    = f.text_field :tag_line
-  %fieldset
-    - if @banner.img.present?
-      = image_tag(@banner.img_url_for_theme(:mobile), :title => @banner.name, :class => 'ri')
-      %br/
-    = f.label :img, 'Image'
-    %br/
-    = f.file_field :img
-
-
-
-
-  .actions
-    = f.submit
+      - if @banner.img.present?
+        .row
+          .col-md-12.mt-3.mb-3
+            = image_tag(@banner.img_url_for_theme(:desktop), :title => @banner.name, :class => 'img-fluid')
+      .input-group
+        .input-group-prepend
+          = f.label :img, 'Image', :class => 'input-group-text'
+        = f.file_field :img, :class => 'form-control mt-2'
+  
+  
+  
+  
+      .row
+        .col-md-12.mt-3
+          = f.submit :class => 'btn btn-block btn-danger'
