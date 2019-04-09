@@ -1,9 +1,11 @@
 .app-title
-  %h1
-    %i.fa.fa-user.invert
-    = "Status: #{SemiStatic::Newsletter::STATE_CODES[@newsletter.state].to_s.humanize}"
+  %div
+    %h1
+      %i.fa.fa-user.invert
+      = "Status: #{SemiStatic::Newsletter::STATE_CODES[@newsletter.state].to_s.humanize}"
   .text-right
     = link_to 'New Entry', new_entry_path(:newsletter => @newsletter), :class => 'btn btn-primary'
+    = link_to 'List Enties', edit_newsletter_path(@newsletter, :list_entries => true), :remote => true, :class => 'btn btn-primary'
     = link_to 'Edit header', edit_newsletter_path(@newsletter, :header => true), :remote => true, :class => 'btn btn-primary'
     = link_to 'Salutation', edit_newsletter_path(@newsletter, :salutation => true), :remote => true, :class => 'btn btn-primary'
     = link_to 'Image limit', edit_newsletter_path(@newsletter, :max_image_attachments => :true), :remote => true, :class => 'btn btn-primary'

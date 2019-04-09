@@ -151,7 +151,8 @@
     def create
       if params[:newsletter_id]
         nl = SemiStatic::Newsletter.find(params[:newsletter_id])
-        @entry = nl.tag.entries.create(entry_params)
+        @entry = nl.tag.entries.build(entry_params)
+        @entry.save
         nl.add_entry(@entry, true)
       else
         @entry = Entry.new(entry_params)
@@ -191,6 +192,8 @@
           format.html {
             if params[:redirect_to].present?
               redirect_to params[:redirect_to]
+            elsif @entry.tag.newsletter
+              redirect_to edit_newsletter_path(@entry.tag.newsletter)
             else
               redirect_to entries_path(:anchor => "entry_id_#{@entry.id}")
             end

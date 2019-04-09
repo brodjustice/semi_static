@@ -7,7 +7,7 @@
 <% if @max_images > 0 %>
   <img src="<%= attachments[e.id.to_s + '.jpg'].url %>" width="560" class="flexibleImage" style="text-align:center; margin-bottom:10px;max-width:100%;" alt="<%= e.title %>" title="<%= e.title %>" />
 <% else %>
-  <img src="<%= 'http://' + @site_url + @newsletter.draft_entry_ids[e.id][:img_url] %>" width="280" class="flexibleImage" style="max-width:100%;" alt="<%= e.title %>" title="<%= e.title %>" />
+  <img src="<%= 'http://' + @site_url.to_s + @newsletter.draft_entry_ids[e.id][:img_url] %>" width="280" class="flexibleImage" style="max-width:100%;" alt="<%= e.title %>" title="<%= e.title %>" />
 <% end %>
 
 <h3 style="color:#5F5F5F;line-height:125%;font-family:Helvetica,Arial,sans-serif;font-size:20px;font-weight:normal;margin-top:0;margin-bottom:3px;text-align:left;"><%= e.title %></h3>

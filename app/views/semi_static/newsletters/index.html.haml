@@ -1,7 +1,7 @@
 - content_for :ujs do
   :javascript
     $(document).ready(function(){
-      $(".sortable").tablesorter({headers:{7:{sorter:false}}});
+      $(".sortable").tablesorter({headers:{8:{sorter:false}}});
     });
 
 .app-title
@@ -20,6 +20,8 @@
         %thead
           %tr
             %th Name
+            %th{:title => 'Created on'}
+              %i.app-menu__icon.fa.fa-date
             %th Tag
             %th State
             %th Entries
@@ -33,6 +35,7 @@
               %td
                 -# = link_to n.name, edit_newsletter_path(n), :target => 'semi_static_newsletter'
                 = link_to n.name, edit_newsletter_path(n)
+              %td{:style => 'min-width: 94px;'}= n.created_at.strftime('%y-%m-%d')
               %td
                 - unless n.tag.nil?
                   = link_to n.tag.name, edit_tag_path(n.tag)

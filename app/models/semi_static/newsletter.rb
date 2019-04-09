@@ -44,7 +44,7 @@ module SemiStatic
     ENTRY_LAYOUT_IMAGE_MASK = 0xF00
     ENTRY_LAYOUT_TEXT_MASK = 0x1000
     ENTRY_LAYOUTS = {
-      :double => 0x1101, :single_left => 0x1102, :text_only => 0x1003, :double_text => 0x1004, :image_above => 0x1105,
+      :image_only_center => 0x0100, :double => 0x1101, :single_left => 0x1102, :text_only => 0x1003, :double_text => 0x1004, :image_above => 0x1105,
       :float_left_no_link => 0x1106, :image_center_no_link => 0x1107, :float_left => 0x1108, :text_only_no_link => 0x1009,
       :image_only_no_link => 0x010a
     }

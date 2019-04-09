@@ -1,25 +1,29 @@
-.mid
-  %h1 Drafting new newsletter
+.app-title
+  %h1
+    %i.fa.fa-layout.invert
+    %span= 'Drafting new newsletter'
 
-  = form_for @newsletter do |f|
-    - if @newsletter.errors.any?
-      #error_explanation
-        %h2= "#{pluralize(@newsletter.errors.count, "error")} prohibited this newsletter from being saved:"
-        %ul
-          - @newsletter.errors.full_messages.each do |msg|
-            %li= msg
+= form_for @newsletter do |f|
+  - if @newsletter.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@newsletter.errors.count, "error")} prohibited this newsletter from being saved:"
+      %ul
+        - @newsletter.errors.full_messages.each do |msg|
+          %li= msg
 
-    %fieldset
-      = f.label :name
-      = f.text_field :name
-      = f.label :subtitle
-      = f.text_field :subtitle
-    %fieldset
-      %label= 'Build from tag (optional)'
-      %br/
-      = select_tag :tag, options_for_select(SemiStatic::Tag.unscoped.collect{|t| [[t.locale, ': ', t.name].join, t.id]}.prepend(["- None -", nil]))
-    %fieldset
-      = f.label :locale
-      = f.select :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @newsletter.locale)
-    .actions
-      = f.submit 'Next'
+  .row
+    .col-md-12
+      .tile
+        = labeled_textfield f, :name
+        = labeled_textfield f, :subtitle
+        .input-group
+          .input-group-prepend
+            %label.input-group-text= 'Build from tag (optional)'
+          = select_tag :tag, options_for_select(SemiStatic::Tag.unscoped.collect{|t| [[t.locale, ': ', t.name].join, t.id]}.prepend(["- None -", nil])), :class => 'form-control mt-2'
+        = labeled_selectbox f, :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @newsletter.locale)
+
+  .row
+    .col-md-12
+      .tile
+        .tile-body
+          = f.submit 'Next', :class => 'btn btn-danger btn-block'

@@ -47,6 +47,8 @@ module SemiStatic
       # TODO: Big refactor required here
       if params[:position]
         @newsletter.order_entries_to_position 
+      elsif params[:list_entries]
+        template = 'list_entries'
       elsif params[:select_entry]
         template = 'select_entry'
         @entry = Entry.find_by_id(params[:select_entry])

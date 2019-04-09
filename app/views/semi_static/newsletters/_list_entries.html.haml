@@ -1,0 +1,12 @@
+.modal-header
+  %h5= 'Entry list for ' + @newsletter.name
+  = modal_close
+.modal-body
+  .table-responsive
+    %table.table.table-bordered.table-hover
+      %tbody
+        - @newsletter.draft_entry_objects.each_with_index do |e, i|
+          %tr
+            %td= link_to (i.to_s + ' ' + e.title), edit_entry_path(e)
+            %td= SemiStatic::Newsletter::ENTRY_LAYOUT_CODES[@newsletter.draft_entry_ids[e.id.to_i][:layout]].to_s
+            %td= e.position

@@ -292,7 +292,7 @@
 				          <% if @max_images > 0 %>
                                             <img src="<%= attachments['logo.jpg'].url %>" class="flexibleImageSmall" style="max-width:100%;" alt="logo" title="logo" />
 			        	  <% else %>
-                                            <img src="<%= 'http://' + @site_url + SemiStatic::Engine.config.logo_image %>" class="flexibleImageSmall" style="max-width:100%;"/>
+                                            <img src="<%= 'http://' + @site_url.to_s + SemiStatic::Engine.config.logo_image %>" class="flexibleImageSmall" style="max-width:100%;"/>
 			        	  <% end %>
 
 

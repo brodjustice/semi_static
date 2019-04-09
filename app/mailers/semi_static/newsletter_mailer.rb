@@ -33,7 +33,7 @@ module SemiStatic
       @newsletter = newsletter
       @host = SemiStatic::Engine.config.mail_host
       @locale = newsletter.locale
-      @site_url = @newsletter.website_url.blank? ? @newsletter.website_url : SemiStatic::Engine.config.hosts_for_locales.invert[@locale]
+      @site_url = @newsletter.website_url.blank? ? SemiStatic::Engine.config.hosts_for_locales.invert[@locale] : @newsletter.website_url
       @from = @newsletter.sender_address || SemiStatic::Engine.config.info_email
 
       max_images = @newsletter.max_image_attachments

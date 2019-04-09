@@ -396,7 +396,7 @@
           .input-group-prepend
             .input-group-text Tag
           - if @newsletter
-            = f.select :tag_id, options_for_select(SemiStatic::Tag.unscoped.collect{|t| [[t.locale, ': ', t.name].join, t.id]}, @entry.tag_id), :class => 'form-control'
+            = f.select :tag_id, options_for_select(SemiStatic::Tag.unscoped.collect{|t| [[t.locale, ': ', t.name].join, t.id]}, @entry.tag_id), {}, {:class => 'form-control'}
           - else
             = f.select :tag_id, options_for_select(SemiStatic::Tag.all.collect{|t| [[t.locale, ': ', t.name].join, t.id]}, @entry.tag_id), {}, {:class => 'form-control'}
         .input-group.mb-2
