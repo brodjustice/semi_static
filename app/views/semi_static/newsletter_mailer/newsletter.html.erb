@@ -8,7 +8,7 @@
   <title><%= @newsletter.name + ' ' + @newsletter.subtitle %></title>
   <style type="text/css">
     /* RESET STYLES */
-    html { background-color:#E1E1E1; margin:0; padding:0; }
+    html { background-color:#E1E1E1; margin:0; padding:0; font-size: 16px;}
     body, #bodyTable, #bodyCell, #bodyCell{height:100% !important; margin:0; padding:0; width:100% !important;font-family:Helvetica, Arial, "Lucida Grande", sans-serif;}
     table{border-collapse:collapse;}
     table[id=bodyTable] {width:100%!important;margin:auto;max-width:640px!important;color:#7A7A7A;font-weight:normal;}
@@ -110,30 +110,6 @@
 
     }
 
-    /*  CONDITIONS FOR ANDROID DEVICES ONLY
-    *   http://developer.android.com/guide/webapps/targeting.html
-    *   http://pugetworks.com/2011/04/css-media-queries-for-targeting-different-mobile-devices/ ;
-    =====================================================*/
-
-    @media only screen and (-webkit-device-pixel-ratio:.75){
-      /* Put CSS for low density (ldpi) Android layouts in here */
-    }
-
-    @media only screen and (-webkit-device-pixel-ratio:1){
-      /* Put CSS for medium density (mdpi) Android layouts in here */
-    }
-
-    @media only screen and (-webkit-device-pixel-ratio:1.5){
-      /* Put CSS for high density (hdpi) Android layouts in here */
-    }
-    /* end Android targeting */
-
-    /* CONDITIONS FOR IOS DEVICES ONLY
-    =====================================================*/
-    @media only screen and (min-device-width : 320px) and (max-device-width:568px) {
-
-    }
-    /* end IOS targeting */
   </style>
   <!--[if mso 12]>
     <style type="text/css">
