@@ -3,6 +3,14 @@ SemiStatic::Engine.routes.draw do
     get code, :to => "errors#show", :code => code
   end
 
+  #
+  # For Tags that put their name in the url ("context_urls").
+  #
+  # For example if the Tag was called 'blog', then rather than the standard:
+  #   /entries/278-my-great-page
+  # we would have:
+  #   /blog/278-my-great-page
+  #
   if ActiveRecord::Base.connection.table_exists? 'semi_static_tags'
     SemiStatic::Tag.with_context_urls.collect{|t| t.name}.each do |tn|
       # Create routes for tag that create their own URL
@@ -10,9 +18,14 @@ SemiStatic::Engine.routes.draw do
     end
   end
 
-  resources :fcols do
-    resources :links, :except => :show
-  end
+  #
+  # For prettier Tag URLs. Without this your URL for a Tag index page call 'blog' would be
+  #   /tag/blog
+  # With this you can set the Tag URL's. By default in english it is "features", the URL above would no be
+  #   /features/blog
+  # See config/initializers/semi_static.rb for configuration
+  #
+  match "/#{SemiStatic::Engine.config.tag_paths[I18n.locale.to_s] || 'features'}/:slug" => 'tags#show', :as => 'feature', :via => :get
 
   resources :entries do
     collection { get :search }
@@ -24,14 +37,18 @@ SemiStatic::Engine.routes.draw do
     resources :page_attrs, :except => :index
   end
 
-  resources :seo, :only => [] do
-    resources :hreflangs, :except => :show
-  end
-
   resources :tags, :except => :show do
     resources :seos, :only => [:new, :create, :update, :destroy]
     resources :entries, :only => [:index]
     resources :page_attrs, :except => :index
+  end
+
+  resources :fcols do
+    resources :links, :except => :show
+  end
+
+  resources :seo, :only => [] do
+    resources :hreflangs, :except => :show
   end
 
   # For the orders and shopping carts, the carts index is actually
@@ -46,8 +63,6 @@ SemiStatic::Engine.routes.draw do
   # For the payment processor (stripe.com)
   resources :charges, :only => [:new, :create]
 
-  # For pretty URLs, see config/initializers/semi_static.rb
-  match "/#{SemiStatic::Engine.config.tag_paths[I18n.locale.to_s] || 'features'}/:slug" => 'tags#show', :as => 'feature', :via => :get
 
   match "/page-attributes/index" => 'page_attrs#index', :as => 'page_attrs', :via => :get
   match "/page-attribute/:id" => 'page_attrs#destroy', :as => 'page_attr', :via => :delete

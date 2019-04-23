@@ -99,14 +99,20 @@ module SemiStatic
       end
     end
 
+    #
     # For GET you should call this rather than feature_path so that
-    # and Tags with use_entry_as_index will get mapped to the correct
-    # url
+    # any Tags with use_entry_as_index will get mapped to the correct
+    # url and not rely on a redirect in the controller.
+    #
     def tag_link(t, options = {})
       if t.use_entry_as_index
         entry_link(t.use_entry_as_index, options)
       else
-        semi_static.feature_path(t.slug)
+        #
+        # Check the list of predefined Tags at this point rather than having to do a re-direct when
+        # the request comes in.
+        #
+        t.predefined_class.blank? ? semi_static.feature_path(t.slug) : predefined_tags[t.predefined_class]
       end
     end
 

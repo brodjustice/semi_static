@@ -26,6 +26,11 @@ function semiStaticCloseMenu(){
     document.getElementById('menu-button').style.display='block';
   }
 }
+function semiStaticCloseOnClick(){
+  document.querySelectorAll('#slide-menu .text').forEach(function(ele, i){
+    ele.addEventListener('click', semiStaticSlideCloseMenu);
+  });
+}
 function semiStaticGetPR(){ var pr; try {pr=window.devicePixelRatio} catch(err){pr=1} return(pr); }
 
 function semiStaticAJAX(url){
@@ -50,3 +55,4 @@ function addSemiStaticLoadEvent(func) {
     }
   }
 }
+addSemiStaticLoadEvent(semiStaticCloseOnClick);
