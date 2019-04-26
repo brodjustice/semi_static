@@ -6,7 +6,7 @@ SemiStatic::Engine.routes.draw do
   if ActiveRecord::Base.connection.table_exists? 'semi_static_tags'
     SemiStatic::Tag.with_context_urls.collect{|t| t.name}.each do |tn|
       # Create routes for tag that create their own URL
-      match "/#{tn.parameterize}/:id" => 'entries#show', :via => :get
+      get "/#{tn.parameterize}/:id" => 'entries#show'
     end
   end
 
@@ -41,26 +41,25 @@ SemiStatic::Engine.routes.draw do
   resource :cart, only: [:show, :edit, :update]
   resources :carts, only: [:index]
   resources :order_items, only: [:create, :update, :destroy]
-  match "/order/:id" => "carts#show", :as => 'order', :via => :get
+  get "/order/:id" => "carts#show", :as => 'order'
 
   # For the payment processor (stripe.com)
   resources :charges, :only => [:new, :create]
 
   # For pretty URLs, see config/initializers/semi_static.rb
-  match "/#{SemiStatic::Engine.config.tag_paths[I18n.locale.to_s] || 'features'}/:slug" => 'tags#show', :as => 'feature', :via => :get
+  get "/#{SemiStatic::Engine.config.tag_paths[I18n.locale.to_s] || 'features'}/:slug" => 'tags#show', :as => 'feature'
 
-  match "/page-attributes/index" => 'page_attrs#index', :as => 'page_attrs', :via => :get
+  get "/page-attributes/index" => 'page_attrs#index', :as => 'page_attrs'
   match "/page-attribute/:id" => 'page_attrs#destroy', :as => 'page_attr', :via => :delete
-  match "/comments/index" => 'comments#index', :as => 'comments', :via => :get
-  match "/documents/index" => 'documents#index', :as => 'documents', :via => :get
-  match "/documents/:squeeze_id/:token" => 'documents#show', :as => 'document', :via => :get
+  get "/comments/index" => 'comments#index', :as => 'comments'
+  get "/documents/index" => 'documents#index', :as => 'documents'
+  get "/documents/:squeeze_id/:token" => 'documents#show', :as => 'document'
 
   # Special route, normally only used by the webserver to get CSRF tags
-  match '/site/csrf_meta_tags' => 'site#csrf_meta_tags', :via => :get
+  get '/site/csrf_meta_tags' => 'site#csrf_meta_tags'
 
   get '/site/home', to: redirect('/')
-  match '/site/:content' => 'site#show', :as => 'site',
-    :via => :get, :defaults => {:content => 'home'}
+  get '/site/:content' => 'site#show', :as => 'site', :defaults => {:content => 'home'}
 
   root :to => 'site#show', :as => 'home', :via => :get, :defaults => { :content => 'home' }
 
@@ -77,7 +76,7 @@ SemiStatic::Engine.routes.draw do
   resources :photos do
     resources :seos, :only => [:new, :create, :update]
   end
-  match "/gallery" => 'galleries#index', :via => :get
+  get "/gallery" => 'galleries#index'
 
   resources :squeezes
   resources :job_postings
@@ -94,14 +93,14 @@ SemiStatic::Engine.routes.draw do
   resources :seos, :except => [:new, :create, :update]
   resources :agreements
 
-  match '/contacts/registration' => 'contacts#new', :as => 'new_registration', :via => :get
+  get '/contacts/registration' => 'contacts#new', :as => 'new_registration'
   resources :contacts, :except => [:edit, :update]
 
-  match '/semi-static/dashboard' => 'dashboards#show', :as => 'semi_static_dashboard', :via => :get
+  get '/semi-static/dashboard' => 'dashboards#show', :as => 'semi_static_dashboard'
 
   # Most system cmd use update, even though they may really be doing a GET
   match '/system' => "system#update", :via => :put
-  match '/system/show' => "system#show", :via => :get
+  get '/system/show' => "system#show"
 end
 
 
