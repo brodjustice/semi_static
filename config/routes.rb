@@ -50,7 +50,7 @@ SemiStatic::Engine.routes.draw do
   get "/#{SemiStatic::Engine.config.tag_paths[I18n.locale.to_s] || 'features'}/:slug" => 'tags#show', :as => 'feature'
 
   get "/page-attributes/index" => 'page_attrs#index', :as => 'page_attrs'
-  match "/page-attribute/:id" => 'page_attrs#destroy', :as => 'page_attr', :via => :delete
+  delete "/page-attribute/:id" => 'page_attrs#destroy', :as => 'page_attr'
   get "/comments/index" => 'comments#index', :as => 'comments'
   get "/documents/index" => 'documents#index', :as => 'documents'
   get "/documents/:squeeze_id/:token" => 'documents#show', :as => 'document'
@@ -98,8 +98,8 @@ SemiStatic::Engine.routes.draw do
 
   get '/semi-static/dashboard' => 'dashboards#show', :as => 'semi_static_dashboard'
 
-  # Most system cmd use update, even though they may really be doing a GET
-  match '/system' => "system#update", :via => :put
+  # Most system cmd use update, even though they may really not posting anything
+  put '/system' => "system#update"
   get '/system/show' => "system#show"
 end
 
