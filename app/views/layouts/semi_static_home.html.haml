@@ -1,3 +1,10 @@
+-#
+-# The home page layout. The differences to the standard page are:
+-#   1) The CSS is loaded inline so that we get very fast load times
+-#   2) The CSS is a smaller version ('see home.scss')
+-#
+
+
 !!! 5
 %html{ :xmlns => "http://www.w3.org/1999/xhtml", :lang => I18n.locale.to_s, "xml:lang" => I18n.locale.to_s, :prefix => "og: http://ogp.me/ns#"}
   %head
@@ -19,6 +26,8 @@
     %meta{ :property => "og:type", :content => 'website' }/
     %meta{ :property => "og:image", :content => og_image_url }/
 
+    = favicon_link_tag 'favicon.ico'
+
     = semi_static_csrf_meta_tags
 
     = hreflang_tags(true)
@@ -26,8 +35,6 @@
     %style{:type => "text/css"}
       = asset_source('font.css')
       = asset_source('home.css')
-      - if lookup_context.exists?('semi_static/shared/_css_for_theme')
-        = render 'semi_static/shared/css_for_theme'
       = yield :header_css
 
     %script
@@ -37,10 +44,12 @@
 
     = yield :ujs
 
-    -# In the case of google analytics the async code must be in the head section in order that it
-    -# can be validated for google webmaster tools
+    -#
+    -# When using google analytics the async code must be in the head section
+    -# in order that it  can be validated for google webmaster tools
+    -#
     = analytics
-    = favicon_link_tag 'favicon.ico'
+
   %body#semi-static-home-page
     #body-inner
       = render :partial => 'semi_static/shared/home_body'

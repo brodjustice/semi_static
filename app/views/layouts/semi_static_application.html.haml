@@ -1,3 +1,9 @@
+-#
+-# The standard (not home) page layout. The differences to the home page are:
+-#   1) The CSS is not loaded inline
+-#   2) The CSS is a larger version ('see semi_static_application.scss')
+-#
+
 !!! 5
 %html{ :xmlns => "http://www.w3.org/1999/xhtml", :lang => I18n.locale.to_s, "xml:lang" => I18n.locale.to_s, :prefix => "og: http://ogp.me/ns#"}
   %head
@@ -20,34 +26,29 @@
     %meta{ :property => "og:type", :content => 'website' }/
     %meta{ :property => "og:image", :content => og_image_url }/
 
+    = favicon_link_tag 'favicon.ico'
+
     = semi_static_csrf_meta_tags
 
     = hreflang_tags
 
-    -# If you need extra fonts loaded, and you think it's better to load them from an external domain like
-    -# google fonts, then you can enable the next line:
-    -#      = render :partial => 'semi_static/shared/hosted_fonts'
-    -# However, for speed purposes and for google page speed results it best to load them from your server,
-    -# so you need the following:
     %style{:type => "text/css"}
       = asset_source('font.css')
 
-    = asset_source('theme.js')
     = stylesheet_link_tag 'semi_static_application', :media => 'all'
+
     %style{:type => "text/css"}
-      - if lookup_context.exists?('semi_static/shared/_css_for_theme')
-        = render 'semi_static/shared/css_for_theme'
       = yield :header_css
 
     %script
       = asset_source('semi-static.js')
+      = asset_source('theme.js')
     
     = yield :ujs
 
     = analytics
-    = favicon_link_tag 'favicon.ico'
-  %body{:id => "semi_static_#{controller_name.classify.downcase}", :class => @banner_class }
 
+  %body{:id => "semi_static_#{controller_name.classify.downcase}", :class => @banner_class }
     #body-inner
       = render :partial => 'semi_static/shared/application_body'
       = render :partial => 'semi_static/shared/footer'

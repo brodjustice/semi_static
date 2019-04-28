@@ -76,7 +76,7 @@ module SemiStatic
       else
         #
         # Popups can be in none 'public' or 'hidden' galleries, even though such
-        # photos are not protected by authetication and the webserver if you haver
+        # photos are not protected by authetication and the webserver
         # will display them if you have the specific URL
         #
         @photo = Photo.find(params[:id])
