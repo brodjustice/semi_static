@@ -202,6 +202,28 @@ module SemiStatic
     end
 
     #
+    # Some entries are not available as a full URL, most notibly merged entries. There is
+    # a helper to called entry_link() that works this out, so that you can
+    # call it rather than entry_path(). 
+    #
+    # Method below is more elegant.
+    #
+    # If you pass the no_context it means that the Entry URL had no context slug in
+    # the URL itself (ie. was of the form '/entries/:id') and so we test if it was
+    # supposed to be context_url
+    #
+    # As a side note, in Rails 5 our entry_link() helper results in a 500 system error
+    # caused by a suprious Rudy stack level too deep error that occurs around on 0.1% of
+    # calls to the ActionPack mapper.rb. This is another reason to migrate to this method.
+    # 
+    def canonical(no_context = false)
+      !self.merge_with_previous &&
+        !self.link_to_tag &&
+        !(no_context && self.tag.context_url) &&
+        !self.acts_as_tag_id
+    end
+
+    #
     # We used to he able to add a filter to the DSL here to ensure that you
     # only got results in the locale that you were working in. But it's no
     # longer possible to add a filter. Is this good or bad? Maybe it's a good

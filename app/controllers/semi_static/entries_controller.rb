@@ -7,7 +7,6 @@
     include General
   
     before_action :authenticate_for_semi_static!,  :except => [ :show, :search ]
-    before_action :authenticate_semi_static_subscriber!,  :only => [ :show ]
   
     # We would like to do something like this:
     #   caches_page :show, :if => :not_subscriber_content?
@@ -59,60 +58,97 @@
     # GET /entries/1
     # GET /entries/1.json
     def show
-      unless params[:popup].present?
-        @title = ActionController::Base.helpers.strip_tags(@entry.title)
-        @seo = @entry.seo
-        @side_bar = @entry.side_bar
-        @banner_class = @entry.banner && 'bannered'
-        # If we call this via a URL and this is a merged entry, then we
-        # need to only show this entry, not additional merged entries
-        @suppress_merged = @entry.merge_with_previous
-        # Don't have a header link to yourself
-        @linked = false
+
+      #
+      # We restrict the Entry to those with the correct locale. In the past we did not check the locale this but
+      # it can cause problems were search engines look up an Entry with a locale that does not match the website
+      # and then index it.
+      #
+      @entry = Entry.where(:locale => locale.to_s).find(params[:id])
+      @tag = @entry.tag
+
+
+      if @entry.canonical(request.path.start_with?('/entries'))
+        # This is a canonical Entry URL
+
+        # Check if this should only be seen by the admin.
+        @entry.admin_only && authenticate_for_semi_static!
+
+        unless params[:popup].present?
+          @title = ActionController::Base.helpers.strip_tags(@entry.title)
+          @seo = @entry.seo
+          @side_bar = @entry.side_bar
+          @banner_class = @entry.banner && 'bannered'
+          # If we call this via a URL and this is a merged entry, then we
+          # need to only show this entry, not additional merged entries
+          @suppress_merged = @entry.merge_with_previous
+          # Don't have a header link to yourself
+          @linked = false
+        else
+          @pixel_ratio = params[:pratio].to_i || 1
+          @popup_style = popup_style(@entry, @pixel_ratio)
+          @caption = @entry.image_caption
+          template = "semi_static/photos/popup"
+        end
+
+        if @entry.enable_comments
+          @comment = @entry.comments.new
+        end
+
+        # Work out the Tag to use for the sidebar menu
+        @sidebar_menu_tag = (@entry.get_page_attr('sideBarMenuTagId') ? Tag.find(@entry.get_page_attr('sideBarMenuTagId')) : @entry.tag)
+
+        # Check if this is subscriber only content.
+
+
+        # Here you must have Devise gem for authentication, or some other method that authorises 'current_user'
+        if @entry.subscriber_content && !(semi_static_admin? || send('current_' + SemiStatic::Engine.config.subscribers_model.first[0].downcase))
+
+          # Save this URL for after the subscriber has signed in
+          session[:user_intended_url] = url_for(params.permit)
+
+          #
+          # Show only a summary of the Entry and render template that includes a sign in dialog
+          #
+          @summaries = true
+          template = 'semi_static/entries/subscriber_entry'
+
+          #
+          # If you want to totally protect your subscriber content, rather than showing a teaser summary then
+          # you will need to redirect to the signin page like this:
+          #     send('authenticate_' + SemiStatic::Engine.config.subscribers_model.first[0].downcase + '!')
+
+        end
+
       else
-        @pixel_ratio = params[:pratio].to_i || 1
-        @popup_style = popup_style(@entry, @pixel_ratio)
-        @caption = @entry.image_caption
-        template = "semi_static/photos/popup"
+        #
+        # This is not a canonical url, so we are going to redirect. This sort of functionality is replicated in the site_helper
+        # but with slight differences that make it tricky to combine.
+        #
+        # Note: We could also try and deal with context URL's here with something like:
+        # but this would result in an infinate redirection loop if the
+        #
+        redirect_path = @entry.link_to_tag && feature_path(@entry.tag.slug) ||
+          @entry.merge_with_previous && entry_path(@entry.merged_main_entry) ||
+          @entry.acts_as_tag_id && feature_path(@entry.acts_as_tag.slug) ||
+          @entry.tag.context_url && "/#{@entry.tag.name.parameterize}/#{@entry.to_param}"
       end
-
-      if @entry.enable_comments
-        @comment = @entry.comments.new
-      end
-
-      # Check if this should only be seen by the admin. Careful to not here that other
-      # security, eg for subscriber only content is done in the views. This is hardly
-      # ideal but give the cache strategy it is the most efficient manner.
-      @entry.admin_only && authenticate_for_semi_static!
-
-      # Work out the Tag to use for the sidebar menu
-      @sidebar_menu_tag = (@entry.get_page_attr('sideBarMenuTagId') ? Tag.find(@entry.get_page_attr('sideBarMenuTagId')) : @entry.tag)
 
 
       respond_to do |format|
         format.html {
-          if @entry.tag.context_url && params[:no_context]
-            # Redirect if the tag has a context_url
-            redirect_to "/#{@entry.tag.name.parameterize}/#{params[:id]}"
-          elsif @entry.merge_with_previous
-            # Redirect merged entries to the main entry
-            redirect_to entry_path(@entry.merged_main_entry)
-          elsif @entry.link_to_tag
-            # Redirect link_to_tag entries to their tag
-            redirect_to feature_path(@entry.tag.slug)
-          # End of redirects, only option left is to go to the view template
-          elsif  @entry.subscriber_content && current_user.nil?
-            # This is subscriber content so just show a teaser
-            @summaries = true
-            render :template => 'semi_static/entries/subscriber_entry', :layout => 'semi_static_application'
+          if redirect_path
+            redirect_to redirect_path
           else
-            # Everthing ok and no restrictions, show the content
-            render :layout => 'semi_static_application'
+            # Everthing ok, show content or summary content
+            render :template => template || 'semi_static/entries/show', :layout => 'semi_static_application'
           end
         }
         format.js { render :template => template }
       end
     end
+
+
   
     # GET /entries/new
     # GET /entries/new.json
@@ -257,27 +293,11 @@
 
 
     def cachable_content?
-      # !lambda{ |controller| controller.request.format.js? } && !@entry.subscriber_content
-      !request.format.js? && !@entry.subscriber_content && !@entry.admin_only && !(@entry.tag.context_url && params[:no_context])
+      !request.format.js? &&
+        @entry.canonical &&
+        !@entry.subscriber_content &&
+        !@entry.admin_only &&
+        !(@entry.tag.context_url && params[:no_context])
     end
-
-    #
-    # The Entry itself is retrieved here. We restrict the Entry to those with the correct locale. In the past
-    # we did not check the locale this but it can cause problems were search engines look up an Entry with a locale that does
-    # not match the website and then index it.
-    #
-    def authenticate_semi_static_subscriber!
-      @entry = Entry.where(:locale => locale.to_s).find(params[:id])
-      @tag = @entry.tag
-
-      if !semi_static_admin? && @entry.subscriber_content
-        session[:user_intended_url] = url_for(params.permit) unless send('current_' + SemiStatic::Engine.config.subscribers_model.first[0].downcase)
-        # If you want to totally protect your subscriber content, rather than showing a teaser summary then
-        # you will need to redirect to the signin page like this:
-        #
-        #     send('authenticate_' + SemiStatic::Engine.config.subscribers_model.first[0].downcase + '!')
-      end
-    end
-
   end
 end
