@@ -1,5 +1,5 @@
 module SemiStatic
-  class Reference < ActiveRecord::Base
+  class Reference < ApplicationRecord
 
     include Pages
 

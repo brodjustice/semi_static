@@ -1,7 +1,7 @@
 require 'elasticsearch/model'
 
 module SemiStatic
-  class Entry < ActiveRecord::Base
+  class Entry < ApplicationRecord
     include Pages
     include PartialControl
     include Elasticsearch::Model

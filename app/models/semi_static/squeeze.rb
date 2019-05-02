@@ -1,5 +1,5 @@
 module SemiStatic
-  class Squeeze < ActiveRecord::Base
+  class Squeeze < ApplicationRecord
 
     # For reference
     #

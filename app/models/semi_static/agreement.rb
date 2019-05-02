@@ -1,5 +1,5 @@
 module SemiStatic
-  class Agreement < ActiveRecord::Base
+  class Agreement < ApplicationRecord
     
     # For reference
     #

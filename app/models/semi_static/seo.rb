@@ -1,5 +1,5 @@
 module SemiStatic
-  class Seo < ActiveRecord::Base
+  class Seo < ApplicationRecord
     include Pages
 
     # 

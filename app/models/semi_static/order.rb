@@ -1,7 +1,7 @@
 require 'aasm'
 
 module SemiStatic
-  class Order < ActiveRecord::Base
+  class Order < ApplicationRecord
 
     # We use the aasm state machine to change the status of the order (cart)
     include AASM

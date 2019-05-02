@@ -1,5 +1,5 @@
 module SemiStatic
-  class Tag < ActiveRecord::Base
+  class Tag < ApplicationRecord
   
     include Pages
     include PartialControl

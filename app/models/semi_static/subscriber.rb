@@ -1,5 +1,5 @@
 module SemiStatic
-  class Subscriber < ActiveRecord::Base
+  class Subscriber < ApplicationRecord
 
     attr_accessor :state, :bounced
 

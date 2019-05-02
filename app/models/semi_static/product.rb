@@ -1,5 +1,5 @@
 module SemiStatic
-  class Product < ActiveRecord::Base
+  class Product < ApplicationRecord
     belongs_to :entry, :optional => true
 
     has_many :order_items

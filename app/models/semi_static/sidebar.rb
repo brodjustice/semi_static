@@ -1,5 +1,5 @@
 module SemiStatic
-  class Sidebar < ActiveRecord::Base
+  class Sidebar < ApplicationRecord
  
     # For reference
     #

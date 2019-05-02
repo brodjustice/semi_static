@@ -1,5 +1,5 @@
 module SemiStatic
-  class Comment < ActiveRecord::Base
+  class Comment < ApplicationRecord
     attr_accessor :captcha, :captcha_code
 
     belongs_to :entry

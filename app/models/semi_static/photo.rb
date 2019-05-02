@@ -1,5 +1,5 @@
 module SemiStatic
-  class Photo < ActiveRecord::Base
+  class Photo < ApplicationRecord
 
     include Pages
     include Elasticsearch

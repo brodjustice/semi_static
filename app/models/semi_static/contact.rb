@@ -1,5 +1,5 @@
 module SemiStatic
-  class Contact < ActiveRecord::Base
+  class Contact < ApplicationRecord
 
     attr_accessor :custom_params
 

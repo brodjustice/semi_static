@@ -125,11 +125,8 @@
         # This is not a canonical url, so we are going to redirect. This sort of functionality is replicated in the site_helper
         # but with slight differences that make it tricky to combine.
         #
-        # Note: We could also try and deal with context URL's here with something like:
-        # but this would result in an infinate redirection loop if the
-        #
         redirect_path = @entry.link_to_tag && feature_path(@entry.tag.slug) ||
-          @entry.merge_with_previous && entry_path(@entry.merged_main_entry) ||
+          @entry.merge_with_previous && semi_static.entry_path(@entry.merged_main_entry) ||
           @entry.acts_as_tag_id && feature_path(@entry.acts_as_tag.slug) ||
           @entry.tag.context_url && "/#{@entry.tag.name.parameterize}/#{@entry.to_param}"
       end

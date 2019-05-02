@@ -1,5 +1,5 @@
 module SemiStatic
-  class Gallery < ActiveRecord::Base
+  class Gallery < ApplicationRecord
 
     # For reference
     #

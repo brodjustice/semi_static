@@ -1,5 +1,5 @@
 module SemiStatic
-  class PageAttr < ActiveRecord::Base
+  class PageAttr < ApplicationRecord
 
     # All ruby objects have attributes of course, but these are
     # attributes that can be added dynamically to pages (entries and tags)

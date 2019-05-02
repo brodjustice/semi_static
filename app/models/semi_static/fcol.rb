@@ -1,5 +1,5 @@
 module SemiStatic
-  class Fcol < ActiveRecord::Base
+  class Fcol < ApplicationRecord
     include Pages
   
     ALLOWED_TAGS= %w(span br em b ul ol li a div p img hr)

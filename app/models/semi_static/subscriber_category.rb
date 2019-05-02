@@ -1,5 +1,5 @@
 module SemiStatic
-  class SubscriberCategory < ActiveRecord::Base
+  class SubscriberCategory < ApplicationRecord
     has_many :subscribers
   end
 end

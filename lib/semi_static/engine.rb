@@ -4,6 +4,7 @@ require 'elasticsearch/rails'
 
 module SemiStatic
   class Engine < ::Rails::Engine
+
     require 'haml'
     require 'jquery-rails'
     require 'jquery-ui-rails'

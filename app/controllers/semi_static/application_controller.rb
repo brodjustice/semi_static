@@ -3,7 +3,7 @@ module SemiStatic
     helper_method :current_order
 
     # Uncomment the following if using CanCan
-    # require 'semi_static/can_can_rescue'
+    # require_dependency 'semi_static/can_can_rescue'
     # include CanCanRescue
 
     before_action :set_locale

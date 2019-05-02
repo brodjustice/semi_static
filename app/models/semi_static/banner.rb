@@ -1,5 +1,5 @@
 module SemiStatic
-  class Banner < ActiveRecord::Base
+  class Banner < ApplicationRecord
     include Pages
 
     # 

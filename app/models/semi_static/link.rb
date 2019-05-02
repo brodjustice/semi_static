@@ -1,5 +1,5 @@
 module SemiStatic
-  class Link < ActiveRecord::Base
+  class Link < ApplicationRecord
     include Pages
 
     # For reference

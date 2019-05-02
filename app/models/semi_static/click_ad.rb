@@ -1,5 +1,5 @@
 module SemiStatic
-  class ClickAd < ActiveRecord::Base
+  class ClickAd < ApplicationRecord
 
     # For reference
     #

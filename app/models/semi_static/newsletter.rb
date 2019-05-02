@@ -1,7 +1,7 @@
 require "haml"
 
 module SemiStatic
-  class Newsletter < ActiveRecord::Base
+  class Newsletter < ApplicationRecord
 
     # This is a serialized hash, for example:
     # {12 => {}, 39 => {:img_url => './system/image-x.jpg'}, 199 => {}}

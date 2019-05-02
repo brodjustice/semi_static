@@ -1,5 +1,5 @@
 module SemiStatic
-  class Event < ActiveRecord::Base
+  class Event < ApplicationRecord
 
     # For reference
     #

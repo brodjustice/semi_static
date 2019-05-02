@@ -1,5 +1,5 @@
 module SemiStatic
-  class Hreflang < ActiveRecord::Base
+  class Hreflang < ApplicationRecord
     belongs_to :seo, :dependent => :destroy
 
     validates :locale, uniqueness: { scope: :seo_id, message: "Can not have duplicate hreflangs with same locale for same webpage" }
