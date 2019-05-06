@@ -23,7 +23,10 @@ module SemiStatic
         end
         partials
       end
-      SemiStatic::Engine.config.open_partials.merge! partial_finder
+
+      # There is probably a better way to merge and order the custom partials, this is our best effort.
+      SemiStatic::Engine.config.open_partials =
+        SemiStatic::Engine.config.open_partials.merge!(partial_finder).sort_by{|name, path| name}.to_h
 
       # Need to insert load path for themes into the correct place. Can't use prepend_path or append_path
       # as we need it inserted in the correct position in the middle.

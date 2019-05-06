@@ -452,7 +452,7 @@ h2{ font-size: 20px;}
 .list h1{ color: $secondary-color;}
 
 .social a{color: transparent;}
-.social-inner a div{height:32px;width:38px;float:right;padding: 0px;overflow:hidden;background: transparent image-url('#{$vert-sprites}i') 0 0 no-repeat;}
+.social-inner a div{height:32px;width:38px;float:right;padding: 0px;overflow:hidden;background: transparent image-url($vert-sprites) 0 0 no-repeat;}
 
 // Sprites
 
@@ -468,8 +468,8 @@ h2{ font-size: 20px;}
 #instagram{background-position: 0 -318px;}
 #kununu{background-position: 0 -350px;}
 
-#bar-menu .contact a{float: right; display: block; padding: 4px 34px 0px 8px; background: transparent image-url('#{$vert-sprites}') right -194px no-repeat;}
-#bar-menu .search a{float: right; display: block; padding: 4px 30px 6px 8px; background: transparent image-url('#{$vert-sprites}') right -226px no-repeat;}
+#bar-menu .contact a{float: right; display: block; padding: 4px 34px 0px 8px; background: transparent image-url($vert-sprites) right -194px no-repeat;}
+#bar-menu .search a{float: right; display: block; padding: 4px 30px 6px 8px; background: transparent image-url($vert-sprites) right -226px no-repeat;}
 #bar-menu .sign-in a{float: right; display: block; padding: 4px 32px 2px 8px; background: transparent image-url('user-icon.png') right 0px no-repeat; background-size: 28px 32px !important;}
 #twitter, #xing, #facebook, #youtube, #bar-menu .icon a{ background-size: 28px $vert-sprites-height; }
 
@@ -642,13 +642,13 @@ h2 a, h3 a{color: $secondary-color;}
 }
 .link{text-align: center;}
 .link a, .more a{
-  background: transparent image-url('#{$vert-sprites}') right -260px no-repeat;
+  background: transparent image-url($vert-sprites) right -260px no-repeat;
   background-size: 28px $vert-sprites-height;
   padding: 4px 36px 1px 12px;
   margin: 2px 0px 6px;
 }
 .feint .more a, .flat .more a, .news .more a{
-  background: transparent image-url('#{$vert-sprites}') right -290px no-repeat;
+  background: transparent image-url($vert-sprites) right -290px no-repeat;
   color: #d8d8d8;
 }
 
