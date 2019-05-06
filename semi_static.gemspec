@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.add_dependency "jquery-ui-rails"
   s.add_dependency "haml"
   s.add_dependency "sassc-rails"
-  s.add_dependency "haml-rails"
+  s.add_dependency "haml-rails", ">= 1.0"
   s.add_dependency "paperclip", ">= 5.2.0"
   s.add_dependency "nokogiri"
 
