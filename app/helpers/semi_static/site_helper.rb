@@ -682,18 +682,41 @@ module SemiStatic
     end
 
     #
-    # If set in page_attr 'csrfMetaTagViaSsi' then the meta tags will be
-    # done via webserver SSI. This is useful in the case of having a static page
-    # that needs valid csrf tags, like page with a PUT action. Only do this if in
-    # production mode.
+    # In Rails 4/5 we checked page_attr 'csrfMetaTagViaSsi' to have the meta tags
+    # done via webserver SSI. This was useful in the case of having a static page
+    # that needs valid csrf tags, like page with a PUT action. We only did this if
+    # in production mode like this:
+    #
+    #   page ||= (controller_name == 'entries' ? @entry : @tag)
+    #   if page && page.get_page_attr('csrfMetaViaSsi') && Rails.env.production?
+    #     '<!--#include file="/site/csrf_meta_tags" -->'.html_safe
+    #   else ...
+    #
+    # With Rails 5 we have per-form CSRF tokens by default. The server config was
+    # difficult enough already, per-form CSRF made SSI provision of the token
+    # almost impossible. So we take a different approach and get a new
+    # authenticity_token that will match the session via AJAX.
+    #
+    # With the new AJAX method of getting the CSRF Token it is not required
+    # that we do it at this point, but it's also a reasonable place to set
+    # it up as the method is only called one per page and the javascript checks allr
+    # forms in the page. If we did it on every form in a page it would be more
+    # complex and probably less efficient.
     #
     def semi_static_csrf_meta_tags(page=nil)
-      page ||= @tag || @entry
-      if page && page.get_page_attr('csrfMetaViaSsi') && Rails.env.production?
-        '<!--#include file="site/csrf_meta_tags" -->'.html_safe
-      else
-        csrf_meta_tags
+      page ||= (controller_name == 'entries' ? @entry : @tag)
+      if page && page.get_page_attr('csrfFormAuth')
+        csrf_script = <<-EOL
+          <script>
+          function semiStaticLoadCSRF(){
+            semiStaticAJAX('/site/csrf_meta_tags?dummy')
+          };
+          addSemiStaticLoadEvent(semiStaticLoadCSRF);
+          </script>
+        EOL
+        content_for(:ujs) { csrf_script.html_safe }
       end
+      csrf_meta_tags
     end
 
     #

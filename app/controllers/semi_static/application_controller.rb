@@ -55,6 +55,14 @@ module SemiStatic
       render :layout => 'semi_static_application', :template => 'semi_static/errors/show', :formats => [:html], :status => @status_code
     end
 
+    # Bad AUTH Token
+    rescue_from ActionController::InvalidAuthenticityToken do |e|
+      @status_code = 422
+      @exception = e
+      @url = url_for(params.permit!)
+      render :layout => 'semi_static_application', :template => 'semi_static/errors/show', :formats => [:html], :status => @status_code
+    end
+
     rescue_from Faraday::ConnectionFailed, Elasticsearch::Transport::Transport::Errors::NotFound, Elasticsearch::Transport::Transport::Errors::BadRequest do |e|
       @status_code = 404
       @exception = e

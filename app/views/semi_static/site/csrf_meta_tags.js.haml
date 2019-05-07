@@ -1,0 +1,7 @@
+:plain
+  var htmlString = "#{escape_javascript(render 'semi_static/site/csrf_meta_tags')}";
+
+  document.querySelectorAll("form [name='authenticity_token']").forEach(function(item, i){
+    item.insertAdjacentHTML('afterend', htmlString);
+    item.parentNode.removeChild(item);
+  });

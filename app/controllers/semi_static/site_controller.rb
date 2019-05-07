@@ -38,6 +38,7 @@ module SemiStatic
     def csrf_meta_tags
       respond_to do |format|
         format.html { render :layout => false }
+        format.js
       end
     end
 
