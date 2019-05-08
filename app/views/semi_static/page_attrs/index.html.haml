@@ -90,10 +90,10 @@
               %td= 'Entry'
               %td= 'A shopping cart will be automatically loaded by SemiStatic if the main Entry has an associated Product (and \'config.shopping_cart\' is set true in the SemiStatic initializer). However, setting this PageAttr will force the cart to be loaded even if no product is associated with the main Entry and that any element of the form <div id=\'SemiStaticCartId_x\' class=\'semiStaticCartButton\'>... will be replaced with a cart button to order Product with ID x'
             %tr
-              %td= 'csrfMetaViaSsi'
+              %td= 'csrfFormAuth'
               %td= 'true'
               %td= 'Tag or Entry'
-              %td= 'Causes the CSRF Meta Tags to be updated by a webserver via SSI. This is useful for cached pages that have a PUT action and thus need the CSRF tag to match the session, eg. login forms on a static page. The webserver must have SSI enabled (for nGinix this is \'ssi: on;\').'
+              %td= 'Causes the HTML form CSRF auth tokens to be updated on the static pages. This is needed for cached pages that have a PUT/POST action and thus need the CSRF auth tokento match the session, eg. login forms on a static page.'
             %tr
               %td= 'entryIconGalleryId'
               %td= 'Photo ID'

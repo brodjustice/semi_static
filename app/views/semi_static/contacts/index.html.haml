@@ -40,7 +40,7 @@
         %tbody
           - @contacts.each do |c|
             %tr
-              %td= link_to c.fullname, c
+              %td= link_to (c.fullname.present? ? c.fullname : 'Unknown'), c
               %td= c.reason.to_s
               %td= truncate(c.message, :length => 64)
               %td= mail_to c.email, c.email
