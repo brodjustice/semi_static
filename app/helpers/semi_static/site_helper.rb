@@ -141,7 +141,7 @@ module SemiStatic
     end
 
     def menu_from_tag(t)
-      if t.menu && t.target_tag_id.present?
+      if t.menu && t.target_tag.present?
         [(t.target_tag.predefined_class.blank? ? semi_static.feature_path(t.target_tag.slug) : predefined_tags[t.target_tag.predefined_class]), '#', t.target_name].join
       else
         t.predefined_class.blank? ? semi_static.feature_path(t.slug) : predefined_tags[t.predefined_class]

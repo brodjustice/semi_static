@@ -1,9 +1,25 @@
-.button= link_to 'Cancel', '#', :onclick => "$('#dialog').hide(); return false"
-%h2= 'New Subscriber Category'
-= form_for @subscriber_category do |f|
-  .field
-    = f.text_field :name
-    = f.label :name
-  .actions
-    = f.submit 'Create category'
+.modal-header
+  %h5= 'New Subscriber Category'
+  = modal_close
+.modal-body
+  .table-responsive{:style => 'max-height: 200px;'}
+    %table.table.table-bordered.table-hover
+      %thead
+        %tr
+          %th Name
+          %th Subscribers
+      %tbody
+        - SemiStatic::SubscriberCategory.all.each do |cat|
+          %tr
+            %td= cat.name
+            %td= cat.subscribers.size
 
+  = form_for @subscriber_category do |f|
+    .stacked-input-group
+      = f.label :name, 'New category name', :class => 'input-group-text'
+      = f.text_field :name, :class => 'form-control'
+    .row
+      .col-md-12.mt-3
+        = f.submit 'Create category', :class => 'btn btn-danger btn-block'
+  
+  

@@ -1,4 +1,1 @@
-!= "$(\".modal\").modal('hide');"
-!= "$(\"#generalModal .modal-content\").html('#{escape_javascript(render :partial => 'semi_static/subscribers/new')}');"
-!= "$(\"#generalModal\").modal();"
-
+= js_modal_load('semi_static/subscribers/new')

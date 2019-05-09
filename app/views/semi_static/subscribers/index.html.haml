@@ -8,33 +8,38 @@
   %h1
     %i.fa.fa-user.invert
     %span=  "#{@total_subscribers.count} subscribers"
+    %p
+      List of emails that have subscribed to the website
   .text-right
-    = link_to subscribers_path(:unsubscribed => true), :class => 'btn btn-primary btn-space' do
-      %span.app-menu__icon.fa.fa-user
-      %span Unsubscribed
-    = link_to new_subscriber_category_path, :remote => true, :class => 'btn btn-primary btn-space' do
-      %span.app-menu__icon.fa.fa-tickets
-      %span New Category
-    = link_to new_subscriber_path, :class => 'btn btn-primary btn-space' do
-      %span.app-menu__icon.fa.fa-user
-      %span New Subscriber
-    = link_to subscribers_path(:format => :csv), :class => 'btn btn-primary btn-space' do
-      %span.app-menu__icon.fa.fa-user
-      %span Download as CSV
-    = link_to new_subscriber_path(:cmd => :bounced), :remote => true, :class => 'btn btn-primary btn-space' do
-      %span.app-menu__icon.fa.fa-user
-      %span Upload bounced CSV
-    = link_to new_subscriber_path(:cmd => :csv), :remote => true, :class => 'btn btn-primary btn-space' do
-      %span.app-menu__icon.fa.fa-user
-      %span Upload CSV
-    - if @nopaginate
-      = link_to subscribers_path, :title => 'Show contacts with pagination', :class => 'btn btn-primary loading' do
+    %div
+      = link_to subscribers_path(:unsubscribed => true), :class => 'btn btn-primary btn-space' do
         %span.app-menu__icon.fa.fa-user
-        %span Paginate
-    - else
-      = link_to subscribers_path(:nopaginate => true), :title => 'Show all subscribers without pagination', :class => 'btn btn-primary loading' do
+        %span Unsubscribed
+      = link_to new_subscriber_category_path, :remote => true, :class => 'btn btn-primary btn-space' do
+        %span.app-menu__icon.fa.fa-tickets
+        %span New Category
+      = link_to new_subscriber_path, :class => 'btn btn-primary' do
         %span.app-menu__icon.fa.fa-user
-        %span All
+        %span New Subscriber
+    .mt-2
+      = link_to subscribers_path(:format => :csv), :class => 'btn btn-primary btn-space' do
+        %span.app-menu__icon.fa.fa-user
+        %span Download as CSV
+      = link_to new_subscriber_path(:cmd => :csv), :remote => true, :class => 'btn btn-primary btn-space' do
+        %span.app-menu__icon.fa.fa-user
+        %span Upload CSV
+      - if @nopaginate
+        = link_to subscribers_path, :title => 'Show contacts with pagination', :class => 'btn btn-primary' do
+          %span.app-menu__icon.fa.fa-user
+          %span Paginate
+      - else
+        = link_to subscribers_path(:nopaginate => true), :title => 'Show all subscribers without pagination', :class => 'btn btn-primary loading' do
+          %span.app-menu__icon.fa.fa-user
+          %span All
+    .mt-2
+      = link_to new_subscriber_path(:cmd => :bounced), :remote => true, :class => 'btn btn-danger' do
+        %span.app-menu__icon.fa.fa-user
+        %span Upload bounced CSV
 
   
   = render :partial => 'semi_static/subscribers/csv_errors' if @added_count || (@errors && !@errors.empty?)
