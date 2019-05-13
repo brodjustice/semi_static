@@ -80,10 +80,6 @@ module SemiStatic
 
       intended_entry.kind_of?(Fixnum) && (intended_entry = Entry.find(intended_entry))
 
-      # Since the default in Rails 5 url_helper is moving to *_url not *_path we have
-      # to set the option[:only_path] to true by default
-      options[:only_path].nil? && options[:only_path] = true
-
       if intended_entry.acts_as_tag.present?
         SemiStatic::Engine.routes.url_helpers.feature_path(intended_entry.acts_as_tag.slug, options)
       elsif intended_entry.tag.context_url
@@ -93,7 +89,10 @@ module SemiStatic
         end
         u
       else
-        super
+        # Mostly we can call super, but some gems like devise will steal the routes
+        # so we then need to explicity call the entry_path - which is a slower call
+        # but is the only way.
+        defined?(super) ? super : SemiStatic::Engine.routes.url_helpers.entry_path(intended_entry, options)
       end
     end
 
@@ -101,6 +100,11 @@ module SemiStatic
     # acting as tags and context urls can be intercepted. Recently we
     # have simplified this by just overriding the entry_path helper
     def entry_link(intended_entry, options = {})
+
+      # Since the default in Rails 5 url_helper is moving to *_url not *_path we
+      # set the option[:only_path] to true by default
+      options[:only_path].nil? && options[:only_path] = true
+
       entry_path(intended_entry, options)
     end
 
