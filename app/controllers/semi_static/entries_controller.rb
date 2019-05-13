@@ -75,7 +75,7 @@
       redirect_path = @entry.link_to_tag && feature_path(@entry.tag.slug) ||
         @entry.merge_with_previous && semi_static.entry_path(@entry.merged_main_entry) ||
         @entry.acts_as_tag_id && feature_path(@entry.acts_as_tag.slug) ||
-        @entry.tag.context_url && "/#{@entry.tag.name.parameterize}/#{@entry.to_param}"
+        request.path.start_with?('/entries') && @entry.tag.context_url && "/#{@entry.tag.name.parameterize}/#{@entry.to_param}"
 
       if redirect_path.blank?
         # Is this a canonical Entry URL
