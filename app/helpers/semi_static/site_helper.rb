@@ -76,9 +76,7 @@ module SemiStatic
       end
     end
 
-    # For GET you should call this rather than entry_path so that entries
-    # acting as tags and context urls can be intercepted
-    def entry_link(intended_entry, options = {})
+    def entry_path(intended_entry, options = {})
 
       intended_entry.kind_of?(Fixnum) && (intended_entry = Entry.find(intended_entry))
 
@@ -86,7 +84,7 @@ module SemiStatic
       # to set the option[:only_path] to true by default
       options[:only_path].nil? && options[:only_path] = true
 
-      if intended_entry.acts_as_tag_id
+      if intended_entry.acts_as_tag.present?
         SemiStatic::Engine.routes.url_helpers.feature_path(intended_entry.acts_as_tag.slug, options)
       elsif intended_entry.tag.context_url
         u = "/#{intended_entry.tag.name.parameterize}/#{intended_entry.to_param}"
@@ -95,8 +93,15 @@ module SemiStatic
         end
         u
       else
-        SemiStatic::Engine.routes.url_helpers.entry_url(intended_entry, options)
+        super
       end
+    end
+
+    # For GET you can call this rather than entry_path so that entries
+    # acting as tags and context urls can be intercepted. Recently we
+    # have simplified this by just overriding the entry_path helper
+    def entry_link(intended_entry, options = {})
+      entry_path(intended_entry, options)
     end
 
     # For GET you should call this rather than feature_path so that

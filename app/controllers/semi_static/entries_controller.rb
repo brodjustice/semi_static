@@ -60,16 +60,26 @@
     def show
 
       #
-      # We restrict the Entry to those with the correct locale. In the past we did not check the locale this but
+      # We restrict the Entry to those with the correct locale. In the past we did not check the locale but
       # it can cause problems were search engines look up an Entry with a locale that does not match the website
-      # and then index it.
+      # and then index it, the result would be for example 'de' local pages being indexed on the 'en' website.
       #
       @entry = Entry.where(:locale => locale.to_s).find(params[:id])
       @tag = @entry.tag
 
 
-      if @entry.canonical(request.path.start_with?('/entries'))
-        # This is a canonical Entry URL
+      #
+      # Check if this is an entry that needs a redirect. This sort of functionality is replicated in the site_helper
+      # but with slight differences that make it tricky to combine.
+      #
+      redirect_path = @entry.link_to_tag && feature_path(@entry.tag.slug) ||
+        @entry.merge_with_previous && semi_static.entry_path(@entry.merged_main_entry) ||
+        @entry.acts_as_tag_id && feature_path(@entry.acts_as_tag.slug) ||
+        @entry.tag.context_url && "/#{@entry.tag.name.parameterize}/#{@entry.to_param}"
+
+      if redirect_path.blank?
+        # Is this a canonical Entry URL
+        @entry.canonical && (@canonical = request.protocol + request.host + '/entries/' + @entry.to_param)
 
         # Check if this should only be seen by the admin.
         @entry.admin_only && authenticate_for_semi_static!
@@ -119,16 +129,6 @@
           #     send('authenticate_' + SemiStatic::Engine.config.subscribers_model.first[0].downcase + '!')
 
         end
-
-      else
-        #
-        # This is not a canonical url, so we are going to redirect. This sort of functionality is replicated in the site_helper
-        # but with slight differences that make it tricky to combine.
-        #
-        redirect_path = @entry.link_to_tag && feature_path(@entry.tag.slug) ||
-          @entry.merge_with_previous && semi_static.entry_path(@entry.merged_main_entry) ||
-          @entry.acts_as_tag_id && feature_path(@entry.acts_as_tag.slug) ||
-          @entry.tag.context_url && "/#{@entry.tag.name.parameterize}/#{@entry.to_param}"
       end
 
 

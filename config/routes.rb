@@ -3,6 +3,15 @@ SemiStatic::Engine.routes.draw do
     get code, :to => "errors#show", :code => code
   end
 
+  #
+  # For Tags that put their name in the url ("context_urls").
+  #
+  # For example if the Tag was called 'blog', then rather than the standard:
+  #   /entries/278-my-great-page
+  # we would have:
+  #   /blog/278-my-great-page
+  # The controller would redirect /entries/278-my-great-page to /blog/278-my-great-page
+  #
   if ActiveRecord::Base.connection.table_exists? 'semi_static_tags'
     SemiStatic::Tag.with_context_urls.collect{|t| t.name}.each do |tn|
       # Create routes for tag that create their own URL
@@ -46,7 +55,12 @@ SemiStatic::Engine.routes.draw do
   # For the payment processor (stripe.com)
   resources :charges, :only => [:new, :create]
 
-  # For pretty URLs, see config/initializers/semi_static.rb
+  #
+  # For prettier Tag URLs. Without this your URL for a Tag index page call 'blog' would be
+  #   /tag/blog
+  # With this you can set the Tag URL's. By default in english it is "features", the URL above would no be
+  #   /features/blog
+  # see config/initializers/semi_static.rb
   get "/#{SemiStatic::Engine.config.tag_paths[I18n.locale.to_s] || 'features'}/:slug" => 'tags#show', :as => 'feature'
 
   get "/page-attributes/index" => 'page_attrs#index', :as => 'page_attrs'

@@ -16,8 +16,7 @@
               %li= msg
     
       .form-group
-        = f.label :name
-        = f.text_field :name, :class => 'form-control'
+        = labeled_textfield f, :name
     
       .form-group
         = f.label :content, 'Content for column (optional)'
@@ -25,13 +24,11 @@
     
       .row
         .col-md-6
-          .form-group
-            = f.label :position
-            = f.text_field :position, :class => 'form-control'
+          = labeled_textfield f, :position
     
         .col-md-6
-          .form-group
-            = f.label :locale
-            = f.select :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @fcol.locale), :class => 'form-control'
+          = labeled_selectbox f, :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @fcol.locale)
     
-      = f.submit 'Save', :class => 'btn btn-danger btn-block'
+      .row
+        .col-md-12.mt-3
+          = f.submit 'Save', :class => 'btn btn-danger btn-block'

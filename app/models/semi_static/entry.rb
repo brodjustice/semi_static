@@ -28,6 +28,8 @@ module SemiStatic
 
     belongs_to :tag
     belongs_to :acts_as_tag, :class_name => "SemiStatic::Tag", :optional => true
+    has_many :provides_content_for_tags, :class_name => 'SemiStatic::Tag', :foreign_key => :use_entry_as_index, :inverse_of => :use_entry_as_index
+
     delegate :admin_only, to: :tag
   
     before_save :dup_master_id_photos
@@ -203,22 +205,24 @@ module SemiStatic
 
     #
     # Some entries are not available as a full URL, most notibly merged entries. There is
-    # a helper to called entry_link() that works this out, so that you can
+    # a helper called entry_link() that works this out, so that you can
     # call it rather than entry_path(). 
     #
     # Method below is more elegant.
     #
     # If you pass the no_context it means that the Entry URL had no context slug in
-    # the URL itself (ie. was of the form '/entries/:id') and so we test if it was
+    # the URL itself (ie. was of the form '/entries/:id-xxxxx') and so we test if it was
     # supposed to be context_url
+    #
+    # If the entry :provides_content_tags then it might not be canonical.
     #
     # As a side note, in Rails 5 our entry_link() helper results in a 500 system error
     # caused by a suprious Rudy stack level too deep error that occurs around on 0.1% of
     # calls to the ActionPack mapper.rb. This is another reason to migrate to this method.
     # 
     def canonical(no_context = false)
-      !self.merge_with_previous &&
-        !self.link_to_tag &&
+      !self.merge_with_previous && !self.link_to_tag &&
+        self.provides_content_for_tags.blank? &&
         !(no_context && self.tag.context_url) &&
         !self.acts_as_tag_id
     end

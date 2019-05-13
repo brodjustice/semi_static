@@ -10,6 +10,8 @@
     %meta{ :name => "rating", :content => "General" }/
     %meta{:name => 'viewport', :content => 'width=device-width, initial-scale=1.0'}/
 
+    = @canonical && tag(:link, href: @canonical, rel: 'canonical')
+
     -# Open Graph Meta Tags
     %meta{ :property => "og:title", :content => seo_title }/
     - if seo_description

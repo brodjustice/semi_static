@@ -28,29 +28,54 @@
     # GET /tags/1
     # GET /tags/1.json
     def show
-      @title = @tag.name
-      @seo = @tag.seo
-      @banner_class = @tag.banner && 'bannered'
-
-      # If only one entry and it has link_to_tag set then that is the full content to this page
-      @tag.entries.unmerged.size <= 1 && @tag.entries.first.try('link_to_tag') && ((@entry = @tag.entries.first) && (@link_to_tag = true))
-
-      # The entries are not linked if we have link to tag set
-      @link_to_tag ? (@linked = false) : (@summaries = true)
-      @side_bar = @tag.side_bar
-      !@side_bar && (@group_size = 3)
-
       @tag.admin_only && authenticate_for_semi_static!
 
-      # Work out the Tag to use for the sidebar menu
-      @sidebar_menu_tag = (@tag.get_page_attr('sideBarMenuTagId') ? Tag.find(@tag.get_page_attr('sideBarMenuTagId')) : @tag)
+      #
+      # When the Tag has #use_entry_as_tag_index we are saying take the contents of that Entry
+      # and display it in the Tag page. We used to simply cause a redirect for this, eg:
+      #   redirect_to entry_path(@tag.use_entry_as_index)
+      # but it's not really correct because we want to keep the URL for the Tag and replace
+      # entire Tag view contents. So instead we now jump to the Entries controller to create
+      # our html for the page
+      #
+      if @tag.use_entry_as_index
+        entries_controller = SemiStatic::EntriesController.new
+        entries_controller.request = request
+        entries_controller.response = response
+        entries_controller.params[:id] = @tag.use_entry_as_index.id
+        html_content = entries_controller.show 
+      end
+
+      #
+      # Predefined tags are a redirect or we already have the html_content if
+      # use_entry_as index was set, so in either case we don't need the block
+      # below to set up the content for the Tag page
+      #
+      unless @tag.predefined_class.present? || @tag.use_entry_as_index
+
+        @title = @tag.name
+        @seo = @tag.seo
+        @banner_class = @tag.banner && 'bannered'
+
+        # If only one entry and it has link_to_tag set then that is the full content to this page
+        @tag.entries.unmerged.size <= 1 && @tag.entries.first.try('link_to_tag') && ((@entry = @tag.entries.first) && (@link_to_tag = true))
+
+        # The entries are not linked if we have link to tag set
+        @link_to_tag ? (@linked = false) : (@summaries = true)
+        @side_bar = @tag.side_bar
+        !@side_bar && (@group_size = 3)
+
+        # Work out the Tag to use for the sidebar menu
+        @sidebar_menu_tag = (@tag.get_page_attr('sideBarMenuTagId') ? Tag.find(@tag.get_page_attr('sideBarMenuTagId')) : @tag)
+
+      end
 
       respond_to do |format|
         format.html {
-          if @tag.predefined_class && !SiteHelper::PREDEFINED[@tag.predefined_class].nil?
+          if html_content
+            render :html => html_content.html_safe
+          elsif @tag.predefined_class.present? && SiteHelper::PREDEFINED[@tag.predefined_class].present?
             redirect_to SiteHelper::PREDEFINED[@tag.predefined_class]
-          elsif @tag.use_entry_as_index
-            redirect_to entry_path(@tag.use_entry_as_index)
           else
             render :layout => layout_select(@tag)
           end
