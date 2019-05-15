@@ -54,7 +54,7 @@ module SemiStatic
 
       @galleries = Gallery.locale(I18n.locale).visible
       @selection = 'Gallery'
-      @entries = @tag && @tag.entries
+      @entries = @tag&.entries
 
       respond_to do |format|
         format.html { render :template => template, :layout => layout }

@@ -1,0 +1,23 @@
+.tile
+  .tile-body
+    .infobox#predefined
+      %h5= 'Public Gallaries'
+      %p
+        To have a public photo gallery page you must create a Tag for for the domain locale with the predefined Tag name
+        of 'Gallery' and there must be some public gallaries available
+    .table-responsive
+      %table.table.sortable.table-bordered.table-hover.table-dense
+        %thead
+          %tr
+            %th Locale
+            %th
+              .infomarker{:data => {:marker => 'predefined'}}
+                Predefined Gallery Tag
+
+      
+        %thead
+          - SemiStatic::Engine.config.localeDomains.keys.each do |loc|
+            %tr
+              %td= loc.to_s
+              %td
+                = SemiStatic::Tag.predefined(loc, 'Gallery').first ? link_to("Edit Gallery Tag", edit_tag_path(SemiStatic::Tag.predefined(loc, 'Gallery').first)) : 'Not defined'
