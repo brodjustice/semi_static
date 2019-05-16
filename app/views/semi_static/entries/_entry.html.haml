@@ -1,17 +1,15 @@
--# TODO: Refactor, Move to helper, and what is even happening with 'linked'?
 - suppress_merged ||= (@suppress_merged || false)
 - style ||= false
-- defined?(linked) && linked.nil? && linked = @linked
-- linked = ((defined?(linked)) && (linked || linked.nil?)) ? true : false
 - entry = e
 - last_merged_entry = e
+
 .entry{:style => "background-color: #{e.background_colour}", :class => e.get_page_attr('entryClasses').to_s.split(',').join(' ')}
   - loop do
     - last_merged_entry = e
     - if e.partial_inline?
       = render :partial => e.partial_path, :locals => {:style => style, :e => e }
     - else
-      = render :partial => 'semi_static/entries/entry_contents', :locals => {:style => style, :e => e, :linked => linked }
+      = render :partial => 'semi_static/entries/entry_contents', :locals => {:style => style, :e => e}
     = semantic_job_posting(e)
     = semantic_event(e)
     = squeeze(e)

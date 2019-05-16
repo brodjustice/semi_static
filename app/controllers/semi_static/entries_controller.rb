@@ -92,8 +92,6 @@
           # If we call this via a URL and this is a merged entry, then we
           # need to only show this entry, not additional merged entries
           @suppress_merged = @entry.merge_with_previous
-          # Don't have a header link to yourself
-          @linked = false
         else
           @pixel_ratio = params[:pratio].to_i || 1
           @popup_style = popup_style(@entry, @pixel_ratio)

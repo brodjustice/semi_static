@@ -1,5 +1,7 @@
 -# TODO: Major refactor required
-- linked = ((defined?(linked)) && (linked || linked.nil?)) ? true : false
+
+- linked ||= @linked
+
 - unless e.youtube_id_str.blank?
   = entry_title(e, linked)
   = youtube_video(e.youtube_id_str, e.get_page_attr('youTubeVideoWidth'), e.get_page_attr('youTubeVideoHeight'), e.get_page_attr('youTubeVideoControls'))

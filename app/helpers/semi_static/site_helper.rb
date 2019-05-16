@@ -56,10 +56,6 @@ module SemiStatic
           # Standard sort of link 
           content_tag(h_tag){ content_tag(:a, e.title, :href => entry_link(e), :style => "color: #{e.header_colour}") } +
           (e.sub_title.present? ? content_tag(h_sub_tag){ content_tag(:a, e.sub_title, :href => entry_link(e), :style => "color: #{e.header_colour}")} : '')
-        elsif linked && @summaries && !e.link_to_tag
-          # Summary that is linked to a tag (TODO: Does this ever happen, seems to now be covered in the tags_controller?)
-          content_tag(h_tag){ content_tag(:a, e.title, :href => feature_path(e.tag.slug), :style => "color: #{e.header_colour}") } +
-          (e.sub_title.present? ? content_tag(h_sub_tag){ content_tag(:a, e.sub_title, :href => feature_path(e.tag.slug), :style => "color: #{e.header_colour}")} : '')
         else
           # No link
           content_tag(h_tag, e.title, :style => "color: #{e.header_colour};") +
