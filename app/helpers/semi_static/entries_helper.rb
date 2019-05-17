@@ -11,11 +11,15 @@ module SemiStatic
     # for the dimensions. If that is also not present, then default dimensions of
     # 640 x 360 are used
     #
+    # Since introduction of GDPR in the EU we use the YouTube Enable Privacy Mode which
+    # basically means that the iframe is server from www.youtube-nocookie.com rather than
+    # the standard www.youtube.com
+    #
     def youtube_video(id, width=nil, height=nil, controls='0')
       link_id = id.split(',').first
       w = width || id.split(',')[1] || '640'
       h = height || id.split(',')[2] || '340'
-      "<div class='yt_video'> <iframe width='#{w.to_s.squish}' height='#{h.to_s.squish}' src='https://www.youtube.com/embed/#{link_id}?modestbranding=1&amp;rel=0&amp;controls=#{controls}&amp;showinfo=0' allowfullscreen></iframe></div>".html_safe
+      "<div class='yt_video'> <iframe width='#{w.to_s.squish}' height='#{h.to_s.squish}' src='https://www.youtube-nocookie.com/embed/#{link_id}?modestbranding=1&amp;rel=0&amp;controls=#{controls}&amp;showinfo=0' allow='accelerometer' allowfullscreen></iframe></div>".html_safe
     end
 
     def human_file_size(s)
