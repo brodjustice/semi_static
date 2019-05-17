@@ -90,7 +90,7 @@ th{ text-align: left; }
 .mid.wide{max-width: 820px;}
 .mid.full{max-width: 1012px; width: 97.5%;}
 
-.mid input[type], .mid textarea{
+.mid input[type=text], .mid textarea{
   max-width: 100%;
   -ms-box-sizing: border-box; /* ie8 */
   -khtml-box-sizing: border-box; /* konqueror */
@@ -116,18 +116,18 @@ th{ text-align: left; }
   display: inline;
 }
 
-.field_with_errors input[text]{
+.field_with_errors input[type=text]{
   border-color: red;
 }
 
-#dialog input[submit], .mid input[submit], .mid input[button]{
+#dialog input[type=submit], .mid input[type=submit], .mid input[type=button]{
   font-size: 20px; width: 100%; margin: 0; text-align: center; box-sizing: border-box;
 }
-#dialog input[submit]:last-child, .mid input[submit]:last-child, .mid input[button]:last-child{
+#dialog input[type=submit]:last-child, .mid input[type=submit]:last-child, .mid input[type=button]:last-child{
   margin-bottom: 6px;
 }
 
-.mid input[radio], .mid input[checkbox]{width: auto;}
+.mid input[type=radio], .mid input[type=checkbox]{width: auto;}
 
 .list{
   text-align: center;
