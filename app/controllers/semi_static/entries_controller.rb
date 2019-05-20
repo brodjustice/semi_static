@@ -69,35 +69,38 @@
 
 
       #
-      # Check if this is an entry that needs a redirect. This sort of functionality is replicated in the site_helper
-      # but with slight differences that make it tricky to combine.
+      # Is this an Entry request that actually just wants a popup of the Enry image?
       #
-      redirect_path = @entry.link_to_tag && feature_path(@entry.tag.slug) ||
-        @entry.merge_with_previous && semi_static.entry_path(@entry.merged_main_entry) ||
-        @entry.acts_as_tag_id && feature_path(@entry.acts_as_tag.slug) ||
-        request.path.start_with?('/entries') && @entry.tag.context_url && "/#{@entry.tag.name.parameterize}/#{@entry.to_param}"
+      if params[:popup].present?
+        @pixel_ratio = params[:pratio].to_i || 1
+        @popup_style = popup_style(@entry, @pixel_ratio)
+        @caption = @entry.image_caption
+        template = "semi_static/photos/popup"
+      else
+        #
+        # Check if this is an entry that needs a redirect. This sort of functionality is replicated in the site_helper
+        # but with slight differences that make it tricky to combine.
+        #
+        redirect_path = @entry.link_to_tag && feature_path(@entry.tag.slug) ||
+          @entry.merge_with_previous && semi_static.entry_path(@entry.merged_main_entry) ||
+          @entry.acts_as_tag_id && feature_path(@entry.acts_as_tag.slug) ||
+          request.path.start_with?('/entries') && @entry.tag.context_url && "/#{@entry.tag.name.parameterize}/#{@entry.to_param}"
+      end
 
-      if redirect_path.blank?
+      if redirect_path.blank? && params[:popup].blank?
         # Is this a canonical Entry URL
         @entry.canonical && (@canonical = request.protocol + request.host + '/entries/' + @entry.to_param)
 
         # Check if this should only be seen by the admin.
         @entry.admin_only && authenticate_for_semi_static!
 
-        unless params[:popup].present?
-          @title = ActionController::Base.helpers.strip_tags(@entry.title)
-          @seo = @entry.seo
-          @side_bar = @entry.side_bar
-          @banner_class = @entry.banner && 'bannered'
-          # If we call this via a URL and this is a merged entry, then we
-          # need to only show this entry, not additional merged entries
-          @suppress_merged = @entry.merge_with_previous
-        else
-          @pixel_ratio = params[:pratio].to_i || 1
-          @popup_style = popup_style(@entry, @pixel_ratio)
-          @caption = @entry.image_caption
-          template = "semi_static/photos/popup"
-        end
+        @title = ActionController::Base.helpers.strip_tags(@entry.title)
+        @seo = @entry.seo
+        @side_bar = @entry.side_bar
+        @banner_class = @entry.banner && 'bannered'
+        # If we call this via a URL and this is a merged entry, then we
+        # need to only show this entry, not additional merged entries
+        @suppress_merged = @entry.merge_with_previous
 
         if @entry.enable_comments
           @comment = @entry.comments.new

@@ -80,9 +80,7 @@ module SemiStatic
         SemiStatic::Engine.routes.url_helpers.feature_path(intended_entry.acts_as_tag.slug, options)
       elsif intended_entry.tag.context_url
         u = "/#{intended_entry.tag.name.parameterize}/#{intended_entry.to_param}"
-        if options[:host]
-          u = "#{options[:protocol] || 'http'}://#{options[:host]}#{u}"
-        end
+        options[:host] && (u = "#{options[:protocol] || 'http'}://#{options[:host]}#{u}")
         u
       else
         # Mostly we can call super, but some gems like devise will steal the routes
@@ -254,19 +252,17 @@ module SemiStatic
       c += '</figure>'.html_safe
     end
 
-    def semantic_photo(p, style, show_title = true)
+    def semantic_photo(p, style, show_title = true, popup = p.popup)
       c = '<figure vocab = "http://schema.org/" typeof="ImageObject"> '.html_safe
       c += "<meta property='name' content='#{p.title}'/>".html_safe
-      if p.popup
+      if popup
         c += "<a class='popable photo' onclick=\'semiStaticAJAX(\"#{photo_path(p, :format => :js, :popup => true)}\")\; return false;' href='#{photo_path(p)}'> ".html_safe
-      else
-        c += "<a href='#{photo_path(p)}' class='photo'> ".html_safe
       end
       if show_title
         c += "<h3 property='name'>#{p.title}</h3>".html_safe
       end
       c += image_tag(p.img.url(style), :class => 'photo')
-      c += '</a>'.html_safe
+      popup && c += '</a>'.html_safe
       unless p.description.blank?
         c += "<figcaption class='caption'> <div class='caption-inner' property='description'>#{p.description}</div> </figcaption> ".html_safe
       end

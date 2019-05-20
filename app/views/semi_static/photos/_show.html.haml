@@ -5,11 +5,11 @@
   - unless @photo.entry.blank?
     .center
       .link
-        = link_to truncate(@photo.entry.raw_title, :length => 32), entry_link_path(@photo.entry.merged_main_entry)
+        = link_to truncate(@photo.entry.raw_title, :length => 32), entry_path(@photo.entry.merged_main_entry.id)
   - else
     -# Dot below fixes odd webkit behaviour of empty divs with % widths
     = '.'
   = link_to photo_path(@next), :class => 'right cmd next', :remote => true do
     .arrow= '▸'
 
-= semantic_photo(@photo, :big, false)
+= semantic_photo(@photo, :big, false, false)

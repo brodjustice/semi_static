@@ -4,4 +4,4 @@
     - @photo.gallery.photos.not_hidden.reorder(:position, :id).each do |p|
       .photo.nutshell
         .spaced
-          = link_to image_tag(p.img.url(:mini), :id => "photo_id_#{p.id}", :title => "#{p.title} - #{truncate(p.description, :length => 50)}"), photo_path(p)
+          = link_to image_tag(p.img.url(:mini), :id => "photo_id_#{p.id}", :title => "#{p.title} - #{truncate(p.description, :length => 50)}"), photo_path(p.id)
