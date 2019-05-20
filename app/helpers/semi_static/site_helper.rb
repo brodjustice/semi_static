@@ -86,13 +86,21 @@ module SemiStatic
         # Mostly we can call super, but some gems like devise will steal the routes
         # so we then need to explicity call the entry_path - which is a slower call
         # but is the only way.
-        defined?(super) ? super : SemiStatic::Engine.routes.url_helpers.entry_path(intended_entry, options)
+        #
+        # In addition we call super with the updated intended_entry (which has now been
+        # forced to be an Entry object), this will ensure that we get the full URL ie:
+        #   /entries/652-my-blog post 
+        # rather than just
+        #   /entries/652
+        #
+        defined?(super) ? super(intended_entry, options) : SemiStatic::Engine.routes.url_helpers.entry_path(intended_entry, options)
       end
     end
 
     # For GET you can call this rather than entry_path so that entries
     # acting as tags and context urls can be intercepted. Recently we
     # have simplified this by just overriding the entry_path helper
+    # (see above)
     def entry_link(intended_entry, options = {})
 
       # Since the default in Rails 5 url_helper is moving to *_url not *_path we
