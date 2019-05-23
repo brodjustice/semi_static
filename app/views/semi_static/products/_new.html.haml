@@ -1,3 +1,6 @@
-.button= link_to 'Cancel', '#', :onclick => "$('#dialog').hide(); return false"
-%h1= 'New product'
-= render 'form'
+.modal-header
+  %h5 New Product
+  = modal_close
+.modal-body
+  = render 'form'
+

@@ -230,6 +230,7 @@ h1 .fa-test { background-position: -0px -1026px;}
 h1 .fa-graph { background-position: -0px -1066px;} 
 h1 .fa-clone { background-position: -0px -1103px;} 
 h1 .fa-repo { background-position: -0px -1141px;} 
+h1 .fa-product { background-position: -0px -1252px;} 
 h1 .fa-layout { background-position: -0px -1292px;} 
 h1 .fa-sidebar { background-position: -0px -1332px;} 
 h1 .fa-footer { background-position: -0px -1369px;} 
@@ -457,3 +458,21 @@ tr td.photo:hover img{ width: 96px; height: 96px; z-index: 10; top: -24px; left:
 // Form and Banner thumbnails
 form #semi_static_entry_image img,
 #selected_banner img, .banner-thumb img{max-width: 100%;}
+
+// Flash updated objects in tables
+@keyframes flash {
+    0% { background-color:none;}
+    50% { background-color:#4bc63e;}
+    100% {background-color:none;}
+}
+@-webkit-keyframes flash {
+    0% { background-color:none;}
+    50% { background-color:#4bc63e;}
+    100% {background-color:none;}
+}
+
+.flash{
+  animation: flash 2s ease-out; animation-iteration-count: 5;
+  -webkit-animation: flash 2s ease-out; -webkit-animation-iteration-count: 5;
+}
+

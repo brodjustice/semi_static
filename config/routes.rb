@@ -50,7 +50,7 @@ SemiStatic::Engine.routes.draw do
   resource :cart, only: [:show, :edit, :update]
   resources :carts, only: [:index]
   resources :order_items, only: [:create, :update, :destroy]
-  get "/order/:id" => "carts#show", :as => 'order'
+  get "/order/:id" => "carts#show", :as => 'cart_orders'
 
   # For the payment processor (stripe.com)
   resources :charges, :only => [:new, :create]

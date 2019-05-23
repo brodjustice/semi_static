@@ -1,3 +1,8 @@
-.dash
-  %h1= 'Editing product ' + @product.name.to_s
-  = render 'form'
+.app-title
+  %h1
+    %i.fa.fa-product.invert
+    %span= 'Editing product ' + @product.name.to_s
+
+.tile
+  .tile-body
+    = render 'form'

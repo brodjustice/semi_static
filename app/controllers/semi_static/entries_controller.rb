@@ -34,7 +34,6 @@
       end
       respond_to do |format|
         format.html { render :template => template, :layout => layout }
-        format.json { render :json => @entries }
         format.js
       end
     end
@@ -201,7 +200,7 @@
           if params[:newsletter_id]
             format.html { redirect_to edit_newsletter_path(params[:newsletter_id]) }
           else
-            format.html { redirect_to entries_path(:anchor => "entry_id_#{@entry.id}") }
+            format.html { redirect_to entries_path(:anchor => "entry_id_#{@entry.id}", :page => page(@entry)) }
             format.json { render :json => @entry, :status => :created, :location => @entry }
           end
         else
@@ -215,28 +214,30 @@
     # PUT /entries/1.json
     def update
       @entry = Entry.find(params[:id])
+
+      #
+      # Redirects only apply to html format calls
+      #
+      redirect_path = params[:redirect_to] ||
+        (@entry.tag.newsletter && edit_newsletter_path(@entry.tag.newsletter)) ||
+        entries_path(:anchor => "entry_id_#{@entry.id}", :page => "#{page(@entry)}")
+
+      if params[:convert] && (@entry.attributes = entry_params)
+        template = 'convert'
+      else
+        template = 'update'
+        @entry.update_attributes(entry_params) && expire_page_cache(@entry)
+        
+      end
+
+      @entry.notice.present? && (flash[:notice] = @entry.notice)
+      
       respond_to do |format|
-        if params[:convert] && (@entry.attributes = entry_params)
-          format.js { render 'convert'}
-        elsif @entry.update_attributes(entry_params)
-          unless @entry.notice.blank?
-            flash[:notice] = @entry.notice
-          end
-          expire_page_cache(@entry)
-          format.html {
-            if params[:redirect_to].present?
-              redirect_to params[:redirect_to]
-            elsif @entry.tag.newsletter
-              redirect_to edit_newsletter_path(@entry.tag.newsletter)
-            else
-              redirect_to entries_path(:anchor => "entry_id_#{@entry.id}")
-            end
-          }
-          format.js
+        if @entry.errors.none?
+          format.html { redirect_to redirect_path }
+          format.js { render template }
         else
           format.html { render :action => "edit" }
-          format.js
-          format.json { render :json => @entry.errors, :status => :unprocessable_entity }
         end
       end
     end
@@ -275,6 +276,14 @@
     end
 
     private
+
+    # Get the page number that an entry is on when paginating. This could be abstracted as a Class method
+    # for other objects like Photos
+    #
+    def page(entry, per_page = Entry.default_per_page)
+      position = Entry.unscoped.order(:locale, :tag_id, :position).exclude_newsletters.pluck(:id).index(entry.id)
+      (position.to_f/per_page).ceil
+    end
 
 
     # Never trust parameters from the scary internet, only allow the white list through.

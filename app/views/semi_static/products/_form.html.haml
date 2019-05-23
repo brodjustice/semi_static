@@ -6,55 +6,22 @@
       %ul
         - @product.errors.full_messages.each do |msg|
           %li= msg
-  .group
-    .col.span_2_of_3
-      %fieldset
-        = f.label :name
-        %br/
-        = f.text_field :name
-      %fieldset
-        = f.label :description
-        %br/
-        = f.text_area :description, :rows => 8
-      -# Inventory level has been removed from schema.org 
-      -# %fieldset
-      -#   = f.label :inventory_level
-      -#   %br/
-      -#   = f.text_field :inventory_level
-      %fieldset
-        = f.label :entry_id, 'Entry'
-        %br
-        = f.select :entry_id, options_for_select(SemiStatic::Entry.all.collect{|e| [e.explicit_title(true), e.id]}.prepend(['- None -', nil]), @product.entry_id)
-    .col.span_1_of_3
-      %fieldset
-        = f.label :currency
-        %br/
-        = f.text_field :currency
-      %fieldset
-        = f.label :price
-        %br/
-        = f.text_field :price
-      %fieldset
-        = f.label :color
-        %br/
-        = f.text_field :color
-      %fieldset
-        = f.label :height
-        %br/
-        = f.text_field :height
-      %fieldset
-        = f.label :depth
-        %br/
-        = f.text_field :depth
-      %fieldset
-        = f.label :width
-        %br/
-        = f.text_field :width
-      %fieldset
-        = f.label :weight
-        %br/
-        = f.text_field :weight
-      = f.label :orderable, 'Can be ordered'
-      = f.check_box :orderable
-  .actions
-    = f.submit
+  .row
+    .col-md-12
+      .input-group
+        = labeled_textfield f, :name
+      .input-group
+        .input-group-prepend
+          = f.label :description, :class => 'input-group-text'
+        = f.text_area :description, :rows => 4, :class => 'form-control mt-2'
+        = labeled_selectbox f, :entry_id, options_for_select(SemiStatic::Entry.all.collect{|e| [e.explicit_title(true), e.id]}.prepend(['- None -', nil]), @product.entry_id)
+        = labeled_textfield f, :currency
+        = labeled_textfield f, :price
+        = labeled_textfield f, :color
+        = labeled_textfield f, :height
+        = labeled_textfield f, :depth
+        = labeled_textfield f, :width
+        = labeled_textfield f, :weight
+        = labeled_checkbox(f, :orderable, 'Can be ordered')
+      .text-center.mt-3
+        = f.submit 'Save', :class => 'btn btn-danger btn-block'
