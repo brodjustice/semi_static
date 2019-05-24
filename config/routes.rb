@@ -12,6 +12,10 @@ SemiStatic::Engine.routes.draw do
   #   /blog/278-my-great-page
   # The controller would redirect /entries/278-my-great-page to /blog/278-my-great-page
   #
+  # We only provide a GET routes, which means that edit/update of the Entry with
+  # POST/PUT/PATCH will not work. But since this is only ever done in the admin
+  # dashboard we choose to deal this by hand (see form_for in entries/_form.html.haml)
+  #
   if ActiveRecord::Base.connection.table_exists? 'semi_static_tags'
     SemiStatic::Tag.with_context_urls.collect{|t| t.name}.each do |tn|
       # Create routes for tag that create their own URL
@@ -50,7 +54,7 @@ SemiStatic::Engine.routes.draw do
   resource :cart, only: [:show, :edit, :update]
   resources :carts, only: [:index]
   resources :order_items, only: [:create, :update, :destroy]
-  get "/order/:id" => "carts#show", :as => 'cart_orders'
+  get "/order/:id" => "carts#show", :as => 'shopping-cart'
 
   # For the payment processor (stripe.com)
   resources :charges, :only => [:new, :create]

@@ -94,7 +94,16 @@
       });
     });
 
-= form_for @entry, :class => 'form-inline' do |f|
+-#
+-# The entry_path could be changed by our entry_path helper override if it's Tag is a 'context URL', so
+-# instead of:
+-#   /entries/165-my-great-post
+-# you might get
+-#   /blog/165-my-great-post
+-# but since we do not config a PUT/POST/PATCH route for the 'context_url' it will fail. This is the only
+-# point in the application that we should be PUT/POST/PATCH of the Entry we choose to fix the URL
+-# 
+= form_for @entry, :url => "/entries/#{@entry.id}", :class => 'form-inline' do |f|
   - if @entry.errors.any?
     .row
       .col-md-12
