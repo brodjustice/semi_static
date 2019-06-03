@@ -4,6 +4,7 @@ module SemiStatic
       !self.admin_only &&
       (self.seo.nil? || (!self.seo.no_index && self.seo.include_in_sitemap)) &&
       !(self.kind_of?(Tag) && self.use_entry_as_index.present?) &&
+      !(self.kind_of?(Tag) && self.newsletter) &&
       !(self.kind_of?(Entry) && self.link_to_tag) &&
       !(self.kind_of?(Entry) && self.merge_with_previous)
     end
