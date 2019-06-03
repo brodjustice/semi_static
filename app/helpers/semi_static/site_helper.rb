@@ -83,17 +83,26 @@ module SemiStatic
         options[:host] && (u = "#{options[:protocol] || 'http'}://#{options[:host]}#{u}")
         u
       else
-        # Mostly we can call super, but some gems like devise will steal the routes
-        # so we then need to explicity call the entry_path - which is a slower call
-        # but is the only way.
         #
-        # In addition we call super with the updated intended_entry (which has now been
+        # We call super (or Rails helper) with the updated intended_entry (which has now been
         # forced to be an Entry object), this will ensure that we get the full URL ie:
         #   /entries/652-my-blog post 
         # rather than just
         #   /entries/652
         #
-        defined?(super) ? super(intended_entry, options) : SemiStatic::Engine.routes.url_helpers.entry_path(intended_entry, options)
+        # In Rails 5 option[:only_path] no longer works, you should call entry_url instead,
+        # but we prefer keep the old option so we check for :only_path here and switch to
+        # the correct rails helper. Gotch here is that if options[:only_path] is nil, ie.
+        # not defined, then that is the same as options[:only_path] == true
+        #
+        if options[:only_path] == false
+          SemiStatic::Engine.routes.url_helpers.entry_url(intended_entry, options)
+        else
+          # Mostly we can call super, but some gems like devise will steal the routes
+          # so we then need to explicity call the entry_path - which is a slower call
+          # but is the only way.
+          defined?(super) ? super(intended_entry, options) : SemiStatic::Engine.routes.url_helpers.entry_path(intended_entry, options)
+        end
       end
     end
 
@@ -199,7 +208,7 @@ module SemiStatic
           "#{scheme}://#{host}/#{SemiStatic::Engine.config.tag_paths[l]}/#{p.slug}"
         end
       elsif p.kind_of?(Entry)
-        entry_link(p, :host => host, :only_path => false, :protocol => scheme)
+        entry_path(p, {:host => host, :only_path => false, :protocol => scheme})
       elsif p.kind_of?(String)
         [SemiStatic::Engine.config.localeDomains[l], p].join('/')
       else
