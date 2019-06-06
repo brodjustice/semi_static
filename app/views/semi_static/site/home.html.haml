@@ -1,6 +1,6 @@
-.section
-  - unless @tag.nil?
-    = home_custom
+- unless @tag.nil?
+  = home_custom
+  .section
     - unless SemiStatic::Entry::DISPLAY_ENTRY[@tag.entry_position] == :none
       .col{:class => ('span_2_of_3 main-col' if @tag.side_bar)}
         - SemiStatic::Entry.unscoped.order(:position).home.locale(I18n.locale).unmerged.each do |e|
