@@ -223,7 +223,7 @@ module SemiStatic
     def canonical(no_context = false)
       !self.merge_with_previous && !self.link_to_tag &&
         self.provides_content_for_tags.blank? &&
-        !(no_context && self.tag.context_url) &&
+        !(no_context && self.tag.context_url.blank?) &&
         !self.acts_as_tag_id
     end
 

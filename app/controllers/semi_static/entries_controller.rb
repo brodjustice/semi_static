@@ -87,8 +87,9 @@
       end
 
       if redirect_path.blank? && params[:popup].blank?
-        # Is this a canonical Entry URL
-        @entry.canonical && (@canonical = request.protocol + request.host + '/entries/' + @entry.to_param)
+        # Is this a canonical Entry URL, perhaps with context URL path part
+        context_url_or_entry = @entry.tag.context_url.present? ? @entry.tag.title.parameterize : 'entries'
+        @entry.canonical(@entry.tag.context_url.present?) && (@canonical = request.protocol + request.host + "/#{context_url_or_entry}/" + @entry.to_param)
 
         # Check if this should only be seen by the admin.
         @entry.admin_only && authenticate_for_semi_static!
