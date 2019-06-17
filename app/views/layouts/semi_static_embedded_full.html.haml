@@ -41,6 +41,7 @@
     = analytics
     = favicon_link_tag 'favicon.ico'
   %body{:id => "semi_static_#{controller_name.classify.downcase}"}
+    #dialog{:style => 'display: none;'}
     #body-inner
       = render :partial => 'semi_static/shared/application_body'
       = render :partial => 'semi_static/shared/footer'

@@ -15,7 +15,7 @@ function semiStaticPopOff(){
   var d=document.getElementById("dialog");
   d.className = d.className.replace(/^popped$/, "\\");
   d.style.display="none";
-  document.getElementById("content").style.opacity="1.0";
+  document.getElementById("body-inner").style.opacity="1.0";
 }
 
 function semiStaticAJAX(url){
