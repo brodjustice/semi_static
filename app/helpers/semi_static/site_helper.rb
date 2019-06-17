@@ -278,7 +278,7 @@ module SemiStatic
       if show_title
         c += "<h3 property='name'>#{p.title}</h3>".html_safe
       end
-      c += image_tag(p.img.url(style), :class => 'photo')
+      c += image_tag(p.img.url(style), :class => 'photo', :alt => p.title)
       popup && c += '</a>'.html_safe
       unless p.description.blank?
         c += "<figcaption class='caption'> <div class='caption-inner' property='description'>#{p.description}</div> </figcaption> ".html_safe

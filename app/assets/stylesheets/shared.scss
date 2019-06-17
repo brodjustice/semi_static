@@ -155,9 +155,11 @@
   max-width: 90%;max-height:90%;display:block;position:fixed; background-repeat: no-repeat; background-attachment: local;
   overflow: auto; z-index:2000; left:0; right:0; top:0; bottom:0; margin: auto;
   box-sizing: content-box;
-  touch-action: pan-x pan-y pinch-zoom;
 }
-#popoff{background-color: transparent; width: 100%; height:auto;; cursor:pointer;}
+#popoff{
+  background-color: transparent; width: 100%; height:auto;; cursor:pointer;
+  touch-action: manipulation;
+}
 .popped:hover #popup_caption{opacity: 0.0;}
 #popup_caption{
   position:absolute; background-color: rgba(255,255,255,0.9); color: black; font-size: 14px;

@@ -1,4 +1,4 @@
 #popoff{:style => "width: #{@width}px; height:#{@height}px;"}
-- if @caption.present?
-  #popup_caption
-    = @caption.to_s
+  - if @caption.present?
+    #popup_caption
+      = @caption.to_s
