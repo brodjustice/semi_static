@@ -10,6 +10,14 @@ function semiStaticSlideCloseMenu(){
 
 function semiStaticGetPR(){ var pr; try {pr=window.devicePixelRatio} catch(err){pr=1} return(pr); }
 
+// Cause a click anywhere to remove photo popup dialog
+function semiStaticPopOff(){
+  var d=document.getElementById("dialog");
+  d.className = d.className.replace(/^popped$/, "\\");
+  d.style.display="none";
+  document.getElementById("content").style.opacity="1.0";
+}
+
 function semiStaticAJAX(url){
   var xhr = new XMLHttpRequest();
   var token = document.querySelector('meta[name="csrf-token"]').content

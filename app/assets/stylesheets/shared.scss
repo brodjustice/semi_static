@@ -151,7 +151,11 @@
   display: none;
 }
 // DD photo dialog and stuff...
-.popped{max-width: 90%;max-height:90%;display:block;position:fixed; background-repeat: no-repeat; background-attachment: local; overflow: auto; z-index:2000; left:0; right:0; top:0; bottom:0; margin: auto;}
+.popped{
+  max-width: 90%;max-height:90%;display:block;position:fixed; background-repeat: no-repeat; background-attachment: local;
+  overflow: auto; z-index:2000; left:0; right:0; top:0; bottom:0; margin: auto;
+  box-sizing: content-box;
+}
 #popoff{background-color: transparent; width: 100%; height:auto;; cursor:pointer;}
 .popped:hover #popup_caption{opacity: 0.0;}
 #popup_caption{
