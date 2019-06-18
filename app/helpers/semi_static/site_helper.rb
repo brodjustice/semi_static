@@ -160,6 +160,30 @@ module SemiStatic
       PREDEFINED.merge(Hash[SemiStatic::Engine.config.predefined.map{|k, v| [k, Rails.application.routes.url_helpers.send(*v)]}])
     end
 
+    #
+    # The "sub_menu" is the one that typically goes in the sidebar of a desktop layout and this is the basic layout
+    # which is constructed from simply the default Tag or some other Tag(s) set by PageAttrs
+    #
+    def basic_sub_menu(tags_for_menu, main_tag)
+      c = ''.html_safe
+      tags_for_menu = tags_for_menu.kind_of?(Array) ? tags_for_menu.collect{|t| Tag.find(t)} : [ tags_for_menu ]
+      tags_for_menu.each{|t|
+        c += content_tag(:h2) do
+          link_to t.sidebar_title, tag_link(t), :style => "color: #{main_tag.colour};"
+        end
+        tag.div :class => 'section' do
+          t.entries_for_navigation.each{|e|
+            c += render :partial => 'semi_static/tags/side_bar_entry', :locals => {:e => e}
+          }
+        end
+      }
+      c
+    end
+
+    #
+    # Used by the main menus (typically top and slider) to work out which links to which
+    # Tags go in their menus
+    #
     def menu_from_tag(t)
       if t.menu && t.target_tag.present?
         [(t.target_tag.predefined_class.blank? ? semi_static.feature_path(t.target_tag.slug) : predefined_tags[t.target_tag.predefined_class]), '#', t.target_name].join

@@ -65,8 +65,11 @@
         @side_bar = @tag.side_bar
         !@side_bar && (@group_size = 3)
 
-        # Work out the Tag to use for the sidebar menu
-        @sidebar_menu_tag = (@tag.get_page_attr('sideBarMenuTagId') ? Tag.find(@tag.get_page_attr('sideBarMenuTagId')) : @tag)
+        # Work out the Tag to use for the sidebar menu. Check special PageAttrs for sideBarMenuTagId
+        # and sideBarMenuTagIds
+        @sidebar_menu_tag = @tag.get_page_attr('sideBarMenuTagId')&.split ||
+          @tag.get_page_attr('sideBarMenuTagIds')&.split(",") ||
+          @tag
 
         # Make headers link to the main entry
         @linked = true

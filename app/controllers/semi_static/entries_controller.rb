@@ -106,11 +106,14 @@
           @comment = @entry.comments.new
         end
 
-        # Work out the Tag to use for the sidebar menu
-        @sidebar_menu_tag = (@entry.get_page_attr('sideBarMenuTagId') ? Tag.find(@entry.get_page_attr('sideBarMenuTagId')) : @entry.tag)
+        # Work out the Tag to use for the sidebar menu. Check special PageAttrs for sideBarMenuTagId
+        # and sideBarMenuTagIds
+        @sidebar_menu_tag = @entry.get_page_attr('sideBarMenuTagId')&.split ||
+          @entry.get_page_attr('sideBarMenuTagIds')&.split(",") ||
+          @entry.tag
+
 
         # Check if this is subscriber only content.
-
 
         # Here you must have Devise gem for authentication, or some other method that authorises 'current_user'
         if @entry.subscriber_content && !(semi_static_admin? || send('current_' + SemiStatic::Engine.config.subscribers_model.first[0].downcase))
