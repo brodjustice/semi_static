@@ -92,7 +92,7 @@
 .section
   .col{:class => ('span_2_of_3 main-col' if @entry.side_bar)}
     %article.panel.group{:class => @entry.style_class, :style => "background-color:#{@entry.background_colour}; color:#{@entry.colour}"}
-      = render :partial => 'entry', :locals => {:e => @entry, :style => (@entry.side_bar ? :show : :medium), :suppress_merged => true}
+      = render :partial => 'entry', :locals => {:e => @entry, :suppress_merged => true}
       = photo_thumbs(@entry)
     #accWrapper
       %article.accordion
@@ -106,7 +106,7 @@
 
     .panel.group{:class => @entry.style_class, :style => "background-color:#{@entry.background_colour}; color:#{@entry.colour}"}
       - @entry.merged_entries[3..-1].each do |e|
-        = render :partial => 'semi_static/entries/entry_contents', :locals => {:style => :summary, :e => e }
+        = render :partial => 'semi_static/entries/entry_contents', :locals => {:e => e }
   - if @entry.side_bar
     .col.span_1_of_3.side-bar
       - if SemiStatic::Tag.predefined(I18n.locale.to_s, 'Documents').first == @tag

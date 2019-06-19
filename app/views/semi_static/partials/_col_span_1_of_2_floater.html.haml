@@ -16,6 +16,6 @@
   %h3{:style => "color: #{e.header_colour};"}= e.sub_title
   - if !e.image_disable && e.img.present?
     .img
-      = semantic_entry_image(e, style || :summary)
+      = semantic_entry_image(e, @entry_image_style || :summary)
   = entry_body(e)
   = photo_main(e, (@group_size || 2) - 1)
