@@ -112,6 +112,8 @@
           @entry.get_page_attr('sideBarMenuTagIds')&.split(",") ||
           @entry.tag
 
+        # Work out what image (if any) "style" should be applied. Check if PageAttr entryImageStyle provided
+        @entry_image_style =  @entry.get_page_attr('imageStyle')&.to_sym || @entry.side_bar ? :show : :medium
 
         # Check if this is subscriber only content.
 
@@ -122,7 +124,7 @@
           session[:user_intended_url] = url_for(params.permit)
 
           #
-          # Show only a summary of the Entry and render template that includes a sign in dialog
+          # Show only a summary of the Entry and render template that includes a sign-in dialog
           #
           @summaries = true
           template = 'semi_static/entries/subscriber_entry'

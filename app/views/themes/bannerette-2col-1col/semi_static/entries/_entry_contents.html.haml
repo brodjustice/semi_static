@@ -9,7 +9,7 @@
   = youtube_video(e.youtube_id_str)
 - if !e.image_disable && e.img.present?
   .col.span_1_of_2.floater
-    = render :partial => 'semi_static/entries/image', :locals => {:e => e, :style => style}
+    = render :partial => 'semi_static/entries/image', :locals => {:e => e}
   .col.span_1_of_2.wrapping
     .html
       = icon(e.tag) if e.youtube_id_str.blank?

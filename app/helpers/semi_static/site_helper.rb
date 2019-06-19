@@ -13,17 +13,6 @@ module SemiStatic
       'Gallery' => SemiStatic::Engine.routes.url_helpers.photos_path
     }
 
-    # Unless set, will default to 5
-    MAX_MENU_TAGS = {
-      'bannerless' => 10,
-      'menu-right' => 10,
-      'bannerette-2col-1col' => 10,
-      'tiles' => 10,
-      'parallax' => 10,
-      'elegant' => 10,
-      'standard-2col-1col' => 10
-    }
-
     # There are quite a number of situations where the sidebar navigation menu is not required.
     # They are if:
     #   1) No Tag exists
@@ -152,8 +141,10 @@ module SemiStatic
       'semi_static_' + LAYOUTS[obj.layout_select || 0]
     end
 
+    # This is a legacy from Rails 3 version, should no longer be used but
+    # is keep here to prevent breaking old custom partials and view overrides
     def max_menu_tags
-      MAX_MENU_TAGS[SemiStatic::Engine.config.theme] || 5
+      100
     end
 
     def predefined_tags

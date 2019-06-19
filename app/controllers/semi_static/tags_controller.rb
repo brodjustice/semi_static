@@ -71,6 +71,9 @@
           @tag.get_page_attr('sideBarMenuTagIds')&.split(",") ||
           @tag
 
+        # Work out what image (if any) "style" should be applied. Check if PageAttr imageStyle provided
+        @entry_image_style = @tag.get_page_attr('imageStyle')&.to_sym || :summary
+
         # Make headers link to the main entry
         @linked = true
 

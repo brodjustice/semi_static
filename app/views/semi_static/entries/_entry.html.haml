@@ -1,5 +1,4 @@
 - suppress_merged ||= (@suppress_merged || false)
-- style ||= false
 - entry = e
 - last_merged_entry = e
 
@@ -7,9 +6,9 @@
   - loop do
     - last_merged_entry = e
     - if e.partial_inline?
-      = render :partial => e.partial_path, :locals => {:style => style, :e => e }
+      = render :partial => e.partial_path, :locals => {:e => e }
     - else
-      = render :partial => 'semi_static/entries/entry_contents', :locals => {:style => style, :e => e}
+      = render :partial => 'semi_static/entries/entry_contents', :locals => {:e => e}
     = semantic_job_posting(e)
     = semantic_event(e)
     = squeeze(e)

@@ -18,8 +18,13 @@ module SemiStatic
       @tag, @seo = Seo.root(params[:tag_id], I18n.locale, content.humanize)
       @summaries = true
 
+      # Work out what image (if any) "style" should be applied. Check if PageAttr imageStyle provided
+      @entry_image_style = @tag.get_page_attr('imageStyle')&.to_sym || :summary
+
       # Some themes have a contact box on the home page
       @contact = Contact.new
+
+      @linked = true
 
       respond_to do |format|
         if content
