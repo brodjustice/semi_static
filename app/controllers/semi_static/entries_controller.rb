@@ -112,8 +112,8 @@
           @entry.get_page_attr('sideBarMenuTagIds')&.split(",") ||
           @entry.tag
 
-        # Work out what image (if any) "style" should be applied. Check if PageAttr entryImageStyle provided
-        @entry_image_style =  @entry.get_page_attr('imageStyle')&.to_sym || @entry.side_bar ? :show : :medium
+        # Work out what image (if any) "style" should be applied. Check if PageAttr imageStyle provided
+        @entry_image_style = @entry.get_page_attr('imageStyle')&.to_sym || (@entry.side_bar ? :show : :medium)
 
         # Check if this is subscriber only content.
 

@@ -31,7 +31,7 @@ module SemiStatic
 
     #
     # Document download ulr that triggers Google Analytics to record download event
-    # If GA is not loaded that the _gap.push will fail, but this is no problem as
+    # If GA is not loaded then the _gap.push will fail, but this is no problem as
     # it will proceed directly to the download.
     #
     def link_to_doc_download(text, entry)
@@ -39,14 +39,14 @@ module SemiStatic
     end
 
     #
-    # Note: Why is this duplicated in site_helper?
+    # Provide inline style, if any
     #
-    def entry_link_path(e)
-      if e.link_to_tag && (controller_name != 'tags' || @summaries)
-        feature_path(e.tag.slug)
-      else
-        entry_link(e)
-      end
+    def entry_inline_style(e)
+      # (e.background_colour.present? && "background-color:#{e.background_colour};") + (e.colour.present? && "color:#{e.colour}")
+      c = ''
+      e.background_colour.present?  && c += "background-color:#{e.background_colour};"
+      e.colour.present? && c += "color:#{e.colour};"
+      c.present? ? c : false
     end
 
     def alt_img_as_icon(e, force=false)
