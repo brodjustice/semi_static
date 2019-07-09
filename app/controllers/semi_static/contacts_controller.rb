@@ -5,6 +5,13 @@ module SemiStatic
 
     before_action :authenticate_for_semi_static!, :except => [:new, :create]
 
+    # Many static pages including the main contact page will have a form for
+    # new a Contact. The authtoken suppied in the form will become invalid
+    # quite quickly unless you do some special webserver actions to keep the
+    # application server running. So we simply disable the auth token for
+    # new contacts. 
+    skip_before_action :verify_authenticity_token, except: [:create]
+
     # Caching the contact form is not straight forword in later versions for Rails (4+)
     # as the CSFR policies mean that the AUTH_CODE will quickly become invalid causing
     # an ActionController::InvalidAuthenticityToken exception. We never cached the
