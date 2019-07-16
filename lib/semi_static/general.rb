@@ -8,6 +8,7 @@ module General
     2 => 'full', 
     3 => 'embedded_full',
     4 => 'embedded_fonts_full',
+    5 => 'jquery'
   }
 
 

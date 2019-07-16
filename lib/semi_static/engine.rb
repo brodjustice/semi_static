@@ -44,7 +44,7 @@ module SemiStatic
     # Now add the semi-static assets to be compiled. Adding here avoids us having to 
     # polute the applications /config/initilaizers/assets.rb
     #
-    config.assets.precompile += %w( favicon.ico home.css font.css semi_static_application.css semi_static_full.css semi_static_dashboard.css user_dashboard.css semi-static.js semi_static_application.js semi_static_dashboard.js home_theme.js theme.js user_dashboard.js bootstrap.js bootstrap-dashboard.js jquerytablesorter.min.js table-dashboard.css )
+    config.assets.precompile += %w( favicon.ico home.css font.css semi_static_application.css semi_static_full.css semi_static_dashboard.css user_dashboard.css semi-static.js semi_static_application.js semi_static_dashboard.js semi_static_jquery.js home_theme.js theme.js user_dashboard.js bootstrap.js bootstrap-dashboard.js jquerytablesorter.min.js table-dashboard.css )
 
     initializer :load_environment_config do |app|
       # We need the files in the applications semi-static locales to override the engine if present, so make sure
