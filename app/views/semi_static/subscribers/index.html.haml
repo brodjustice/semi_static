@@ -42,7 +42,9 @@
         %span Upload bounced CSV
 
   
-  = render :partial => 'semi_static/subscribers/csv_errors' if @added_count || (@errors && !@errors.empty?)
+- if @added_count || (@errors && !@errors.empty?)
+  .tile
+    = render :partial => 'semi_static/subscribers/csv_errors'
   
 .tile
   .tile-body

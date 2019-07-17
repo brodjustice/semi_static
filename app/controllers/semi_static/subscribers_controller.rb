@@ -132,7 +132,8 @@ module SemiStatic
         notice = 'Subscriber was successfully created.'
       end
 
-      @subscribers = Subscriber.all
+      @subscribers = Subscriber.where(:unsubscribe => false).page(params[:page])
+      @total_subscribers = Subscriber.where(:unsubscribe => false)
 
       template = 'index'
 
