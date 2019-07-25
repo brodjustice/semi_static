@@ -9,18 +9,16 @@ module SemiStatic
     # new a Contact. The authtoken suppied in the form will become invalid
     # quite quickly unless you do some special webserver actions to keep the
     # application server running. So we simply disable the auth token for
-    # new contacts. 
-    skip_before_action :verify_authenticity_token, except: [:create]
-
-    # Caching the contact form is not straight forword in later versions for Rails (4+)
-    # as the CSFR policies mean that the AUTH_CODE will quickly become invalid causing
-    # an ActionController::InvalidAuthenticityToken exception. We never cached the
-    # contact for if it was a registration anyway, eg:
-    #   Don't cache the registration page as this is dynamic
+    # new contacts. There is no security threat from this as the attributes
+    # for a Contact are well defined and restricted.
+    #
+    # You could also just not cache the contact page, by doing something like:
     #     caches_page :new, :unless => Proc.new { |c| c.request.url.include?('registration') }
-    # But right now we will just not cache anymore and look at other strategies in future,
-    # for example fragment caching in the view my be sufficient.
-  
+    # but this would only fix the contact page, not other pages that you might build that
+    # create a Contact (e.g a sign-up for blog page).
+    #
+    skip_before_action :verify_authenticity_token, only: [:create]
+
     # GET /contacts
     # GET /contacts.json
     def index
