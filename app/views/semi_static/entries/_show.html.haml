@@ -43,7 +43,7 @@
 - if @entry.show_entries?
   .section
     .col{:class => ('span_2_of_3 main-col' if @entry.side_bar)}
-      %article.panel.group
+      %article.panel.group{:class => @entry.style_class}
         .entry_wrapper
           = render :partial => 'semi_static/entries/entry', :locals => {:e => @entry}
           = photo_thumbs(@entry)
