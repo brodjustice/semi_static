@@ -1,6 +1,10 @@
 var d = document.getElementById('dialog');
 d.className = d.className += ' popped';
 d.setAttribute("style", "#{@popup_style}");
-document.getElementById('body-inner').style.opacity = '0.2';
+document.getElementById('body-inner').style.opacity = '0.3';
 != "d.innerHTML=('#{escape_javascript(render :partial => 'semi_static/photos/popup')}');"
-document.body.addEventListener('click', semiStaticPopOff, true); 
+document.getElementById('body-inner').addEventListener('click', semiStaticPopOff, true); 
+document.getElementById('popoffInner').addEventListener('click', semiStaticPopOff, true); 
+- if @previous
+  document.getElementById('semiStaticCleft').addEventListener('click', function(){semiStaticAJAX("#{photo_path(@previous, :popup => true)}");}, true); 
+  document.getElementById('semiStaticCright').addEventListener('click', function(){semiStaticAJAX("#{photo_path(@next, :popup => true)}");}, true); 

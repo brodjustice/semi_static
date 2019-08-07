@@ -116,6 +116,12 @@
               = 'display in double density. This is a very efficient and very effective way of showing high'
               = 'resolution images'
           = labeled_checkbox(f, :popup, 'Pop-up of larger image', :popup_control)
+          .infobox#carousel_control
+            %h4= 'Carousel'
+            %p
+              = 'If checked, then the popup will have forward and back buttons to rotate through the'
+              = 'Gallery as if it was a photo carousel.'
+          = labeled_checkbox(f, :carousel, 'Enable carousel function', :carousel)
   .row
     .col-md-12
       .tile

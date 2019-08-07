@@ -1,4 +1,8 @@
 #popoff{:style => "width: #{@width}px; height:#{@height}px;"}
+  - if @photo.carousel
+    #semiStaticCleft.carousel
+    #semiStaticCright.carousel
+  #popoffInner
   - if @caption.present?
     #popup_caption
       = @caption.to_s

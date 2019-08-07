@@ -70,9 +70,6 @@ module SemiStatic
         @photo = Photo.not_hidden.find(params[:id])
         @selection = 'Gallery'
         @title = @photo.title
-        @previous, @next = @photo.neighbour_ids
-        @previous = Photo.find(@previous)
-        @next = Photo.find(@next)
       else
         #
         # Popups can be in none 'public' or 'hidden' galleries, even though such
@@ -84,6 +81,12 @@ module SemiStatic
         @popup_style = popup_style(@photo, @pixel_ratio)
         @caption = @photo.description
         template = "semi_static/photos/popup"
+      end
+
+      if !params[:popup].present? || @photo.carousel
+        @previous, @next = @photo.neighbour_ids
+        @previous = Photo.find(@previous)
+        @next = Photo.find(@next)
       end
   
       layout = (semi_static_admin? ? 'semi_static_dashboards' : 'semi_static_full')
@@ -171,7 +174,6 @@ module SemiStatic
   
       respond_to do |format|
         format.html { redirect_to photos_url }
-        format.json { head :no_content }
         format.js
       end
     end
@@ -181,7 +183,7 @@ module SemiStatic
     # Never trust parameters from the scary internet, only allow the white list through.
     def photo_params
       params.fetch(:photo, {}).permit(:title, :description, :img, :home_page, :position,
-        :entry_id, :gallery_id, :gallery_control, :locale, :popup, :hidden)
+        :entry_id, :gallery_id, :gallery_control, :locale, :popup, :carousel, :hidden)
     end
 
     protected
