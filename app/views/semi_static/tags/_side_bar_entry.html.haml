@@ -1,2 +1,2 @@
-- unless e.title.blank? || e.link_to_tag
+- unless (e.title.blank? && e.alt_title.blank?) || e.link_to_tag
   %h3= link_to entry_menu_title(e), entry_link(e)
