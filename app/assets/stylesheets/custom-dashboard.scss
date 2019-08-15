@@ -477,3 +477,7 @@ form #semi_static_entry_image img,
   -webkit-animation: flash 2s ease-out; -webkit-animation-iteration-count: 5;
 }
 
+// Trick to make ULR's to anchor appear below, not behind, fixed header
+.anchor_offset_for_fixed_header{
+   padding-top: 40px; margin-top: -40px;
+}

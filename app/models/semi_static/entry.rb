@@ -177,8 +177,12 @@ module SemiStatic
     end
 
     def get_title
+      #
+      # TODO: Surely there is a better way to select the first non-blank string?
+      #
       return title unless title.blank?
       return sub_title unless sub_title.blank?
+      return alt_title unless alt_title.blank?
       false
     end
 
