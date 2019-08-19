@@ -51,6 +51,6 @@
     = link_to new_entry_path(:master => entry), :title => "Use #{[entry.locale, ': ', entry.title].join} as master for new entry" do
       %i.app-menu__icon.fa.fa-clone
   %td.tick{:title => "Click to delete #{entry.get_title || 'entry'}"}
-    = link_to entry, :method => :delete, :data => { :confirm => 'Are you sure?' } do
+    = link_to SemiStatic::Engine.routes.url_helpers.entry_path(entry), :method => :delete, :data => { :confirm => 'Are you sure?' } do
       %i.app-menu__icon.fa.fa-delete
 
