@@ -273,6 +273,14 @@ module SemiStatic
       end
     end
 
+    def destroy
+      begin
+        super
+      rescue Faraday::ConnectionFailed => e
+        self.notice = "WARNING: Elastic Search indexing responded: #{e}"
+      end
+    end
+
     def update_attributes(attrs)
       begin
         super

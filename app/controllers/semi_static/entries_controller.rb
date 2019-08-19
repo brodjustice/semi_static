@@ -253,10 +253,11 @@
     def destroy
       @entry = Entry.find(params[:id])
       expire_page_cache(@entry)
+      @tag = @entry.tag
       @entry.destroy
   
       respond_to do |format|
-        format.html { redirect_to entries_url }
+        format.html { redirect_to tag_entries_url(@tag) }
         format.json { head :no_content }
       end
     end
