@@ -68,7 +68,7 @@
 
 
       #
-      # Is this an Entry request that actually just wants a popup of the Enry image?
+      # Is this an Entry request that actually just wants a popup of the Entry image?
       #
       if params[:popup].present?
         @pixel_ratio = params[:pratio].to_i || 1

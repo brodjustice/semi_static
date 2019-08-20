@@ -12,10 +12,13 @@
 
 
 .col.span_1_of_2.floater{:class => e.style_class, :style => "background-color:#{e.background_colour}; color:#{e.colour}"}
-  %h2{:style => "color: #{e.header_colour};"}= e.title
-  %h3{:style => "color: #{e.header_colour};"}= e.sub_title
+  - unless e.title.blank?
+    %h2{:style => "color: #{e.header_colour};"}
+  - unless e.sub_title.blank?
+    %h3{:style => "color: #{e.header_colour};"}
   - if !e.image_disable && e.img.present?
     .img
       = semantic_entry_image(e, @entry_image_style || :summary)
   = entry_body(e)
   = photo_main(e, (@group_size || 2) - 1)
+
