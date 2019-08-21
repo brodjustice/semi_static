@@ -300,7 +300,7 @@
       :banner_id, :partial, :entry_position, :master_entry_id, :youtube_id_str, :use_as_news_summary, :simple_text,
       :sidebar_id, :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_gallery, :side_bar_tag_id, :unrestricted_html,
       :merge_with_previous, :raw_html, :image_popup, :alt_title, :acts_as_tag_id, :gallery_id,
-      :facebook_share, :linkedin_share, :xing_share, :twitter_share, :email_share, :show_in_documents_tag, :image_caption,
+      :facebook_share, :linkedin_share, :xing_share, :twitter_share, :email_share, :instagram_share, :show_in_documents_tag, :image_caption,
       :tag_line, :raw_html, :show_image_titles, :doc_delete, :img_delete, :alt_img_delete,
       :enable_comments, :comment_strategy, :layout_select, :link_to_tag, :style, :event_id, :squeeze_id, :job_posting_id)
     end

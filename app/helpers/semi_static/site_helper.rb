@@ -461,22 +461,25 @@ module SemiStatic
     # Need to hand craft the share button links and add a Google GA Event trigger
     #
     def social_shares(e)
-      return unless (e.facebook_share || e.linkedin_share || e.xing_share || e.twitter_share)
+      return unless (e.facebook_share || e.instagram_share || e.linkedin_share || e.xing_share || e.twitter_share)
       c = '<div class="social button-wrapper"> '.html_safe
       if e.facebook_share
-        c+= "<a class='fb-share' title='Share on Facebook' onclick='var that=this;ga(\"send\", \"event\", \"SocialShare\", \"Facebook\");setTimeout(function(){location.href=that.href;},400);return false;' href='https://www.facebook.com/sharer/sharer.php?u=#{request.url}'>#{t('Share')}</a>".html_safe
+        c+= "<a class='fb-share' title='#{t('ShareOnFacebook')}' onclick='var that=this;ga(\"send\", \"event\", \"SocialShare\", \"Facebook\");setTimeout(function(){location.href=that.href;},400);return false;' href='https://www.facebook.com/sharer/sharer.php?u=#{request.url}'>#{t('Share')}</a>".html_safe
+      end
+      if e.instagram_share
+        c+= "<a class='ig-share' title='#{t('FollowOnInstagram')}' onclick='var that=this;ga(\"send\", \"event\", \"SocialShare\", \"Instagram\");setTimeout(function(){location.href=that.href;},400);return false;' href='https://www.instagram.com/#{SemiStatic::Engine.config.instagramID.sub('@', '')}'>#{t('Share')}</a>".html_safe
       end
       if e.xing_share
-        c+= "<a class='xi-share' title='Share on Xing' onclick='var that=this;ga(\"send\", \"event\", \"SocialShare\", \"Xing\");setTimeout(function(){location.href=that.href;},400);return false;' href='https://www.xing-share.com/app/user?op=share;sc_p=xing-share;url=#{request.url}'>#{t('Share')}</a>".html_safe
+        c+= "<a class='xi-share' title='#{t('ShareOnXing')}' onclick='var that=this;ga(\"send\", \"event\", \"SocialShare\", \"Xing\");setTimeout(function(){location.href=that.href;},400);return false;' href='https://www.xing-share.com/app/user?op=share;sc_p=xing-share;url=#{request.url}'>#{t('Share')}</a>".html_safe
       end
       if e.linkedin_share
-        c+= "<a class='li-share' title='Share on LinkedIn' onclick='var that=this;ga(\"send\", \"event\", \"SocialShare\", \"LinkedIn\");setTimeout(function(){location.href=that.href;},400);return false;' href='https://www.linkedin.com/cws/share?url=#{request.url}'>#{t('Share')}</a>".html_safe
+        c+= "<a class='li-share' title='#{t('ShareOnLinkedIn')}' onclick='var that=this;ga(\"send\", \"event\", \"SocialShare\", \"LinkedIn\");setTimeout(function(){location.href=that.href;},400);return false;' href='https://www.linkedin.com/cws/share?url=#{request.url}'>#{t('Share')}</a>".html_safe
       end
       if e.twitter_share
-        c+= "<a class='tw-share' title='Share on Twitter' onclick='var that=this;ga(\"send\", \"event\", \"SocialShare\", \"Twitter\");setTimeout(function(){location.href=that.href;},400);return false;' href='https://twitter.com/intent/tweet?url=#{request.url}&hashtags=#{SemiStatic::Engine.config.site_name.parameterize}'>#{t('Share')}</a>".html_safe
+        c+= "<a class='tw-share' title='#{t('ShareOnTwitter')}' onclick='var that=this;ga(\"send\", \"event\", \"SocialShare\", \"Twitter\");setTimeout(function(){location.href=that.href;},400);return false;' href='https://twitter.com/intent/tweet?url=#{request.url}&hashtags=#{SemiStatic::Engine.config.site_name.parameterize}'>#{t('Share')}</a>".html_safe
       end
       if e.email_share
-        c+= mail_to nil, t('Share'), {:subject => e.merged_main_entry.title, :body => request.url, :title => "Send email", :class => 'em-share', :onclick => 'var that=this;ga(\'send\', \'event\', \'SocialShare\', \'Email\');setTimeout(function(){location.href=that.href;},400);return false;'}
+        c+= mail_to nil, t('Share'), {:subject => e.merged_main_entry.title, :body => request.url, :title => t('ShareViaEmail'), :class => 'em-share', :onclick => 'var that=this;ga(\'send\', \'event\', \'SocialShare\', \'Email\');setTimeout(function(){location.href=that.href;},400);return false;'}
       end
       c += '</div>'.html_safe
     end

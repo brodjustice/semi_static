@@ -10,7 +10,7 @@
 //
 h1{border-bottom: solid 1px #a0a0a0; display:flex; padding-bottom:5px;}
 
-a.li-share, a.fb-share, a.xi-share, a.tw-share, a.em-share{
+a[class*='-share']{
   float: right; padding: 1px 2px 1px 32px;
   background: transparent image-url(#{$vert-sprites}) 0px 0px no-repeat;
   width: auto;
@@ -19,6 +19,7 @@ a.li-share, a.fb-share, a.xi-share, a.tw-share, a.em-share{
   margin-right: 16px;
 }
 
+a.ig-share{ background-position: 0 -320px; }
 a.em-share{ background-position: 0 -192px; }
 a.xi-share{ background-position: 0 -160px; }
 a.li-share{ background-position: 0 -96px; }
