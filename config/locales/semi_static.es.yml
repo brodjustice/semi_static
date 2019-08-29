@@ -43,18 +43,18 @@ es:
   FollowOnInstagram: 'Seguir en Instagram'
   ShareViaEmail: 'Compartir via correo electrónico'
 
-  Thank_you: "Thanks!"
-  Thank_you_for_your_equiry: 'Thank you for your enquiry, we will respond shortly'
+  Thank_you: "Gracias"
+  Thank_you_for_your_equiry: 'Gracias por su consulta, le contestaremos en breve'
   Address: 'Dirección'
   Contact_form: 'Contacto'
-  Menu: 'Menu'
-  Close: 'Close'
-  Next: 'Next'
-  Previous: 'Previous'
+  Menu: 'Menú'
+  Close: 'Cerrar'
+  Next: 'Ir a la página siguiente'
+  Previous: 'Ir a la página anterior'
   Top: 'Top'
   Error_404: 'Sorry, we could not find the page that you were looking for, it has probably been removed. Please use the menu to continue navigating our website'
-  Error_422: 'Sorry, we could not understand your request. Please use the menu to continue navigating our website'
-  Error_500: 'Sorry, this is a little embarrassing but we had an uncorrectable error on our website. Please use the menu to continue navigating our website'
+  Error_422: 'Lo sentimos, no hemos podido entender su pregunta. Por favor use el menú para seguir navegando en nuestra página web'
+  Error_500: 'Lo sentimos, la página que buscas ya no existe. Por favor use el menú para seguir navegando en nuestra página web'
   contact:
     pre: 'Send us a message, we will phone you back!'
   ProceedToPayment: 'Proceed to payment'
