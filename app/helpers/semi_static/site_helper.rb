@@ -68,9 +68,7 @@ module SemiStatic
       if intended_entry.acts_as_tag.present?
         SemiStatic::Engine.routes.url_helpers.feature_path(intended_entry.acts_as_tag.slug, options)
       elsif intended_entry.tag.context_url
-        u = "/#{intended_entry.tag.name.parameterize}/#{intended_entry.to_param}"
-        options[:host] && (u = "#{options[:protocol] || 'http'}://#{options[:host]}#{u}")
-        u
+        url_for(options.merge({:controller => :entries, :action => :show, :id => intended_entry}))
       else
         #
         # We call super (or Rails helper) with the updated intended_entry (which has now been
@@ -81,7 +79,7 @@ module SemiStatic
         #
         # In Rails 5 option[:only_path] no longer works, you should call entry_url instead,
         # but we prefer keep the old option so we check for :only_path here and switch to
-        # the correct rails helper. Gotch here is that if options[:only_path] is nil, ie.
+        # the correct rails helper. Gotcha here is that if options[:only_path] is nil, ie.
         # not defined, then that is the same as options[:only_path] == true
         #
         if options[:only_path] == false
@@ -251,7 +249,7 @@ module SemiStatic
     # to the uploaded file size. This then stops the image from being displayed larger than the origional.
     def image_with_style(e, style, max_width, popup=true)
       if popup && e.image_popup
-        c = "<a class='popable' onclick=\'semiStaticAJAX(\"#{entry_path(e, :format => :js, :popup => true)}\")\; return false;' href='#'> ".html_safe
+        c = "<a class='popable' onclick=\'semiStaticAJAX(\"#{entry_path(e, {:format => :js, :popup => true})}\")\; return false;' href='#'> ".html_safe
       else
         c = ''
       end
@@ -467,7 +465,7 @@ module SemiStatic
         c+= "<a class='fb-share' title='#{t('ShareOnFacebook')}' onclick='var that=this;ga(\"send\", \"event\", \"SocialShare\", \"Facebook\");setTimeout(function(){location.href=that.href;},400);return false;' href='https://www.facebook.com/sharer/sharer.php?u=#{request.url}'>#{t('Share')}</a>".html_safe
       end
       if e.instagram_share
-        c+= "<a class='ig-share' title='#{t('FollowOnInstagram')}' onclick='var that=this;ga(\"send\", \"event\", \"SocialShare\", \"Instagram\");setTimeout(function(){location.href=that.href;},400);return false;' href='https://www.instagram.com/#{SemiStatic::Engine.config.instagramID.sub('@', '')}'>#{t('Share')}</a>".html_safe
+        c+= "<a class='ig-share' title='#{t('FollowOnInstagram')}' onclick='var that=this;ga(\"send\", \"event\", \"SocialShare\", \"Instagram\");setTimeout(function(){location.href=that.href;},400);return false;' href='https://www.instagram.com/#{SemiStatic::Engine.config.instagramID&.sub('@', '')}'>#{t('Share')}</a>".html_safe
       end
       if e.xing_share
         c+= "<a class='xi-share' title='#{t('ShareOnXing')}' onclick='var that=this;ga(\"send\", \"event\", \"SocialShare\", \"Xing\");setTimeout(function(){location.href=that.href;},400);return false;' href='https://www.xing-share.com/app/user?op=share;sc_p=xing-share;url=#{request.url}'>#{t('Share')}</a>".html_safe
