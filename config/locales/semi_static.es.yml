@@ -23,18 +23,18 @@ es:
   Name: 'Nombre'
   Surname: 'Apellidos'
   Email: 'E-mail'
-  Email_not_displayed: 'E-mail (your e-mail address will not be displayed)'
-  Add_your_comment: 'Add your comment...'
+  Email_not_displayed: 'Correo electrónico (su correo no será visible)'
+  Add_your_comment: 'Déjenos su comentario...'
   Message: 'Mensaje'
   Telephone: 'Teléfono'
   Contact_us: 'Contact us!'
-  Comment: 'Comment'
+  Comment: 'Comentario'
   n_of_comments:
-      zero: "0 comments"
-      one: "1 comment"
-      other: "%{count} comments"
+      zero: "0 comentarios"
+      one: "1 comentario"
+      other: "%{count} comentarios"
   Company_optional: 'Company (optional)'
-  PleaseTypeNumber: 'Please type number in image'
+  PleaseTypeNumber: 'Por favor inserte las cifras que aparecen en el recuadro'
   GetInContact: 'Get in contact...'
   Submit: 'Submit'
   LookingFor: 'Looking for'

@@ -18,9 +18,10 @@
   %br/
   = f.email_field :email
   %br/
-  = f.label :company, t('Company_optional')
-  %br/
-  = f.text_field :company
+  #semiStaticCommentCompany
+    = f.label :company, t('Company_optional')
+    %br/
+    = f.text_field :company
   %br/
   %br/
   #captcha
