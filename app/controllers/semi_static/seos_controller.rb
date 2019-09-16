@@ -80,7 +80,8 @@
     # PUT /seos/1
     # PUT /seos/1.json
     def update
-      @seo = Seo.find(params[:id])
+      @seoable = find_seoable
+      @seo = @seoable.seo
   
       respond_to do |format|
         if @seo.update_attributes(seo_params)

@@ -806,7 +806,7 @@ module SemiStatic
 
     def column(fc, colclass)
       c = "<div class='col #{colclass}'><div class='inner'>".html_safe
-      c += "<h3>#{fc.name}</h3>".html_safe
+      c += "<h3>#{fc.name}</h3>".html_safe unless fc.name.blank?
       unless fc.content.blank?
         c += fc.content.html_safe
       end
