@@ -1,25 +1,44 @@
-.dash
-  .button= link_to 'New Agreement', new_agreement_path
-  %h1 Website contact agreements
+.app-title
+  %h1
+    %i.fa.fa-agreements.invert
+    %span Website contact agreements
+  .text-right
+    = link_to new_agreement_path, :title => 'Create new agreement', :class => 'btn btn-primary btn-space' do
+      %span.app-menu__icon.fa.fa-agreement
+      %span New Agreement
+
+.tile
+  .tile-body
+    .table-responsive
+      %table.table.sortable.table-bordered.table-hover.table-dense
+        %thead
+          %tr
+            %th Body
+            %th Locale
+            %th Display
+            %th Contacts
+            %th{:title => 'Date agreement was created'}
+              %i.app-menu__icon.fa.fa-date
+            %th
+            %th
+              %i.app-menu__icon.fa.fa-delete
+
   
-  %table
-    %tr
-      %th Body
-      %th Locale
-      %th Display
-      %th Contacts
-      %th Date
-      %th
-  
-    - @agreements.each do |a|
-      %tr
-        %td= link_to truncate_html(a.body, :length => 300), a
-        %td.number= a.locale.to_s
-        %td.tick
-          = image_tag('/assets/tick.png', :title => 'Displayed in default contact form') if a.display
-        %td.number= a.contacts.size
-        %td= a.created_at.strftime('%d/%m/%y %H:%M')
-        %td
-          = link_to image_tag('/assets/application_form_edit.png', :title => 'Edit Agreement'), edit_agreement_path(a)
-          = link_to image_tag('/assets/bin.png', :title => 'Delete'), a, :method => :delete, :data => { :confirm => "Confirm deleting agreement #{a.body}" }
+        %tbody
+          - @agreements.each do |a|
+            %tr
+              %td= link_to truncate_html(a.body, :length => 300), a
+              %td.number= a.locale.to_s
+              %td.tick
+                = image_tag('tick.png', :title => 'Displayed in default contact form') if a.display
+              %td.number= a.contacts.size
+              %td.number
+                = a.created_at.strftime('%d/%m/%y %H:%M')
+              %td.number{:title => 'Edit Agreement'}
+                = link_to edit_agreement_path(a) do
+                  %i.app-menu__icon.fa.fa-edit
+              %td{:title => 'Delete this agreement'}
+                = link_to a, :method => :delete, :data => { :confirm => "Confirm deleting agreement #{a.body}" } do
+                  %i.app-menu__icon.fa.fa-delete
+
          
