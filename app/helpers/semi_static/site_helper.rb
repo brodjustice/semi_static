@@ -41,13 +41,14 @@ module SemiStatic
       end
 
       c + unless e.title.blank? || e.summary_length.blank?
+        options = e.header_colour.blank? ? {} : {:style => "color: #{e.header_colour}"}
         if linked && !e.link_to_tag
           # Standard sort of link 
-          content_tag(h_tag){ content_tag(:a, e.title, :href => entry_link(e), :style => "color: #{e.header_colour}") } +
-          (e.sub_title.present? ? content_tag(h_sub_tag){ content_tag(:a, e.sub_title, :href => entry_link(e), :style => "color: #{e.header_colour}")} : '')
+          content_tag(h_tag){ content_tag(:a, e.title, options.merge(:href => entry_link(e))) } +
+          (e.sub_title.present? ? content_tag(h_sub_tag){ content_tag(:a, e.sub_title, options.merge(:href => entry_link(e)))} : '')
         else
           # No link
-          content_tag(h_tag, e.title, :style => "color: #{e.header_colour};") +
+          content_tag(h_tag, e.title, options) +
           (e.sub_title.present? ? content_tag(h_sub_tag, e.sub_title) : '')
         end
       end

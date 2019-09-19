@@ -79,7 +79,7 @@ class InitSemiStaticSchema < ActiveRecord::Migration[5.0]
       t.string   "style_class",                           default: "normal"
       t.string   "background_colour",                     default: "white"
       t.string   "colour",                                default: "#181828"
-      t.string   "header_colour",                         default: "inherit"
+      t.string   "header_colour"
       t.string   "img_file_name"
       t.string   "img_content_type"
       t.integer  "img_file_size"
