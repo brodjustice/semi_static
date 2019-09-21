@@ -64,7 +64,7 @@ module SemiStatic
 
     def entry_path(intended_entry, options = {})
 
-      intended_entry.kind_of?(Fixnum) && (intended_entry = Entry.find(intended_entry))
+      intended_entry.kind_of?(Integer) && (intended_entry = Entry.find(intended_entry))
 
       if intended_entry.acts_as_tag.present?
         SemiStatic::Engine.routes.url_helpers.feature_path(intended_entry.acts_as_tag.slug, options)
@@ -73,7 +73,14 @@ module SemiStatic
         # Get URL in the form "/entries/abcdefg..." and sub the 1st instance of "entries", which will always
         # be at the front, with the context URL
         #
-        SemiStatic::Engine.routes.url_helpers.entry_path(intended_entry, options).sub('entries', intended_entry.tag.name.parameterize)
+        # Also the options[:only_path] is no longer supported in Rails 5 (see also below) so we have to
+        # handle it manually as it may be called by, for example, the sitemap.xml builder
+        #
+        if options[:only_path] == false
+          SemiStatic::Engine.routes.url_helpers.entry_url(intended_entry, options).sub('entries', intended_entry.tag.name.parameterize)
+        else
+          SemiStatic::Engine.routes.url_helpers.entry_path(intended_entry, options).sub('entries', intended_entry.tag.name.parameterize)
+        end
       else
         #
         # We call super (or Rails helper) with the updated intended_entry (which has now been
