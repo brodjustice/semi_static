@@ -69,7 +69,11 @@ module SemiStatic
       if intended_entry.acts_as_tag.present?
         SemiStatic::Engine.routes.url_helpers.feature_path(intended_entry.acts_as_tag.slug, options)
       elsif intended_entry.tag.context_url
-        url_for(options.merge({:controller => :entries, :action => :show, :id => intended_entry}))
+        #
+        # Get URL in the form "/entries/abcdefg..." and sub the 1st instance of "entries", which will always
+        # be at the front, with the context URL
+        #
+        SemiStatic::Engine.routes.url_helpers.entry_path(intended_entry, options).sub('entries', intended_entry.tag.name.parameterize)
       else
         #
         # We call super (or Rails helper) with the updated intended_entry (which has now been
