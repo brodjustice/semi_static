@@ -266,12 +266,19 @@ module SemiStatic
         c = ''
       end
       if max_width
-        c += image_tag(e.img_url_for_theme(style, @side_bar), :style => "max-width: #{max_width.to_s + 'px'};").html_safe
+        c += image_tag(e.img_url_for_theme(style), :style => "max-width: #{max_width.to_s + 'px'};").html_safe
       elsif !e.img_dimensions.blank?
-        w = [e.img.styles[SemiStatic::Entry::THEME[SemiStatic::Engine.config.theme][style] || style].geometry.split('x').first.to_i, e.img_dimensions[0]].min
-        c += image_tag(e.img_url_for_theme(style, @side_bar), :style => "max-width: #{w.to_s + 'px'};").html_safe
+        #
+        # If geometry is a %, then take the actual width, else take the max of the actual width or the style width
+        #
+        if e.img.styles[SemiStatic::Entry::THEME[SemiStatic::Engine.config.theme][style] || style].geometry.split('x').first.include?('%')
+          w = e.img_dimensions[0].to_i
+        else
+          w = [e.img.styles[SemiStatic::Entry::THEME[SemiStatic::Engine.config.theme][style] || style].geometry.split('x').first.to_i, e.img_dimensions[0]].min
+        end
+        c += image_tag(e.img_url_for_theme(style), :style => "max-width: #{w.to_s + 'px'};").html_safe
       else
-        c += image_tag(e.img_url_for_theme(style, @side_bar)).html_safe
+        c += image_tag(e.img_url_for_theme(style)).html_safe
       end
       if popup && e.image_popup
         c += "</a>".html_safe

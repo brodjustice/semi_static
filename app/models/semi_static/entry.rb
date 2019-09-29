@@ -194,17 +194,9 @@ module SemiStatic
       SemiStatic::Engine.config.try('subscribers_model') && self.tag.subscriber
     end
 
-    # TODO: No longer clear that this setting to medium if side_bar
-    # is true makes any sense
     def img_url_for_theme(screen = :desktop, side_bar = true)
       screen = :summary if (screen == true)
-      # We assume a reasonable sized image (medium) should be served
-      # if there is no side bar
-      if !side_bar.nil? && !side_bar
-        img.url(:medium)
-      else
-        img.url(THEME[SemiStatic::Engine.config.theme][screen] || screen)
-      end
+      img.url(THEME[SemiStatic::Engine.config.theme][screen] || screen)
     end
 
     #
