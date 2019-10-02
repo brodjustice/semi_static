@@ -105,10 +105,10 @@
               %td= 'Tag or Entry'
               %td= 'Causes the HTML form CSRF auth tokens to be updated on the static pages. This is needed for cached pages that have a PUT/POST action and thus need the CSRF auth tokento match the session, eg. login forms on a static page.'
             %tr
-              %td= 'entryIconGalleryId'
-              %td= 'Photo ID'
+              %td= 'entryTitleClasses'
+              %td= '<comma seperated string of CSS classes>'
               %td= 'Entry'
-              %td= 'Display an icon before, or to the left, of the entry Title. You can determin the icon size yourself by loading different image sizes and adjusting the CSS. However, the default is 64px by 64px.'
+              %td= 'Add the CSS class(es) to the entry title. This will be the h1 on an Entry page or perhaps a h2 on a Tag index page'
     .infomarker= 'Page Attibutes Help'
     .table-responsive.table.sortable.table-bordered.table-hover
       %table

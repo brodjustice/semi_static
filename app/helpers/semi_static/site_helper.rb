@@ -25,30 +25,20 @@ module SemiStatic
 
     def entry_title(e, linked = false, h_tag = :h1, h_sub_tag = :h2)
       c = ''.html_safe
-      #
-      # If the page_attr 'entryIconGalleryId' exists, then use the image
-      # as a icon before, or depending of CSS, to the left of the
-      # header title. As the the page_attr name suggests, this should be
-      # the ID of an image from the photo gallery. You will need to size
-      # the image yourself, the standard being 64px by 64px, but you can
-      # adjust this yourself with different image sizes and different CSS.
-      #
-      if e.get_page_attr('entryIconGalleryId')
-       photo = SemiStatic::Photo.find(e.get_page_attr('entryIconGalleryId'))
-       c = content_tag(:a, :href => entry_link(e), :class => 'entryIconLink'){
-         content_tag(:div, nil, :class => 'entryIcon', :style => "background-image: url('#{photo.img.url}');")
-       }
-      end
 
       c + unless e.title.blank? || e.summary_length.blank?
-        options = e.header_colour.blank? ? {} : {:style => "color: #{e.header_colour}"}
+        style_options = e.header_colour.blank? ? {} : {:style => "color: #{e.header_colour}"}
+
+        # Add classes from any PageAttr 'entryTitleClasses'
+        class_options = {:class => e.get_page_attr('entryTitleClasses')}
+
         if linked && !e.link_to_tag
           # Standard sort of link 
-          content_tag(h_tag){ content_tag(:a, e.title, options.merge(:href => entry_link(e))) } +
-          (e.sub_title.present? ? content_tag(h_sub_tag){ content_tag(:a, e.sub_title, options.merge(:href => entry_link(e)))} : '')
+          content_tag(h_tag, class_options){ content_tag(:a, e.title, style_options.merge(:href => entry_link(e))) } +
+          (e.sub_title.present? ? content_tag(h_sub_tag){ content_tag(:a, e.sub_title, style_options.merge(:href => entry_link(e)))} : '')
         else
           # No link
-          content_tag(h_tag, e.title, options) +
+          content_tag(h_tag, e.title, class_options.merge(style_options)) +
           (e.sub_title.present? ? content_tag(h_sub_tag, e.sub_title) : '')
         end
       end
