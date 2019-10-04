@@ -32,8 +32,17 @@
 
     = hreflang_tags(true)
 
-    %style{:type => "text/css"}
+    %style
       = asset_source('font.css')
+
+    -#
+    -# For the home page we put the style inline so as to improve loading speeds. However,
+    -# the scss processor thinks this is a css file and so inserts a "@charset ..." directive
+    -# in the output from 'home.scss'. This directive cannot be inline and so we need to
+    -# comment it out manually.
+    -#
+    %style
+      -# = asset_source('home.css').sub(/^@charset.*/, '').html_safe
       = asset_source('home.css')
       = yield :header_css
 
@@ -46,7 +55,7 @@
 
     -#
     -# When using google analytics the async code must be in the head section
-    -# in order that it  can be validated for google webmaster tools
+    -# in order that it can be validated for google webmaster tools
     -#
     = analytics
 

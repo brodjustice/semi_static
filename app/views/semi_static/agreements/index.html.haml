@@ -15,6 +15,7 @@
           %tr
             %th Body
             %th Locale
+            %th Required
             %th Display
             %th Contacts
             %th{:title => 'Date agreement was created'}
@@ -29,6 +30,8 @@
             %tr
               %td= link_to truncate_html(a.body, :length => 300), a
               %td.number= a.locale.to_s
+              %td.tick
+                = image_tag('tick.png', :title => 'Required ticked by user') if a.required
               %td.tick
                 = image_tag('tick.png', :title => 'Displayed in default contact form') if a.display
               %td.number= a.contacts.size

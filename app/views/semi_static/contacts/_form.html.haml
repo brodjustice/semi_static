@@ -42,12 +42,13 @@
       = f.label :telephone, t('Telephone')
   .section.group
     .col.span_1_of_1.text-box
-      = f.text_area :message, { :value => (@message ? t(@message) : ""), :rows => "12", :cols => "36"}
+      = f.text_area :message, { :value => (@message ? t(@message) : ""), :rows => "8", :cols => "36"}
       = f.label :message, t('Message')
     %br/
-  - @contact.agreements.each do |agreement|
-    %fieldset
-      = check_box_tag :agreement_ids, agreement.id, agreement.ticked_by_default, :name => 'contact[agreement_ids][]'
-      = agreement.body
+  %fieldset#semiStaticAgreements
+    - @contact.agreements.each do |agreement|
+      = check_box_tag :agreement_ids, agreement.id, agreement.ticked_by_default, {:name => "contact[agreement_ids][]"}.merge(agreement.required ? {:required => true} : {})
+      = agreement.body.html_safe
+      %br/
   .actions
     = f.submit t('Send')

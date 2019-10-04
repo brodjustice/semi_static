@@ -84,11 +84,20 @@ module SemiStatic
         @contact.custom_params = params[:custom_params]
       end
 
+      # Check any required agreements. Should be done purely in the model with validations but
+      # we have the problem that the form could simply not send back the required agreement
+      # as params and the model can't look them up as it does not have access to the locale
+      # in the rails model. We check if the agreements are a superset of the required agreeements
+      unless @contact.agreements.to_set.superset?(Agreement.where(:required => true).locale(I18n.locale.to_s).to_set)
+        @contact.errors.add(:base, (Agreement.where(:required => true).locale(I18n.locale.to_s) - @contact.agreements).first.body.html_safe)
+      end
+
       respond_to do |format|
         if !@contact.errors.present? && @contact.save
           format.html { render :template => "semi_static/contacts/#{STRATEGY_TEMPLATES[@contact.strategy_sym]}" }
           format.js { render :template => "semi_static/contacts/#{STRATEGY_TEMPLATES[@contact.strategy_sym]}" }
         else
+          @contact.agreements << (Agreement.where(:display => true).locale(I18n.locale.to_s) - @contact.agreements)
           format.html { render :template => "semi_static/contacts/new" }
           format.json { render :json => @contact.errors, :status => :unprocessable_entity }
         end

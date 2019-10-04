@@ -85,7 +85,7 @@ module SemiStatic
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def agreement_params
-      params.fetch(:agreement, {}).permit(:body, :display, :locale, :ticked_by_default, :add_to_subscribers)
+      params.fetch(:agreement, {}).permit(:body, :display, :locale, :required, :ticked_by_default, :add_to_subscribers)
     end
 
   end

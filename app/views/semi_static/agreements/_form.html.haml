@@ -30,6 +30,7 @@
                 As you do not want to change the wording of the the exact agreement that the conatacts have accepted you cannot edit or delete this agreement unless the contacts are deleted.
         .row
           .col-md-10
+            = labeled_checkbox(f, :required, 'Required: Must be ticked by user in order to progress')
             = labeled_checkbox(f, :display, 'Display on contact form')
             = labeled_checkbox(f, :ticked_by_default, 'Ticked by default on contact form')
             = labeled_checkbox(f, :add_to_subscribers, 'When ticked/agreed contact should be added to the Subscribers')
