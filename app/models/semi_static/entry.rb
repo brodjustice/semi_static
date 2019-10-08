@@ -15,6 +15,13 @@ module SemiStatic
     alias_attribute :alt_img, :news_img
     alias_attribute :alt_img_file_name, :news_img_file_name
 
+    #
+    # A note on eleasticsearch: The search is configured to look in each Entry for a query match. Since
+    # some entries may be merged Entries that are part of a bigger main Entry the score will represent
+    # only the merged Entry and not the entire collection of Entries that are merged into the main
+    # Entry. This will occasionally cause a sub-optimal query result, but it's currently considered 
+    # a reasonable compromise.
+    #
     settings index: { number_of_shards: 1, number_of_replicas: 0 }
 
     settings analysis: { analyzer: { semi_static: { tokenizer: 'standard', char_filter: 'html_strip' } } } do
@@ -240,7 +247,7 @@ module SemiStatic
             }
           },
           highlight: {
-            pre_tags: ['<em class="label label-highlight">'],
+            pre_tags: ['<em class="highlight">'],
             post_tags: ['</em>'],
             fields: {
               raw_title:   { number_of_fragments: 0 },
