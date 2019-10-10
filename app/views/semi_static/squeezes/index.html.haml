@@ -1,21 +1,31 @@
-.mid.full
-  .button= link_to 'New Squeeze', new_squeeze_path
-  %h1 Squeezes
-  %table
-    %thead
-      %tr
-        %th= 'ID'
-        %th= 'Name'
-        %th= 'Title'
-        %th= image_tag('calendar.png', :title => 'Last Update')
-        %th
+.app-title
+  %h1
+    %i.fa.fa-squeeze.invert
+    %span Squeezes
+  = link_to new_squeeze_path, :class => 'btn btn-primary' do
+    %span.app-menu__icon.fa.fa-squeeze
+    %span New Squeeze
 
-    %tbody
-      - @squeezes.each do |s|
-        %tr{:id => "squeeze_id_#{s.id}"}
-          %td= s.id.to_s
-          %td= link_to s.name, edit_squeeze_path(s)
-          %td= s.title
-          %td= s.updated_at.strftime('%d/%b/%y %H:%M')
-          %td= link_to image_tag('bin.png'), s, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
+.tile
+  .tile-body
+    .table-responsive
+      %table.table.sortable.table-bordered.table-hover
+        %thead
+          %tr
+            %th{:title => 'ID'}= '#'
+            %th= 'Name'
+            %th= 'Title'
+            %th{:title => 'Last Update'}
+              %i.app-menu__icon.fa.fa-date
+            %th{:title => 'Delete'}
+              %i.app-menu__icon.fa.fa-delete
+        %tbody
+          - @squeezes.each do |s|
+            %tr{:id => "squeeze_id_#{s.id}"}
+              %td= s.id.to_s
+              %td= link_to s.name, edit_squeeze_path(s)
+              %td= s.title
+              %td= s.updated_at.strftime('%d/%b/%y %H:%M')
+              %td
+                = link_to s, :method => :delete, :data => { :confirm => 'Are you sure?' } do
+                  %i.app-menu__icon.fa.fa-delete

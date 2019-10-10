@@ -72,10 +72,6 @@ module SemiStatic
     STRATEGY_TEMPLATES = { :message => :thanks, :registration => :thanks, :download => :check_your_email, :subscriber => :thanks }
 
     def create
-      if params[:contact][:squeeze_id].present?
-        @squeeze = Squeeze.find(params[:contact][:squeeze_id])
-      end
-
       # Check if we are trying to stop spambots
       unless spam_check(params)
         @contact = Contact.new(contact_params.merge(:locale => I18n.locale.to_s))
@@ -84,13 +80,21 @@ module SemiStatic
         @contact.custom_params = params[:custom_params]
       end
 
+      # Is this a contact that came from a SemiStatic::Squeeze?
+      if params[:contact][:squeeze_id].present?
+        @squeeze = Squeeze.find(params[:contact][:squeeze_id])
+        @contact[:reason] = "Squeeze ID #{@squeeze.id}: #{@contact[:reason]}"
+      end
+
+
       # Check any required agreements. Should be done purely in the model with validations but
       # we have the problem that the form could simply not send back the required agreement
       # as params and the model can't look them up as it does not have access to the locale
       # in the rails model. We check if the agreements are a superset of the required agreeements
-      unless @contact.agreements.to_set.superset?(Agreement.where(:required => true).locale(I18n.locale.to_s).to_set)
+      unless @squeeze || @contact.agreements.to_set.superset?(Agreement.where(:required => true).locale(I18n.locale.to_s).to_set)
         @contact.errors.add(:base, (Agreement.where(:required => true).locale(I18n.locale.to_s) - @contact.agreements).first.body.html_safe)
       end
+
 
       respond_to do |format|
         if !@contact.errors.present? && @contact.save

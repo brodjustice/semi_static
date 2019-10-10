@@ -39,13 +39,13 @@
   
     = simple_format @squeeze.form_instructions unless @squeeze.form_instructions.blank?
     .agree
-      = check_box_tag 'accept', nil
+      = check_box_tag 'accept', nil, nil, {:required => true}
       = label_tag 'accept', @squeeze.agreement, :id => 'acceptLabel'
     
     - @contact.agreements.each do |agreement|
       %fieldset
-        = check_box_tag :agreement_ids, agreement.id, agreement.ticked_by_default, :name => 'contact[agreement_ids][]'
-        = agreement.body
+        = check_box_tag :agreement_ids, agreement.id, agreement.ticked_by_default, {:name => "contact[agreement_ids][]"}.merge(agreement.required ? {:required => true} : {})
+        = agreement.body.html_safe
     .actions
       = f.submit t('Send'), :id => 'squeezeSubmit'
   

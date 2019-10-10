@@ -7,54 +7,52 @@
           %ul
             - @squeeze.errors.full_messages.each do |msg|
               %li= msg
-      %h2 Main Content
-      %fieldset
-        = f.label :name
-        %br/
-        = f.text_field :name
-        %br
-        = f.label :title
-        %br/
-        = f.text_field :title
-      %fieldset
-        = f.label :teaser
-        %br/
-        = f.text_area :teaser, :rows => 6
-        %br/
-        = f.label :form_instructions
-        %br/
-        = f.text_area :form_instructions, :rows => 6
-        %br/
-        = f.label :agreement
-        %br/
-        = f.text_area :agreement, :rows => 6
-        %br/
-        = f.label :instructions
-        %br/
-        = f.text_area :instructions, :rows => 6
-        %br/
-        = f.label :email_subject
-        %br/
-        = f.text_field :email_subject
-        %br/
-        = f.label :email_footer
-        %br/
-        = f.text_area :email_footer, :rows => 6
-        %br/
-        = f.label :doc, 'Doc (manditory, PDF format)'
-        = f.file_field :doc
+  .row
+    .col-md-8
+      .tile
+        .tile-title
+          %h5
+            %span.app-menu__icon.fa.fa-squeeze.invert
+            Main Content
+          = labeled_textfield f, :name
+          = labeled_textfield f, :title
+          .input-group
+            .input-group-prepend
+              = f.label :teaser, :class => 'input-group-text'
+            = f.text_area :teaser, :rows => 4, :class => 'form-control mt-2'
+          .input-group
+            .input-group-prepend
+              = f.label :form_instructions, :class => 'input-group-text'
+            = f.text_area :form_instructions, :rows => 4, :class => 'form-control mt-2'
+          .input-group
+            .input-group-prepend
+              = f.label :agreement, :class => 'input-group-text'
+            = f.text_area :agreement, :rows => 4, :class => 'form-control mt-2'
+          .input-group
+            .input-group-prepend
+              = f.label :instructions, :class => 'input-group-text'
+            = f.text_area :instructions, :rows => 4, :class => 'form-control mt-2'
 
+    .col-md-4
+      .tile
+        %h5 Form Fields
+        = labeled_checkbox(f, :company_field)
+        = labeled_checkbox(f, :position_field)
+        %br/
 
-    .col.span_1_of_3
-      .sidebar
-        %h2 Form Fields
-        %fieldset
-          = f.check_box :company_field
-          = f.label :company_field
-          %br/
-          = f.check_box :position_field
-          = f.label :position_field
-          %br/
-  .mid
-    .actions
-      = f.submit 'Save'
+        %h5 E-mail
+        = labeled_textfield f, :email_subject
+        .input-group
+          .input-group-prepend
+            = f.label :email_footer, :class => 'input-group-text'
+          = f.text_area :email_footer, :rows => 4, :class => 'form-control mt-2'
+        .stacked-input-group{:title => 'Document must be PDF format'}
+          = f.label :doc, 'PDF Document', :class => 'input-group-text'
+          = f.file_field :doc, :class => 'form-control'
+
+  .row
+    .col-md-12
+      .tile
+        .tile-body
+          = f.submit 'Save', :class => 'btn btn-danger btn-block'
+

@@ -1,3 +1,6 @@
-%h1= ['Editing squeeze', @squeeze.name].join(' ')
+.app-title
+  %h1
+    %i.fa.fa-squeeze.invert
+    = 'Editing Squeeze: ' + @squeeze.name
 
 = render 'form'
