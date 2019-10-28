@@ -12,7 +12,7 @@ SemiStatic::Engine.routes.draw do
   #   /blog/278-my-great-page
   # The controller would redirect /entries/278-my-great-page to /blog/278-my-great-page
   #
-  # We only provide a GET routes, which means that edit/update of the Entry with
+  # We only provide GET routes, which means that edit/update of the Entry with
   # POST/PUT/PATCH will not work. But since this is only ever done in the admin
   # dashboard we choose to deal this by hand (see form_for in entries/_form.html.haml)
   #

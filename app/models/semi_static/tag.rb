@@ -16,6 +16,9 @@ module SemiStatic
 
     attr_accessor :icon_delete
 
+    # For when we don't know if its a Tag or Entry
+    alias_attribute :explicit_title, :name
+
     has_one :seo, :as => :seoable, :dependent => :destroy
     belongs_to :use_entry_as_index, :class_name => 'SemiStatic::Entry', :optional => true
     has_many :page_attrs, :as => :page_attrable

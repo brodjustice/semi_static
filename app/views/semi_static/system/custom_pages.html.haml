@@ -19,6 +19,6 @@
             %tr
               %td= k
               %td
-                - @result[k].each do |e|
-                  = link_to e.explicit_title, edit_entry_path(e.id)
+                - @result[k].each do |obj|
+                  = link_to obj.explicit_title, url_for(action: 'edit', controller: obj.class.name.split('::').last.pluralize.downcase, id: obj.id)
                   %br
