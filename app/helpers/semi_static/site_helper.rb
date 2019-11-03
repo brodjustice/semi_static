@@ -26,6 +26,21 @@ module SemiStatic
     def entry_title(e, linked = false, h_tag = :h1, h_sub_tag = :h2)
       c = ''.html_safe
 
+      #
+      # If the page_attr 'entryIconGalleryId' exists, then use the image
+      # as a icon before, or depending of CSS, to the left of the
+      # header title. As the the page_attr name suggests, this should be
+      # the ID of an image from the photo gallery. You will need to size
+      # the image yourself, the standard being 64px by 64px, but you can
+      # adjust this yourself with different image sizes and different CSS.
+      #
+      if e.get_page_attr('entryIconGalleryId')
+       photo = SemiStatic::Photo.find(e.get_page_attr('entryIconGalleryId'))
+       c = content_tag(:a, :href => entry_link_path(e), :class => 'entryIconLink'){
+         content_tag(:div, nil, :class => 'entryIcon', :style => "background-image: url('#{photo.img.url}');")
+       }
+      end
+
       c + unless e.title.blank? || e.summary_length.blank?
         style_options = e.header_colour.blank? ? {} : {:style => "color: #{e.header_colour}"}
 
