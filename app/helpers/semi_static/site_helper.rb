@@ -265,13 +265,14 @@ module SemiStatic
     # This allows us to deal with images that are smaller than expected. We set the max-width inline according
     # to the uploaded file size. This then stops the image from being displayed larger than the origional.
     def image_with_style(e, style, max_width, popup=true)
+      alt = e.img&.original_filename&.split('.').first.humanize
       if popup && e.image_popup
         c = "<a class='popable' onclick=\'semiStaticAJAX(\"#{entry_path(e, {:format => :js, :popup => true})}\")\; return false;' href='#'> ".html_safe
       else
         c = ''
       end
       if max_width
-        c += image_tag(e.img_url_for_theme(style), :style => "max-width: #{max_width.to_s + 'px'};").html_safe
+        c += image_tag(e.img_url_for_theme(style), :style => "max-width: #{max_width.to_s + 'px'};", :alt => alt).html_safe
       elsif !e.img_dimensions.blank?
         #
         # If geometry is a %, then take the actual width, else take the max of the actual width or the style width
@@ -281,9 +282,9 @@ module SemiStatic
         else
           w = [e.img.styles[SemiStatic::Entry::THEME[SemiStatic::Engine.config.theme][style] || style].geometry.split('x').first.to_i, e.img_dimensions[0]].min
         end
-        c += image_tag(e.img_url_for_theme(style), :style => "max-width: #{w.to_s + 'px'};").html_safe
+        c += image_tag(e.img_url_for_theme(style), :style => "max-width: #{w.to_s + 'px'};", :alt => alt).html_safe
       else
-        c += image_tag(e.img_url_for_theme(style)).html_safe
+        c += image_tag(e.img_url_for_theme(style), :alt => alt).html_safe
       end
       if popup && e.image_popup
         c += "</a>".html_safe
@@ -644,7 +645,12 @@ module SemiStatic
     end
 
     def og_image_url
-      request.protocol + request.host + (@entry && @entry.img.present? ? @entry.img_url_for_theme : (SemiStatic::Engine.config.logo_image || ''))
+      if @entry&.img.present?
+        # img_url_for_theme is actually always a relative path
+        request.protocol + request.host + @entry.img_url_for_theme
+      else
+        asset_url(SemiStatic::Engine.config.logo_image)
+      end
     end
 
     # Create a video tag with fallback options as shown below.
