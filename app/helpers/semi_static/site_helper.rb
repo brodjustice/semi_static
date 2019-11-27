@@ -649,7 +649,7 @@ module SemiStatic
         # img_url_for_theme is actually always a relative path
         request.protocol + request.host + @entry.img_url_for_theme
       else
-        asset_url(SemiStatic::Engine.config.logo_image)
+        asset_url(SemiStatic::Engine.config.logo_image || 'logo-top.png')
       end
     end
 
