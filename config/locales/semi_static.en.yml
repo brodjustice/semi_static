@@ -69,6 +69,10 @@ en:
   CustomerDetails: 'Customer details'
   PostOrderRegistrationInsruction: 'Thank you for your order, we will be in touch shortly with payment and delivery details'
 
+  # For any user custom dashboard commands:
+  # dashboard:
+  # custom_section_header: 'Custom'
+
 
   # Months
   date:

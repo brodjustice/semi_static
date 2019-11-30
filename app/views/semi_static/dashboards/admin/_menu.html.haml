@@ -80,6 +80,6 @@
     %li.header Access
     = nav_icon_link('Admins', 'contacts', semi_static_path_for_admins, 'fa-admin')
     - unless SemiStatic::Engine.config.dashboard_menu_additions.nil?
-      %li.header Custom
+      %li.header.custom= t('dashboard.custom_section_header')
       - SemiStatic::Engine.config.dashboard_menu_additions.each do |title, url_method|
-        = nav_icon_link(title.humanize, title.humanize, main_app.send(url_method), 'fa-settings')
+        = nav_icon_link(title.humanize, title.humanize, main_app.send(url_method), "fa-custom #{title.parameterize.downcase}")

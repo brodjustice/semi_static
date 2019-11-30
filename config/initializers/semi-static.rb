@@ -181,6 +181,8 @@ module SemiStatic
     # Or if you just want to add a menu item to the dashboards controller then add it here
     # config.app_dashboard_menu_additions = false
     # config.dashboard_menu_additions = {'analyses' => 'analyses_path'}
+    # Note that you will also need to add the following helper to your controller:
+    #     helper SemiStatic::DashboardHelper
     config.dashboard_menu_additions = nil
 
     # To increase your SEO you can replace certain words in your URLs
