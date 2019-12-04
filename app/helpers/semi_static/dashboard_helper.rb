@@ -31,7 +31,7 @@ module SemiStatic
     end
 
     #
-    # Form elements with bootstrap styling
+    # Form, and form-like,  elements with bootstrap styling
     #
  
     #
@@ -54,6 +54,13 @@ module SemiStatic
       input_html = "<input class='form-control mt-2' type='text' value='#{f.object.send(attr)}' name='#{klass}[#{attr}]' id='#{klass}_#{attr}'>".html_safe
 
       "<div class='input-group'>#{infomarker_html}<div class='input-group-prepend'> <label class='input-group-text' for='#{klass}_#{attr}'>#{text}</label></div>#{input_html}</div>".html_safe
+    end
+
+    #
+    # Like labeled_textfield, but not a form field, or even a readonly form field, but it appears like one
+    #
+    def completed_textfield(obj, attr, text=nil)
+      "<div class='input-group'><div class='input-group-prepend'> <label class='input-group-text'>#{text || t(attr)}</label></div><div class='form-control mt-2 completed'>#{obj.send(attr)}</div></div>".html_safe
     end
 
     def labeled_selectbox(f, attr, select_options, text=nil, infomarker=false)

@@ -81,9 +81,16 @@ table .fa,
   -webkit-filter: invert(100%);
   filter: invert(100%);
 }
+.fa.white{
+  -webkit-filter: none;
+  filter: none;
+}
 .fa.option{
   -webkit-filter: invert(33%);
   filter: invert(33%);
+}
+.bg-ss-grey{
+  background-color: #e9ecef;
 }
 .coloured-icon .fa{
   height: 64px;
@@ -108,6 +115,9 @@ table .fa,
   -webkit-filter: none;
   filter: none;
 }
+
+// Completed form-like text fields
+.form-control.completed{background-color: #e9ecef;}
 
 // Display .title h1 icons
 h1 .fa{ padding: 0 0 0 38px; background-size: 100%; height: 36px; margin-bottom: -10px; }
