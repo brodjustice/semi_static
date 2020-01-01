@@ -62,11 +62,10 @@ module SemiStatic
       Rails.application.config.assets.paths << "#{Rails.application.root}/app/assets/stylesheets/semi_static/themes/#{SemiStatic::Engine.config.theme}"
       Rails.application.config.assets.paths << "#{SemiStatic::Engine.root}/app/assets/stylesheets/themes/#{SemiStatic::Engine.config.theme}"
 
-      # Below line was to load a custom dashboard CSS from :main_app before SemiStatic but the SemiStatic CSS is always loaded first
-      # even if we unshift this to be at the start of the paths Array. Also tried 
-      #   config.railties_order = [:main_app, SemiStatic::Engine, :all]
-      # but that did not help either
-      # Rails.application.config.assets.paths << "#{Rails.application.root}/app/assets/stylesheets/semi_static"
+      # Add 2 more load paths and make sure that the dashboard main_app path is before semi_static's
+
+      Rails.application.config.assets.paths << "#{Rails.application.root}/app/assets/stylesheets/semi_static"
+      Rails.application.config.assets.paths << "#{SemiStatic::Engine.root}/app/assets/stylesheets/semi_static"
     end
 
     # Extend config class as 'try?' will not work on it
