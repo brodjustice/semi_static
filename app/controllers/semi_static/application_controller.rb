@@ -42,11 +42,11 @@ module SemiStatic
     rescue_from ActiveRecord::RecordNotFound, ActionController::RoutingError do |e|
       #
       # We will try and find out what the person was looking for by checking the request URL. We grab the
-      # base of the URL path and check to see ith this matches any of our public tags.
+      # base of the URL path and check to see if this matches any of our public tags.
       #
       @tags = []
       if (words_from_url = request.path.downcase.gsub(/[^a-z\s]/i, ' ')).present?
-        @tags = Tag.public.select{|t| words_from_url.include?(t.title.downcase)}
+        @tags = Tag.is_public.select{|t| words_from_url.include?(t.title.downcase)}
       end
       @status_code = 404
       @exception = e
