@@ -132,6 +132,14 @@ de:
   Company: 'Firma'
   Position: 'Position'
 
+  # Pagination
+  views:
+    pagination:
+      next: 'Vor'
+      previous: 'Zurück'
+      last: 'Letzte'
+      first: 'Erste'
+
   devise:
     sessions:
       user:

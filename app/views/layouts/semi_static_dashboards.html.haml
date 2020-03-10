@@ -18,7 +18,7 @@
 
     = favicon_link_tag 'favicon.ico'
 
-  %body.app.sidebar-mini{:id => "semi_static_#{controller_name.classify.downcase}"}
+  %body.app.sidebar-mini{:id => controller_name.classify.downcase}
     - flash.each do |key, value|
       = content_tag :div, value, :id => "#{key}" unless value.blank?
 
