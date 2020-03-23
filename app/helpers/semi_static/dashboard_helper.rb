@@ -8,8 +8,12 @@ module SemiStatic
     #
     # Javascript response to AJAX to load the partial in the argument
     #
-    def js_modal_load(partial)
-      "$('.modal').modal('hide');$('#generalModal .modal-content').html('#{escape_javascript(render :partial => partial)}');$('#generalModal').modal();".html_safe
+    def js_modal_load(partial, hide=true)
+      if hide
+        "$('.modal').modal('hide');$('#generalModal .modal-content').html('#{escape_javascript(render :partial => partial)}');$('#generalModal').modal();".html_safe
+      else
+        "$('#generalModal .modal-content').html('#{escape_javascript(render :partial => partial)}');$('#generalModal').modal();".html_safe
+      end
     end
 
     def nav_link(link_text, controller_name, link_path)

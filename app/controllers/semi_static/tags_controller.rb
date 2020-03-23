@@ -35,7 +35,7 @@
       # and display it in the Tag page. We used to simply cause a redirect for this, eg:
       #   redirect_to entry_path(@tag.use_entry_as_index)
       # but it's not really correct because we want to keep the URL for the Tag and replace
-      # entire Tag view contents. So instead we now jump to the Entries controller to create
+      # entire Tag view contents. So instead we now call the Entries controller to create
       # our html for the page
       #
       if @tag.use_entry_as_index
