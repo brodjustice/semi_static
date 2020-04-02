@@ -16,6 +16,11 @@
     %style{:type => "text/css"}
       = yield :header_css
 
+    -# Most javascript goes in the footer, but this is for the odd case
+    -# where you use the dashboard in your app and want the js code
+    -# to go in the header
+    = yield :header_ujs
+
     = favicon_link_tag 'favicon.ico'
 
   %body.app.sidebar-mini{:id => controller_name.classify.downcase}
