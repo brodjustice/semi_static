@@ -68,8 +68,7 @@
         # Work out the Tag to use for the sidebar menu. Check special PageAttrs for sideBarMenuTagId
         # and sideBarMenuTagIds
         @sidebar_menu_tag = @tag.get_page_attr('sideBarMenuTagId')&.split ||
-          @tag.get_page_attr('sideBarMenuTagIds')&.split(",") ||
-          @tag
+          @tag.get_page_attr('sideBarMenuTagIds')&.split(",")
 
         # Work out what image (if any) "style" should be applied. Check if PageAttr imageStyle provided
         @entry_image_style = @tag.get_page_attr('imageStyle')&.to_sym || :summary
@@ -78,6 +77,9 @@
         @linked = true
 
       end
+
+      # If the Tag for sidebar menu has not yet been set, then default to the current Tag
+      @sidebar_menu_tag ||= @tag
 
       respond_to do |format|
         format.html {
