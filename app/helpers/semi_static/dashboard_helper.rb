@@ -43,10 +43,11 @@ module SemiStatic
     # name unless a "text" is provided. An optional infomarker can also be provided inside the .input-group
     # class that will open up an associated .infobox (uses javascript).
     #
-    def labeled_checkbox(f, box, text=nil, infomarker=false)
+    def labeled_checkbox(f, box, text=nil, infomarker=false, klass=nil, force_checked=false)
       text ||= box.to_s.humanize
-      klass = f.object.class.name.split('::').last.underscore
-      checked = f.object.send(box) ? "checked='checked'" : ''
+      klass ||= f.object.class.name.split('::').last.underscore
+      checked = force_checked && "checked='checked'"
+      checked ||= f.object&.send(box) ? "checked='checked'" : ''
       infomarker_html = infomarker ? "<span class='infomarker' data-marker='#{infomarker.to_s}'></span>" : ''
       "<div class='input-group'>#{infomarker_html}<div class='input-group-prepend'> <label class='input-group-text' for='#{['semi_static', klass, box.to_s].join('_')}'>#{text}</label> </div> <div class='form-control mt-2'> <div class='checkbox-wrapper'> <input name='#{klass}[#{box.to_s}]' type='hidden' value='0'><input type='checkbox' value='1' #{checked} name='#{klass}[#{box.to_s}]' id='#{['semi_static', klass, box.to_s].join('_')}'> </div> </div> </div>".html_safe
     end

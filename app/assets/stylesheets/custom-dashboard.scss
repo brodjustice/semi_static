@@ -1,3 +1,12 @@
+// Nicer select tags for Chrome
+.input-group select{
+    padding: 4px;
+}
+@supports (-moz-appearance:none){
+  .input-group select{
+    padding: initial;
+  }
+}
 // Adjust padding so icons are in center when sidenav is toggled
 .sidenav-toggled .app-menu__item{
   padding-left: 10px;
