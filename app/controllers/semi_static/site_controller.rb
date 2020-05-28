@@ -21,9 +21,6 @@ module SemiStatic
       # Work out what image (if any) "style" should be applied. Check if PageAttr imageStyle provided
       @entry_image_style = @tag&.get_page_attr('imageStyle')&.to_sym || :summary
 
-      # Some themes have a contact box on the home page
-      @contact = Contact.new
-
       @linked = true
 
       respond_to do |format|
