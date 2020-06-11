@@ -541,12 +541,12 @@ module SemiStatic
             page.nil? && (link = u)
           end
           if flags
-            c+= "<li class='locale'><a href='#{link || page.hreflang_link(l) || u}'>#{image_tag("flags/" + l + ".png", :alt => "locale #{l}")}</a></li>".html_safe
+            c+= "<li class='locale #{l}'><a href='#{link || page.hreflang_link(l) || u}'>#{image_tag("flags/" + l + ".png", :alt => "locale #{l}")}</a></li>".html_safe
           else
             if session[:locale] == l
-              c+= "<li class='locale selected'><a href='#{link || page.hreflang_link(l) || u}'>#{l}</a></li>".html_safe
+              c+= "<li class='locale  #{l} selected'><a href='#{link || page.hreflang_link(l) || u}'>#{l}</a></li>".html_safe
             else
-              c+= "<li class='locale'><a href='#{link || page.hreflang_link(l) || u}'>#{l}</a></li>".html_safe
+              c+= "<li class='locale #{l}'><a href='#{link || page.hreflang_link(l) || u}'>#{l}</a></li>".html_safe
             end
           end
         }
