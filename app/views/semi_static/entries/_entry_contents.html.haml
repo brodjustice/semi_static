@@ -4,7 +4,7 @@
 
 - unless e.youtube_id_str.blank?
   = entry_title(e, linked)
-  = youtube_video(e.youtube_id_str, e.get_page_attr('youTubeVideoWidth'), e.get_page_attr('youTubeVideoHeight'), e.get_page_attr('youTubeVideoControls'))
+  = youtube_video(e.youtube_id_str, e.get_page_attr('youTubeVideoWidth'), e.get_page_attr('youTubeVideoHeight'), e.get_page_attr('youTubeVideoControls'), e.get_page_attr('youTubeVideoLoading'))
 - if !e.image_disable && e.img.present?
   .col.span_1_of_2.floater
     = render :partial => 'semi_static/entries/image', :locals => {:e => e}
