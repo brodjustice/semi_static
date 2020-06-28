@@ -51,6 +51,7 @@
     = analytics
 
   %body{:id => "semi_static_#{controller_name.classify.downcase}", :class => @banner_class }
+    = yield :top
     #dialog{:style => 'display: none;'}
     #body-inner
       = render :partial => 'semi_static/shared/application_body'
