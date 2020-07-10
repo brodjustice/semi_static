@@ -33,5 +33,5 @@
         - if (htmllink = (h = SemiStatic::Tag.predefined(session[:locale], 'Home').first) && h.get_page_attr('slideMenuHtmlLink')).present?
           %li.icon= htmllink.html_safe
       %ul.locales
-        = locales(false)
+        = locales(:locales)
     

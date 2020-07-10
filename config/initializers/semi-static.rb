@@ -76,6 +76,10 @@ module SemiStatic
     # { 'en' => 'http://my-website.com', 'es' => 'translate' }
     #
     config.localeDomains = { 'en' => 'http://127.0.0.1', 'de' => 'http://business-landing.de' }
+
+    # Display of locale link in top bar between websites, default is :flags.
+    # Also :text (eg. 'English') and :locales (eg. 'EN')
+    config.locale_display = :flags
     
     # You may want to have a fallback locale, especially during development. Set it here
     config.default_locale = 'en'

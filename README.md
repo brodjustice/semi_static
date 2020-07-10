@@ -31,7 +31,7 @@ Change your working directory to your Rails app and create the database with:
 
 Now add SemiStatic. Edit the Gemfile to include the SemiStatic gem/engine:
 
-        gem 'semi_static', :git => 'https://github.com/brodjustice/semi_static.git', :branch => 'rails_v5'
+        gem 'semi_static', :git => 'https://github.com/brodjustice/semi_static.git'
 
 Run the bundler to install the SemiStatic Rails Engine:
 

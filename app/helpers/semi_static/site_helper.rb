@@ -524,15 +524,15 @@ module SemiStatic
       '<div class="onoffswitch-inner"></div><div class="onoffswitch-switch"></div></label></div>'.html_safe
     end
   
-    # By default will show a flag icon for each alternate locale or translation. If flag is set to false it
-    # will instead show each language symbol as 2 characters. If flags are set, you also get the current language
+    # By default will show a flag icon for each alternate locale or translation. If flag is set to :locales it
+    # will instead show each language symbol as 2 characters. If :flags or :text, you also get the current language
     # highlighted
-    def locales(flags=true)
+    def locales(display = :flags)
       c = ''
       # TODO: The checking for entry or tag is primative and does not cover predefined tags
       page = @entry || @tag
-      ls = (flags ? SemiStatic::Engine.config.localeDomains.reject{|k, v| k.to_s == I18n.locale.to_s} : SemiStatic::Engine.config.localeDomains)
-      unless (!flags && (ls.size == 1))
+      ls = (display == :locales ? SemiStatic::Engine.config.localeDomains : SemiStatic::Engine.config.localeDomains.reject{|k, v| k.to_s == I18n.locale.to_s})
+      unless ((display == :locales) && (ls.size == 1))
         ls.each{|l, u|
           if u.downcase == 'translate' 
             link = "http://translate.google.com/translate?hl=&sl=auto&tl=#{l}&u=#{url_encode(request.url)}"
@@ -540,8 +540,10 @@ module SemiStatic
             # If this is a special page, with no tag or entry, then it will not be seoable so just point locales to the root of the alternate locale website
             page.nil? && (link = u)
           end
-          if flags
+          if display == :flags
             c+= "<li class='locale #{l}'><a href='#{link || page.hreflang_link(l) || u}'>#{image_tag("flags/" + l + ".png", :alt => "locale #{l}")}</a></li>".html_safe
+          elsif display == :text
+            c+= "<li class='locale #{l}'><a href='#{link || page.hreflang_link(l) || u}'>#{I18n.t(l)}</a></li>".html_safe
           else
             if session[:locale] == l
               c+= "<li class='locale  #{l} selected'><a href='#{link || page.hreflang_link(l) || u}'>#{l}</a></li>".html_safe
