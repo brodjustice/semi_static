@@ -34,7 +34,8 @@
 
     = yield :ujs
 
-    = favicon_link_tag 'favicon.ico'
+    = favicon_link_tag SemiStatic::Engine.config.favicon_image
+
   %body{:id => "semi_static_#{controller_name.classify.downcase}"}
     = yield :top
     #dialog{:style => 'display: none;'}

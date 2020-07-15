@@ -21,7 +21,7 @@
     -# to go in the header
     = yield :header_ujs
 
-    = favicon_link_tag 'favicon.ico'
+    = favicon_link_tag SemiStatic::Engine.config.favicon_image
 
   %body.app.sidebar-mini{:id => controller_name.classify.downcase}
     - flash.each do |key, value|

@@ -15,7 +15,8 @@
     = stylesheet_link_tag 'semi_static_application', :media => 'all'
     = yield :ujs
 
-    %link{:rel => 'shortcut icon', :href => '/assets/favicon.ico'}
+    = favicon_link_tag SemiStatic::Engine.config.favicon_image
+
   %body
     #body-inner.devise
       = render :partial => 'semi_static/shared/application_body'

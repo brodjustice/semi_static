@@ -21,6 +21,9 @@ module SemiStatic
     # config.logo_image = 'logo.png'
     config.logo_image = nil
 
+    # Favicon image
+    config.favicon_image = 'favicon.ico'
+
     # If you want just text instead of a logo, put it here
     config.logo_text = nil
 
