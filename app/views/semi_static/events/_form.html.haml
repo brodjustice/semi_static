@@ -41,6 +41,7 @@
         .tile-title
           .sidebar
             %h5 Options
+            = labeled_textfield(f, :online_url, 'Online URL (Optional)')
             = labeled_textfield(f, :location, 'Location name')
             = labeled_textfield(f, :location_address, 'Address')
             .input-group{:title => 'Time that doors to event open'}
