@@ -132,6 +132,7 @@ module SemiStatic
                              :small => "-strip -gravity Center -quality 80",
                              :panel => "-strip -gravity Center -quality 80",
                              :medium => "-strip -gravity Center -quality 80",
+                             :twocol => "-strip -gravity Center -quality 70",
                              :wide => "-strip -gravity Center -quality 80",
                              :big => "-strip -gravity Center -quality 85"  }
   

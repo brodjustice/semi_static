@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
   s.add_dependency "haml"
   s.add_dependency "sass-rails"
   s.add_dependency "haml-rails", ">= 1.0"
-  s.add_dependency "paperclip", ">= 5.2.0"
+  s.add_dependency "paperclip", ">= 6.1.0"
   s.add_dependency "nokogiri"
 
   # Pagination
