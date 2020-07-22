@@ -406,6 +406,17 @@ module SemiStatic
       c += '</table></div>'.html_safe
     end
 
+    def event_registration_url(e)
+      e.registration_url.blank? ? new_registration_path(:registration => true, :reason => e.registration_text) : e.registration_url
+    end
+
+    # Is registration required for e = Event
+    def event_registration_link(e)
+      if e.registration
+        "<a class='registration' rel='nofollow' href=\'#{event_registration_url(e)}\'>#{t('Register')}</a>".html_safe
+      end
+    end
+
     # Events only belong to entries, so we take the entry as a parameter as we can also get other data from this, like the locale
     def semantic_event(entry)
       return unless (e = entry.event).present?
@@ -414,10 +425,8 @@ module SemiStatic
       c += "<tr class='row'><th colspan='2'>".html_safe
 
       # Is registration required
-      if e.registration
-        reg_href = (e.registration_url.blank? ? new_registration_path(:registration => true, :reason => e.registration_text) : e.registration_url)
-        c += "<a class='registration' rel='nofollow' href=\'#{reg_href}\'>#{t('Register')}</a>".html_safe
-      end
+      c += event_registration_link(e)
+
       c += "<div property='name'>#{e.name}</div>".html_safe
       c += "</th></tr>".html_safe
 
@@ -426,6 +435,14 @@ module SemiStatic
       end
 
       c += '</thead>'.html_safe
+
+      if e.online_url.present?
+        c += '<tbody property="location" typeof="VirtualLocation">'.html_safe
+        c += "<tr class='row'><td>#{t('OnlineUrl')}: </td><td><span property='url'>#{link_to e.online_url}</span></td></tr>".html_safe
+        c += '</tbody>'.html_safe
+      end
+
+
       if (e.location.present? && e.location_address.present?)
         c += '<tbody property="location" typeof="Place">'.html_safe
         c += "<tr class='row'><td>#{t('location')}: </td><td><span property='name'>#{e.location}</span></td></tr>".html_safe

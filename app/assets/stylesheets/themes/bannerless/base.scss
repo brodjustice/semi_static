@@ -128,7 +128,7 @@ h2{ font-size: 20px; font-weight: normal;}
 
 #logo{
   width: $logo-width; height: $logo-height;
-  background: white image-url('#{$logo}') 0 0 no-repeat;
+  background: transparent image-url('#{$logo}') 0 0 no-repeat;
   color:transparent;
 }
 
