@@ -46,6 +46,7 @@
       %article.panel.group{:class => @entry.style_class}
         .entry_wrapper
           = render :partial => 'semi_static/entries/entry', :locals => {:e => @entry}
+          = yield :prepend_entry_content
           = photo_thumbs(@entry)
           #semi_static_async
     - if @entry.side_bar
