@@ -50,6 +50,34 @@
           = f.label :doc, 'PDF Document', :class => 'input-group-text'
           = f.file_field :doc, :class => 'form-control'
 
+      .tile
+        .tile-body
+          .tile-title-w-btn
+            %h5
+              %span.app-menu__icon.fa.fa-attrs.invert
+              Attributes
+
+            - unless @squeeze.new_record?
+              = link_to new_squeeze_page_attr_path(@squeeze), :class => 'btn btn-primary', :remote => true do
+                %span.app-menu__icon.fa.fa-attrs
+                %span New attribute
+
+          .tile-body
+            - if @squeeze.page_attrs.present?
+              %table.table.sortable.table-bordered.table-hover
+                %thead
+                  %tr
+                    %th='Key'
+                    %th='Value'
+                    %th
+                %tbody
+                  - @squeeze.page_attrs.each do |a|
+                    %tr
+                      %td= link_to a.attr_key, edit_polymorphic_path([@squeeze, a]), :remote => :true
+                      %td= a.attr_value
+                      %td= link_to image_tag("bin.png"), squeeze_page_attr_path(@squeeze, a), :method => :delete
+
+
   .row
     .col-md-12
       .tile

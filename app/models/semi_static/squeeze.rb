@@ -13,5 +13,17 @@ module SemiStatic
 
     has_many :entries
     has_many :contacts
+
+    has_many :page_attrs, :as => :page_attrable
+
+    # Like the page attr for Entries and Tags
+    def get_attr(k)
+      self.page_attrs.find_by_attr_key(k)&.attr_value
+    end
+
+    def raw_title
+      title
+    end
+
   end
 end

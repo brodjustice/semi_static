@@ -3,7 +3,7 @@
   module SemiStatic
     class DocumentsController < ApplicationController
 
-    include SemiStatic::Concerns::DocumentConcern
+    include SemiStatic::DocumentConcern
 
     caches_page :index
 

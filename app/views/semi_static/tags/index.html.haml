@@ -2,6 +2,7 @@
   :javascript
     $(document).ready(function() {
       $('#' + window.location.hash.substring(1)).children().addClass('flash');
+      $(".sortable").tablesorter({headers:{11:{sorter:false}}});
     });
 
 .app-title
@@ -14,88 +15,86 @@
     %span.app-menu__icon.fa.fa-hierarchy
     New Tag
    
-.tile
-  .tile-body
-    .table-responsive
-      %table.table.sortable.table-bordered.table-hover
-        %thead
-          %tr
-            %th ID
-            %th= 'Name'
-            %th= 'Menu'
-            %th{:title => 'Custom'}
-              %i.app-menu__icon.fa.fa-code
-            - if SemiStatic::Engine.config.try('subscribers_model')
-              %th.tick{:title => 'Subscriber only content'}
-                %i.app-menu__icon.fa.fa-user
-            %th{:title => 'Locale'}
-              %i.app-menu__icon.fa.fa-lang
-            %th{:title => 'Position'}
-              %i.app-menu__icon.fa.fa-vertical
-            %th{:title => 'Side bar'}
-              %i.app-menu__icon.fa.fa-sidebar
-            %th{:title => 'Banner'}
-              %i.app-menu__icon.fa.fa-banner
-            %th{:title => 'Admin only content'}
-              %i.app-menu__icon.fa.fa-admin
-            %th{:title => 'SEO'}
-              %i.app-menu__icon.fa.fa-graph
-            %th{:title => 'Entries'}
-              %i.app-menu__icon.fa.fa-website
-            %th{:title => 'Last Update'}
-              %i.app-menu__icon.fa.fa-date
-            %th
-              %i.app-menu__icon.fa.fa-delete
-
-      
-        %tbody
-          - @tags.each do |tag|
-            %tr{:id => "tag_id_#{tag.id}"}
-              %td
-                = tag.id
-                - if SemiStatic::Tag.use_sprites? && (tag.position < 6)
-                  .icon.sprite{:id => "sprite_#{tag.position}"}
-                - elsif tag.icon.present?
-                  = image_tag(tag.icon.url)
-              %td
-                = link_to tag.name, edit_tag_path(tag)
-              %td.tick
-                = image_tag('tick.png', :title => 'In menu') if tag.menu
-              %td.tick
-                - unless (tag.partial == 'none')
-                  = link_to image_tag('tick.png', :title => tag.partial), system_path(:cmd => {:partial_description => tag.partial}), :method => :put, :remote => true
+- @tag_sets.each do |tag_type, tags|
+  .tile
+    .tile-title
+      %h2= tag_type.to_s.humanize
+    .tile-body
+      .table-responsive
+        %table.table.sortable.table-bordered.table-hover
+          %thead
+            %tr
+              %th ID
+              %th= 'Name'
+              %th= 'Menu'
+              %th{:title => 'Custom'}
+                %i.app-menu__icon.fa.fa-code
               - if SemiStatic::Engine.config.try('subscribers_model')
+                %th.tick{:title => 'Subscriber only content'}
+                  %i.app-menu__icon.fa.fa-user
+              %th{:title => 'Locale'}
+                %i.app-menu__icon.fa.fa-lang
+              %th{:title => 'Position'}
+                %i.app-menu__icon.fa.fa-vertical
+              %th{:title => 'Side bar'}
+                %i.app-menu__icon.fa.fa-sidebar
+              %th{:title => 'Banner'}
+                %i.app-menu__icon.fa.fa-banner
+              %th{:title => 'SEO'}
+                %i.app-menu__icon.fa.fa-graph
+              %th{:title => 'Entries'}
+                %i.app-menu__icon.fa.fa-website
+              %th{:title => 'Last Update'}
+                %i.app-menu__icon.fa.fa-date
+              %th
+                %i.app-menu__icon.fa.fa-delete
+  
+        
+          %tbody
+            - tags.each do |tag|
+              %tr{:id => "tag_id_#{tag.id}"}
+                %td
+                  = tag.id
+                  - if SemiStatic::Tag.use_sprites? && (tag.position < 6)
+                    .icon.sprite{:id => "sprite_#{tag.position}"}
+                  - elsif tag.icon.present?
+                    = image_tag(tag.icon.url)
+                %td
+                  = link_to tag.name, edit_tag_path(tag)
                 %td.tick
-                  = image_tag('user.png', :title => 'Subscriber only content') if tag.subscriber
-              %td.number= tag.locale.to_s
-              %td.number
-                - if tag.menu
-                  = tag.position if tag.menu
-                - else
-                  = ['(',tag.position.to_s,')'].join
-              %td.tick
-                = tag.side_bar_tag.name if !tag.side_bar_tag.nil? && !tag.side_bar_news
-                = image_tag('tick.png', :title => 'Has side-bar') if tag.side_bar_news
-              %td
-                - if tag.predefined_class && SemiStatic::Banner.find_by_name(tag.predefined_class)
-                  = tag.predefined_class
-                - else
-                  = tag.banner.name.truncate(10) unless tag.banner.nil?
-              %td.tick
-                - if tag.admin_only
-                  = image_tag('tick.png')
-              %td.tick
-                - if tag.seo.nil?
-                  = link_to image_tag('add.png', :title => "Add SEO meta tags"), new_tag_seo_path(tag, :return => tags_path), :remote => true
-                - elsif tag.seo.no_index
-                  = link_to image_tag('error.png', :title => 'Warning: NO INDEX is set'), edit_seo_path(tag.seo, :return => tags_path), :remote => true
-                - else
-                  = link_to image_tag('application_form_edit.png', :title => "Edit SEO meta tags"), edit_seo_path(tag.seo, :return => tags_path), :remote => true
-              %td.number
-                = link_to tag.entries.count.to_s + ' (' + tag.max_entries_on_index_page.to_s + ')', tag_entries_path(tag), :remote => true
-                = link_to image_tag('add.png', :title => 'Add new Entry'), new_entry_path(:tag_id => tag.id, :locale => tag.locale.to_s)
-              %td.number{:title => tag.updated_at.strftime('%H:%M')}= tag.updated_at.strftime('%d/%b/%y')
-              %td
-                = link_to tag, :method => :delete, :data => { :confirm => "Are you sure you want to delete #{tag.name}?" } do
-                  %i.app-menu__icon.fa.fa-delete
-
+                  = image_tag('tick.png', :title => 'In menu') if tag.menu
+                %td.tick
+                  - unless (tag.partial == 'none')
+                    = link_to image_tag('tick.png', :title => tag.partial), system_path(:cmd => {:partial_description => tag.partial}), :method => :put, :remote => true
+                - if SemiStatic::Engine.config.try('subscribers_model')
+                  %td.tick
+                    = image_tag('user.png', :title => 'Subscriber only content') if tag.subscriber
+                %td.number= tag.locale.to_s
+                %td.number
+                  - if tag.menu
+                    = tag.position if tag.menu
+                  - else
+                    = ['(',tag.position.to_s,')'].join
+                %td.tick
+                  = tag.side_bar_tag.name if !tag.side_bar_tag.nil? && !tag.side_bar_news
+                  = image_tag('tick.png', :title => 'Has side-bar') if tag.side_bar_news
+                %td
+                  - if tag.predefined_class && SemiStatic::Banner.find_by_name(tag.predefined_class)
+                    = tag.predefined_class
+                  - else
+                    = tag.banner.name.truncate(10) unless tag.banner.nil?
+                %td.tick
+                  - if tag.seo.nil?
+                    = link_to image_tag('add.png', :title => "Add SEO meta tags"), new_tag_seo_path(tag, :return => tags_path), :remote => true
+                  - elsif tag.seo.no_index
+                    = link_to image_tag('error.png', :title => 'Warning: NO INDEX is set'), edit_seo_path(tag.seo, :return => tags_path), :remote => true
+                  - else
+                    = link_to image_tag('application_form_edit.png', :title => "Edit SEO meta tags"), edit_seo_path(tag.seo, :return => tags_path), :remote => true
+                %td.number
+                  = link_to tag.entries.count.to_s + ' (' + tag.max_entries_on_index_page.to_s + ')', tag_entries_path(tag), :remote => true
+                  = link_to image_tag('add.png', :title => 'Add new Entry'), new_entry_path(:tag_id => tag.id, :locale => tag.locale.to_s)
+                %td.number{:title => tag.updated_at.strftime('%H:%M')}= tag.updated_at.strftime('%d/%b/%y')
+                %td
+                  = link_to tag, :method => :delete, :data => { :confirm => "Are you sure you want to delete #{tag.name}?" } do
+                    %i.app-menu__icon.fa.fa-delete
+  

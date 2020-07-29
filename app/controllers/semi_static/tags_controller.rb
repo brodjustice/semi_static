@@ -18,10 +18,13 @@
     # GET /tags
     # GET /tags.json
     def index
-      @tags = Tag.unscoped.order(:locale, :position).where(:newsletter_id => nil)
+      @tag_sets = {
+        :public => Tag.unscoped.order(:locale, :position).where(:newsletter_id => nil).where(:admin_only => false),
+        :admin_only => Tag.unscoped.order(:locale, :position).where(:newsletter_id => nil).where(:admin_only => true)
+      }
       respond_to do |format|
         format.html # index.html.erb
-        format.json { render :json => @tags }
+        format.json { render :json => @tags_sets }
       end
     end
   

@@ -8,7 +8,7 @@
             - @event.errors.full_messages.each do |msg|
               %li= msg
   .row
-    .col-md-8
+    .col-md-6
       .tile
         .tile-title
           %h5
@@ -35,8 +35,18 @@
             #registration_fields
               = labeled_textfield(f, :registration_text, 'Text summary for event registration')
               = labeled_textfield(f, :registration_url, 'Optional url to direct to for registration')
+
+      .tile
+        .tile-title
+          %h5
+            %span.app-menu__icon.fa.fa-entry.invert
+            Used in Entries
+        .tile-body
+          - @event.entries.each do |e|
+            %p= link_to e.title, edit_entry_path(e)
+
     
-    .col-md-4
+    .col-md-6
       .tile
         .tile-title
           .sidebar

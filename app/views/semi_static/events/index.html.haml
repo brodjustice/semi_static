@@ -1,3 +1,9 @@
+- content_for :ujs do
+  :javascript
+    $(document).ready(function() {
+      $(".sortable").tablesorter({headers:{10:{sorter:false}}});
+    });
+
 .app-title
   %h1
     %i.fa.fa-event.invert
@@ -23,6 +29,7 @@
             %th= 'Typical Age Range'
             %th{:title => 'Last Update'}
               %i.app-menu__icon.fa.fa-date
+            %th Entries
             %th
               %i.app-menu__icon.fa.fa-delete
     
@@ -41,6 +48,9 @@
               %td= event.in_language
               %td= event.typical_age_range
               %td.number{:title => event.updated_at.strftime('%H:%M')}= event.updated_at.strftime('%d/%b/%y')
+              %td
+                - event.entries.each do |e|
+                  %p= link_to e.title[0..30], edit_entry_path(e)
               %td
                 = link_to event, :method => :delete, :data => { :confirm => 'Are you sure?' } do
                   %i.app-menu__icon.fa.fa-delete

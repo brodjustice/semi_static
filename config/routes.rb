@@ -96,7 +96,10 @@ SemiStatic::Engine.routes.draw do
   end
   get "/gallery" => 'galleries#index'
 
-  resources :squeezes
+  resources :squeezes do
+    resources :page_attrs, :except => :index
+  end
+
   resources :job_postings
   resources :events, :except => :show
   resources :sidebars
