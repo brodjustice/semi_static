@@ -91,6 +91,10 @@ module SemiStatic
     # has a full and correct domain, else some email systems will just silently ignore the email.
     config.mailer_from = 'contact_form@business-landing.com'
     config.mail_host = 'business-landing.com'
+
+    # This is the email address for mails sent out due to a squeeze. If nil the contact email
+    # will be used.
+    config.squeeze_email = nil
     
     # Set to false if you don't want to show client logos in a side bar or the main reference page
     config.reference_logos = true
