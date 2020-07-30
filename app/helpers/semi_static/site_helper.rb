@@ -265,7 +265,7 @@ module SemiStatic
     # This allows us to deal with images that are smaller than expected. We set the max-width inline according
     # to the uploaded file size. This then stops the image from being displayed larger than the origional.
     def image_with_style(e, style, max_width, popup=true)
-      alt = e.img&.original_filename&.split('.').first.humanize
+      alt = e.img&.original_filename&.split('.')&.first&.humanize
       if popup && e.image_popup
         c = "<a class='popable' onclick=\'semiStaticAJAX(\"#{entry_path(e, {:format => :js, :popup => true})}\")\; return false;' href='#'> ".html_safe
       else
