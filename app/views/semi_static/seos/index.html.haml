@@ -59,7 +59,11 @@
                   = link_to image_tag('add.png', :title => 'Make this SEO meta set the master set'), edit_seo_path(seo, :master => true)
               %td.tick
                 = image_tag('tick.png', :title => 'No indexing request to search engines') if seo.no_index
-              %td.number= seo.hreflangs.size
+              %td.number
+                = seo.hreflangs.size
+                = link_to new_seo_hreflang_path(seo), :remote => true do
+                  = image_tag('add.png', :title => 'View/Add hreflangs')
+
               %td= seo.updated_at.strftime('%d-%b-%y %H:%M')
               %td.tick
                 = link_to edit_seo_path(seo, :return => seos_path), :remote => true do

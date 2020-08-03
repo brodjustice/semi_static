@@ -1,3 +1,22 @@
-.button= link_to 'Cancel', '#', :onclick => "$('#dialog').hide(); return false;"
-%h1= ['New hreflang tag for ', @hreflang.seo.seoable.raw_title, ' (', @hreflang.seo.seoable.class.to_s.split('::').last, ')'].join
-= render 'form'
+.modal-header
+  %h5= ['New hreflang tag for ', @hreflang.seo.seoable.raw_title, ' (', @hreflang.seo.seoable.class.to_s.split('::').last, ')'].join
+  = modal_close
+.modal-body
+  - if @hreflang.siblings.present?
+    %h5 Current hreflang
+    .table-responsive
+      %table.table.table-bordered.table-dense
+        - @hreflang.siblings.each do |href|
+          %tr
+            %td= href.locale.to_s
+            %td= link_to href.href, href.href
+            %td.tick{:title => "Edit hreflang tag"}
+              = link_to edit_seo_hreflang_path(@hreflang.seo, href, :return => seos_path), :remote => true do
+                %i.app-menu__icon.fa.fa-edit
+            %td.tick
+              = link_to seo_hreflang_path(@hreflang.seo, href), :method => :delete, :data => { :confirm => 'Are you sure?' } do
+                %i.app-menu__icon.fa.fa-delete
+
+
+  %h5 New hreflang
+  = render 'form'

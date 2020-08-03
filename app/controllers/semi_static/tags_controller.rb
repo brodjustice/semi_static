@@ -88,8 +88,8 @@
         format.html {
           if html_content
             render :html => html_content.html_safe
-          elsif @tag.predefined_class.present? && SiteHelper::PREDEFINED[@tag.predefined_class].present?
-            redirect_to SiteHelper::PREDEFINED[@tag.predefined_class]
+          elsif @tag.predefined_class.present? && view_context.predefined_route(@tag.predefined_class).present?
+            redirect_to view_context.predefined_route(@tag.predefined_class)
           else
             render :layout => layout_select(@tag)
           end

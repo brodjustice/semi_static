@@ -21,19 +21,17 @@
       %span.app-menu__icon.fa.fa-website
       %span Download HTML
     .text-right.mt-2
-      - if @entry.click_ad.nil?
-        = link_to new_entry_click_ad_path(@entry, :return => edit_entry_path(@entry)), :remote => true, :class => 'btn btn-primary btn-space' do
-          %span.app-menu__icon.fa.fa-alarm
-          %span Use as Click Ad
-      - else
-        = link_to 'Edit click ad', edit_click_ad_path(@entry.click_ad, :return => edit_entry_path(@entry)), :remote => true, :class => 'btn btn-primary btn-space'
       - if @entry.seo.nil?
-        = link_to new_entry_seo_path(@entry, :return => edit_entry_path(@entry)), :remote => true, :class => 'btn btn-primary' do
+        = link_to new_entry_seo_path(@entry, :return => edit_entry_path(@entry)), :remote => true, :class => 'btn btn-primary btn-space' do
           %span.app-menu__icon.fa.fa-graph
           %span Add SEO
       - else
-        = link_to edit_seo_path(@entry.seo, :return => edit_entry_path(@entry)), :remote => true, :class => 'btn btn-primary' do
+        = link_to edit_seo_path(@entry.seo, :return => edit_entry_path(@entry)), :remote => true, :class => 'btn btn-primary btn-space' do
           %span.app-menu__icon.fa.fa-graph
           %span Edit SEO
+      - unless @entry.seo.nil?
+        = link_to new_seo_hreflang_path(@entry.seo), :remote => true, :class => 'btn btn-primary' do
+          %span.app-menu__icon.fa.fa-graph
+          %span hreflang
   
 = render 'form'

@@ -3,15 +3,18 @@
 module SemiStatic
   module SiteHelper
 
-    PREDEFINED = {
-      'Home' => SemiStatic::Engine.routes.url_helpers.home_path,
-      'References' => SemiStatic::Engine.routes.url_helpers.references_path,
-      'Contact' => SemiStatic::Engine.routes.url_helpers.new_contact_path,
-      'Documents' => SemiStatic::Engine.routes.url_helpers.documents_path,
-      'News' => nil,
-      'Imprint-credits' => '/site/imprint-credits',
-      'Gallery' => SemiStatic::Engine.routes.url_helpers.photos_path
-    }
+    def predefined_route(route_name=nil)
+      routes = {
+        'Home' => semi_static.home_path,
+        'References' => semi_static.references_path,
+        'Contact' => semi_static.new_contact_path,
+        'Documents' => semi_static.documents_path,
+        'News' => nil,
+        'Imprint-credits' => '/site/imprint-credits',
+        'Gallery' => semi_static.photos_path
+      } 
+      route_name ? routes[route_name] : routes
+    end
 
     # There are quite a number of situations where the sidebar navigation menu is not required.
     # They are if:
@@ -163,7 +166,7 @@ module SemiStatic
     end
 
     def predefined_tags
-      PREDEFINED.merge(Hash[SemiStatic::Engine.config.predefined.map{|k, v| [k, Rails.application.routes.url_helpers.send(*v)]}])
+      predefined_route.merge(Hash[SemiStatic::Engine.config.predefined.map{|k, v| [k, Rails.application.routes.url_helpers.send(*v)]}])
     end
 
     #
@@ -227,8 +230,8 @@ module SemiStatic
       scheme = URI.parse(SemiStatic::Engine.config.localeDomains[l]).scheme
 
       if p.kind_of?(Tag)
-        if p.predefined_class.present? && !PREDEFINED[p.predefined_class].nil?
-          SemiStatic::Engine.config.localeDomains[l] + PREDEFINED[p.predefined_class]
+        if p.predefined_class.present? && !predefined_route[p.predefined_class].nil?
+          SemiStatic::Engine.config.localeDomains[l] + predefined_route[p.predefined_class]
         else
           #
           # Cannot use this:

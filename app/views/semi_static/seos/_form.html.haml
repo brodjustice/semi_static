@@ -49,13 +49,3 @@
         = f.submit 'Save', :class => 'btn btn-primary'
         = link_to polymorphic_path([@seo.seoable, @seo]), :method => :delete, :class => 'btn btn-danger' do
           Delete
-
-
-- unless @photos_without_caption.blank?
-  %h1= 'Photos SEO'
-  %p
-    = "This Entry has #{@photos_without_caption.count.to_s} photo(s) without a caption. You can improve your SEO by adding captions."
-    = "The first #{[@photos_without_caption.count, 5].min.to_s} photos:"
-  - @photos_without_caption.limit(5).each  do |p|
-    %ul
-      %li= link_to p.title, edit_photo_path(p)

@@ -6,19 +6,9 @@
         - @hreflang.errors.full_messages.each do |msg|
           %li= msg
 
-  %fieldset
-    = f.label :locale
-    %br/
-    = f.select :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @hreflang.locale)
-    %br/
-    %br/
+  = labeled_selectbox(f, :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @hreflang.locale))
+  = labeled_textfield(f, :href, 'URL')
 
-  %fieldset
-    = f.label :href, 'URL'
-    %br/
-    = f.text_field :href
-    %br/
-    %br/
-
-  .actions
-    = f.submit
+  .row
+    .col-md-12.mt-3
+      = f.submit 'Save', :class => 'btn btn-primary'

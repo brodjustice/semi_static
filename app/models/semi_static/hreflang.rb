@@ -12,5 +12,9 @@ module SemiStatic
       end
     end
 
+    def siblings
+      self.seo&.hreflangs.select{|hr| !hr.new_record? }
+    end
+
   end
 end
