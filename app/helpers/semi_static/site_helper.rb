@@ -441,7 +441,7 @@ module SemiStatic
 
       if e.online_url.present?
         c += '<tbody property="location" typeof="VirtualLocation">'.html_safe
-        c += "<tr class='row'><td>#{t('OnlineUrl')}: </td><td><span property='url'>#{link_to e.online_url}</span></td></tr>".html_safe
+        c += "<tr class='row'><td>#{t('OnlineUrl')}: </td><td><span property='url'>#{link_to e.online_url, e.online_url}</span></td></tr>".html_safe
         c += '</tbody>'.html_safe
       end
 
