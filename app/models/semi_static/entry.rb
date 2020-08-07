@@ -18,16 +18,16 @@ module SemiStatic
     #
     # A note on eleasticsearch: The search is configured to look in each Entry for a query match. Since
     # some entries may be merged Entries that are part of a bigger main Entry the score will represent
-    # only the merged Entry and not the entire collection of Entries that are merged into the main
-    # Entry. This will occasionally cause a sub-optimal query result, but it's currently considered 
-    # a reasonable compromise.
+    # the bodies of entire collection of Entries that are merged into the main Entry (#full_body). However, we currently
+    # do not concatinate the titles and sub-titles in the same way. This may be sub-optional.
     #
     settings index: { number_of_shards: 1, number_of_replicas: 0 }
 
     settings analysis: { analyzer: { semi_static: { tokenizer: 'standard', char_filter: 'html_strip' } } } do
       mappings dynamic: 'false' do
-        indexes :body, type: 'text', analyzer: 'semi_static'
-        indexes :raw_title
+        indexes :full_body, type: :text, analyzer: 'semi_static'
+        indexes :internal_search_keywords
+        indexes :raw_title, type: :text
         indexes :locale
         indexes :effective_tag_line
       end
@@ -41,6 +41,7 @@ module SemiStatic
   
     before_save :dup_master_id_photos
     after_save :check_for_newsletter_entry
+    after_save :reindex_entry
     before_save :extract_dimensions
 
     serialize :img_dimensions
@@ -169,10 +170,18 @@ module SemiStatic
     default_scope {order(:position)}
     scope :additional_entries, -> (e){where('tag_id = ?', e.tag_id).where('id != ?', e.id)}
 
+    def internal_search_keywords
+      self.get_page_attr('internalSearchKeywords')
+    end
+
+    def reindex_entry
+      __elasticsearch__.index_document
+    end
+
     def as_indexed_json(options={})
-      as_json(
-        only: [:raw_title, :body, :effective_tag_line, :locale],
-        methods: [:raw_title, :effective_tag_line]
+      self.as_json(
+        only: [:full_body, :locale, :internal_search_keywords, :raw_title, :effective_tag_line],
+        methods: [:full_body, :internal_search_keywords, :raw_title, :effective_tag_line]
       )
     end
 
@@ -186,12 +195,9 @@ module SemiStatic
 
     def get_title
       #
-      # TODO: Surely there is a better way to select the first non-blank string?
+      # Return first non-blank string
       #
-      return title unless title.blank?
-      return sub_title unless sub_title.blank?
-      return alt_title unless alt_title.blank?
-      false
+      (t = [title, sub_title, alt_title].reject(&:empty?).first).blank? ? false : t
     end
 
     def menu_title
@@ -244,7 +250,7 @@ module SemiStatic
             multi_match: {
               query: query,
               fuzziness: 1,
-              fields: ['raw_title^5', 'body', 'effective_tag_line^2']
+              fields: ['internal_search_keywords^20', 'raw_title^10', 'full_body', 'effective_tag_line']
             }
           },
           highlight: {
@@ -427,6 +433,17 @@ module SemiStatic
         val = val.split('v=').last
       end
       super
+    end
+
+    def full_body
+      full_body_text = ''
+      if self.merge_with_previous
+        body
+      else
+        merged_main_entry.merged_entries.each{|e|
+          full_body_text += body
+        }
+      end
     end
 
     def merged_entries

@@ -19,9 +19,12 @@ module SemiStatic
     # Reindex with elasticsearch
     #
     def self.search_reindex(*args)
+      if Photo.respond_to?('import')
+        Photo.__elasticsearch__.create_index! force: true
+        Photo.import
+      end
       Entry.__elasticsearch__.create_index! force: true
       Entry.import
-      Photo.import
     end
 
     # Restart passenger app server (if used)

@@ -47,9 +47,9 @@ Gem::Specification.new do |s|
   s.add_dependency "truncate_html"
 
   # For search, make sure that the version 7 of elasticsearch server is available.
-  s.add_dependency "elasticsearch", "~> 7.0"
-  s.add_dependency "elasticsearch-model", "~> 7.0"
-  s.add_dependency "elasticsearch-rails", "~> 7.0"
+  s.add_dependency "elasticsearch"
+  s.add_dependency "elasticsearch-model"
+  s.add_dependency "elasticsearch-rails"
 
   s.add_development_dependency "pg"
 end

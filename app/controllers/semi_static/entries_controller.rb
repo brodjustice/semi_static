@@ -49,7 +49,7 @@
       else
         template = 'semi_static/entries/search'
       end
-  
+
       render template: template, layout: 'semi_static_application'
     end
   
