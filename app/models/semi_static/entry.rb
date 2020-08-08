@@ -436,14 +436,13 @@ module SemiStatic
     end
 
     def full_body
-      full_body_text = ''
-      if self.merge_with_previous
-        body
-      else
+      full_body_text = body
+      unless self.merge_with_previous
         merged_main_entry.merged_entries.each{|e|
           full_body_text += body
         }
       end
+      full_body_text
     end
 
     def merged_entries
