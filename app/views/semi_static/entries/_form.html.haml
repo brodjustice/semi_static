@@ -432,7 +432,7 @@
           .infobox#acts_as_tag_info
             %h5= 'Acts as Tag'
             %p
-              = 'If set, then none of the other fields in this form have and effect as this entry will simply'
+              = 'If set, then none of the other fields in this form have any effect as this entry will simply'
               = 'redirect to the tag specified. This can be useful for building menus with many'
               = 'levels of hierarchy'
           = labeled_selectbox(f, :acts_as_tag_id, options_for_select(SemiStatic::Tag.unscoped.collect{|t| [[t.locale, ': ', t.name].join, t.id]}.prepend(["- None -", nil]), @entry.acts_as_tag_id), nil, :acts_as_tag_info)

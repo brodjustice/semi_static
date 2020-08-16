@@ -250,7 +250,7 @@ module SemiStatic
             multi_match: {
               query: query,
               fuzziness: 1,
-              fields: ['internal_search_keywords^20', 'raw_title^10', 'full_body', 'effective_tag_line']
+              fields: ['internal_search_keywords^100', 'raw_title^10', 'full_body', 'effective_tag_line']
             }
           },
           highlight: {
