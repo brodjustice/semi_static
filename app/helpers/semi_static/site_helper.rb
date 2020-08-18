@@ -241,7 +241,14 @@ module SemiStatic
           "#{scheme}://#{host}/#{SemiStatic::Engine.config.tag_paths[l]}/#{p.slug}"
         end
       elsif p.kind_of?(Entry)
-        entry_path(p, {:host => host, :only_path => false, :protocol => scheme})
+        if p.acts_as_tag.present?
+          #
+          # Later Rails don't support :only_path => false, so we have to construct manually
+          #
+          "#{scheme}://#{host}#{entry_path(p)}"
+        else
+          entry_path(p, {:host => host, :only_path => false, :protocol => scheme})
+        end
       elsif p.kind_of?(String)
         [SemiStatic::Engine.config.localeDomains[l], p].join('/')
       else

@@ -34,7 +34,7 @@ module SemiStatic
       seo ? (seo.priority.to_f/10).to_s : '0.5'
     end
 
-    # This need improving, for example we should go through all the entries
+    # This needs improving, for example we should go through all the entries
     # with 'home' set and find the latest up date, or where the 'home'
     # was unset, etc. This is not even considering predefined tags that
     # have been added in the config. Sort of complex so we just return nil for now
