@@ -8,7 +8,7 @@
             - @squeeze.errors.full_messages.each do |msg|
               %li= msg
   .row
-    .col-md-8
+    .col-md-6
       .tile
         .tile-title
           %h5
@@ -28,27 +28,6 @@
             .input-group-prepend
               = f.label :agreement, :class => 'input-group-text'
             = f.text_area :agreement, :rows => 4, :class => 'form-control mt-2'
-          .input-group
-            .input-group-prepend
-              = f.label :instructions, :class => 'input-group-text'
-            = f.text_area :instructions, :rows => 4, :class => 'form-control mt-2'
-
-    .col-md-4
-      .tile
-        %h5 Form Fields
-        = labeled_checkbox(f, :company_field)
-        = labeled_checkbox(f, :position_field)
-        %br/
-
-        %h5 E-mail
-        = labeled_textfield f, :email_subject
-        .input-group
-          .input-group-prepend
-            = f.label :email_footer, :class => 'input-group-text'
-          = f.text_area :email_footer, :rows => 4, :class => 'form-control mt-2'
-        .stacked-input-group{:title => 'Document must be PDF format'}
-          = f.label :doc, 'PDF Document', :class => 'input-group-text'
-          = f.file_field :doc, :class => 'form-control'
 
       .tile
         .tile-body
@@ -76,6 +55,28 @@
                       %td= link_to a.attr_key, edit_polymorphic_path([@squeeze, a]), :remote => :true
                       %td= a.attr_value
                       %td= link_to image_tag("bin.png"), squeeze_page_attr_path(@squeeze, a), :method => :delete
+
+
+    .col-md-6
+      .tile
+        %h5 Form Fields
+        = labeled_checkbox(f, :company_field)
+        = labeled_checkbox(f, :position_field)
+        %br/
+
+        %h5 E-mail
+        = labeled_textfield f, :email_subject
+        .input-group{:title => 'Instructions are at the top of the email before the download link'}
+          .input-group-prepend
+            = f.label :instructions, :class => 'input-group-text'
+          = f.text_area :instructions, :rows => 4, :class => 'form-control mt-2'
+        .input-group
+          .input-group-prepend
+            = f.label :email_footer, :class => 'input-group-text'
+          = f.text_area :email_footer, :rows => 4, :class => 'form-control mt-2'
+        .stacked-input-group{:title => 'Document must be PDF format'}
+          = f.label :doc, 'PDF Document', :class => 'input-group-text'
+          = f.file_field :doc, :class => 'form-control'
 
 
   .row

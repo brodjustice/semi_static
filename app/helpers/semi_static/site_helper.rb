@@ -558,7 +558,7 @@ module SemiStatic
       c = ''
       # TODO: The checking for entry or tag is primative and does not cover predefined tags
       page = @entry || @tag
-      ls = (display == :locales ? SemiStatic::Engine.config.localeDomains : SemiStatic::Engine.config.localeDomains.reject{|k, v| k.to_s == I18n.locale.to_s})
+      ls = ((display == :locales) || (display == :allflags) ? SemiStatic::Engine.config.localeDomains : SemiStatic::Engine.config.localeDomains.reject{|k, v| k.to_s == I18n.locale.to_s})
       unless ((display == :locales) && (ls.size == 1))
         ls.each{|l, u|
           if u.downcase == 'translate' 
@@ -567,7 +567,7 @@ module SemiStatic
             # If this is a special page, with no tag or entry, then it will not be seoable so just point locales to the root of the alternate locale website
             page.nil? && (link = u)
           end
-          if display == :flags
+          if (display == :flags) || (display == :allflags)
             c+= "<li class='locale #{l}'><a href='#{link || page.hreflang_link(l) || u}'>#{image_tag("flags/" + l + ".png", :alt => "locale #{l}")}</a></li>".html_safe
           elsif display == :text
             c+= "<li class='locale #{l}'><a href='#{link || page.hreflang_link(l) || u}'>#{I18n.t(l)}</a></li>".html_safe

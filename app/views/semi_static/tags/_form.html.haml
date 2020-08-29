@@ -201,7 +201,7 @@
                 If you select an Entry that is part of this Tag then you will by default have the same Entry listed in the sidebar menu and the Entry page itself will be the canonical page.
               %p
                 If select an Entry then then most fields on this page, eg. 'Max entries on index page, CSS colors, etc', will have no effect. The SEO setting will also not be taken from here, but from the selected Entry SEO settings. An alternate way to achieve a similar effect but will be to have only one Entry for this Tag and set the 'link_to_tag' attribute, this will then mean that SEO settings will be taken from the this Tag.
-            = labeled_selectbox f, :use_entry_as_index_id, options_for_select(SemiStatic::Entry.unmerged.locale(@tag.locale).reorder(:title).collect{|e| [entry_title_or_id(e), e.id]}.prepend(['- None -', nil]), @tag.use_entry_as_index_id), 'Entry as Tag index', :entry_as_index_info
+            = labeled_selectbox f, :use_entry_as_index_id, options_for_select(SemiStatic::Entry.unmerged.locale(@tag.locale).reorder(:title).collect{|e| ["#{e.id}: #{entry_title_or_id(e)}", e.id]}.prepend(['- None -', nil]), @tag.use_entry_as_index_id), 'Entry as Tag index', :entry_as_index_info
           
       .tile
         .tile-body
