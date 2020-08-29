@@ -39,7 +39,7 @@
 
 
 - if @entry.partial_before_entries?
-  = render :partial => @entry.partial_path
+  = render :partial => @entry.partial_path, :locals => {:e => @entry}
 - if @entry.show_entries?
   .section
     .col{:class => ('span_2_of_3 main-col' if @entry.side_bar)}
@@ -57,4 +57,4 @@
           = render :partial => 'semi_static/tags/side_bar', :locals => {:entrytag => @entry.tag}
 
 - if @entry.partial_after_entries?
-  = render :partial => @entry.partial_path
+  = render :partial => @entry.partial_path, :locals => {:e => @entry}

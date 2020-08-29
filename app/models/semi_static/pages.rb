@@ -14,7 +14,7 @@ module SemiStatic
     end
 
     def get_page_attr(k)
-      self.page_attrs.find_by_attr_key(k) && self.page_attrs.find_by_attr_key(k).attr_value
+      self.page_attrs.find_by_attr_key(k)&.attr_value
     end
 
     # Get a link to the equivalent alternate page in the given locale. If root is set and no alternate page is found

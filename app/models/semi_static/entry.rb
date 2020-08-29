@@ -175,7 +175,11 @@ module SemiStatic
     end
 
     def reindex_entry
+      begin
       __elasticsearch__.index_document
+      rescue => e
+        self.notice = "WARNING: Elastic Search indexing responded: #{e}"
+      end
     end
 
     def as_indexed_json(options={})

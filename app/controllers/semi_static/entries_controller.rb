@@ -196,10 +196,9 @@
       else
         @entry = Entry.new(entry_params)
       end
+
       respond_to do |format|
-        if params[:preview]
-          format.js { render 'preview'}
-        elsif params[:convert]
+        if params[:convert]
           format.js { render 'convert'}
         elsif @entry.save
           expire_page_cache(@entry)
