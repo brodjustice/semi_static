@@ -274,14 +274,16 @@ module SemiStatic
 
     # This allows us to deal with images that are smaller than expected. We set the max-width inline according
     # to the uploaded file size. This then stops the image from being displayed larger than the origional.
-    def image_with_style(e, style, max_width, popup=true)
+    def image_with_style(e, style, max_width, popup=true, use_alt_img=false)
       alt = e.img&.original_filename&.split('.')&.first&.humanize
       if popup && e.image_popup
         c = "<a class='popable' onclick=\'semiStaticAJAX(\"#{entry_path(e, {:format => :js, :popup => true})}\")\; return false;' href='#'> ".html_safe
       else
         c = ''
       end
-      if max_width
+      if use_alt_img
+        c += image_tag(e.alt_img.url, :alt => alt).html_safe
+      elsif max_width
         c += image_tag(e.img_url_for_theme(style), :style => "max-width: #{max_width.to_s + 'px'};", :alt => alt).html_safe
       elsif !e.img_dimensions.blank?
         #
@@ -304,12 +306,12 @@ module SemiStatic
 
     # Build nice html for a semantic (rich snippet) image. Can deal with different
     # style etc.
-    def semantic_entry_image(e, style, max_width=nil, popup=true)
+    def semantic_entry_image(e, style, max_width=nil, popup=true, use_alt_img=false)
       c = '<figure vocab = "http://schema.org/" typeof="ImageObject"> '.html_safe
       sc = e.raw_title.blank? ? e.image_caption : e.raw_title
       c += "<meta  property='name' content='#{sc}'> ".html_safe
       c += "<div class='#{style.to_s} image_wrapper'>".html_safe
-      c += image_with_style(e, style, max_width, popup)
+      c += image_with_style(e, style, max_width, popup, use_alt_img)
       c += '</div>'.html_safe
       unless e.image_caption.blank? || style == :home
         c += "<figcaption class='caption'> <div class='caption-inner' property='description'>#{e.image_caption}</div> </figcaption> ".html_safe
