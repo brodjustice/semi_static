@@ -66,27 +66,33 @@ module SemiStatic
     # GET /photos/1.json
     def show
       template = 'semi_static/photos/show'
-      unless params[:popup].present?
-        @photo = Photo.not_hidden.find(params[:id])
-        @selection = 'Gallery'
-        @title = @photo.title
+      @photo = Photo.find(params[:id])
+      unless @photo.hidden
+        if params[:popup].present?
+          #
+          # Popups and carousels can be in none 'public' or 'hidden' galleries, even
+          # though such photos are not protected by authetication and the webserver
+          # will display them if you have the specific URL. So likewise if
+          # the popup param is present just send the photo js anyway regardless
+          # if it is public.
+          #
+          @photo = Photo.find(params[:id])
+          @pixel_ratio = params[:pratio].to_i || 1
+          @popup_style = popup_style(@photo, @pixel_ratio)
+          @caption = @photo.description
+          template = "semi_static/photos/popup"
+        else
+          @selection = 'Gallery'
+          @title = @photo.title
+        end
+  
+        if !params[:popup].present? || @photo.carousel
+          @previous, @next = @photo.neighbour_ids
+          @previous = Photo.find(@previous)
+          @next = Photo.find(@next)
+        end
       else
-        #
-        # Popups can be in none 'public' or 'hidden' galleries, even though such
-        # photos are not protected by authetication and the webserver
-        # will display them if you have the specific URL
-        #
-        @photo = Photo.find(params[:id])
-        @pixel_ratio = params[:pratio].to_i || 1
-        @popup_style = popup_style(@photo, @pixel_ratio)
-        @caption = @photo.description
-        template = "semi_static/photos/popup"
-      end
-
-      if !params[:popup].present? || @photo.carousel
-        @previous, @next = @photo.neighbour_ids
-        @previous = Photo.find(@previous)
-        @next = Photo.find(@next)
+        raise ActiveRecord::RecordNotFound
       end
   
       layout = (semi_static_admin? ? 'semi_static_dashboards' : 'semi_static_full')

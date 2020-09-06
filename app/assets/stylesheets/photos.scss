@@ -2,6 +2,9 @@
 @keyframes fadein {0%{opacity:0.0;}100%{opacity:1.0;}}
 
 #semi_static_ajax_photo{position:relative;min-height: 240px;}
+#semi_static_photo h1,
+#semi_static_photo h2{font-size: 22px;}
+#semi_static_photo h2 a{border-bottom: none;}
 #semi_static_ajax_photo h2{min-height:32px;}
 #semi_static_ajax_photo .popable::after{top:-7px;}
 .photo figure img{

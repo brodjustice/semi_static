@@ -55,7 +55,6 @@ module SemiStatic
     scope :not_invisible, -> {where('gallery_control != ?', GALLERY_SYM[:invisible])}
 
     # Scope is to select all visible photos from all galleries that are visible
-    # scope :visible, joins(:gallery).where('semi_static_galleries.public = ?', true).where('hidden = ?', false)
     scope :visible, -> {joins(:gallery).where('semi_static_galleries.public = ?', true).where('hidden = ?', false)}
 
     # Scope ignores if gallery is visible and looks only at photo hidden attribute
@@ -107,6 +106,10 @@ module SemiStatic
       rescue Faraday::ConnectionFailed => e
         self.notice = "WARNING: Elastic Search indexing responded: #{e}"
       end
+    end
+
+    def public?
+      !self.hidden && self.gallery&.public
     end
 
     #

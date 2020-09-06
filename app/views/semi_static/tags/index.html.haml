@@ -34,6 +34,7 @@
                   %i.app-menu__icon.fa.fa-user
               %th{:title => 'Locale'}
                 %i.app-menu__icon.fa.fa-lang
+              %th{:title => 'Context URL'} cURL
               %th{:title => 'Position'}
                 %i.app-menu__icon.fa.fa-vertical
               %th{:title => 'Side bar'}
@@ -70,6 +71,8 @@
                   %td.tick
                     = image_tag('user.png', :title => 'Subscriber only content') if tag.subscriber
                 %td.number= tag.locale.to_s
+                %td.tick
+                  = image_tag('tick.png', :title => 'In menu') if tag.context_url
                 %td.number
                   - if tag.menu
                     = tag.position if tag.menu
