@@ -5,6 +5,7 @@ module SemiStatic
 
     require 'semi_static/general'
     include General
+    include EntriesHelper
 
     before_action :authenticate_for_semi_static!, :except => [ :show, :index ]
   
@@ -191,24 +192,5 @@ module SemiStatic
       params.fetch(:photo, {}).permit(:title, :description, :img, :home_page, :position,
         :entry_id, :gallery_id, :gallery_control, :locale, :popup, :carousel, :hidden)
     end
-
-    protected
-
-    # Derives an inline stype for double density popup image based on Photo(p) and pixel ratio (pr)
-    # The wierd thing is that the double density image is massively compressed, and is so not as
-    # not as many Mbytes as half width (1/4 of the area) version. However, because of the extra pixel
-    # density the image still renders better than the single density half width, 1/4 size, version
-    def popup_style(p, pr)
-      unless p.img_dimensions.blank?
-        pr = pr.round
-        @width = p.img_dimensions.first.to_i/2
-        @height = p.img_dimensions.last.to_i/2
-        url = ((pr > 1.5) ? @photo.img.url(:compressed) : @photo.img.url(:half))
-        "background-image: url(#{url}); background-size: #{@width}px #{@height}px; width:#{@width}px; height:#{@height}px;"
-      else
-        "background: url(#{p.img.url}) center center no-repeat; background-size: cover;"
-      end
-    end
-
   end
 end

@@ -5,6 +5,7 @@
 
     require 'semi_static/general'
     include General
+    include EntriesHelper
   
     before_action :authenticate_for_semi_static!,  :except => [ :show, :search ]
   
@@ -68,13 +69,18 @@
 
 
       #
-      # Is this an Entry request that actually just wants a popup of the Entry image?
+      # Is this an Entry request that actually just wants a popup of the Entry image or video?
       #
       if params[:popup].present?
-        @pixel_ratio = params[:pratio].to_i || 1
-        @popup_style = popup_style(@entry, @pixel_ratio)
-        @caption = @entry.image_caption
-        template = "semi_static/photos/popup"
+        if params[:video].present?
+          @popup_style = video_popup_style(@entry)
+          template = "semi_static/entries/video"
+        else
+          @pixel_ratio = params[:pratio].to_i || 1
+          @popup_style = popup_style(@entry, @pixel_ratio)
+          @caption = @entry.image_caption
+          template = "semi_static/photos/popup"
+        end
       else
         #
         # Check if this is an entry that needs a redirect. This sort of functionality is replicated in the site_helper
@@ -258,26 +264,6 @@
       respond_to do |format|
         format.html { redirect_to tag_entries_url(@tag) }
         format.json { head :no_content }
-      end
-    end
-
-    protected
-
-    # Derives the inline type for double density popup image based on Photo(p) and pixel ratio (pr)
-    # The wierd thing is that the double density image is massively compressed, and is so not as
-    # not as many Mbytes as half width (1/4 of the area) version. However, because of the extra pixel
-    # density the image still renders better than the single density half width, 1/4 size, version
-    #
-    # TODO: This is also used in photos_controller, refactor into lib
-    def popup_style(e, pr)
-      unless e.img_dimensions.blank?
-        pr = pr.round
-        @width = e.img_dimensions.first.to_i/2
-        @height = e.img_dimensions.last.to_i/2
-        url = ((pr > 1.5) ? e.img.url(:compressed) : e.img.url(:half))
-        "background-image: url(#{url}); background-size: #{@width}px #{@height}px; width:#{@width}px; height:#{@height}px;"
-      else
-        "background: url(#{e.img.url}) center center no-repeat; background-size: cover;"
       end
     end
 

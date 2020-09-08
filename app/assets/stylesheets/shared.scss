@@ -150,15 +150,23 @@
 // DD photo dialog and stuff...
 .popped{
   max-width: 90%;max-height:90%;display:block;position:fixed; background-repeat: no-repeat; background-attachment: local;
-  overflow: auto; z-index:2000; left:0; right:0; top:0; bottom:0; margin: auto;
+  overflow: visible; z-index:2000; left:0; right:0; top:0; bottom:0; margin: auto;
   box-sizing: content-box;
 }
+#dialog.video_popup{max-width: 80%; width: 640px; overflow: visible; overflow-y: visible;}
+#dialog.video_popup .yt_video{overflow: hidden;}
+#dialog .video_caption{width: 100%; height: 32px; text-align: center;}
 #popoff{
   background-color: transparent; width: 100%; height:auto;; cursor:pointer;
   touch-action: manipulation;
 }
 #popoffInner{top:0; bottom: 0; left: 0; right: 0; position: absolute;}
 .popped:hover #popup_caption{opacity: 0.0;}
+#dialog #popupCloseButton {
+  font-size: 32px; border-radius: 50%; border: 2px solid white; color: white; background-color: black;
+  position: absolute; width: 28px; top: -18px; right: -18px; text-align: center; height: 28px; line-height: 32px;
+  cursor: pointer;
+}
 #semiStaticCright, #semiStaticCleft{z-index: 3000; position: absolute; width: 100px; top: 0; bottom: 0; color: transparent;}
 #semiStaticCright{right: 0px;}
 #semiStaticCright:after{content: '>'; right: 20px;}

@@ -1,0 +1,8 @@
+var d = document.getElementById('dialog');
+d.className = 'popped video_popup';
+d.setAttribute("style", "display: block; #{@popup_style}");
+document.getElementById('body-inner').style.opacity = '0.3';
+!= "d.innerHTML=('#{escape_javascript(render :partial => 'semi_static/entries/video')}');"
+document.getElementById('body-inner').addEventListener('click', semiStaticPopOff, true);
+document.getElementById('popupCloseButton').addEventListener('click', semiStaticPopOff, true);
+

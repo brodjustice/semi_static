@@ -151,5 +151,29 @@ module SemiStatic
       c += '</div>'
       c.html_safe
     end
+
+    # Alpha version
+    def video_popup_style(e)
+      # "height: #{@entry.get_page_attr('youTubeVideoHeight') || '360px'}"
+      'height: auto;'
+    end
+
+    #
+    # Derives the inline type for double density popup image based on Photo(p) and pixel ratio (pr)
+    # The weird thing is that the double density image is massively compressed, and so is not as
+    # not as many Mbytes as half width (1/4 of the area) version. However, because of the extra pixel
+    # density the image still renders better than the single density half width, 1/4 size, version
+    #
+    def popup_style(e, pr)
+      unless e.img_dimensions.blank?
+        pr = pr.round
+        @width = e.img_dimensions.first.to_i/2
+        @height = e.img_dimensions.last.to_i/2
+        url = ((pr > 1.5) ? e.img.url(:compressed) : e.img.url(:half))
+        "background-image: url(#{url}); background-size: cover; background-position: center center; width:#{@width}px; height:#{@height}px;"
+      else
+        "background: url(#{e.img.url}) center center no-repeat; background-size: cover;"
+      end
+    end
   end
 end
