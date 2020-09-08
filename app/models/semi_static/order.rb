@@ -27,7 +27,6 @@ module SemiStatic
       state :card_payment_pending do
         validates_presence_of :customer_id
       end
-      state :payment_pending
       state :paid do
         # Would need to clear the cart cookie, but this is
         # something we do in the controller.
