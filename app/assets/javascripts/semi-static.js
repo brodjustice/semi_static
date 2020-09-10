@@ -15,6 +15,7 @@ function semiStaticPopOff(){
   var d=document.getElementById("dialog");
   d.className = d.className.replace(/^popped$/, "\\");
   d.style.display="none";
+  d.innerHTML = '';
   document.getElementById("body-inner").style.opacity="1.0";
 }
 

@@ -1,5 +1,5 @@
 #popupCloseButton
   &Cross;
-= youtube_video(@entry.youtube_id_str, @entry.get_page_attr('youTubeVideoWidth'), @entry.get_page_attr('youTubeVideoHeight'), @entry.get_page_attr('youTubeVideoControls'), @entry.get_page_attr('youTubeVideoLoading'))
+= youtube_video(@entry.youtube_id_str, @entry.get_page_attr('youTubeVideoWidth'), @entry.get_page_attr('youTubeVideoHeight'), @entry.get_page_attr('youTubeVideoControls'), 'eager', true)
 .video_caption
   = @entry.title
