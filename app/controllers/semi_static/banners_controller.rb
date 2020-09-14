@@ -24,7 +24,7 @@ module SemiStatic
     # GET /banners/1
     # GET /banners/1.json
     def show
-      @banner = Banner.find_by_id(params[:id])
+      @banner = Banner.find_by(:id => params[:id])
   
       respond_to do |format|
         format.html # show.html.erb

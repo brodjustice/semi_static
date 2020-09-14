@@ -148,7 +148,7 @@ module SemiStatic
     #
     def entries_for_navigation
       if (nav_entry_ids = self.get_page_attr('sideBarNavEntries')).present?
-        nav_entry_ids.split(',').collect{|e| SemiStatic::Entry.find_by_id(e)}.reject(&:blank?)
+        nav_entry_ids.split(',').collect{|e| SemiStatic::Entry.find_by(:id => e)}.reject(&:blank?)
       else
         self.entries.unmerged
       end

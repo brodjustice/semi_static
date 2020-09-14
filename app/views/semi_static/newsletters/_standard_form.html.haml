@@ -27,7 +27,7 @@
         = select_tag 'prepend', options_for_select(SemiStatic::Entry.all.collect{|e| [e.explicit_title(true), e.id]}.prepend(['- None -', nil])), :name => 'entry[prepend]'
 
       - @newsletter.draft_entry_ids.each do |id| 
-        - e = SemiStatic::Entry.find_by_id(id)
+        - e = SemiStatic::Entry.find_by(:id => id)
         - next if e.nil?
         .panel.entry.flat
           = render :partial => 'semi_static/entries/entry', :locals => {:e => e}

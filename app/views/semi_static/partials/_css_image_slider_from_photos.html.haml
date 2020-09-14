@@ -23,7 +23,7 @@
 - sliderNavDotColor = (e.get_page_attr('sliderNavDotColor') || 'rgba(0, 0, 0, 0.6)')
 - sliderCaptions = e.get_page_attr('sliderCaptions')
 - outerMargin = sliderCaptions.present? ? '82px' : '0'
-- if (basePhoto = SemiStatic::Photo.find_by_id(e.get_page_attr('sliderPhotoId0')))
+- if (basePhoto = SemiStatic::Photo.find_by(:id => e.get_page_attr('sliderPhotoId0')))
   - basePhoto = basePhoto.img.url(:big)
 
 - content_for :header_css do
@@ -119,7 +119,7 @@
       = image_tag(basePhoto)
     %ul.slides
       - sliderSlideCount.times do |c|
-        - p = SemiStatic::Photo.find_by_id(e.get_page_attr("sliderPhotoId#{c}"))
+        - p = SemiStatic::Photo.find_by(:id => e.get_page_attr("sliderPhotoId#{c}"))
         - if c == 0
           <input type="radio" name="radio-btn" id="img-#{c}" checked />
         - else

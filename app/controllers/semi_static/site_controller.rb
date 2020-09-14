@@ -14,8 +14,9 @@ module SemiStatic
 
     def show
       @selection = 'Home'
-      content = VIEWS.keys.include?(params[:content]) && params[:content]
-      @tag, @seo = Seo.root(params[:tag_id], I18n.locale, content.humanize)
+      params[:content] ||= 'home'
+      content = (VIEWS.keys.include?(params[:content]) && params[:content]) || nil
+      @tag, @seo = Seo.root(params[:tag_id], I18n.locale, content&.humanize)
       @summaries = true
 
       # Work out what image (if any) "style" should be applied. Check if PageAttr imageStyle provided

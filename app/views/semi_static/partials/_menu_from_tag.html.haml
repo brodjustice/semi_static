@@ -3,7 +3,7 @@
 -# In addition, if there is an attribute 'contact_form_in_sidebar' it will display a
 -# contact form in the sidebar
 
-- if (tag_id = @entry.get_page_attr(:sidebar_tag_id)).present?  && (tag = SemiStatic::Tag.find_by_id(tag_id)).present?
+- if (tag_id = @entry.get_page_attr(:sidebar_tag_id)).present?  && (tag = SemiStatic::Tag.find_by(:id => tag_id)).present?
   %aside
     .panel.list
       %nav

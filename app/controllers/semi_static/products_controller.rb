@@ -29,7 +29,7 @@ module SemiStatic
     def show
       # The AJAX call may not include a valid product id, the id is
       # part of the HTML in the page
-      @product = Product.find_by_id(params[:id])
+      @product = Product.find_by(:id => params[:id])
 
       # order_item is only needed for the AJAX call for an add-to-cart button
       @order_item = current_order.order_items.build

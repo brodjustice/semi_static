@@ -33,10 +33,10 @@ module SemiStatic
             template = 'semi_static/photos/admin_list_index'
           else
             # Admin wants a list of photos from a specific Gallery
-            @obj = @gallery = Gallery.find_by_id(params[:gallery_id])
+            @obj = @gallery = Gallery.find_by(:id => params[:gallery_id])
           end
         else
-          @obj = @gallery = Gallery.visible.find_by_id(params[:gallery_id])
+          @obj = @gallery = Gallery.visible.find_by(id => params[:gallery_id])
         end
         @photos ||= @obj.photos
       elsif params[:tag_id].present?

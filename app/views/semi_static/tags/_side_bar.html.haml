@@ -15,7 +15,7 @@
               - unless st.blank?
                 .semiStaticSubMenuHeader= st
               - menuHash.values.first[st].each do |e_id|
-                - entry_from_hash = SemiStatic::Entry.find_by_id(e_id)
+                - entry_from_hash = SemiStatic::Entry.find_by(:id => e_id)
                 - next unless entry_from_hash
                 %h3
                   = link_to entry_from_hash.title, entry_link(entry_from_hash)

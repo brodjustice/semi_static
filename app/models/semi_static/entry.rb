@@ -319,7 +319,7 @@ module SemiStatic
     end
 
     def dup_master_id_photos
-      unless (e = Entry.find_by_id(self.master_entry_id)).blank?
+      unless (e = Entry.find_by(:id => self.master_entry_id)).blank?
         e.photos.each{|p|
           photo = p.tidy_dup
           photo.locale = self.locale

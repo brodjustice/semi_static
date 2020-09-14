@@ -3,6 +3,8 @@ SemiStatic::Engine.routes.draw do
     get code, :to => "errors#show", :code => code
   end
 
+  root :to => 'site#show', :as => 'home', :via => :get
+
   #
   # For Tags that put their name in the url ("context_urls").
   #
@@ -76,10 +78,7 @@ SemiStatic::Engine.routes.draw do
   # Special route, normally only used by the webserver to get CSRF tags
   get '/site/csrf_meta_tags' => 'site#csrf_meta_tags'
 
-  get '/site/home', to: redirect('/')
-  get '/site/:content' => 'site#show', :as => 'site', :defaults => {:content => 'home'}
-
-  root :to => 'site#show', :as => 'home', :via => :get, :defaults => { :content => 'home' }
+  get '/site/:content' => 'site#show', :as => 'site'
 
   get "site/show"
 

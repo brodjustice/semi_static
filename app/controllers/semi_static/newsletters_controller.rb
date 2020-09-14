@@ -51,10 +51,10 @@ module SemiStatic
         template = 'list_entries'
       elsif params[:select_entry]
         template = 'select_entry'
-        @entry = Entry.find_by_id(params[:select_entry])
+        @entry = Entry.find_by(:id => params[:select_entry])
         @entries = Entry.unscoped.order(:locale, :tag_id, :position)
       elsif params[:select_layout]
-        @entry = Entry.find_by_id(params[:select_layout])
+        @entry = Entry.find_by(:id => params[:select_layout])
         template = 'select_layout'
       elsif params[:remove]
         @newsletter.remove_entry_id(params[:remove])
@@ -66,14 +66,14 @@ module SemiStatic
         template = 'sender_address'
       elsif params[:newsletter_img]
         template = 'newsletter_img'
-        @entry = Entry.find_by_id(params[:newsletter_img])
+        @entry = Entry.find_by(:id => params[:newsletter_img])
       elsif params[:newsletter_img_updated]
         @newsletter.use_newsletter_img(params[:newsletter_img_updated])
       elsif params[:salutation]
         template = 'salutation'
       elsif params[:swap_image]
         template = @newsletter.swap_entry_image(params[:swap_image].to_i).nil? ? 'select_image' : 'swap_image'
-        @entry = Entry.find_by_id(params[:swap_image])
+        @entry = Entry.find_by(:id => params[:swap_image])
       elsif params[:header]
         template = 'header'
       end
@@ -120,7 +120,7 @@ module SemiStatic
             @newsletter.set_layout(params[:entry][:id], params[:entry][:layout])
             format.html { render action: "edit" }
           elsif params[:insert_newsletter_img].present?
-            @entry = Entry.find_by_id(params[:entry_id])
+            @entry = Entry.find_by(:id => params[:entry_id])
           elsif params[:remove_pending].present?
             @newsletter.remove_pending
             @subscribers = Subscriber.subscribed.where('locale = ?', @newsletter.locale)

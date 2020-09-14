@@ -13,7 +13,7 @@ function semiStaticGetPR(){ var pr; try {pr=window.devicePixelRatio} catch(err){
 // Cause a click anywhere to remove photo popup dialog
 function semiStaticPopOff(){
   var d=document.getElementById("dialog");
-  d.className = d.className.replace(/^popped$/, "\\");
+  d.className = '';
   d.style.display="none";
   d.innerHTML = '';
   document.getElementById("body-inner").style.opacity="1.0";

@@ -93,10 +93,10 @@ module SemiStatic
 
     def self.find_special(tag_id, locale, name)
       if tag_id
-        tag = Tag.find_by_id(tag_id)
+        tag = Tag.find_by(:id => tag_id)
       else
         # See TagsHelper for Predefined Tags
-        tag = Tag.where('predefined_class = ?', name).where('locale = ?', locale).first || Tag.find_by_name(name)
+        tag = Tag.where('predefined_class = ?', name).where('locale = ?', locale).first || Tag.find_by(:name => name)
       end
       [tag, tag.nil? ? nil : tag.seo]
     end
