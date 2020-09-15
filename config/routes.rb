@@ -67,7 +67,14 @@ SemiStatic::Engine.routes.draw do
   # With this you can set the Tag URL's. By default in english it is "features", the URL above would no be
   #   /features/blog
   # see config/initializers/semi_static.rb
-  get "/#{SemiStatic::Engine.config.tag_paths[I18n.locale.to_s] || 'features'}/:slug" => 'tags#show', :as => 'feature'
+  #
+  # We create the routes for all the different locales while the "features_path" helper creates the
+  # correct url in the webpage itself depending on the locale. Currently that means that all 
+  # the locale versions of the website will respond to all the urls in SemiStatic::Engine.config.tag_paths which
+  # is probably not optimal, so maybe redirect or raise error in TagsController?
+  SemiStatic::Engine.config.tag_paths.keys.each do |l|
+    get "/#{SemiStatic::Engine.config.tag_paths[l]}/:slug" => 'tags#show', :as => "#{l}_features"
+  end
 
   get "/page-attributes/index" => 'page_attrs#index', :as => 'page_attrs'
   delete "/page-attribute/:id" => 'page_attrs#destroy', :as => 'page_attr'
