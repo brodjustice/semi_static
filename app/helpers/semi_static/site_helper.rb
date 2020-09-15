@@ -129,7 +129,7 @@ module SemiStatic
 
     # Work out the correct path depending on locale
     def feature_path(slug, options = {})
-      send("#{I18n.locale.to_s}_features_path", slug, options)
+      SemiStatic::Engine.routes.url_helpers.send("#{I18n.locale.to_s}_features_path", slug, options)
     end
 
     # For GET you should call this rather than feature_path so that
