@@ -76,7 +76,7 @@ module SemiStatic
 
       if intended_entry.acts_as_tag.present?
         # SemiStatic::Engine.routes.url_helpers.feature_path(intended_entry.acts_as_tag.slug, options)
-        features_path(intended_entry.acts_as_tag.slug, options)
+        feature_path(intended_entry.acts_as_tag.slug, options)
       elsif intended_entry.tag.context_url
         #
         # Get URL in the form "/entries/abcdefg..." and sub the 1st instance of "entries", which will always
