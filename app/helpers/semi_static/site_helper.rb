@@ -126,14 +126,19 @@ module SemiStatic
       entry_path(intended_entry, options)
     end
 
+    # Work out the correct path depending on locale
+    def feature_path(slug, options = {})
+      send("#{I18n.locale.to_s}_features_path", slug, options)
+    end
+
     # For GET you should call this rather than feature_path so that
-    # and Tags with use_entry_as_index will get mapped to the correct
+    # any Tags with use_entry_as_index will get mapped to the correct
     # url
     def tag_link(t, options = {})
       if t.use_entry_as_index
         entry_link(t.use_entry_as_index, options)
       else
-        semi_static.feature_path(t.slug)
+        feature_path(t.slug)
       end
     end
 
@@ -195,9 +200,9 @@ module SemiStatic
     #
     def menu_from_tag(t)
       if t.menu && t.target_tag.present?
-        [(t.target_tag.predefined_class.blank? ? semi_static.feature_path(t.target_tag.slug) : predefined_tags[t.target_tag.predefined_class]), '#', t.target_name].join
+        [(t.target_tag.predefined_class.blank? ? feature_path(t.target_tag.slug) : predefined_tags[t.target_tag.predefined_class]), '#', t.target_name].join
       else
-        predefined_tags[t.predefined_class] || semi_static.feature_path(t.slug)
+        predefined_tags[t.predefined_class] || feature_path(t.slug)
       end
     end
 
