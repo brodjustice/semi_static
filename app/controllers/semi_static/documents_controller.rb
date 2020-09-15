@@ -5,7 +5,8 @@
 
     include SemiStatic::DocumentConcern
 
-    caches_page :index
+    # TMP: Removed in this branch
+    # caches_page :index
 
     layout 'semi_static_application'
 

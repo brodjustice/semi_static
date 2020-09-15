@@ -4,7 +4,8 @@ module SemiStatic
   class ReferencesController < ApplicationController
     before_action :authenticate_for_semi_static!, :only => [ :create, :update, :destroy ]
   
-    caches_page :show
+    # TMP: Removed in this branch
+    # caches_page :show
 
     layout 'semi_static_dashboards'
   

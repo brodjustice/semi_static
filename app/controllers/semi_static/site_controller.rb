@@ -4,7 +4,8 @@ module SemiStatic
 
   class SiteController < ApplicationController
 
-    caches_page :show
+    # TMP: Removed in this branch
+    # caches_page :show
 
     VIEWS = {
       'home' => 'semi_static_home',

@@ -15,7 +15,10 @@
     # page cache to a after_filter like this
     #   after_filter(:only => :show) { |c| c.cache_page if cachable_content?}
     # But then we also don't cache subsriber content or ajax requests (to the entry image):
-    caches_page :show, :if => Proc.new { |c| !c.request.format.js? && cachable_content? }
+    #
+    # TMP: Removed in this branch for testing
+    #
+    # caches_page :show, :if => Proc.new { |c| !c.request.format.js? && cachable_content? }
   
     layout 'semi_static_dashboards'
   

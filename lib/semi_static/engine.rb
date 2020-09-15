@@ -8,7 +8,7 @@ module SemiStatic
     require 'haml'
     require 'jquery-rails'
     require 'jquery-ui-rails'
-    require 'actionpack/page_caching'
+    # require 'actionpack/page_caching'
     require 'kaminari'
 
 

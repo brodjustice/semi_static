@@ -8,7 +8,8 @@
     before_action :authenticate_for_semi_static!, :except => :show
     before_action :authenticate_semi_static_subscriber!,  :only => [ :show ]
 
-    caches_page :show, :if => Proc.new { |c| !c.request.format.js? && cachable_content? }
+    # TMP: removed in this branch
+    # caches_page :show, :if => Proc.new { |c| !c.request.format.js? && cachable_content? }
   
     layout 'semi_static_dashboards'
 
