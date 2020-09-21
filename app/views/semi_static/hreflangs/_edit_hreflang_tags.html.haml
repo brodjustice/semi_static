@@ -1,0 +1,6 @@
+.modal-header
+  %h5= "hreflang equiv for Tag: #{@tag.raw_title}"
+  = modal_close
+.modal-body
+  %h5= ['locale:', @tag.locale.to_s].join(' ')
+  = render 'hreflang_tags_form'

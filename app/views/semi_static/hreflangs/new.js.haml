@@ -2,3 +2,15 @@
 != "$(\"#generalModal .modal-content\").html('#{escape_javascript(render :partial => 'semi_static/hreflangs/new')}');"
 != "$(\"#generalModal\").modal();"
 
+:plain
+  function fill_url_input(){
+    document.getElementById('hreflang_href').value = this.innerHTML;
+    document.getElementById('hreflang_locale').value = this.dataset.locale;
+  }
+  
+  var elements = document.querySelectorAll('.href_equiv_path');
+  Array.prototype.forEach.call(elements, function(el, i){
+    el.addEventListener('click', fill_url_input); 
+  });
+
+

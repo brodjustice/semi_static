@@ -6,7 +6,26 @@
         - @hreflang.errors.full_messages.each do |msg|
           %li= msg
 
-  = labeled_selectbox(f, :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @hreflang.locale))
+  - if @seo.seoable.tag.href_equiv_tags.present?
+    %table.table.sortable.table-bordered.table-hover
+      %thead
+        %tr
+          %th
+            %i.app-menu__icon.fa.fa-lang
+          %th Title
+          %th URL
+
+      %tbody
+        - @seo.seoable.tag.href_equiv_tags.each do |t|
+          - t.entries.unmerged.each do |e|
+            %tr.entry_select_options{:class => e.locale, :entry_id => "entry_id_#{e.id}"}
+              %td= e.locale
+              %td= e.title
+              %td{:title => "#{SemiStatic::Engine.config.localeDomains[e.locale]}#{entry_path(e)}"}
+                .btn.btn-primary.btn-sm.href_equiv_path{:data => {:locale => "#{e.locale}"}}
+                  = "#{SemiStatic::Engine.config.localeDomains[e.locale]}#{entry_path(e)}"
+
+  = labeled_selectbox(f, :locale, options_for_select((I18n.available_locales - [@seo.seoable.locale.to_sym]).collect{|l| [l, l]}, @hreflang.locale))
   = labeled_textfield(f, :href, 'URL')
 
   .row

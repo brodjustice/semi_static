@@ -70,7 +70,8 @@
                 - if SemiStatic::Engine.config.try('subscribers_model')
                   %td.tick
                     = image_tag('user.png', :title => 'Subscriber only content') if tag.subscriber
-                %td.number= tag.locale.to_s
+                %td.number
+                  = "#{tag.locale.to_s} (#{tag.href_equiv_tags.size})"
                 %td.tick
                   = image_tag('tick.png', :title => 'In menu') if tag.context_url
                 %td.number

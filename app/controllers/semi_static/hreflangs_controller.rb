@@ -30,8 +30,20 @@ module SemiStatic
   
     # GET /hreflangs/1/edit
     def edit
-      @seo = Seo.find(params[:seo_id])
-      @hreflang = Hreflang.find(params[:id])
+      if params[:tag_id].present?
+        # 
+        # This is not going to actually change the Seo, rather it will
+        # offer to select the equivalant lang SemiStatic::Tag. This is
+        # done directly in the Tag model, no Seo model is required at
+        # this point.
+        #
+        @tag = Tag.find(params[:tag_id])
+        @html_template = 'semi_static/hreflangs/edit_hreflang_tags'
+      else
+        @seo = Seo.find(params[:seo_id])
+        @hreflang = Hreflang.find(params[:id])
+        @html_template = 'semi_static/hreflangs/edit'
+      end
 
       respond_to do |format|
         format.html
@@ -44,7 +56,7 @@ module SemiStatic
     def create
       @seo = Seo.find(params[:seo_id])
       @hreflang = @seo.hreflangs.new(hreflang_params)
-  
+
       respond_to do |format|
         if @hreflang.save
           format.html { redirect_to seos_path(), notice: 'Hreflang was successfully created.' }

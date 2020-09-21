@@ -31,6 +31,10 @@ module SemiStatic
     has_many :displays_as_side_bar, :foreign_key => :side_bar_tag_id, :class_name => 'SemiStatic::Tag'
     belongs_to :side_bar_tag, :foreign_key => :side_bar_tag_id, :class_name => 'SemiStatic::Tag', :optional => true
 
+    has_and_belongs_to_many :href_equiv_tags, :join_table => :semi_static_tag_hreflang_tags,
+      :class_name => 'SemiStatic::Tag', :association_foreign_key => :href_tag_id,
+      :before_add => :check_href_equiv_tags
+
     validates :name, :uniqueness => {:scope => :locale}
 
     # scope :menu, where('menu = ?', true)
@@ -95,6 +99,21 @@ module SemiStatic
     def title; name end
     def raw_title; name end
     def tag; self end
+
+    def hreflang_tag_options
+      Tag.where.not(:locale => (self.href_equiv_tags.map(&:locale) + [self.locale]))
+    end
+
+    #
+    # The following should bńever happen, but jus in case...
+    #
+    def check_href_equiv_tags(tag)
+      # errors.add(:base, "Hreflang equiv for #{tag.locale} already present")
+      self.href_equiv_tags.collect{|t| t.locale }.include?(tag.locale) && raise(ActiveRecord::Rollback)
+
+      # errors.add(:base, "Hreflang equiv is itself!")
+      (tag == self) && raise(ActiveRecord::Rollback)
+    end
 
     # This is just a scope, but if we define it as a scope it will break the migration since
     # it is called from config/routes.rb before the migration is complete

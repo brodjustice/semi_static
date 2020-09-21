@@ -1,0 +1,33 @@
+= form_for(@tag) do |f|
+  - if @tag.errors.any?
+    #error_explanation
+      %h2= pluralize(@tag.errors.count, "error") + ' prohibited this Tag from being saved:'
+      %ul
+        - @tag.errors.full_messages.each do |msg|
+          %li= msg
+
+  - if @tag.href_equiv_tags.present?
+    %table.table.sortable.table-bordered.table-hover
+      %thead
+        %tr
+          %th 
+            %i.app-menu__icon.fa.fa-lang
+          %th  Name
+          %th.right
+            %i.app-menu__icon.fa.fa-delete
+      %tbody
+        - @tag.href_equiv_tags.each do |t|
+          %tr
+            %td= t.locale
+            %td= t.raw_title
+            %td
+              = link_to tag_path(@tag, :params => {:href_equiv_tag_ids => (@tag.href_equiv_tag_ids - [t.id.to_i])}), :method => :put, :return => edit_tag_path(@tag) do
+                %i.app-menu__icon.fa.fa-delete
+
+  .input-group-prepend
+    %span.input-group-text hreflang equiv Tag
+    = select_tag :href_lang_tag, options_for_select(@tag.hreflang_tag_options.collect{|t| [t.title, t.id]}.prepend(["- None -", nil])), {:class => 'form-control'}
+  
+  .row
+    .col-md-12.mt-3
+      = f.submit 'Save', :class => 'btn btn-primary'

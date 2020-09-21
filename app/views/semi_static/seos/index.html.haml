@@ -28,11 +28,12 @@
               %i.app-menu__icon.fa.fa-lang
             %th= 'Description'
             %th= 'Title'
-            %th= 'Keywords'
+            -# %th= 'Keywords'
             %th= 'Page'
             %th{:title => 'Master'}= 'M'
             %th= 'No Index'
-            %th{:title => 'Hreflang'}= image_tag("/assets/flags/#{session[:locale].to_s}.png", :title => 'Hreflang')
+            %th{:title => 'Hreflang'}
+              %i.app-menu__icon.fa.fa-lang
             %th{:title => 'Last updated'}
               %i.app-menu__icon.fa.fa-date
             %th{:title => 'Edit'}
@@ -46,7 +47,7 @@
               %td= seo.locale.to_s
               %td= link_to (seo.description || image_tag('error.png', :title => 'Description is empty')), edit_seo_path(seo), :remote => true
               %td= link_to (seo.title || image_tag('error.png', :title => 'Title is empty')), edit_seo_path(seo), :remote => true
-              %td= link_to (seo.keywords || ' '), edit_seo_path(seo), :remote => true
+              -# %td= link_to (seo.keywords || ' '), edit_seo_path(seo), :remote => true
               %td
                 - if seo.seoable.nil?
                   = image_tag('error.png', :title => 'No Entry or Tag found')

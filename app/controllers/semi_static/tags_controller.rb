@@ -133,7 +133,7 @@
     # PUT /tags/1.json
     def update
       @tag = Tag.find(params[:id])
-  
+
       respond_to do |format|
         if @tag.update_attributes(tag_params)
           expire_page_cache(@tag)
@@ -161,13 +161,23 @@
 
     private
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # 
+    # The .merge(:href_lang_tag_ids => [params[:href_lang_tag]]) is for the form dialog in views/hreflangs which
+    # adds ony one more tag (normally no hidden attrs).
+    #
     def tag_params
       params.fetch(:tag, {}).permit(:name, :menu, :position, :icon, :icon_in_menu, :icon_delete, :sidebar_title,
         :predefined_class, :colour, :icon_resize, :locale, :max_entries_on_index_page,
         :banner_id, :partial, :entry_position, :tag_line, :subscriber, :sidebar_id,
         :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_tag_id, :layout_select,
-        :target_tag_id, :target_name, :context_url, :admin_only, :use_entry_as_index_id)
+        :target_tag_id, :target_name, :context_url, :admin_only, :use_entry_as_index_id, :href_equiv_tag_ids => [])
+        .merge(
+          if params[:href_lang_tag]
+            {:href_equiv_tag_ids => [params[:href_lang_tag]] + @tag.href_equiv_tag_ids}
+          else
+            {:href_equiv_tag_ids => params[:href_equiv_tag_ids]}
+          end
+        )
     end
 
     def cachable_content?
