@@ -75,7 +75,7 @@ module SemiStatic
       intended_entry.kind_of?(Integer) && (intended_entry = Entry.find(intended_entry))
 
       if intended_entry.acts_as_tag.present?
-        # SemiStatic::Engine.routes.url_helpers.feature_path(intended_entry.acts_as_tag.slug, options)
+        # SemiStatic::Engine.routes.url_helpers.features_path(intended_entry.acts_as_tag.slug, options)
         feature_path(intended_entry.acts_as_tag.slug, options)
       elsif intended_entry.tag.context_url
         #
@@ -106,10 +106,7 @@ module SemiStatic
         if options[:only_path] == false
           SemiStatic::Engine.routes.url_helpers.entry_url(intended_entry, options)
         else
-          # Mostly we can call super, but some gems like devise will steal the routes
-          # so we then need to explicity call the entry_path - which is a slower call
-          # but is the only way.
-          defined?(super) ? super(intended_entry, options) : SemiStatic::Engine.routes.url_helpers.entry_path(intended_entry, options)
+          SemiStatic::Engine.routes.url_helpers.entry_path(intended_entry, options)
         end
       end
     end
