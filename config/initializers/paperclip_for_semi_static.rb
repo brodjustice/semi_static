@@ -5,3 +5,10 @@ Paperclip::Attachment.default_options.merge!(
     :path => ":rails_root/public/system/:attachment/:id/:style/:basename.:extension", 
     :url => "/system/:attachment/:id/:style/:basename.:extension"
 )
+
+# Be sure to restart your server when you modify this file.
+
+Paperclip.options[:content_type_mappings] = {
+  :mp3 => "application/octet-stream"
+}
+

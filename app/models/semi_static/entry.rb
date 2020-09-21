@@ -137,7 +137,7 @@ module SemiStatic
                              :wide => "-strip -gravity Center -quality 80",
                              :big => "-strip -gravity Center -quality 85"  }
   
-    validates_attachment_content_type :doc, :content_type => ['image/jpeg', 'image/png', 'image/gif', 'application/pdf', 'application/zip']
+    validates_attachment_content_type :doc, :content_type => ['image/jpeg', 'image/png', 'image/gif', 'application/pdf', 'application/zip', 'audio/mpeg']
 
     has_attached_file :news_img, :styles => {:bar => "304x>", :compressed => "100%x100%", :half => "50%x50%"},
       :convert_options => { :half => "-strip -quality 80", :compressed => "-strip -quality 40", :bar => "-strip -gravity Center -quality 80"}
