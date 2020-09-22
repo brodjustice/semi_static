@@ -3,7 +3,9 @@ SemiStatic::Engine.routes.draw do
     get code, :to => "errors#show", :code => code
   end
 
-  root :to => 'site#show', :as => 'home', :via => :get
+  # root :to => 'site#show', :as => 'home', :via => :get
+  # root :action => 'show', :as => 'home', :via => :get, :controller => 'site'
+  root :action => 'show', :via => :get, :controller => 'site'
 
   #
   # For Tags that put their name in the url ("context_urls").

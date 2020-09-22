@@ -5,7 +5,7 @@ module SemiStatic
 
     def predefined_route(route_name=nil)
       routes = {
-        'Home' => semi_static.home_path,
+        'Home' => semi_static.root_path,
         'References' => semi_static.references_path,
         'Contact' => semi_static.new_contact_path,
         'Documents' => semi_static.documents_path,

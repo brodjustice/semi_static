@@ -6,7 +6,7 @@
       #bar-inner
         = render 'semi_static/shared/bar'
       #logo-wrapper
-        = link_to semi_static.home_path do
+        = link_to semi_static.root_path do
           #logo
             = SemiStatic::Engine.config.try('logo_text') && SemiStatic::Engine.config.logo_text.html_safe
     = yield :pre_overlay
