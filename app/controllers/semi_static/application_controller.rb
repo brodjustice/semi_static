@@ -86,9 +86,23 @@ module SemiStatic
     end
   
     def set_locale
-      if I18n.locale != (I18n.locale = session[:locale] = extract_locale_from_tld)
-        Rails.application.reload_routes!
-      end
+      #
+      # The Rails 3 version was as follows:
+      #
+      # if I18n.locale != (I18n.locale = session[:locale] = extract_locale_from_tld)
+      #   Rails.application.reload_routes!
+      # end
+      #
+      # This was probably done so that different domains with different locales could show the
+      # same content. This is a bad idea straight away as this screws up the links between websites
+      # and drives the search engines crazy. But even worse, in Rails 5 the calling reload_routes!
+      # causes the Engine to extend "app.routes" everytime it is called with a new "find_script_name"
+      # method, which will eventually case a very nasty stack overflow ( for example see:
+      # /actionpack-5.2.4.4/lib/action_dispatch/routing/mapper.rb ).
+      #
+      # So we keep it simple:
+      #
+      I18n.locale = session[:locale] = extract_locale_from_tld
     end
 
     def self.page_cache_directory
