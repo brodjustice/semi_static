@@ -6,6 +6,7 @@
     require 'semi_static/general'
     include General
     include EntriesHelper
+    include SiteHelper
   
     before_action :authenticate_for_semi_static!,  :except => [ :show, :search ]
   
