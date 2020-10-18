@@ -10,5 +10,29 @@ module SemiStatic
 
     has_many :entries
 
+    #
+    # The symbols as significant as defined by schema.org https://schema.org/EventAttendanceModeEnumeration
+    #
+    ATTENDANCE_MODE = {
+      :OfflineEventAttendanceMode => 1,
+      :OnlineEventAttendanceMode => 2,
+      :MixedEventAttendanceMode => 3,
+    }
+
+    ATTENDANCE_MODE_IDS = ATTENDANCE_MODE.invert
+
+    #
+    # The symbols as significant as defined by schema.org https://schema.org/EventStatusType
+    #
+    STATUS = {
+      :EventCancelled => 1,
+      :EventMovedOnline => 2,
+      :EventPostponed => 3,
+      :EventRescheduled => 4,
+      :EventScheduled => 5
+    }
+ 
+    STATUS_IDS = STATUS.invert
+
   end
 end

@@ -51,9 +51,11 @@
         .tile-title
           .sidebar
             %h5 Options
+            = labeled_selectbox(f, :attendance_mode, options_for_select(SemiStatic::Event::ATTENDANCE_MODE.collect{|k, v| [t('attendanceModeType.' + k.to_s), v]}, @event.attendance_mode))
             = labeled_textfield(f, :online_url, 'Online URL (Optional)')
             = labeled_textfield(f, :location, 'Location name')
             = labeled_textfield(f, :location_address, 'Address')
+            = labeled_selectbox(f, :status, options_for_select(SemiStatic::Event::STATUS.collect{|k, v| [t('eventStatus.' + k.to_s), v]}, @event.status))
             .input-group{:title => 'Time that doors to event open'}
               .input-group-prepend
                 = f.label :door_time, :class => 'input-group-text'

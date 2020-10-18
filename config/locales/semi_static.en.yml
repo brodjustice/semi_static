@@ -70,6 +70,19 @@ en:
   CustomerDetails: 'Customer details'
   PostOrderRegistrationInsruction: 'Thank you for your order, we will be in touch shortly with payment and delivery details'
 
+  attendanceMode: 'Attendance mode'
+  attendanceModeType:
+    OnlineEventAttendanceMode: 'Online'
+    MixedEventAttendanceMode: 'Online and at location'
+    OfflineEventAttendanceMode: 'At location'
+
+  eventStatus:
+    EventCancelled: 'Cancelled'
+    EventMovedOnline: 'Moved online'
+    EventPostponed: 'Postponed'
+    EventRescheduled: 'Rescheduled'
+    EventScheduled: 'Scheduled'
+
   # For any user custom dashboard commands:
   # dashboard:
   # custom_section_header: 'Custom'

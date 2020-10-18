@@ -451,12 +451,17 @@ module SemiStatic
 
       c += '</thead>'.html_safe
 
+      # Attendance mode
+      c += "<tbody property='eventAttendanceMode' content=\'#{SemiStatic::Event::ATTENDANCE_MODE_IDS[e.attendance_mode].to_s}\'>".html_safe
+      c += "<tr class='row'><td>#{t('attendanceMode')}:</td>".html_safe
+      c += "<td>#{t('attendanceModeType.' + SemiStatic::Event::ATTENDANCE_MODE_IDS[e.attendance_mode].to_s)}</td></tr>".html_safe
+      c += '</tbody>'.html_safe
+
       if e.online_url.present?
         c += '<tbody property="location" typeof="VirtualLocation">'.html_safe
         c += "<tr class='row'><td>#{t('OnlineUrl')}: </td><td><span property='url'>#{link_to e.online_url, e.online_url}</span></td></tr>".html_safe
         c += '</tbody>'.html_safe
       end
-
 
       if (e.location.present? && e.location_address.present?)
         c += '<tbody property="location" typeof="Place">'.html_safe
@@ -464,6 +469,12 @@ module SemiStatic
         c += "<tr class='row'><td>#{t('Address')}: </td><td><span property='address'>#{e.location_address}</span></td></tr>".html_safe
         c += '</tbody>'.html_safe
       end
+
+      # Event status
+      c += "<tbody property='eventStatus' content=\'#{SemiStatic::Event::STATUS_IDS[e.status].to_s}\'>".html_safe
+      c += "<tr class='row'><td>#{t('status')}:</td>".html_safe
+      c += "<td>#{t('eventStatus.' + SemiStatic::Event::STATUS_IDS[e.status].to_s)}</td></tr>".html_safe
+      c += '</tbody>'.html_safe
 
       e.start_date.present? &&
         (c += "<tr class='row'><td>#{t('start_date')}: </td><td><span property='startDate' content=\'#{e.start_date.iso8601}\'>#{l(e.start_date, :format => "%a, %d %b %Y %H:%M")}</span></td></tr>".html_safe )

@@ -26,7 +26,7 @@
             %th= 'End'
             %th= 'Duration'
             %th= 'Language'
-            %th= 'Typical Age Range'
+            %th{:title => 'Attendance mode'}= 'Mode'
             %th{:title => 'Last Update'}
               %i.app-menu__icon.fa.fa-date
             %th Entries
@@ -46,7 +46,7 @@
                 - if event.duration.present?
                   = event.duration.to_s + ' minutes'
               %td= event.in_language
-              %td= event.typical_age_range
+              %td= SemiStatic::Event::ATTENDANCE_MODE_IDS[event.attendance_mode].to_s.humanize
               %td.number{:title => event.updated_at.strftime('%H:%M')}= event.updated_at.strftime('%d/%b/%y')
               %td
                 - event.entries.each do |e|

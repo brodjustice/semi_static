@@ -1,0 +1,27 @@
+<h1>Listing hreflangs</h1>
+
+<table>
+  <tr>
+    <th>Locale</th>
+    <th>Href</th>
+    <th>Seo</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @hreflangs.each do |hreflang| %>
+  <tr>
+    <td><%= hreflang.locale %></td>
+    <td><%= hreflang.href %></td>
+    <td><%= hreflang.seo_id %></td>
+    <td><%= link_to 'Show', hreflang %></td>
+    <td><%= link_to 'Edit', edit_hreflang_path(hreflang) %></td>
+    <td><%= link_to 'Destroy', hreflang, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Hreflang', new_hreflang_path %>

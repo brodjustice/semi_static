@@ -66,6 +66,19 @@ de:
         format: "%n %u"
         separator: ','
 
+  attendanceMode: 'Anwesenheitsmodus'
+  attendanceModeType:
+    OnlineEventAttendanceMode: 'Online'
+    MixedEventAttendanceMode: 'Online und vor Ort'
+    OfflineEventAttendanceMode: 'Vor Ort'
+
+  eventStatus:
+    EventCancelled: 'Abgesagt'
+    EventMovedOnline: 'Online verschoben'
+    EventPostponed: 'Aufgeschoben'
+    EventRescheduled: 'Umgeplant'
+    EventScheduled: 'Geplant'
+
   # Months
   date:
     abbr_day_names:
