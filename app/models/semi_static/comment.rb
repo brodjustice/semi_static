@@ -5,8 +5,10 @@ module SemiStatic
     belongs_to :entry
 
     validates_presence_of :email
+    validates_presence_of :name
+    validates_presence_of :body
 
-    before_create :check_captcha
+    validate :check_captcha, :on => :create
     after_create :check_strategy
 
     #
@@ -19,7 +21,7 @@ module SemiStatic
     #
     #
     def check_captcha
-      if (@captcha_code != @captcha.reverse.split(//).collect{|n| (((n.to_i + 10) - 2).modulo(10)).to_s}.join)
+      if (captcha_code != captcha.reverse.split(//).collect{|n| (((n.to_i + 10) - 2).modulo(10)).to_s}.join)
         errors.add(:captcha, "Your numbers do not match the numbers in the image")
         false
       end

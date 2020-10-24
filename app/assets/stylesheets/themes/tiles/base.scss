@@ -325,11 +325,11 @@ h2{ font-size: 20px;}
 
 
 #banner0{
-  background:transparent image-url('banners/#{$banner-a}') center 0px no-repeat; z-index: -10;
+  background: transparent image-url('banners/#{$banner-a}') center 0px no-repeat; z-index: -10;
 }
 
 #bannerBg{
-  background:transparent image-url('banners/#{$banner-a}') center 0px no-repeat;
+  background: transparent image-url('banners/#{$banner-a}') center 0px no-repeat;
   z-index: -50;
 }
 
@@ -473,7 +473,7 @@ h2{ font-size: 20px;}
 #bar-menu .sign-in a{float: right; display: block; padding: 4px 32px 2px 8px; background: transparent image-url('user-icon.png') right 0px no-repeat; background-size: 28px 32px !important;}
 #twitter, #xing, #facebook, #youtube, #bar-menu .icon a{ background-size: 28px $vert-sprites-height; }
 
-.icon.sprite{height: 100px; width: 100px; background: image-url('icons/menu-sprites.png') center 0px no-repeat;}
+.icon.sprite{height: 100px; width: 100px; background: transparent image-url('icons/menu-sprites.png') center 0px no-repeat;}
 .icon.sprite.mini{height: 45px; width: 50px; background-size: 50px 250px;}
 #sprite_1{background-position: center 0px;}
 #sprite_2{background-position: center -100px;}
@@ -647,6 +647,7 @@ h2 a, h3 a{color: $secondary-color;}
   padding: 4px 36px 1px 12px;
   margin: 2px 0px 6px;
 }
+
 .feint .more a, .flat .more a, .news .more a{
   background: transparent image-url($vert-sprites) right -290px no-repeat;
   color: #d8d8d8;
