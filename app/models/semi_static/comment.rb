@@ -12,6 +12,13 @@ module SemiStatic
     after_create :check_strategy
 
     #
+    # TODO: Collect these automatically at initialisation from the file names.
+    #
+    CAPTCHA_CODES = [
+      '0353', '2004', '2333', '5433', '6530', '6615', '6995', '7331', '7582', '7764', '7888', '7960'
+    ]
+
+    #
     # Thus is a very simple formula, you may want to make yours more complex
     # but in our experience spammers don't invest much time in figuring these
     # things out.

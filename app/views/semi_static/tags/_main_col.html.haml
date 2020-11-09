@@ -11,7 +11,7 @@
     = @tag.entries.first.style.html_safe
 
 - style ||= :summary
-- (entries = @tag.entries.unmerged[0..(@tag.max_entries_on_index_page - 1)]).each do |e|
+- (entries = @entries_for_pagination || @tag.entries.unmerged[0..(@tag.max_entries_on_index_page - 1)]).each do |e|
   .panel.group{:class => e.style_class, :style => "background-color:#{e.background_colour}; color:#{e.colour}"}
     = render :partial => 'semi_static/entries/entry', :locals => {:e => e, :style => style}
     = photo_thumbs(@entry)

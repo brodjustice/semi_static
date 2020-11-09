@@ -4,18 +4,6 @@ module SemiStatic
     include Pages
     include PartialControl
   
-    #
-    # For reference, these are the attributes. They are now controlled by strong attributes in
-    # the controller
-    #
-    # attr_accessible :name, :menu, :position, :icon, :icon_in_menu, :icon_delete, :sidebar_title
-    # attr_accessible :predefined_class, :colour, :icon_resize, :locale, :max_entries_on_index_page
-    # attr_accessible :banner_id, :partial, :entry_position, :tag_line, :subscriber, :sidebar_id
-    # attr_accessible :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_tag_id, :layout_select
-    # attr_accessible :target_tag_id, :target_name, :context_url, :admin_only, :use_entry_as_index_id
-
-    attr_accessor :icon_delete
-
     # For when we don't know if its a Tag or Entry
     alias_attribute :explicit_title, :name
 
@@ -63,15 +51,6 @@ module SemiStatic
   
     before_save :generate_slug, :add_sidebar_title
   
-    has_attached_file :icon,
-       :styles => {
-         :standard=> "48x48",
-         :big => "96x96"
-       },
-       :convert_options => { :standard => "-strip -gravity Center",
-                             :big => "-strip -gravity Center"  }
-    after_commit :check_for_sprites_file
-
     # 
     # This used to be a scope as Rails 3 allowed the following:
     #   scope :slide_menu, includes(:page_attrs).where('semi_static_page_attrs.attr_key = ? OR menu = ?', 'slideMenu', true)
@@ -100,12 +79,23 @@ module SemiStatic
     def raw_title; name end
     def tag; self end
 
+    #
+    # Max number of entries before pagination starts
+    #
+    def paginate_at
+      get_page_attr('pagination').to_i
+    end
+
+    def paginate?
+      paginate_at > 0
+    end
+
     def hreflang_tag_options
       Tag.where.not(:locale => (self.href_equiv_tags.map(&:locale) + [self.locale]))
     end
 
     #
-    # The following should bńever happen, but jus in case...
+    # The following should never happen, but just in case...
     #
     def check_href_equiv_tags(tag)
       # errors.add(:base, "Hreflang equiv for #{tag.locale} already present")
@@ -137,16 +127,6 @@ module SemiStatic
       SemiStatic::Engine.config.try('subscribers_model') && self.subscriber
     end
   
-    def icon_delete=(val)
-      if val == '1'
-        self.icon.clear
-      end
-    end
-  
-    def self.use_sprites?
-      !Tag.where('position = ?', 0).empty?
-    end
-
     def get_side_bar_entries
       if self.side_bar_tag.present?
         self.side_bar_tag.entries.unmerged.limit(20)
@@ -168,28 +148,10 @@ module SemiStatic
     def entries_for_navigation
       if (nav_entry_ids = self.get_page_attr('sideBarNavEntries')).present?
         nav_entry_ids.split(',').collect{|e| SemiStatic::Entry.find_by(:id => e)}.reject(&:blank?)
+      elsif self.paginate?
+        self.entries.unmerged[0..(self.paginate_at - 1)]
       else
         self.entries.unmerged
-      end
-    end
-
-    def check_for_sprites_file
-      if position == 0
-        # Get extention and remove any query string if it exists, then add own
-        # random query string for cache busting
-        ext = File.extname(self.icon.url)
-        base = File.basename(self.icon.url, ext)
-  
-        # The ext itself could have a query string which paperclip will have removed
-        # Right now only png is valid
-        ext = ext.split('?').first
-  
-        # Remove any previous sprites file
-        FileUtils.rm_rf(Rails.root.to_s + '/public/system/icons/menu-sprites' +  '*')
-  
-        # Copy new sprite to know sprite path and add a query string
-        new_ext = File.extname(self.icon.url).split('?').first
-        FileUtils.cp((Rails.root.to_s + '/public' + self.icon.url.split('?').first).to_s, (Rails.root.to_s + '/public/system/icons/menu-sprites' + new_ext).to_s)
       end
     end
   end

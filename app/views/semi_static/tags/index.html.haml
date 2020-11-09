@@ -9,8 +9,6 @@
   %h1
     %i.fa.fa-hierarchy.invert
     %span Tags
-  - if SemiStatic::Tag.use_sprites?
-    %h3= 'Notice: Postion 0 is set, so sprites are being employed'
   = link_to new_tag_path, :class => 'btn btn-primary btn' do
     %span.app-menu__icon.fa.fa-hierarchy
     New Tag
@@ -56,10 +54,6 @@
               %tr{:id => "tag_id_#{tag.id}"}
                 %td
                   = tag.id
-                  - if SemiStatic::Tag.use_sprites? && (tag.position < 6)
-                    .icon.sprite{:id => "sprite_#{tag.position}"}
-                  - elsif tag.icon.present?
-                    = image_tag(tag.icon.url)
                 %td
                   = link_to tag.name, edit_tag_path(tag)
                 %td.tick

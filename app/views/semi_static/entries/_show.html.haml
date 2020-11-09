@@ -19,6 +19,23 @@
       }
       addSemiStaticLoadEvent(commentsConfig);
 
+- if @entry.paginate?
+  - content_for :ujs do
+    :javascript
+      function semiStaticNavPagination(){
+        var paginationLinks = document.querySelectorAll('a.page-link');
+
+        Array.prototype.forEach.call(paginationLinks, function(el, i){
+          el.addEventListener('click', function(ev){
+            ev.preventDefault();
+            href = this.getAttribute('href');
+            semiStaticAJAX(href + '&sidebarPagination=true');
+            return false;
+          });
+        });
+      }
+      addSemiStaticLoadEvent(semiStaticNavPagination);
+
 - if SemiStatic::Engine.config.shopping_cart && (@entry.product && @entry.product.orderable) || @entry.get_page_attr('pageHasProducts')
   - content_for :ujs do
     :javascript

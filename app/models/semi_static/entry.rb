@@ -204,6 +204,17 @@ module SemiStatic
       (t = [title, sub_title, alt_title].reject(&:empty?).first).blank? ? false : t
     end
 
+    #
+    # Max number of entries before pagination starts
+    #
+    def paginate_at
+      (get_page_attr('pagination') || self.tag.get_page_attr('pagination')).to_i
+    end
+
+    def paginate?
+      paginate_at > 0
+    end
+
     def menu_title
       self.alt_title.blank? ? title : alt_title
     end

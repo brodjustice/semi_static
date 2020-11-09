@@ -176,20 +176,23 @@ module SemiStatic
     # The "sub_menu" is the one that typically goes in the sidebar of a desktop layout and this is the basic layout
     # which is constructed from simply the default Tag or some other Tag(s) set by PageAttrs
     #
-    def basic_sub_menu(tags_for_menu, main_tag)
-      c = ''.html_safe
+    def basic_sub_menu(tags_for_menu, main_tag, entries_for_pagination=nil)
+      c = '<div id="semi_static_sidebar_nav">'.html_safe
       tags_for_menu = tags_for_menu.kind_of?(Array) ? tags_for_menu.collect{|t| Tag.find(t)} : [ tags_for_menu ]
       tags_for_menu.each{|t|
         c += content_tag(:h2) do
           link_to t.sidebar_title, tag_link(t), :style => "color: #{main_tag.colour};"
         end
         tag.div :class => 'section' do
-          t.entries_for_navigation.each{|e|
+          (entries_for_pagination || t.entries_for_navigation).each{|e|
             c += render :partial => 'semi_static/tags/side_bar_entry', :locals => {:e => e}
           }
         end
       }
-      c
+      if entries_for_pagination
+        c += paginate entries_for_pagination, views_prefix: 'semi_static', :remote => true
+      end
+      c += '</div>'.html_safe
     end
 
     #
@@ -548,15 +551,6 @@ module SemiStatic
         c+= mail_to nil, t('Share'), {:subject => e.merged_main_entry.title, :body => request.url, :title => t('ShareViaEmail'), :class => 'em-share', :onclick => 'var that=this;ga(\'send\', \'event\', \'SocialShare\', \'Email\');setTimeout(function(){location.href=that.href;},400);return false;'}
       end
       c += '</div>'.html_safe
-    end
-
-    def icon(tag)
-      return '' if tag.nil?
-      if Tag.use_sprites?
-       "<div class='icon sprite mini' id=\"sprite_#{tag.position.to_s}\"></div>".html_safe
-      elsif tag.icon_in_menu
-       "<div class='icon'><img src=\"#{tag.icon.url(:standard)}\" alt=\"#{tag.title} icon\"/></div>".html_safe
-      end
     end
 
     def switch_box_tag(name, value = "1", checked = false, options = {})

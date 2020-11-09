@@ -7,13 +7,6 @@
         });
 
     };
-    function check_icon_in_menu(){
-      if($('#semi_static_tag_icon_in_menu').prop('checked')) {
-        $('#icon_in_menu_options').show();
-      } else {
-        $('#icon_in_menu_options').hide();
-      }
-    }
     function check_menu(){
       if($('#semi_static_tag_menu').prop('checked')) {
         $('#target_options').show();
@@ -42,9 +35,6 @@
         check_tag_line();
         load_banner_preview($('#tag_banner_id').val());
       });
-
-      check_icon_in_menu();
-      $("#semi_static_tag_icon_in_menu").change(function() { check_icon_in_menu(); });
 
       check_menu();
       $("#semi_static_tag_menu" ).change(function() {
@@ -108,11 +98,10 @@
             .input-group-prepend
               = f.label :banner, :class => 'input-group-text'
             = f.select :banner_id, options_for_select(SemiStatic::Banner.all.collect{|b| [b.name, b.id]}.prepend(["- None -", 'none']), @tag.banner_id), {}, {:class => 'form-control mt-2'}
-          .input-group
-            #tag_line_override{:style => 'display: none'}
-              = f.label :tag_line, 'Tag line override (optional)'
-              %br/
-              = f.text_field :tag_line
+          #tag_line_override{:style => 'display: none'}
+            .row.mb-4
+              .col-md-12
+                = labeled_textfield f, :tag_line,  'Tag line override (optional)'
         
         
           .row
@@ -132,37 +121,51 @@
                   .input-group-prepend
                     = f.label :target_name, 'Target name (optional)', :class => 'input-group-text'
                   = f.text_field :target_name, :class => 'form-control mt-2'
-              - if @tag.icon.present?
-                .img_field
-                  = image_tag(@tag.icon.url(:big))
               = labeled_selectbox f, :predefined_class, options_for_select(predefined_tags.keys.collect{|k| [k, k]}.prepend(["- None -", nil]), @tag.predefined_class), 'Predefined Tag'
               = labeled_selectbox f, :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @tag.locale)
-            .col-md-4
-              = labeled_checkbox f, :icon_in_menu
-              #icon_in_menu_options
-                .stacked-input-group
-                  = f.label :icon, :class => 'input-group-text'
-                  = f.file_field :icon, :class => 'form-control'
-                = labeled_checkbox f, :icon_resize, 'Resize icon'
-                = labeled_checkbox f, :icon_delete, 'Delete icon'
-          .row.mt-2
-            .col-md-8
-              .input-group
-                .input-group-prepend
-                  - if @tag.position == 0
-                    = f.label :position, 'Position 0: Icon sprite file must be 100px x 500px png with 5 icons', :class => 'input-group-text'
-                  - else
-                    = f.label :position, 'Position: Set to 0 to enable the sprites option', :class => 'input-group-text'
-                = f.text_field :position, :class => 'form-control mt-2'
-              .input-group
-                .input-group-prepend
-                  = f.label :max_entries_on_index_page, :class => 'input-group-text'
-                = f.text_field :max_entries_on_index_page, :class => 'form-control mt-2'
             .col-md-4
               .input-group{:title => 'CSS colors: black, yellow, #5f78c0, etc'}
                 .input-group-prepend
                   = f.label :colour, :class => 'input-group-text'
                 = f.text_field :colour, :class => 'form-control mt-2'
+          .row
+            .col-md-6
+              .input-group
+                .input-group-prepend
+                  = f.label :position, :class => 'input-group-text'
+                = f.text_field :position, :class => 'form-control mt-2'
+            .col-md-6
+              .input-group
+                .input-group-prepend
+                  = f.label :max_entries_on_index_page, :class => 'input-group-text'
+                = f.text_field :max_entries_on_index_page, :class => 'form-control mt-2'
+      .tile
+        .tile-body
+          .tile-title-w-btn
+            %h5
+              %span.app-menu__icon.fa.fa-attrs.invert
+              Attributes
+
+            - unless @tag.new_record?
+              = link_to new_tag_page_attr_path(@tag), :class => 'btn btn-primary', :remote => true do
+                %span.app-menu__icon.fa.fa-attrs
+                %span New attribute
+
+          .tile-body
+            - if @tag.page_attrs.present?
+              %table.table.sortable.table-bordered.table-hover
+                %thead
+                  %tr
+                    %th='Key'
+                    %th='Value'
+                    %th
+                %tbody
+                  - @tag.page_attrs.each do |a|
+                    %tr
+                      %td= link_to a.attr_key, edit_polymorphic_path([@tag, a]), :remote => :true
+                      %td= a.attr_value
+                      %td= link_to image_tag("bin.png"), entry_page_attr_path(@tag, a), :method => :delete
+
         
     .col-md-4
       .tile
@@ -203,33 +206,6 @@
                 If select an Entry then then most fields on this page, eg. 'Max entries on index page, CSS colors, etc', will have no effect. The SEO setting will also not be taken from here, but from the selected Entry SEO settings. An alternate way to achieve a similar effect but will be to have only one Entry for this Tag and set the 'link_to_tag' attribute, this will then mean that SEO settings will be taken from the this Tag.
             = labeled_selectbox f, :use_entry_as_index_id, options_for_select(SemiStatic::Entry.unmerged.locale(@tag.locale).reorder(:title).collect{|e| ["#{e.id}: #{entry_title_or_id(e)}", e.id]}.prepend(['- None -', nil]), @tag.use_entry_as_index_id), 'Entry as Tag index', :entry_as_index_info
           
-      .tile
-        .tile-body
-          .tile-title-w-btn
-            %h5
-              %span.app-menu__icon.fa.fa-attrs.invert
-              Attributes
-
-            - unless @tag.new_record?
-              = link_to new_tag_page_attr_path(@tag), :class => 'btn btn-primary', :remote => true do
-                %span.app-menu__icon.fa.fa-attrs
-                %span New attribute
-
-          .tile-body
-            - if @tag.page_attrs.present?
-              %table.table.sortable.table-bordered.table-hover
-                %thead
-                  %tr
-                    %th='Key'
-                    %th='Value'
-                    %th
-                %tbody
-                  - @tag.page_attrs.each do |a|
-                    %tr
-                      %td= link_to a.attr_key, edit_polymorphic_path([@tag, a]), :remote => :true
-                      %td= a.attr_value
-                      %td= link_to image_tag("bin.png"), entry_page_attr_path(@tag, a), :method => :delete
-
 
       .tile
         .tile-body

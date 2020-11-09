@@ -79,6 +79,12 @@
         # Make headers link to the main entry
         @linked = true
 
+        # Do we need to paginate the entries?
+        if @tag.paginate?
+          @tag.max_entries_on_index_page = params[:per].to_i || @tag.paginate_at
+          @entries_for_pagination = @tag.entries.unmerged.page(params[:page]).per(params[:per] || @tag.paginate_at)
+        end
+
       end
 
       # If the Tag for sidebar menu has not yet been set, then default to the current Tag

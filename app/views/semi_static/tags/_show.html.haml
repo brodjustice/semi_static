@@ -1,3 +1,8 @@
+-#
+-# This needs refactoring, but putting in a helper is not much nicer. Moving to
+-# a CSS grid layout would probably help a lot.
+-#
+
 - if @tag.partial_before_entries?
   = render :partial => @tag.partial_path
 
@@ -11,6 +16,9 @@
           = render :partial => @tag.partial_path
         - else
           = render 'semi_static/tags/main_col'
+        - if @tag.paginate?
+          = paginate @entries_for_pagination, views_prefix: 'semi_static'
+
       .col.span_1_of_3.side-bar
         = render 'semi_static/tags/side_bar'
     - else
@@ -19,5 +27,9 @@
           = render :partial => @tag.partial_path
         - else
           = render 'semi_static/tags/main_col', :style => :medium
+        - if @tag.paginate?
+          = paginate @entries_for_pagination, views_prefix: 'semi_static'
+
+
 - if @tag.partial_after_entries?
   = render :partial => @tag.partial_path

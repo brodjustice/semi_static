@@ -108,10 +108,8 @@ module SemiStatic
        c += "</div> </div> ".html_safe
     end
 
-    CAPTCHA_CODES = ['0353', '2004', '5433', '6615', '6995', '7764', '7888', '7960']
-
     def captcha
-      code = CAPTCHA_CODES.sample
+      code = Comment::CAPTCHA_CODES.sample
       image_tag("captchas/#{code}.jpg", 'data-code' => code, :class => 'captcha') + hidden_field_tag('comment[captcha_code]', code)
     end
 

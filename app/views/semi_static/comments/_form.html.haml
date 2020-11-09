@@ -22,12 +22,11 @@
     = f.label :company, t('Company_optional')
     %br/
     = f.text_field :company
-  %br/
-  %br/
   #captcha
+    .input
+      = f.label :captcha, t('PleaseTypeNumber')
+      %br/
+      = f.text_field :captcha
     = captcha
-    = f.label :captcha, t('PleaseTypeNumber')
-    = f.text_field :captcha
-    %br/
   .actions
-    = f.submit t('Send'), :onclick => "semiStaticPostAJAX(\'#{entry_comments_path(@entry)}\');return false;"
+    = f.submit t('Send'), :onclick => "semiStaticPostAJAX(\'#{entry_comments_path(@entry)}\');return false;", :class => 'btn'

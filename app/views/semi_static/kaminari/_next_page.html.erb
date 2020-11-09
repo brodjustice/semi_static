@@ -7,7 +7,7 @@
     remote:        data-remote
 -%>
 <% unless current_page.last? %>
-<li class="page-item">
+<li class="page-item prev-next">
   <%= link_to_unless current_page.last?, raw(t 'views.pagination.next'), url, :class => 'page-link', :rel => 'next', :remote => remote %>
 </li>
 <% end %>

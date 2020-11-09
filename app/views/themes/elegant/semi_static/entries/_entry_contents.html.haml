@@ -7,7 +7,6 @@
     = render :partial => 'semi_static/entries/image', :locals => {:e => e, :style => style}
   .col.span_1_of_2.wrapping
     .html
-      = icon(e.tag) if e.youtube_id_str.blank?
       - if @summaries && !e.merge_with_previous
         = entry_summary(e, e.summary_length)
       - else
@@ -16,7 +15,6 @@
         = semantic_product(e)
 - else
   .html
-    = icon(e.tag) if e.youtube_id_str.blank?
     - if e.youtube_id_str.blank?
       = entry_title(e, true)
     - if @summaries && !e.merge_with_previous

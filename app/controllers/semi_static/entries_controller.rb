@@ -119,6 +119,17 @@
           @entry.get_page_attr('sideBarMenuTagIds')&.split(",") ||
           @entry.tag
 
+        # Do we want to paginate the entries in the side bar nav?
+        if @sidebar_menu_tag.paginate?
+          @entries_for_pagination = @sidebar_menu_tag.entries.unmerged.page(params[:page]).per(params[:per] || @entry.paginate_at)
+          if params[:sidebarPagination].present?
+            #
+            # The param[:sidebarPagination] is added by JS, so a non-JS click will also work.
+            #
+            template = 'semi_static/entries/sidebar_pagination'
+          end
+        end
+
         # Work out what image (if any) "style" should be applied. Check if PageAttr imageStyle provided
         @entry_image_style = @entry.get_page_attr('imageStyle')&.to_sym || (@entry.side_bar ? :show : :medium)
 
