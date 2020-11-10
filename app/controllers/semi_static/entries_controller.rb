@@ -120,7 +120,7 @@
           @entry.tag
 
         # Do we want to paginate the entries in the side bar nav?
-        if @sidebar_menu_tag.paginate?
+        if @sidebar_menu_tag.kind_of?(SemiStatic::Tag) && @sidebar_menu_tag.paginate?
           @entries_for_pagination = @sidebar_menu_tag.entries.unmerged.page(params[:page]).per(params[:per] || @entry.paginate_at)
           if params[:sidebarPagination].present?
             #
