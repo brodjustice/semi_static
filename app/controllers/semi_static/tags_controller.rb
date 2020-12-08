@@ -187,8 +187,9 @@
     end
 
     def cachable_content?
-      # !lambda{ |controller| controller.request.format.js? } && !@entry.subscriber_content
-      !request.format.js? && !@tag.subscriber_content && !@tag.admin_only && !(@tag.context_url && params[:no_context])
+      !request.format.js? && !@tag.subscriber_content && 
+        !@tag.admin_only && !(@tag.context_url && params[:no_context]) &&
+        !@tag.paginate?
     end
 
     def authenticate_semi_static_subscriber!

@@ -9,6 +9,7 @@ module SemiStatic
     # attr_accessible :registration, :registration_url, :registration_text
 
     has_many :entries
+    belongs_to :squeeze, :optional => true
 
     #
     # The symbols as significant as defined by schema.org https://schema.org/EventAttendanceModeEnumeration

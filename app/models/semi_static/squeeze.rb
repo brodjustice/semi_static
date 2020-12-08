@@ -13,6 +13,7 @@ module SemiStatic
 
     has_many :entries
     has_many :contacts
+    has_one :event
 
     has_many :page_attrs, :as => :page_attrable
 

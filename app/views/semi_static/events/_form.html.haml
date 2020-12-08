@@ -35,6 +35,7 @@
             #registration_fields
               = labeled_textfield(f, :registration_text, 'Text summary for event registration')
               = labeled_textfield(f, :registration_url, 'Optional url to direct to for registration')
+              = labeled_selectbox(f, :squeeze_id, options_for_select(SemiStatic::Squeeze.all.collect{|s| ["#{s.id}: #{s.name}", s.id]}.prepend(["- None -", nil]), @event.squeeze_id))
 
       .tile
         .tile-title

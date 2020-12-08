@@ -428,10 +428,11 @@ module SemiStatic
       e.registration_url.blank? ? new_registration_path(:registration => true, :reason => e.registration_text) : e.registration_url
     end
 
-    # Is registration required for e = Event
+    # Is registration required for e = Event. Some Events have a Squeeze to allow you make your own custom
+    # AJAX to deal with as you wish, so we add the Squeeze ID in the data attr here.
     def event_registration_link(e)
       if e.registration
-        "<a class='registration' rel='nofollow' href=\'#{event_registration_url(e)}\'>#{t('Register')}</a>".html_safe
+        "<a class='registration' data-squeezeid=\'#{e.squeeze_id}\' rel='nofollow' href=\'#{event_registration_url(e)}\'>#{t('Register')}</a>".html_safe
       end
     end
 
