@@ -1,5 +1,6 @@
 != "$(\".modal\").modal('hide');"
 != "$(\"#generalModal .modal-content\").html('#{escape_javascript(render :partial => 'semi_static/hreflangs/new')}');"
+!= "$(\"#generalModal .modal-dialog\").addClass('modal-lg').modal();"
 != "$(\"#generalModal\").modal();"
 
 :plain

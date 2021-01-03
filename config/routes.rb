@@ -71,7 +71,7 @@ SemiStatic::Engine.routes.draw do
   # We create the routes for all the different locales while the "features_path" helper creates the
   # correct url in the webpage itself depending on the locale. Currently that means that all 
   # the locale versions of the website will respond to all the urls in SemiStatic::Engine.config.tag_paths which
-  # is probably not optimal, so maybe redirect or raise error in TagsController?
+  # is probably not optimal, so we raise error in TagsController
   SemiStatic::Engine.config.tag_paths.keys.each do |l|
     get "/#{SemiStatic::Engine.config.tag_paths[l]}/:slug" => 'tags#show', :as => "#{l}_features"
   end

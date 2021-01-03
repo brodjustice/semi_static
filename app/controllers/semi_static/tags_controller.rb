@@ -34,6 +34,14 @@
       @tag.admin_only && authenticate_for_semi_static!
 
       #
+      # The config/routes.rb will direct Tag index pages to this controller even if the Tag locale
+      # does not match the domain locale, so raise an error for those pages:
+      #
+      if @tag.locale != extract_locale_from_tld
+        raise ActionController::RoutingError, "Not found on this domain"
+      end
+
+      #
       # When the Tag has #use_entry_as_tag_index we are saying take the contents of that Entry
       # and display it in the Tag page. We used to simply cause a redirect for this, eg:
       #   redirect_to entry_path(@tag.use_entry_as_index)

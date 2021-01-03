@@ -11,6 +11,15 @@
         dataType: 'script'
       });
     };
+    function check_acts_as_tag(){
+      if($('#entry_acts_as_tag_id').val() == '') {
+        $('#entry_body').prop("readonly", false);
+        $('.sScontentSection').show();
+      } else {
+        $('#entry_body').prop("readonly", true);
+        $('.sScontentSection').hide();
+      }
+    }
     function check_side_bar(){
       if($('#semi_static_entry_side_bar').prop('checked')) {
         $('#side_bar_options').show();
@@ -89,6 +98,8 @@
       $('#entry_entry_position').change(function() { check_entry_partial(); });
       $("#entry_img").on('change', semiStaticPrepareUploadFromInput);
       check_image_controls();
+      check_acts_as_tag();
+      $("#entry_acts_as_tag_id").on('change', check_acts_as_tag);
       if($('#entry_banner_id').val() != 'none'){load_banner_preview($('#entry_banner_id').val());}
       if(($('#entry_simple_text').val() == 'false') && ($('#entry_raw_html').prop('checked') != true)){
         enable_editor();
@@ -159,7 +170,7 @@
               = f.label :sub_title, :class => 'input-group-text'
             = f.text_field :sub_title, :class => 'form-control mt-2'
           - unless @newsletter
-            .semi_static_youtube_id_str
+            .semi_static_youtube_id_str.sScontentSection
               .infobox#youtube_id_str_text_box
                 %h5= 'YouTube ID'
                 %p
@@ -184,7 +195,7 @@
                 %span#validateYoutubeButton{:style => 'display: none'}
                   = link_to 'Click here to validate YouTube ID', '#', onclick: 'validate_youtube_id(); return false'
 
-          .row.mt-2
+          .row.mt-2.sScontentSection
             .infobox#partial_description
               = render :partial => 'semi_static/system/partial_description', :object => @entry
             .input-group.col-md-8
@@ -197,7 +208,7 @@
                 %span.input-group-text{:title => 'Position of Entry in custom view'} Entry position
               = f.select :entry_position, options_for_select(SemiStatic::Entry::DISPLAY_ENTRY_SYM, @entry.entry_position), {}, { :class => 'form-control'}
   
-          #semi-static-entry-body
+          #semi-static-entry-body.sScontentSection
             .form-group.mt-3
               = f.label :body, :class => 'font-weight-bold'
               = link_to '#', onclick: 'enable_editor(); return false', id: 'enable_editor', class: 'float-right btn btn-sm btn-primary' do
@@ -227,7 +238,7 @@
                 %span.infomarker{:data => {:marker => :raw_html_check_box}}
                 = f.check_box :raw_html
                 = f.label :raw_html
-          .form-group
+          .form-group.sScontentSection
             = f.label :summary, :class => 'font-weight-bold'
             .infobox#summary_box
               %h5= 'Summary length'
@@ -255,7 +266,7 @@
             = f.check_box :use_as_news_summary
             = f.label :use_as_news_summary
         
-          #semi_static_entry_image
+          #semi_static_entry_image.sScontentSection
             %h5= 'Image'
             - if @entry.img.present?
               = image_tag(@entry.img.url(:panel), :title => @entry.title, :alt => 'Entry Image', :class => 'img-fluid', :id => 'semi_static_image_for_upload')
@@ -303,16 +314,16 @@
               - else
                 %p
                   No image is currently loaded
-          .input-group
+          .input-group.sScontentSection
             %span.infomarker{:data => {:marker => :loaded_image}}
             .input-group-prepend
               = f.label :img, 'Image', :class => 'input-group-text'
             = f.file_field :img, :class => 'form-control mt-2'
-          .input-group
+          .input-group.sScontentSection
             .input-group-prepend
               = f.label :image_caption, 'Image caption', :class => 'input-group-text'
             = f.text_area :image_caption, :rows => 2, :class => 'form-control mt-2'
-          .form-group.mt-4
+          .form-group.mt-4.sScontentSection
             %h5= 'Document'
             .infobox#loaded_document
               %h5 Currently loaded document
@@ -346,7 +357,7 @@
             = f.check_box :show_in_documents_tag
             = f.label :show_in_documents_tag, 'Show in document tag'
     
-      .tile
+      .tile.sScontentSection
         .tile-title
           %h5 Style settings
         .tile-body
@@ -395,7 +406,7 @@
 
 
     .col-md-4
-      .tile
+      .tile.sScontentSection
         %h5 Position
         .input-group
           .input-group-prepend
@@ -440,7 +451,7 @@
               = 'redirect to the tag specified. This can be useful for building menus with many'
               = 'levels of hierarchy'
           = labeled_selectbox(f, :acts_as_tag_id, options_for_select(SemiStatic::Tag.unscoped.collect{|t| [[t.locale, ': ', t.name].join, t.id]}.prepend(["- None -", nil]), @entry.acts_as_tag_id), nil, :acts_as_tag_info)
-      .tile
+      .tile.sScontentSection
         %h5 Banner
         #selected_banner.banner-thumb
           - if @entry.banner.present?
@@ -454,7 +465,7 @@
             = f.label :tag_line, 'Tag line override', :class => 'input-group-text'
           = f.text_field :tag_line, :class => 'form-control mt-2'
       - unless @newsletter
-        .tile
+        .tile.sScontentSection
           %h5 Home page and News sidebar
           = labeled_checkbox(f, :home_page)
           = labeled_checkbox(f, :news_item)
@@ -480,16 +491,16 @@
             %span.infomarker{:data => {:marker => :alternate_image}}
             = f.label :news_img, 'Alternative image', :class => 'input-group-text'
             = f.file_field :news_img, :class => 'form-control'
-      .tile
+      .tile.sScontentSection
         %h5 Blog functions
         = labeled_checkbox(f, :enable_comments)
         #comment_strategy
           = labeled_selectbox(f, :comment_strategy, options_for_select(SemiStatic::Entry::COMMENT_STRATEGY.collect{|k,v| [k.to_s.humanize, v]}, @entry.comment_strategy), 'Comment procedure')
-      .tile
+      .tile.sScontentSection
         %h5 Language
         = labeled_selectbox(f, :locale, options_for_select(I18n.available_locales.collect{|l| [l, l]}, @entry.locale))
       - unless @newsletter
-        .tile
+        .tile.sScontentSection
           %h5 Sidebar configuration
           = labeled_checkbox(f, :side_bar)
           #side_bar_options
@@ -509,7 +520,7 @@
               .input-group-prepend
                 = f.label :side_bar_gallery, 'Number of gallery images to show', :class => 'input-group-text'
               = f.text_field :side_bar_gallery, :size => 10, :class => 'form-control mt-2'
-      .tile
+      .tile.sScontentSection
         %h5
           Gallery Images
         = labeled_selectbox(f, :gallery_id, options_for_select(SemiStatic::Gallery.locale(@entry.locale).collect{|g| [g.title, g.id]}.prepend(["- None -", nil]), @entry.gallery_id), 'Gallery')
@@ -518,7 +529,7 @@
           %p
             = 'Show the titles along with photos that are displayed in the Entry'
         = labeled_checkbox(f, :show_image_titles, 'Main Entry titles', :main_entry_titles)
-      .tile
+      .tile.sScontentSection
         %h5 Social share buttons
         .row
           .col-md-6
@@ -529,19 +540,19 @@
             = labeled_checkbox(f, :instagram_share, 'Instagram')
             = labeled_checkbox(f, :twitter_share, 'Twitter')
             = labeled_checkbox(f, :email_share, 'Email')
-      .tile
+      .tile.sScontentSection
         %h5 Event
         = labeled_selectbox(f, :event_id, options_for_select(SemiStatic::Event.all.collect{|e| [['ID ', e.id.to_s, ': ', e.name].join, e.id]}.prepend(["- None -", 'none']), @entry.event_id), 'Event')
 
-      .tile
+      .tile.sScontentSection
         %h5 Squeeze
         = labeled_selectbox(f, :squeeze_id, options_for_select(SemiStatic::Squeeze.all.collect{|s| [['ID ', s.id.to_s, ': ', s.name].join, s.id]}.prepend(["- None -", 'none']), @entry.squeeze_id), 'Squeeze')
-      .tile
+      .tile.sScontentSection
         %h5 Job Posting
         = labeled_selectbox(f, :job_posting_id, options_for_select(SemiStatic::JobPosting.all.collect{|s| [['ID ', s.id.to_s, ': ', s.title].join, s.id]}.prepend(["- None -", 'none']), @entry.job_posting_id))
 
           
-      .tile
+      .tile.sScontentSection
         %h5 Newsletter
         .infobox#newsletter_img
           %h4= 'Newsletter image (optional)'
