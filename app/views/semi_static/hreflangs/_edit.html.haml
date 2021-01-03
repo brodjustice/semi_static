@@ -1,3 +1,6 @@
-.button= link_to 'Cancel', '#', :onclick =>  "$('#dialog').hide(); return false;"
-%h1= ['Editing hreflang tag for ', @hreflang.seo.seoable.raw_title, ' (', @hreflang.seo.seoable.class.to_s.split('::').last, ')'].join
-= render 'form'
+.modal-header
+  %h5= ['Editing hreflang tag for ', @hreflang.seo.seoable.raw_title, ' (', @hreflang.seo.seoable.class.to_s.split('::').last, ')'].join
+  = modal_close
+.modal-body
+  = render 'form'
+

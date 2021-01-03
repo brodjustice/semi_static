@@ -7,6 +7,7 @@
   function fill_url_input(){
     document.getElementById('hreflang_href').value = this.innerHTML;
     document.getElementById('hreflang_locale').value = this.dataset.locale;
+    document.getElementById('hreflang_locale').scrollIntoView();
   }
   
   var elements = document.querySelectorAll('.href_equiv_path');

@@ -26,7 +26,7 @@
 
   .input-group-prepend
     %span.input-group-text hreflang equiv Tag
-    = select_tag :href_lang_tag, options_for_select(@tag.hreflang_tag_options.collect{|t| [t.title, t.id]}.prepend(["- None -", nil])), {:class => 'form-control'}
+    = select_tag :href_lang_tag, options_for_select(@tag.hreflang_tag_options.collect{|t| ["#{t.locale}: ##{t.id}: #{t.title}", t.id]}.prepend(["- None -", nil])), {:class => 'form-control'}
   
   .row
     .col-md-12.mt-3
