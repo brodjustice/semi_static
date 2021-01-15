@@ -179,7 +179,7 @@ module SemiStatic
     def basic_sub_menu(tags_for_menu, main_tag, entries_for_pagination=nil)
       c = '<div id="semi_static_sidebar_nav">'.html_safe
       tags_for_menu = tags_for_menu.kind_of?(Array) ? tags_for_menu.collect{|t| Tag.find(t)} : [ tags_for_menu ]
-      tags_for_menu.each{|t|
+      tags_for_menu.compact.each{|t|
         c += content_tag(:h2) do
           link_to t.sidebar_title, tag_link(t), :style => "color: #{main_tag.colour};"
         end

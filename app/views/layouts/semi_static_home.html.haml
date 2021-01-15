@@ -41,6 +41,8 @@
     -# in the output from 'home.scss'. This directive cannot be inline and so we need to
     -# comment it out manually.
     -#
+    -# Update: This "bug" seems to have been fixed now.
+    -#
     %style
       -# = asset_source('home.css').sub(/^@charset.*/, '').html_safe
       = asset_source('home.css')
