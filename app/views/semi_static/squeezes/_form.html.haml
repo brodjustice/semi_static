@@ -74,9 +74,21 @@
           .input-group-prepend
             = f.label :email_footer, :class => 'input-group-text'
           = f.text_area :email_footer, :rows => 4, :class => 'form-control mt-2'
-        .stacked-input-group{:title => 'Document must be PDF format'}
-          = f.label :doc, 'PDF Document', :class => 'input-group-text'
-          = f.file_field :doc, :class => 'form-control'
+
+
+        .flexCol{:style => 'display: flex;'}
+          %span.infomarker{:data => {:marker => :loaded_document}}
+          .stacked-input-group{:title => 'Document must be PDF format'}
+            = f.label :doc, 'PDF Document', :class => 'input-group-text'
+            = f.file_field :doc, :class => 'form-control'
+        .infobox#loaded_document
+          %h5
+            Currently loaded document
+          - if @squeeze.doc.present?
+            The currently loaded document is:
+            %ul
+              %li= @squeeze.doc_file_name
+              %li= @squeeze.doc_content_type
 
 
   .row
