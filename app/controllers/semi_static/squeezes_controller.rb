@@ -84,7 +84,7 @@ module SemiStatic
     # Never trust parameters from the scary internet, only allow the white list through.
     def squeeze_params
       params.fetch(:squeeze, {}).permit(:name, :teaser, :title, :agreement, :form_instructions, :instructions,
-        :doc, :company_field, :position_field, :email_footer, :email_subject)
+        :doc, :company_field, :position_field, :email_footer, :email_subject, :doc_override)
     end
   end
 end
