@@ -61,17 +61,17 @@
               .input-group-prepend
                 = f.label :door_time, :class => 'input-group-text'
               .form-control.mt-2
-                = f.datetime_select :door_time, {:start_year => Time.now.year, :include_blank => true, :default => nil}
+                = f.datetime_select :door_time, {:start_year => (Time.now.year - 1), :include_blank => true, :default => nil}
             .input-group{:title => 'Start date and time'}
               .input-group-prepend
                 = f.label :start_date, 'Start time', :class => 'input-group-text'
               .form-control.mt-2
-                = f.datetime_select :start_date, {:start_year => Time.now.year, :include_blank => true, :default => nil}
+                = f.datetime_select :start_date, {:start_year => (Time.now.year -1), :include_blank => true, :default => nil}
             .input-group{:title => 'End date and time'}
               .input-group-prepend
                 = f.label :end_date, :class => 'input-group-text'
               .form-control.mt-2
-                = f.datetime_select :end_date, {:start_year => Time.now.year, :include_blank => true, :default => nil}
+                = f.datetime_select :end_date, {:start_year => (Time.now.year - 1), :include_blank => true, :default => nil}
             = labeled_textfield(f, :duration, 'Duration in minutes')
             .input-group{:title => 'Language in BCP 47 format, eg. en, de, it ...'}
               .input-group-prepend
