@@ -29,6 +29,28 @@ module SemiStatic
       @@social_links
     end
 
+    @@layouts = {
+      0 => 'application',
+      1 => 'home',
+      2 => 'full',
+      3 => 'embedded_full',
+      4 => 'embedded_fonts_full',
+      5 => 'jquery'
+    }
+
+    def layouts
+      @@layouts
+    end
+
+    def layouts=(hash)
+      @@layouts = hash
+    end
+
+    def layout_select(obj)
+      'semi_static_' + @@layouts[obj.layout_select || 0].to_s
+    end
+
+
     #
     # Rails 4/5 sprockets no longer automatically compiles images from the standard Engine asset directories. In 
     # other words the documentation is incorrect when it says "Assets within an engine work in an identical way

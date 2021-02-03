@@ -2,20 +2,6 @@ require 'net/http'
 require 'nokogiri'
 
 module General
-  LAYOUTS = {
-    0 => 'application',
-    1 => 'home',
-    2 => 'full', 
-    3 => 'embedded_full',
-    4 => 'embedded_fonts_full',
-    5 => 'jquery'
-  }
-
-
-  def layout_select(obj)
-    'semi_static_' + LAYOUTS[obj.layout_select || 0]
-  end
-
   #
   # The list below is of the cached files that are not stored in the "tags" or "entries" (or in fact the context
   # URL) directories. As such they are the exceptions that we need to keep control of, ie. delete when the cache is

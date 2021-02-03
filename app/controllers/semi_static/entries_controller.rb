@@ -162,7 +162,8 @@
             redirect_to redirect_path
           else
             # Everthing ok, show content or summary content
-            render :template => template || 'semi_static/entries/show', :layout => 'semi_static_application'
+            render :template => template || 'semi_static/entries/show', :layout => 'semi_static_application',
+              :layout => SemiStatic::Engine.layout_select(@entry.tag)
           end
         }
         format.js { render :template => template }

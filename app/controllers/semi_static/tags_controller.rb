@@ -105,7 +105,7 @@
           elsif @tag.predefined_class.present? && view_context.predefined_route(@tag.predefined_class).present?
             redirect_to view_context.predefined_route(@tag.predefined_class)
           else
-            render :layout => layout_select(@tag)
+            render :layout => SemiStatic::Engine.layout_select(@tag)
           end
         }
       end

@@ -232,11 +232,15 @@
             %span.infomarker
             = f.label :context_url
             = f.check_box :context_url
-          %fieldset
-            .section.group
-              .col.span_1_of_1
-                = f.label :layout_select, 'Rails level layout for this page'
-                = f.select :layout_select, options_for_select(General::LAYOUTS.invert.collect{|k, v| [k, v]}, @tag.layout_select)
+            .infobox.wide#layout_info
+              %h3 Layout for Tag and Entries inside this Tag
+              %p
+                You can add your own custom layouts by adding a layout file to yout main application at
+                %i /myapp/views/layouts.
+              %p
+                The layout file name must have the form
+                %i=  'semi_static_<my layout name>'
+            = labeled_selectbox f, :layout_select, options_for_select(SemiStatic::Engine.layouts.invert.collect{|k, v| [k, v]}, @tag.layout_select), 'Layout', :layout_info
         
   .row
     .col-md-12
