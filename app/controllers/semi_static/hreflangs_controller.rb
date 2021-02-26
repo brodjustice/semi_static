@@ -62,7 +62,7 @@ module SemiStatic
           format.html { redirect_to seos_path(), notice: 'Hreflang was successfully created.' }
           format.json { render json: @hreflang, status: :created, location: @hreflang }
         else
-          format.html { redirect_to seos_path(), notice:  ['WARNING', @hreflang.errors.full_messages.first].join(' ') }
+          format.html { redirect_to polymorphic_url(@hreflang.seo.seoable, :action => :edit), notice:  ['ERROR', @hreflang.errors.full_messages.first].join(' ') }
           format.json { render json: @hreflang.errors, status: :unprocessable_entity }
         end
       end
@@ -78,7 +78,7 @@ module SemiStatic
           format.html { redirect_to seos_path(), notice: 'Hreflang was successfully updated.' }
           format.json { head :no_content }
         else
-          format.html { redirect_to seos_path(), notice:  ['WARNING', @hreflang.errors.full_messages.first].join(' ') }
+          format.html { redirect_to polymorphic_url(@hreflang.seo.seoable.entry, :action => :edit), notice:  ['ERROR', @hreflang.errors.full_messages.first].join(' ') }
           format.json { render json: @hreflang.errors, status: :unprocessable_entity }
         end
       end
