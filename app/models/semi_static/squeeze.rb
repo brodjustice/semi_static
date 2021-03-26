@@ -13,8 +13,15 @@ module SemiStatic
     has_attached_file :doc, :path => ":rails_root/private/squeezes/:id/:filename", :url => ":rails_root/private/squeezes/:id/:filename"
 
     validates :name, presence: true
-    validates_attachment :doc, content_type: { content_type: "application/pdf" }
     validates_attachment_presence :doc, :unless => :document_override
+
+    # We say PDF, but we actually allow MS docx as well, shouldn't really but client wanted it
+    validates_attachment :doc, content_type: {
+      content_type: [
+        "application/pdf",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+      ]
+    }
 
     has_many :entries
     has_many :contacts
