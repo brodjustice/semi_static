@@ -24,6 +24,9 @@ module SemiStatic
     # Favicon image
     config.favicon_image = 'favicon.ico'
 
+    # Your additional custom META tags, eg
+    # config.custom_meta_tags = {'facebook-domain-verification' => 'sdhas1y1jssdvjsdjaskd277j8j'}
+
     # If you want just text instead of a logo, put it here
     config.logo_text = nil
 

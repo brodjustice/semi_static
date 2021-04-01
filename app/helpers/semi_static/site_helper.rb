@@ -803,7 +803,7 @@ module SemiStatic
     #
     # With the new AJAX method of getting the CSRF Token it is not required
     # that we do it at this point, but it's also a reasonable place to set
-    # it up as the method is only called one per page and the javascript checks allr
+    # it up as the method is only called one per page and the javascript checks all
     # forms in the page. If we did it on every form in a page it would be more
     # complex and probably less efficient.
     #
@@ -821,6 +821,12 @@ module SemiStatic
         content_for(:ujs) { csrf_script.html_safe }
       end
       csrf_meta_tags
+    end
+
+    def semi_static_custom_meta_tags
+      SemiStatic::Engine.config.custom_meta_tags.inject(''){|res, (name, value)|
+        res << "<meta name='#{name}' content='#{value}'>"
+      }.html_safe
     end
 
     #
