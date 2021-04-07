@@ -823,10 +823,19 @@ module SemiStatic
       csrf_meta_tags
     end
 
+    #
+    # These are given in the configration and will be something like this:
+    #
+    # 
+    # config.custom_meta_tags = {
+    #   'de' => {'facebook-domain-verification' => 'afli2m9gdwf4crzi99ebxjsoj33j4g'},
+    #   'en' => {'facebook-domain-verification' => 'maywr8l04nx9hh7qz56be7uwsotlis'}
+    # }
+    #
     def semi_static_custom_meta_tags
-      SemiStatic::Engine.config.custom_meta_tags.inject(''){|res, (name, value)|
-        res << "<meta name='#{name}' content='#{value}'>"
-      }.html_safe
+      SemiStatic::Engine.config.custom_meta_tags[I18n.locale.to_s].inject(''){|res, (name, value)|
+        res << "<meta name=\"#{name}\" content=\"#{value}\">"
+      }.html_safe if SemiStatic::Engine.config.respond_to?('custom_meta_tags')
     end
 
     #
