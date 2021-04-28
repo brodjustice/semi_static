@@ -18,3 +18,4 @@
 //= require jquerytablesorter.min.js
 //= require semi-static.js
 //= require semi_static_admin.js
+//= require activestorage

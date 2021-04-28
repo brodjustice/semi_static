@@ -7,15 +7,21 @@
         - @product.errors.full_messages.each do |msg|
           %li= msg
   .row
-    .col-md-12
+    .col-md-6
       .input-group
         = labeled_textfield f, :name
       .input-group
         .input-group-prepend
           = f.label :description, :class => 'input-group-text'
         = f.text_area :description, :rows => 4, :class => 'form-control mt-2'
-        = labeled_selectbox f, :entry_id, options_for_select(SemiStatic::Entry.all.collect{|e| [e.explicit_title(true), e.id]}.prepend(['- None -', nil]), @product.entry_id)
+        = labeled_selectbox f, :entry_id, options_for_select(SemiStatic::Entry.all.collect{|e| ["#{e.id}: #{e.raw_title}", e.id]}.prepend(['- None -', nil]), @product.entry_id)
         = labeled_textfield f, :currency
+      .input-group
+        .input-group-prepend
+          = f.label :img, 'Image', :class => 'input-group-text'
+        = f.file_field :img, multiple: false, direct_upload: true, :class => 'form-control mt-2'
+    .col-md-6
+      .input-group
         = labeled_textfield f, :price
         = labeled_textfield f, :color
         = labeled_textfield f, :height
@@ -23,5 +29,8 @@
         = labeled_textfield f, :width
         = labeled_textfield f, :weight
         = labeled_checkbox(f, :orderable, 'Can be ordered')
+
+  .row
+    .col-md-12
       .text-center.mt-3
         = f.submit 'Save', :class => 'btn btn-danger btn-block'

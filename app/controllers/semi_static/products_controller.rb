@@ -120,7 +120,8 @@ module SemiStatic
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
       params.fetch(:product, {}).permit(:name, :description, :color, :height, :depth, :width,
-        :weight, :price, :currency, :inventory_level, :entry_id, :active, :orderable)
+        :weight, :price, :currency, :inventory_level, :entry_id, :active, :orderable, :img,
+      )
     end
 
     def set_return_path
