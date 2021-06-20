@@ -149,7 +149,8 @@ module SemiStatic
     #
     # Entry specific header HTML, META, ld+json, etc.
     def entry_header_html
-      @entry&.header_html&.html_safe
+      entry = @entry || @tag&.use_entry_as_index
+      entry&.header_html&.html_safe
     end
 
     def copyright_year
