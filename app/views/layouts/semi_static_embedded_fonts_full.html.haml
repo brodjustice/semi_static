@@ -38,6 +38,9 @@
 
     = favicon_link_tag SemiStatic::Engine.config.favicon_image
 
+    = entry_header_html
+
+
   %body{:id => "semi_static_#{controller_name.classify.downcase}"}
     = yield :top
     #dialog{:style => 'display: none;'}

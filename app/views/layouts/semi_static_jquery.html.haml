@@ -49,6 +49,8 @@
 
     = yield :ujs
 
+    = entry_header_html
+
   %body{:id => "semi_static_#{controller_name.classify.downcase}"}
     = yield :top
     #dialog{:style => 'display: none;'}

@@ -50,7 +50,10 @@
     
     = yield :ujs
 
+    = entry_header_html
+
     = analytics
+
 
   %body{:id => "semi_static_#{controller_name.classify.downcase}", :class => @banner_class }
     = yield :top

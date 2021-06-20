@@ -41,6 +41,13 @@
         $('#comment_strategy').hide();
       }
     }
+    function check_header_html(){
+      if($('#semi_static_entry_merge_with_previous').prop('checked')) {
+        $('#headerHTML').hide();
+      } else {
+        $('#headerHTML').show();
+      }
+    }
     function check_entry_partial(){
       var params = {'cmd':{'partial_description': $('#entry_partial').val()}}
       $.ajax({url: "#{system_path()}", data: params, type: 'PUT', dataType: 'script'});
@@ -91,6 +98,8 @@
       $('#semi_static_entry_side_bar').change(function() { check_side_bar(); });
       check_comments();
       $('#semi_static_entry_enable_comments').change(function() { check_comments(); });
+      check_header_html();
+      $('#semi_static_entry_merge_with_previous').change(function() { check_header_html(); });
       check_entry_partial();
       $('#entry_partial').change(function() { check_entry_partial(); });
       $('#entry_partial').trigger('change');
@@ -359,13 +368,16 @@
     
       .tile.sScontentSection
         .tile-title
-          %h5 Style settings
+          %h5= 'Style & header'
         .tile-body
           .row
             .col-md-8
               .stacked-input-group
                 = f.label :style, 'Custom style rules (CSS)', :class => 'input-group-text'
-                = f.text_area :style, :rows => 12, :class => 'form-control'
+                = f.text_area :style, :rows => 8, :class => 'form-control'
+              .stacked-input-group#headerHTML
+                = f.label :style, 'Header HTML', :class => 'input-group-text'
+                = f.text_area :header_html, :rows => 6, :class => 'form-control'
             .col-md-4
               = labeled_selectbox(f, :style_class, options_for_select(SemiStatic::EntriesHelper::STYLE_CLASSES.collect{|sc| [sc, sc]}, @entry.style_class))
               .stacked-input-group{:title => 'Background CSS colors: black, yellow, #5f78c0, etc'}

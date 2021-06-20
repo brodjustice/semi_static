@@ -146,6 +146,12 @@ module SemiStatic
       end
     end
 
+    #
+    # Entry specific header HTML, META, ld+json, etc.
+    def entry_header_html
+      @entry&.header_html&.html_safe
+    end
+
     def copyright_year
       ("&copy;" + (SemiStatic::Engine.config.has?('copyright_year') || Date.today.year.to_s)).html_safe
     end

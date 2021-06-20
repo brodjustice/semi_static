@@ -1,0 +1,37 @@
+-#
+-# The video_playing JS fuction is called by the video tag onload so we cannot put it in
+-# the footer like the rest of the JS because the video tag needs it to be previously defined.
+-#
+-# 
+- content_for :ujs do
+  :javascript
+    function video_playing(){
+      setTimeout(function(){
+        document.getElementById('videoTagLine').style.display = 'none';
+      }, 5000);
+    }
+    function eurhostal_video_popup(){
+      semiStaticAJAX('/entries/' + this.dataset.entryid + '?popup=true&video=true');
+    }
+    function set_video_pop_up_events(){
+      document.querySelectorAll('.videoCard').forEach(function(item, i){
+        item.addEventListener('click', eurhostal_video_popup);
+      });
+    }
+    addSemiStaticLoadEvent(set_video_pop_up_events);
+
+
+-#
+-# CSS needs to ge in in the assets: semi_static/custom.scss
+-#
+- if @entry.youtube_id_str.present?
+  .videoCard{:data => {:entryid => @entry.id}}
+    .pictureCard
+      - if @entry.alt_img.present?
+        .pictureWrap
+          = image_tag @entry.alt_img(:original)
+      .titles
+        .playIcon
+        .title
+          %h3= @entry.title
+
