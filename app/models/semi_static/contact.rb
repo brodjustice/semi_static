@@ -11,6 +11,7 @@ module SemiStatic
     # validates_presence_of :telephone, :unless => :email?
     validates_format_of :email, :with => /.+@.+\..+/i, :allow_blank => true, :allow_nil => true
     validates_presence_of :email, :unless => :telephone?
+    validate :spam_email?
   
     after_create :execute_strategy
     after_create :check_subscription
@@ -28,6 +29,18 @@ module SemiStatic
         end
         s.category = SemiStatic::SubscriberCategory.find_by_name('website')
         s.save
+      end
+    end
+
+    def spam_email?
+      if SemiStatic::Engine.config.contact_form_spam_email
+        strs = SemiStatic::Engine.config.contact_form_spam_email.split(',')
+        if strs.any?{|word| self.email.include?(word.strip)}
+          self.errors.add(
+            :base, 'This appears to be SPAM. Sorry, we cannot process this request, please send email to '+
+              SemiStatic::Engine.config.info_email
+          )
+        end
       end
     end
 

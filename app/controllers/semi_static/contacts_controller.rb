@@ -136,12 +136,8 @@ module SemiStatic
         @contact.errors.add(:base, 'This appears to be SPAM. Sorry, we cannot process this request')
         spam_detected = true
       elsif SemiStatic::Engine.config.contact_form_spam_email
-        strs = SemiStatic::Engine.config.contact_form_spam_email.split(',')
-        if params[:contact].present? && params[:contact][:email].present? && strs.any?{|word| params[:contact][:email].include?(word.strip)}
-          @contact = Contact.new(:email => params[:contact][:email])
-          @contact.errors.add(:base, 'This appears to be SPAM. Sorry, we cannot process this request, please send email to '+ SemiStatic::Engine.config.info_email)
-          spam_detected = true
-        end
+        @contact = Contact.new(:email => params[:contact][:email])
+        spam_detected = @contact.spam_email?
       end
       spam_detected
     end
