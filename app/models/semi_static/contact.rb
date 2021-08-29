@@ -42,6 +42,15 @@ module SemiStatic
           )
         end
       end
+      if SemiStatic::Engine.config.contact_form_strict
+        # Check for URL in name field
+        if self.name&.match(/^http/) || self.surname&.match(/^http/)
+          self.errors.add(
+            :base, 'This appears to be a SPAM link. Sorry, we cannot process this request, please send email to '+
+              SemiStatic::Engine.config.info_email
+          )
+        end
+      end
     end
 
     def fullname

@@ -3,6 +3,8 @@ require_dependency "semi_static/application_controller"
 module SemiStatic
   class ContactsController < ApplicationController
 
+    include SemiStatic::ContactConcern
+
     before_action :authenticate_for_semi_static!, :except => [:new, :create]
 
     # Many static pages including the main contact page will have a form for

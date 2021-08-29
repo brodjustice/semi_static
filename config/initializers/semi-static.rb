@@ -134,6 +134,11 @@ module SemiStatic
     #
     config.contact_form_spam_email = false
     
+    # Will do stricter checking of the contact form inputs, eg. checking if they are real names rather
+    # than urls.
+    #
+    config.contact_form_strict = true
+    
     # Add name for partial which will provide imprint/impressum, terms and conditions etc. If
     # nil, then the contact partial, if any, will be used
     config.imprint_partial = nil
