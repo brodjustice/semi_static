@@ -16,6 +16,8 @@ module SemiStatic
     after_create :execute_strategy
     after_create :check_subscription
 
+    default_scope { order(created_at: :desc) }
+
     STRATEGIES = { :message => 0, :registration => 1, :download => 2, :subscriber => 3 }
     STRATEGY_CODES = STRATEGIES.invert
   
