@@ -19,3 +19,4 @@
 //= require semi-static.js
 //= require semi_static_admin.js
 //= require activestorage
+//= require semi_static/main-app-dashboard.js
