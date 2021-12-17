@@ -5,7 +5,7 @@ module SemiStatic
       email = SemiStatic::Engine.config.has?('comment_email') || SemiStatic::Engine.config.has?('contact_email')
 
       @comment = comment
-      @host = SemiStatic::Engine.config.mail_host
+      @host = URI.parse(SemiStatic::Engine.config.localeDomains[@comment.entry.tag.locale]).host
       @locale = :en
       mail(:from => SemiStatic::Engine.config.mailer_from, :to => email, :subject => subject)
     end
