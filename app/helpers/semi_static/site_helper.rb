@@ -840,9 +840,13 @@ module SemiStatic
     # }
     #
     def semi_static_custom_meta_tags
-      SemiStatic::Engine.config.custom_meta_tags[I18n.locale.to_s].inject(''){|res, (name, value)|
-        res << "<meta name=\"#{name}\" content=\"#{value}\">"
-      }.html_safe if SemiStatic::Engine.config.respond_to?('custom_meta_tags')
+      if SemiStatic::Engine.config.respond_to?(:custom_meta_tag) && SemiStatic::Engine.config.custom_meta_tag.present?
+        SemiStatic::Engine.config.custom_meta_tags[I18n.locale.to_s].inject(''){|res, (name, value)|
+          res << "<meta name=\"#{name}\" content=\"#{value}\">"
+        }.html_safe if SemiStatic::Engine.config.respond_to?('custom_meta_tags')
+      else
+        ''
+      end
     end
 
     #

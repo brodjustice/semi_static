@@ -5,12 +5,18 @@
   %h5 Sitemaps were generated
   %h5 Google responded:
   %p
-    - @google.xpath("//script").remove
-    = @google.xpath('/html/body').text
+    - if @google.kind_of?(String)
+      = @google
+    - else
+      - @google.xpath("//script").remove
+      = @google.xpath('/html/body').text
   %h5 Bing responded:
   %p
-    - @bing.xpath("//script").remove
-    = @bing.xpath('/html/body').text
+    - if @bing.kind_of?(String)
+      = @bing
+    - else
+      - @bing.xpath("//script").remove
+      = @bing.xpath('/html/body').text
   
   %h5= "Your can view your new sitemap here:"
   %p

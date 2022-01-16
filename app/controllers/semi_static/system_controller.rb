@@ -52,7 +52,9 @@ module SemiStatic
           send_data(stream, :type=>"text/xml", :filename => "sitemap.xml")
         end
         format.js {
-          (action == 'generate_sitemap') && SemiStatic::Engine.config.has?('sitemap').present? && write_sitemap(@locale)
+          (action == 'generate_sitemap') &&
+            SemiStatic::Engine.config.has?('sitemap').present? &&
+            write_sitemap(@locale)
           render :template => "semi_static/system/#{action}", :formats => [:js]
         }
       end

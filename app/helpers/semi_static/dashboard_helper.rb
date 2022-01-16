@@ -56,7 +56,7 @@ module SemiStatic
       text ||= attr.to_s.humanize
       klass = f.object.class.name.split('::').last.underscore
       infomarker_html = infomarker ? "<span class='infomarker' data-marker='#{infomarker.to_s}'></span>" : ''
-      input_html = "<input class='form-control mt-2' type='text' value='#{f.object.send(attr)}' name='#{klass}[#{attr}]' id='#{klass}_#{attr}'>".html_safe
+      input_html = f.text_field(attr, {:class => 'form-control mt-2'})
 
       "<div class='input-group'>#{infomarker_html}<div class='input-group-prepend'> <label class='input-group-text' for='#{klass}_#{attr}'>#{text}</label></div>#{input_html}</div>".html_safe
     end

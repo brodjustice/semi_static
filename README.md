@@ -25,6 +25,10 @@ Create your new rails application, for example using the postgres DB:
 
 	# rails new myapp -d postgresql
 
+Currently Rails 6 is not supported so you may need to modify the above command to something like:
+
+	# rails _5.2.3_ new myapp -d postgresql
+
 Change your working directory to your Rails app and create the database with:
 
 	# rails db:create

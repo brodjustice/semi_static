@@ -15,10 +15,21 @@ module General
     sitemap_url = construct_url(SemiStatic::Engine.config.sitemap, locale)
 
     File.open(sitemap_path, 'w') { |f| f.write(stream) }
-    uri = URI.parse("http://www.google.com/webmasters/sitemaps/ping?sitemap=#{sitemap_url}")
-    @google = Nokogiri::HTML(open(uri, :ssl_verify_mode => OpenSSL::SSL::VERIFY_NONE))
-    uri = URI.parse("http://www.bing.com/ping?sitemap=#{sitemap_url}")
-    @bing = Nokogiri::HTML(open(uri, :ssl_verify_mode => OpenSSL::SSL::VERIFY_NONE))
+
+    begin
+      uri = URI.parse("http://www.google.com/webmasters/sitemaps/ping?sitemap=#{sitemap_url}")
+      @google = Nokogiri::HTML(open(uri, :ssl_verify_mode => OpenSSL::SSL::VERIFY_NONE))
+    rescue => e
+      @google = e.to_s
+    end
+
+    begin
+      uri = URI.parse("http://www.bing.com/ping?sitemap=#{sitemap_url}")
+      @bing = Nokogiri::HTML(open(uri, :ssl_verify_mode => OpenSSL::SSL::VERIFY_NONE))
+    rescue => e
+      @bing = e.to_s
+    end
+
   end
 
   def expire_page_cache(obj=nil, *args)
