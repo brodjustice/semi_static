@@ -8,5 +8,14 @@ module SemiStatic
 
     validates :price, :numericality => true, :allow_nil => false
 
+    before_save :strip_whitespace
+
+    #
+    # Make sure whitespace is stripped before saving price else
+    # some services (eg. Stripe) will complain
+    #
+    def strip_whitespace
+      self.price = self.price.strip unless self.price.nil?
+    end
   end
 end
