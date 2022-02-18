@@ -38,6 +38,6 @@
             - score_displayed = true
         %tr.last
           %td.result
-            = hit.try(:highlight).try(:body) ? hit.highlight.body.join('&hellip;').html_safe : truncate_html(e.body, :length => 100)
+            = ActionView::Base.full_sanitizer.sanitize(hit.try(:highlight).try(:body) ? hit.highlight.body.join('&hellip;').html_safe : truncate_html(e.body, :length => 100))
           - unless score_displayed
             %td.score= (hit._score).round.to_s + '%'
