@@ -33,6 +33,8 @@ module SemiStatic
       end
     end
 
+    validates :tag_id, :presence => true
+
     belongs_to :tag
     belongs_to :acts_as_tag, :class_name => "SemiStatic::Tag", :optional => true
     has_many :provides_content_for_tags, :class_name => 'SemiStatic::Tag', :foreign_key => :use_entry_as_index, :inverse_of => :use_entry_as_index

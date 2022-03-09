@@ -8,6 +8,9 @@
   %h1
     %i.fa.fa-event.invert
     Events
+    %p
+      = "Your timezone is #{Time.zone}"
+
   = link_to new_event_path, :class => 'btn btn-primary btn' do
     %span.app-menu__icon.fa.fa-event
     New Event

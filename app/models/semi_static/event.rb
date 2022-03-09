@@ -11,6 +11,8 @@ module SemiStatic
     has_many :entries
     belongs_to :squeeze, :optional => true
 
+    validates :name, presence: true
+
     #
     # The symbols as significant as defined by schema.org https://schema.org/EventAttendanceModeEnumeration
     #
