@@ -3,10 +3,6 @@
 - @entries ||= SemiStatic::Entry.for_documents_tag
 - unless @tag.nil?
   .panel.list
-    - if SemiStatic::Tag.use_sprites?
-      .icon.sprite{:id => "sprite_#{@tag.position.to_s}"}
-    - else
-      .icon= image_tag(@tag.icon.url(:big)) if @tag.icon.present?
     %h1= link_to @tag.sidebar_title, feature_path(@tag.slug), :style => "color: #{@tag.colour};"
     .section
       - @entries.collect{|e| e.merged_main_entry}.uniq.each do |e|
