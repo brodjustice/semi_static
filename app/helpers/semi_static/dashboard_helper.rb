@@ -24,8 +24,8 @@ module SemiStatic
       end
     end
 
-    def nav_icon_link(link_text, controller_name, link_path, icon_class)
-      class_name = ((@menu_class || controller.controller_name) == controller_name) ? 'active' : ''
+    def nav_icon_link(link_text, controller_name, link_path, icon_class, link_class = '')
+      class_name = [((@menu_class || controller.controller_name) == controller_name) ? 'active' : '', link_class].reject(&:empty?).join(' ')
 
       content_tag(:li, :class => class_name) do
         link_to link_path, :class => "app-menu__item #{class_name}" do

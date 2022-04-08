@@ -82,4 +82,4 @@
     - unless SemiStatic::Engine.config.dashboard_menu_additions.nil?
       %li.header.custom= t('dashboard.custom_section_header')
       - SemiStatic::Engine.config.dashboard_menu_additions.each do |title, url_method|
-        = nav_icon_link(title.humanize, title.humanize, main_app.send(url_method), "fa-custom #{title.parameterize.downcase}")
+        = nav_icon_link(title.humanize, title.humanize, main_app.send(url_method), "fa-custom #{title.parameterize.downcase}", 'custom')
