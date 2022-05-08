@@ -207,6 +207,19 @@ module SemiStatic
     end
 
     #
+    # Get title or even just the partial name if no title
+    #
+    def get_title_like
+      (t = [title, sub_title, alt_title].reject(&:empty?).first).blank? ? false : t
+
+      if t.blank? && self.partial != 'none'
+        "[ #{partial} ]"
+      else
+        t
+      end
+    end
+
+    #
     # Max number of entries before pagination starts
     #
     def paginate_at
