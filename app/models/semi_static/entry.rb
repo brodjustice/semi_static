@@ -255,10 +255,6 @@ module SemiStatic
     # supposed to be context_url
     #
     # If the entry :provides_content_tags then it might not be canonical.
-    #
-    # As a side note, in Rails 5 our entry_link() helper results in a 500 system error
-    # caused by a suprious Rudy stack level too deep error that occurs around on 0.1% of
-    # calls to the ActionPack mapper.rb. This is another reason to migrate to this method.
     # 
     def canonical(no_context = false)
       !self.merge_with_previous && !self.link_to_tag &&

@@ -3,7 +3,7 @@
     .href_equiv_path{max-width: 232px; overflow: hidden; word-wrap: anywhere;}
 
 - content_for :ujs do
-  <script src="//cdn.ckeditor.com/4.5.4/standard/ckeditor.js"></script>
+  <script src="//cdn.ckeditor.com/4.19.0/standard/ckeditor.js"></script>
   :javascript
     function load_banner_preview(b_id){
       $.ajax({
@@ -247,7 +247,7 @@
                 %span.infomarker{:data => {:marker => :raw_html_check_box}}
                 = f.check_box :raw_html
                 = f.label :raw_html
-          .form-group.sScontentSection
+          .form-group.mt-2
             = f.label :summary, :class => 'font-weight-bold'
             .infobox#summary_box
               %h5= 'Summary length'
@@ -418,13 +418,14 @@
 
 
     .col-md-4
-      .tile.sScontentSection
+      .tile
         %h5 Position
         .input-group
           .input-group-prepend
             %span.input-group-text Position
           = f.text_field :position, :class => 'form-control'
-        = labeled_checkbox(f, :merge_with_previous)
+        .sScontentSection
+          = labeled_checkbox(f, :merge_with_previous)
 
       .tile
         %h5 Menu &amp; Tag selection
