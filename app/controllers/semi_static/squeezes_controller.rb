@@ -16,9 +16,17 @@ module SemiStatic
       end
     end
   
+    #
+    # This can be called in a number of ways. The default way, but also be adding parameters to your
+    # AJAX call to set the strategy and element to fill with the squeeze for eg.
+    #   semiStaticAJAX('/squeezes/' + this.dataset.squeezeid + '?strategy=register&element=dialog');
+    #
     def show
       @squeeze = Squeeze.find(params[:id])
-      @contact = Contact.new(:strategy => Contact::STRATEGIES[:download], :reason => @squeeze.name.to_s, :squeeze_id => @squeeze.id)
+      strategy = params[:strategy] || :download
+      @element = params[:element] || "squeeze-tease_#{@squeeze.id.to_s}"
+
+      @contact = Contact.new(:strategy => Contact::STRATEGIES[strategy.to_sym], :reason => @squeeze.name.to_s, :squeeze_id => @squeeze.id)
 
       respond_to do |format|
         format.html # show.html.erb

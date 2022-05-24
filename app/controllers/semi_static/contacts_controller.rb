@@ -1,4 +1,5 @@
 require_dependency "semi_static/application_controller"
+require 'csv'
 
 module SemiStatic
   class ContactsController < ApplicationController
@@ -34,6 +35,12 @@ module SemiStatic
       respond_to do |format|
         format.html { render :layout => 'semi_static_dashboards' }
         format.json { render :json => @contacts }
+      format.csv {
+        response.headers['Content-Type'] = 'text/csv'
+        response.headers['Content-Disposition'] = "attachment; filename=contacts-#{DateTime.now.to_date}.csv"
+        render :layout => false
+      }
+        
       end
     end
   

@@ -10,9 +10,14 @@
     %span= SemiStatic::Contact.all.size.to_s + ' Website contacts'
   .text-right
     - if @nopaginate
-      = link_to contacts_path, :title => 'Show contacts with pagination', :class => 'btn btn-primary loading' do
-        %span.app-menu__icon.fa.fa-user
-        %span Paginate
+      %div
+        = link_to contacts_path(:format => 'csv'), :title => 'Download contacts as CSV file', :class => 'btn btn-primary' do
+          %span.app-menu__icon.fa.fa-user
+          %span Download
+      %div
+        = link_to contacts_path, :title => 'Show contacts with pagination', :class => 'btn btn-primary loading' do
+          %span.app-menu__icon.fa.fa-user
+          %span Paginate
     - else
       = link_to contacts_path(:nopaginate => true), :title => 'Show all contacts without pagination', :class => 'btn btn-primary loading' do
         %span.app-menu__icon.fa.fa-user

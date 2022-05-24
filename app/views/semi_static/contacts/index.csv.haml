@@ -1,0 +1,6 @@
+- headers = ['ID', 'Name', 'Surname', 'Email', 'Telephone', 'Reason', 'Message', 'Date']
+= CSV.generate_line(headers, :row_sep => nil)
+- @contacts.each do |cnt|
+ - row = [ cnt.id.to_s, cnt.name.to_s, cnt.surname.to_s, cnt.email.to_s, cnt.telephone.to_s, cnt.reason.to_s, cnt.message.to_s, cnt.created_at ]
+ = CSV.generate_line(row, :row_sep => nil, :quote_char => "\x00")
+

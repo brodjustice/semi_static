@@ -25,6 +25,7 @@ function semiStaticPrepareSingleUpload(files){
 
 $(document).ready(function() {
   // Show the loading modal if the bootstrap btn also has loading class
+  // TODO: Why is the event on the parent?
   $('.loading').parent().on('click', function() {
     waitingDialog.show('Loading...', {dialogSize: 'sm', progressType: 'striped progress-bar-animated'});
   });

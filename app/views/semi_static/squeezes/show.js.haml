@@ -40,7 +40,8 @@
     event.preventDefault();
   }
 
-!= "var d = document.getElementById('squeeze-tease_#{@squeeze.id.to_s}');"
+!= "var d = document.getElementById('#{@element}');"
+!= "d.classList.add('show');"
 != "d.innerHTML=('#{escape_javascript(render :partial => 'semi_static/squeezes/popin')}');"
 document.getElementById('contact_name').focus();
 

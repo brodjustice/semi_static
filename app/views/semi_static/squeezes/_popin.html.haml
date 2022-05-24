@@ -33,7 +33,7 @@
       .col.span_1_of_2
         = f.email_field :email, :placeholder => t('Email')
         = f.label :email, t('Email')
-      .col.span_1_of_2
+      .col.span_1_of_2.telephoneField
         = f.text_field :telephone, :placeholder => t('Telephone')
         = f.label :telephone, t('Telephone')
   
@@ -48,4 +48,3 @@
         = agreement.body.html_safe
     .actions
       = f.submit t('Send'), :id => 'squeezeSubmit'
-  
