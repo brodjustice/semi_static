@@ -99,7 +99,7 @@
         @entry.canonical(@entry.tag.context_url.present?) && (@canonical = request.protocol + request.host + "/#{context_url_or_entry}/" + @entry.to_param)
 
         # Check if this should only be seen by the admin.
-        @entry.admin_only && authenticate_for_semi_static!
+        @entry.admin_only && !@entry.get_page_attr('alwaysAllowContentDisplay') && authenticate_for_semi_static!
 
         @title = ActionController::Base.helpers.strip_tags(@entry.title)
         @seo = @entry.seo

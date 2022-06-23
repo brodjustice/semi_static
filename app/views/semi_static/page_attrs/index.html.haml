@@ -129,6 +129,11 @@
               %td= 'Photo ID'
               %td= 'Entry'
               %td= 'Display an icon before, or to the left, of the entry Title. You can determin the icon size yourself by loading different image sizes and adjusting the CSS. However, the default is 64px by 64px.'
+            %tr
+              %td= 'alwaysAllowContentDisplay'
+              %td= '<any value>'
+              %td= 'Entry'
+              %td= 'If a Tag has this Entry as its content source by setting its ID in Tag#EntryAsTagIndex but this Entry is "Admin Only" content because of its own Tag settings, then normally you will not be able to view this Entry. However, you can override this behavious be setting this attribute to any value. Careful, it is an override and could be dangerous if you do not know what you are doing.'
     .infomarker= 'Page Attibutes Help'
     .table-responsive.table.sortable.table-bordered.table-hover
       %table
