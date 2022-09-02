@@ -13,4 +13,5 @@
 //= require rails-ujs
 //= require semi-static.js
 //= require activestorage
+//= require no_jquery/semi_static_dashboard.js
 //= require semi_static/main-app-dashboard.js
