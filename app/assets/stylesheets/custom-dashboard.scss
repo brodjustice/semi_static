@@ -45,6 +45,24 @@ label{
   margin-top: 0.6rem;
 }
 
+// More space for header title
+.app-title h1{
+  min-width: 35%;
+}
+.app-title p{
+  padding: 0 12px;
+}
+
+// Highlighted input group
+.input-group-prepend.highlight{
+  background-color: #009688;
+  border-radius: 6px;
+}
+.input-group-prepend.highlight .input-group-text{
+  background-color: transparent;
+  color: white;
+}
+
 // Status widgets
 .status{
   height: 28px;
@@ -277,6 +295,11 @@ h1 .fa-code { background-position: -0px -1786px;}
    line-height: 32px;
    height: 32px; width: 32px;
    border-color: black;
+}
+
+// Nicer paragraph insite tile-title
+.tile-title p{
+  font-size: 1rem;
 }
 
 // Change color to red in dropdown

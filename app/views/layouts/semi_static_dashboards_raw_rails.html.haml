@@ -1,0 +1,38 @@
+!!! 5
+%html{ :xmlns => "http://www.w3.org/1999/xhtml", :lang => "en", "xml:lang" => "en"}
+  %head
+    %meta{:charset => "utf-8"}/
+    %meta{:name => "description", :content => "#{SemiStatic::Engine.config.site_name}" }/
+    %meta{:name => "keywords", :content => "" }/
+    %meta{:name => "rating", :content => "General" }/
+    %meta{:name => 'viewport', :content => 'width=device-width, initial-scale=1.0'}/
+    %meta{:name => "ROBOTS", :content => 'NOINDEX, NOFOLLOW' }/
+
+    %title= 'Admin Dashboard for ' + SemiStatic::Engine.config.site_name.to_s
+
+    = csrf_meta_tags
+
+    = stylesheet_link_tag 'semi_static_dashboard', :media => 'all'
+    %style{:type => "text/css"}
+      = yield :header_css
+
+    = javascript_include_tag 'semi_static_dashboard_raw_rails'
+    = yield :ujs
+
+    = favicon_link_tag SemiStatic::Engine.config.favicon_image
+
+  %body.app.sidebar-mini{:id => controller_name.classify.downcase}
+    - flash.each do |key, value|
+      = content_tag :div, value, :id => "#{key}" unless value.blank?
+
+    #body-inner.wrapper
+      = render :partial => "semi_static/dashboards/admin/menu"
+      %main.app-content
+        #generalModal.modal.fade{:tabindex => "-1", :role => "dialog", 'aria-labelledby' => "exampleModalLabel",  'aria-hidden' => 'true'}
+          .modal-dialog{:role => "document"}
+            .modal-content
+              .modal-header
+              .modal-body
+              .modal-footer
+        = yield
+    #footer.main-footer
