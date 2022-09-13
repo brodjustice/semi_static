@@ -1,3 +1,13 @@
+// Help elements
+.help-info{
+  visibility: hidden;
+  max-height: 32px;
+}
+.show-help-info .help-info{
+  visibility: visible;
+  max-height: none;
+}
+
 // Nicer select tags for Chrome
 .input-group select{
     padding: 4px;
