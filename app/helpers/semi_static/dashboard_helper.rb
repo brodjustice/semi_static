@@ -12,7 +12,7 @@ module SemiStatic
       if hide
         "$('.modal').modal('hide');$('#generalModal .modal-content').html('#{escape_javascript(render :partial => partial)}');$('#generalModal').modal();".html_safe
       else
-        "$('#generalModal .modal-content').html('#{escape_javascript(render :partial => partial)}');$('#generalModal').modal();".html_safe
+        "document.querySelector('#generalModal .modal-content').innerHTML = '#{escape_javascript(render :partial => partial)}';$('#generalModal').modal();".html_safe
       end
     end
 

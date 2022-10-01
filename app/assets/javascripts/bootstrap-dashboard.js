@@ -89,6 +89,25 @@ var waitingDialog = waitingDialog || (function ($) {
 })(jQuery);
 
 $(document).ready(function() {
+  document.querySelectorAll('.app').forEach((el, i) => {
+    if(document.cookie.indexOf('sidenav=') == -1){
+      el.classList.remove('sidenav-toggled')
+    } else {
+      document.querySelector('.app-sidebar').style.transition = 'none';
+      el.classList.add('sidenav-toggled')
+    }
+  });
+  document.querySelector('.app-sidebar__toggle').addEventListener('click', e => {
+    document.querySelectorAll('.app').forEach((el, i) => {
+      if(document.cookie.indexOf('sidenav=') == -1){
+        document.cookie = 'sidenav=toggled; path=/'; 
+      } else {
+        document.cookie = 'sidenav=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      }
+    });
+  });
+
+
   $('.loading').on('click', function() {
     waitingDialog.show('Running, please wait...', {dialogSize: 'sm', progressType: 'striped progress-bar-animated'});
   });

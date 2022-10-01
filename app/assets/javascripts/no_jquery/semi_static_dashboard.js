@@ -1,11 +1,23 @@
 function init___dashboard(){
+
+  document.querySelectorAll('.app').forEach((el, i) => {
+    if(document.cookie.indexOf('sidenav=') == -1){
+      el.classList.remove('sidenav-toggled')
+    } else {
+      document.querySelector('.app-sidebar').style.transition = 'none';
+      el.classList.add('sidenav-toggled')
+    }
+  });
+
   document.querySelector('.app-sidebar__toggle').addEventListener('click', e => {
     e.preventDefault();
     document.querySelectorAll('.app').forEach((el, i) => {
       if(el.classList.contains('sidenav-toggled')){
         el.classList.remove('sidenav-toggled')
+        document.cookie = 'sidenav=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'; 
       } else {
         el.classList.add('sidenav-toggled')
+        document.cookie = 'sidenav=toggled; path=/'; 
       }
     });
   });
