@@ -9,7 +9,7 @@ module SemiStatic
   
     index_name SemiStatic::Engine.config.site_name.gsub(/( )/, '_').downcase
   
-    attr_accessor :doc_delete, :img_delete, :alt_img_delete, :notice
+    attr_accessor :doc_delete, :img_delete, :alt_img_delete, :notice, :change_main_entry_position
 
     # The news image is now also used for various alternative fuctions, icons, etc.
     alias_attribute :alt_img, :news_img
@@ -358,6 +358,23 @@ module SemiStatic
 
     def previous_entry
       self.tag.entries.select{|e| e.position < self.position}.last
+    end
+
+    def change_main_entry_position=(new_position)
+      #
+      # Only apply the method if this is the main Entry
+      #
+      unless self.merge_with_previous
+        shift = new_position.to_i - self.position
+        self.position = new_position.to_i
+        self.merged_entries.each{|e|
+          e.position = e.position + shift
+        }
+        self.save
+        self.merged_entries.each{|e| e.save}
+      else
+        self.errors.add(:position, "Can only reposition the main entry")
+      end
     end
 
     def doc_delete=(val)

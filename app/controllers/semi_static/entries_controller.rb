@@ -191,11 +191,13 @@
         format.json { render :json => @entry }
       end
     end
+
+    EDIT_VIEWS = ['edit_html', 'change_main_entry_position' ]
   
     # GET /entries/1/edit
     def edit
       @entry = Entry.find(params[:id])
-      template = params[:mode] == 'html' ? 'semi_static/entries/edit_html' : 'semi_static/entries/edit'
+      template = EDIT_VIEWS.include?(params[:view].to_s) ? "semi_static/entries/#{params[:view]}" : 'semi_static/entries/edit'
       respond_to do |format|
         format.html { render :template => template }
         format.js { render :template => template }
@@ -294,7 +296,7 @@
     def entry_params
       params.fetch(:entry, {}).permit(:title, :sub_title, :body, :tag_id, :home_page, :summary, :img,
       :news_item, :image_in_news, :image_disable, :news_img, :newsletter_img,
-      :position, :doc, :doc_description, :summary_length, :locale, :style_class, :header_colour, :background_colour, :colour,
+      :position, :change_main_entry_position, :doc, :doc_description, :summary_length, :locale, :style_class, :header_colour, :background_colour, :colour,
       :banner_id, :partial, :entry_position, :master_entry_id, :youtube_id_str, :use_as_news_summary, :simple_text,
       :sidebar_id, :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_gallery, :side_bar_tag_id, :unrestricted_html,
       :merge_with_previous, :raw_html, :image_popup, :alt_title, :acts_as_tag_id, :gallery_id,

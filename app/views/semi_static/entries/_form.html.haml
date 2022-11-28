@@ -225,7 +225,7 @@
               = link_to '#', onclick: 'convert_to_editor(); return false', id: 'convert_and_enable_editor', class: 'mr-2 float-right btn btn-sm btn-warning' do
                 Convert to editor
               - unless @entry.new_record?
-                = link_to edit_entry_path(@entry, :mode => :html), :title => 'Edits will be lost', :remote => true, :class => 'mr-2 float-right btn btn-sm btn-warning' do
+                = link_to edit_entry_path(@entry, :view => :edit_html), :title => 'Edits will be lost', :remote => true, :class => 'mr-2 float-right btn btn-sm btn-warning' do
                   %span HTML Mode
             .form-group.clearfix
               #entry_text_area

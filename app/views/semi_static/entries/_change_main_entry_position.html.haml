@@ -1,0 +1,26 @@
+.modal-header
+  %h5= "Change position of main entry: #{@entry.merged_main_entry.title}"
+  = modal_close
+.modal-body
+  %p
+    Note: This will change the position of the main Entry and also the merged entries associated
+    with this Entry. If you only what to change a single Entry position, you should instead
+    just edit the Entry.
+  = form_for @entry, :url => "/entries/#{@entry.merged_main_entry.id}", :class => 'form-inline' do |f|
+    .row
+      .col-md-12
+        .input-group
+          .input-group-prepend
+            %label.input-group-text= 'Current position'
+          = text_field_tag 'current_position', @entry.merged_main_entry.position, {:class => 'form-control mt-2', :readonly => :readonly}
+
+        .input-group
+          .input-group-prepend
+            = f.label :change_main_entry_position, 'New position', :class => 'input-group-text'
+          = f.text_field :change_main_entry_position, :class => 'form-control mt-2'
+
+    .row.mt-4
+      .col-md-12
+        = f.submit 'Submit', :class => 'btn btn-danger btn-block'
+
+

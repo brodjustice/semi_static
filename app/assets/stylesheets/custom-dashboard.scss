@@ -3,9 +3,16 @@
   visibility: hidden;
   max-height: 32px;
 }
+// Help elements
+.help-info-display{
+  display: none;
+}
 .show-help-info .help-info{
   visibility: visible;
   max-height: none;
+}
+.show-help-info .help-info-display{
+  display: block;
 }
 
 // Nicer select tags for Chrome
