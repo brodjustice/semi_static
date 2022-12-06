@@ -7,7 +7,7 @@ module SemiStatic
     include Elasticsearch::Model
     include Elasticsearch::Model::Callbacks
   
-    index_name SemiStatic::Engine.config.site_name.gsub(/( )/, '_').downcase
+    index_name SemiStatic::Engine.config.site_name.gsub(/( )/, '_').downcase + Rails.env.to_s
   
     attr_accessor :doc_delete, :img_delete, :alt_img_delete, :notice, :change_main_entry_position
 
@@ -48,50 +48,32 @@ module SemiStatic
 
     serialize :img_dimensions
   
-    #
-    # Scopes with old Rails 3 version for comparision
-    #
-
-    # scope :home, where('home_page = ?', true)
     scope :home, -> {where('home_page = ?', true)}
 
-    # scope :news, where('news_item = ?', true)
     scope :news, -> {where('news_item = ?', true)}
 
-    # scope :locale, lambda {|locale| where("locale = ?", locale.to_s)}
     scope :locale, -> (locale) {where("locale = ?", locale.to_s)}
 
-    # scope :not, lambda {|entry| where("id != ?", (entry ? entry.id : 0))}
     scope :not, -> (entry) {where("id != ?", (entry ? entry.id : 0))}
 
-    # scope :has_style, lambda {|style| where("style_class = ?", style)}
     scope :has_style, -> (style){ where("style_class = ?", style)}
 
-    # scope :not_style, lambda {|style| where("style_class != ?", style)}
     scope :not_style, -> (style) { where("style_class != ?", style)}
 
-    # scope :unmerged, where('merge_with_previous = ?', false)
     scope :unmerged, -> {where('merge_with_previous = ?', false)}
 
-    # scope :not_linked_to_tag, where('link_to_tag = ?', false)
     scope :not_linked_to_tag, -> {where('link_to_tag = ?', false)}
 
-    # scope :exclude_newsletters, joins(:tag).where(:semi_static_tags => {:newsletter_id => nil})
     scope :exclude_newsletters, -> {joins(:tag).where(:semi_static_tags => {:newsletter_id => nil})}
 
-    # scope :for_newsletters, includes(:tag).where('semi_static_tags.newsletter_id IS NOT NULL')
     scope :for_newsletters, -> {includes(:tag).where.not(:semi_static_tags => {:newsletter_id => nil})}
 
-    # scope :for_documents_tag, where("show_in_documents_tag = ?", true).where('doc_file_size IS NOT NULL')
     scope :for_documents_tag, -> {where("show_in_documents_tag = ?", true).where('doc_file_size IS NOT NULL')}
 
-    # scope :with_image, where('img_file_name IS NOT NULL')
     scope :with_image, -> {where('img_file_name IS NOT NULL')}
 
-    # scope :without_image, where('img_file_name IS NULL')
     scope :without_image, -> {where('img_file_name IS NULL')}
 
-    # scope :with_attr, lambda{|attr| includes(:page_attrs).where('semi_static_page_attrs.attr_key  = ?', attr)}
     scope :with_attr, -> (attr){includes(:page_attrs).where(:semi_static_page_attrs => {:attr_key => attr})}
 
     has_one :seo, :as => :seoable, :dependent => :destroy
@@ -264,19 +246,28 @@ module SemiStatic
     end
 
     #
-    # We used to he able to add a filter to the DSL here to ensure that you
-    # only got results in the locale that you were working in. But it's no
-    # longer possible to add a filter. Is this good or bad? Maybe it's a good
-    # thing to search all language sites?
+    # Add the filter to only get the current locale else your results may include
+    # non-functioning links other your website in other languages.
     #
     def self.search(query, locale='en')
       __elasticsearch__.search(
         {
           query: {
-            multi_match: {
-              query: query,
-              fuzziness: 1,
-              fields: ['internal_search_keywords^100', 'raw_title^10', 'full_body', 'effective_tag_line']
+            bool: {
+              must: [
+                {
+                  multi_match: {
+                    query: query, 
+                    fuzziness: 1,
+                    fields: ['internal_search_keywords^100', 'raw_title^10', 'full_body', 'effective_tag_line']
+                  }
+                },
+              ],
+              filter: [
+                {
+                  term: { locale: locale }
+                }
+              ]
             }
           },
           highlight: {
