@@ -482,3 +482,29 @@ div {
     list-style: square;
   }
 }
+
+// inline_entry_teaser_partial
+.inlineTeaser a{
+  text-decoration: none;
+  background-color: $secondary-color;
+  color: $prime-color;
+  display: flex;
+  margin: 48px auto;
+  max-width: 80%;
+  align-items: center;
+  border-radius: 0 3px 3px 0;
+}
+.inlineTeaser a:hover {
+  transform: translate3d(0, -1px, 0);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+}
+.inlineTeaser a .inlineTeaserImg{
+  max-width: 25%;
+}
+.inlineTeaserText{
+  padding: 6px 12px;
+  flex: 1 1 auto;
+}
+.inlineTeaserText p{
+  text-align: center;
+}

@@ -1,0 +1,23 @@
+-#
+-#
+-# Creates a small stylised link to another entry. Set display to 'inline' and provide the
+-# entry ID in a Page Attribute called 'inlineEntryTeaserId'
+-#
+-# The text content comes from the inlineEntryTeaserId title or, if present, the body
+-# from this entry.
+-#
+
+- if(entry_teaser_id = e.get_page_attr('inlineEntryTeaserId'))
+  - entry_teaser = SemiStatic::Entry.find(entry_teaser_id)
+
+- if entry_teaser
+
+  .inlineTeaser
+    = link_to entry_path(entry_teaser) do
+      = image_tag entry_teaser.img(:thumb), :class => 'inlineTeaserImg'
+      .inlineTeaserText
+        - if e.body.present?
+          = e.body.html_safe
+        - else
+          %p
+            = entry_teaser.title
