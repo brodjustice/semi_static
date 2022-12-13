@@ -22,8 +22,12 @@ module SemiStatic
     #   2) It is a link_to_tag page, i.e. an entry replacing a Tag 'index of Entries' page
     #   3) It is the pre-defined 'Gallery'
     #
+    # Update 13/12/22 - Condition 2) no longer seems valid as we can better tune our layout
+    # be expolictly disabling the side bar in the Tag or Entry
+    #
     def side_bar_nav?
-      !(@tag.nil? || @tag.entries.first.try(:link_to_tag) || @tag.predefined_class == "Gallery")
+      # !(@tag.nil? || @tag.entries.first.try(:link_to_tag) || @tag.predefined_class == "Gallery")
+      !(@tag.nil? || @tag.predefined_class == "Gallery")
     end
 
     def entry_title(e, linked = false, h_tag = :h1, h_sub_tag = :h2)
