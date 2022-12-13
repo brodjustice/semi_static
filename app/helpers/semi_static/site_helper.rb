@@ -487,7 +487,7 @@ module SemiStatic
 
       # Event status
       c += "<tbody property='eventStatus' content=\'#{SemiStatic::Event::STATUS_IDS[e.status].to_s}\'>".html_safe
-      c += "<tr class='row'><td>#{t('status')}:</td>".html_safe
+      c += "<tr class='row'><td>#{t('currentStatus')}:</td>".html_safe
       c += "<td>#{t('eventStatus.' + SemiStatic::Event::STATUS_IDS[e.status].to_s)}</td></tr>".html_safe
       c += '</tbody>'.html_safe
 

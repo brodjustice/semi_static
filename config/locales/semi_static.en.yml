@@ -71,6 +71,7 @@ en:
   PostOrderRegistrationInsruction: 'Thank you for your order, we will be in touch shortly with payment and delivery details'
 
   attendanceMode: 'Attendance mode'
+  currentStatus: 'Current status'
   attendanceModeType:
     OnlineEventAttendanceMode: 'Online'
     MixedEventAttendanceMode: 'Online and at location'

@@ -67,6 +67,7 @@ de:
         separator: ','
 
   attendanceMode: 'Anwesenheitsmodus'
+  currentStatus: 'Aktueller Status'
   attendanceModeType:
     OnlineEventAttendanceMode: 'Online'
     MixedEventAttendanceMode: 'Online und vor Ort'
