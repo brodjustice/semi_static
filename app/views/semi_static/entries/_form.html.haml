@@ -309,12 +309,12 @@
     .col-md-4
       .tile
         %h5 Position
-        .input-group
+        #semiStaticPosition.input-group
           .input-group-prepend
             %span.input-group-text Position
           = f.text_field :position, :class => 'form-control'
         .sScontentSection
-          = labeled_checkbox(f, :merge_with_previous)
+          = labeled_textfield(f, :merge_to_id, 'Merge to Entry ID')
 
       .tile
         %h5 Menu &amp; Tag selection

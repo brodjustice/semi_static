@@ -10,6 +10,7 @@ module SemiStatic
     require 'jquery-ui-rails'
     require 'actionpack/page_caching'
     require 'kaminari'
+    require 'ransack'
 
 
     SOCIAL_LINKS = {

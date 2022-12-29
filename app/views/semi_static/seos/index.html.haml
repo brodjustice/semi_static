@@ -24,7 +24,6 @@
             %th= 'Title'
             -# %th= 'Keywords'
             %th= 'Page'
-            %th{:title => 'Master'}= 'M'
             %th= 'No Index'
             %th{:title => 'Hreflang'}
               %i.app-menu__icon.fa.fa-lang
@@ -41,23 +40,17 @@
               %td= seo.locale.to_s
               %td= link_to (seo.description || image_tag('error.png', :title => 'Description is empty')), edit_seo_path(seo), :remote => true
               %td= link_to (seo.title || image_tag('error.png', :title => 'Title is empty')), edit_seo_path(seo), :remote => true
-              -# %td= link_to (seo.keywords || ' '), edit_seo_path(seo), :remote => true
               %td
                 - if seo.seoable.nil?
                   = image_tag('error.png', :title => 'No Entry or Tag found')
                 - else
                   = link_to [seo.seoable.raw_title, ' (', seo.seoable.class.to_s.split('::').last, ')'].join, url_for(:controller => seo.seoable.class.to_s.underscore.pluralize, :action => :edit, :id => seo.seoable.id)
               %td.tick
-                - if seo.master
-                  = image_tag('tick.png', :title => 'These are the master SEO tags')
-                - else
-                  = link_to image_tag('add.png', :title => 'Make this SEO meta set the master set'), edit_seo_path(seo, :master => true)
-              %td.tick
                 = image_tag('tick.png', :title => 'No indexing request to search engines') if seo.no_index
               %td.number
                 = seo.hreflangs.size
                 = link_to new_seo_hreflang_path(seo), :remote => true do
-                  = image_tag('add.png', :title => 'View/Add hreflangs')
+                  = image_tag('add.png', :title => 'View/Add hreflangs', :class => 'tick')
 
               %td= seo.updated_at.strftime('%d-%b-%y %H:%M')
               %td.tick

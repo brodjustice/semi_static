@@ -1,5 +1,5 @@
 //
-// Draft Javascript for the Entry _form. Still relies on jQuery
+// Javascript for the Entry _form. Still relies on jQuery
 //
 
 var semi_static_entry = (function () {
@@ -11,7 +11,7 @@ var semi_static_entry = (function () {
   var side_bar_cbox;
 
   // semi_static_entry_merge_with_previous checkbox
-  var merge_cbox;
+  var entry_merge_to_id;
 
   // entry_partial input
   var partial_input;
@@ -101,10 +101,12 @@ var semi_static_entry = (function () {
   }
 
   function checkHeaderHtml(){
-    if (merge_cbox.checked === true){
-      hide(document.getElementById('headerHTML'));
-    } else {
+    if (entry_merge_to_id.value.replace(/\s/g, '') == ''){
       show(document.getElementById('headerHTML'));
+      show(document.getElementById('semiStaticPosition'), 'flex');
+    } else {
+      hide(document.getElementById('semiStaticPosition'));
+      hide(document.getElementById('headerHTML'));
     }
   }
 
@@ -147,7 +149,7 @@ var semi_static_entry = (function () {
   function initFormAndVars(){
     // Set vars
     side_bar_cbox = document.getElementById('semi_static_entry_side_bar');
-    merge_cbox = document.getElementById('semi_static_entry_merge_with_previous');
+    entry_merge_to_id = document.getElementById('entry_merge_to_id');
     entry_body = document.getElementById('entry_body');
     entry_img = document.getElementById('entry_img');
     partial_input = document.getElementById('entry_partial');
@@ -173,7 +175,7 @@ var semi_static_entry = (function () {
     document.getElementById('convert_and_enable_editor').addEventListener('click', convertToEditor);
 
     // Watch for merge checkbox change
-    merge_cbox.addEventListener('change', checkHeaderHtml);
+    entry_merge_to_id.addEventListener('change', checkHeaderHtml);
     checkHeaderHtml();
 
     // Watch acts as tag input

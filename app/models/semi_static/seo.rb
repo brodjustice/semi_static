@@ -30,14 +30,6 @@ module SemiStatic
 
     def tag; seoable.tag end
 
-    def self.master_title
-      self.master.first && self.master.first.title
-    end
-
-    def self.master_description
-      self.master.first && self.master.first.description
-    end
-
     def set_defaults
       self.changefreq = CHANGE_FREQ[:unknown]
       if self.seoable.is_a?(Entry) && (self.seoable.acts_as_tag_id || self.seoable.link_to_tag || self.seoable.merge_with_previous)
@@ -66,27 +58,10 @@ module SemiStatic
       self.find_special(tag_id, locale, 'Contact')
     end
 
-    def self.new_from_master(seoable)
-      if seoable.seo.nil?
-        seo = seoable.seo = Seo.new(:title => seoable.raw_title)
-        unless (master = Seo.where(:master => true).first).nil?
-          seo.keywords = master.keywords
-          seo.description = master.description
-        end
-      end
-      seoable.seo
-    end
-
     def set_locale
       if self.locale.blank?
         self.locale = self.seoable.locale
       end
-    end
-
-    def to_master
-      Seo.master.each{|s| s.master = false; s.save; }
-      self.master = true
-      self.save
     end
 
     private

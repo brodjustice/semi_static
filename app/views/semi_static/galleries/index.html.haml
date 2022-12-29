@@ -48,8 +48,9 @@
               %td.number= g.entries.size
               %td.number= g.position
               %td= g.locale.to_s
-              %td.add{:title => "Add new photo to #{g.title} gallery"}
-                = link_to '+',  new_photo_path(:photo => {:gallery_id => g.id}), :class => 'btn'
+              %td.tick{:title => "Add new photo to #{g.title} gallery"}
+                = link_to new_photo_path(:photo => {:gallery_id => g.id}) do
+                  = image_tag('add.png')
               %td.tick
                 = link_to gallery_path(g), :title => "Delete gallery #{g.title}", :method => :delete, :data => { :confirm => "There are #{g.photos.size} photos in this gallery, they will be without a Gallery if you delete. Are you sure you want to do this?" } do
                   %i.app-menu__icon.fa.fa-delete
@@ -62,5 +63,5 @@
             %td
             %td
             %td.add{:title => 'New photo'}
-              = link_to '+', new_photo_path, :class => 'btn'
+              = link_to image_tag('add.png'), new_photo_path
             %td

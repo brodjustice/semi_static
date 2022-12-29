@@ -1,0 +1,69 @@
+= search_form_for(@q, :url => entries_path) do |f|
+  #entrySearchFilter
+    .row
+      .col-md-8
+        .input-group
+          .input-group-prepend
+            = label_tag 'q[title_cont]', 'Title', :class => 'input-group-text mt-0'
+          = text_field_tag 'q[title_cont]', params[:q] ? params[:q]['title_cont'] : '', {:class => 'form-control'}
+      .col-md-4
+        .input-group
+          .input-group-prepend
+            = label_tag 'q[id_eq]', 'ID', :class => 'input-group-text mt-0'
+          = text_field_tag 'q[id_eq]', params[:q] ? params[:q]['id_eq'] : '', {:class => 'form-control'}
+    .row.mt-2
+      .col-md-8
+        .input-group
+          .input-group-prepend
+            = label_tag 'q[body_cont]', 'Body', :class => 'input-group-text mt-0'
+          = text_field_tag 'q[body_cont]', params[:q] ? params[:q]['body_cont'] : '', {:class => 'form-control'}
+      .col-md-4
+        .input-group
+          .input-group-prepend
+            = label_tag 'q[locale_eq]', 'Locale', :class => 'input-group-text mt-0'
+          = text_field_tag 'q[locale_eq]', params[:q] ? params[:q]['locale_eq'] : '', {:class => 'form-control'}
+  
+    .requiredChecks
+      .row
+        .col-md-4
+          = label_tag 'q[unmerged]', 'Main'
+          = check_box_tag('q[unmerged]', 1, params['q']&.keys&.include?('unmerged'))
+        .col-md-4
+          = label_tag 'q[merged]', 'Merged'
+          = check_box_tag('q[merged]', 1, params['q']&.keys&.include?('merged'))
+        .col-md-4
+          = label_tag 'q[custom_view]', 'Custom view'
+          = check_box_tag('q[custom_view]', 1, params['q']&.keys&.include?('custom_view'))
+      .row
+        .col-md-4
+          = label_tag 'q[without_seo]', 'Without SEO'
+          = check_box_tag('q[without_seo]', 1, params['q']&.keys&.include?('without_seo'))
+        .col-md-4
+          = label_tag 'q[link_to_tag_id_true]', 'Link to Tag'
+          = check_box_tag('q[link_to_tag_true]', 1, params['q']&.keys&.include?('link_to_tag_id_true'))
+        .col-md-4
+          = label_tag 'q[event_id_true]', 'Has event'
+          = check_box_tag('q[event_id_true]', 1, params['q']&.keys&.include?('event_id_true'))
+      .row
+        .col-md-4
+          = label_tag 'q[has_seo]', 'Has SEO'
+          = check_box_tag('q[has_seo]', 1, params['q']&.keys&.include?('has_seo'))
+        .col-md-4
+          = label_tag 'q[home_page_true]', 'Home page'
+          = check_box_tag('q[home_page_true]', 1, params['q']&.keys&.include?('home_page_true'))
+        .col-md-4
+          = label_tag 'q[news_item_true]', 'News'
+          = check_box_tag('q[news_item_true]', 1, params['q']&.keys&.include?('news_item_true'))
+      .row
+        .col-md-6
+          = label_tag 'q[has_page_attr]', 'Has page attributes'
+          = check_box_tag('q[has_page_attr]', 1, params['q']&.keys&.include?('has_page_attr'))
+        .col-md-6
+          = label_tag 'q[not_admin_only]', 'Exclude admin only'
+          = check_box_tag('q[not_admin_only]', 1, params['q']&.keys&.include?('not_admin_only'))
+    .row.mt-2
+      .col-md-9
+        = submit_tag('Apply', :name => nil, :class => 'btn btn-sm btn-block btn-primary', :id => 'filterSubmit')
+      .col-md-3
+        #filterReset.btn.btn-sm.btn-danger.btn-block Reset
+  

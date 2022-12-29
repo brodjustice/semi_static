@@ -36,7 +36,8 @@
     # GET /seos/new
     # GET /seos/new.json
     def new
-      @seo = Seo.new_from_master(find_seoable)
+      @seoable = find_seoable
+      @seo = @seoable.build_seo(:title => @seoable.title)
 
       respond_to do |format|
         format.html # new.html.erb

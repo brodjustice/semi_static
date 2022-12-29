@@ -1,32 +1,101 @@
 - content_for :ujs do
   :javascript
-    $(document).ready(function() {
-      $('#' + window.location.hash.substring(1)).children().addClass('flash');
-      $(".sortable").tablesorter();
-    });
+    function _init_entry_index(){
+      var query_ele = document.location.hash.slice(1);
 
+      if(query_ele){
+        var page_id_ele = document.getElementById(query_ele)
+        for (const child of page_id_ele.children) {
+          child.classList.add('flash');
+        }
+      }
+      if(document.getElementById('semi_static/entry_search') != null){
+        _reset_filter_handler();
+      }
+    };
+    function _reset_filter_handler(){
+      document.getElementById('filterReset').addEventListener('click', () => {
+        document.querySelectorAll('#entrySearchFilter input[type="text"]').forEach((item, i) => {
+          item.value = '';
+        });
+        document.querySelectorAll('#entrySearchFilter .requiredChecks input').forEach((item, i) => {
+          item.checked = false;
+        });
+        document.getElementById('semi_static/entry_search').submit();
+      });
+    }
 
-.app-title
-  %h1
+    addSemiStaticLoadEvent(_init_entry_index);
+
+- content_for :header_css do
+  :plain
+    .app-title h1{
+      min-width: auto;
+    }
+    .flexRow{
+      display: flex;
+      align-items: normal;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .flexRow.noWrap{
+      flex-wrap: nowrap;
+      gap:4px;
+    }
+    .buttons .flexRow{
+      gap: 6px; padding: 0;
+      justify-content: end;
+    }
+    .flexItem.buttons{
+      margin-left: auto;
+      flex-wrap: wrap;
+    }
+    .flexRow .flexItem{
+      flex: 1 1 60px;
+    }
+    .flexRow .flexItem#searchFilter{
+      flex: 0 0 460px;
+    }
+    .requiredChecks{
+      text-align: right;
+    }
+
+.app-title.flexRow
+  %h1.flexItem
     %i.fa.fa-website.invert
     - if @tag
       %span Entries for #{@tag.name}
     - else
       %span #{@entries.size} Entries
-  .text-right
-    - if @nopaginate
-      = link_to entries_path, :title => 'Show Entries with pagination', :class => 'btn btn-primary btn-space' do
+    %p=  "Showing #{@entries.count} of #{SemiStatic::Entry.count}"
+  .flexItem.buttons
+    .flexRow
+      - if @nopaginate
+        = link_to entries_path, :title => 'Show Entries with pagination', :class => 'btn btn-sm btn-primary' do
+          %span.app-menu__icon.fa.fa-website
+          %span Paginate
+      - else
+        = link_to entries_path(:nopaginate => true), :title => 'Show all Entries without pagination', :class => 'btn btn-sm btn-primary loading' do
+          %span.app-menu__icon.fa.fa-website
+          %span All
+      = link_to new_entry_path, :class => 'btn btn-sm btn-primary btn' do
         %span.app-menu__icon.fa.fa-website
-        %span Paginate
-    - else
-      = link_to entries_path(:nopaginate => true), :title => 'Show all Entries without pagination', :class => 'btn btn-primary btn-space loading' do
-        %span.app-menu__icon.fa.fa-website
-        %span All
-    = link_to new_entry_path, :class => 'btn btn-primary btn' do
-      %span.app-menu__icon.fa.fa-website
-      New Entry
+        New Entry
+      - unless params[:q].present?
+        = link_to entries_path(:view => :searchform, :q => {:not_admin_only => 1}), :class => 'btn btn-primary btn-sm', :remote => true do
+          %span.app-menu__icon.fa.fa-search
+          = 'Search & filter'
 
-  
+  - if params[:q].present?
+    .flexItem#searchFilter
+      .card
+        %h6.card-header
+          .row
+            .col-md-12
+              = "Filter: #{@entries.total_count} of #{SemiStatic::Entry.count}"
+        .card-body
+          = render :partial => 'searchform_body'
+    
 .tile
   .tile-body
     .table-responsive

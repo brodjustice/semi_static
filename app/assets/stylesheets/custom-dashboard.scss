@@ -512,6 +512,7 @@ td.warning{
 
 // Dashboard tables improvements
 td.add, td.tick{ text-align: center; }
+td.tick img, td img.tick, td img.icon{ width: 18px; }
 td.add a{font-size: 16px; font-weight: normal; color: white; background-color: #009688; padding: 3px 6px; line-height: 16px;}
 td.name, td.number{ text-align: right; }
 td.tag{ min-width: 10%; }

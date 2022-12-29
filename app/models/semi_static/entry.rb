@@ -9,7 +9,7 @@ module SemiStatic
   
     index_name SemiStatic::Engine.config.site_name.gsub(/( )/, '_').downcase + Rails.env.to_s
   
-    attr_accessor :doc_delete, :img_delete, :alt_img_delete, :notice, :change_main_entry_position
+    attr_accessor :merge_to_id, :doc_delete, :img_delete, :alt_img_delete, :notice, :change_main_entry_position
 
     # The news image is now also used for various alternative fuctions, icons, etc.
     alias_attribute :alt_img, :news_img
@@ -34,10 +34,14 @@ module SemiStatic
     end
 
     validates :tag_id, :presence => true
+    validate :merge_to_id_exists?, :if => :merge_to_id
 
     belongs_to :tag
     belongs_to :acts_as_tag, :class_name => "SemiStatic::Tag", :optional => true
     has_many :provides_content_for_tags, :class_name => 'SemiStatic::Tag', :foreign_key => :use_entry_as_index, :inverse_of => :use_entry_as_index
+
+    belongs_to :merged_entry, :class_name => "SemiStatic::Entry", :foreign_key => :merged_id, :optional => true
+    has_one :up_merged_entry, :class_name => "SemiStatic::Entry", :foreign_key => :merged_id
 
     delegate :admin_only, to: :tag
   
@@ -45,6 +49,8 @@ module SemiStatic
     after_save :check_for_newsletter_entry
     after_save :reindex_entry
     before_save :extract_dimensions
+    after_save :check_merge_update
+    before_destroy :check_merge_destroy
 
     serialize :img_dimensions
   
@@ -52,14 +58,21 @@ module SemiStatic
 
     scope :news, -> {where('news_item = ?', true)}
 
+    scope :custom_view, -> {where.not(:partial => 'none')}
+
     scope :locale, -> (locale) {where("locale = ?", locale.to_s)}
+
+    scope :not_admin_only, -> {includes(:tag).where(:semi_static_tags => {:admin_only => false})}
 
     scope :not, -> (entry) {where("id != ?", (entry ? entry.id : 0))}
 
     scope :has_style, -> (style){ where("style_class = ?", style)}
-
     scope :not_style, -> (style) { where("style_class != ?", style)}
+    scope :has_seo, -> {includes(:seo).where(:semi_static_seos => {:seoable_type => 'SemiStatic::Entry'})}
+    scope :has_page_attr, -> {includes(:page_attrs).where(:semi_static_page_attrs => {:page_attrable_type => 'SemiStatic::Entry'})}
+    scope :without_seo, -> {includes(:seo).where(:semi_static_seos => {:seoable_type => nil})}
 
+    scope :merged, -> {where('merge_with_previous = ?', true)}
     scope :unmerged, -> {where('merge_with_previous = ?', false)}
 
     scope :not_linked_to_tag, -> {where('link_to_tag = ?', false)}
@@ -154,6 +167,13 @@ module SemiStatic
     default_scope {order(:position)}
     scope :additional_entries, -> (e){where('tag_id = ?', e.tag_id).where('id != ?', e.id)}
 
+    #
+    # If we are editing, we need to check if the merge_to_id attr_accessor needs setting
+    #
+    def merge_to_id
+      @merge_to_id || up_merged_entry&.id
+    end
+
     def internal_search_keywords
       self.get_page_attr('internalSearchKeywords')
     end
@@ -194,8 +214,12 @@ module SemiStatic
     def get_title_like
       (t = [title, sub_title, alt_title].reject(&:empty?).first).blank? ? false : t
 
-      if t.blank? && self.partial != 'none'
-        "[ #{partial} ]"
+      if t.blank?
+        if self.partial != 'none'
+          "[ #{partial} ]"
+        else
+          "[ ID: ##{self.id} <no title> ]"
+        end
       else
         t
       end
@@ -320,6 +344,75 @@ module SemiStatic
       ActionController::Base.helpers.strip_tags(self.body)
     end
 
+    #
+    # Called by before destroy. Sets the merge_id of mergee and, if needed, this Entry
+    # and the merge chanined Entry
+    #
+    # If this is the main_entry, then *delete* the merge chain of entries
+    #
+    # If this a merged entry, link the chain back together
+    #
+    def check_merge_destroy
+      if self.merged?
+        self.up_merged_entry.update_columns(:merged_id => self.merged_id)
+      else
+        self.merged_entries.each{|e| e.delete}
+      end
+    end
+    
+
+    #
+    # Called by after save. Sets the merge_id of mergee and, if needed, this Entry
+    # and the merge chanined Entry
+    #
+    def check_merge_update
+      previous_mergee = self.up_merged_entry
+
+      if self.merge_to_id.present?
+
+        mergee = Entry.find(self.merge_to_id.to_i)
+
+        self.with_lock do
+
+          if (previous_mergee && (previous_mergee.id != self.merge_to_id))
+            #
+            # This previously merged somewhere else in a merge chain, so
+            # remove it from that place in the merge chain
+            #
+            mergee.update_columns(:merged_id => self.merged_id)
+          end
+
+
+          if mergee.merged_id != self.id
+            #
+            # This Entry is being newly merged into the chain
+            #
+            self.update_columns(:merged_id => mergee.merged_id)
+            mergee.update_columns(:merged_id => self.id)
+
+            self.update_columns(:tag_id => mergee.tag_id)
+            self.update_columns(:locale => mergee.locale)
+
+            # And finally, as it's still used sometimes instead of merged_id, set merge_with_previou
+            self.update_columns(:merge_with_previous => true)
+          end
+
+        end
+
+      else
+        if previous_mergee.present?
+
+          # This was previously a merged Entry but is now a main entry
+          self.with_lock do
+            previous_mergee.update_columns(:merged_id => self.merged_id)
+            self.update_columns(:merged_id => nil)
+          end
+
+        end
+        self.update_columns(:merge_with_previous => false)
+      end
+    end
+
     def tidy_dup
       new_entry = self.dup
       new_entry.img = self.img
@@ -351,23 +444,6 @@ module SemiStatic
       self.tag.entries.select{|e| e.position < self.position}.last
     end
 
-    def change_main_entry_position=(new_position)
-      #
-      # Only apply the method if this is the main Entry
-      #
-      unless self.merge_with_previous
-        shift = new_position.to_i - self.position
-        self.position = new_position.to_i
-        self.merged_entries.each{|e|
-          e.position = e.position + shift
-        }
-        self.save
-        self.merged_entries.each{|e| e.save}
-      else
-        self.errors.add(:position, "Can only reposition the main entry")
-      end
-    end
-
     def doc_delete=(val)
       if val == '1' || val == true
         self.doc.clear
@@ -397,7 +473,16 @@ module SemiStatic
       end
     end
 
+    #
+    # It's a merged Entry there is an Entry with a merged_id pointing
+    # to self
+    #
+    def merged?
+      !self.up_merged_entry.nil?
+    end
+
     def merge_with(e)
+      e.merged_entry = self
       self.tag = e.tag; self.style_class = e.style_class
       self.position = e.position + 1; self.colour = e.colour; self.header_colour = e.header_colour
       self.locale = e.locale; self.background_colour = e.background_colour
@@ -405,13 +490,14 @@ module SemiStatic
     end
 
     def merged_main_entry
-      tag_entries = self.tag.entries
-      i = tag_entries.find_index{|e| e.id == self.id}
-      while (i >= 0) do
-        break unless tag_entries[i].merge_with_previous
-        i = i - 1
+      current = self
+      loop do
+        if current.up_merged_entry
+          current = current.up_merged_entry
+        else
+          break current
+        end
       end
-      return tag_entries[i]
     end
 
     def merged_main_entry_with_title
@@ -481,21 +567,78 @@ module SemiStatic
 
     def merged_entries
       entries = []
-      unless (e = self.next_merged_entry).nil?
+      current_entry = self
+      while (current_entry = current_entry.merged_entry)
+        entries << current_entry
+      end
+      entries
+    end
+
+    def merged_entry_depth
+      depth = 0
+      while (current_entry = current_entry.merged_entry)
+        depth =+ 1
+      end
+      depth
+    end
+
+    def next_merged_entry
+      self.merged_entry
+    end
+
+    ##########################################################
+    #
+    # Legacy methods that return merged Entries based on their
+    # position value rather than the merged_id column
+    #
+    def merged_entries_by_position
+      entries = []
+      unless (e = self.next_merged_entry_by_position).nil?
         entries << e
-        while (e = e.next_merged_entry)
+        while (e = e.next_merged_entry_by_position)
           entries << e
         end
       end
       entries
     end
 
-    def next_merged_entry
+    def merged_main_entry_by_position
+      tag_entries = self.tag.entries
+      i = tag_entries.find_index{|e| e.id == self.id}
+      while (i >= 0) do
+        break unless tag_entries[i].merge_with_previous
+        i = i - 1
+      end
+      return tag_entries[i]
+    end
+
+    def next_merged_entry_by_position
       return nil if self.tag.nil?
       if (e = self.tag.entries[self.tag.entries.index(self) + 1])
         e.merge_with_previous ? e : nil
       end
     end
+
+    def change_main_entry_position=(new_position)
+      #
+      # Only apply the method if this is the main Entry
+      #
+      unless self.merge_with_previous
+        shift = new_position.to_i - self.position
+        self.position = new_position.to_i
+        self.merged_entries.each{|e|
+          e.position = e.position + shift
+        }
+        self.save
+        self.merged_entries.each{|e| e.save}
+      else
+        self.errors.add(:position, "Can only reposition the main entry")
+      end
+    end
+    #
+    # End of legacy merged entry methods
+    #
+    ##########################################################
 
     def truncate?
       (summary.present? && !use_as_news_summary) || (body.size > (summary_length || 0))
@@ -522,6 +665,25 @@ module SemiStatic
     end
 
     private 
+
+    #
+    # Scopes that can be called by Ransack
+    def self.ransackable_scopes(auth_object = nil)
+      if auth_object.try(:admin?)
+        # Admin user methods
+        %i(merged unmerged with_image custom_view has_seo without_seo not_admin_only has_page_attr)
+      else
+        # others...
+        %i(merged unmerged with_image custom_view has_seo without_seo not_admin_only has_page_attr)
+      end
+    end
+
+    def merge_to_id_exists?
+      if self.merge_to_id.present? && Entry.find_by(:id => self.merge_to_id).nil?
+        errors.add(:base, "Cannot find Entry id #{self.merge_to_id} to merge to")
+        throw(:abort)
+      end
+    end
 
     # Retrieves dimensions for image assets
     def extract_dimensions

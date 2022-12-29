@@ -1,0 +1,36 @@
+.modal-header
+  %h5= "#{@entry.tag.name} : #{@entry.merged_main_entry.title}"
+  = modal_close
+.modal-body
+  .table-responsive
+    %table.table.table-bordered.table-hover
+      %thead
+      %tbody
+        %tr
+          %th= @entry.id.to_s
+          %th{:colspan => 2}
+            = link_to @entry.get_title_like, edit_entry_path(@entry)
+          %td.tick
+            = link_to image_tag('html_add.png'), new_entry_path(:entry => {:merge_to_id => @entry.id}), :title => 'Click to add merged to Main entry'
+          %td
+        %tr
+          %th{:colspan => 4} Merged Entries
+        - @entry.merged_entries.each do |entry|
+          %tr{:id => "entry_id_#{entry.id.to_s}"}
+            %td
+              .anchor_offset_for_fixed_header= entry.id.to_s
+            %td{:title => strip_tags(truncate_html(entry.body, :length => 150))}
+              - if entry.get_title_like.blank?
+                = link_to "--> ##{entry.id.to_s}", edit_entry_path(entry)
+              - else
+                = link_to entry.get_title_like, edit_entry_path(entry)
+            %td
+              - unless entry.partial == 'none'
+                %i.app-menu__icon.fa.fa-code{:title => "Custom view: #{entry.partial.humanize}"}
+            %td.number
+              = link_to image_tag('html_add.png', :class => 'icon'), new_entry_path(:entry => {:merge_to_id => entry.id}), :title => 'Click to add merged entry'
+            %td.tick{:title => "Click to delete #{entry.get_title || 'entry'}"}
+              = link_to SemiStatic::Engine.routes.url_helpers.entry_path(entry), :method => :delete, :data => { :confirm => 'Are you sure?' } do
+                %i.app-menu__icon.fa.fa-delete
+
+

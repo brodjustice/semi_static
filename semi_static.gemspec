@@ -32,6 +32,9 @@ Gem::Specification.new do |s|
   # Pagination
   s.add_dependency "kaminari"
 
+  # Search, sort & filter
+  s.add_dependency "ransack"
+
   # For the shopping cart, aasm is the state machine
   s.add_dependency "aasm"
   s.add_dependency "money-rails"

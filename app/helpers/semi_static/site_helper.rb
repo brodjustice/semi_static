@@ -294,7 +294,7 @@ module SemiStatic
     def image_with_style(e, style, max_width, popup=true, use_alt_img=false)
       alt = e.img&.original_filename&.split('.')&.first&.humanize
       if popup && e.image_popup
-        c = "<a class='popable' onclick=\'semiStaticAJAX(\"#{entry_path(e, {:format => :js, :popup => true})}\")\; return false;' href='#'> ".html_safe
+        c = "<a rel='nofollow' class='popable' onclick=\'semiStaticAJAX(\"#{entry_path(e, {:format => :js, :popup => true})}\")\; return false;' href='#'> ".html_safe
       else
         c = ''
       end
@@ -669,7 +669,7 @@ module SemiStatic
       if @seo
         sanitize((@seo.title || @title || SemiStatic::Engine.config.site_name).gsub(/'/, '&#39;'))
       else
-        sanitize((@title || SemiStatic::Seo.master_title || SemiStatic::Engine.config.site_name).gsub(/'/, '&#39;'))
+        sanitize((@title || SemiStatic::Engine.config.site_name).gsub(/'/, '&#39;'))
       end
     end
 
@@ -678,8 +678,6 @@ module SemiStatic
         @seo.description
       elsif @entry && !@entry.summary.blank?
         truncate(strip_tags(@entry.summary), :length => 140, :separator => ' ')
-      elsif SemiStatic::Seo.master_description.present?
-        SemiStatic::Seo.master_description
       else
         false
       end

@@ -88,7 +88,7 @@
                     = link_to image_tag('error.png', :title => 'Warning: NO INDEX is set'), edit_seo_path(tag.seo, :return => tags_path), :remote => true
                   - else
                     = link_to image_tag('application_form_edit.png', :title => "Edit SEO meta tags"), edit_seo_path(tag.seo, :return => tags_path), :remote => true
-                %td.number
+                %td.number.tick
                   = link_to tag.entries.count.to_s + ' (' + tag.max_entries_on_index_page.to_s + ')', tag_entries_path(tag), :remote => true
                   = link_to image_tag('add.png', :title => 'Add new Entry'), new_entry_path(:tag_id => tag.id, :locale => tag.locale.to_s)
                 %td.number{:title => tag.updated_at.strftime('%H:%M')}= tag.updated_at.strftime('%d/%b/%y')

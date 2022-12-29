@@ -11,11 +11,11 @@
       = link_to entry.tag.name, edit_tag_path(entry.tag)
     - else
       = 'Error!'
-  %td.tick{:title => 'Click to add merged entry'}
-    - if entry.merge_with_previous
-      = link_to image_tag('tick.png'), new_entry_path(:merge => entry)
+  %td.number
+    - if entry.merged_id
+      = link_to entry.merged_entries.count, edit_entry_path(entry, :view => :merged), :remote => true
     - else
-      = link_to image_tag('html_add.png'), new_entry_path(:merge => entry)
+      = link_to entry.merged_entries.count, new_entry_path(:entry => {:merge_to_id => entry.id}), :title => 'Click to add merged entry'
   %td.tick
     - unless entry.partial == 'none'
       = link_to image_tag('tick.png', :title => "#{entry.partial}"), system_path(:cmd => {:partial_description => entry.partial}), :method => :put, :remote => true
@@ -26,7 +26,7 @@
   %td.number= link_to entry.position.to_s, edit_entry_path(entry, :view => :change_main_entry_position), :remote => true
   %td.tick
     = image_tag('tick.png', :title => 'Side bar enabled') if entry.side_bar
-  %td
+  %td.tick
     - unless entry.banner.nil?
       = image_tag('tick.png', :title => "#{entry.banner.name}")
   %td.tick
@@ -34,11 +34,11 @@
       = image_tag('tick.png', :title => 'Admin only draft content')
   %td.tick
     - if entry.seo.nil?
-      = link_to image_tag('add.png', :title => "Add SEO meta tags"), new_entry_seo_path(entry, :return => entries_path), :remote => true
+      = link_to image_tag('add.png', :title => "Add SEO meta tags"), new_entry_seo_path(entry, :return => "#{entries_path}#entry_id_#{entry.id}"), :remote => true
     - elsif entry.seo.no_index
-      = link_to image_tag('error.png', :title => 'Warning: NO INDEX is set'), edit_seo_path(entry.seo, :return => entries_path), :remote => true
+      = link_to image_tag('error.png', :title => 'Warning: NO INDEX is set'), edit_seo_path(entry.seo, :return => "#{entries_path}#entry_id_#{entry.id}"), :remote => true
     - else
-      = link_to image_tag('application_form_edit.png', :title => "Edit SEO meta tags"), edit_seo_path(entry.seo, :return => entries_path), :remote => true
+      = link_to image_tag('application_form_edit.png', :title => "Edit SEO meta tags"), edit_seo_path(entry.seo, :return => "#{entries_path}#entry_id_#{entry.id}"), :remote => true
   %td.tick
     = image_tag("file-types/#{entry.doc_mime_to_img}", :title => entry.doc_file_name) if entry.doc.present?
   %td{:class => ('warn' if (entry.locale != entry.tag.locale)), :title => ('Warning: locales do not match' if (entry.locale != entry.tag.locale))}
@@ -51,6 +51,6 @@
     = link_to new_entry_path(:master => entry), :title => "Use #{[entry.locale, ': ', entry.title].join} as master for new entry" do
       %i.app-menu__icon.fa.fa-clone
   %td.tick{:title => "Click to delete #{entry.get_title || 'entry'}"}
-    = link_to SemiStatic::Engine.routes.url_helpers.entry_path(entry), :method => :delete, :data => { :confirm => 'Are you sure?' } do
+    = link_to SemiStatic::Engine.routes.url_helpers.entry_path(entry), :method => :delete, :data => { :confirm => 'Are you sure? This will also delete any merged entries!' } do
       %i.app-menu__icon.fa.fa-delete
 

@@ -19,24 +19,38 @@
     caches_page :show, :if => Proc.new { |c| !c.request.format.js? && cachable_content? }
   
     layout 'semi_static_dashboards'
+
+    INDEX_VIEW_TEMPLATES = ['searchform']
   
     # GET /entries
     # GET /entries.json
     def index
-      template = '/semi_static/entries/index'; layout = 'semi_static_dashboards';
+      template = INDEX_VIEW_TEMPLATES.include?(params[:view].to_s) ? params[:view] : 'index'
 
       if params[:tag_id].present? || session[:workspace_tag_id]
+        #
+        # Only display and the entries associated with the Tag
+        # 
         @tag = Tag.find(params[:tag_id] || session[:workspace_tag_id])
-        @entries = @tag.entries
+        @entries = @tag.entries.unmerged
       elsif params[:nopaginate]
+        #
+        # Unpaginated list, can take a long time to display
+        #
         @entries = Entry.unscoped.order(:locale, :tag_id, :position).exclude_newsletters
         @nopaginate = true
       else
-        @entries = Entry.unscoped.order(:locale, :tag_id, :position).exclude_newsletters.page(params[:page])
+        if params[:q].nil? || params[:q].empty?
+          @q = Entry.unmerged.reorder(:locale, :admin_only, :tag_id, :position).exclude_newsletters.ransack(params[:q])
+        else
+          @q = Entry.reorder(:locale, :admin_only, :tag_id, :position).includes(:seo).exclude_newsletters.ransack(params[:q])
+        end
+        @entries = @q.result.page(params[:page])
       end
+
       respond_to do |format|
-        format.html { render :template => template, :layout => layout }
-        format.js
+        format.html { render :template => "/semi_static/entries/#{template}" }
+        format.js { render :template => "/semi_static/entries/#{template}" }
       end
     end
   
@@ -174,13 +188,17 @@
     # GET /entries/new
     # GET /entries/new.json
     def new
-      @entry = Entry.new(:simple_text => true, :body => '', :locale => params[:locale], :tag_id => params[:tag_id] || session[:workspace_tag_id])
+      @entry = Entry.new(
+        :simple_text => true,
+        :body => '',
+        :locale => params[:locale],
+        :tag_id => params[:tag_id] || session[:workspace_tag_id],
+        :merge_to_id => params[:entry] && params[:entry]['merge_to_id']
+      )
       if params[:master].present?
         master = Entry.find(params[:master])
         @entry = master.tidy_dup
         @entry.master_entry = master
-      elsif params[:merge]
-        @entry.merge_with(Entry.find(params[:merge]))
       elsif params[:newsletter]
         @newsletter = Newsletter.find(params[:newsletter])
         @entry.tag = @newsletter.tag
@@ -192,12 +210,15 @@
       end
     end
 
-    EDIT_VIEWS = ['edit_html', 'change_main_entry_position' ]
+    EDIT_VIEW_TEMPLATES = ['edit_html', 'change_main_entry_position', 'merged' ]
   
     # GET /entries/1/edit
     def edit
       @entry = Entry.find(params[:id])
-      template = EDIT_VIEWS.include?(params[:view].to_s) ? "semi_static/entries/#{params[:view]}" : 'semi_static/entries/edit'
+
+      template =
+         EDIT_VIEW_TEMPLATES.include?(params[:view].to_s) ? "semi_static/entries/#{params[:view]}" : 'semi_static/entries/edit'
+
       respond_to do |format|
         format.html { render :template => template }
         format.js { render :template => template }
@@ -225,7 +246,7 @@
           if params[:newsletter_id]
             format.html { redirect_to edit_newsletter_path(params[:newsletter_id]) }
           else
-            format.html { redirect_to entries_path(:anchor => "entry_id_#{@entry.id}", :page => page(@entry)) }
+            format.html { redirect_to entries_path(:anchor => "entry_id_#{@entry.merged_main_entry.id}", :page => page(@entry.merged_main_entry)) }
             format.json { render :json => @entry, :status => :created, :location => @entry }
           end
         else
@@ -259,7 +280,10 @@
       
       respond_to do |format|
         if @entry.errors.none?
-          format.html { redirect_to redirect_path }
+          format.html { redirect_to entries_path(
+            :anchor => "entry_id_#{@entry.merged_main_entry.id}",
+            :page => page(@entry.merged_main_entry)
+          ) }
           format.js { render template }
         else
           format.html { render :action => "edit" }
@@ -287,7 +311,7 @@
     # for other objects like Photos
     #
     def page(entry, per_page = Entry.default_per_page)
-      position = Entry.unscoped.order(:locale, :tag_id, :position).exclude_newsletters.pluck(:id).index(entry.id)
+      position = Entry.unscoped.unmerged.order(:locale, :tag_id, :position).exclude_newsletters.pluck(:id).index(entry.id)
       (position.to_f/per_page).ceil
     end
 
@@ -295,7 +319,7 @@
     # Never trust parameters from the scary internet, only allow the white list through.
     def entry_params
       params.fetch(:entry, {}).permit(:title, :sub_title, :body, :tag_id, :home_page, :summary, :img,
-      :news_item, :image_in_news, :image_disable, :news_img, :newsletter_img,
+      :news_item, :image_in_news, :image_disable, :news_img, :newsletter_img, :merge_to_id,
       :position, :change_main_entry_position, :doc, :doc_description, :summary_length, :locale, :style_class, :header_colour, :background_colour, :colour,
       :banner_id, :partial, :entry_position, :master_entry_id, :youtube_id_str, :use_as_news_summary, :simple_text,
       :sidebar_id, :side_bar, :side_bar_news, :side_bar_social, :side_bar_search, :side_bar_gallery, :side_bar_tag_id, :unrestricted_html,
