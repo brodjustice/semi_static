@@ -269,7 +269,7 @@ nav.text-right{clear: both;}
 .popped:hover #popup_caption{opacity: 0.0;}
 #dialog #popupCloseButton {
   font-size: 32px; border-radius: 50%; border: 2px solid white; color: white; background-color: black;
-  position: absolute; width: 28px; top: -18px; right: -18px; text-align: center; height: 28px; line-height: 32px;
+  position: absolute; width: 28px; top: -18px; right: -18px; text-align: center; height: 28px; line-height: 26px;
   cursor: pointer;
 }
 #semiStaticCright, #semiStaticCleft{z-index: 3000; position: absolute; width: 100px; top: 0; bottom: 0; color: transparent;}

@@ -66,7 +66,7 @@ var semi_static_entry = (function () {
     }
     hide(document.getElementById('enable_editor'));
     hide(document.getElementById('convert_and_enable_editor'));
-    document.getElementById('entry_simple_text').setAttribute('val', 'false');
+    document.getElementById('entry_simple_text').setAttribute('value', 'false');
     document.getElementById('entry_text_area').style.marginBottom = '6px';
   }
 

@@ -11,7 +11,10 @@
     margin-bottom: 10px;
 }
 #comments .actions{
-  width: 100%; text-align:right; padding: 2px 0 2px;
+  width: 100%; padding: 2px 0 2px;
+}
+#comments input[type=submit]{
+  width: 100%;
 }
 .comment{
   border-top: solid #d0d0d0 1px;

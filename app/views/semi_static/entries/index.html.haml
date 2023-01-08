@@ -99,7 +99,7 @@
 .tile
   .tile-body
     .table-responsive
-      %table.table.sortable.table-bordered.table-hover.table-dense
+      %table.table.table-bordered.table-hover.table-dense{:class => "#{@nopaginate ? 'sortable' : ''}"}
         = render :partial => 'index_head'
         %tbody
           - @entries.each do |entry|
