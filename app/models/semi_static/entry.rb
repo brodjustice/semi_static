@@ -40,7 +40,11 @@ module SemiStatic
     belongs_to :acts_as_tag, :class_name => "SemiStatic::Tag", :optional => true
     has_many :provides_content_for_tags, :class_name => 'SemiStatic::Tag', :foreign_key => :use_entry_as_index, :inverse_of => :use_entry_as_index
 
+    # This is the Entry that is merged to self, ie. the next entry down the merge chain
     belongs_to :merged_entry, :class_name => "SemiStatic::Entry", :foreign_key => :merged_id, :optional => true
+   
+    # This is the Entry that is merged before self, ie. the next entry up the chain. This should be nil if it'
+    # the main Entry. This will correspond to the #merge_to_id in the attr_accessor if updating
     has_one :up_merged_entry, :class_name => "SemiStatic::Entry", :foreign_key => :merged_id
 
     delegate :admin_only, to: :tag
@@ -365,37 +369,74 @@ module SemiStatic
     # Called by after save. Sets the merge_id of mergee and, if needed, this Entry
     # and the merge chanined Entry
     #
+    # A merge chain might be like this:
+    #
+    #  +---------------------------+
+    #  | ID: 79 (Main Entry)       | merged_id => 80, uo_merged_entry => nil
+    #  +---------------------------+ (merge_to_id => nil)
+    #     | 
+    #     V
+    #  +---------------------------+ 
+    #  | ID: 80                    |  merged_id => 81, uo_merged_entry => 79
+    #  +---------------------------+  (merge_to_id => 79)
+    #     | 
+    #     V
+    #  +---------------------------+ 
+    #  | ID: 81                    |  merged_id => 124, uo_merged_entry => 80
+    #  +---------------------------+  (merge_to_id => 80)
+    #     | 
+    #     V
+    #  +---------------------------+ 
+    #  | ID: 124                   |  merged_id => nil, uo_merged_entry => 81
+    #  +---------------------------+  (merge_to_id => 81)
+    #
+    #
     def check_merge_update
+     
+      # Get the Entry that was previously up the merge chain
       previous_mergee = self.up_merged_entry
 
+      #
+      # If the attr_accessor is present we might need to merge somewhere (or leave as is)
+      #
       if self.merge_to_id.present?
 
         mergee = Entry.find(self.merge_to_id.to_i)
 
         self.with_lock do
 
-          if (previous_mergee && (previous_mergee.id != self.merge_to_id))
+          if (previous_mergee && (previous_mergee.id != mergee.id))
             #
-            # This previously merged somewhere else in a merge chain, so
-            # remove it from that place in the merge chain
+            # The self was previously merged somewhere else in a merge chain, so
+            # remove self from that place in the merge chain, by joining
+            # the chain without self
             #
-            mergee.update_columns(:merged_id => self.merged_id)
+            previous_mergee.update_columns(:merged_id => self.merged_id)
           end
 
 
           if mergee.merged_id != self.id
             #
-            # This Entry is being newly merged into the chain
+            # This Entry is to be merged into the chain, just
+            # do the two steps as above.
             #
+            # Two steps to insert self in new place in chain
+            #
+            # 1. Get the mergee (Entry up the chain) merge_id (ie. was the next Entry
+            # down the chain) and make it the next down the chain for self
             self.update_columns(:merged_id => mergee.merged_id)
+
+            # 2. Set the mergee (Entry up the chain) to point to self
             mergee.update_columns(:merged_id => self.id)
 
+            # Force the Tag and Locale to be consistant
             self.update_columns(:tag_id => mergee.tag_id)
             self.update_columns(:locale => mergee.locale)
 
-            # And finally, as it's still used sometimes instead of merged_id, set merge_with_previou
+            # And finally, as it's still used sometimes instead of merged_id, set merge_with_previous
             self.update_columns(:merge_with_previous => true)
           end
+
 
         end
 
