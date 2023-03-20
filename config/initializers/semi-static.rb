@@ -122,6 +122,9 @@ module SemiStatic
     #
     # config.analytics_partial = 'site/analytics'
     config.analytics_partial = nil
+
+    # Set to true if using Google Analytics 4 (GA4)
+    config.ga4 = true
     
     # Add name for partial which will provide address and contact details if required. If
     # nil, then only the contact form will be shown

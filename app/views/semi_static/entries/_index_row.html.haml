@@ -48,7 +48,7 @@
       = link_to image_tag('tick.png', :title => 'Click to edit product'), edit_entry_product_path(entry, entry.product, :return => entries_path), :remote => true
   %td{:title => entry.updated_at.strftime('%H:%M')}= entry.updated_at.strftime('%d/%b/%y')
   %td.tick
-    = link_to new_entry_path(:master => entry), :title => "Use #{[entry.locale, ': ', entry.title].join} as master for new entry" do
+    = link_to new_entry_path(:master => entry), :title => "Use #{[entry.locale, ': ', entry.title].join} as master for new entry", :class => 'loading' do
       %i.app-menu__icon.fa.fa-clone
   %td.tick{:title => "Click to delete #{entry.get_title || 'entry'}"}
     = link_to SemiStatic::Engine.routes.url_helpers.entry_path(entry), :method => :delete, :data => { :confirm => 'Are you sure? This will also delete any merged entries!' } do

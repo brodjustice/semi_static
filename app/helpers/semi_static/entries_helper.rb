@@ -43,7 +43,11 @@ module SemiStatic
     # it will proceed directly to the download.
     #
     def link_to_doc_download(text, entry)
-      "<a onclick='var that=this;ga(\"send\", \"event\", \"Download\", \"#{entry.doc.original_filename.parameterize}\");setTimeout(function(){location.href=that.href;},400);return false;' href='#{entry.doc.url}'>#{text}</a>".html_safe
+      if SemiStatic::Engine.config.ga4
+        "<a onclick='var that=this;gtag(\"event\", \"Download\", {\"file\" : \"#{entry.doc.original_filename.parameterize}\"});setTimeout(function(){location.href=that.href;},400);return false;' href='#{entry.doc.url}'>#{text}</a>".html_safe
+      else
+        "<a onclick='var that=this;ga(\"send\", \"event\", \"Download\", \"#{entry.doc.original_filename.parameterize}\");setTimeout(function(){location.href=that.href;},400);return false;' href='#{entry.doc.url}'>#{text}</a>".html_safe
+      end
     end
 
     #

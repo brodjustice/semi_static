@@ -35,6 +35,7 @@ module SemiStatic
 
     validates :tag_id, :presence => true
     validate :merge_to_id_exists?, :if => :merge_to_id
+    validates_uniqueness_of :merged_id
 
     belongs_to :tag
     belongs_to :acts_as_tag, :class_name => "SemiStatic::Tag", :optional => true
@@ -456,6 +457,10 @@ module SemiStatic
 
     def tidy_dup
       new_entry = self.dup
+
+      # Duplicate Entry must be removed from the merge chain
+      new_entry.merged_id = nil
+
       new_entry.img = self.img
       new_entry.doc = self.doc
       self.page_attrs.each{|pa|

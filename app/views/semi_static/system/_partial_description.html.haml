@@ -1,6 +1,6 @@
 - if @result.present?
-  %h5= 'The Description for this custom partial'
-  .code= @result
+  %h5= 'Custom view ("partial") description'
+  .code= simple_format(@result)
 - else
   %h5= 'No description found'
 

@@ -484,6 +484,10 @@ td.warning{
   padding: 6px;
   display: none;
 }
+.alert.helpbox{
+  z-index: 100;
+  display: none;
+}
 .input-group .infomarker + .input-group-prepend .input-group-text,
 .input-group .infomarker + .input-group-prepend label{
   border-top-left-radius: 4px !important;

@@ -137,7 +137,12 @@ module General
         File.open(path + '/' + filename) do |file|
           while (line = file.gets)
             if (line.split('-#').count == 2) && line.split('-#').first.empty?
-              c += line.split('-#').last.to_s.gsub!(/\n/, "\r ")
+              content = line.split.last
+              if conter
+                c += line.split('-#').last.to_s.gsub!(/\n/, " ")
+              else
+
+              end
             end
           end
         end

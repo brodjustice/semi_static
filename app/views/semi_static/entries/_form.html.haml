@@ -69,7 +69,7 @@
             = f.text_field :sub_title, :class => 'form-control mt-2'
           - unless @newsletter
             .semi_static_youtube_id_str.sScontentSection
-              .infobox#youtube_id_str_text_box
+              .alert.alert-info.helpbox.mt-2#youtube_id_str_text_box
                 %h5= 'YouTube ID'
                 %p
                   = 'If a YouTube video ID is given, then the video will be presented before the entry text and image'
@@ -94,8 +94,11 @@
                   = link_to 'Click here to validate YouTube ID', '#', onclick: 'validate_youtube_id(); return false'
 
           .row.mt-2.sScontentSection
-            .infobox#partial_description
-              = render :partial => 'semi_static/system/partial_description', :object => @entry
+            .col-md-12
+              .alert.alert-dismissible.alert-info.helpbox.mt-1#partial_description
+                = '<button class="close" type="button" data-dismiss="alert">×</button>'.html_safe
+                #partial_description_text
+                  = render :partial => 'semi_static/system/partial_description', :object => @entry
             .input-group.col-md-8
               .input-group-prepend
                 %span.infomarker{:data => {:marker => :partial_description}}
