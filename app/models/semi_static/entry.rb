@@ -35,7 +35,7 @@ module SemiStatic
 
     validates :tag_id, :presence => true
     validate :merge_to_id_exists?, :if => :merge_to_id
-    validates_uniqueness_of :merged_id
+    validates_uniqueness_of :merged_id, :allow_blank => true
 
     belongs_to :tag
     belongs_to :acts_as_tag, :class_name => "SemiStatic::Tag", :optional => true
