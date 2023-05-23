@@ -18,7 +18,7 @@ module SemiStatic
 
     default_scope { order(created_at: :desc) }
 
-    STRATEGIES = { :message => 0, :registration => 1, :download => 2, :subscriber => 3 }
+    STRATEGIES = { :message => 0, :registration => 1, :download => 2, :subscriber => 3, :application => 4}
     STRATEGY_CODES = STRATEGIES.invert
   
     def check_subscription

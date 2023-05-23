@@ -7,7 +7,8 @@
         %h2= title
     - else
       %h2= title
-    - klass.get_side_bar_entries.each_with_index do |e, i|
+    - maxNewsItems = klass.get_page_attr('sideBarMaxNewsItems') ? klass.get_page_attr('sideBarMaxNewsItems').to_i : -1
+    - klass.get_side_bar_entries[0..(maxNewsItems - 1)].each_with_index do |e, i|
       -# There are a lot of condition here where you don't display the summary
       -# in the side-bar. The most convaluted is when this is a tag and has
       -# only one entry (max_entries_on_index_page == 1) AND there is no
