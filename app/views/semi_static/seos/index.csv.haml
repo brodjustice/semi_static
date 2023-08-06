@@ -1,0 +1,7 @@
+- headers = ['Title', 'Description', 'URL', 'Priority', 'Locale', 'No Index']
+= CSV.generate_line(headers, :row_sep => nil)
+- @seos.each do |seo|
+ - title = Nokogiri::HTML.parse(seo.title.to_s).text.html_safe
+ - desc = Nokogiri::HTML.parse(seo.description.to_s).text.html_safe
+ - row = [ title, desc, construct_url(seo.seoable, seo.locale).to_s, seo.priority.to_s, seo.locale.to_s, seo.no_index.to_s ]
+ = CSV.generate_line(row, :row_sep => nil).html_safe

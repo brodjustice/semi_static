@@ -1,4 +1,5 @@
-  require_dependency "semi_static/application_controller"
+require_dependency "semi_static/application_controller"
+require 'csv'
   
   module SemiStatic
     class SeosController < ApplicationController
@@ -19,6 +20,11 @@
       respond_to do |format|
         format.html # index.html.erb
         format.json { render :json => @seos }
+        format.csv {
+          response.headers['Content-Type'] = 'text/csv'
+          response.headers['Content-Disposition'] = "attachment; filename=seo-meta-data-#{DateTime.now.to_date}.csv"
+          render :layout => false
+        }
       end
     end
   
