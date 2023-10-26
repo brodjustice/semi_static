@@ -15,5 +15,5 @@
         .credits
           = link_to t('ImprintAndCredits'), semi_static.site_path('imprint-credits')
         .stamps
-          = link_to "https://validator.w3.org/nu?uri=referer" do
+          = link_to "https://validator.w3.org/check?uri=referer", :aria => {:label => 'w3 html validator'} do
             #html5
