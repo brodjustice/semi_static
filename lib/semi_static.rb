@@ -3,6 +3,26 @@ require 'elasticsearch'
 require 'paperclip'
 require 'truncate_html'
 
+class String
+
+  #
+  # Take a the name of an image asset without extension in string form and find the 
+  # first file that exists in the the asset pipeline with a valid extentsion.
+  #
+
+  def resolve_image_asset_extension
+
+    [
+      'svg', 'jpg', 'png'
+    ].each{|ext|
+      if ActionController::Base.helpers.resolve_asset_path("#{self}.#{ext}")
+        return "#{self}.#{ext}"
+      end
+    }
+
+  end
+end
+
 module SemiStatic
   class Railtie < Rails::Railtie
 
