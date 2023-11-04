@@ -566,6 +566,33 @@ h2 a, h3 a{color: $secondary-color;}
     width: 98.5%;
 }
 
+// Dialog used for pop-ups
+#dialog{
+  -webkit-box-shadow: -10px 28px 40px 0 rgba(0,0,0,.3);
+  box-shadow: -10px 28px 40px 0 rgba(0,0,0,.3);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #f5f6f9;
+  position: fixed;
+  width: 80%;
+  max-width: 280px;
+  border-radius: 2px;
+  margin: 0 auto;
+  z-index: 10000;
+  overflow-y: initial !important;
+  display: none;
+  height: auto;
+  padding: 12px;
+  transform-style: preserve-3d;
+}
+#dialog.popped{
+  max-width: 80%;
+  padding: 0;
+  display: block;
+  bottom: unset;
+}
+
 //
 // Start of responsive design
 //
