@@ -1,4 +1,4 @@
-= SemiStatic
+# SemiStatic
 
 A Rails 5 Engine to get you quickly started with a fast, cached, static website. There is a small CRM so
 you can dynamically add content hence the name 'semi-static'. The HTML site should load very quickly on
@@ -17,7 +17,7 @@ Some tricks that are used to get the fast performance:
 The current version runs only on POstgreSQL, but you should be able to modify it to run with other databases
 without to much effort.
 
-= Install for development
+## Install for development
 
 Assuming you want to start with a clean applicaion, then first create your rails application:
 
@@ -53,32 +53,32 @@ You are finished, start your app:
 
 	# rails s
 
-= Install for production
+## Install for production
 
-With rails 5 your app will need a js runtime for the development environment. So for example, make sure this line is uncommented in your 'Gemfile':
+With rails 5 your app will need a js runtime for the development environment. If there is none on the system then make sure this line is uncommented in your 'Gemfile':
 
 	gem 'mini_racer', platforms: :ruby
 
-= Browser support
+## Browser support
 
 All modern browsers and IE >= 10 should be supported.
 
-= Configuration
+## Configuration
 
 The minimal configuration will require you to edit the 'config/initializers/semi_static.rb' file. Edit that file to
 suit your configuration. Thereafter you can customize the css files and overwrite the views to customize as much as
 you want.
 
-= Testing
+## Testing
 
 	# rails test
 
-= Content
+## Content
 
 The initial admin sign in email and password can by found in db/seeds.rb. Use this to sign in and start adding your content.
 Note: seeds.rb is created by the generator, so you must have run this first as decribed above. Also, beware of then checking the seed.rb into a repository without deleting the password as this will expose your Admin account.
 
-= Production environment webserver, assets and page cacheing
+## Production environment webserver, assets and page cacheing
 
 SemiStatic saves cached versions of your sites pages in the public directory, but inside directories according to the locale
 of the content. Exactly which locales match which domains is set in 'config/initializers/semi-static.rb'. So for example your
@@ -129,11 +129,21 @@ need to link the 'asset' and 'system' directories inside each of the public loca
     # ln -s ../assets ./assets
     # ln -s ../system ./system
 
-To ensure that precompiled assests are minified ensure that you precompile them in the production environment:
+To ensure that precompiled assests are minified ensure your 'config/environments/production.rb' file has the following:
 
-    # rails assets:precompile RAILS_ENV=production
+    config.assets.js_compressor = Uglifier.new(harmony: true)
+    config.assets.css_compressor = :sass
 
-= Using the window.onload event in javascript
+
+Note the 'harmony' parameter is required in order to compile the SemiStatic ES6 code without errors.
+
+Now precompile them in the production environment with
+
+```
+# rails assets:precompile RAILS_ENV=production
+```
+
+## Using the window.onload event in javascript
 
 Some SemiStatic pages need to use the window.onload event. If you try and use the window.onload event yourself in a page you may have unpredictable
 results. Therefore SemiStaic provides the addSemiStaticLoadEvent() function. Use this function to call any javascript that you need to execute
@@ -141,7 +151,7 @@ when the document is loaded, eg:
 
     addSemiStaticLoadEvent(myfunction);
 
-= Uploaded Images
+## Uploaded Images
 
 SemiStatic uses the Paperclip gem to resize images. The Paperclip gem itself requires Imagemagick, if not already installed on your system install it with:
 
@@ -151,7 +161,7 @@ Some SemiStatic image styles may change. If you are having trouble with the qual
 
     rake paperclip:refresh CLASS=SemiStatic::Photo
 
-= ElasticSearch
+## ElasticSearch
 
 The elasticsearch gem is automatically installed, but you will need access to an elasticsearch server. We have tested against elasticsearch 5.6.4. On debian you can install this elasticsearch version locally with:
 
@@ -190,7 +200,7 @@ In your controllers you can then for example use authenticate_admin!
 
     before_action :authenticate_admin!, :except => [ :new, :create ]
 
-= Rake task for non digested assets
+## Rake task for non digested assets
 
 The goal of this engine is to privide a basis fo a CMS, and furthermore a CMS where pure HTML will can be used. Since Rails 4 the assets
 no longer have a non-digested version. This means that, for example, if you are writing pure HTML like the following, it will fail:
@@ -205,6 +215,3 @@ The HTML will have no way of knowing what the fingerprint is. To fix this SemiSt
 
         # rails semi_static:non_digested[images]
 
-= Examples
-
-http://quantum-websites.com/info/portfolio

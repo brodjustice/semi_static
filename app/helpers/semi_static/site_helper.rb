@@ -705,7 +705,9 @@ module SemiStatic
     end
 
     def og_image_url
-      if @entry&.img.present?
+      if @entry&.get_page_attr('useAltImageAsMeta')
+        request.protocol + request.host + @entry.alt_img(:url)
+      elsif @entry&.img.present?
         # img_url_for_theme is actually always a relative path
         request.protocol + request.host + @entry.img_url_for_theme
       else
