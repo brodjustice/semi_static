@@ -82,9 +82,11 @@ module SemiStatic
           @popup_style = popup_style(@photo, @pixel_ratio)
           @caption = @photo.description
           template = "semi_static/photos/popup"
-        else
+        elsif @photo.public?
           @selection = 'Gallery'
           @title = @photo.title
+        else
+          raise ActiveRecord::RecordNotFound
         end
   
         if !params[:popup].present? || @photo.carousel
