@@ -266,23 +266,29 @@ nav.text-right{clear: both;}
   touch-action: manipulation;
 }
 #popoffInner{top:0; bottom: 0; left: 0; right: 0; position: absolute;}
-.popped:hover #popup_caption{opacity: 0.0;}
 #dialog #popupCloseButton {
   font-size: 32px; border-radius: 50%; border: 2px solid white; color: white; background-color: black;
   position: absolute; width: 28px; top: -18px; right: -18px; text-align: center; height: 28px; line-height: 26px;
   cursor: pointer;
 }
-#semiStaticCright, #semiStaticCleft{z-index: 3000; position: absolute; width: 100px; top: 0; bottom: 0; color: transparent;}
+#semiStaticCright, #semiStaticCleft{
+  z-index: 3000; position: absolute; width: 0px; top: 0; bottom: 0; color: white;
+}
 #semiStaticCright{right: 0px;}
-#semiStaticCright:after{content: '>'; right: 20px;}
-#semiStaticCleft:after{content: '<'; left: 20px;}
 #semiStaticCright:after, #semiStaticCleft:after{
-  font-size: 96px;
+  font-size: 28px;
   position: absolute;
   top: 50%;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
+  background-color: black;
+  border: white 4px solid;
+  border-radius: 2px;
+  padding: 6px;
+  padding-top: 3px;
 }
+#semiStaticCright:after{border-left: none; content: '>'; right: -30px;}
+#semiStaticCleft:after{border-right: none; content: '<'; left: -30px;}
 #popoff:hover .carousel{
   color: white;
   text-shadow: 0 0 4px black;
@@ -290,7 +296,6 @@ nav.text-right{clear: both;}
 #popup_caption{
   position:absolute; background-color: rgba(255,255,255,0.9); color: black; font-size: 14px;
   bottom: 0px; width: 100%; text-align: center; box-sizing: border-box;
-  transition: opacity 1s ease-in-out;
   border-top: 1px solid #a8a8a8; margin-top: 4px;
   padding: 12px;}
 

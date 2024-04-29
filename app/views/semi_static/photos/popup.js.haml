@@ -1,11 +1,56 @@
+// Huge refactor required 
 var d = document.getElementById('dialog');
 d.className = d.className += ' popped';
-d.setAttribute("style", "#{@popup_style}");
+d.setAttribute("style", "display: block;");
+d.setAttribute("style", "visibility: hidden;");
 document.getElementById('body-inner').style.opacity = '0.3';
+
 != "d.innerHTML=('#{escape_javascript(render :partial => 'semi_static/photos/popup')}');"
-document.getElementById('body-inner').addEventListener('click', semiStaticPopOff, true); 
-document.getElementById('popoffInner').addEventListener('click', semiStaticPopOff, true); 
+
+const popImg = d.querySelector('#popImg');
+const popImgWrapper = d.querySelector('#popImgWrapper');
+
+popImg.setAttribute("style", "#{@popup_style}");
+
+d.style.maxHeight = (window.innerHeight - 128) + 'px';
+popImgWrapper.style.height = d.clientHeight + 'px';
+
+d.setAttribute("style", "visibility: visible;");
+
+const dStyle = window.getComputedStyle(d);
+const popImgStyleWidth = parseInt(popImg.style.width, 10);
+
+d.style.width = popImgStyleWidth + 'px';
+
+if(popImg.clientWidth > popImgWrapper.clientWidth){
+
+popImgWrapper.style.overflowX = 'scroll';
+
+var contentWidth = popImgWrapper.scrollWidth;
+var containerWidth = popImgWrapper.clientWidth;
+var scrollTo = (contentWidth - containerWidth) / 2;
+popImgWrapper.scrollLeft = scrollTo;
+
+}
+
+if(popImg.clientHeight > popImgWrapper.clientHeight){
+
+popImgWrapper.style.overflowY = 'scroll';
+
+var contentHeight = popImgWrapper.scrollHeight;
+var containerHeight = popImgWrapper.clientHeight;
+var scrollTo = (contentHeight - containerHeight) / 2;
+popImgWrapper.scrollTop = scrollTo;
+}
+
 document.getElementById('popupCloseButton').addEventListener('click', semiStaticPopOff, true);
+
+- if @caption.present?
+  d.style.paddingBottom = d.querySelector('#popup_caption').clientHeight + 'px';
+
 - if @previous
   document.getElementById('semiStaticCleft').addEventListener('click', function(){semiStaticAJAX("#{photo_path(@previous, :popup => true)}");}, true); 
   document.getElementById('semiStaticCright').addEventListener('click', function(){semiStaticAJAX("#{photo_path(@next, :popup => true)}");}, true); 
+- else
+  document.getElementById('body-inner').addEventListener('click', semiStaticPopOff, true); 
+  document.getElementById('popoffInner').addEventListener('click', semiStaticPopOff, true); 

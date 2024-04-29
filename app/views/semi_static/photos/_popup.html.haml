@@ -1,10 +1,11 @@
 #popupCloseButton
   &Cross;
-#popoff{:style => "width: #{@width}px; height:#{@height}px;"}
-  - if @photo&.carousel
-    #semiStaticCleft.carousel
-    #semiStaticCright.carousel
-  #popoffInner
-  - if @caption.present?
-    #popup_caption
-      = @caption.to_s.html_safe
+#popImgWrapper{:style => 'overflow: hidden; z-index: -1; position: relative;'}
+  #popImg
+
+- if @photo&.carousel
+  #semiStaticCleft.carousel
+  #semiStaticCright.carousel
+- if @caption.present?
+  #popup_caption
+    = @caption.to_s.html_safe
