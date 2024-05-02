@@ -183,14 +183,14 @@ module SemiStatic
 
       # Get all the public tags, remove those that have "noindex set"
       tags = Tag.is_public.locale(locale).select{|t|
-        t.seo.nil? || t.seo.no_index != false
+        t.seo.nil? || !t.seo.no_index
       }
 
       # Remove any of these tags that were are already in sitemap from menu Tags
       tags = tags.select{|t| !sm.include?(t)}
 
       # Add our menu tags back in
-      tags = menu_tags.reverse + tags
+      tags = menu_tags + tags
 
       # Rebuild the full sitemap
       SiteMapNode.new(
@@ -209,15 +209,49 @@ module SemiStatic
 
       def initialize(node_tag, nodes, traverse = false)
         @node_tag = node_tag
-        @entries = node_tag ? self.node_tag.entries.unmerged.to_a : []
+        @entries = node_tag ? self.node_tag.entries.unmerged.not_linked_to_tag.select(&:indexable) : []
         @nodes = nodes
 
-        # If the traverse is false, or the nodes are provided than
-        # do not traverse
+        # If the traverse is false, or the nodes are provided then
+        # do not traverse. Not that a Tag never branches to another
+        # Tag, it only branches to an Entry with Entry#acts_as_tag pointing
+        # to the Tag that will be the new node.
         #
         @nodes = nodes || self.entries.select{|e| e.acts_as_tag}.map{|e| 
           SiteMapNode.new(e.acts_as_tag, nil, traverse)
         }
+      end
+
+      #
+      # It often useful to be able to reorder certain nodes, expecially at the top
+      # level. For example you might want the "Home" to be first, even if it was
+      # not the first in your menu (maybe to place it on the left).
+      #
+      # The array contains either ids or strings with the node/Tag name in the
+      # required order eg. ['Home', 'About us', 'Blog']
+      #
+      def reorder(array)
+        if array.first.kind_of?(String)
+          original = self.nodes.map{|n| n.node_tag.name}
+        else
+          original = self.nodes.map{|n| n.node_tag.id}
+        end
+
+        # Create a array of the new order index positions
+        new_order = array.map{|item| original.index(item)}
+
+        # Create an array of the items in the new positions
+        rearranged_nodes = new_order.map { |index| self.nodes[index] }
+
+        # Remove nodes from Sitemapnode by setting to nil and later compacting
+        new_order.each{|i|
+          self.nodes[i] = nil
+        }
+
+        # Add the rearranged nodes
+        self.nodes = rearranged_nodes + self.nodes.compact
+
+        self
       end
 
       #
