@@ -65,15 +65,20 @@ module SemiStatic
     #   def self.slide_menu
     #     self.where(:menu => true).merge(self.includes(:page_attrs).where(:semi_static_page_attrs => {:attr_key => 'slideMenu'}))
     #   end
-    # So for Rails 4 there is no elegant solution at available.
+    # So for Rails 4 there is no elegant solution available.
     #
     # In Rails 5 we get the 'or' method for our scope, so we might think we can do:
     #   scope :slide_menu, -> {where(:menu => true).or(includes(:page_attrs).where(:semi_static_page_attrs => {:attr_key => 'slideMenu'}))}
     # but this will not work because we get the error:
     #   "Relation passed to #or must be structurally compatible. Incompatible values: [:includes]"
     # This is thankfully fixed by simply having the 'include' in both sub-queries:
+    #
 
-    scope :slide_menu, -> {includes(:page_attrs).where(:menu => true).or(includes(:page_attrs).where(:semi_static_page_attrs => {:attr_key => 'slideMenu'}))}
+    scope :slide_menu, -> {
+      includes(:page_attrs).where(:menu => true).or(
+        includes(:page_attrs).where(:semi_static_page_attrs => {:attr_key => 'slideMenu'})
+      )
+    }
 
     def title; name end
     def raw_title; name end
@@ -154,5 +159,88 @@ module SemiStatic
         self.entries.unmerged
       end
     end
+
+    #
+    # Staring at the menu Tags, traverse down the heirachy to produce a sitemap. Important
+    # to undestand that we start with the menu tags for a good reason, we assume that they
+    # are the root tags. Other tags my appear as branches in the sitemap tree if an entry
+    # with "acts_as_tag" set. 
+    # 
+    #
+    def self.sitemap(locale)
+      
+      # Get only the menu Tags
+      menu_tags = Tag.menu.locale(locale)
+  
+      # Build a sitemap based on those that are in the menu
+      sm = SiteMapNode.new(
+        nil,
+        menu_tags.map{|t|
+          SiteMapNode.new(t, nil, true)
+        },
+        true
+      )
+
+      # Get all the public tags, remove those that have "noindex set"
+      tags = Tag.is_public.locale(locale).select{|t|
+        t.seo.nil? || t.seo.no_index != false
+      }
+
+      # Remove any of these tags that were are already in sitemap from menu Tags
+      tags = tags.select{|t| !sm.include?(t)}
+
+      # Add our menu tags back in
+      tags = menu_tags.reverse + tags
+
+      # Rebuild the full sitemap
+      SiteMapNode.new(
+        nil,
+        tags.map{|t| SiteMapNode.new(t, nil, true)},
+        true
+      )
+    end
+
+    #
+    # Construct a node in a sitemap. A node is actually a Tag. An Entry is an endpoint.
+    # The "root" is the object with node_tag = nil
+    # 
+    class SiteMapNode
+      attr_accessor :node_tag, :entries, :nodes
+
+      def initialize(node_tag, nodes, traverse = false)
+        @node_tag = node_tag
+        @entries = node_tag ? self.node_tag.entries.unmerged.to_a : []
+        @nodes = nodes
+
+        # If the traverse is false, or the nodes are provided than
+        # do not traverse
+        #
+        @nodes = nodes || self.entries.select{|e| e.acts_as_tag}.map{|e| 
+          SiteMapNode.new(e.acts_as_tag, nil, traverse)
+        }
+      end
+
+      #
+      # Depth first search to discover if target Tag/node is in SiteMapNode and children
+      #
+      def include?(target, node=self)
+        if node.node_tag == target
+          return true
+        end
+
+        if node.nodes.empty?
+          return false
+        end
+
+        node.nodes.each do |child_node|
+          if child_node.include?(target)
+            return true
+          end
+        end
+
+        false
+      end
+    end
   end
 end
+

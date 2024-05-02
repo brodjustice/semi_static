@@ -1,0 +1,26 @@
+-#
+-# If you are using the Sitemap function you will need to add your own
+-# CSS for this, probably flexbox based. Or copy this into your
+-# application directory and customise yourself
+-#
+%h1 Sitemap
+.cards-flex-row
+  - @sitemap.nodes.each do |node|
+    - if node.entries.empty?
+      .card-wrapper.min.compact-height
+        = link_to feature_path(node.node_tag.slug) do
+          .card-body-wrapper
+            .card-side{:id => "tag_#{node.node_tag.id}"}
+              %h2= node.node_tag.name
+    - else
+      .card-wrapper.full.compact-height
+        .card-body-wrapper
+          .card-side{:id => "tag_#{node.node_tag.id}"}
+            %h2= link_to node.node_tag.name, feature_path(node.node_tag.slug)
+          .card-body
+            .card-body-text.fill
+              - node.entries.each do |entry|
+                - if entry.acts_as_tag.present?
+                  %h3= link_to entry.acts_as_tag.name, "#tag_#{entry.acts_as_tag.id}"
+                - else
+                  %h3= link_to entry.title, entry_link(entry)

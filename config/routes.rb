@@ -49,6 +49,8 @@ SemiStatic::Engine.routes.draw do
     resources :page_attrs, :except => :index
   end
 
+  resources :sitemaps, :only => :index
+
   # For the orders and shopping carts, the carts index is actually
   # the orders but serviced by the orders controller. The cart is
   # actually the current_order, there is no ID for it, it's in the 
