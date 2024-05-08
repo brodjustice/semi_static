@@ -23,6 +23,7 @@
     .col-md-6
       .input-group
         = labeled_textfield f, :price
+        = labeled_checkbox(f, :override_nil_price, 'No price', 'Allows price to be blank (not recomended)')
         = labeled_textfield f, :color
         = labeled_textfield f, :height
         = labeled_textfield f, :depth

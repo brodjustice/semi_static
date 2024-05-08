@@ -238,7 +238,7 @@ module SemiStatic
         end
 
         # Create a array of the new order index positions
-        new_order = array.map{|item| original.index(item)}
+        new_order = array.map{|item| original.index(item)}.compact
 
         # Create an array of the items in the new positions
         rearranged_nodes = new_order.map { |index| self.nodes[index] }

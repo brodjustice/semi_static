@@ -121,6 +121,7 @@ module SemiStatic
     def product_params
       params.fetch(:product, {}).permit(:name, :description, :color, :height, :depth, :width,
         :weight, :price, :currency, :inventory_level, :entry_id, :active, :orderable, :img,
+        :override_nil_price,
       )
     end
 
