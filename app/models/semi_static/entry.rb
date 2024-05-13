@@ -511,14 +511,6 @@ module SemiStatic
       end
     end
 
-    def get_side_bar_entries
-      if self.side_bar_tag.present?
-        self.side_bar_tag.entries.unmerged.limit(20)
-      else
-        SemiStatic::Entry.news.limit(20).locale(self.tag.locale)
-      end
-    end
-
     #
     # It's a merged Entry there is an Entry with a merged_id pointing
     # to self

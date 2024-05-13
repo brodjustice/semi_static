@@ -1,39 +1,27 @@
-- klass = @entry || @tag || SemiStatic::Tag.predefined(I18n.locale.to_s, 'Home').first
+- content_object = @entry || @tag || SemiStatic::Tag.predefined(I18n.locale.to_s, 'Home').first
 .news
-  - unless klass.nil?
-    - title = klass.side_bar_tag.nil? ? t('News') : klass.side_bar_tag.sidebar_title
+  - unless content_object.nil?
+    - title = content_object.side_bar_tag.nil? ? t('News') : content_object.side_bar_tag.sidebar_title
     - if news_tag = SemiStatic::Tag.predefined(I18n.locale.to_s, 'News').first
       = link_to feature_path(news_tag.slug) do
         %h2= title
     - else
       %h2= title
-    - maxNewsItems = klass.get_page_attr('sideBarMaxNewsItems') ? klass.get_page_attr('sideBarMaxNewsItems').to_i : -1
-    - klass.get_side_bar_entries[0..(maxNewsItems - 1)].each_with_index do |e, i|
-      -# There are a lot of condition here where you don't display the summary
-      -# in the side-bar. The most convaluted is when this is a tag and has
-      -# only one entry (max_entries_on_index_page == 1) AND there is no
-      -# specific summary text AND this is that first entry (i == 0).
-      -# In this case we would just be repeating the same text in the
-      -# side-bar, so suppress it:
-      - next if @tag && @tag.max_entries_on_index_page == 1 && i == 0
-      - next if (e == @entry && !e.use_as_news_summary) || e.summary_length.blank?
+
+    - news_entries_for_side_bar(content_object).each_with_index do |e, i|
       .panel
-        - if e.click_ad.present?
-          = link_to e.click_ad.url do
-            = semantic_entry_image(e, :bar)
+        - if e.summary_length >= 0
+          %h3= link_to e.title, entry_link_path(e)
+          - unless e.sub_title.blank?
+            %h4= link_to e.sub_title, entry_link_path(e)
         - else
-          - if e.summary_length >= 0
-            %h3= link_to e.title, entry_link_path(e)
-            - unless e.sub_title.blank?
-              %h4= link_to e.sub_title, entry_link_path(e)
-          - else
-            %h3= e.title
-            - unless e.sub_title.blank?
-              %h4= e.sub_title
-          - if e.news_img.present?
-            .image= link_to image_tag(e.news_img.url(:bar)), entry_link_path(e)
-          - elsif e.image_in_news && e.img.present?
-            .image= link_to image_tag(e.img.url(:bar)), entry_link_path(e)
-          - if e.summary_length > 0
-            = entry_summary(e, e.summary_length, true)
-            .more= link_to t('more'), entry_link_path(e)
+          %h3= e.title
+          - unless e.sub_title.blank?
+            %h4= e.sub_title
+        - if e.news_img.present?
+          .image= link_to image_tag(e.news_img.url(:bar)), entry_link_path(e)
+        - elsif e.image_in_news && e.img.present?
+          .image= link_to image_tag(e.img.url(:bar)), entry_link_path(e)
+        - if e.summary_length > 0
+          = entry_summary(e, e.summary_length, true)
+          .more= link_to t('more'), entry_link_path(e)

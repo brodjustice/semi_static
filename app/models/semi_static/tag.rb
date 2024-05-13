@@ -132,14 +132,6 @@ module SemiStatic
       SemiStatic::Engine.config.try('subscribers_model') && self.subscriber
     end
   
-    def get_side_bar_entries
-      if self.side_bar_tag.present?
-        self.side_bar_tag.entries.unmerged.limit(20)
-      else
-        SemiStatic::Entry.news.limit(20).locale(self.locale)
-      end
-    end
-  
     def add_sidebar_title
       if self.sidebar_title.blank?
         self.sidebar_title = self.name

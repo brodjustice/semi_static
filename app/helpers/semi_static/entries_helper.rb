@@ -38,6 +38,44 @@ module SemiStatic
     end
 
     #
+    # Return the News entries that will be displayed in the Tag or Entry sidebar. The code
+    # was previously in the models an pulls in non-News Entries if side_bar_tag.present?
+    # It's probably not obvious usage and so probably should be documented.
+    # It does make sense though as a simple method of adding the Tag contents to the
+    # sidebar instead of news and not getting duplicates.
+    #
+
+    def news_entries_for_side_bar(content_object)
+
+      # Get the Entries. 
+      entries = (
+        if content_object.side_bar_tag.present?
+          content_object.side_bar_tag.entries.unmerged
+        else
+          SemiStatic::Entry.news.locale(content_object.locale)
+        end
+      )
+
+      #
+      # If this content page is an Entry then we need to remove itself from the side
+      # bar Entries. No point in having a news item in the side bar pointing to
+      # itself
+      #
+      if content_object.kind_of?(SemiStatic::Entry)
+        entries = entries.reject{|e|
+          (e == content_object) && !e.use_as_news_summary
+        }
+      end
+
+      # Note that if the #page_attr is not set, then the max_entries is set to
+      # zero. This in turn is reduced by one in the final step to do make the range
+      # unlimited, eg. [0..-1]
+      max_entries = [content_object.get_page_attr('sideBarMaxNewsItems').to_i, 0].max
+
+      entries[0..(max_entries - 1)]
+    end
+
+    #
     # Document download ulr that triggers Google Analytics to record download event
     # If GA is not loaded then the _gap.push will fail, but this is no problem as
     # it will proceed directly to the download.
