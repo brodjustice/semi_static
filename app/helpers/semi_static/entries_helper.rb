@@ -75,6 +75,14 @@ module SemiStatic
       entries[0..(max_entries - 1)]
     end
 
+    def eval_with_syntax_check(str)
+      begin
+        eval(str)
+      rescue SyntaxError => e
+        nil
+      end
+    end
+
     #
     # Document download ulr that triggers Google Analytics to record download event
     # If GA is not loaded then the _gap.push will fail, but this is no problem as
