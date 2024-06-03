@@ -551,7 +551,7 @@ module SemiStatic
     #
     # Need to hand craft the share button links and add a Google GA Event trigger
     #
-    def social_shares(e)
+    def social_shares(e, page=e)
       return unless (e.facebook_share || e.instagram_share || e.linkedin_share || e.xing_share || e.twitter_share)
       c = '<div class="social button-wrapper"> '.html_safe
 
@@ -571,7 +571,7 @@ module SemiStatic
         c+= "<a class='tw-share' title='#{t('ShareOnTwitter')}' onclick='#{onclick_social_ga_js('Twitter')}' href='https://twitter.com/intent/tweet?url=#{request.url}&hashtags=#{SemiStatic::Engine.config.site_name.parameterize}'>#{t('Share')}</a>".html_safe
       end
       if e.email_share
-        c+= mail_to nil, t('Share'), {:subject => e.merged_main_entry.title, :body => request.url, :title => t('ShareViaEmail'), :class => 'em-share', :onclick => "#{onclick_social_ga_js('Email')}"}
+        c+= mail_to nil, t('Share'), {:subject => page.title, :body => request.url, :title => t('ShareViaEmail'), :class => 'em-share', :onclick => "#{onclick_social_ga_js('Email')}"}
       end
       c += '</div>'.html_safe
     end

@@ -25,3 +25,5 @@
 
           = render :partial => 'semi_static/tags/news'
           = render :partial => 'semi_static/photos/side_bar'
+- if @tag.get_page_attr('socialSharesEntryId')
+  = social_shares(SemiStatic::Entry.find(@tag.get_page_attr('socialSharesEntryId')))
