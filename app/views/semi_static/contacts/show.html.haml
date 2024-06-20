@@ -3,7 +3,7 @@
     %i.fa.fa-user.invert
     %span= @contact.fullname.blank? ? 'unknown' : @contact.fullname
   .text-right
-    = link_to contact_path(@contact), :title => 'Delete', :method => :delete, :data => { :confirm => "Confirm deleting #{@contact.fullname}"}, :class => 'btn btn-danger loading' do
+    = link_to semi_static_contact_path(@contact), :title => 'Delete', :method => :delete, :data => { :confirm => "Confirm deleting #{@contact.fullname}"}, :class => 'btn btn-danger loading' do
       %span.app-menu__icon.fa.fa-user
       %span Delete
 

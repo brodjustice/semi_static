@@ -16,7 +16,7 @@
 -# but since we do not config a PUT/POST/PATCH route for the 'context_url' it will fail. Since this is the only
 -# point in the application that we should be PUT/POST/PATCH of the Entry we choose to fix the URL
 -# 
-= form_for @entry, :url => "/entries/#{@entry.id}", :class => 'form-inline' do |f|
+= form_for @entry, :url => "/semi-static/entries/#{@entry.id}", :class => 'form-inline' do |f|
   - if @entry.errors.any?
     .row
       .col-md-12

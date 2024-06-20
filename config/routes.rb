@@ -48,8 +48,9 @@ SemiStatic::Engine.routes.draw do
 
   # In case the Entry is not served by a Tag with a context_url
   resources :entries, :only => :show
-
+  resources :contacts, :only => [:new, :create]
   get '/contacts/registration' => 'contacts#new', :as => 'new_registration'
+
   resources :sitemaps, :only => :index
 
   get "/gallery", :to => 'galleries#index', :as => 'public_galleries'
@@ -86,7 +87,7 @@ SemiStatic::Engine.routes.draw do
     resources :page_attrs, :except => :index
   end
 
-
+  resources :contacts, path: '/semi-static/contacts', :only => [:show, :index, :destroy], :as => 'semi_static_contacts'
 
   # For the orders and shopping carts, the carts index is actually
   # the orders but serviced by the orders controller. The cart is
@@ -143,7 +144,7 @@ SemiStatic::Engine.routes.draw do
   resources :click_ads, path: '/semi-static/click-ads', :except => [:new, :create, :update]
   resources :seos, path: '/semi-static/seos', :except => [:new, :create, :update]
   resources :agreements, path: '/semi-static/agreements'
-  resources :contacts, path: '/semi-static/contacts', :except => [:edit, :update]
+
 
   get '/semi-static/dashboard' => 'dashboards#show', :as => 'semi_static_dashboard'
 

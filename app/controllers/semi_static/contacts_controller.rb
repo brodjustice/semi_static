@@ -31,7 +31,7 @@ module SemiStatic
       else
         @contacts = Contact.page(params[:page])
       end
-  
+
       respond_to do |format|
         format.html { render :layout => 'semi_static_dashboards' }
         format.json { render :json => @contacts }
@@ -40,21 +40,21 @@ module SemiStatic
         response.headers['Content-Disposition'] = "attachment; filename=contacts-#{DateTime.now.to_date}.csv"
         render :layout => false
       }
-        
+
       end
     end
-  
+
     # GET /contacts/1
     # GET /contacts/1.json
     def show
       @contact = Contact.find(params[:id])
-  
+
       respond_to do |format|
         format.html { render :layout => 'semi_static_dashboards' }
         format.json { render :json => @contact }
       end
     end
-  
+
     # GET /contacts/new
     # GET /contacts/new.json
     def new
@@ -66,7 +66,7 @@ module SemiStatic
         @tag, @seo = Seo.contact(params[:tag_id], I18n.locale.to_s)
       end
       @contact.agreements << Agreement.where(:display => true).locale(I18n.locale.to_s)
-  
+
       respond_to do |format|
         if @registration
           format.html { render 'registration' }
@@ -77,7 +77,7 @@ module SemiStatic
         end
       end
     end
-  
+
     STRATEGY_TEMPLATES = { :message => :thanks, :registration => :thanks, :download => :check_your_email, :subscriber => :thanks }
 
     def create
@@ -116,15 +116,15 @@ module SemiStatic
         end
       end
     end
-  
+
     # DELETE /contacts/1
     # DELETE /contacts/1.json
     def destroy
       @contact = Contact.find(params[:id])
       @contact.destroy
-  
+
       respond_to do |format|
-        format.html { redirect_to contacts_url }
+        format.html { redirect_to semi_static_contacts_url }
         format.json { head :no_content }
       end
     end
