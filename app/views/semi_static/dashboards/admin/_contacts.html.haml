@@ -20,7 +20,7 @@
         - SemiStatic::Contact.order('updated_at DESC').limit(5).each do |c|
           %tr
             %td
-              = link_to c.fullname, c
+              = link_to c.fullname, semi_static_contact_path(c.id)
             %td
               = mail_to c.email, c.email
             %td= truncate(c.message)
