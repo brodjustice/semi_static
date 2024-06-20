@@ -1,9 +1,9 @@
 module SemiStatic
   class Tag < ApplicationRecord
-  
+
     include Pages
     include PartialControl
-  
+
     # For when we don't know if its a Tag or Entry
     alias_attribute :explicit_title, :name
 
@@ -25,39 +25,29 @@ module SemiStatic
 
     validates :name, :uniqueness => {:scope => :locale}
 
-    # scope :menu, where('menu = ?', true)
     scope :menu, -> {where('menu = ?', true)}
-
-    # scope :for_subscribers, where('subscriber = ?', true)
     scope :for_subscribers, -> {where('subscriber = ?', true)}
-
-    # scope :locale, lambda {|locale| where("locale = ?", locale.to_s)}
     scope :locale, -> (locale) {where("locale = ?", locale.to_s)}
-
-    # default_scope order(:position)
     default_scope { order(:position) }
 
-    # scope :predefined, lambda{|locale, pre| where("locale = ?", locale).where('predefined_class = ?', pre)}
     scope :predefined, -> (locale, pre) { where("locale = ?", locale).where('predefined_class = ?', pre) }
 
-    # scope :with_attr, lambda{|attr| includes(:page_attrs).where('semi_static_page_attrs.attr_key  = ?', attr)}
     scope :with_attr, -> (attr){includes(:page_attrs).where(:page_attrs => {:attr_key => attr})}
 
-    # scope :public, where("subscriber = ?", false).where("admin_only = ?", false)
     #
     # public becomes a reserved method in Rails 4
     #
     scope :is_public, -> {where("subscriber = ?", false).where("admin_only = ?", false)}
-  
+
     before_save :generate_slug, :add_sidebar_title
-  
-    # 
+
+    #
     # This used to be a scope as Rails 3 allowed the following:
     #   scope :slide_menu, includes(:page_attrs).where('semi_static_page_attrs.attr_key = ? OR menu = ?', 'slideMenu', true)
     # so we expect we can use something like:
     #   scope :slide_menu, -> {includes(:page_attrs).where('semi_static_page_attrs.attr_key' = ? OR menu = ?', 'slideMenu', true)}
     # But this does not work in Rails 4. We can't use this:
-    #  scope :slide_menu, -> {find_by_sql("SELECT \"semi_static_tags\".* FROM \"semi_static_tags\" 
+    #  scope :slide_menu, -> {find_by_sql("SELECT \"semi_static_tags\".* FROM \"semi_static_tags\"
     #    WHERE (semi_static_page_attrs.attr_key = 'slideMenu' OR menu = 't') ORDER BY position")}
     # because it returns an array.
     #
@@ -131,7 +121,7 @@ module SemiStatic
     def subscriber_content
       SemiStatic::Engine.config.try('subscribers_model') && self.subscriber
     end
-  
+
     def add_sidebar_title
       if self.sidebar_title.blank?
         self.sidebar_title = self.name
@@ -156,14 +146,14 @@ module SemiStatic
     # Staring at the menu Tags, traverse down the heirachy to produce a sitemap. Important
     # to undestand that we start with the menu tags for a good reason, we assume that they
     # are the root tags. Other tags my appear as branches in the sitemap tree if an entry
-    # with "acts_as_tag" set. 
-    # 
+    # with "acts_as_tag" set.
+    #
     #
     def self.sitemap(locale)
-      
+
       # Get only the menu Tags
       menu_tags = Tag.menu.locale(locale)
-  
+
       # Build a sitemap based on those that are in the menu
       sm = SiteMapNode.new(
         nil,
@@ -195,7 +185,7 @@ module SemiStatic
     #
     # Construct a node in a sitemap. A node is actually a Tag. An Entry is an endpoint.
     # The "root" is the object with node_tag = nil
-    # 
+    #
     class SiteMapNode
       attr_accessor :node_tag, :entries, :nodes
 
@@ -209,7 +199,7 @@ module SemiStatic
         # Tag, it only branches to an Entry with Entry#acts_as_tag pointing
         # to the Tag that will be the new node.
         #
-        @nodes = nodes || self.entries.select{|e| e.acts_as_tag}.map{|e| 
+        @nodes = nodes || self.entries.select{|e| e.acts_as_tag}.map{|e|
           SiteMapNode.new(e.acts_as_tag, nil, traverse)
         }
       end
@@ -269,4 +259,3 @@ module SemiStatic
     end
   end
 end
-

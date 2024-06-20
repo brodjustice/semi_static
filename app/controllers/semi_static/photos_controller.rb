@@ -8,12 +8,12 @@ module SemiStatic
     include EntriesHelper
 
     before_action :authenticate_for_semi_static!, :except => [ :show, :index ]
-  
+
     # Caching the show page seems to cause some problems when flicking through the
     # gallery with js. Since the js/ajax is so light anyway we have stopped caching
     # the photo pages js until we are clear about the problem.
     # caches_page :show, :if => Proc.new{|c| c.request.format.html? && !semi_static_admin?}
-  
+
     # GET /photos
     # GET /photos.json
     def index
@@ -40,7 +40,7 @@ module SemiStatic
         end
         @photos ||= @obj.photos
       elsif params[:tag_id].present?
-        @tag, @seo = Seo.photos(params[:tag_id], I18n.locale) 
+        @tag, @seo = Seo.photos(params[:tag_id], I18n.locale)
       else
         if semi_static_admin?
           @photos = Photo.all
@@ -62,7 +62,7 @@ module SemiStatic
         format.js { render :template => 'semi_static/photos/admin_entry_photos' }
       end
     end
-  
+
     # GET /photos/1
     # GET /photos/1.json
     def show
@@ -88,8 +88,8 @@ module SemiStatic
         else
           raise ActiveRecord::RecordNotFound
         end
-  
-        if !params[:popup].present? || @photo.carousel
+
+        if params[:popup].blank? || @photo.carousel
           @previous, @next = @photo.neighbour_ids
           @previous = Photo.find(@previous)
           @next = Photo.find(@next)
@@ -97,16 +97,16 @@ module SemiStatic
       else
         raise ActiveRecord::RecordNotFound
       end
-  
+
       layout = (semi_static_admin? ? 'semi_static_dashboards' : 'semi_static_full')
-  
+
       respond_to do |format|
         format.html { render :layout => layout }
         format.js { render :template => template }
         format.json { render json: @photo }
       end
     end
-  
+
     # GET /photos/new
     # GET /photos/new.json
     def new
@@ -116,13 +116,13 @@ module SemiStatic
         master = Photo.find(params[:master])
         @photo = master.tidy_dup
       end
-  
+
       respond_to do |format|
         format.html { render :layout => 'semi_static_dashboards' }
         format.json { render json: @photo }
       end
     end
-  
+
     # GET /photos/1/edit
     def edit
       layout = 'semi_static_dashboards'
@@ -133,12 +133,12 @@ module SemiStatic
         format.json { render json: @photo }
       end
     end
-  
+
     # POST /photos
     # POST /photos.json
     def create
       @photo = Photo.new(photo_params)
-  
+
       respond_to do |format|
         if @photo.save
           expire_page_cache(@photo)
@@ -153,12 +153,12 @@ module SemiStatic
         end
       end
     end
-  
+
     # PUT /photos/1
     # PUT /photos/1.json
     def update
       @photo = Photo.find(params[:id])
-  
+
       respond_to do |format|
         if @photo.update_attributes(photo_params)
           expire_page_cache(@photo)
@@ -173,14 +173,14 @@ module SemiStatic
         end
       end
     end
-  
+
     # DELETE /photos/1
     # DELETE /photos/1.json
     def destroy
       @photo = Photo.find(params[:id])
       expire_page_cache(@photo)
       @photo.destroy
-  
+
       respond_to do |format|
         format.html { redirect_to photos_url }
         format.js

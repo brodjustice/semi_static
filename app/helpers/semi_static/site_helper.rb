@@ -12,7 +12,7 @@ module SemiStatic
         'News' => nil,
         'Imprint-credits' => '/site/imprint-credits',
         'Gallery' => semi_static.photos_path
-      } 
+      }
       route_name ? routes[route_name] : routes
     end
 
@@ -55,7 +55,7 @@ module SemiStatic
         class_options = {:class => e.get_page_attr('entryTitleClasses')}
 
         if linked && !e.link_to_tag
-          # Standard sort of link 
+          # Standard sort of link
           content_tag(h_tag, class_options){ content_tag(:a, e.title, style_options.merge(:href => entry_link(e))) } +
           (e.sub_title.present? ? content_tag(h_sub_tag){ content_tag(:a, e.sub_title, style_options.merge(:href => entry_link(e)))} : '')
         else
@@ -98,7 +98,7 @@ module SemiStatic
         #
         # We call super (or Rails helper) with the updated intended_entry (which has now been
         # forced to be an Entry object), this will ensure that we get the full URL ie:
-        #   /entries/652-my-blog post 
+        #   /entries/652-my-blog post
         # rather than just
         #   /entries/652
         #
@@ -130,7 +130,11 @@ module SemiStatic
 
     # Work out the correct path depending on locale
     def feature_path(slug, options = {})
-      SemiStatic::Engine.routes.url_helpers.send("#{I18n.locale.to_s}_features_path", slug, options)
+      if SemiStatic::Tag.find_by_slug(slug)&.context_url
+        "/#{slug}"
+      else
+        SemiStatic::Engine.routes.url_helpers.send("#{I18n.locale.to_s}_features_path", slug, options)
+      end
     end
 
     # For GET you should call this rather than feature_path so that
@@ -583,7 +587,7 @@ module SemiStatic
       "<input type='checkbox' name='onoffswitch' class='onoffswitch-checkbox' id='#{html_options["id"]}' #{html_options["checked"]}><label class='onoffswitch-label' for='#{html_options["id"]}'>".html_safe +
       '<div class="onoffswitch-inner"></div><div class="onoffswitch-switch"></div></label></div>'.html_safe
     end
-  
+
     # By default will show a flag icon for each alternate locale or translation. If flag is set to :locales it
     # will instead show each language symbol as 2 characters. If :flags or :text, you also get the current language
     # highlighted
@@ -594,7 +598,7 @@ module SemiStatic
       ls = ((display == :locales) || (display == :allflags) ? SemiStatic::Engine.config.localeDomains : SemiStatic::Engine.config.localeDomains.reject{|k, v| k.to_s == I18n.locale.to_s})
       unless ((display == :locales) && (ls.size == 1))
         ls.each{|l, u|
-          if u.downcase == 'translate' 
+          if u.downcase == 'translate'
             link = "http://translate.google.com/translate?hl=&sl=auto&tl=#{l}&u=#{url_encode(request.url)}"
           else
             # If this is a special page, with no tag or entry, then it will not be seoable so just point locales to the root of the alternate locale website
@@ -718,8 +722,8 @@ module SemiStatic
     # Create a video tag with fallback options as shown below.
     #
     # Notes:
-    #   You should have a mp4 format video as first video in your array as this 
-    # solves a known iPad bug but also as the first video is used for the fallback 
+    #   You should have a mp4 format video as first video in your array as this
+    # solves a known iPad bug but also as the first video is used for the fallback
     # download option when flash is used.
     #   Currently IE9 (9.0.8112) will not show the poster unless you also have the
     # attribute  preload="none". A workaround would be to have the "poster" image
@@ -848,7 +852,7 @@ module SemiStatic
     #
     # These are given in the configration and will be something like this:
     #
-    # 
+    #
     # config.custom_meta_tags = {
     #   'de' => {'facebook-domain-verification' => 'afli2m9gdwf4crzi99ebxjsoj33j4g'},
     #   'en' => {'facebook-domain-verification' => 'maywr8l04nx9hh7qz56be7uwsotlis'}
@@ -883,10 +887,10 @@ module SemiStatic
     # but we don't want to do this, it's not recomended and we anyway want to precompile all assets.
     #
     # This is quite a drawback and rather strange that development and production have different API's
-    # 
+    #
     # The solution is via our own methods find_asset and asset_source. Carefull to only use
     # asset_source on .js, .css files etc, not images
-    # 
+    #
     def find_asset(filename)
       path = ""
       if Rails.application.assets

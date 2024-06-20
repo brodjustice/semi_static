@@ -1,3 +1,10 @@
+-#
+-# Seems that form_for/with in Rails 5.x ignores the fact that the record has
+-# the scope of SemiStatic::Gallery, manually setting :scope => 'gallery'
+-# does not work either.
+-# 
+-#  This is why we then need to make the public gallery in routes.rg :as => 'public_gallery'
+-#
 = form_for(@gallery) do |f|
   - if @gallery.errors.any?
     #error_explanation
