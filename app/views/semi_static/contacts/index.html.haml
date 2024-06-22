@@ -11,15 +11,15 @@
   .text-right
     - if @nopaginate
       %div
-        = link_to semi_static_contacts_path(:format => 'csv'), :title => 'Download contacts as CSV file', :class => 'btn btn-primary' do
+        = link_to url_for(:controller => :contacts, :action => :index, :format => :csv), :title => 'Download contacts as CSV file', :class => 'btn btn-primary' do
           %span.app-menu__icon.fa.fa-user
           %span Download
       %div
-        = link_to semi_static_contacts_path, :title => 'Show contacts with pagination', :class => 'btn btn-primary loading' do
+        = link_to url_for(:controller => :contacts, :action => :index), :title => 'Show contacts with pagination', :class => 'btn btn-primary loading' do
           %span.app-menu__icon.fa.fa-user
           %span Paginate
     - else
-      = link_to semi_static_contacts_path(:nopaginate => true), :title => 'Show all contacts without pagination', :class => 'btn btn-primary loading' do
+      = link_to url_for(:controller => :contacts, :action => :index, :nopaginate => true), :title => 'Show all contacts without pagination', :class => 'btn btn-primary loading' do
         %span.app-menu__icon.fa.fa-user
         %span All
 
@@ -45,7 +45,7 @@
         %tbody
           - @contacts.each do |c|
             %tr
-              %td= link_to (c.fullname.present? ? c.fullname : 'Unknown'), semi_static_contact_path(c)
+              %td= link_to (c.fullname.present? ? c.fullname : 'Unknown'), semi_static.contact_path(c)
               %td= c.reason.to_s
               %td= truncate(c.message, :length => 64)
               %td= mail_to c.email, c.email
@@ -53,7 +53,7 @@
               %td= c.agreements.size
               %td{:data => {:text => c.created_at.to_i}}= c.created_at.strftime('%d-%m-%y')
               %td
-                = link_to semi_static_contact_path(c.id), :method => :delete, :data => { :confirm => "Confirm deleting #{c.fullname}" } do
+                = link_to semi_static.contact_path(c.id), :method => :delete, :data => { :confirm => "Confirm deleting #{c.fullname}" } do
                   %i.app-menu__icon.fa.fa-delete
       - unless @nopaginate
         = paginate @contacts, views_prefix: 'semi_static'

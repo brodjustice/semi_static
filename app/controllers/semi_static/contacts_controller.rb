@@ -124,7 +124,7 @@ module SemiStatic
       @contact.destroy
 
       respond_to do |format|
-        format.html { redirect_to semi_static_contacts_url }
+        format.html { redirect_to url_for(:controller => :contacts, :action => :index) }
         format.json { head :no_content }
       end
     end

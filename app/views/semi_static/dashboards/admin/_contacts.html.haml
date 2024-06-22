@@ -3,7 +3,7 @@
     %span.app-menu__icon.fa.fa-user.invert
     = 'Latest Contacts'
   %p
-    = link_to semi_static_contacts_path, :title => 'All Contacts', :class => 'btn btn-primary btn-show-loading' do
+    = link_to '/semi-static/contacts', :title => 'All Contacts', :class => 'btn btn-primary btn-show-loading' do
       %span.app-menu__icon.fa.fa-user
       %span Contacts
 
@@ -20,7 +20,7 @@
         - SemiStatic::Contact.order('updated_at DESC').limit(5).each do |c|
           %tr
             %td
-              = link_to c.fullname, semi_static_contact_path(c.id)
+              = link_to c.fullname, semi_static.contact_path(c.id)
             %td
               = mail_to c.email, c.email
             %td= truncate(c.message)

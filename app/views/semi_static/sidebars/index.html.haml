@@ -23,6 +23,8 @@
             %th= 'Title'
             %th{:title => 'Entries'}
               %i.app-menu__icon.fa.fa-website
+            %th{:title => 'Custom partial'}
+              %i.app-menu__icon.fa.fa-code
             %th{:title => 'Last Update'}
               %i.app-menu__icon.fa.fa-date
             %th{:title => 'Delete'}
@@ -34,6 +36,7 @@
               %td.number= link_to s.id.to_s, edit_sidebar_path(s)
               %td= link_to (s.title.blank? ? "##{s.id.to_s}" : s.title), edit_sidebar_path(s)
               %td.number= link_to s.entries.count.to_s, sidebar_path(s), :remote => true
+              %td= s.partial
               %td.number{:title => s.updated_at.strftime('%H:%M')}= s.updated_at.strftime('%d/%b/%y')
               %td
                 %i.app-menu__icon.fa.fa-delete

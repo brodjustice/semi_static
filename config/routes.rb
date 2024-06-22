@@ -59,47 +59,82 @@ SemiStatic::Engine.routes.draw do
 
   ###################################################################################
   #
-  # SemiStatic routes below
+  # SemiStatic scoped routes below
   #
 
-  resources :entries, path: '/semi-static/entries', :except => :show do
-    collection { get :search }
-    resources :click_ads, :only => [:new, :create, :update]
-    resources :seos, :only => [:new, :create, :update, :destroy]
-    resources :products, :except => [:index, :show]
-    resources :photos, :only => :index
-    resources :comments, :except => :new
-    resources :page_attrs, :except => :index
+  scope 'semi-static' do
+    resources :entries, :except => :show do
+      collection { get :search }
+      resources :click_ads, :only => [:new, :create, :update]
+      resources :seos, :only => [:new, :create, :update, :destroy]
+      resources :products, :except => [:index, :show]
+      resources :photos, :only => :index
+      resources :comments, :except => :new
+      resources :page_attrs, :except => :index
+    end
+
+    resources :fcols do
+      resources :links, :except => :show
+    end
+
+    resources :seos do
+      resources :hreflangs, :except => :show
+    end
+
+    resources :tags, :except => :show do
+      resources :seos, :only => [:new, :create, :update, :destroy]
+      resources :entries, :only => [:index]
+      resources :page_attrs, :except => :index
+    end
+
+    # The route /gallery is reserved to the pre-defined Gallery Tag which
+    # displays the websites public photos selected from various SemiStatic
+    # Galleries
+    resources :galleries, :as => 'galleries'
+    resources :photos do
+      resources :seos, :only => [:new, :create, :update]
+    end
+
+    # For the orders and shopping carts, the carts index is actually
+    # the orders but serviced by the orders controller. The cart is
+    # actually the current_order, there is no ID for it, it's in the
+    # session cookie, so the URL does not have and :id
+    resource :cart, only: [:show, :edit, :update]
+    resources :carts, only: [:index]
+    resources :order_items, only: [:create, :update, :destroy]
+
+    # In Rails 5 this incorrectly produces semi_static.contacts_path => "/contacts", not "/semi-static/contacts",
+    # this likely to do with contact_path route above being outside the SemiStatic namespace for the :post. This
+    # leaves us having to manually set the path in the views.
+    resources :contacts, :only => [:show, :index, :destroy]
+
+    resources :charges, :only => [:new, :create]
+
+    resources :newsletters do
+      resources :newsletter_deliveries, :only => :index
+    end
+
+    resources :squeezes do
+      resources :page_attrs, :except => :index
+    end
+
+    resources :job_postings
+    resources :events, :except => :show
+    resources :sidebars
+    resources :products
+    resources :newsletter_deliveries, :only => :update
+    resources :subscribers, :except => :show do
+      resources :newsletter_deliveries, :only => :index
+    end
+    resources :subscriber_categories, :only => [:new, :create, :destroy]
+    resources :banners
+    resources :references
+    resources :click_ads, :except => [:new, :create, :update]
+    resources :seos, :except => [:new, :create, :update]
+    resources :agreements
   end
-
-  # Create routes for fcols that are prefixed with /semi-static/
-  resources :fcols, path: '/semi-static/fcols' do
-    resources :links, :except => :show
-  end
-
-  resources :seos, path: '/semi-static/seos' do
-    resources :hreflangs, :except => :show
-  end
-
-  resources :tags, path: '/semi-static/tags', :except => :show do
-    resources :seos, :only => [:new, :create, :update, :destroy]
-    resources :entries, :only => [:index]
-    resources :page_attrs, :except => :index
-  end
-
-  resources :contacts, path: '/semi-static/contacts', :only => [:show, :index, :destroy], :as => 'semi_static_contacts'
-
-  # For the orders and shopping carts, the carts index is actually
-  # the orders but serviced by the orders controller. The cart is
-  # actually the current_order, there is no ID for it, it's in the
-  # session cookie, so the URL does not have and :id
-  resource :cart, :path => '/semi-static/cart', only: [:show, :edit, :update]
-  resources :carts, :path => '/semi-static/carts', only: [:index]
-  resources :order_items, :path => '/semi-static/order_items', only: [:create, :update, :destroy]
-
 
   # For the payment processor (stripe.com)
-  resources :charges, path: '/semi-static/charges', :only => [:new, :create]
 
   get "/semi-static/page-attributes/index" => 'page_attrs#index', :as => 'page_attrs'
   delete "/semi-static/page-attribute/:id" => 'page_attrs#destroy', :as => 'page_attr'
@@ -114,36 +149,7 @@ SemiStatic::Engine.routes.draw do
 
   get "site/show"
 
-  resources :newsletters, path: '/semi-static/newsletters' do
-    resources :newsletter_deliveries, :only => :index
-  end
 
-  # The route /gallery is reserved to the pre-defined Gallery Tag which
-  # displays the websites public photos selected from various SemiStatic
-  # Galleries
-  resources :galleries, path: '/semi-static/galleries', :as => 'galleries'
-  resources :photos, :path => '/semi-static/photos' do
-    resources :seos, :only => [:new, :create, :update]
-  end
-
-
-  resources :squeezes, path: '/semi-static/squeezes' do
-    resources :page_attrs, :except => :index
-  end
-  resources :job_postings, path: '/semi-static/job-postings'
-  resources :events, path: '/semi-static/events', :except => :show
-  resources :sidebars, path: '/semi-static/sidebars'
-  resources :products, path: '/semi-static/products'
-  resources :newsletter_deliveries, :path => '/semi-static/newsletter_deliveries', :only => :update
-  resources :subscribers, :path => '/semi-static/subscribers', :except => :show do
-    resources :newsletter_deliveries, :only => :index
-  end
-  resources :subscriber_categories, path: '/semi-static/subscriber_categories', :only => [:new, :create, :destroy]
-  resources :banners, path: '/semi-static/banners'
-  resources :references, path: '/semi-static/references'
-  resources :click_ads, path: '/semi-static/click-ads', :except => [:new, :create, :update]
-  resources :seos, path: '/semi-static/seos', :except => [:new, :create, :update]
-  resources :agreements, path: '/semi-static/agreements'
 
 
   get '/semi-static/dashboard' => 'dashboards#show', :as => 'semi_static_dashboard'

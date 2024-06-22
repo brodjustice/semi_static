@@ -154,8 +154,18 @@ module General
   def custom_pages
     entries = SemiStatic::Entry.where.not(:partial => 'none')
     tags = SemiStatic::Tag.where.not(:partial => 'none')
+    sidebars = SemiStatic::Sidebar.where.not(:partial => 'none')
     SemiStatic::Engine.config.open_partials.inject({}) do |hash, element|
-      hash[element.first] = entries.select{|e| e.partial == element.first} + tags.select{|t| t.partial == element.first}
+      hash[element.first] =
+        entries.select{|e|
+         e.partial == element.first
+        } + tags.select{|t|
+         t.partial == element.first
+        } + sidebars.map{|s|
+          s.partial == element.first && (
+            s.entries + s.tags
+          )
+        }.flatten.uniq.compact.select{|e| e}
       hash
     end
   end
