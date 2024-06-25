@@ -1,8 +1,8 @@
 %nav.bar-menu#bar-menu
   %ul
     = locales(SemiStatic::Engine.config.locale_display)
-    %li.search.icon= link_to t('Search'), semi_static.search_entries_path
-    %li.contact.icon= link_to t('Contact'), semi_static.new_contact_path
+    %li.search.icon= link_to t('Search'), search_path
+    %li.contact.icon= link_to t('Contact'), contact_path
     - if SemiStatic::Engine.config.try('subscribers_model')
       %li.sign-in.icon= link_to t('Sign_In'), main_app.send(SemiStatic::Engine.config.subscribers_model.values[0])
   

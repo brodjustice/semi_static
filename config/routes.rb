@@ -3,7 +3,10 @@ SemiStatic::Engine.routes.draw do
     get code, :to => "errors#show", :code => code
   end
 
+  # Set the root of the website to the Site controller
   root :action => 'show', :via => :get, :controller => 'site'
+  # And also define home_path as the root
+  get '/' => 'site#show', :as => 'home'
 
   #
   # For Tags that put their name in the url ("context_urls").
@@ -44,18 +47,28 @@ SemiStatic::Engine.routes.draw do
     SemiStatic::Engine.config.tag_paths.keys.each do |l|
       get "/#{SemiStatic::Engine.config.tag_paths[l]}/:slug" => 'tags#show', :as => "#{l}_features"
     end
+  else
+    get '/contact', :to => redirect('/contacts/new')
+    get '/news' => 'tags#show', :slug => 'news'
   end
 
   # In case the Entry is not served by a Tag with a context_url
   resources :entries, :only => :show
   resources :contacts, :only => [:new, :create]
   get '/contacts/registration' => 'contacts#new', :as => 'new_registration'
+  get '/search' => 'entries#search', :as => 'search'
 
   resources :sitemaps, :only => :index
 
+  # Public galleries path
   get "/gallery", :to => 'galleries#index', :as => 'public_galleries'
 
   get "/order/:id" => "carts#show", :as => 'shopping-cart'
+
+  # Public documents paths
+  get "/documents" => 'documents#index', :as => 'documents'
+  get "/documents/index" => 'documents#index'
+  get "/documents/:squeeze_id/:token" => 'documents#show', :as => 'document'
 
   ###################################################################################
   #
@@ -80,6 +93,10 @@ SemiStatic::Engine.routes.draw do
     resources :seos do
       resources :hreflangs, :except => :show
     end
+
+    # Catch all for the Tag route with slug when no context_url is used etc
+    #      get "/#{tn}", to: 'tags#show', :slug => "#{tn}"
+    resources :tags, :only => :show, :param => :slug
 
     resources :tags, :except => :show do
       resources :seos, :only => [:new, :create, :update, :destroy]
@@ -139,8 +156,7 @@ SemiStatic::Engine.routes.draw do
   get "/semi-static/page-attributes/index" => 'page_attrs#index', :as => 'page_attrs'
   delete "/semi-static/page-attribute/:id" => 'page_attrs#destroy', :as => 'page_attr'
   get "/comments/index" => 'comments#index', :as => 'comments'
-  get "/documents/index" => 'documents#index', :as => 'documents'
-  get "/documents/:squeeze_id/:token" => 'documents#show', :as => 'document'
+
 
   # Special route, normally only used by the webserver to get CSRF tags
   get '/site/csrf_meta_tags' => 'site#csrf_meta_tags'
