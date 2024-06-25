@@ -4,7 +4,8 @@
   #top-wrapper
     #bar.contain
       #bar-inner
-        = render 'semi_static/shared/bar'
+        - unless defined? devise_controller?
+          = render 'semi_static/shared/bar'
       #logo-wrapper
         = link_to semi_static.root_path do
           #logo
