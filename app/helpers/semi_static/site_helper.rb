@@ -130,10 +130,19 @@ module SemiStatic
 
     # Work out the correct path depending on locale
     def feature_path(slug, options = {})
-      if SemiStatic::Tag.find_by_slug(slug)&.context_url
-        "/#{slug}"
-      else
+      if SemiStatic::Engine.config.tag_paths[I18n.locale.to_s].present?
         SemiStatic::Engine.routes.url_helpers.send("#{I18n.locale.to_s}_features_path", slug, options)
+      else
+        tag = SemiStatic::Tag.find_by_slug(slug)
+        if tag&.context_url
+          # Convert slug hypehens to underscores for the route helper
+          SemiStatic::Engine.routes.url_helpers.send("#{slug.gsub('-', '_')}_path", options)
+        elsif tag&.predefined_class.present?
+          "/#{tag.predefined_class.downcase}"
+        else
+          # Just use the default SemiStatic route to the tag
+          SemiStatic::Engine.routes.url_helpers.send('tag_path', slug, options)
+        end
       end
     end
 
