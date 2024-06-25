@@ -4,7 +4,7 @@
   #top-wrapper
     #bar.contain
       #bar-inner
-        - unless defined? devise_controller?
+        - unless defined?(devise_controller?) && devise_controller?
           = render 'semi_static/shared/bar'
       #logo-wrapper
         = link_to semi_static.root_path do
