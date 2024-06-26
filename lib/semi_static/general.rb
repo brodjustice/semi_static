@@ -7,7 +7,14 @@ module General
   # URL) directories. As such they are the exceptions that we need to keep control of, ie. delete when the cache is
   # expired.
   #
-  CACHED = ["index.html", "index.html.gz", "news.html", "news.html.gz", "site", "references.html", "references.html.gz", "gallery.html", "gallery.html.gz", "references", "photos.html", "photos.html.gz", "photos", "features", "features.html", "features.html.gz", "entries", "entries.html", "entries.html.gz", "site/imprint-credits.html", "site/imprint-credits.html.gz", "documents/index.html", "documents/index.html.gz", "contacts/new.html", "contacts/new.html.gz"]
+  CACHED = [
+    "index.html", "index.html.gz", "news.html", "news.html.gz", "site", "references.html",
+    "references.html.gz", "gallery.html", "gallery.html.gz", "references", "photos.html",
+    "photos.html.gz", "photos", "features", "features.html", "features.html.gz", "entries",
+    "entries.html", "entries.html.gz", "site/imprint-credits.html", "site/imprint-credits.html.gz",
+    "documents/index.html", "documents.html", "documents/index.html.gz", "contacts/new.html",
+    "contacts/new.html.gz"
+  ]
 
   def write_sitemap(locale)
     stream = render_to_string(:formats => [:xml], :handler => :bulider, :template => "semi_static/system/generate_sitemap" )
@@ -66,14 +73,15 @@ module General
           CACHED.each{|c|
             FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/#{c}").to_s)
           }
-          # Also delete any context URL tags
+          # Also delete any context URL tags & entries
           SemiStatic::Tag.with_context_urls.collect{|t| t.name}.each{|tn|
             FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/#{tn.parameterize}").to_s)
+            FileUtils.rm_f((Rails.root.to_s + "/public/#{l.to_s}/#{tn.parameterize}.html").to_s)
           }
           # If there are no config.tag_paths don't do this, as the path will resolve to the
           # top level locales cache directory and it will be removed along with links
           # to your assets and system directories
-          unless SemiStatic::Engine.config.tag_paths[l.to_s].nil?
+          unless SemiStatic::Engine.config.tag_paths[l.to_s].blank?
             FileUtils.rm_rf((Rails.root.to_s + "/public/#{l.to_s}/#{SemiStatic::Engine.config.tag_paths[l.to_s]}").to_s)
           end
         }
