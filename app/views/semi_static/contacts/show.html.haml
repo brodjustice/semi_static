@@ -38,5 +38,10 @@
             %th Reason
             %td= @contact.reason.to_s
           %tr
+            %th Locale 
+            %td= @contact.locale.to_s
+            %th Token
+            %td= @contact.token
+          %tr
             %th Message
             %td{:colspan => 3}= simple_format(@contact.message)

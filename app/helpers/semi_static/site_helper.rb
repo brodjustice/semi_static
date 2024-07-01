@@ -130,7 +130,7 @@ module SemiStatic
 
     # Work out the correct path depending on locale, needs re-fectoring
     def feature_path(slug, options = {})
-      if SemiStatic::Engine.config.tag_paths[I18n.locale.to_s].present?
+      if SemiStatic::Engine.config.tag_paths&.dig(I18n.locale.to_s).present?
         SemiStatic::Engine.routes.url_helpers.send("#{I18n.locale.to_s}_features_path", slug, options)
       else
         tag = SemiStatic::Tag.find_by_slug(slug)

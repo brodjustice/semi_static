@@ -48,15 +48,19 @@ SemiStatic::Engine.routes.draw do
       get "/#{SemiStatic::Engine.config.tag_paths[l]}/:slug" => 'tags#show', :as => "#{l}_features"
     end
   else
-    get '/contact', :to => redirect('/contacts/new')
+
     get '/news' => 'tags#show', :slug => 'news'
   end
 
   # In case the Entry is not served by a Tag with a context_url
   resources :entries, :only => :show
-  resources :contacts, :only => [:new, :create]
-  get '/contacts/registration' => 'contacts#new', :as => 'new_registration'
   get '/search' => 'entries#search', :as => 'search'
+
+  resources :contacts
+  get '/contact', :to => redirect('/contacts/new')
+  get '/contacts/registration' => 'contacts#new', :as => 'new_registration'
+
+
 
   resources :sitemaps, :only => :index
 
@@ -120,10 +124,9 @@ SemiStatic::Engine.routes.draw do
     resources :carts, only: [:index]
     resources :order_items, only: [:create, :update, :destroy]
 
-    # In Rails 5 this incorrectly produces semi_static.contacts_path => "/contacts", not "/semi-static/contacts",
-    # this likely to do with contact_path route above being outside the SemiStatic namespace for the :post. This
-    # leaves us having to manually set the path in the views.
-    resources :contacts, :only => [:show, :index, :destroy]
+    # Note the need to put provide the explict path, else the defined route with clash with the
+    # contact_path routes outside of the semi-static scope
+    resources :contacts, :path => 'contacts', :as => 'contacts', :only => [:show, :index, :destroy]
 
     resources :charges, :only => [:new, :create]
 
