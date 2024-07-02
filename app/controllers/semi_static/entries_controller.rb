@@ -1,5 +1,5 @@
   require_dependency "semi_static/application_controller"
-  
+
   module SemiStatic
     class EntriesController < ApplicationController
 
@@ -7,9 +7,9 @@
     include General
     include EntriesHelper
     include SiteHelper
-  
+
     before_action :authenticate_for_semi_static!,  :except => [ :show, :search ]
-  
+
     # We would like to do something like this:
     #   caches_page :show, :if => :not_subscriber_content?
     # but Rails 3.x will not take the :if. So we have to rewrite the
@@ -17,11 +17,11 @@
     #   after_filter(:only => :show) { |c| c.cache_page if cachable_content?}
     # But then we also don't cache subsriber content or ajax requests (to the entry image):
     caches_page :show, :if => Proc.new { |c| !c.request.format.js? && cachable_content? }
-  
+
     layout 'semi_static_dashboards'
 
     INDEX_VIEW_TEMPLATES = ['searchform']
-  
+
     # GET /entries
     # GET /entries.json
     def index
@@ -30,7 +30,7 @@
       if params[:tag_id].present? || session[:workspace_tag_id]
         #
         # Only display and the entries associated with the Tag
-        # 
+        #
         @tag = Tag.find(params[:tag_id] || session[:workspace_tag_id])
         @entries = @tag.entries.unmerged
       elsif params[:nopaginate]
@@ -53,7 +53,7 @@
         format.js { render :template => "/semi_static/entries/#{template}" }
       end
     end
-  
+
     # GET /articles/search
     def search
       if params[:q].present? || params[:query].present?
@@ -68,8 +68,8 @@
 
       render template: template, layout: 'semi_static_application'
     end
-  
-  
+
+
     # GET /entries/1
     # GET /entries/1.json
     def show
@@ -101,10 +101,12 @@
         # Check if this is an entry that needs a redirect. This sort of functionality is replicated in the site_helper
         # but with slight differences that make it tricky to combine.
         #
-        redirect_path = @entry.link_to_tag && feature_path(@entry.tag.slug) ||
+        redirect_path = (
+          @entry.link_to_tag && feature_path(@entry.tag.slug) ||
           @entry.merge_with_previous && semi_static.entry_path(@entry.merged_main_entry) ||
           @entry.acts_as_tag_id && feature_path(@entry.acts_as_tag.slug) ||
-          request.path.start_with?('/entries') && @entry.tag.context_url && "/#{@entry.tag.name.parameterize}/#{@entry.to_param}"
+          @entry.tag.context_url && !request.path.split('/').include?(@entry.context_url_str) && "/#{@entry.context_url_str}/#{@entry.to_param}"
+        )
       end
 
       if redirect_path.blank? && params[:popup].blank?
@@ -184,7 +186,7 @@
     end
 
 
-  
+
     # GET /entries/new
     # GET /entries/new.json
     def new
@@ -203,7 +205,7 @@
         @newsletter = Newsletter.find(params[:newsletter])
         @entry.tag = @newsletter.tag
       end
-  
+
       respond_to do |format|
         format.html # new.html.erb
         format.json { render :json => @entry }
@@ -211,7 +213,7 @@
     end
 
     EDIT_VIEW_TEMPLATES = ['edit_html', 'change_main_entry_position', 'merged' ]
-  
+
     # GET /entries/1/edit
     def edit
       @entry = Entry.find(params[:id])
@@ -225,7 +227,7 @@
         format.json { render :json => @entry }
       end
     end
-  
+
     # POST /entries
     # POST /entries.json
     def create
@@ -255,7 +257,7 @@
         end
       end
     end
-  
+
     # PUT /entries/1
     # PUT /entries/1.json
     def update
@@ -273,11 +275,11 @@
       else
         template = 'update'
         @entry.update_attributes(entry_params) && expire_page_cache(@entry)
-        
+
       end
 
       @entry.notice.present? && (flash[:notice] = @entry.notice)
-      
+
       respond_to do |format|
         if @entry.errors.none?
           format.html { redirect_to entries_path(
@@ -290,7 +292,7 @@
         end
       end
     end
-  
+
     # DELETE /entries/1
     # DELETE /entries/1.json
     def destroy
@@ -298,7 +300,7 @@
       expire_page_cache(@entry)
       @tag = @entry.tag
       @entry.destroy
-  
+
       respond_to do |format|
         format.html { redirect_to tag_entries_url(@tag) }
         format.json { head :no_content }

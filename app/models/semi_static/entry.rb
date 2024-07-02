@@ -6,9 +6,9 @@ module SemiStatic
     include PartialControl
     include Elasticsearch::Model
     include Elasticsearch::Model::Callbacks
-  
+
     index_name SemiStatic::Engine.config.site_name.gsub(/( )/, '_').downcase + Rails.env.to_s
-  
+
     attr_accessor :merge_to_id, :doc_delete, :img_delete, :alt_img_delete, :notice, :change_main_entry_position
 
     # The news image is now also used for various alternative fuctions, icons, etc.
@@ -43,13 +43,13 @@ module SemiStatic
 
     # This is the Entry that is merged to self, ie. the next entry down the merge chain
     belongs_to :merged_entry, :class_name => "SemiStatic::Entry", :foreign_key => :merged_id, :optional => true
-   
+
     # This is the Entry that is merged before self, ie. the next entry up the chain. This should be nil if it'
     # the main Entry. This will correspond to the #merge_to_id in the attr_accessor if updating
     has_one :up_merged_entry, :class_name => "SemiStatic::Entry", :foreign_key => :merged_id
 
     delegate :admin_only, to: :tag
-  
+
     before_save :dup_master_id_photos
     after_save :check_for_newsletter_entry
     after_save :reindex_entry
@@ -58,7 +58,7 @@ module SemiStatic
     before_destroy :check_merge_destroy
 
     serialize :img_dimensions
-  
+
     scope :home, -> {where('home_page = ?', true)}
 
     scope :news, -> {where('news_item = ?', true)}
@@ -138,7 +138,7 @@ module SemiStatic
                              :twocol => "-strip -gravity Center -quality 70",
                              :wide => "-strip -gravity Center -quality 80",
                              :big => "-strip -gravity Center -quality 85"  }
-  
+
     validates_attachment_content_type :doc, :content_type => ['image/jpeg', 'image/png', 'image/gif', 'application/pdf', 'application/zip', 'audio/mpeg']
 
     has_attached_file :news_img, :styles => {:bar => "304x>", :compressed => "100%x100%", :half => "50%x50%"},
@@ -257,7 +257,7 @@ module SemiStatic
     #
     # Some entries are not available as a full URL, most notibly merged entries. There is
     # a helper called entry_link() that works this out, so that you can
-    # call it rather than entry_path(). 
+    # call it rather than entry_path().
     #
     # Method below is more elegant.
     #
@@ -266,12 +266,16 @@ module SemiStatic
     # supposed to be context_url
     #
     # If the entry :provides_content_tags then it might not be canonical.
-    # 
+    #
     def canonical(no_context = false)
       !self.merge_with_previous && !self.link_to_tag &&
         self.provides_content_for_tags.blank? &&
         !(no_context && self.tag.context_url.blank?) &&
         !self.acts_as_tag_id
+    end
+
+    def context_url_str
+      self.tag.context_url.blank? ? 'entries' : self.tag.name.parameterize
     end
 
     #
@@ -286,7 +290,7 @@ module SemiStatic
               must: [
                 {
                   multi_match: {
-                    query: query, 
+                    query: query,
                     fuzziness: 1,
                     fields: ['internal_search_keywords^100', 'raw_title^10', 'full_body', 'effective_tag_line']
                   }
@@ -340,7 +344,7 @@ module SemiStatic
         self.notice = "WARNING: Elastic Search indexing responded: #{e}"
       end
     end
-  
+
     def effective_tag_line
       tag_line || (banner.present? && banner.tag_line.present? ? banner.tag_line : nil )
     end
@@ -364,7 +368,7 @@ module SemiStatic
         self.merged_entries.each{|e| e.delete}
       end
     end
-    
+
 
     #
     # Called by after save. Sets the merge_id of mergee and, if needed, this Entry
@@ -375,25 +379,25 @@ module SemiStatic
     #  +---------------------------+
     #  | ID: 79 (Main Entry)       | merged_id => 80, uo_merged_entry => nil
     #  +---------------------------+ (merge_to_id => nil)
-    #     | 
+    #     |
     #     V
-    #  +---------------------------+ 
+    #  +---------------------------+
     #  | ID: 80                    |  merged_id => 81, uo_merged_entry => 79
     #  +---------------------------+  (merge_to_id => 79)
-    #     | 
+    #     |
     #     V
-    #  +---------------------------+ 
+    #  +---------------------------+
     #  | ID: 81                    |  merged_id => 124, uo_merged_entry => 80
     #  +---------------------------+  (merge_to_id => 80)
-    #     | 
+    #     |
     #     V
-    #  +---------------------------+ 
+    #  +---------------------------+
     #  | ID: 124                   |  merged_id => nil, uo_merged_entry => 81
     #  +---------------------------+  (merge_to_id => 81)
     #
     #
     def check_merge_update
-     
+
       # Get the Entry that was previously up the merge chain
       previous_mergee = self.up_merged_entry
 
@@ -552,7 +556,7 @@ module SemiStatic
     # a copy of the origional HTML. But this creates a much bigger load, cleaning every comment every time, that we
     # choose to clean the html before it goes in the DB.
     #
-    def unrestricted_html=(val); 
+    def unrestricted_html=(val);
       unless raw_html == true
         if val == ('1' || 'true' || true)
           self.body = ActionController::Base.helpers.sanitize(self.body, :tags => DIRTY_TAGS, :attributes => DIRTY_ATTRIBUTES)
@@ -696,13 +700,13 @@ module SemiStatic
     def photos_including_master
       self.master_entry.nil? ? Photo.where(:entry_id => self.id) : Photo.where('entry_id=? OR entry_id=?', self.id, self.master_entry_id)
     end
-  
+
     # To create SEO friendly urls
     def to_param
       "#{id} #{self.raw_title}".parameterize
     end
 
-    private 
+    private
 
     #
     # Scopes that can be called by Ransack
