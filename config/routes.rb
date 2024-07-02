@@ -60,8 +60,6 @@ SemiStatic::Engine.routes.draw do
   get '/contact', :to => redirect('/contacts/new')
   get '/contacts/registration' => 'contacts#new', :as => 'new_registration'
 
-
-
   resources :sitemaps, :only => :index
 
   # Public galleries path
@@ -98,15 +96,15 @@ SemiStatic::Engine.routes.draw do
       resources :hreflangs, :except => :show
     end
 
-    # Catch all for the Tag route with slug when no context_url is used etc
-    #      get "/#{tn}", to: 'tags#show', :slug => "#{tn}"
-    resources :tags, :only => :show, :param => :slug
-
     resources :tags, :except => :show do
       resources :seos, :only => [:new, :create, :update, :destroy]
       resources :entries, :only => [:index]
       resources :page_attrs, :except => :index
     end
+
+    # Catch all for the Tag route with slug when context_url is used etc
+    #      get "/#{tn}", to: 'tags#show', :slug => "#{tn}"
+    resources :tags, :only => :show, :param => :slug
 
     # The route /gallery is reserved to the pre-defined Gallery Tag which
     # displays the websites public photos selected from various SemiStatic

@@ -195,7 +195,7 @@ module SemiStatic
         @nodes = nodes
 
         # If the traverse is false, or the nodes are provided then
-        # do not traverse. Not that a Tag never branches to another
+        # do not traverse. Note that a Tag never branches to another
         # Tag, it only branches to an Entry with Entry#acts_as_tag pointing
         # to the Tag that will be the new node.
         #

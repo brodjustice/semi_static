@@ -138,7 +138,12 @@ module SemiStatic
           # Convert slug hypehens to underscores for the route helper
           SemiStatic::Engine.routes.url_helpers.send("#{slug.gsub('-', '_')}_path", options)
         elsif tag&.predefined_class.present?
-          SemiStatic::Engine.routes.url_helpers.send("#{tag.predefined_class.downcase.gsub('-', '_')}_path", options)
+          if tag.predefined_class == 'Contact'
+            # Contact tag is a special case where the Tag actually needs to be a route to the new_contact_path
+            new_contact_path
+          else
+            SemiStatic::Engine.routes.url_helpers.send("#{tag.predefined_class.downcase.gsub('-', '_')}_path", options)
+          end
         else
           # Just use the default SemiStatic route to the tag
           SemiStatic::Engine.routes.url_helpers.send('tag_path', slug, options)
