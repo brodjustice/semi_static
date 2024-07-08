@@ -273,8 +273,10 @@ module SemiStatic
           else
             SemiStatic::Engine.routes.url_for(
               :controller => p.class.to_s.underscore.pluralize,
-              :action => 'show', :slug => p.slug, :host => host
+              :action => 'show', :slug => p.slug, :host => host,
+              :protocol => scheme
             )
+          end
         end
       elsif p.kind_of?(Entry)
         if p.acts_as_tag.present?
