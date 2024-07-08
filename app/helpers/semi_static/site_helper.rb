@@ -268,12 +268,13 @@ module SemiStatic
         if p.predefined_class.present? && !predefined_route[p.predefined_class].nil?
           SemiStatic::Engine.config.localeDomains[l] + predefined_route[p.predefined_class]
         else
-          #
-          # Cannot use this:
-          #   SemiStatic::Engine.routes.url_for(:controller => p.class.to_s.underscore.pluralize, :action => 'show', :slug => p.slug, :host => host)
-          # as it would not use the correct locale to get the 'tag_paths[l]', so we have to build the url manually:
-          #
-          "#{scheme}://#{host}/#{SemiStatic::Engine.config.tag_paths[l]}/#{p.slug}"
+          if SemiStatic::Engine.config.tag_paths[l].present?
+            "#{scheme}://#{host}/#{SemiStatic::Engine.config.tag_paths[l]}/#{p.slug}"
+          else
+            SemiStatic::Engine.routes.url_for(
+              :controller => p.class.to_s.underscore.pluralize,
+              :action => 'show', :slug => p.slug, :host => host
+            )
         end
       elsif p.kind_of?(Entry)
         if p.acts_as_tag.present?

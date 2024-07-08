@@ -82,6 +82,8 @@
       @entry = Entry.where(:locale => locale.to_s).find(params[:id])
       @tag = @entry.tag
 
+      template = 'semi_static/entries/show'
+
 
       #
       # Is this an Entry request that actually just wants a popup of the Entry image or video?
@@ -178,7 +180,7 @@
             redirect_to redirect_path
           else
             # Everthing ok, show content or summary content
-            render :template => template || 'semi_static/entries/show', :layout => SemiStatic::Engine.layout_select(@entry.tag)
+            render :template => template, :layout => SemiStatic::Engine.layout_select(@entry.tag)
           end
         }
         format.js { render :template => template }

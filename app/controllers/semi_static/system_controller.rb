@@ -8,8 +8,11 @@ module SemiStatic
     include SemiStatic::SiteHelper
 
     before_action :authenticate_for_semi_static!
-  
-    UPDATE_CMDS = %w(show search_reindex expire_page_cache clean_up passenger_restart load_url generate_sitemap_options generate_sitemap generate_static_pages partial_description)
+
+    UPDATE_CMDS = %w(show search_reindex expire_page_cache clean_up
+      passenger_restart load_url generate_sitemap_options
+      generate_sitemap generate_static_pages partial_description
+    )
     SHOW_CMDS = %w(custom_pages)
     SESSION = %w(workspace_tag_id)
 
@@ -26,7 +29,7 @@ module SemiStatic
         }
       end
     end
-  
+
     def update
       if params[:cmd].present? && UPDATE_CMDS.include?(params[:cmd].keys.first)
         action = params[:cmd].keys.first
@@ -48,7 +51,7 @@ module SemiStatic
           render :template => "semi_static/system/#{action}", :layout => 'semi_static_dashboards'
         }
         format.xml do
-          stream = render_to_string(:formats => [:xml], :handler => :bulider, :template => "semi_static/system/#{action}" )  
+          stream = render_to_string(:formats => [:xml], :handler => :builder, :template => "semi_static/system/#{action}" )
           send_data(stream, :type=>"text/xml", :filename => "sitemap.xml")
         end
         format.js {

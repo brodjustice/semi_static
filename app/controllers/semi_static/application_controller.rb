@@ -41,14 +41,16 @@ module SemiStatic
       # base of the URL path and check to see if this matches any of our public tags.
       #
       @tags = []
+
       if (words_from_url = request.path.downcase.gsub(/[^a-z\s]/i, ' ')).present?
         @tags = Tag.is_public.select{|t| words_from_url.include?(t.title.downcase)}
       end
+
       @status_code = 404
       @exception = e
       @url = url_for(params.permit!)
 
-      render :layout => 'semi_static_application', :template => 'semi_static/errors/show', :formats => [:html], :status => @status_code
+      render :layout => 'semi_static_application', :template => 'semi_static/errors/show', :formats => [:html], :status => @status_codeend
     end
 
     # Bad AUTH Token
@@ -79,12 +81,12 @@ module SemiStatic
       #
       # I18n.available_locales.include?(parsed_locale.to_sym) ? parsed_locale  : 'de'
       #
-      # You also need to consider the page caching. You will need different public 
+      # You also need to consider the page caching. You will need different public
       # directories to store the page caches for each language, so you will have
       # to adjust your webserver to make this happen.
       SemiStatic::Engine.config.hosts_for_locales[request.host] || SemiStatic::Engine.config.default_locale
     end
-  
+
     def set_locale
       #
       # The Rails 3 version was as follows:
@@ -109,7 +111,7 @@ module SemiStatic
       Rails.root.join("public", I18n.locale.to_s)
     end
 
-    # Get the cart, and :paid cart cookies will be cleared 
+    # Get the cart, and :paid cart cookies will be cleared
     def current_order
       if !session[:order_id].nil?
         Order.find(session[:order_id])

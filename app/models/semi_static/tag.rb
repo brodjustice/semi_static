@@ -143,6 +143,7 @@ module SemiStatic
     end
 
     #
+    # Build the public sitemap for the site, not to be confused with the SEO sitemap.xml.
     # Staring at the menu Tags, traverse down the heirachy to produce a sitemap. Important
     # to undestand that we start with the menu tags for a good reason, we assume that they
     # are the root tags. Other tags my appear as branches in the sitemap tree if an entry
