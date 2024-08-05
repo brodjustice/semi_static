@@ -78,6 +78,7 @@ SemiStatic::Engine.routes.draw do
   #
 
   scope 'semi-static' do
+    delete 'entries/:id' => 'entries#destroy', :as => 'delete_entry'
     resources :entries, :except => :show do
       collection { get :search }
       resources :click_ads, :only => [:new, :create, :update]

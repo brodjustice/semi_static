@@ -30,7 +30,7 @@
             %td.number
               = link_to image_tag('html_add.png', :class => 'icon'), new_entry_path(:entry => {:merge_to_id => entry.id}), :title => 'Click to add merged entry'
             %td.tick{:title => "Click to delete #{entry.get_title || 'entry'}"}
-              = link_to SemiStatic::Engine.routes.url_helpers.entry_path(entry), :method => :delete, :data => { :confirm => 'Are you sure?' } do
+              = link_to delete_entry_path(entry), :method => :delete, :data => { :confirm => 'Are you sure?' } do
                 %i.app-menu__icon.fa.fa-delete
 
 
