@@ -361,7 +361,7 @@ module SemiStatic
       c = '<figure vocab = "http://schema.org/" typeof="ImageObject"> '.html_safe
       c += "<meta property='name' content='#{p.title}'/>".html_safe
       if popup
-        c += "<a class='popable photo' onclick=\'semiStaticAJAX(\"#{photo_path(p, :format => :js, :popup => true)}\")\; return false;' href='#{photo_path(p)}'> ".html_safe
+        c += "<a rel='nofollow' class='popable photo' onclick=\'semiStaticAJAX(\"#{photo_path(p, :format => :js, :popup => true)}\")\; return false;' href='#{photo_path(p)}'> ".html_safe
       end
       if show_title
         c += "<h3 property='name'>#{p.title}</h3>".html_safe
