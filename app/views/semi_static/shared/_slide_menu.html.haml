@@ -23,8 +23,7 @@
       %ul
         %li
           .search.icon
-            = form_tag semi_static.search_entries_path, method: 'get', :class => 'searchform' do
-              = text_field_tag :query, params[:query], :placeholder => t('Search'), :class => 'searchfield'
+            = link_to t('Search'), semi_static.search_path
         %li.contact.icon= link_to t('Contact'), semi_static.new_contact_path
         - if SemiStatic::Engine.config.try('subscribers_model')
           - label = subscriber_content ? 'subscribers.Area' : 'subscribers.Sign_In'
