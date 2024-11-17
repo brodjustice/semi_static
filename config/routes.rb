@@ -72,6 +72,10 @@ SemiStatic::Engine.routes.draw do
   get "/documents/index" => 'documents#index'
   get "/documents/:squeeze_id/:token" => 'documents#show', :as => 'document'
 
+  resources :squeezes do
+    resources :page_attrs, :except => :index
+  end
+
   ###################################################################################
   #
   # SemiStatic scoped routes below
