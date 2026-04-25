@@ -552,8 +552,8 @@ module SemiStatic
 
     #
     # There is always discussion about if the HTML should be stripped and cleaned before or after saving to the DB. Most
-    # believe that you should keep the origional and clean the HTML before you present it, since you then always have
-    # a copy of the origional HTML. But this creates a much bigger load, cleaning every comment every time, that we
+    # believe that you should keep the original and clean the HTML before you present it, since you then always have
+    # a copy of the original HTML. But this creates a much bigger load, cleaning every comment every time, that we
     # choose to clean the html before it goes in the DB.
     #
     def unrestricted_html=(val);

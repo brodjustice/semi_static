@@ -5,14 +5,14 @@ module SemiStatic
 
     has_and_belongs_to_many :agreements, :join_table => :semi_static_agreements_contacts
     belongs_to :squeeze, :optional => true
-  
+
     # TODO: The load order of the locales files stops us adding the correct message for this, its
     # needs to say 'Please provide either an email or telephone number'
     # validates_presence_of :telephone, :unless => :email?
     validates_format_of :email, :with => /.+@.+\..+/i, :allow_blank => true, :allow_nil => true
     validates_presence_of :email, :unless => :telephone?
     validate :spam_email?
-  
+
     after_create :execute_strategy
     after_create :check_subscription
 
@@ -20,7 +20,7 @@ module SemiStatic
 
     STRATEGIES = { :message => 0, :registration => 1, :download => 2, :subscriber => 3, :application => 4}
     STRATEGY_CODES = STRATEGIES.invert
-  
+
     def check_subscription
       unless self.email.blank? || self.agreements.subscriber.blank?
         if (s = SemiStatic::Subscriber.find_by_email(self.email)).blank?
@@ -37,12 +37,19 @@ module SemiStatic
     def spam_email?
       if SemiStatic::Engine.config.contact_form_spam_email
         strs = SemiStatic::Engine.config.contact_form_spam_email.split(',')
-        if strs.any?{|word| self.email.include?(word.strip)}
+        normalized = gmail_dot_normalize(self.email)
+        if strs.any?{|word| normalized.include?(word.strip)}
           self.errors.add(
             :base, 'This appears to be SPAM. Sorry, we cannot process this request, please send email to '+
               SemiStatic::Engine.config.info_email
           )
         end
+      end
+      if dotted_gmail_spam?(self.email)
+        self.errors.add(
+          :base, 'This appears to be SPAM. Sorry, we cannot process this request, please send email to '+
+            SemiStatic::Engine.config.info_email
+        )
       end
       if SemiStatic::Engine.config.contact_form_strict
         # Check for URL in name field
@@ -58,7 +65,7 @@ module SemiStatic
     def fullname
       [name, surname].join(' ')
     end
-  
+
     def execute_strategy
       self.send('strat_' + (STRATEGY_CODES[strategy] || :message).to_s)
     end
@@ -89,6 +96,24 @@ module SemiStatic
       self.reason ||= (self.squeeze && self.squeeze.title)
       self.save
       SemiStatic::DownloadMailer.download_instructions(self).deliver
+    end
+
+    private
+
+    # Gmail ignores dots in the local part, so a.b.c@gmail.com == abc@gmail.com.
+    # Normalise before spam-list matching so dotted variants are caught too.
+    def gmail_dot_normalize(email)
+      return email.to_s if email.blank?
+      local, domain = email.to_s.split('@', 2)
+      return email unless domain&.downcase == 'gmail.com'
+      "#{local.gsub('.', '')}@#{domain}"
+    end
+
+    # Heuristic: Gmail addresses with 4+ dot-separated segments are a common
+    # auto-generated spam pattern, e.g. eqi.kak.icu.pa.3.53@gmail.com
+    def dotted_gmail_spam?(email)
+      return false if email.blank?
+      email.match?(/\A[a-z0-9]+(\.[a-z0-9]+){3,}@gmail\.com\z/i)
     end
   end
 end
