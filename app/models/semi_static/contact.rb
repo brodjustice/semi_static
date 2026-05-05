@@ -11,6 +11,7 @@ module SemiStatic
     # validates_presence_of :telephone, :unless => :email?
     validates_format_of :email, :with => /.+@.+\..+/i, :allow_blank => true, :allow_nil => true
     validates_presence_of :email, :unless => :telephone?
+    validates_presence_of :message, :unless => -> { [STRATEGIES[:subscriber], STRATEGIES[:download]].include?(strategy) }
     validate :spam_email?
 
     after_create :execute_strategy
